@@ -43,6 +43,19 @@ Em `dados/materias.js`, dentro de `materias` do período certo:
 
 Ícones: `vetor, calculo, fisica, quimica, programacao, desenho, cubo, engrenagem, materiais, estatistica, termo, fluidos, eletrica, estrutura, viga, onda, regua, prensa, manometro, malha, pistao, fluxo, usinagem, solda, injecao, fabrica, chip, robo, chave, selo, balanca, moeda, folha, capacete, gestao, pessoas, texto, pesquisa, livro`.
 
+## Acompanhar o progresso
+
+Cada matéria em `dados/materias.js` pode ter um `status`:
+
+| status | efeito |
+|---|---|
+| `"aprovada"` | conta na porcentagem do curso (pela carga horária) |
+| `"reprovada"` | o cartão fica vermelho e aparece no contador "a refazer" |
+| `"cursando"` | marcada como em andamento |
+| sem status | ainda não cursada |
+
+Quando todas as matérias de um período estão aprovadas ou reprovadas, o período é recolhido automaticamente (clique para abrir). Ao refazer uma matéria reprovada, mude o status para `"cursando"` ou mova o objeto para o período em que vai cursá-la.
+
 ## Materiais
 
 | Matéria | Material |

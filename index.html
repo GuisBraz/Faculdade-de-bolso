@@ -12,7 +12,7 @@
 /* Layout: caderneta de engenharia — folha milimetrada, cada período é uma "régua" com as matérias como fichas de arquivo */
 :root{
   --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
-  --accent:#D9531A; --accent2:#0C8587;
+  --accent:#D9531A; --accent2:#0C8587; --ok:#2A7F3E; --bad:#BF3328;
   --f-disp:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
   --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
   --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
@@ -20,10 +20,10 @@
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
-  --accent:#FF7B3F; --accent2:#3CC6C8; color-scheme:dark}}
+  --accent:#FF7B3F; --accent2:#3CC6C8; --ok:#5DC46F; --bad:#FF6E61; color-scheme:dark}}
 :root[data-theme="dark"]{
   --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
-  --accent:#FF7B3F; --accent2:#3CC6C8; color-scheme:dark}
+  --accent:#FF7B3F; --accent2:#3CC6C8; --ok:#5DC46F; --bad:#FF6E61; color-scheme:dark}
 :root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 *{box-sizing:border-box}
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--f-body);
@@ -69,7 +69,8 @@ a{color:inherit}
 .ic{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--mc) 14%,var(--sheet));color:var(--mc);grid-row:span 2}
 .ic svg{width:24px;height:24px}
 .mat .sg{font-family:var(--f-disp);font-weight:800;font-size:1.15rem;line-height:1.1}
-.mat .nm{font-size:.84rem;color:var(--ink2);line-height:1.3;grid-column:2}
+.mat .nm{font-size:.84rem;color:var(--ink2);line-height:1.3;grid-column:2;min-width:0;overflow-wrap:anywhere}
+.mat .sg{min-width:0;overflow-wrap:anywhere}
 .mat .n{grid-column:1/-1;margin-top:8px;font-family:var(--f-mono);font-size:.72rem;color:var(--ink2);display:flex;justify-content:space-between;border-top:1px dashed var(--line);padding-top:8px}
 .mat.empty .n{opacity:.7}
 .mat .n b{color:var(--mc);font-weight:600}
@@ -94,6 +95,37 @@ a{color:inherit}
 @media (max-width:560px){.file{grid-template-columns:1fr}.badge{grid-row:auto;justify-self:start}.file .meta{grid-column:auto}.file .go{grid-row:auto;order:5}}
 .blank{border:1.5px dashed var(--line);border-radius:10px;padding:26px;text-align:center;color:var(--ink2)}
 .blank b{display:block;font-family:var(--f-disp);color:var(--ink);font-size:1.1rem;margin-bottom:4px}
+.prog{background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;padding:18px 18px 16px;margin-bottom:24px;display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:center}
+.prog .pct{font-family:var(--f-disp);font-weight:800;font-size:clamp(2.6rem,8vw,3.6rem);line-height:1;letter-spacing:-.03em;grid-row:span 2;font-variant-numeric:tabular-nums}
+.prog .pct small{font-size:.45em;color:var(--ink2);margin-left:2px}
+.prog .lb{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);font-weight:600}
+.segs{display:flex;gap:3px;height:26px;margin-top:4px}
+.seg{position:relative;border-radius:3px;background:var(--line);overflow:hidden;min-width:0}
+.seg i{position:absolute;inset:0 auto 0 0;background:var(--ok)}
+.seg.cur{outline:2px solid var(--accent);outline-offset:1px}
+.seg span{position:absolute;inset:0;display:grid;place-items:center;font:600 .64rem var(--f-mono);color:var(--ink);mix-blend-mode:normal}
+.prog .sub{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:6px 18px;font-size:.88rem;color:var(--ink2);border-top:1px dashed var(--line);padding-top:10px;margin-top:8px}
+.prog .sub b{color:var(--ink);font-variant-numeric:tabular-nums}
+.prog .sub .bad b{color:var(--bad)}
+@media (max-width:560px){.prog{grid-template-columns:1fr}.prog .pct{grid-row:auto}}
+details.periodo>summary{list-style:none;cursor:pointer}
+details.periodo>summary::-webkit-details-marker{display:none}
+details.periodo>summary .ruler{margin-bottom:0}
+details.periodo[open]>summary .ruler{margin-bottom:14px}
+details.periodo .tg{font-family:var(--f-mono);font-size:.72rem;color:var(--ink2);white-space:nowrap}
+details.periodo[open] .tg::after{content:" · ocultar"}
+details.periodo:not([open]) .tg::after{content:" · mostrar"}
+details.periodo h2{color:var(--ink2)}
+.pill.ok{background:var(--ok)}
+.pill.bad{background:var(--bad)}
+.mat .st{font:600 .62rem var(--f-mono);margin-right:4px;letter-spacing:.06em;text-transform:uppercase;padding:2px 6px;border-radius:4px}
+.mat.aprovada .st{background:color-mix(in srgb,var(--ok) 16%,var(--sheet));color:var(--ok)}
+.mat.cursando .st{background:color-mix(in srgb,var(--accent) 16%,var(--sheet));color:var(--accent)}
+.mat.reprovada{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,var(--sheet))}
+.mat.reprovada .st{background:var(--bad);color:var(--sheet)}
+.mat.reprovada .sg{color:var(--bad)}
+#jump button.done{border-color:var(--ok);color:var(--ok)}
+#jump button.done.on{background:var(--ink);color:var(--sheet)}
 .jumpbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:12px;background:var(--paper);padding-block:10px;margin-bottom:22px;border-bottom:1px solid var(--line)}
 #jump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0}
 #jump::-webkit-scrollbar{display:none}
@@ -120,6 +152,8 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
     </div>
     <div class="stamp" id="stamp"></div>
   </header>
+
+  <section class="prog" id="prog" aria-label="Progresso do curso"></section>
 
   <div class="search">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
@@ -186,6 +220,7 @@ const ICONS = {
   capacete:'<path d="M3 18h18v2H3z"/><path d="M4.5 18a7.5 7.5 0 0 1 15 0"/><path d="M10 10.8V6h4v4.8"/>'
 };
 const icon = k => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[k]||ICONS.livro)+'</svg>';
+const ST = {aprovada:'✓ aprovada',reprovada:'reprovada',cursando:'cursando'};
 const TIPOS = {site:'Site',pdf:'PDF',resumo:'Resumo',lista:'Lista',prova:'Prova',link:'Link'};
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fdate = d => { if(!d) return ''; const [y,m,dd]=d.split('-'); return dd+'/'+m+'/'+y };
@@ -203,9 +238,9 @@ function fileRow(a,showMat){
     '<small>'+[fdate(a.data),...(a.tags||[]).map(t=>'#'+t)].filter(Boolean).map(esc).join(' · ')+'</small></div></a>';
 }
 function matCard(m){
-  const n=m.arquivos.length;
-  return '<a class="mat'+(n?'':' empty')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+
-    '<span class="n"><span>'+(n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):'sem materiais ainda')+'</span><span>'+(m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
+  const n=m.arquivos.length, st=m.status||'';
+  return '<a class="mat'+(n?'':' empty')+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+
+    '<span class="n"><span>'+(ST[st]?'<span class="st">'+ST[st]+'</span> ':'')+(n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):(ST[st]?'':'sem materiais ainda'))+'</span><span>'+(m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
 }
 function renderHome(){
   document.getElementById('curso').textContent=[D.curso,D.instituicao].filter(Boolean).join(' · ');
@@ -216,19 +251,32 @@ function renderHome(){
   const rec=[...FILES].sort((a,b)=>String(b.data).localeCompare(String(a.data))).slice(0,3);
   document.getElementById('recentWrap').hidden=!rec.length;
   document.getElementById('recent').innerHTML=rec.map(a=>fileRow(a,true)).join('');
-  document.getElementById('jump').innerHTML=D.periodos.map(p=>'<button data-p="'+p.numero+'" class="'+(p.atual?'on':'')+'">'+p.numero+'º</button>').join('');
-  document.querySelectorAll('#jump button').forEach(b=>b.onclick=()=>document.getElementById('p'+b.dataset.p).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
-  document.getElementById('periodos').innerHTML=D.periodos.map(p=>{
-    const ms=p.materias||[], nf=ms.reduce((s,m)=>s+(m.arquivos||[]).length,0);
-    return '<section class="periodo'+(p.atual?' now':'')+'" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2>'+(p.atual?'<span class="pill">cursando</span>':'')+'<span class="ticks"></span><span class="ct">'+ms.length+' matérias'+(p.ch?' · '+p.ch+' h':'')+(nf?' · '+nf+(nf===1?' material':' materiais'):'')+'</span></div>'+
-      '<div class="grid">'+MATS.filter(m=>m.periodo===p.numero).map(matCard).join('')+'</div></section>' }).join('');
+  const pst=p=>{ const ms=p.materias||[]; const ok=ms.filter(m=>m.status==='aprovada'), rp=ms.filter(m=>m.status==='reprovada');
+    const tot=ms.reduce((a,m)=>a+(m.ch||0),0), done=ok.reduce((a,m)=>a+(m.ch||0),0);
+    return {ms,ok,rp,tot,done,closed:ms.length>0&&ms.every(m=>m.status==='aprovada'||m.status==='reprovada'),full:ms.length>0&&ok.length===ms.length} };
+  const P=D.periodos.map(p=>({p,...pst(p)}));
+  const T=P.reduce((a,x)=>a+x.tot,0), Dn=P.reduce((a,x)=>a+x.done,0), pct=T?Dn/T*100:0;
+  const nOk=P.reduce((a,x)=>a+x.ok.length,0), nRp=P.reduce((a,x)=>a+x.rp.length,0), nCur=MATS.filter(m=>m.status==='cursando').length, nClosed=P.filter(x=>x.full).length;
+  document.getElementById('prog').innerHTML='<div class="pct">'+(pct<10&&pct>0?pct.toFixed(1).replace('.',','):Math.floor(pct))+'<small>%</small></div><div class="lb">Progresso do curso · pela carga horária aprovada</div>'+
+    '<div class="segs">'+P.map(x=>'<div class="seg'+(x.p.atual?' cur':'')+'" style="flex:'+x.tot+'" title="'+x.p.numero+'º período: '+(x.tot?Math.round(x.done/x.tot*100):0)+'%"><i style="width:'+(x.tot?x.done/x.tot*100:0)+'%"></i><span>'+x.p.numero+'º</span></div>').join('')+'</div>'+
+    '<div class="sub"><span><b>'+Dn.toLocaleString('pt-BR')+'</b> de '+T.toLocaleString('pt-BR')+' h</span><span><b>'+nOk+'</b> de '+MATS.length+' matérias aprovadas</span><span><b>'+nClosed+'</b> de '+P.length+' períodos concluídos</span>'+(nCur?'<span><b>'+nCur+'</b> cursando</span>':'')+(nRp?'<span class="bad"><b>'+nRp+'</b> '+(nRp===1?'reprovada':'reprovadas')+' a refazer</span>':'')+'</div>';
+  document.getElementById('jump').innerHTML=P.map(x=>'<button data-p="'+x.p.numero+'" class="'+(x.p.atual?'on ':'')+(x.full?'done':'')+'">'+(x.full?'✓ ':'')+x.p.numero+'º</button>').join('');
+  document.querySelectorAll('#jump button').forEach(b=>b.onclick=()=>{ const el=document.getElementById('p'+b.dataset.p); if(el.tagName==='DETAILS')el.open=true; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
+  document.getElementById('periodos').innerHTML=P.map(x=>{
+    const p=x.p, ms=x.ms, nf=ms.reduce((s,m)=>s+(m.arquivos||[]).length,0);
+    const info=ms.length+' matérias'+(p.ch?' · '+p.ch+' h':'')+(nf?' · '+nf+(nf===1?' material':' materiais'):'');
+    const grid='<div class="grid">'+MATS.filter(m=>m.periodo===p.numero).map(matCard).join('')+'</div>';
+    if(x.closed){
+      const tag=x.full?'<span class="pill ok">concluído · 100%</span>':'<span class="pill bad">'+x.rp.length+' '+(x.rp.length===1?'reprovada':'reprovadas')+'</span>';
+      return '<details class="periodo" id="p'+p.numero+'"><summary><div class="ruler"><h2>'+p.numero+'º período</h2>'+tag+'<span class="ticks"></span><span class="tg">'+info+'</span></div></summary>'+grid+'</details>' }
+    return '<section class="periodo'+(p.atual?' now':'')+'" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2>'+(p.atual?'<span class="pill">cursando</span>':'')+'<span class="ticks"></span><span class="ct">'+info+(x.done?' · '+Math.round(x.done/x.tot*100)+'%':'')+'</span></div>'+grid+'</section>' }).join('');
 }
 function renderMat(id){
   const m=MATS.find(x=>x.id===id), box=document.getElementById('materia');
   if(!m){ location.hash=''; return }
   document.title=m.sigla+' · Faculdade de Bolso';
   box.innerHTML='<a class="back" href="#">← Todas as matérias</a>'+
-    '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+(m.professor?'<p>Prof.ª/Prof. '+esc(m.professor)+'</p>':'')+'</div></div>'+
+    '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+'<p>'+[m.ch?m.ch+' h':'',m.professor?'Prof. '+esc(m.professor):'',ST[m.status]||''].filter(Boolean).join(' · ')+'</p>'+'</div></div>'+
     (m.arquivos.length?'<div class="files">'+[...m.arquivos].sort((a,b)=>String(b.data).localeCompare(String(a.data))).map(a=>fileRow({...a,mat:m},false)).join('')+'</div>'
       :'<div class="blank"><b>Nada aqui ainda</b>Os materiais desta matéria vão aparecer aqui assim que forem adicionados.</div>');
 }

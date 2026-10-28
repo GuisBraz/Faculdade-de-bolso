@@ -8,6 +8,13 @@
       { titulo, tipo, caminho, descricao, data: "AAAA-MM-DD", tags: [] }
     tipos: site, pdf, resumo, lista, prova, link
   • Período atual: marque "atual: true" no período que está cursando.
+  • Situação da matéria (campo "status"):
+      "aprovada"  → conta no progresso
+      "reprovada" → fica vermelha
+      "cursando"  → em andamento
+      (sem status = ainda não cursada)
+    Quando TODAS as matérias de um período estiverem aprovadas ou
+    reprovadas, o período é recolhido automaticamente.
   • "area" define a cor da matéria (veja AREAS abaixo).
   • "icone": nome de um ícone do index.html (ex.: calculo, vetor, solda).
 */
@@ -42,12 +49,12 @@ window.FACULDADE = {
     {
       numero: 2, ch: 300, atual: true,
       materias: [
-        { id: "qg", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", professor: "", arquivos: [] },
-        { id: "calc2", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", professor: "", arquivos: [] },
-        { id: "fis1", sigla: "Física I", nome: "Física I", ch: 60, icone: "fisica", area: "f", professor: "", arquivos: [] },
-        { id: "cm2", sigla: "Materiais II", nome: "Ciência dos Materiais II", ch: 30, icone: "materiais", area: "m", professor: "", arquivos: [] },
-        { id: "dt2", sigla: "Desenho II", nome: "Desenho Técnico II – DAC", ch: 30, icone: "desenho", area: "d", professor: "", arquivos: [] },
-        { id: "gaal", sigla: "GAAL", nome: "Geometria Analítica e Álgebra Linear", ch: 60, icone: "vetor", area: "a", professor: "Gabriela Oliveira", arquivos: [
+        { id: "qg", status: "cursando", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", professor: "", arquivos: [] },
+        { id: "calc2", status: "cursando", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", professor: "", arquivos: [] },
+        { id: "fis1", status: "cursando", sigla: "Física I", nome: "Física I", ch: 60, icone: "fisica", area: "f", professor: "", arquivos: [] },
+        { id: "cm2", status: "cursando", sigla: "Materiais II", nome: "Ciência dos Materiais II", ch: 30, icone: "materiais", area: "m", professor: "", arquivos: [] },
+        { id: "dt2", status: "cursando", sigla: "Desenho II", nome: "Desenho Técnico II – DAC", ch: 30, icone: "desenho", area: "d", professor: "", arquivos: [] },
+        { id: "gaal", status: "cursando", sigla: "GAAL", nome: "Geometria Analítica e Álgebra Linear", ch: 60, icone: "vetor", area: "a", professor: "Gabriela Oliveira", arquivos: [
             {
               titulo: "Oficina de GAAL",
               tipo: "site",
