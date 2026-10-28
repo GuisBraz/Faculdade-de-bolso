@@ -37,7 +37,7 @@ a{color:inherit}
 .eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:600}
 
 /* topo */
-.top{padding-block:40px 26px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.top{padding-block:40px 26px}
 .top h1{font-size:clamp(2.6rem,9vw,5rem);font-weight:800;letter-spacing:-.03em;margin-top:6px}
 .top h1 span{color:var(--accent)}
 .top p{color:var(--ink2);max-width:52ch;margin:.6rem 0 0;font-size:1.05rem}
@@ -171,7 +171,6 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
       <h1>Faculdade<br>de <span>Bolso</span></h1>
       <p>Todas as matérias do curso, organizadas por período. Cada uma guarda os materiais de estudo criados ao longo do semestre, para nada se perder.</p>
     </div>
-    <div class="stamp" id="stamp"></div>
   </header>
 
   <section class="prog" id="prog" aria-label="Progresso do curso"></section>
@@ -279,9 +278,6 @@ function matCard(m){
 function renderHome(){
   document.getElementById('curso').textContent=[D.curso,D.instituicao].filter(Boolean).join(' · ');
   document.getElementById('foot').textContent=[D.aluno,D.instituicao].filter(Boolean).join(' · ');
-  document.getElementById('stamp').innerHTML=
-    '<div><span>Períodos</span><b>'+D.periodos.length+'</b></div><div><span>Matérias</span><b>'+MATS.length+'</b></div><div><span>Carga horária</span><b>'+D.periodos.reduce((a,p)=>a+(p.ch||0),0).toLocaleString('pt-BR')+' h</b></div><div><span>Materiais</span><b>'+FILES.length+'</b></div>'+
-    '<div><span>Atualizado</span><b>'+(fdate(FILES.map(f=>f.data).filter(Boolean).sort().pop())||'—')+'</b></div>';
   const rec=[...FILES].sort((a,b)=>String(b.data).localeCompare(String(a.data))).slice(0,3);
   document.getElementById('recentWrap').hidden=!rec.length;
   document.getElementById('recent').innerHTML=rec.map(a=>fileRow(a,true)).join('');
