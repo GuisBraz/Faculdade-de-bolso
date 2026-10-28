@@ -58,6 +58,13 @@ O valor padrão vem do campo `status` em `dados/materias.js`. Cada matéria em `
 
 Quando todas as matérias de um período estão aprovadas ou reprovadas, o período é recolhido automaticamente (clique para abrir). Ao refazer uma matéria reprovada, mude o status para `"cursando"` ou mova o objeto para o período em que vai cursá-la.
 
+## Provas
+
+A aba **Provas** mostra a contagem regressiva da próxima prova, todas as datas por mês e alertas no topo do hub quando uma prova está a 14 dias ou menos (laranja com 7 dias, vermelho com 2). O botão **Adicionar ao calendário** baixa um `.ics` com lembretes 7 dias e 1 dia antes.
+
+- Provas de cronogramas oficiais ficam em `dados/provas.js`.
+- Provas sem cronograma podem ser incluídas pelo formulário da própria aba (salvas no navegador e incluídas no backup).
+
 ## Materiais
 
 | Matéria | Material |

@@ -157,12 +157,74 @@ details.periodo h2{color:var(--ink2)}
 .pill{font-family:var(--f-mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--sheet);padding:3px 8px;border-radius:999px;white-space:nowrap}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
 @media (max-width:480px){.ruler{flex-wrap:wrap}.ruler .ticks{display:none}.ruler .ct{width:100%}}
+.tabs{display:flex;gap:4px;padding-block:18px 0;border-bottom:1.5px solid var(--ink)}
+.tabs a{font:700 .95rem var(--f-body);text-decoration:none;color:var(--ink2);padding:8px 14px;border-radius:8px 8px 0 0;display:flex;align-items:center;gap:8px;margin-bottom:-1.5px;border:1.5px solid transparent}
+.tabs a:hover{color:var(--ink)}
+.tabs a.on{color:var(--ink);background:var(--sheet);border-color:var(--ink);border-bottom-color:var(--sheet)}
+.tb{font:600 .68rem var(--f-mono);background:var(--accent);color:var(--sheet);border-radius:999px;padding:2px 7px}
+.alerts{display:grid;gap:8px;margin-bottom:16px}
+.alert{--lv:var(--accent2);display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:center;text-decoration:none;color:var(--ink);background:color-mix(in srgb,var(--lv) 10%,var(--sheet));border:1.5px solid var(--lv);border-radius:10px;padding:10px 14px}
+.alert.l1{--lv:var(--bad)}.alert.l2{--lv:var(--accent)}
+.alert .cd{font-family:var(--f-disp);font-weight:800;font-size:1.6rem;line-height:1;color:var(--lv);text-align:center;min-width:52px}
+.alert .cd small{display:block;font:600 .62rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
+.alert b{font-family:var(--f-disp)}
+.alert span{font-size:.88rem;color:var(--ink2)}
+.alert .go{font-weight:700;color:var(--lv);white-space:nowrap;font-size:.88rem}
+.phead{padding-block:30px 20px}
+.phead h1{font-size:clamp(2.4rem,8vw,4rem);font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.phead p{color:var(--ink2);max-width:60ch;margin:.5rem 0 0}
+.next{--mc:var(--accent);display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:center;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;padding:20px;margin-bottom:22px;position:relative}
+.next .big{font-family:var(--f-disp);font-weight:800;font-size:clamp(3.4rem,12vw,5rem);line-height:.9;color:var(--mc);text-align:center;grid-row:span 3;font-variant-numeric:tabular-nums}
+.next .big small{display:block;font:600 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-top:6px}
+.next .k{font:600 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--mc)}
+.next h2{font-size:clamp(1.4rem,4vw,1.9rem);font-weight:800}
+.next p{margin:0;color:var(--ink2);font-size:.95rem}
+.next .act{grid-column:1/-1;display:flex;flex-wrap:wrap;gap:8px;margin-top:10px;border-top:1px dashed var(--line);padding-top:12px}
+.btnl{font:700 .86rem var(--f-body);text-decoration:none;padding:8px 14px;border-radius:8px;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet)}
+.btnl.gh{background:transparent;color:var(--ink)}
+@media (max-width:560px){.next{grid-template-columns:1fr}.next .big{grid-row:auto;text-align:left}}
+.pbar{display:flex;flex-wrap:wrap;align-items:center;gap:10px;margin-bottom:6px}
+.chips{display:flex;flex-wrap:wrap;gap:6px;flex:1;min-width:0}
+.chips button{font:600 .8rem var(--f-mono);padding:6px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--sheet);color:var(--ink);cursor:pointer}
+.chips button.on{background:var(--ink);border-color:var(--ink);color:var(--sheet)}
+.icsbtn{font:700 .84rem var(--f-body);padding:7px 13px;border-radius:8px;border:1.5px solid var(--ink);background:transparent;color:var(--ink);cursor:pointer}
+.icsmsg{font-size:.76rem;color:var(--ink2);min-height:1.2em;margin:0 0 14px}
+.month{font:600 .74rem var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);margin:22px 0 8px;display:flex;align-items:center;gap:10px}
+.month::after{content:"";flex:1;height:1px;background:var(--line)}
+.prow{--mc:var(--accent);display:grid;grid-template-columns:58px 1fr auto;gap:4px 14px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-left:5px solid var(--mc);border-radius:8px;padding:10px 14px;margin-bottom:8px}
+.prow .dt{text-align:center;font-family:var(--f-mono);line-height:1.1;grid-row:span 2}
+.prow .dt b{display:block;font-family:var(--f-disp);font-size:1.6rem;font-weight:800}
+.prow .dt span{font-size:.66rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}
+.prow h3{font-size:1.02rem;font-weight:700}
+.prow h3 em{font-style:normal;color:var(--mc);font-family:var(--f-mono);font-size:.78rem;font-weight:600;margin-right:6px}
+.prow p{margin:0;font-size:.86rem;color:var(--ink2);grid-column:2/-1}
+.prow p a{color:var(--mc);font-weight:700}
+.pill2{font:600 .7rem var(--f-mono);padding:3px 9px;border-radius:999px;white-space:nowrap;background:var(--line);color:var(--ink)}
+.pill2.l1{background:var(--bad);color:var(--sheet)}.pill2.l2{background:var(--accent);color:var(--sheet)}.pill2.l3{background:color-mix(in srgb,var(--accent2) 18%,var(--sheet));color:var(--accent2)}
+.prow.past{opacity:.55}
+.prow.reserva{border-left-style:dashed;background:transparent}
+.prow.reserva h3{font-weight:400;color:var(--ink2)}
+@media (max-width:520px){.prow{grid-template-columns:50px 1fr}.prow .pill2{grid-column:2;justify-self:start}}
+.addp{margin-top:26px;background:var(--sheet);border:1.5px dashed var(--line);border-radius:10px;padding:12px 16px}
+.addp summary{cursor:pointer;font-weight:700}
+.addp .hint{font-size:.86rem;color:var(--ink2);margin:.4rem 0 .6rem}
+.pform{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:10px}
+.pform label{display:grid;gap:3px;font-size:.78rem;font-weight:700;color:var(--ink2)}
+.pform .wide{grid-column:1/-1}
+.pform input,.pform select{font:500 .95rem var(--f-body);padding:8px 10px;border-radius:7px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%;min-width:0}
+.pform button{cursor:pointer}
+.pform .mono{font-size:.78rem;color:var(--ok)}
+.mtag{font:600 .66rem var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);border:1px solid var(--line);border-radius:4px;padding:1px 5px}
+.rm{font:600 .72rem var(--f-mono);background:none;border:0;color:var(--bad);cursor:pointer;padding:0 2px;text-decoration:underline}
+.pastbox>summary{cursor:pointer;list-style:none}.pastbox>summary::-webkit-details-marker{display:none}
+.mprov{margin:0 0 22px;display:grid;gap:6px}
 footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-size:.75rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 </head>
 <body>
 <main class="wrap">
+<nav class="tabs" aria-label="Seções"><a href="#" id="tabMat">Matérias</a><a href="#provas" id="tabProv">Provas<span class="tb" id="tabBadge" hidden></span></a></nav>
 
 <section id="home">
   <header class="top">
@@ -172,6 +234,8 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
       <p>Todas as matérias do curso, organizadas por período. Cada uma guarda os materiais de estudo criados ao longo do semestre, para nada se perder.</p>
     </div>
   </header>
+
+  <div class="alerts" id="alerts"></div>
 
   <section class="prog" id="prog" aria-label="Progresso do curso"></section>
 
@@ -197,10 +261,35 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
 
 <section id="materia" hidden></section>
 
+<section id="provas" hidden>
+  <header class="phead">
+    <div class="eyebrow">2º semestre · 2026</div>
+    <h1>Provas</h1>
+    <p>Datas tiradas dos cronogramas das professoras. Elas avisam que o cronograma pode sofrer pequenas alterações, então confira no AVA perto da data.</p>
+  </header>
+  <div id="nextBox"></div>
+  <div class="pbar"><div class="chips" id="pFilter"></div><button type="button" id="icsBtn" class="icsbtn">Adicionar ao calendário</button></div>
+  <p class="icsmsg mono" id="icsMsg" aria-live="polite"></p>
+  <div id="plist"></div>
+  <details class="addp" id="addp">
+    <summary>+ Incluir prova manualmente</summary>
+    <p class="hint">Para matérias sem cronograma. Fica salva neste navegador e entra no backup.</p>
+    <form id="pForm" class="pform">
+      <label>Matéria <select id="pfMat" required></select></label>
+      <label>Avaliação <input type="text" id="pfTit" placeholder="ex.: 1ª Prova" required></label>
+      <label>Data <input type="date" id="pfData" required></label>
+      <label>Valor (pts) <input type="text" id="pfVal" inputmode="decimal" placeholder="opcional"></label>
+      <label class="wide">O que cai <input type="text" id="pfCont" placeholder="opcional"></label>
+      <div class="wide"><button type="submit" class="btnl">Incluir prova</button> <span class="mono" id="pfMsg" aria-live="polite"></span></div>
+    </form>
+  </details>
+</section>
+
 <footer>Faculdade de Bolso · <span id="foot"></span></footer>
 </main>
 
 <script src="dados/materias.js"></script>
+<script src="dados/provas.js"></script>
 <script>
 const D = window.FACULDADE || {periodos:[]};
 const ICONS = {
@@ -310,14 +399,16 @@ function renderMat(id){
   box.innerHTML='<a class="back" href="#">← Todas as matérias</a>'+
     '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+'<p>'+[m.ch?m.ch+' h':'',m.professor?'Prof. '+esc(m.professor):'',ST[m.status]||''].filter(Boolean).join(' · ')+'</p>'+'</div></div>'+
     '<div class="stbox"><span class="eyebrow">Situação</span>'+stBtns(m)+'</div>'+
+    ((window.PROVAS||[]).some(x=>x.materia===m.id)?'<div class="eyebrow">Provas</div><div class="mprov">'+(typeof PR!=='undefined'?PR:[]).filter(x=>x.materia===m.id).map(provRow).join('')+'</div>':'')+
     (m.arquivos.length?'<div class="files">'+[...m.arquivos].sort((a,b)=>String(b.data).localeCompare(String(a.data))).map(a=>fileRow({...a,mat:m},false)).join('')+'</div>'
       :'<div class="blank"><b>Nada aqui ainda</b>Os materiais desta matéria vão aparecer aqui assim que forem adicionados.</div>');
 }
 function route(){
   const h=location.hash.slice(1);
-  const isMat=h.startsWith('m-');
-  document.getElementById('home').hidden=isMat; document.getElementById('materia').hidden=!isMat;
-  if(isMat) renderMat(h.slice(2)); else document.title='Faculdade de Bolso';
+  const isMat=h.startsWith('m-'), isProv=h==='provas';
+  document.getElementById('home').hidden=isMat||isProv; document.getElementById('materia').hidden=!isMat; document.getElementById('provas').hidden=!isProv;
+  document.getElementById('tabMat').classList.toggle('on',!isProv); document.getElementById('tabProv').classList.toggle('on',isProv);
+  if(isMat) renderMat(h.slice(2)); else if(isProv){ renderProvas(); document.title='Provas · Faculdade de Bolso' } else document.title='Faculdade de Bolso';
   window.scrollTo(0,0);
 }
 const q=document.getElementById('q'), res=document.getElementById('results');
@@ -331,13 +422,73 @@ q.addEventListener('input',()=>{
 });
 document.addEventListener('click',e=>{ const b=e.target.closest('.stsel button'); if(!b)return; e.preventDefault(); setSt(b.dataset.id,b.dataset.s) });
 document.getElementById('editBtn').onclick=()=>{ EDIT=!EDIT; renderHome() };
-document.getElementById('bkCopy').onclick=()=>{ const t=JSON.stringify(OV), ta=document.getElementById('bkTxt'), msg=document.getElementById('bkMsg'); ta.value=t;
+document.getElementById('bkCopy').onclick=()=>{ const t=JSON.stringify({status:OV,provas:MAN}), ta=document.getElementById('bkTxt'), msg=document.getElementById('bkMsg'); ta.value=t;
   const ok=()=>msg.textContent='Copiado. Cole no outro aparelho e toque em Restaurar.';
   try{ navigator.clipboard.writeText(t).then(ok,()=>{ta.select();msg.textContent='Selecionei o código: copie com Ctrl+C.'}) }catch(_){ta.select();msg.textContent='Selecionei o código: copie com Ctrl+C.'} };
-document.getElementById('bkLoad').onclick=()=>{ const msg=document.getElementById('bkMsg'); try{ const o=JSON.parse(document.getElementById('bkTxt').value||'{}'); if(typeof o!=='object'||Array.isArray(o))throw 0;
+document.getElementById('bkLoad').onclick=()=>{ const msg=document.getElementById('bkMsg'); try{ let o=JSON.parse(document.getElementById('bkTxt').value||'{}'); if(typeof o!=='object'||Array.isArray(o))throw 0; if(o.status&&typeof o.status==='object'){ if(Array.isArray(o.provas)){ MAN=o.provas; saveMan() } o=o.status }
     MATS.forEach(m=>{ m.status = m.id in o ? (o[m.id]||'') : m._base }); OV={}; MATS.forEach(m=>{ if(m.status!==m._base) OV[m.id]=m.status });
     try{ localStorage.setItem('fdb-status',JSON.stringify(OV)) }catch(_){} renderHome(); msg.textContent='Progresso restaurado.' }catch(_){ msg.textContent='Esse código não é um backup válido. Copie de novo no outro aparelho.' } };
-renderHome(); addEventListener('hashchange',route); route();
+
+/* ===== provas ===== */
+let MAN=[]; try{ MAN=JSON.parse(localStorage.getItem('fdb-provas')||'[]')||[] }catch(e){}
+let PR=[];
+function buildPR(){ PR=[...(window.PROVAS||[]),...MAN.map(x=>({...x,manual:true}))].map(x=>({...x,mat:MATS.find(m=>m.id===x.materia)})).filter(x=>x.mat&&/^\d{4}-\d{2}-\d{2}$/.test(x.data||'')).sort((a,b)=>a.data.localeCompare(b.data)) }
+function saveMan(){ try{ localStorage.setItem('fdb-provas',JSON.stringify(MAN)) }catch(e){} buildPR(); renderAlerts(); if(location.hash==='#provas')renderProvas() }
+buildPR();
+const DAY=864e5;
+function today0(){ const d=new Date(); return new Date(d.getFullYear(),d.getMonth(),d.getDate()) }
+const pd=s=>{ const [y,m,d]=s.split('-').map(Number); return new Date(y,m-1,d) };
+const daysTo=s=>Math.round((pd(s)-today0())/DAY);
+const lvl=n=>n<0?'':n<=2?'l1':n<=7?'l2':n<=14?'l3':'';
+const cdTxt=n=>n===0?'hoje':n===1?'amanhã':n<0?(-n===1?'ontem':'há '+(-n)+' dias'):'em '+n+' dias';
+const MES=['janeiro','fevereiro','março','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+const SEM=['dom','seg','ter','qua','qui','sex','sáb'];
+let pF='';
+function upcoming(lim){ return PR.filter(x=>x.tipo!=='reserva'&&daysTo(x.data)>=0&&(lim==null||daysTo(x.data)<=lim)) }
+function renderAlerts(){
+  const up=upcoming(14); const box=document.getElementById('alerts');
+  box.innerHTML=up.slice(0,3).map(x=>{ const n=daysTo(x.data);
+    return '<a class="alert '+lvl(n)+'" href="#provas"><span class="cd">'+(n<=1?(n?'1':'!'):n)+'<small>'+(n===0?'hoje':n===1?'dia':'dias')+'</small></span><div><b>'+esc(x.mat.sigla)+' · '+esc(x.titulo)+'</b><br><span>'+cdTxt(n)+' · '+fdate(x.data)+(x.valor?' · '+x.valor+' pts':'')+'</span></div><span class="go">Ver →</span></a>' }).join('');
+  const b=document.getElementById('tabBadge'), n7=upcoming(7).length; b.hidden=!n7; b.textContent=n7;
+}
+function provRow(x){ const n=daysTo(x.data), d=pd(x.data), past=n<0, res=x.tipo==='reserva';
+  const pill=past?(x.nota!=null?'nota '+x.nota:'feita'):cdTxt(n);
+  return '<div class="prow'+(past?' past':'')+(res?' reserva':'')+'" style="--mc:'+esc(x.mat.cor)+'"><div class="dt"><b>'+String(d.getDate()).padStart(2,'0')+'</b><span>'+SEM[d.getDay()]+'</span></div>'+
+    '<h3><em>'+esc(x.mat.sigla)+'</em>'+esc(x.titulo)+(x.valor?' · '+x.valor+' pts':'')+'</h3><span class="pill2 '+(past||res?'':lvl(n))+'">'+pill+'</span>'+
+    ((x.conteudo||x.material||x.manual)?'<p>'+esc(x.conteudo||'')+(x.material?' <a href="'+esc(x.material)+'">Estudar →</a>':'')+(x.manual?' <span class="mtag">incluída por você</span> <button type="button" class="rm" data-mid="'+esc(x.mid)+'">remover</button>':'')+'</p>':'')+'</div>' }
+function renderProvas(){
+  const mats=[...new Set(PR.map(x=>x.materia))].map(id=>MATS.find(m=>m.id===id));
+  document.getElementById('pFilter').innerHTML='<button data-f="" class="'+(pF?'':'on')+'">Todas</button>'+mats.map(m=>'<button data-f="'+m.id+'" class="'+(pF===m.id?'on':'')+'">'+esc(m.sigla)+'</button>').join('');
+  document.querySelectorAll('#pFilter button').forEach(b=>b.onclick=()=>{ pF=b.dataset.f; renderProvas() });
+  const L=PR.filter(x=>!pF||x.materia===pF);
+  const nx=L.find(x=>x.tipo!=='reserva'&&daysTo(x.data)>=0), nb=document.getElementById('nextBox');
+  if(nx){ const n=daysTo(nx.data), d=pd(nx.data);
+    nb.innerHTML='<div class="next" style="--mc:'+(n<=2?'var(--bad)':n<=7?'var(--accent)':esc(nx.mat.cor))+'"><div class="big">'+(n===0?'Hoje':n)+'<small>'+(n===0?'é o dia':n===1?'dia':'dias')+'</small></div>'+
+      '<span class="k">Próxima prova · '+SEM[d.getDay()]+', '+d.getDate()+' de '+MES[d.getMonth()]+'</span><h2>'+esc(nx.mat.nome)+' · '+esc(nx.titulo)+'</h2><p>'+(nx.valor?nx.valor+' pontos. ':'')+esc(nx.conteudo||'')+'</p>'+
+      '<div class="act">'+(nx.material?'<a class="btnl" href="'+esc(nx.material)+'">Estudar agora</a>':'')+'<a class="btnl gh" href="#m-'+esc(nx.mat.id)+'">Materiais de '+esc(nx.mat.sigla)+'</a></div></div>' }
+  else nb.innerHTML='<div class="blank"><b>Nenhuma prova pela frente</b>Quando chegarem os cronogramas do próximo semestre, as datas aparecem aqui.</div>';
+  let cur='', h='';
+  L.filter(x=>daysTo(x.data)>=0).forEach(x=>{ const d=pd(x.data), k=MES[d.getMonth()]+' '+d.getFullYear(); if(k!==cur){ cur=k; h+='<div class="month">'+k+'</div>' } h+=provRow(x) });
+  const past=L.filter(x=>daysTo(x.data)<0).reverse();
+  if(past.length) h+='<details class="pastbox"><summary class="month">Já realizadas · '+past.length+'</summary>'+past.map(provRow).join('')+'</details>';
+  document.getElementById('plist').innerHTML=h||'<div class="blank"><b>Sem provas cadastradas</b>Me mande o cronograma da matéria.</div>';
+}
+function ics(){ const pad=n=>String(n).padStart(2,'0'), f=d=>d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate());
+  const ev=PR.filter(x=>daysTo(x.data)>=0).map(x=>{ const d=pd(x.data), e=new Date(d.getTime()+DAY);
+    return ['BEGIN:VEVENT','UID:'+x.materia+'-'+x.data+'@faculdade-de-bolso','DTSTAMP:'+f(new Date())+'T000000Z','DTSTART;VALUE=DATE:'+f(d),'DTEND;VALUE=DATE:'+f(e),
+      'SUMMARY:'+(x.mat.sigla+' · '+x.titulo).replace(/[,;]/g,' '),'DESCRIPTION:'+((x.valor?x.valor+' pts. ':'')+(x.conteudo||'')).replace(/[,;]/g,' '),
+      ...(x.tipo==='reserva'?[]:['BEGIN:VALARM','TRIGGER:-P7D','ACTION:DISPLAY','DESCRIPTION:Prova em 7 dias','END:VALARM','BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:Prova amanhã','END:VALARM']),'END:VEVENT'].join('\r\n') });
+  return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Faculdade de Bolso//PT-BR','CALSCALE:GREGORIAN',...ev,'END:VCALENDAR'].join('\r\n') }
+document.getElementById('icsBtn').onclick=()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([ics()],{type:'text/calendar'})); a.download='provas-faculdade-de-bolso.ics'; document.body.appendChild(a); a.click(); a.remove();
+  document.getElementById('icsMsg').textContent='Arquivo baixado. Abra no celular ou no Google/Outlook Agenda: cada prova vem com lembrete 7 dias e 1 dia antes.' };
+
+(function(){ const sel=document.getElementById('pfMat'); const cur=MATS.filter(m=>m.status==='cursando'), rest=MATS.filter(m=>m.status!=='cursando');
+  sel.innerHTML=(cur.length?'<optgroup label="Cursando">'+cur.map(m=>'<option value="'+m.id+'">'+esc(m.sigla)+'</option>').join('')+'</optgroup>':'')+'<optgroup label="Todas">'+rest.map(m=>'<option value="'+m.id+'">'+m.periodo+'º · '+esc(m.sigla)+'</option>').join('')+'</optgroup>' })();
+document.getElementById('pForm').addEventListener('submit',e=>{ e.preventDefault(); const g=id=>document.getElementById(id).value.trim();
+  const v=g('pfVal').replace(',','.'); MAN.push({mid:Date.now().toString(36),materia:g('pfMat'),titulo:g('pfTit'),data:g('pfData'),...(v&&isFinite(+v)?{valor:+v}:{}),...(g('pfCont')?{conteudo:g('pfCont')}:{})});
+  saveMan(); ['pfTit','pfData','pfVal','pfCont'].forEach(i=>document.getElementById(i).value=''); document.getElementById('pfMsg').textContent='Prova incluída.' });
+document.addEventListener('click',e=>{ const b=e.target.closest('.rm'); if(!b)return; MAN=MAN.filter(x=>x.mid!==b.dataset.mid); saveMan(); if(location.hash.startsWith('#m-'))renderMat(location.hash.slice(3)) });
+renderHome(); renderAlerts(); addEventListener('hashchange',route); route();
 </script>
 </body>
 </html>

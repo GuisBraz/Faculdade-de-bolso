@@ -49,8 +49,8 @@ window.FACULDADE = {
     {
       numero: 2, ch: 300, atual: true,
       materias: [
-        { id: "qg", status: "cursando", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", professor: "", arquivos: [] },
-        { id: "calc2", status: "cursando", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", professor: "", arquivos: [] },
+        { id: "qg", status: "cursando", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", professor: "Paula Sevenini Pinto", arquivos: [] },
+        { id: "calc2", status: "cursando", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", professor: "Gabriela Oliveira", arquivos: [] },
         { id: "fis1", status: "cursando", sigla: "Física I", nome: "Física I", ch: 60, icone: "fisica", area: "f", professor: "", arquivos: [] },
         { id: "cm2", status: "cursando", sigla: "Materiais II", nome: "Ciência dos Materiais II", ch: 30, icone: "materiais", area: "m", professor: "", arquivos: [] },
         { id: "dt2", status: "cursando", sigla: "Desenho II", nome: "Desenho Técnico II – DAC", ch: 30, icone: "desenho", area: "d", professor: "", arquivos: [] },
