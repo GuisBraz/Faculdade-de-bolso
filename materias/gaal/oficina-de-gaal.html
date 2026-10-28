@@ -13,9 +13,9 @@
 :root{
   --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
   --c1:#D9531A; --c2:#0C8587; --c3:#6447BE; --ok:#2A7F3E; --bad:#BF3328; --hl:rgba(217,83,26,.10); --hl2:rgba(12,133,135,.10);
-  --f-disp:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
-  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
-  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+  --f-disp:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif, "Cambria Math", "STIX Two Text";
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif, "Cambria Math", "STIX Two Text", "Segoe UI Symbol";
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace, "Cambria Math", "STIX Two Text";
   --f-math:"STIX Two Text", "Cambria Math", "Times New Roman", serif;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -26,6 +26,10 @@
   --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}
 
 *{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+img{max-width:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
 body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
   background-size:24px 24px;}
