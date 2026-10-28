@@ -4,6 +4,8 @@ Hub de estudos do curso de Engenharia Mecânica (IFMG · Campus Betim). Todas as
 
 **Site:** https://guisbraz.github.io/Faculdade-de-bolso/
 
+As 65 matérias dos 10 períodos (2.805 h) já estão cadastradas; cada uma ganha materiais conforme o curso avança.
+
 ## Estrutura
 
 ```
@@ -33,11 +35,13 @@ materias/<id>/        → os arquivos de cada matéria
 Em `dados/materias.js`, dentro de `materias` do período certo:
 
 ```js
-{ id: "calc1", sigla: "Cálculo I", nome: "Cálculo Diferencial e Integral I",
-  icone: "calculo", cor: "#0C8587", professor: "", arquivos: [] }
+{ id: "calc1", sigla: "Cálculo I", nome: "Cálculo I", ch: 75,
+  icone: "calculo", area: "a", professor: "", arquivos: [] }
 ```
 
-Ícones: `vetor, calculo, fisica, quimica, programacao, desenho, engrenagem, materiais, estatistica, termo, fluidos, eletrica, estrutura, usinagem, solda, gestao, texto, pesquisa, livro`.
+`area` define a cor (lista em `areas`, no topo do arquivo). Para marcar o período que está cursando, use `atual: true` no período.
+
+Ícones: `vetor, calculo, fisica, quimica, programacao, desenho, cubo, engrenagem, materiais, estatistica, termo, fluidos, eletrica, estrutura, viga, onda, regua, prensa, manometro, malha, pistao, fluxo, usinagem, solda, injecao, fabrica, chip, robo, chave, selo, balanca, moeda, folha, capacete, gestao, pessoas, texto, pesquisa, livro`.
 
 ## Materiais
 

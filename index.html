@@ -46,7 +46,7 @@ a{color:inherit}
 .stamp div:first-child{border-top:0}
 .stamp b{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
 .stamp span{color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;font-size:.68rem;align-self:center}
-@media (max-width:640px){.top{grid-template-columns:1fr}.stamp{min-width:0}}
+@media (max-width:640px){.top{grid-template-columns:1fr}.stamp{min-width:0;display:grid;grid-template-columns:1fr 1fr}.stamp div{border-top:1px solid var(--line);border-left:1px solid var(--line);margin-left:-1px}.stamp div:nth-child(-n+2){border-top:0}.stamp div:last-child{grid-column:1/-1}}
 
 .search{position:relative;margin-bottom:30px}
 .search input{width:100%;font:500 1rem var(--f-body);padding:13px 16px 13px 44px;border:1.5px solid var(--line);border-radius:10px;background:var(--sheet);color:var(--ink)}
@@ -55,7 +55,7 @@ a{color:inherit}
 .results{display:grid;gap:8px;margin-top:10px}
 
 /* recentes */
-.recent{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0 38px}
+.recent{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,480px),1fr));gap:10px;margin:12px 0 38px}
 
 /* períodos */
 .periodo{margin-bottom:34px}
@@ -91,9 +91,19 @@ a{color:inherit}
 .file .meta small{display:block;font-family:var(--f-mono);font-size:.72rem;margin-top:4px}
 .file .go{grid-row:span 2;font-weight:700;color:var(--mc);white-space:nowrap}
 .file .from{font-family:var(--f-mono);font-size:.7rem;color:var(--mc);font-weight:600;letter-spacing:.04em}
-@media (max-width:560px){.file{grid-template-columns:1fr}.badge{grid-row:auto;justify-self:start}.file .meta{grid-column:auto}.file .go{grid-row:auto}}
+@media (max-width:560px){.file{grid-template-columns:1fr}.badge{grid-row:auto;justify-self:start}.file .meta{grid-column:auto}.file .go{grid-row:auto;order:5}}
 .blank{border:1.5px dashed var(--line);border-radius:10px;padding:26px;text-align:center;color:var(--ink2)}
 .blank b{display:block;font-family:var(--f-disp);color:var(--ink);font-size:1.1rem;margin-bottom:4px}
+.jumpbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:12px;background:var(--paper);padding-block:10px;margin-bottom:22px;border-bottom:1px solid var(--line)}
+#jump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0}
+#jump::-webkit-scrollbar{display:none}
+#jump button{flex:none;font:600 .82rem var(--f-mono);padding:6px 11px;border-radius:999px;border:1.5px solid var(--line);background:var(--sheet);color:var(--ink);cursor:pointer}
+#jump button:hover{border-color:var(--ink2)}
+#jump button.on{background:var(--ink);border-color:var(--ink);color:var(--sheet)}
+.periodo{scroll-margin-top:calc(env(safe-area-inset-top,0px) + 64px)}
+.pill{font-family:var(--f-mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--sheet);padding:3px 8px;border-radius:999px;white-space:nowrap}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
+@media (max-width:480px){.ruler{flex-wrap:wrap}.ruler .ticks{display:none}.ruler .ct{width:100%}}
 footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-size:.75rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
@@ -122,6 +132,7 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
     <div class="recent" id="recent"></div>
   </div>
 
+  <div class="jumpbar"><span class="eyebrow">Ir para</span><div id="jump"></div></div>
   <div id="periodos"></div>
 </section>
 
@@ -152,13 +163,34 @@ const ICONS = {
   gestao:'<path d="m3 18 6-6 4 3 8-9"/><path d="M15 6h6v6"/>',
   texto:'<path d="M5 5h14M5 10h14M5 15h14M5 20h8"/>',
   pesquisa:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/>',
-  livro:'<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/>'
+  livro:'<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/>',
+  pessoas:'<circle cx="9" cy="8" r="3"/><path d="M3 20a6 6 0 0 1 12 0"/><circle cx="17" cy="9" r="2.4"/><path d="M16 14.2a5 5 0 0 1 5.5 5.8"/>',
+  cubo:'<path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z"/><path d="M4 7.5 12 12l8-4.5M12 12v9"/><path d="M8 5.3l8 4.5" stroke-dasharray="2 2"/>',
+  onda:'<path d="M2 12c2.5-6 5-6 7.5 0s5 6 7.5 0 3.5-4 5-2"/>',
+  regua:'<path d="M3 15 15 3l6 6L9 21z"/><path d="M7 11l2 2M10 8l1.5 1.5M13 5l2 2M8.5 14.5 10 16M11.5 11.5 13 13"/>',
+  viga:'<path d="M3 8h18M3 16h18M7 8v8M12 8v8M17 8v8"/><path d="M3 20l3-4M21 20l-3-4"/>',
+  prensa:'<path d="M5 3h14v4H5zM12 7v6"/><path d="M8 13h8l-1 3H9z"/><path d="M3 21h18M6 21v-3h12v3"/>',
+  manometro:'<circle cx="12" cy="11" r="7.5"/><path d="M12 11l3.5-3.5"/><path d="M12 18.5V22M9 22h6"/>',
+  malha:'<path d="M3 3h18v18H3z"/><path d="M3 3l18 18M3 12h18M12 3v18M12 3l9 9M3 12l9 9"/>',
+  pistao:'<path d="M7 3h10v7H7z"/><path d="M7 6h10"/><circle cx="12" cy="13.5" r="1.3"/><path d="M12 14.8 9 21"/><circle cx="9" cy="21" r=".6"/>',
+  fluxo:'<path d="M3 8h11a3 3 0 1 0-3-3"/><path d="M3 12h16a3 3 0 1 1-3 3"/><path d="M3 16h7"/>',
+  folha:'<path d="M5 19C5 9 11 4 20 4c0 9-5 15-15 15z"/><path d="M5 19 13 11"/>',
+  chip:'<path d="M7 7h10v10H7z"/><path d="M10 3v4M14 3v4M10 17v4M14 17v4M3 10h4M3 14h4M17 10h4M17 14h4"/>',
+  injecao:'<path d="M3 9h10v6H3z"/><path d="M13 10.5h3l5-2.5v8l-5-2.5h-3"/><path d="M6 9V5h4v4"/>',
+  fabrica:'<path d="M3 21V10l5 3V10l5 3V5h4v16z"/><path d="M3 21h18M17 9h4v12"/>',
+  moeda:'<circle cx="12" cy="12" r="9"/><path d="M15 8.5c-.6-.9-1.7-1.5-3-1.5-1.7 0-3 .9-3 2.3 0 3.2 6 1.6 6 4.9 0 1.4-1.4 2.3-3 2.3-1.4 0-2.6-.6-3.2-1.6M12 5v2M12 17v2"/>',
+  chave:'<path d="M14.5 4a4.5 4.5 0 0 0-4.3 5.8L3 17v4h4l7.2-7.2A4.5 4.5 0 1 0 14.5 4z"/><path d="M16 8h.01"/>',
+  selo:'<circle cx="12" cy="9" r="6"/><path d="m9.5 9 1.8 1.8L15 7.3"/><path d="M8.5 14 7 21l5-2.5 5 2.5-1.5-7"/>',
+  balanca:'<path d="M12 3v18M7 21h10M5 7h14"/><path d="M5 7 2.5 13a3 3 0 0 0 5 0zM19 7l-2.5 6a3 3 0 0 0 5 0z"/>',
+  robo:'<path d="M5 9h14v10H5z"/><path d="M12 9V5M10 4h4"/><circle cx="9" cy="13.5" r="1.2"/><circle cx="15" cy="13.5" r="1.2"/><path d="M9.5 17h5M2 12v4M22 12v4"/>',
+  capacete:'<path d="M3 18h18v2H3z"/><path d="M4.5 18a7.5 7.5 0 0 1 15 0"/><path d="M10 10.8V6h4v4.8"/>'
 };
 const icon = k => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[k]||ICONS.livro)+'</svg>';
 const TIPOS = {site:'Site',pdf:'PDF',resumo:'Resumo',lista:'Lista',prova:'Prova',link:'Link'};
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fdate = d => { if(!d) return ''; const [y,m,dd]=d.split('-'); return dd+'/'+m+'/'+y };
-const MATS = D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.numero,arquivos:m.arquivos||[]})));
+const AR = D.areas||{};
+const MATS = D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.numero,cor:m.cor||(AR[m.area]||{}).cor||'#D9531A',arquivos:m.arquivos||[]})));
 const FILES = MATS.flatMap(m=>m.arquivos.map(a=>({...a,mat:m})));
 const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 
@@ -173,20 +205,22 @@ function fileRow(a,showMat){
 function matCard(m){
   const n=m.arquivos.length;
   return '<a class="mat'+(n?'':' empty')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+esc(m.nome)+'</span>'+
-    '<span class="n"><span>'+(n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):'sem materiais ainda')+'</span><span>'+m.periodo+'º</span></span></a>';
+    '<span class="n"><span>'+(n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):'sem materiais ainda')+'</span><span>'+(m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
 }
 function renderHome(){
   document.getElementById('curso').textContent=[D.curso,D.instituicao].filter(Boolean).join(' · ');
   document.getElementById('foot').textContent=[D.aluno,D.instituicao].filter(Boolean).join(' · ');
   document.getElementById('stamp').innerHTML=
-    '<div><span>Períodos</span><b>'+D.periodos.length+'</b></div><div><span>Matérias</span><b>'+MATS.length+'</b></div><div><span>Materiais</span><b>'+FILES.length+'</b></div>'+
+    '<div><span>Períodos</span><b>'+D.periodos.length+'</b></div><div><span>Matérias</span><b>'+MATS.length+'</b></div><div><span>Carga horária</span><b>'+D.periodos.reduce((a,p)=>a+(p.ch||0),0).toLocaleString('pt-BR')+' h</b></div><div><span>Materiais</span><b>'+FILES.length+'</b></div>'+
     '<div><span>Atualizado</span><b>'+(fdate(FILES.map(f=>f.data).filter(Boolean).sort().pop())||'—')+'</b></div>';
   const rec=[...FILES].sort((a,b)=>String(b.data).localeCompare(String(a.data))).slice(0,3);
   document.getElementById('recentWrap').hidden=!rec.length;
   document.getElementById('recent').innerHTML=rec.map(a=>fileRow(a,true)).join('');
+  document.getElementById('jump').innerHTML=D.periodos.map(p=>'<button data-p="'+p.numero+'" class="'+(p.atual?'on':'')+'">'+p.numero+'º</button>').join('');
+  document.querySelectorAll('#jump button').forEach(b=>b.onclick=()=>document.getElementById('p'+b.dataset.p).scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}));
   document.getElementById('periodos').innerHTML=D.periodos.map(p=>{
     const ms=p.materias||[], nf=ms.reduce((s,m)=>s+(m.arquivos||[]).length,0);
-    return '<section class="periodo" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2><span class="ticks"></span><span class="ct">'+ms.length+' matérias · '+nf+' materiais</span></div>'+
+    return '<section class="periodo'+(p.atual?' now':'')+'" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2>'+(p.atual?'<span class="pill">cursando</span>':'')+'<span class="ticks"></span><span class="ct">'+ms.length+' matérias'+(p.ch?' · '+p.ch+' h':'')+(nf?' · '+nf+(nf===1?' material':' materiais'):'')+'</span></div>'+
       '<div class="grid">'+MATS.filter(m=>m.periodo===p.numero).map(matCard).join('')+'</div></section>' }).join('');
 }
 function renderMat(id){
