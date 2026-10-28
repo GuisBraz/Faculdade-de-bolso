@@ -1,0 +1,973 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oficina de GAAL</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,500;1,500&display=swap">
+<style>
+/* Layout: prancheta técnica — folha milimetrada, carimbos de desenho técnico nas fórmulas, uma coluna de leitura com laboratório 3D */
+:root{
+  --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
+  --c1:#D9531A; --c2:#0C8587; --c3:#6447BE; --ok:#2A7F3E; --bad:#BF3328; --hl:rgba(217,83,26,.10); --hl2:rgba(12,133,135,.10);
+  --f-disp:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif;
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif;
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace;
+  --f-math:"STIX Two Text", "Cambria Math", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+h1,h2,h3{font-family:var(--f-disp);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,5vw,2.4rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700;margin-top:2.2rem}
+p{margin:.6rem 0}
+a{color:var(--c2)}
+i.m,.m{font-family:var(--f-math);font-style:italic}
+:focus-visible{outline:2.5px solid var(--c1);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sheet);border-bottom:1px solid var(--line)}
+.hwrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 0}
+.brand{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.brand a{font-family:var(--f-disp);font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo{width:26px;height:26px}
+.prog{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.bar{width:90px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c2);width:0;transition:width .4s}
+nav{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;font-size:.86rem;font-weight:700;text-decoration:none;color:var(--ink2);padding:6px 11px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--ink);border-color:var(--line)}
+nav a.on{background:var(--ink);color:var(--sheet)}
+nav a .dn{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-left:5px;vertical-align:middle}
+
+main{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 80px}
+.view{display:block}
+.read{max-width:700px}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.lede{font-size:1.12rem;color:var(--ink2);max-width:62ch}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;margin-bottom:36px}
+.hero h1{font-size:clamp(2.2rem,7vw,3.9rem);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--c1)}
+.hero .cv{aspect-ratio:1/1;max-width:100%}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+
+/* trilha */
+.trail{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:18px}
+.stop{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;padding:14px 16px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
+.stop:hover{transform:translateY(-2px);border-color:var(--c2)}
+.stop .n{grid-row:span 2;font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ink2);color:var(--ink2)}
+.stop.done .n{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.stop b{font-family:var(--f-disp);font-size:1.05rem}
+.stop span{font-size:.88rem;color:var(--ink2);line-height:1.4}
+
+/* blocos */
+.fx{position:relative;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;margin:20px 0;padding:30px 18px 16px;overflow-x:auto}
+.fx .tag{position:absolute;top:0;left:0;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--sheet);padding:3px 9px;border-bottom-right-radius:4px}
+.fx .eq{font-family:var(--f-math);font-size:1.45rem;text-align:center;padding:6px 0 10px;white-space:nowrap}
+.fx .eq i{font-style:italic}
+.legend{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.93rem;border-top:1px dashed var(--line);padding-top:10px;margin:0}
+.legend dt{font-family:var(--f-math);font-style:italic;font-size:1.05rem;color:var(--c1);white-space:nowrap}
+.legend dd{margin:0;color:var(--ink2)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .25em .05em}
+.fr>span:last-child{padding:.05em .25em 0}
+.rt{white-space:nowrap}.rt::before{content:"√"}.rt>span{border-top:1.5px solid currentColor;padding:0 .1em}
+.v{position:relative}
+.ofi{background:var(--hl2);border-radius:8px;padding:12px 16px;margin:18px 0}
+.ofi .k,.cuid .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--c2);display:block;margin-bottom:2px}
+.cuid{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:12px 16px 12px;margin:18px 0;position:relative;overflow:hidden}
+.cuid::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:repeating-linear-gradient(-45deg,#E8B511 0 8px,#1b1b1b 8px 16px)}
+.cuid .k{color:var(--c1);margin-top:4px}
+ol.recipe{counter-reset:s;list-style:none;padding:0;margin:14px 0;display:grid;gap:8px}
+ol.recipe>li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+ol.recipe>li::before{content:counter(s);font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:26px;height:26px;border-radius:50%;background:var(--c1);color:var(--sheet);display:grid;place-items:center;margin-top:1px}
+code,.mono{font-family:var(--f-mono);font-size:.9em}
+.tbl{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--sheet)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+
+/* exemplo passo a passo */
+.ex{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:18px 0}
+.ex .q{font-weight:700}
+.ex ol{margin:10px 0 0;padding-left:1.3em;display:grid;gap:8px}
+.ex ol li{padding-left:4px}
+.ex ol li.hid{display:none}
+.ex .ans{display:none;margin-top:10px;padding:8px 12px;background:var(--hl);border-radius:6px;font-weight:700}
+.ex.all .ans{display:block}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button,.btn{font:700 .88rem var(--f-body);border-radius:8px;padding:8px 14px;cursor:pointer;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet)}
+button.ghost{background:transparent;color:var(--ink)}
+button:disabled{opacity:.4;cursor:default}
+button:hover:not(:disabled){filter:brightness(1.1)}
+
+/* calculadoras */
+.calc{background:var(--sheet);border:1.5px solid var(--c2);border-radius:10px;padding:16px;margin:24px 0}
+.calc h4{margin:0 0 4px;font-family:var(--f-disp);font-size:1.1rem;color:var(--c2)}
+.calc .hint{font-size:.85rem;color:var(--ink2);margin:0 0 10px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.fields label{display:grid;gap:3px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+input[type=text],select{font:500 1rem var(--f-mono);padding:8px 10px;border-radius:6px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%;min-width:0}
+input[type=text]:focus{border-color:var(--c2);outline:none}
+.out{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;font-size:.95rem}
+.out ol{margin:0;padding-left:1.3em;display:grid;gap:5px}
+.out .res{margin-top:8px;font-weight:700;padding:8px 12px;border-radius:6px;background:var(--hl2)}
+.out .err{color:var(--bad);font-weight:700}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.seg button{background:transparent;color:var(--ink2);border-color:var(--line);font-size:.82rem;padding:6px 11px}
+.seg button.on{background:var(--c2);border-color:var(--c2);color:var(--sheet)}
+.done-btn{margin-top:36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--line)}
+.done-btn button.isdone{background:var(--ok);border-color:var(--ok)}
+
+/* 3D */
+.cv{position:relative;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--sheet);overflow:hidden;touch-action:none}
+.cv canvas{display:block;width:100%;height:100%;cursor:grab}
+.cv .ctl{position:absolute;right:8px;bottom:8px;display:flex;gap:6px}
+.cv .ctl button{padding:4px 10px;font-size:.85rem;background:var(--sheet);color:var(--ink);border-color:var(--line)}
+.cv .lbl{position:absolute;left:10px;top:8px;font-family:var(--f-mono);font-size:.7rem;color:var(--ink2)}
+.labgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start}
+.labgrid .cv{aspect-ratio:4/3.4}
+@media (max-width:760px){.labgrid{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{font-size:.8rem;padding:6px 10px;background:transparent;color:var(--ink);border-color:var(--line)}
+.objlist{list-style:none;padding:0;margin:10px 0;display:grid;gap:6px;font-size:.88rem}
+.objlist li{display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:6px;padding:6px 8px}
+.objlist li .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.objlist li span{flex:1;min-width:0;font-family:var(--f-mono);font-size:.8rem;overflow-wrap:anywhere}
+.objlist li button{padding:2px 8px;font-size:.75rem;background:transparent;color:var(--bad);border-color:var(--line)}
+.inline-cv{aspect-ratio:16/10;margin:16px 0}
+
+/* fluxograma */
+.flow{display:grid;gap:10px;margin:16px 0}
+.node{background:var(--sheet);border:1.5px solid var(--ink);border-radius:8px;padding:10px 14px}
+.node b{font-family:var(--f-disp)}
+.branch{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.leaf{border-radius:8px;padding:10px 12px;font-size:.92rem;border:1.5px solid var(--line);background:var(--sheet)}
+.leaf b{display:block;font-family:var(--f-disp);font-size:1rem}
+.leaf.a b{color:var(--c1)}.leaf.b b{color:var(--c2)}.leaf.c b{color:var(--c3)}
+.arrow{text-align:center;font-family:var(--f-mono);color:var(--ink2);font-size:.8rem}
+@media (max-width:520px){.branch{grid-template-columns:1fr}}
+
+/* lista */
+.qitem{background:var(--sheet);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.qitem summary{cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;list-style:none}
+.qitem summary::-webkit-details-marker{display:none}
+.qitem summary .qn{font-family:var(--f-mono);font-weight:600;font-size:.8rem;background:var(--ink);color:var(--sheet);border-radius:5px;padding:2px 8px;margin-top:2px}
+.qitem[open] summary{border-bottom:1px dashed var(--line)}
+.qitem .body{padding:6px 16px 16px}
+.qitem .tagt{font-family:var(--f-mono);font-size:.72rem;color:var(--c2);margin-top:4px;display:block}
+.part{margin-top:14px}
+.part h5{margin:0;font-family:var(--f-disp);font-size:1rem}
+
+/* quiz */
+.qz{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+.qz .opts{display:grid;gap:8px;margin-top:10px}
+.qz .opts button{text-align:left;background:var(--paper);color:var(--ink);border:1.5px solid var(--line);font-weight:400}
+.qz .opts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--sheet))}
+.qz .opts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--sheet))}
+.qz .why{margin-top:10px;font-size:.93rem;color:var(--ink2)}
+.score{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--ink);color:var(--sheet);border-radius:10px;padding:10px 16px;font-family:var(--f-mono);font-size:.9rem}
+.score button{background:var(--sheet);color:var(--ink);border-color:var(--sheet);padding:4px 10px;font-size:.8rem}
+
+/* cola */
+.cola{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.cola .fx{margin:0}
+.cola .fx .eq{font-size:1.2rem}
+.cola p{font-size:.85rem;color:var(--ink2);margin:6px 0 0}
+
+/* demo escalar */
+.dot2d{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin:18px 0}
+.dot2d canvas{width:200px;height:200px;max-width:100%}
+.dot2d input[type=range]{width:100%;accent-color:var(--c1)}
+.verdict{font-family:var(--f-disp);font-size:1.2rem;font-weight:700}
+@media (max-width:520px){.dot2d{grid-template-columns:1fr;justify-items:center}}
+footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0"><a href="../../index.html#m-gaal" style="font-size:.8rem;font-weight:700;color:var(--ink2);text-decoration:none;margin-right:6px" aria-label="Voltar para a Faculdade de Bolso">← Hub</a><a href="#inicio"><svg class="logo" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M5 20 L21 6" stroke="var(--c1)" stroke-width="2.4" stroke-linecap="round"/><path d="M15 6h6v6" fill="none" stroke="var(--c1)" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>Oficina de GAAL</a></div>
+      <div class="prog"><span id="progtxt">0/6</span><div class="bar"><i id="progbar"></i></div></div>
+    </div>
+    <nav id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#kit" data-m="kit">1 · Vetores</a>
+      <a href="#retas" data-m="retas">2 · Retas</a>
+      <a href="#planos" data-m="planos">3 · Planos</a>
+      <a href="#posicoes" data-m="posicoes">4 · Posições</a>
+      <a href="#angulos" data-m="angulos">5 · Ângulos</a>
+      <a href="#distancias" data-m="distancias">6 · Distâncias</a>
+      <a href="#lab">Lab 3D</a>
+      <a href="#lista">Lista resolvida</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#cola">Cola</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ INÍCIO ============ -->
+<section class="view" id="v-inicio">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">GAAL · Retas e Planos no espaço</div>
+      <h1>Toda reta é um <em>ponto</em> com vontade de andar.</h1>
+      <p class="lede">Este é o seu ambiente de estudo para a prova: teoria do zero, cada fórmula explicada símbolo por símbolo, calculadoras que mostram a conta inteira, um laboratório 3D e a lista da professora resolvida passo a passo.</p>
+      <div class="btns"><a class="btn" href="#kit" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lista'">Ir direto para a lista</button></div>
+    </div>
+    <div class="cv" id="heroCv"><canvas></canvas><div class="lbl">arraste para girar</div></div>
+  </div>
+
+  <h3 style="margin-top:0">A trilha</h3>
+  <p class="read">Cada módulo usa o anterior, então a ordem importa. Marque cada um como estudado no final da página; a barra lá em cima acompanha.</p>
+  <div class="trail" id="trail"></div>
+
+  <h3>Plano de ataque para a prova</h3>
+  <ol class="recipe read">
+    <li><span><b>Domine as 3 ferramentas</b> do módulo 1 (escalar, vetorial, misto). Quase toda questão da prova é uma delas aplicada no lugar certo.</span></li>
+    <li><span><b>Aprenda a "ler" equações</b>: olhou uma reta, tire ponto e vetor diretor. Olhou um plano, tire o vetor normal. Isso é metade da prova.</span></li>
+    <li><span><b>Faça o quiz</b> para testar os conceitos antes de partir para contas grandes.</span></li>
+    <li><span><b>Resolva a lista sozinho</b>, e só depois abra os passos. Errou? Volte ao módulo indicado na etiqueta da questão.</span></li>
+    <li><span><b>Véspera:</b> só a página Cola e as pegadinhas (caixas listradas).</span></li>
+  </ol>
+</section>
+
+<!-- ============ 1 VETORES ============ -->
+<section class="view read" id="v-kit" hidden>
+  <div class="eyebrow">Módulo 1 · O kit de ferramentas</div>
+  <h2>Pontos, vetores e os três produtos</h2>
+  <p class="lede">Os slides da professora já assumem que você sabe isso. Sem esse kit, nada do resto faz sentido. Com ele, o resto vira receita.</p>
+
+  <h3>Ponto: um endereço</h3>
+  <p>Um ponto <i class="m">P</i> = (<i class="m">x</i>, <i class="m">y</i>, <i class="m">z</i>) é só um lugar no espaço: quanto andar no eixo x, no y e no z, a partir da origem (0, 0, 0). Ele não tem tamanho nem direção.</p>
+
+  <h3>Vetor: uma seta (um deslocamento)</h3>
+  <p>Um vetor diz <b>para onde</b> e <b>quanto</b> andar. O vetor que leva de <i class="m">A</i> até <i class="m">B</i> se calcula subtraindo: chegada menos saída.</p>
+  <div class="fx"><span class="tag">Fórmula 1.1 · vetor entre dois pontos</span>
+    <div class="eq"><i>AB</i>⃗ = <i>B</i> − <i>A</i> = (<i>x<sub>B</sub></i> − <i>x<sub>A</sub></i>, <i>y<sub>B</sub></i> − <i>y<sub>A</sub></i>, <i>z<sub>B</sub></i> − <i>z<sub>A</sub></i>)</div>
+    <dl class="legend"><dt>A</dt><dd>ponto de saída</dd><dt>B</dt><dd>ponto de chegada</dd><dt>AB⃗</dt><dd>a seta de A até B (a ordem importa: BA⃗ = −AB⃗)</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Exemplo: A = (1, −2, −3) e B = (3, 1, −4). Quanto vale AB⃗?</div>
+    <ol><li>Chegada menos saída, coordenada por coordenada.</li><li>x: 3 − 1 = 2</li><li>y: 1 − (−2) = 3 &nbsp;(menos com menos vira mais)</li><li>z: −4 − (−3) = −1</li></ol>
+    <div class="ans">AB⃗ = (2, 3, −1)</div></div>
+
+  <h3>Norma: o comprimento da seta</h3>
+  <div class="fx"><span class="tag">Fórmula 1.2 · norma (módulo)</span>
+    <div class="eq">‖<i>v</i>⃗‖ = <span class="rt"><span><i>a</i>² + <i>b</i>² + <i>c</i>²</span></span></div>
+    <dl class="legend"><dt>v⃗ = (a, b, c)</dt><dd>o vetor</dd><dt>‖v⃗‖</dt><dd>o tamanho dele. É Pitágoras em 3D.</dd></dl>
+  </div>
+  <p>A distância entre dois pontos é só a norma da seta entre eles: d(<i class="m">A</i>,<i class="m">B</i>) = ‖<i class="m">AB</i>⃗‖.</p>
+
+  <h3>Vetores paralelos: um é múltiplo do outro</h3>
+  <p>Se <i class="m">u</i>⃗ = <i class="m">k</i>·<i class="m">v</i>⃗ para algum número <i class="m">k</i>, eles apontam na mesma direção (podem ter sentido oposto se <i class="m">k</i> for negativo). Teste prático: divida coordenada por coordenada. Se todas as divisões derem o mesmo número, são paralelos.</p>
+  <div class="ofi"><span class="k">Na oficina</span>(2, 4, 2) e (1, 2, 1) são a mesma direção, como uma barra de 2 m e outra de 1 m apontadas para o mesmo lado. Por isso você pode <b>simplificar</b> um vetor diretor dividindo tudo por um número comum. Facilita muito as contas.</div>
+
+  <h3>Ferramenta 1 · Produto escalar (dá um número)</h3>
+  <div class="fx"><span class="tag">Fórmula 1.3 · produto escalar</span>
+    <div class="eq"><i>u</i>⃗ · <i>v</i>⃗ = <i>u</i>₁<i>v</i>₁ + <i>u</i>₂<i>v</i>₂ + <i>u</i>₃<i>v</i>₃ = ‖<i>u</i>⃗‖ ‖<i>v</i>⃗‖ cos <i>θ</i></div>
+    <dl class="legend"><dt>u₁v₁ …</dt><dd>multiplica x com x, y com y, z com z e soma</dd><dt>θ</dt><dd>ângulo entre as setas</dd></dl>
+  </div>
+  <p>O que interessa para a prova é o <b>sinal</b>. Gire a seta abaixo e veja:</p>
+  <div class="dot2d">
+    <canvas id="dotCv" width="400" height="400"></canvas>
+    <div>
+      <label for="dotAng" class="mono" style="font-size:.8rem">ângulo θ entre u⃗ e v⃗: <b id="dotAngV">40°</b></label>
+      <input type="range" id="dotAng" min="0" max="180" value="40">
+      <p class="mono" style="font-size:.9rem;margin:.4rem 0">u⃗·v⃗ = ‖u⃗‖‖v⃗‖cos θ = <b id="dotVal"></b></p>
+      <div class="verdict" id="dotVer"></div>
+      <p style="font-size:.88rem;color:var(--ink2)">A sombra laranja é a "projeção" de v⃗ sobre u⃗. O produto escalar mede quanto v⃗ anda na direção de u⃗.</p>
+    </div>
+  </div>
+  <div class="cuid"><span class="k">A regra de ouro</span><b>u⃗ · v⃗ = 0 ⇔ u⃗ e v⃗ são perpendiculares.</b> Você vai usar isso o tempo todo: para achar plano perpendicular, reta perpendicular, ponto mais próximo…</div>
+
+  <h3>Ferramenta 2 · Produto vetorial (dá um vetor)</h3>
+  <p>O produto vetorial <i class="m">u</i>⃗ × <i class="m">v</i>⃗ gera um vetor <b>perpendicular aos dois</b> ao mesmo tempo. É a máquina de fazer vetor normal de plano.</p>
+  <div class="fx"><span class="tag">Fórmula 1.4 · produto vetorial</span>
+    <div class="eq"><i>u</i>⃗ × <i>v</i>⃗ = ( <i>u</i>₂<i>v</i>₃ − <i>u</i>₃<i>v</i>₂ ,&nbsp; <i>u</i>₃<i>v</i>₁ − <i>u</i>₁<i>v</i>₃ ,&nbsp; <i>u</i>₁<i>v</i>₂ − <i>u</i>₂<i>v</i>₁ )</div>
+    <dl class="legend"><dt>resultado</dt><dd>vetor ⊥ a u⃗ e a v⃗</dd><dt>‖u⃗ × v⃗‖</dt><dd>área do paralelogramo formado por u⃗ e v⃗</dd><dt>u⃗ × v⃗ = 0⃗</dt><dd>u⃗ e v⃗ são paralelos</dd></dl>
+  </div>
+  <p><b>Truque para decorar:</b> escreva as coordenadas duas vezes em fila: <code>u₁ u₂ u₃ u₁ u₂</code>. Para a 1ª coordenada, cubra a coluna 1 e faça o "x" das colunas 2 e 3 (diagonal descendo menos diagonal subindo). Para a 2ª, colunas 3 e 1. Para a 3ª, colunas 1 e 2. É o determinante com <b>i j k</b> na primeira linha.</p>
+  <div class="ex" data-ex><div class="q">Exemplo: u⃗ = (2, 1, −1) e v⃗ = (1, 1, 0)</div>
+    <ol><li>1ª: u₂v₃ − u₃v₂ = 1·0 − (−1)·1 = 0 + 1 = 1</li><li>2ª: u₃v₁ − u₁v₃ = (−1)·1 − 2·0 = −1</li><li>3ª: u₁v₂ − u₂v₁ = 2·1 − 1·1 = 1</li><li>Conferindo: (1, −1, 1)·(2, 1, −1) = 2 − 1 − 1 = 0 ✓ e (1, −1, 1)·(1, 1, 0) = 0 ✓</li></ol>
+    <div class="ans">u⃗ × v⃗ = (1, −1, 1). Sempre confira com o escalar dando zero!</div></div>
+
+  <h3>Ferramenta 3 · Produto misto (dá um número)</h3>
+  <div class="fx"><span class="tag">Fórmula 1.5 · produto misto</span>
+    <div class="eq">(<i>u</i>⃗, <i>v</i>⃗, <i>w</i>⃗) = (<i>u</i>⃗ × <i>v</i>⃗) · <i>w</i>⃗ = det [ <i>u</i>⃗ ; <i>v</i>⃗ ; <i>w</i>⃗ ]</div>
+    <dl class="legend"><dt>det</dt><dd>determinante 3×3 com u⃗, v⃗, w⃗ nas linhas</dd><dt>|(u⃗, v⃗, w⃗)|</dt><dd>volume da "caixa" (paralelepípedo) formada pelos três</dd><dt>= 0</dt><dd>os três estão no mesmo plano (coplanares)</dd></dl>
+  </div>
+  <p>Na prática: calcule <i class="m">u</i>⃗ × <i class="m">v</i>⃗ e depois faça o escalar com <i class="m">w</i>⃗. É o que decide se duas retas são <b>reversas</b> (módulo 4).</p>
+
+  <div class="calc" data-calc="kit"><h4>Calculadora de vetores</h4><p class="hint">Digite as coordenadas separadas por vírgula. A conta aparece inteira.</p>
+    <div class="fields"><label>u⃗ <input type="text" id="k-u" value="2, 1, -1"></label><label>v⃗ <input type="text" id="k-v" value="1, 1, 0"></label><label>w⃗ (para o misto) <input type="text" id="k-w" value="0, 0, 2"></label></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="kit"></div>
+</section>
+
+<!-- ============ 2 RETAS ============ -->
+<section class="view read" id="v-retas" hidden>
+  <div class="eyebrow">Módulo 2 · Retas no espaço</div>
+  <h2>Reta = um ponto + uma direção</h2>
+  <p class="lede">Para "fabricar" uma reta você precisa de apenas duas peças: um ponto <i class="m">A</i> por onde ela passa e um vetor diretor <i class="m">v</i>⃗ que diz para onde ela vai.</p>
+  <div class="cv inline-cv" id="retaCv"><canvas></canvas><div class="lbl">o ponto P desliza pela reta conforme t muda</div></div>
+  <label for="retaT" class="mono" style="font-size:.85rem">t = <b id="retaTV">1</b></label>
+  <input type="range" id="retaT" min="-3" max="3" step="0.1" value="1" style="width:100%;accent-color:var(--c1)">
+
+  <h3>Equação vetorial</h3>
+  <div class="fx"><span class="tag">Fórmula 2.1 · equação vetorial</span>
+    <div class="eq">(<i>x</i>, <i>y</i>, <i>z</i>) = (<i>x</i>₀, <i>y</i>₀, <i>z</i>₀) + <i>t</i>(<i>a</i>, <i>b</i>, <i>c</i>)</div>
+    <dl class="legend"><dt>(x₀, y₀, z₀)</dt><dd>o ponto A conhecido da reta</dd><dt>(a, b, c)</dt><dd>o vetor diretor v⃗ (não pode ser o vetor nulo)</dd><dt>t</dt><dd>o parâmetro: um número real qualquer. Cada t dá um ponto da reta. t = 0 dá o próprio A.</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">Na oficina</span>Pense na ponte rolante: o trilho é a reta, a posição inicial do carro é <i class="m">A</i>, o sentido do trilho é <i class="m">v</i>⃗ e <i class="m">t</i> é quanto você aperta o botão (negativo = para trás).</div>
+
+  <h3>Equações paramétricas</h3>
+  <p>É a mesma coisa, só que separada linha por linha:</p>
+  <div class="fx"><span class="tag">Fórmula 2.2 · paramétricas</span>
+    <div class="eq" style="text-align:left;display:inline-block;margin:0 auto">{ <i>x</i> = <i>x</i>₀ + <i>at</i> &nbsp;&nbsp; <i>y</i> = <i>y</i>₀ + <i>bt</i> &nbsp;&nbsp; <i>z</i> = <i>z</i>₀ + <i>ct</i></div>
+    <dl class="legend"><dt>leitura</dt><dd>o número <b>solto</b> é a coordenada do ponto; o número que <b>multiplica t</b> é a coordenada do vetor diretor</dd></dl>
+  </div>
+  <div class="cuid"><span class="k">Pegadinha</span>Se uma linha não tem <i class="m">t</i> (ex.: <i class="m">z</i> = 3), a coordenada do vetor ali é <b>0</b>. Em <i class="m">x</i> = 2 + <i class="m">t</i>, <i class="m">y</i> = 1 + 2<i class="m">t</i>, <i class="m">z</i> = 3, o diretor é (1, 2, <b>0</b>).</div>
+
+  <h3>Equações simétricas</h3>
+  <p>Isole o <i class="m">t</i> em cada linha e iguale (só dá se <i class="m">a</i>, <i class="m">b</i>, <i class="m">c</i> forem todos diferentes de zero):</p>
+  <div class="fx"><span class="tag">Fórmula 2.3 · simétricas</span>
+    <div class="eq"><span class="fr"><span><i>x</i> − <i>x</i>₀</span><span><i>a</i></span></span> = <span class="fr"><span><i>y</i> − <i>y</i>₀</span><span><i>b</i></span></span> = <span class="fr"><span><i>z</i> − <i>z</i>₀</span><span><i>c</i></span></span></div>
+    <dl class="legend"><dt>em cima</dt><dd>"variável menos coordenada do ponto". Cuidado com o sinal: <i>z</i> + 3 significa <i>z</i>₀ = −3</dd><dt>embaixo</dt><dd>coordenadas do vetor diretor. Sem denominador = 1</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Ler a reta x/2 = (y − 2)/2 = (z + 3)/1 (Ex 1 da aula de distâncias)</div>
+    <ol><li>x/2 é o mesmo que (x − 0)/2, então x₀ = 0 e a = 2.</li><li>(y − 2)/2: y₀ = 2 e b = 2.</li><li>(z + 3)/1 = (z − (−3))/1: z₀ = −3 e c = 1.</li></ol>
+    <div class="ans">Ponto (0, 2, −3) e diretor (2, 2, 1)</div></div>
+
+  <h3>Equações reduzidas</h3>
+  <p>Escolhe-se uma variável como "chefe" (geralmente <i class="m">x</i>) e escreve-se as outras em função dela: <i class="m">y</i> = <i class="m">mx</i> + <i class="m">n</i> e <i class="m">z</i> = <i class="m">px</i> + <i class="m">q</i>. Para tirar ponto e vetor: faça <i class="m">x</i> = <i class="m">t</i>.</p>
+  <div class="ex" data-ex><div class="q">Ler a reta y = −2x + 3, z = 2x (Ex 3 de distâncias)</div>
+    <ol><li>Chame x = t.</li><li>Então y = 3 − 2t e z = 2t.</li><li>Números soltos: (0, 3, 0). Números com t: (1, −2, 2).</li></ol>
+    <div class="ans">Ponto (0, 3, 0) e diretor (1, −2, 2)</div></div>
+
+  <h3>Vetor com componente zero</h3>
+  <div class="tbl"><table><tr><th>Diretor</th><th>A reta é…</th><th>Como escrever</th></tr>
+    <tr><td>(0, b, c)</td><td>paralela ao plano yOz (x não muda)</td><td>x = x₀ e (y−y₀)/b = (z−z₀)/c</td></tr>
+    <tr><td>(a, 0, c)</td><td>paralela ao plano xOz</td><td>y = y₀ e (x−x₀)/a = (z−z₀)/c</td></tr>
+    <tr><td>(a, b, 0)</td><td>paralela ao plano xOy</td><td>z = z₀ e (x−x₀)/a = (y−y₀)/b</td></tr>
+    <tr><td>(0, 0, c)</td><td>paralela ao eixo Oz</td><td>x = x₀, y = y₀</td></tr>
+    <tr><td>(0, b, 0)</td><td>paralela ao eixo Oy</td><td>x = x₀, z = z₀</td></tr>
+    <tr><td>(a, 0, 0)</td><td>paralela ao eixo Ox</td><td>y = y₀, z = z₀</td></tr></table></div>
+  <div class="cuid"><span class="k">Pegadinha da lista (Q2 e Q6)</span>Uma reta como "<i class="m">z</i> = 2 e <i class="m">x</i> = <i class="m">y</i>" vem com só duas equações. Faça a variável livre virar <i class="m">t</i>: <i class="m">x</i> = <i class="m">t</i>, <i class="m">y</i> = <i class="m">t</i>, <i class="m">z</i> = 2. Pronto: ponto (0, 0, 2), diretor (1, 1, 0).</div>
+
+  <h3>Receitas</h3>
+  <p><b>Reta por dois pontos A e B:</b></p>
+  <ol class="recipe"><li><span>Calcule v⃗ = B − A (simplifique se der).</span></li><li><span>Use A (ou B, tanto faz) como ponto.</span></li><li><span>Monte (x, y, z) = A + t·v⃗.</span></li></ol>
+  <p><b>O ponto P pertence à reta?</b></p>
+  <ol class="recipe"><li><span>Substitua P nas paramétricas.</span></li><li><span>Resolva o t em cada linha.</span></li><li><span>Deu o <b>mesmo t</b> nas três? Pertence. Deu diferente? Não pertence.</span></li></ol>
+  <p><b>Três pontos alinhados (colineares)?</b> A₁A₂⃗ tem que ser múltiplo de A₁A₃⃗.</p>
+
+  <div class="calc" data-calc="retas"><h4>Fábrica de retas</h4><p class="hint">Dois pontos viram todas as formas da equação. Teste também se um ponto P pertence.</p>
+    <div class="fields"><label>Ponto A <input type="text" id="r-a" value="1, -2, -3"></label><label>Ponto B <input type="text" id="r-b" value="3, 1, -4"></label><label>Testar ponto P <input type="text" id="r-p" value="5, 4, -5"></label></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="retas"></div>
+</section>
+
+<!-- ============ 3 PLANOS ============ -->
+<section class="view read" id="v-planos" hidden>
+  <div class="eyebrow">Módulo 3 · Planos</div>
+  <h2>Plano = um ponto + um vetor normal</h2>
+  <p class="lede">Um plano é uma chapa infinita. O jeito mais prático de descrevê-lo é dizer um ponto dela e qual é a direção "espetada" perpendicular a ela: o <b>vetor normal</b> <i class="m">n</i>⃗.</p>
+  <div class="cv inline-cv" id="planoCv"><canvas></canvas><div class="lbl">plano 2x − 3y + 2z + 11 = 0 e seu normal</div></div>
+  <div class="ofi"><span class="k">Na oficina</span>Coloque uma chapa na bancada e espete um prego em pé nela. O prego é o vetor normal. Qualquer risco que você fizer na chapa é perpendicular ao prego, e é exatamente isso que a equação do plano diz.</div>
+
+  <h3>Equação geral do plano</h3>
+  <div class="fx"><span class="tag">Fórmula 3.1 · equação geral</span>
+    <div class="eq"><i>ax</i> + <i>by</i> + <i>cz</i> + <i>d</i> = 0</div>
+    <dl class="legend"><dt>(a, b, c)</dt><dd>o vetor normal n⃗. Leitura direta: os números na frente de x, y e z</dd><dt>d</dt><dd>o termo solto. Calcule com d = −(a·x₀ + b·y₀ + c·z₀), usando um ponto do plano</dd></dl>
+  </div>
+  <p><b>De onde vem?</b> Se <i class="m">A</i> está no plano e <i class="m">X</i> = (<i class="m">x</i>, <i class="m">y</i>, <i class="m">z</i>) também, a seta <i class="m">AX</i>⃗ fica "deitada" na chapa, então é perpendicular ao prego: <i class="m">n</i>⃗ · <i class="m">AX</i>⃗ = 0. Abrindo a conta: <i class="m">a</i>(<i class="m">x</i> − <i class="m">x</i>₀) + <i class="m">b</i>(<i class="m">y</i> − <i class="m">y</i>₀) + <i class="m">c</i>(<i class="m">z</i> − <i class="m">z</i>₀) = 0.</p>
+  <div class="ex" data-ex><div class="q">Plano por Q = (1, 3, −2) com normal n⃗ = (2, −3, 2) (Ex 1 da aula)</div>
+    <ol><li>Normal dá os coeficientes: 2x − 3y + 2z + d = 0.</li><li>Q está no plano, então substitua: 2(1) − 3(3) + 2(−2) + d = 0.</li><li>2 − 9 − 4 + d = 0 → −11 + d = 0 → d = 11.</li></ol>
+    <div class="ans">2x − 3y + 2z + 11 = 0</div></div>
+
+  <h3>Equação vetorial do plano</h3>
+  <p>Também dá para descrever com um ponto e <b>dois</b> vetores deitados na chapa (não paralelos): <i class="m">P</i> = <i class="m">A</i> + <i class="m">t</i><i class="m">u</i>⃗ + <i class="m">h</i><i class="m">v</i>⃗. Para passar para a equação geral: <i class="m">n</i>⃗ = <i class="m">u</i>⃗ × <i class="m">v</i>⃗.</p>
+
+  <h3>O grande segredo: como achar o vetor normal</h3>
+  <p>Toda questão de "determine o plano" se resume a arranjar <b>dois vetores deitados no plano</b> e fazer o produto vetorial deles.</p>
+  <div class="tbl"><table><tr><th>Você recebeu…</th><th>Dois vetores no plano</th><th>Normal</th></tr>
+    <tr><td>3 pontos A, B, C</td><td>AB⃗ e AC⃗</td><td>AB⃗ × AC⃗</td></tr>
+    <tr><td>1 ponto P + 1 reta (A, v⃗)</td><td>v⃗ e AP⃗</td><td>v⃗ × AP⃗</td></tr>
+    <tr><td>2 retas concorrentes</td><td>u⃗ e v⃗</td><td>u⃗ × v⃗</td></tr>
+    <tr><td>2 retas paralelas</td><td>u⃗ e P₁P₂⃗ (ligando um ponto de cada)</td><td>u⃗ × P₁P₂⃗</td></tr>
+    <tr><td>contém reta r e é ⊥ ao plano π</td><td>v⃗ᵣ e n⃗_π</td><td>v⃗ᵣ × n⃗_π</td></tr>
+    <tr><td>passa por P e é ⊥ a dois planos</td><td>n⃗₁ e n⃗₂</td><td>n⃗₁ × n⃗₂</td></tr>
+    <tr><td>paralelo a um plano dado</td><td>—</td><td>a mesma normal do plano dado</td></tr>
+    <tr><td>perpendicular a uma reta</td><td>—</td><td>o próprio diretor da reta</td></tr></table></div>
+  <ol class="recipe"><li><span>Arranje o vetor normal (tabela acima).</span></li><li><span>Escreva ax + by + cz + d = 0 com ele.</span></li><li><span>Substitua um ponto conhecido para achar d.</span></li><li><span>Confira: substitua outro ponto que deveria estar no plano. Tem que dar 0.</span></li></ol>
+
+  <h3>Achar um ponto qualquer do plano</h3>
+  <p>Zere duas variáveis e descubra a terceira. Em 2x − 3y + z − 6 = 0, com x = 0 e y = 0 sobra z = 6, então (0, 0, 6) está no plano. Para saber se um ponto pertence, substitua: deu 0, pertence.</p>
+
+  <div class="cuid"><span class="k">Pegadinha</span>Planos com equações proporcionais são o mesmo plano (ou paralelos). 2x − 2y + z − 5 = 0 e 4x − 4y + 2z + 14 = 0 têm normais (2, −2, 1) e (4, −4, 2): paralelas. Divida a segunda por 2 para comparar: 2x − 2y + z + 7 = 0. Mesmo começo, final diferente → paralelos distintos.</div>
+
+  <div class="calc" data-calc="planos"><h4>Plano por três pontos</h4><p class="hint">Exemplo carregado: Ex 4a da aula de planos.</p>
+    <div class="fields"><label>A <input type="text" id="p-a" value="1, 3, 2"></label><label>B <input type="text" id="p-b" value="-1, 0, 1"></label><label>C <input type="text" id="p-c" value="3, -2, 2"></label></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="planos"></div>
+</section>
+
+<!-- ============ 4 POSIÇÕES ============ -->
+<section class="view read" id="v-posicoes" hidden>
+  <div class="eyebrow">Módulo 4 · Posições relativas</div>
+  <h2>Quem cruza com quem?</h2>
+  <p class="lede">Dadas duas retas, uma reta e um plano, ou dois planos, a pergunta é sempre a mesma: eles se encontram, são paralelos ou passam um pelo outro sem se tocar?</p>
+
+  <h3>Duas retas: quatro possibilidades</h3>
+  <div class="tbl"><table><tr><th>Caso</th><th>Diretores</th><th>Ponto em comum</th></tr>
+    <tr><td><b>Coincidentes</b></td><td>paralelos</td><td>todos (é a mesma reta)</td></tr>
+    <tr><td><b>Paralelas distintas</b></td><td>paralelos</td><td>nenhum</td></tr>
+    <tr><td><b>Concorrentes</b></td><td>não paralelos</td><td>exatamente um</td></tr>
+    <tr><td><b>Reversas</b></td><td>não paralelos</td><td>nenhum</td></tr></table></div>
+  <div class="ofi"><span class="k">Na oficina</span>Reversas são como um viaduto passando por cima de uma rua: direções diferentes, mas nunca se encostam, porque estão em "andares" diferentes. Não existe uma chapa (plano) que contenha as duas.</div>
+
+  <p><b>O fluxograma da prova</b> (retas r: P + λu⃗ e s: Q + μv⃗):</p>
+  <div class="flow">
+    <div class="node"><b>1. u⃗ e v⃗ são paralelos?</b> (um é múltiplo do outro, ou u⃗ × v⃗ = 0⃗)</div>
+    <div class="branch">
+      <div class="node" style="border-color:var(--c1)"><b>SIM</b> → teste se PQ⃗ também é paralelo a u⃗ (ou: Q está em r?)
+        <div class="branch" style="margin-top:8px"><div class="leaf a"><b>PQ⃗ ∥ u⃗</b>Coincidentes</div><div class="leaf a"><b>PQ⃗ ∦ u⃗</b>Paralelas distintas</div></div></div>
+      <div class="node" style="border-color:var(--c2)"><b>NÃO</b> → calcule o produto misto (u⃗, v⃗, PQ⃗) = det
+        <div class="branch" style="margin-top:8px"><div class="leaf b"><b>det = 0</b>Concorrentes</div><div class="leaf b"><b>det ≠ 0</b>Reversas</div></div></div>
+    </div>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 4.1 · teste das reversas</span>
+    <div class="eq">(<i>u</i>⃗ × <i>v</i>⃗) · <i>P<sub>r</sub>P<sub>s</sub></i>⃗ = det [ <i>u</i>⃗ ; <i>v</i>⃗ ; <i>P<sub>r</sub>P<sub>s</sub></i>⃗ ]</div>
+    <dl class="legend"><dt>por quê</dt><dd>se as três setas cabem numa mesma chapa (volume zero), as retas estão no mesmo plano e, não sendo paralelas, se cruzam. Volume ≠ 0 → andares diferentes → reversas.</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Ex 4 da aula: r: (x−2)/2 = (y−3)/3 = z e s: x = y/3 = (1+z)/2</div>
+    <ol><li>r: P = (2, 3, 0), u⃗ = (2, 3, 1). s: Q = (0, 0, −1), v⃗ = (1, 3, 2).</li><li>2/1 ≠ 3/3 → não paralelos.</li><li>PQ⃗ = Q − P = (−2, −3, −1).</li><li>det = 2(3·(−1) − 2·(−3)) − 3(1·(−1) − 2·(−2)) + 1(1·(−3) − 3·(−2)) = 2·3 − 3·3 + 1·3 = 0.</li><li>det = 0 → concorrentes. Para achar o ponto: iguale 2 + 2λ = μ, 3 + 3λ = 3μ, λ = −1 + 2μ → λ = −1, μ = 0.</li></ol>
+    <div class="ans">Concorrentes no ponto (0, 0, −1)</div></div>
+  <div class="calc" data-calc="posrr"><h4>Classificador de duas retas</h4><p class="hint">Carregado: Ex 3 da aula (resposta: reversas).</p>
+    <div class="fields"><label>Ponto de r <input type="text" id="prr-p" value="0, 1, 1"></label><label>Diretor de r <input type="text" id="prr-u" value="-4, 8, -2"></label><label>Ponto de s <input type="text" id="prr-q" value="1, 4, 0"></label><label>Diretor de s <input type="text" id="prr-v" value="1, 1, 1"></label></div>
+    <div class="out"></div></div>
+
+  <h3>Reta e plano: três possibilidades</h3>
+  <p>A chave é o produto escalar entre a normal do plano <i class="m">n</i>⃗ e o diretor da reta <i class="m">u</i>⃗:</p>
+  <div class="branch">
+    <div class="leaf a"><b>n⃗ · u⃗ ≠ 0</b>A reta <b>fura</b> o plano em um ponto (secante). Para achar o ponto: jogue as paramétricas da reta na equação do plano e resolva o t.</div>
+    <div class="leaf b"><b>n⃗ · u⃗ = 0</b>A reta é "deitada" em relação ao plano. Teste um ponto da reta no plano: deu 0 → <b>contida</b>; não deu → <b>paralela</b>.</div>
+  </div>
+  <div class="ex" data-ex><div class="q">Ex 5 da aula: r: X = (1, 0, 1) + λ(2, 1, 3) e π: x + y + z = 20</div>
+    <ol><li>n⃗ · u⃗ = (1,1,1)·(2,1,3) = 6 ≠ 0 → fura.</li><li>Ponto genérico: (1 + 2λ, λ, 1 + 3λ).</li><li>Substitua no plano: 1 + 2λ + λ + 1 + 3λ = 20 → 6λ = 18 → λ = 3.</li><li>Ponto: (1 + 6, 3, 1 + 9).</li></ol>
+    <div class="ans">Interseção em (7, 3, 10)</div></div>
+  <div class="calc" data-calc="posrp"><h4>Reta × plano</h4><p class="hint">Plano como "a, b, c, d" de ax + by + cz + d = 0. Carregado: Ex 6 (paralela).</p>
+    <div class="fields"><label>Ponto da reta <input type="text" id="prp-p" value="0, 1, 3"></label><label>Diretor <input type="text" id="prp-u" value="3, 2, 8"></label><label>Plano a, b, c, d <input type="text" id="prp-pl" value="2, 1, -1, -6"></label></div>
+    <div class="out"></div></div>
+
+  <h3>Dois planos</h3>
+  <p>Normais paralelas → planos <b>paralelos</b> (ou coincidentes, se as equações forem proporcionais por inteiro). Normais não paralelas → <b>concorrentes</b>, e a interseção é uma reta com diretor <i class="m">n</i>⃗₁ × <i class="m">n</i>⃗₂. Para um ponto dessa reta, zere uma variável e resolva o sistema 2×2 que sobra.</p>
+  <div class="calc" data-calc="pospp"><h4>Plano × plano</h4><p class="hint">Carregado: Ex 6b da aula de planos.</p>
+    <div class="fields"><label>π₁: a, b, c, d <input type="text" id="ppp-1" value="-1, -1, 2, -4"></label><label>π₂: a, b, c, d <input type="text" id="ppp-2" value="2, 1, -3, 0"></label></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="posicoes"></div>
+</section>
+
+<!-- ============ 5 ÂNGULOS ============ -->
+<section class="view read" id="v-angulos" hidden>
+  <div class="eyebrow">Módulo 5 · Medidas angulares</div>
+  <h2>Ângulos: sempre entre 0° e 90°</h2>
+  <p class="lede">Todo ângulo aqui sai do produto escalar. A única diferença entre os três casos é <b>quais vetores</b> você usa e se a resposta vem pelo cosseno ou pelo seno.</p>
+  <div class="cuid"><span class="k">Por que tem módulo |…| na fórmula?</span>Uma reta não tem "frente": v⃗ e −v⃗ descrevem a mesma reta. Sem o módulo você poderia achar 120° em vez de 60°. O módulo garante sempre o <b>menor</b> ângulo, entre 0° e 90°.</div>
+
+  <h3>Reta com reta</h3>
+  <div class="fx"><span class="tag">Fórmula 5.1 · ângulo entre retas</span>
+    <div class="eq">cos <i>θ</i> = <span class="fr"><span>|<i>v</i>⃗₁ · <i>v</i>⃗₂|</span><span>‖<i>v</i>⃗₁‖ ‖<i>v</i>⃗₂‖</span></span></div>
+    <dl class="legend"><dt>v⃗₁, v⃗₂</dt><dd>vetores diretores das duas retas</dd><dt>θ</dt><dd>o ângulo; depois do cos, use arccos (ou reconheça 1/2 → 60°, √2/2 → 45°, √3/2 → 30°)</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Ex 1 da aula: r₁: x = 3 + t, y = t, z = 1 − 2t e r₂: (x+2)/(−2) = (y−3)/1 = z/1</div>
+    <ol><li>v⃗₁ = (1, 1, −2) e v⃗₂ = (−2, 1, 1).</li><li>v⃗₁ · v⃗₂ = −2 + 1 − 2 = −3 → módulo 3.</li><li>‖v⃗₁‖ = √6 e ‖v⃗₂‖ = √6 → produto = 6.</li><li>cos θ = 3/6 = 1/2.</li></ol>
+    <div class="ans">θ = 60° = π/3</div></div>
+
+  <h3>Reta com plano (aqui entra o seno)</h3>
+  <div class="fx"><span class="tag">Fórmula 5.2 · ângulo reta–plano</span>
+    <div class="eq">sen <i>θ</i> = <span class="fr"><span>|<i>v</i>⃗ · <i>n</i>⃗|</span><span>‖<i>v</i>⃗‖ ‖<i>n</i>⃗‖</span></span></div>
+    <dl class="legend"><dt>v⃗</dt><dd>diretor da reta</dd><dt>n⃗</dt><dd>normal do plano</dd><dt>por que seno</dt><dd>o escalar mede o ângulo φ entre a reta e o <b>prego</b> (normal). O ângulo com a <b>chapa</b> é o que falta para 90°: θ = 90° − φ, e cos φ = sen θ.</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Ex 2 da aula: r: x = 1 − 2t, y = −t, z = 3 + t e π: x + y − 5 = 0</div>
+    <ol><li>v⃗ = (−2, −1, 1) e n⃗ = (1, 1, 0) (o z não aparece no plano → 0).</li><li>v⃗ · n⃗ = −2 − 1 + 0 = −3 → módulo 3.</li><li>‖v⃗‖ = √6, ‖n⃗‖ = √2 → produto √12 = 2√3.</li><li>sen θ = 3/(2√3) = √3/2.</li></ol>
+    <div class="ans">θ = 60° = π/3</div></div>
+
+  <h3>Plano com plano</h3>
+  <div class="fx"><span class="tag">Fórmula 5.3 · ângulo entre planos</span>
+    <div class="eq">cos <i>θ</i> = <span class="fr"><span>|<i>n</i>⃗₁ · <i>n</i>⃗₂|</span><span>‖<i>n</i>⃗₁‖ ‖<i>n</i>⃗₂‖</span></span></div>
+    <dl class="legend"><dt>n⃗₁, n⃗₂</dt><dd>as normais. O ângulo entre os pregos é o mesmo ângulo entre as chapas.</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Ex 3 da aula: 2x − 3y + 5z − 8 = 0 e 3x + 2y + 5z − 4 = 0</div>
+    <ol><li>n⃗₁ = (2, −3, 5), n⃗₂ = (3, 2, 5).</li><li>Escalar: 6 − 6 + 25 = 25.</li><li>Normas: √38 e √38 → produto 38.</li></ol>
+    <div class="ans">θ = arccos(25/38) ≈ 48,9°</div></div>
+  <div class="tbl"><table><tr><th>Resumo</th><th>Vetores</th><th>Função</th></tr><tr><td>reta–reta</td><td>diretor e diretor</td><td>cos</td></tr><tr><td>reta–plano</td><td>diretor e normal</td><td><b>sen</b></td></tr><tr><td>plano–plano</td><td>normal e normal</td><td>cos</td></tr></table></div>
+
+  <div class="calc" data-calc="ang"><h4>Calculadora de ângulos</h4>
+    <div class="seg" id="angSeg"><button class="on" data-m="rr">reta–reta</button><button data-m="rp">reta–plano</button><button data-m="pp">plano–plano</button></div>
+    <div class="fields"><label><span id="ang-l1">Diretor de r₁</span> <input type="text" id="a-1" value="1, 1, -2"></label><label><span id="ang-l2">Diretor de r₂</span> <input type="text" id="a-2" value="-2, 1, 1"></label></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="angulos"></div>
+</section>
+
+<!-- ============ 6 DISTÂNCIAS ============ -->
+<section class="view read" id="v-distancias" hidden>
+  <div class="eyebrow">Módulo 6 · Distâncias</div>
+  <h2>Distância é sempre o caminho mais curto</h2>
+  <p class="lede">E o caminho mais curto é sempre <b>perpendicular</b>. As fórmulas abaixo são só jeitos rápidos de medir esse "prumo" sem precisar achar o pé da perpendicular.</p>
+
+  <h3>Ponto a ponto</h3>
+  <div class="fx"><span class="tag">Fórmula 6.1</span><div class="eq">d(<i>A</i>, <i>B</i>) = <span class="rt"><span>(<i>x<sub>A</sub></i>−<i>x<sub>B</sub></i>)² + (<i>y<sub>A</sub></i>−<i>y<sub>B</sub></i>)² + (<i>z<sub>A</sub></i>−<i>z<sub>B</sub></i>)²</span></span></div></div>
+
+  <h3>Ponto a reta: área ÷ base</h3>
+  <div class="fx"><span class="tag">Fórmula 6.2 · ponto–reta</span>
+    <div class="eq">d(<i>P</i>₀, <i>r</i>) = <span class="fr"><span>‖<i>v</i>⃗ × <i>P</i>₁<i>P</i>₀⃗‖</span><span>‖<i>v</i>⃗‖</span></span></div>
+    <dl class="legend"><dt>P₁</dt><dd>um ponto qualquer da reta</dd><dt>v⃗</dt><dd>diretor da reta</dd><dt>P₁P₀⃗</dt><dd>seta do ponto da reta até o ponto dado</dd><dt>ideia</dt><dd>v⃗ e P₁P₀⃗ formam um paralelogramo. Área = ‖v⃗ × P₁P₀⃗‖. Área = base × altura, e a altura é a distância. Logo altura = área ÷ base.</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Ex 1 da aula: P = (2, 0, 7) e r: x/2 = (y−2)/2 = (z+3)/1</div>
+    <ol><li>P₁ = (0, 2, −3), v⃗ = (2, 2, 1).</li><li>P₁P⃗ = (2, −2, 10).</li><li>v⃗ × P₁P⃗ = (2·10 − 1·(−2), 1·2 − 2·10, 2·(−2) − 2·2) = (22, −18, −8).</li><li>‖…‖ = √(484 + 324 + 64) = √872 = 2√218. ‖v⃗‖ = √9 = 3.</li></ol>
+    <div class="ans">d = 2√218 / 3 ≈ 9,84</div></div>
+
+  <h3>Ponto a plano: a mais usada</h3>
+  <div class="fx"><span class="tag">Fórmula 6.3 · ponto–plano</span>
+    <div class="eq">d(<i>P</i>, <i>π</i>) = <span class="fr"><span>|<i>ax</i>₀ + <i>by</i>₀ + <i>cz</i>₀ + <i>d</i>|</span><span><span class="rt"><span><i>a</i>² + <i>b</i>² + <i>c</i>²</span></span></span></span></div>
+    <dl class="legend"><dt>em cima</dt><dd>jogue o ponto P = (x₀, y₀, z₀) na equação do plano e tire o módulo</dd><dt>embaixo</dt><dd>a norma do vetor normal</dd><dt>ideia</dt><dd>é a projeção de AP⃗ (A no plano) sobre a normal: quanto P está "acima" da chapa medido no prego</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Ex 2 da aula: P = (1, 2, −1) e π: 3x − 4y − 5z + 1 = 0</div>
+    <ol><li>Em cima: |3(1) − 4(2) − 5(−1) + 1| = |3 − 8 + 5 + 1| = 1.</li><li>Embaixo: √(9 + 16 + 25) = √50 = 5√2.</li><li>1/(5√2), racionalizando: √2/10.</li></ol>
+    <div class="ans">d = √2/10 ≈ 0,141</div></div>
+
+  <h3>Entre duas retas</h3>
+  <ul>
+    <li><b>Concorrentes ou coincidentes:</b> d = 0.</li>
+    <li><b>Paralelas:</b> pegue um ponto de uma e use ponto–reta (6.2) na outra.</li>
+    <li><b>Reversas:</b> volume ÷ área da base:</li>
+  </ul>
+  <div class="fx"><span class="tag">Fórmula 6.4 · retas reversas</span>
+    <div class="eq">d(<i>r</i>, <i>s</i>) = <span class="fr"><span>|(<i>v</i>⃗<sub>r</sub>, <i>v</i>⃗<sub>s</sub>, <i>P<sub>r</sub>P<sub>s</sub></i>⃗)|</span><span>‖<i>v</i>⃗<sub>r</sub> × <i>v</i>⃗<sub>s</sub>‖</span></span></div>
+    <dl class="legend"><dt>em cima</dt><dd>módulo do produto misto: volume da caixa formada pelas três setas</dd><dt>embaixo</dt><dd>área do fundo da caixa</dd><dt>ideia</dt><dd>volume = base × altura, e a altura é a distância entre os "andares" das retas</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Ex 4 da aula: r: (−2, 1, 4) + λ(1, 0, −2) e s: (3, −1, 3) + t(0, 2, −1)</div>
+    <ol><li>v⃗ᵣ × v⃗ₛ = (0·(−1) − (−2)·2, (−2)·0 − 1·(−1), 1·2 − 0·0) = (4, 1, 2). Norma √21.</li><li>PᵣPₛ⃗ = (5, −2, −1).</li><li>Misto: (4, 1, 2)·(5, −2, −1) = 20 − 2 − 2 = 16 ≠ 0 → reversas mesmo.</li></ol>
+    <div class="ans">d = 16/√21 = 16√21/21 ≈ 3,49</div></div>
+
+  <h3>Reta e plano · plano e plano</h3>
+  <p>Só existe distância (≠ 0) se forem <b>paralelos</b>. Aí escolha um ponto qualquer da reta (ou de um dos planos) e use ponto–plano (6.3). Se cruzam, a distância é 0.</p>
+  <div class="cuid"><span class="k">Pegadinha (Ex 6 da aula)</span>Distância entre 2x − 2y + z − 5 = 0 e 4x − 4y + 2z + 14 = 0. Pegue um ponto do 1º: x = y = 0 → z = 5 → (0, 0, 5). Agora no 2º: |0 − 0 + 10 + 14|/√(16+16+4) = 24/6 = <b>4</b>. Funciona sem simplificar, porque a fórmula divide pela norma de quem você usou.</div>
+
+  <div class="calc" data-calc="dist"><h4>Calculadora de distâncias</h4>
+    <div class="seg" id="distSeg"><button class="on" data-m="ppl">ponto–plano</button><button data-m="pr">ponto–reta</button><button data-m="rr">reta–reta</button></div>
+    <div class="fields" id="distF"></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="distancias"></div>
+</section>
+
+<!-- ============ LAB ============ -->
+<section class="view" id="v-lab" hidden>
+  <div class="eyebrow">Laboratório 3D</div>
+  <h2>Veja as contas acontecerem</h2>
+  <p class="lede read">Arraste para girar, use + e − para aproximar. Carregue uma cena dos exemplos ou monte a sua. Os botões "Ver no Lab 3D" das calculadoras também trazem a cena para cá.</p>
+  <div class="labgrid" style="margin-top:18px">
+    <div class="cv" id="labCv"><canvas></canvas><div class="lbl" id="labTitle">cena</div></div>
+    <div>
+      <p class="eyebrow" style="color:var(--ink2)">Cenas prontas</p>
+      <div class="presets" id="presets"></div>
+      <p id="sceneTxt" style="font-size:.92rem;color:var(--ink2)"></p>
+      <ul class="objlist" id="objlist"></ul>
+      <div class="calc" style="margin:10px 0;border-color:var(--line)">
+        <h4 style="color:var(--ink)">Adicionar objeto</h4>
+        <div class="fields" style="grid-template-columns:1fr">
+          <label>Tipo <select id="addT"><option value="line">Reta (ponto; diretor)</option><option value="plane">Plano (a, b, c, d)</option><option value="point">Ponto</option><option value="vec">Vetor (origem; vetor)</option></select></label>
+          <label><span id="addL1">Ponto</span><input type="text" id="add1" value="0, 0, 0"></label>
+          <label id="add2w"><span id="addL2">Diretor</span><input type="text" id="add2" value="1, 1, 1"></label>
+        </div>
+        <div class="btns"><button id="addBtn">Adicionar</button><button class="ghost" id="clrBtn">Limpar cena</button></div>
+        <p class="err" id="addErr" style="color:var(--bad);font-size:.85rem;margin:6px 0 0"></p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ LISTA ============ -->
+<section class="view read" id="v-lista" hidden>
+  <div class="eyebrow">Lista · Retas e Planos</div>
+  <h2>A lista da professora, resolvida</h2>
+  <p class="lede">Tente cada questão sozinho primeiro. Depois revele <b>um passo de cada vez</b>: assim você descobre exatamente onde travou. A etiqueta azul diz qual módulo revisar.</p>
+  <div id="listaBox"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="view read" id="v-quiz" hidden>
+  <div class="eyebrow">Quiz relâmpago</div>
+  <h2>Você está pronto?</h2>
+  <p class="lede">Perguntas rápidas, do tipo que separa quem entendeu de quem decorou. Cada resposta traz a explicação.</p>
+  <div class="score"><span id="scoreTxt">0 de 0 respondidas</span><button id="quizReset">Recomeçar</button></div>
+  <div id="quizBox"></div>
+</section>
+
+<!-- ============ COLA ============ -->
+<section class="view" id="v-cola" hidden>
+  <div class="eyebrow">Revisão de véspera</div>
+  <h2>Todas as fórmulas numa folha</h2>
+  <p class="lede read">Cada carimbo diz quando usar. Tire um print desta tela para revisar no ônibus.</p>
+  <div class="cola" style="margin-top:20px">
+    <div class="fx"><span class="tag">Vetor AB</span><div class="eq"><i>AB</i>⃗ = <i>B</i> − <i>A</i></div><p>chegada menos saída</p></div>
+    <div class="fx"><span class="tag">Escalar</span><div class="eq"><i>u</i>⃗·<i>v</i>⃗ = <i>u</i>₁<i>v</i>₁+<i>u</i>₂<i>v</i>₂+<i>u</i>₃<i>v</i>₃</div><p>= 0 ⇔ perpendiculares</p></div>
+    <div class="fx"><span class="tag">Vetorial</span><div class="eq" style="font-size:1rem"><i>u</i>⃗×<i>v</i>⃗ = (<i>u</i>₂<i>v</i>₃−<i>u</i>₃<i>v</i>₂, <i>u</i>₃<i>v</i>₁−<i>u</i>₁<i>v</i>₃, <i>u</i>₁<i>v</i>₂−<i>u</i>₂<i>v</i>₁)</div><p>vetor ⊥ aos dois · norma = área · = 0⃗ ⇔ paralelos</p></div>
+    <div class="fx"><span class="tag">Misto</span><div class="eq">(<i>u</i>⃗,<i>v</i>⃗,<i>w</i>⃗) = (<i>u</i>⃗×<i>v</i>⃗)·<i>w</i>⃗</div><p>|…| = volume · = 0 ⇔ coplanares</p></div>
+    <div class="fx"><span class="tag">Reta</span><div class="eq">(<i>x</i>,<i>y</i>,<i>z</i>) = <i>A</i> + <i>t</i><i>v</i>⃗</div><p>número solto = ponto · número com t = diretor</p></div>
+    <div class="fx"><span class="tag">Plano</span><div class="eq"><i>ax</i>+<i>by</i>+<i>cz</i>+<i>d</i> = 0</div><p>(a, b, c) = normal · d = −(a x₀ + b y₀ + c z₀)</p></div>
+    <div class="fx"><span class="tag">Posição reta–reta</span><div class="eq" style="font-size:1rem">∥? → PQ⃗∥u⃗? &nbsp;|&nbsp; ∦ → det(u⃗,v⃗,PQ⃗)</div><p>coincidentes / paralelas · concorrentes (det=0) / reversas (det≠0)</p></div>
+    <div class="fx"><span class="tag">Posição reta–plano</span><div class="eq"><i>n</i>⃗ · <i>u</i>⃗ ≠ 0 → fura</div><p>= 0 → ponto da reta no plano? contida : paralela</p></div>
+    <div class="fx"><span class="tag">Ângulo reta–reta / plano–plano</span><div class="eq">cos <i>θ</i> = <span class="fr"><span>|<i>u</i>⃗·<i>v</i>⃗|</span><span>‖<i>u</i>⃗‖‖<i>v</i>⃗‖</span></span></div><p>diretores ou normais</p></div>
+    <div class="fx"><span class="tag">Ângulo reta–plano</span><div class="eq">sen <i>θ</i> = <span class="fr"><span>|<i>v</i>⃗·<i>n</i>⃗|</span><span>‖<i>v</i>⃗‖‖<i>n</i>⃗‖</span></span></div><p>SENO! diretor e normal</p></div>
+    <div class="fx"><span class="tag">Dist. ponto–reta</span><div class="eq">d = <span class="fr"><span>‖<i>v</i>⃗ × <i>P</i>₁<i>P</i>⃗‖</span><span>‖<i>v</i>⃗‖</span></span></div><p>área ÷ base · serve para retas paralelas</p></div>
+    <div class="fx"><span class="tag">Dist. ponto–plano</span><div class="eq">d = <span class="fr"><span>|<i>ax</i>₀+<i>by</i>₀+<i>cz</i>₀+<i>d</i>|</span><span><span class="rt"><span><i>a</i>²+<i>b</i>²+<i>c</i>²</span></span></span></span></div><p>serve para reta∥plano e plano∥plano</p></div>
+    <div class="fx"><span class="tag">Dist. retas reversas</span><div class="eq">d = <span class="fr"><span>|(<i>u</i>⃗,<i>v</i>⃗,<i>PQ</i>⃗)|</span><span>‖<i>u</i>⃗×<i>v</i>⃗‖</span></span></div><p>volume ÷ área da base</p></div>
+    <div class="fx"><span class="tag">Normal do plano</span><div class="eq" style="font-size:1.05rem"><i>n</i>⃗ = (vetor no plano) × (vetor no plano)</div><p>3 pontos: AB⃗×AC⃗ · ponto+reta: v⃗×AP⃗ · ⊥ a 2 planos: n⃗₁×n⃗₂</p></div>
+    <div class="fx"><span class="tag">Reta ∥ a dois planos</span><div class="eq"><i>v</i>⃗ = <i>n</i>⃗₁ × <i>n</i>⃗₂</div><p>também é o diretor da interseção de dois planos</p></div>
+    <div class="fx"><span class="tag">Pé da perpendicular</span><div class="eq"><i>PQ</i>⃗(<i>t</i>) · <i>v</i>⃗ = 0</div><p>ponto genérico Q(t) da reta, resolva t (lista Q4b, Q6, Q10)</p></div>
+  </div>
+</section>
+
+</main>
+<footer>Oficina de GAAL · material de apoio baseado nas aulas e na lista da Prof.ª Gabriela Oliveira (IFMG Campus Betim) · feito por Guilherme Braz</footer>
+
+<script>
+/* ========= álgebra ========= */
+const sub=(a,b)=>a.map((x,i)=>x-b[i]), add=(a,b)=>a.map((x,i)=>x+b[i]), mul=(a,k)=>a.map(x=>x*k);
+const dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const cross=(u,v)=>[u[1]*v[2]-u[2]*v[1],u[2]*v[0]-u[0]*v[2],u[0]*v[1]-u[1]*v[0]];
+const nrm=v=>Math.sqrt(dot(v,v)), isZ=v=>v.every(x=>Math.abs(x)<1e-9), unit=v=>mul(v,1/nrm(v));
+const M='−';
+const neg=s=>String(s).replace('-',M);
+function fmt(x){ if(!isFinite(x))return '∞'; if(Math.abs(x)<1e-10)return '0'; const r=Math.round(x); if(Math.abs(x-r)<1e-9)return neg(r);
+  for(let d=2;d<=72;d++){const n=Math.round(x*d); if(Math.abs(x-n/d)<1e-9)return neg(n)+'/'+d} return neg(+x.toFixed(3)).replace('.',',') }
+const dec=x=>neg((Math.round(x*10000)/10000).toLocaleString('pt-BR',{maximumFractionDigits:4}));
+const V=v=>'('+v.map(fmt).join(', ')+')';
+function sq(k){ k=Math.round(k); if(k===0)return '0'; let a=1,b=k; for(let i=Math.floor(Math.sqrt(k));i>1;i--){if(k%(i*i)===0){a=i;b=k/(i*i);break}}
+  return b===1? String(a) : (a===1?'√'+b:a+'√'+b) }
+function nStr(v){ const s=dot(v,v); return Math.abs(s-Math.round(s))<1e-9 ? sq(s) : '√('+fmt(s)+')' }
+const isInt=v=>v.every(x=>Math.abs(x-Math.round(x))<1e-9);
+function gcd(a,b){a=Math.abs(a);b=Math.abs(b);while(b){[a,b]=[b,a%b]}return a}
+function simp(v){ if(!isInt(v)||isZ(v))return v; v=v.map(Math.round); let g=v.reduce((a,b)=>gcd(a,b),0); let s=v.find(x=>x!==0)<0?-1:1; if(g<=1&&s>0)return v; return v.map(x=>x/g*s) }
+function aff(c,k,p='t'){ let s=Math.abs(c)>1e-12?fmt(c):''; if(Math.abs(k)>1e-12){const a=Math.abs(k); const ks=(Math.abs(a-1)<1e-12?'':fmt(a))+p; s=s? s+(k<0?' − ':' + ')+ks : (k<0?M:'')+ks} return s||'0' }
+function lin(cs,vs,k){ let s=''; cs.forEach((c,i)=>{ if(Math.abs(c)<1e-12)return; const a=Math.abs(c); const t=(Math.abs(a-1)<1e-12?'':fmt(a))+vs[i]; s+= s?(c<0?' − ':' + ')+t : (c<0?M:'')+t }); if(Math.abs(k)>1e-12){s+= s?(k<0?' − ':' + ')+fmt(Math.abs(k)) : fmt(k)} return s||'0' }
+const planeEq=(n,d)=>lin(n,['x','y','z'],d)+' = 0';
+const X=['x','y','z'];
+function paramEq(P,v,p='t'){ return X.map((c,i)=>c+' = '+aff(P[i],v[i],p)).join(' &nbsp;·&nbsp; ') }
+function symEq(P,v){ const fixed=[],fr=[]; X.forEach((c,i)=>{ if(Math.abs(v[i])<1e-12){fixed.push(c+' = '+fmt(P[i]));return}
+  const num=Math.abs(P[i])<1e-12?c:'('+c+(P[i]<0?' + ':' − ')+fmt(Math.abs(P[i]))+')'; fr.push(Math.abs(v[i]-1)<1e-12?num.replace(/^\((.*)\)$/,'$1'):num+'/'+fmt(v[i])) });
+  return [...fixed, fr.length>1?fr.join(' = '):(fr[0]||'')].filter(Boolean).join(' e ') }
+function angDeg(c){ c=Math.min(1,Math.max(-1,c)); return Math.acos(c)*180/Math.PI }
+function niceAng(deg){ const m={0:'0',30:'π/6',45:'π/4',60:'π/3',90:'π/2'}; const r=Math.round(deg); return Math.abs(deg-r)<1e-6&&m[r]? r+'° = '+m[r] : dec(deg)+'°' }
+function parse(id,n=3){ const raw=document.getElementById(id).value.replace(/−/g,'-').replace(/,(?=\d)/g,m=>m).trim();
+  const a=raw.split(/[\s,;()]+/).filter(Boolean).map(Number); if(a.length!==n||a.some(x=>!isFinite(x)))throw new Error('Em "'+(document.getElementById(id).closest('label')?.firstChild?.textContent?.trim()||id)+'" digite '+n+' números separados por vírgula, como 1, -2, 3.'); return a }
+
+/* ========= análise ========= */
+function linesInfo(P,u,Q,v){
+  const s=[]; const uv=cross(u,v), PQ=sub(Q,P);
+  s.push('Diretores: u⃗ = '+V(u)+' e v⃗ = '+V(v)+'. PQ⃗ = Q − P = '+V(PQ)+'.');
+  s.push('u⃗ × v⃗ = '+V(uv)+(isZ(uv)?' = 0⃗, então os diretores são <b>paralelos</b>.':', diferente de 0⃗, então os diretores <b>não são paralelos</b>.'));
+  let type,dist,pt=null,extra='';
+  if(isZ(uv)){ const w=cross(u,PQ);
+    if(isZ(w)){ type='Coincidentes'; dist=0; s.push('PQ⃗ × u⃗ = 0⃗: PQ⃗ também é paralelo a u⃗, então Q está em r.') }
+    else{ type='Paralelas distintas'; dist=nrm(w)/nrm(u); s.push('u⃗ × PQ⃗ = '+V(w)+' ≠ 0⃗: Q não está em r.'); s.push('Distância (ponto–reta): ‖u⃗ × PQ⃗‖/‖u⃗‖ = '+nStr(w)+' / '+nStr(u)+' ≈ '+dec(dist)) }
+  } else { const mx=dot(uv,PQ); s.push('Produto misto (u⃗ × v⃗)·PQ⃗ = '+V(uv)+'·'+V(PQ)+' = '+fmt(mx)+'.');
+    if(Math.abs(mx)<1e-9){ type='Concorrentes'; dist=0; const a=dot(cross(PQ,v),uv)/dot(uv,uv); pt=add(P,mul(u,a)); s.push('det = 0 → coplanares e não paralelas → se cruzam. Resolvendo P + λu⃗ = Q + μv⃗: λ = '+fmt(a)+'.'); extra=' no ponto '+V(pt) }
+    else { type='Reversas'; dist=Math.abs(mx)/nrm(uv); s.push('det ≠ 0 → não cabem num mesmo plano → <b>reversas</b>.'); s.push('Distância: |misto|/‖u⃗ × v⃗‖ = '+fmt(Math.abs(mx))+' / '+nStr(uv)+' ≈ '+dec(dist)) }
+    s.push('Ângulo: cos θ = |u⃗·v⃗|/(‖u⃗‖‖v⃗‖) = '+fmt(Math.abs(dot(u,v)))+'/('+nStr(u)+'·'+nStr(v)+') → θ ≈ '+niceAng(angDeg(Math.abs(dot(u,v))/(nrm(u)*nrm(v)))));
+  }
+  return {type,dist,pt,steps:s,res:type+extra+(dist>0?' · distância ≈ '+dec(dist):'')}
+}
+function planesPoint(n1,d1,n2,d2){ const h1=-d1,h2=-d2,a=dot(n1,n1),b=dot(n1,n2),c=dot(n2,n2),D=a*c-b*b; return add(mul(n1,(h1*c-h2*b)/D),mul(n2,(h2*a-h1*b)/D)) }
+
+/* ========= saída ========= */
+function out(el,steps,res,scene,err){ if(err){el.innerHTML='<p class="err">'+err+'</p>';return}
+  el.innerHTML='<ol>'+steps.map(x=>'<li>'+x+'</li>').join('')+'</ol>'+(res?'<div class="res">'+res+'</div>':'')+(scene?'<div class="btns"><button class="ghost lab-go">Ver no Lab 3D</button></div>':'');
+  if(scene) el.querySelector('.lab-go').onclick=()=>{loadScene(scene);location.hash='lab'} }
+
+const CALCS={
+ kit(){ const u=parse('k-u'),v=parse('k-v'),w=parse('k-w'); const d=dot(u,v),c=cross(u,v),m=dot(c,w);
+  const st=['u⃗·v⃗ = '+fmt(u[0])+'·'+fmt(v[0])+' + '+fmt(u[1])+'·'+fmt(v[1])+' + '+fmt(u[2])+'·'+fmt(v[2])+' = <b>'+fmt(d)+'</b>'+(Math.abs(d)<1e-9?' → <b>perpendiculares!</b>':''),
+   '‖u⃗‖ = '+nStr(u)+' ≈ '+dec(nrm(u))+' · ‖v⃗‖ = '+nStr(v)+' ≈ '+dec(nrm(v)),
+   'u⃗×v⃗ = ('+fmt(u[1])+'·'+fmt(v[2])+' − '+fmt(u[2])+'·'+fmt(v[1])+', '+fmt(u[2])+'·'+fmt(v[0])+' − '+fmt(u[0])+'·'+fmt(v[2])+', '+fmt(u[0])+'·'+fmt(v[1])+' − '+fmt(u[1])+'·'+fmt(v[0])+') = <b>'+V(c)+'</b>'+(isZ(c)?' → <b>paralelos!</b>':''),
+   'Área do paralelogramo = ‖u⃗×v⃗‖ = '+nStr(c)+' ≈ '+dec(nrm(c)),
+   'Misto (u⃗×v⃗)·w⃗ = '+V(c)+'·'+V(w)+' = <b>'+fmt(m)+'</b> → volume '+dec(Math.abs(m))+(Math.abs(m)<1e-9?' (coplanares)':'')];
+  if(!isZ(u)&&!isZ(v)) st.push('Ângulo entre u⃗ e v⃗: cos θ = '+fmt(d)+'/('+nStr(u)+'·'+nStr(v)+') → θ ≈ '+niceAng(angDeg(d/(nrm(u)*nrm(v)))));
+  return [st,null,[{t:'vec',a:[0,0,0],v:u,c:'c1',l:'u'},{t:'vec',a:[0,0,0],v:v,c:'c2',l:'v'},...(isZ(c)?[]:[{t:'vec',a:[0,0,0],v:c,c:'c3',l:'u×v'}])]] },
+ retas(){ const A=parse('r-a'),B=parse('r-b'),P=parse('r-p'); const v0=sub(B,A); if(isZ(v0))throw new Error('A e B são o mesmo ponto: precisa de dois pontos diferentes.'); const v=simp(v0);
+  const st=['v⃗ = B − A = '+V(v0)+(V(v)!==V(v0)?' → simplificando: '+V(v):''),
+   'Vetorial: (x, y, z) = '+V(A)+' + t'+V(v),'Paramétricas: '+paramEq(A,v),'Simétricas: '+symEq(A,v)];
+  const ts=X.map((c,i)=>Math.abs(v[i])<1e-12?null:(P[i]-A[i])/v[i]);
+  let ok=true,ref=null,txt=[]; X.forEach((c,i)=>{ if(ts[i]===null){ const g=Math.abs(P[i]-A[i])<1e-9; txt.push(c+': '+fmt(P[i])+(g?' = ':' ≠ ')+fmt(A[i])+' (fixo)'); if(!g)ok=false }
+    else { txt.push(c+': t = '+fmt(ts[i])); if(ref===null)ref=ts[i]; else if(Math.abs(ts[i]-ref)>1e-9)ok=false } });
+  st.push('Testando P = '+V(P)+' → '+txt.join(' · ')+' → '+(ok?'<b>mesmo t: P pertence à reta</b>':'<b>t diferentes: P não pertence</b>'));
+  return [st,'r: '+paramEq(A,v),[{t:'line',p:A,v,c:'c1',l:'r'},{t:'pt',p:A,c:'c1',l:'A'},{t:'pt',p:B,c:'c1',l:'B'},{t:'pt',p:P,c:ok?'c2':'bad',l:'P'}]] },
+ planos(){ const A=parse('p-a'),B=parse('p-b'),C=parse('p-c'); const AB=sub(B,A),AC=sub(C,A),n0=cross(AB,AC);
+  if(isZ(n0))throw new Error('Os três pontos estão alinhados (AB⃗ × AC⃗ = 0⃗): eles não determinam um plano único.');
+  const n=simp(n0), d=-dot(n,A);
+  return [['AB⃗ = B − A = '+V(AB)+' e AC⃗ = C − A = '+V(AC),'n⃗ = AB⃗ × AC⃗ = '+V(n0)+(V(n)!==V(n0)?' → simplificando: '+V(n):''),
+   'Equação com d: '+lin(n,['x','y','z'],0)+' + d = 0','Substituindo A: '+fmt(n[0])+'·'+fmt(A[0])+' + '+fmt(n[1])+'·'+fmt(A[1])+' + '+fmt(n[2])+'·'+fmt(A[2])+' + d = 0 → d = '+fmt(d),
+   'Conferindo com C: '+fmt(dot(n,C)+d)+' = 0 ✓'],'π: '+planeEq(n,d),[{t:'plane',n,d,c:'c2',l:'π'},{t:'pt',p:A,c:'c1',l:'A'},{t:'pt',p:B,c:'c1',l:'B'},{t:'pt',p:C,c:'c1',l:'C'},{t:'vec',a:A,v:mul(unit(n),2.5),c:'c3',l:'n'}]] },
+ posrr(){ const P=parse('prr-p'),u=parse('prr-u'),Q=parse('prr-q'),v=parse('prr-v'); if(isZ(u)||isZ(v))throw new Error('Vetor diretor não pode ser (0, 0, 0).'); const I=linesInfo(P,u,Q,v);
+  const sc=[{t:'line',p:P,v:u,c:'c1',l:'r'},{t:'line',p:Q,v,c:'c2',l:'s'}]; if(I.pt)sc.push({t:'pt',p:I.pt,c:'c3',l:'∩'}); return [I.steps,I.res,sc] },
+ posrp(){ const P=parse('prp-p'),u=parse('prp-u'),pl=parse('prp-pl',4); const n=pl.slice(0,3),d=pl[3]; const nu=dot(n,u),val=dot(n,P)+d;
+  const st=['Plano: '+planeEq(n,d)+' → n⃗ = '+V(n)+'. Reta: P = '+V(P)+', u⃗ = '+V(u)+'.','n⃗ · u⃗ = '+fmt(nu)]; let res,sc=[{t:'plane',n,d,c:'c2',l:'π'},{t:'line',p:P,v:u,c:'c1',l:'r'}];
+  if(Math.abs(nu)>1e-9){ const t=-val/nu, I=add(P,mul(u,t)); st.push('≠ 0 → a reta fura o plano.','Substituindo o ponto genérico P + t·u⃗ no plano: '+fmt(val)+' + '+fmt(nu)+'t = 0 → t = '+fmt(t));
+    const sn=Math.abs(nu)/(nrm(n)*nrm(u)); st.push('Ângulo: sen θ = |n⃗·u⃗|/(‖n⃗‖‖u⃗‖) = '+fmt(Math.abs(nu))+'/('+nStr(n)+'·'+nStr(u)+') → θ ≈ '+niceAng(Math.asin(Math.min(1,sn))*180/Math.PI));
+    res='Secante: fura o plano em '+V(I); sc.push({t:'pt',p:I,c:'c3',l:'∩'}) }
+  else { st.push('= 0 → reta paralela ao plano ou contida nele.','Testando P no plano: '+fmt(val)+(Math.abs(val)<1e-9?' = 0':' ≠ 0'));
+    if(Math.abs(val)<1e-9)res='Reta contida no plano'; else { const ds=Math.abs(val)/nrm(n); st.push('Distância = |'+fmt(val)+'|/'+nStr(n)+' ≈ '+dec(ds)); res='Paralela ao plano · distância ≈ '+dec(ds) } }
+  return [st,res,sc] },
+ pospp(){ const a=parse('ppp-1',4),b=parse('ppp-2',4); const n1=a.slice(0,3),n2=b.slice(0,3),d1=a[3],d2=b[3]; const c=cross(n1,n2);
+  const st=['n⃗₁ = '+V(n1)+', n⃗₂ = '+V(n2)+'.','n⃗₁ × n⃗₂ = '+V(c)]; let res,sc=[{t:'plane',n:n1,d:d1,c:'c1',l:'π₁'},{t:'plane',n:n2,d:d2,c:'c2',l:'π₂'}];
+  if(isZ(c)){ const k=nrm(n2)/nrm(n1)*(dot(n1,n2)>0?1:-1); st.push('= 0⃗ → normais paralelas (n⃗₂ = '+fmt(k)+'·n⃗₁).');
+    const P1=mul(n1,-d1/dot(n1,n1)); const ds=Math.abs(dot(n2,P1)+d2)/nrm(n2); st.push('Ponto de π₁: '+V(P1)+'. Distância até π₂: '+dec(ds));
+    res=ds<1e-9?'Planos coincidentes':'Planos paralelos distintos · distância ≈ '+dec(ds) }
+  else { const p=planesPoint(n1,d1,n2,d2), dir=simp(c), cs=Math.abs(dot(n1,n2))/(nrm(n1)*nrm(n2));
+    st.push('≠ 0⃗ → planos concorrentes. A interseção é uma reta com diretor '+V(dir)+'.','Um ponto dos dois planos: '+V(p),'Ângulo: cos θ = |n⃗₁·n⃗₂|/(‖n⃗₁‖‖n⃗₂‖) = '+fmt(Math.abs(dot(n1,n2)))+'/('+nStr(n1)+'·'+nStr(n2)+') → θ ≈ '+niceAng(angDeg(cs)));
+    res='Concorrentes. Reta de interseção: '+paramEq(p,dir); sc.push({t:'line',p,v:dir,c:'c3',l:'r'}) }
+  return [st,res,sc] },
+ ang(){ const m=angMode; const a=parse('a-1'),b=parse('a-2'); if(isZ(a)||isZ(b))throw new Error('Vetor não pode ser (0, 0, 0).'); const d=dot(a,b), q=Math.abs(d)/(nrm(a)*nrm(b));
+  const L=m==='rr'?['v⃗₁','v⃗₂']:m==='rp'?['v⃗','n⃗']:['n⃗₁','n⃗₂'];
+  const st=[L[0]+'·'+L[1]+' = '+fmt(d)+' → módulo '+fmt(Math.abs(d)),'‖'+L[0]+'‖ = '+nStr(a)+', ‖'+L[1]+'‖ = '+nStr(b),(m==='rp'?'sen θ':'cos θ')+' = '+fmt(Math.abs(d))+'/('+nStr(a)+'·'+nStr(b)+') ≈ '+dec(q)];
+  const deg=m==='rp'?Math.asin(Math.min(1,q))*180/Math.PI:angDeg(q);
+  return [st,'θ ≈ '+niceAng(deg),m==='pp'?[{t:'plane',n:a,d:0,c:'c1',l:'π₁'},{t:'plane',n:b,d:0,c:'c2',l:'π₂'}]:m==='rp'?[{t:'line',p:[0,0,0],v:a,c:'c1',l:'r'},{t:'plane',n:b,d:0,c:'c2',l:'π'}]:[{t:'line',p:[0,0,0],v:a,c:'c1',l:'r₁'},{t:'line',p:[0,0,0],v:b,c:'c2',l:'r₂'}]] },
+ dist(){ const m=distMode;
+  if(m==='ppl'){ const P=parse('d-1'),pl=parse('d-2',4),n=pl.slice(0,3),d=pl[3],val=dot(n,P)+d,ds=Math.abs(val)/nrm(n);
+   const foot=sub(P,mul(n,val/dot(n,n)));
+   return [['Em cima: |'+fmt(n[0])+'·'+fmt(P[0])+' + '+fmt(n[1])+'·'+fmt(P[1])+' + '+fmt(n[2])+'·'+fmt(P[2])+' + '+fmt(d)+'| = '+fmt(Math.abs(val)),'Embaixo: √('+n.map(x=>fmt(x)+'²').join(' + ')+') = '+nStr(n),'Pé da perpendicular (ponto mais próximo no plano): '+V(foot)],'d = '+fmt(Math.abs(val))+' / '+nStr(n)+' ≈ '+dec(ds),[{t:'plane',n,d,c:'c2',l:'π'},{t:'pt',p:P,c:'c1',l:'P'},{t:'pt',p:foot,c:'c3',l:'pé'},{t:'seg',a:P,b:foot,c:'c1'}]] }
+  if(m==='pr'){ const P=parse('d-1'),A=parse('d-2'),v=parse('d-3'); if(isZ(v))throw new Error('Diretor não pode ser nulo.'); const AP=sub(P,A),c=cross(v,AP),ds=nrm(c)/nrm(v),t=dot(AP,v)/dot(v,v),F=add(A,mul(v,t));
+   return [['P₁P⃗ = P − P₁ = '+V(AP),'v⃗ × P₁P⃗ = '+V(c)+' → área = '+nStr(c),'‖v⃗‖ = '+nStr(v),'Pé da perpendicular na reta: '+V(F)+' (t = '+fmt(t)+')'],'d = '+nStr(c)+' / '+nStr(v)+' ≈ '+dec(ds),[{t:'line',p:A,v,c:'c2',l:'r'},{t:'pt',p:P,c:'c1',l:'P'},{t:'pt',p:F,c:'c3',l:'pé'},{t:'seg',a:P,b:F,c:'c1'}]] }
+  const P=parse('d-1'),u=parse('d-2'),Q=parse('d-3'),v=parse('d-4'); if(isZ(u)||isZ(v))throw new Error('Diretor não pode ser nulo.'); const I=linesInfo(P,u,Q,v);
+  return [I.steps,I.res,[{t:'line',p:P,v:u,c:'c1',l:'r'},{t:'line',p:Q,v,c:'c2',l:'s'}]] }
+};
+let angMode='rr',distMode='ppl';
+const DISTF={ppl:[['d-1','Ponto P','1, 2, -1'],['d-2','Plano a, b, c, d','3, -4, -5, 1']],pr:[['d-1','Ponto P','2, 0, 7'],['d-2','Ponto da reta','0, 2, -3'],['d-3','Diretor da reta','2, 2, 1']],
+  rr:[['d-1','Ponto de r','-2, 1, 4'],['d-2','Diretor de r','1, 0, -2'],['d-3','Ponto de s','3, -1, 3'],['d-4','Diretor de s','0, 2, -1']]};
+function runCalc(box){ const o=box.querySelector('.out'); try{ const [s,r,sc]=CALCS[box.dataset.calc](); out(o,s,r,sc) }catch(e){ out(o,null,null,null,e.message) } }
+function initCalcs(){
+  document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('input',()=>runCalc(b)); runCalc(b) });
+  const AL={rr:['Diretor de r₁','Diretor de r₂','1, 1, -2','-2, 1, 1'],rp:['Diretor da reta','Normal do plano','-2, -1, 1','1, 1, 0'],pp:['Normal de π₁','Normal de π₂','2, -3, 5','3, 2, 5']};
+  document.querySelectorAll('#angSeg button').forEach(bt=>bt.onclick=()=>{ angMode=bt.dataset.m; document.querySelectorAll('#angSeg button').forEach(x=>x.classList.toggle('on',x===bt));
+    const a=AL[angMode]; document.getElementById('ang-l1').textContent=a[0]; document.getElementById('ang-l2').textContent=a[1]; document.getElementById('a-1').value=a[2]; document.getElementById('a-2').value=a[3]; runCalc(bt.closest('.calc')) });
+  const df=document.getElementById('distF'); const setD=()=>{ df.innerHTML=DISTF[distMode].map(([id,l,v])=>'<label>'+l+' <input type="text" id="'+id+'" value="'+v+'"></label>').join(''); runCalc(df.closest('.calc')) };
+  document.querySelectorAll('#distSeg button').forEach(bt=>bt.onclick=()=>{ distMode=bt.dataset.m; document.querySelectorAll('#distSeg button').forEach(x=>x.classList.toggle('on',x===bt)); setD() }); setD();
+}
+
+/* ========= visualizador 3D ========= */
+const tok=n=>getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();
+class Viewer{
+  constructor(box,o={}){ this.box=box; this.cv=box.querySelector('canvas'); this.ctx=this.cv.getContext('2d'); this.objs=[]; this.yaw=o.yaw??-2.25; this.pitch=o.pitch??0.42; this.range=o.range??6; this.zoom=1; this.auto=!!o.auto;
+    this.drag=null; const c=this.cv;
+    c.addEventListener('pointerdown',e=>{this.drag=[e.clientX,e.clientY];this.auto=false;c.setPointerCapture(e.pointerId);c.style.cursor='grabbing'});
+    c.addEventListener('pointermove',e=>{ if(!this.drag)return; const dx=e.clientX-this.drag[0],dy=e.clientY-this.drag[1]; this.drag=[e.clientX,e.clientY]; this.yaw+=dx*0.01; this.pitch=Math.max(-1.45,Math.min(1.45,this.pitch+dy*0.01)); this.draw() });
+    const up=()=>{this.drag=null;c.style.cursor='grab'}; c.addEventListener('pointerup',up); c.addEventListener('pointercancel',up);
+    if(o.controls!==false){ const d=document.createElement('div'); d.className='ctl'; d.innerHTML='<button aria-label="Aproximar">+</button><button aria-label="Afastar">−</button><button aria-label="Vista inicial">⟲</button>'; box.appendChild(d);
+      const [p,m,r]=d.querySelectorAll('button'); p.onclick=()=>{this.zoom*=1.25;this.draw()}; m.onclick=()=>{this.zoom/=1.25;this.draw()}; r.onclick=()=>{this.zoom=1;this.yaw=-2.25;this.pitch=0.42;this.draw()} }
+    new ResizeObserver(()=>this.resize()).observe(box); this.resize();
+    if(this.auto && !matchMedia('(prefers-reduced-motion: reduce)').matches){ const loop=()=>{ if(this.auto){this.yaw+=0.004;this.draw()} requestAnimationFrame(loop) }; requestAnimationFrame(loop) }
+  }
+  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const dpr=window.devicePixelRatio||1; this.w=r.width; this.h=r.height||r.width*0.6; this.cv.width=this.w*dpr; this.cv.height=this.h*dpr; this.ctx.setTransform(dpr,0,0,dpr,0,0); this.draw() }
+  set(o){ this.objs=o; this.draw() }
+  P(p){ const cy=Math.cos(this.yaw),sy=Math.sin(this.yaw),cp=Math.cos(this.pitch),sp=Math.sin(this.pitch); const X=p[0]*cy-p[1]*sy, D=p[0]*sy+p[1]*cy, Y=p[2]*cp+D*sp;
+    const s=Math.min(this.w,this.h)/(2*this.range)*0.92*this.zoom; return [this.w/2+X*s,this.h/2-Y*s] }
+  col(c){ return c==='bad'?tok('bad'):c==='ink'?tok('ink'):tok(c||'c1') }
+  seg(a,b,col,wd=1,dash){ const x=this.ctx,p=this.P(a),q=this.P(b); x.strokeStyle=col;x.lineWidth=wd;x.setLineDash(dash||[]);x.beginPath();x.moveTo(...p);x.lineTo(...q);x.stroke();x.setLineDash([]) }
+  text(p,t,col){ const x=this.ctx,q=this.P(p); x.fillStyle=col; x.font='600 12px "JetBrains Mono", monospace'; x.fillText(t,q[0]+6,q[1]-6) }
+  arrow(a,v,col,lbl){ const b=add(a,v); this.seg(a,b,col,2.4); const x=this.ctx,p=this.P(a),q=this.P(b); const ang=Math.atan2(q[1]-p[1],q[0]-p[0]); x.fillStyle=col;x.beginPath();x.moveTo(q[0],q[1]);x.lineTo(q[0]-10*Math.cos(ang-0.4),q[1]-10*Math.sin(ang-0.4));x.lineTo(q[0]-10*Math.cos(ang+0.4),q[1]-10*Math.sin(ang+0.4));x.closePath();x.fill(); if(lbl)this.text(b,lbl+'⃗',col) }
+  draw(){ if(!this.w)return; const x=this.ctx,R=this.range; x.clearRect(0,0,this.w,this.h); const line=tok('line'),ink2=tok('ink2');
+    for(let i=-R;i<=R;i+=1){ this.seg([i,-R,0],[i,R,0],line,0.6); this.seg([-R,i,0],[R,i,0],line,0.6) }
+    [['x',[R+0.8,0,0]],['y',[0,R+0.8,0]],['z',[0,0,R+0.8]]].forEach(([n,e])=>{ this.seg(mul(e,-1).map((v,i)=>n==='z'?v*0.3:v),e,ink2,1.4); this.text(e,n,ink2) });
+    const planes=this.objs.filter(o=>o.t==='plane'), rest=this.objs.filter(o=>o.t!=='plane');
+    planes.forEach(o=>{ if(isZ(o.n))return; const n=o.n,c=[0,0,0]; const p0=sub(c,mul(n,(dot(n,c)+o.d)/dot(n,n))); const e1=unit(cross(n,Math.abs(n[0])<0.9*nrm(n)?[1,0,0]:[0,1,0])), e2=unit(cross(n,e1)); const S=R*0.85;
+      const col=this.col(o.c); const cr=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>this.P(add(p0,add(mul(e1,a*S),mul(e2,b*S)))));
+      x.fillStyle=col; x.globalAlpha=0.13; x.beginPath(); cr.forEach((p,i)=>i?x.lineTo(...p):x.moveTo(...p)); x.closePath(); x.fill(); x.globalAlpha=0.5;
+      for(let k=-4;k<=4;k++){ const t=k/4*S; this.seg(add(p0,add(mul(e1,t),mul(e2,-S))),add(p0,add(mul(e1,t),mul(e2,S))),col,0.7); this.seg(add(p0,add(mul(e2,t),mul(e1,-S))),add(p0,add(mul(e2,t),mul(e1,S))),col,0.7) }
+      x.globalAlpha=1; this.text(add(p0,add(mul(e1,S),mul(e2,S))),o.l||'π',col) });
+    rest.forEach(o=>{ const col=this.col(o.c);
+      if(o.t==='line'){ const u=unit(o.v),L=R*1.7; this.seg(sub(o.p,mul(u,L)),add(o.p,mul(u,L)),col,2.2); this.text(add(o.p,mul(u,R*0.9)),o.l||'r',col) }
+      else if(o.t==='vec'){ this.arrow(o.a,o.v,col,o.l) }
+      else if(o.t==='seg'){ this.seg(o.a,o.b,col,1.8,[5,4]) }
+      else if(o.t==='pt'){ const q=this.P(o.p); x.fillStyle=col; x.beginPath(); x.arc(q[0],q[1],4.5,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=1.5; x.stroke(); if(o.l)this.text(o.p,o.l,col) } });
+  }
+}
+
+/* ========= cenas ========= */
+const SCENES=[
+ {n:'Retas reversas (Ex 3)',t:'r: (0,1,1)+λ(−4,8,−2) e s: x−1 = y−4 = z. Gire e repare: nunca se encostam.',o:[{t:'line',p:[0,1,1],v:[-4,8,-2],c:'c1',l:'r'},{t:'line',p:[1,4,0],v:[1,1,1],c:'c2',l:'s'}]},
+ {n:'Concorrentes (Ex 4)',t:'As duas retas se cruzam em (0, 0, −1).',o:[{t:'line',p:[2,3,0],v:[2,3,1],c:'c1',l:'r'},{t:'line',p:[0,0,-1],v:[1,3,2],c:'c2',l:'s'},{t:'pt',p:[0,0,-1],c:'c3',l:'(0,0,−1)'}]},
+ {n:'Reta fura plano (Ex 5)',t:'r: (1,0,1)+λ(2,1,3) atravessa x+y+z=20 em (7,3,10).',o:[{t:'plane',n:[1,1,1],d:-20,c:'c2',l:'π'},{t:'line',p:[1,0,1],v:[2,1,3],c:'c1',l:'r'},{t:'pt',p:[7,3,10],c:'c3',l:'(7,3,10)'}],range:11},
+ {n:'Distância ponto–plano',t:'P = (1,2,−1) e o plano 3x−4y−5z+1=0. O tracejado é a distância √2/10 (bem pequena!).',o:[{t:'plane',n:[3,-4,-5],d:1,c:'c2',l:'π'},{t:'pt',p:[1,2,-1],c:'c1',l:'P'},{t:'seg',a:[1,2,-1],b:sub([1,2,-1],mul([3,-4,-5],1/50)),c:'c1'}]},
+ {n:'Planos concorrentes',t:'−x−y+2z−4=0 e 2x+y−3z=0 se cortam na reta (4,−8,0)+t(1,1,1).',o:[{t:'plane',n:[-1,-1,2],d:-4,c:'c1',l:'π₁'},{t:'plane',n:[2,1,-3],d:0,c:'c2',l:'π₂'},{t:'line',p:[4,-8,0],v:[1,1,1],c:'c3',l:'r'}],range:9},
+ {n:'Perpendicular comum (Lista Q3)',t:'A reta t (violeta) toca r e s formando 90° com as duas. O trecho entre os toques mede √8.',o:[{t:'line',p:[2,0,-1],v:[2,1,1],c:'c1',l:'r'},{t:'line',p:[0,-1,2],v:[1,1,1],c:'c2',l:'s'},{t:'line',p:[-4,-5,-2],v:[0,-1,1],c:'c3',l:'t'},{t:'pt',p:[-4,-3,-4],c:'c3'},{t:'pt',p:[-4,-5,-2],c:'c3'}],range:8},
+ {n:'Plano por 3 pontos',t:'A, B, C e o normal AB⃗ × AC⃗ espetado.',o:[{t:'plane',n:[-5,-2,16],d:-21,c:'c2',l:'π'},{t:'pt',p:[1,3,2],c:'c1',l:'A'},{t:'pt',p:[-1,0,1],c:'c1',l:'B'},{t:'pt',p:[3,-2,2],c:'c1',l:'C'},{t:'vec',a:[1,3,2],v:mul(unit([-5,-2,16]),3),c:'c3',l:'n'}]}
+];
+let lab,labObjs=[],labTxt='';
+function describe(o){ return o.t==='line'?(o.l||'reta')+': '+V(o.p)+' + t'+V(o.v):o.t==='plane'?(o.l||'plano')+': '+planeEq(o.n,o.d):o.t==='pt'?(o.l||'ponto')+' '+V(o.p):o.t==='vec'?(o.l||'vetor')+' '+V(o.v)+' em '+V(o.a):'segmento' }
+function renderLab(){ if(!lab)return; lab.set(labObjs); document.getElementById('sceneTxt').textContent=labTxt; const ul=document.getElementById('objlist');
+  ul.innerHTML=labObjs.map((o,i)=>o.t==='seg'?'':'<li><i class="sw" style="background:'+lab.col(o.c)+'"></i><span>'+describe(o)+'</span><button data-i="'+i+'">remover</button></li>').join('');
+  ul.querySelectorAll('button').forEach(b=>b.onclick=()=>{ labObjs.splice(+b.dataset.i,1); renderLab() }) }
+function loadScene(objs,txt,range,name){ labObjs=objs.map(o=>({...o})); labTxt=txt||'Cena enviada da calculadora.'; if(lab){ lab.range=range||Math.max(6,Math.min(14,Math.ceil(Math.max(5,...objs.flatMap(o=>(o.p||o.a||[0]).map(Math.abs)))+2))); lab.zoom=1 }
+  document.getElementById('labTitle').textContent=name||'cena personalizada'; renderLab() }
+
+/* ========= lista ========= */
+const LISTA=[
+ {n:'1',m:'retas · posições · planos · distâncias',q:'A = (3, 5, 3), B = (1, 1, 1) e s: (x, y, z) = (1, 2, 3) + t(1, 2, 1).',parts:[
+  ['(a) Reta r por A e B',['v⃗ = B − A = (1−3, 1−5, 1−3) = (−2, −4, −2).','Simplifique dividindo por −2: v⃗ = (1, 2, 1). (O gabarito usa (2, 4, 2): é a mesma direção.)','Use B = (1, 1, 1) como ponto.'],'r: x = 1 + t, y = 1 + 2t, z = 1 + t (ou x = 1 + 2t, y = 1 + 4t, z = 1 + 2t)'],
+  ['(b) Posição relativa',['Diretor de r: (1, 2, 1). Diretor de s: (1, 2, 1). Iguais → paralelos.','Teste se B (de r) está em s: B − (1, 2, 3) = (0, −1, −2).','(0, −1, −2) não é múltiplo de (1, 2, 1) (o 0 exigiria k = 0, mas aí −1 ≠ 0). Então B não está em s.'],'Paralelas distintas'],
+  ['(c) Plano que contém r e s',['Paralelas distintas estão sempre num mesmo plano. Dois vetores no plano: u⃗ = (1, 2, 1) e w⃗ = (0, −1, −2) (ligando um ponto de cada reta).','n⃗ = u⃗ × w⃗ = (2·(−2) − 1·(−1), 1·0 − 1·(−2), 1·(−1) − 2·0) = (−3, 2, −1).','−3x + 2y − z + d = 0. Com B = (1, 1, 1): −3 + 2 − 1 + d = 0 → d = 2.','−3x + 2y − z + 2 = 0. Multiplicando por −1: 3x − 2y + z − 2 = 0.'],'3x − 2y + z = 2'],
+  ['(d) Distância entre r e s',['Paralelas → ponto de uma até a outra (fórmula ponto–reta).','‖u⃗ × w⃗‖ = ‖(−3, 2, −1)‖ = √14. ‖u⃗‖ = √6.','d = √14/√6 = √(14/6) = √(7/3).'],'d = √(7/3) ≈ 1,53']]},
+ {n:'2',m:'retas · planos',q:'Plano π que contém r₁: x = 2t, y = t, z = 2 − t e r₂: z = 2, x = y.',parts:[['',['r₁: t = 0 dá o ponto (0, 0, 2); diretor u⃗ = (2, 1, −1).','r₂ só tem duas equações. Faça x = t: então y = t e z = 2. Ponto (0, 0, 2), diretor v⃗ = (1, 1, 0).','As duas passam por (0, 0, 2) → concorrentes. Normal: n⃗ = u⃗ × v⃗ = (1·0 − (−1)·1, (−1)·1 − 2·0, 2·1 − 1·1) = (1, −1, 1).','x − y + z + d = 0 com (0, 0, 2): 2 + d = 0 → d = −2.'],'π: x − y + z = 2']]},
+ {n:'3',m:'posições · ângulos · distâncias',q:'r: (x − 2)/2 = y = z + 1 e s: x = y + 1 = z − 2.',parts:[
+  ['(a) Posição relativa',['r: ponto Pᵣ = (2, 0, −1), diretor u⃗ = (2, 1, 1). Lembre: "y" = (y − 0)/1 e "z + 1" = (z − (−1))/1.','s: x/1 = (y + 1)/1 = (z − 2)/1 → Pₛ = (0, −1, 2), v⃗ = (1, 1, 1).','2/1 ≠ 1/1 → não paralelos. PᵣPₛ⃗ = (−2, −1, 3).','det [2 1 1; 1 1 1; −2 −1 3] = 2(3 + 1) − 1(3 + 2) + 1(−1 + 2) = 8 − 5 + 1 = 4.'],'det = 4 ≠ 0 → reversas'],
+  ['(b) Reta t perpendicular e concorrente às duas',['Direção de t: perpendicular a u⃗ e v⃗ ao mesmo tempo → w⃗ = u⃗ × v⃗ = (1·1 − 1·1, 1·1 − 2·1, 2·1 − 1·1) = (0, −1, 1).','Pontos genéricos: R = (2 + 2a, a, −1 + a) em r e S = (b, −1 + b, 2 + b) em s.','RS⃗ = S − R = (b − 2 − 2a, b − 1 − a, b + 3 − a).','RS⃗ · u⃗ = 0: 2(b − 2 − 2a) + (b − 1 − a) + (b + 3 − a) = 0 → 4b − 6a − 2 = 0.','RS⃗ · v⃗ = 0: (b − 2 − 2a) + (b − 1 − a) + (b + 3 − a) = 0 → 3b − 4a = 0 → b = 4a/3.','Substituindo: 16a/3 − 6a = 2 → −2a/3 = 2 → a = −3 e b = −4.','R = (−4, −3, −4) e S = (−4, −5, −2). RS⃗ = (0, −2, 2), paralelo a w⃗ ✓.'],'t: x = −4, y = −5 − t, z = −2 + t'],
+  ['(c) Ângulo e distância',['cos θ = |u⃗·v⃗|/(‖u⃗‖‖v⃗‖) = |2 + 1 + 1|/(√6·√3) = 4/√18.','Distância (reversas) = |det|/‖u⃗ × v⃗‖ = 4/‖(0, −1, 1)‖ = 4/√2 = 2√2.','Confere com o item (b): ‖RS⃗‖ = √(0 + 4 + 4) = √8 = 2√2 ✓.'],'θ = arccos(4/√18) ≈ 19,5° · d = √8 ≈ 2,83']]},
+ {n:'4',m:'planos · retas',q:'A = (3, 4, −2) e r: x = 1 + t, y = 2 − t, z = 4 + 2t.',parts:[
+  ['(a) Plano perpendicular a r por A',['Plano ⊥ reta → a normal do plano é o diretor da reta: n⃗ = (1, −1, 2).','x − y + 2z + d = 0 com A: 3 − 4 − 4 + d = 0 → d = 5.'],'x − y + 2z = −5'],
+  ['(b) Reta por A perpendicular a r',['Ponto genérico de r: Q = (1 + t, 2 − t, 4 + 2t).','AQ⃗ = Q − A = (t − 2, −2 − t, 6 + 2t).','Perpendicular: AQ⃗ · (1, −1, 2) = (t − 2) + (2 + t) + (12 + 4t) = 6t + 12 = 0 → t = −2.','Q = (−1, 4, 0) e AQ⃗ = (−4, 0, 2).'],'x = 3 − 4t, y = 4, z = −2 + 2t']]},
+ {n:'5',m:'planos',q:'r: (x − 1)/2 = y − 2 = (z − 2)/3 e π: 2x + y + z = −2. Plano α que contém r e é ⊥ a π.',parts:[['',['r: ponto (1, 2, 2), diretor v⃗ = (2, 1, 3). Ele fica deitado em α.','α ⊥ π → a normal de π, n⃗ = (2, 1, 1), também fica deitada em α (pense numa parede em pé sobre o piso: o "prego" do piso corre ao longo da parede).','n⃗_α = v⃗ × n⃗ = (1·1 − 3·1, 3·2 − 2·1, 2·1 − 1·2) = (−2, 4, 0) → simplifica para (−1, 2, 0).','−x + 2y + d = 0 com (1, 2, 2): −1 + 4 + d = 0 → d = −3.'],'α: −x + 2y = 3']]},
+ {n:'6',m:'retas · planos',q:'r: x = 1, y = −z e A = (1, 1, 1). Plano π paralelo a r, passando por A, cuja reta normal por A é ⊥ e concorrente a r.',parts:[['',['Leia r: x = 1 fixo; faça y = t → z = −t. Ponto (1, 0, 0), diretor v⃗ = (0, 1, −1).','A normal de π sai de A e bate em r em ângulo reto. Ponto genérico Q = (1, t, −t), AQ⃗ = (0, t − 1, −t − 1).','AQ⃗ · v⃗ = (t − 1) + (t + 1) = 2t = 0 → t = 0 → Q = (1, 0, 0), AQ⃗ = (0, −1, −1).','Normal n⃗ = (0, 1, 1). y + z + d = 0 com A: 1 + 1 + d = 0 → d = −2.','Conferindo: n⃗·v⃗ = 1 − 1 = 0, então π é paralelo a r ✓.'],'π: y + z = 2']]},
+ {n:'7',m:'retas · planos',q:'Reta por Q = (1, 2, 1) perpendicular ao plano x − y + 2z − 1 = 0.',parts:[['',['Reta ⊥ plano → o diretor da reta é a normal do plano: (1, −1, 2).','Monte com o ponto Q.'],'x = 1 + t, y = 2 − t, z = 1 + 2t']]},
+ {n:'8',m:'retas · vetorial',q:'Reta por P = (1, 0, 1) paralela aos planos 2x + 3y + z + 1 = 0 e x − y + z = 0.',parts:[['',['Paralela a um plano → diretor ⊥ à normal dele. Paralela aos dois → ⊥ às duas normais.','v⃗ = n⃗₁ × n⃗₂ = (2, 3, 1) × (1, −1, 1) = (3·1 − 1·(−1), 1·1 − 2·1, 2·(−1) − 3·1) = (4, −1, −5).'],'x = 1 + 4t, y = −t, z = 1 − 5t']]},
+ {n:'9',m:'planos · posições',q:'r = interseção de x + y − z = 0 e 2x − y + 3z − 1 = 0. Plano por A = (1, 0, −1) que contém r.',parts:[['',['Diretor de r: n⃗₁ × n⃗₂ = (1, 1, −1) × (2, −1, 3) = (1·3 − (−1)(−1), (−1)·2 − 1·3, 1·(−1) − 1·2) = (2, −5, −3).','Ponto de r: faça z = 0 → x + y = 0 e 2x − y = 1 → somando: 3x = 1 → x = 1/3, y = −1/3. P₀ = (1/3, −1/3, 0).','AP₀⃗ = (−2/3, −1/3, 1). Multiplique por −3 para tirar frações: (2, 1, −3).','n⃗ = (2, −5, −3) × (2, 1, −3) = (15 + 3, −6 + 6, 2 + 10) = (18, 0, 12) → simplifica para (3, 0, 2).','3x + 2z + d = 0 com A: 3 − 2 + d = 0 → d = −1.','Atalho: qualquer plano que contém r é x + y − z + k(2x − y + 3z − 1) = 0. Com A: 2 − 2k = 0 → k = 1 → 3x + 2z − 1 = 0. Mesmo resultado.'],'3x + 2z − 1 = 0']]},
+ {n:'10',m:'posições · retas',q:'Planos 2x − y + z = 0 e x + 2y − z = 1.',parts:[
+  ['(a) Mostrar que se cortam numa reta r',['n⃗₁ = (2, −1, 1) e n⃗₂ = (1, 2, −1): 2/1 ≠ −1/2 → não paralelas → planos concorrentes, a interseção é uma reta.','Diretor: n⃗₁ × n⃗₂ = ((−1)(−1) − 1·2, 1·1 − 2·(−1), 2·2 − (−1)·1) = (−1, 3, 5).','Ponto: z = 0 → 2x = y e x + 2y = 1 → 5x = 1 → (1/5, 2/5, 0).'],'r: (1/5, 2/5, 0) + k(−1, 3, 5)'],
+  ['(b) Reta por A = (1, 0, 1) que corta r ortogonalmente',['Ponto genérico de r: Q = (1/5 − k, 2/5 + 3k, 5k).','AQ⃗ = (−4/5 − k, 2/5 + 3k, 5k − 1).','AQ⃗ · (−1, 3, 5) = 4/5 + k + 6/5 + 9k + 25k − 5 = 35k − 3 = 0 → k = 3/35.','AQ⃗ = (−31/35, 23/35, −20/35). Multiplique por 35: (−31, 23, −20).','Conferindo: (−31)(−1) + 23·3 + (−20)·5 = 31 + 69 − 100 = 0 ✓'],'x = 1 − 31k, y = 23k, z = 1 − 20k']]},
+ {n:'11',m:'planos',q:'Plano paralelo a 2x − y + 5z − 3 = 0 por P = (1, −2, 1).',parts:[['',['Paralelo → mesma normal (2, −1, 5): 2x − y + 5z + d = 0.','Com P: 2 + 2 + 5 + d = 0 → d = −9.'],'2x − y + 5z − 9 = 0']]},
+ {n:'12',m:'planos · vetorial',q:'Plano por P = (2, 1, 0) perpendicular a x + 2y − 3z + 2 = 0 e 2x − y + 4z − 1 = 0.',parts:[['',['Perpendicular aos dois → as duas normais ficam deitadas no plano procurado.','n⃗ = (1, 2, −3) × (2, −1, 4) = (8 − 3, −6 − 4, −1 − 4) = (5, −10, −5) → (1, −2, −1).','x − 2y − z + d = 0 com P: 2 − 2 − 0 + d = 0 → d = 0.'],'x − 2y − z = 0']]},
+ {n:'13',m:'planos',q:'Plano por P = (1, 0, 0) e Q = (1, 0, 1), perpendicular ao plano y = z.',parts:[['',['Vetor no plano: PQ⃗ = (0, 0, 1).','y = z vira y − z = 0 → normal (0, 1, −1), que fica deitada no plano procurado.','n⃗ = (0, 0, 1) × (0, 1, −1) = (0·(−1) − 1·1, 1·0 − 0·(−1), 0) = (−1, 0, 0) → (1, 0, 0).','x + d = 0 com P: 1 + d = 0 → d = −1.'],'x = 1']]},
+ {n:'14',m:'posições',q:'Interseção da reta pela origem com diretor i⃗ + 2j⃗ + k⃗ e o plano 2x + y + z = 5.',parts:[['',['i⃗ + 2j⃗ + k⃗ = (1, 2, 1). Reta: (t, 2t, t).','No plano: 2t + 2t + t = 5 → 5t = 5 → t = 1.'],'(1, 2, 1)']]},
+ {n:'15',m:'posições',q:'r: (9t, 1 + 6t, −2 + 3t) e s: (1 + 2λ, 3 + λ, 1). Se interceptam?',parts:[['',['Os parâmetros são diferentes (t e λ): queremos saber se as trajetórias se cruzam, não se chegam lá ao mesmo tempo.','Iguale: 9t = 1 + 2λ, 1 + 6t = 3 + λ, −2 + 3t = 1.','Da 3ª: t = 1. Na 1ª: 9 = 1 + 2λ → λ = 4.','Teste na 2ª: 1 + 6 = 7 e 3 + 4 = 7 ✓. As três batem → se cruzam.'],'Sim, em (9, 7, 1)']]}
+];
+function exHTML(steps,ans){ return '<ol>'+steps.map((s,i)=>'<li class="'+(i?'hid':'')+'">'+s+'</li>').join('')+'</ol><div class="ans">'+ans+'</div><div class="btns"><button class="nx">Próximo passo</button><button class="ghost al">Ver resolução toda</button></div>' }
+function bindEx(box){ const lis=[...box.querySelectorAll('ol>li')]; const nx=box.querySelector('.nx'),al=box.querySelector('.al');
+  const upd=()=>{ const left=lis.filter(l=>l.classList.contains('hid')).length; nx.textContent=left?'Próximo passo ('+left+')':'Ver resposta'; if(box.classList.contains('all'))nx.disabled=al.disabled=true };
+  nx.onclick=()=>{ const h=lis.find(l=>l.classList.contains('hid')); if(h)h.classList.remove('hid'); else box.classList.add('all'); upd() };
+  al.onclick=()=>{ lis.forEach(l=>l.classList.remove('hid')); box.classList.add('all'); upd() }; upd() }
+function initEx(){
+  document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'); const steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); bindEx(b) });
+  document.getElementById('listaBox').innerHTML=LISTA.map(q=>'<details class="qitem"><summary><span class="qn">Q'+q.n+'</span><span>'+q.q+'<span class="tagt">revise: '+q.m+'</span></span></summary><div class="body">'+q.parts.map(p=>'<div class="part ex" style="border:none;padding:0;margin:14px 0 0">'+(p[0]?'<h5>'+p[0]+'</h5>':'')+exHTML(p[1],p[2])+'</div>').join('')+'</div></details>').join('');
+  document.querySelectorAll('#listaBox .part').forEach(bindEx) }
+
+/* ========= quiz ========= */
+const QUIZ=[
+ ['Se u⃗ · v⃗ = 0, então u⃗ e v⃗ são…',['paralelos','perpendiculares','iguais','reversos'],1,'Produto escalar zero significa cos θ = 0, ou seja, θ = 90°.'],
+ ['Qual é o vetor diretor da reta x = 2 + 3t, y = −t, z = 5?',['(2, 0, 5)','(3, −1, 5)','(3, −1, 0)','(2, −1, 5)'],2,'Os números que multiplicam t formam o diretor. z = 5 não tem t, então a 3ª coordenada é 0.'],
+ ['O vetor normal do plano 2x − y + 4z − 7 = 0 é…',['(2, −1, 4)','(2, −1, 4, −7)','(−7, 0, 0)','(1, 1, 1)'],0,'Basta ler os coeficientes de x, y e z. O −7 só posiciona o plano.'],
+ ['Duas retas têm diretores (1, 2, 3) e (2, 4, 6), e um ponto de uma não está na outra. Elas são…',['concorrentes','reversas','coincidentes','paralelas distintas'],3,'(2, 4, 6) = 2·(1, 2, 3) → paralelas. Como não compartilham pontos, são distintas.'],
+ ['Diretores não paralelos e produto misto (u⃗, v⃗, PQ⃗) ≠ 0. As retas são…',['concorrentes','reversas','paralelas','coincidentes'],1,'Volume diferente de zero: as três setas não cabem num plano, então as retas estão em "andares" diferentes.'],
+ ['n⃗ · u⃗ = 0 e um ponto da reta satisfaz a equação do plano. Então a reta…',['fura o plano','é paralela ao plano','está contida no plano','é perpendicular ao plano'],2,'n⃗·u⃗ = 0 deixa a reta "deitada"; tendo um ponto na chapa, ela inteira está na chapa.'],
+ ['Para o ângulo entre reta e plano, a fórmula usa…',['cosseno, com diretor e normal','seno, com diretor e normal','cosseno, com dois diretores','tangente'],1,'O escalar dá o ângulo com a normal; o complemento dele (o ângulo com o plano) sai pelo seno.'],
+ ['Distância da origem ao plano 2x + y + 2z − 6 = 0:',['6','3','2','√6'],2,'|0 + 0 + 0 − 6|/√(4 + 1 + 4) = 6/3 = 2.'],
+ ['O ângulo entre os planos x = 0 e y = 0 é…',['0°','45°','60°','90°'],3,'Normais (1, 0, 0) e (0, 1, 0): escalar 0 → 90°. São duas "paredes" em esquina.'],
+ ['Para achar a normal do plano por A, B e C, faço…',['A × B','AB⃗ · AC⃗','AB⃗ × AC⃗','A + B + C'],2,'Dois vetores deitados no plano, produto vetorial. O escalar daria só um número.'],
+ ['Distância entre os planos x + y + z = 1 e x + y + z = 4:',['3','√3','1','3√3'],1,'Ponto (1, 0, 0) no 1º. No 2º: |1 − 4|/√3 = 3/√3 = √3.'],
+ ['Uma reta paralela aos planos π₁ e π₂ (concorrentes) tem diretor…',['n⃗₁ + n⃗₂','n⃗₁ · n⃗₂','n⃗₁ × n⃗₂','n⃗₁'],2,'Precisa ser perpendicular às duas normais ao mesmo tempo: é exatamente o que o vetorial entrega (Lista Q8).'],
+ ['Em (x − 1)/2 = y = (z + 3)/(−1), o ponto e o diretor são…',['(1, 0, −3) e (2, 1, −1)','(1, 0, 3) e (2, 0, −1)','(−1, 0, 3) e (2, 1, 1)','(2, 1, −1) e (1, 0, −3)'],0,'"z + 3" significa z − (−3). "y" sozinho é (y − 0)/1.'],
+ ['O ponto (7, 4, −7) está em x = 3 + 2t, y = 2t, z = −5 − t?',['Sim, com t = 2','Não','Sim, com t = 4','Só se t = −2'],0,'7 = 3 + 2t → t = 2; 4 = 2t → t = 2; −7 = −5 − t → t = 2. Mesmo t nas três (Exemplo 2 da aula).']
+];
+let qa={};
+function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<div class="qz" data-i="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="opts">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="why" hidden></div></div>').join('');
+  box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i]; const bs=c.querySelectorAll('button');
+    const show=j=>{ bs.forEach((b,k)=>{b.disabled=true; if(k===q[2])b.classList.add('right'); else if(k===j)b.classList.add('wrong')}); const w=c.querySelector('.why'); w.hidden=false; w.innerHTML=(j===q[2]?'<b style="color:var(--ok)">Certo!</b> ':'<b style="color:var(--bad)">Quase.</b> ')+q[3] };
+    bs.forEach(b=>b.onclick=()=>{ const j=+b.dataset.j; qa[i]=j; show(j); score(); save() }); if(qa[i]!==undefined)show(qa[i]) }); score() }
+function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · pronto para a prova!':ok>=9?' · quase lá':' · revise os módulos'):'') }
+
+/* ========= progresso ========= */
+const MODS=[['kit','Vetores e os 3 produtos','A base de tudo: escalar, vetorial e misto'],['retas','Retas','Ponto + direção em 4 formas de equação'],['planos','Planos','Ponto + normal, e como achar a normal'],['posicoes','Posições relativas','O fluxograma que decide quem cruza com quem'],['angulos','Ângulos','cos, cos e o seno da reta–plano'],['distancias','Distâncias','Área ÷ base, volume ÷ área, e o prumo']];
+let done={};
+function load(){ try{ done=JSON.parse(localStorage.getItem('gaal-done')||'{}'); qa=JSON.parse(localStorage.getItem('gaal-quiz')||'{}') }catch(e){} }
+function save(){ try{ localStorage.setItem('gaal-done',JSON.stringify(done)); localStorage.setItem('gaal-quiz',JSON.stringify(qa)) }catch(e){} }
+function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getElementById('progtxt').textContent=n+'/6 módulos'; document.getElementById('progbar').style.width=(n/6*100)+'%';
+  document.getElementById('trail').innerHTML=MODS.map((m,i)=>'<a class="stop'+(done[m[0]]?' done':'')+'" href="#'+m[0]+'"><span class="n">'+(done[m[0]]?'✓':i+1)+'</span><b>'+m[1]+'</b><span>'+m[2]+'</span></a>').join('')+
+   '<a class="stop" href="#lista"><span class="n">L</span><b>Lista resolvida</b><span>15 questões, um passo de cada vez</span></a><a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
+  document.querySelectorAll('#nav a[data-m]').forEach(a=>{ a.querySelector('.dn')?.remove(); if(done[a.dataset.m])a.insertAdjacentHTML('beforeend','<i class="dn"></i>') });
+  document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
+    d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#lista">Agora encare a lista →</a>');
+    d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
+
+/* ========= rotas ========= */
+const VIEWS=['inicio','kit','retas','planos','posicoes','angulos','distancias','lab','lista','quiz','cola'];
+function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
+  VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
+  document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
+  window.scrollTo(0,0); requestAnimationFrame(()=>[hero,retaV,planoV,lab].forEach(v=>v&&v.resize())) }
+
+/* ========= demo escalar 2D ========= */
+function dotDemo(){ const c=document.getElementById('dotCv'),x=c.getContext('2d'),s=document.getElementById('dotAng');
+  const draw=()=>{ const a=+s.value*Math.PI/180, W=400, o=[200,250], L=140; x.clearRect(0,0,W,W);
+    const cs=Math.cos(a); const col=Math.abs(cs)<0.02?tok('ok'):cs>0?tok('c2'):tok('bad');
+    x.lineWidth=3; const ar=(p,q,cl)=>{x.strokeStyle=cl;x.fillStyle=cl;x.beginPath();x.moveTo(...p);x.lineTo(...q);x.stroke();const g=Math.atan2(q[1]-p[1],q[0]-p[0]);x.beginPath();x.moveTo(...q);x.lineTo(q[0]-16*Math.cos(g-.4),q[1]-16*Math.sin(g-.4));x.lineTo(q[0]-16*Math.cos(g+.4),q[1]-16*Math.sin(g+.4));x.fill()};
+    const v=[o[0]+L*Math.cos(a),o[1]-L*Math.sin(a)];
+    x.strokeStyle=tok('c1');x.lineWidth=10;x.globalAlpha=.35;x.beginPath();x.moveTo(...o);x.lineTo(o[0]+L*cs,o[1]);x.stroke();x.globalAlpha=1;
+    x.setLineDash([5,5]);x.lineWidth=1.5;x.strokeStyle=tok('ink2');x.beginPath();x.moveTo(...v);x.lineTo(v[0],o[1]);x.stroke();x.setLineDash([]);
+    x.lineWidth=2;x.strokeStyle=col;x.beginPath();x.arc(...o,40,-a,0);x.stroke();
+    x.lineWidth=3; ar(o,[o[0]+L,o[1]],tok('ink')); ar(o,v,col);
+    x.font='600 22px "JetBrains Mono", monospace';x.fillStyle=tok('ink');x.fillText('u',o[0]+L-10,o[1]+30);x.fillStyle=col;x.fillText('v',v[0]+8,v[1]-6);
+    document.getElementById('dotAngV').textContent=s.value+'°'; document.getElementById('dotVal').textContent=dec(cs*1)+' (com ‖u⃗‖ = ‖v⃗‖ = 1)';
+    const ver=document.getElementById('dotVer'); ver.style.color=col; ver.textContent=Math.abs(cs)<0.02?'Zero: perpendiculares!':cs>0?'Positivo: apontam para o mesmo lado':'Negativo: apontam para lados opostos' };
+  s.oninput=draw; draw(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw) }
+
+/* ========= add objeto no lab ========= */
+function initLab(){ const pr=document.getElementById('presets'); pr.innerHTML=SCENES.map((s,i)=>'<button data-i="'+i+'">'+s.n+'</button>').join('');
+  pr.querySelectorAll('button').forEach(b=>b.onclick=()=>{ const s=SCENES[+b.dataset.i]; loadScene(s.o,s.t,s.range||8,s.n) });
+  const T=document.getElementById('addT'),L1=document.getElementById('addL1'),L2=document.getElementById('addL2'),W2=document.getElementById('add2w'),i1=document.getElementById('add1'),i2=document.getElementById('add2');
+  const lab_={line:['Ponto','Diretor','0, 0, 0','1, 1, 1'],plane:['Coeficientes a, b, c, d',null,'1, 1, 1, -3'],point:['Coordenadas',null,'1, 2, 3'],vec:['Origem','Vetor','0, 0, 0','2, 1, 0']};
+  T.onchange=()=>{ const c=lab_[T.value]; L1.textContent=c[0]; i1.value=c[2]; W2.hidden=!c[1]; if(c[1]){L2.textContent=c[1];i2.value=c[3]} };
+  const cols=['c1','c2','c3'];
+  document.getElementById('addBtn').onclick=()=>{ const er=document.getElementById('addErr'); er.textContent=''; try{ const t=T.value,c=cols[labObjs.length%3];
+    if(t==='line'){ const v=parse('add2'); if(isZ(v))throw new Error('Diretor não pode ser nulo.'); labObjs.push({t:'line',p:parse('add1'),v,c,l:'r'+(labObjs.length+1)}) }
+    else if(t==='plane'){ const a=parse('add1',4); if(isZ(a.slice(0,3)))throw new Error('a, b, c não podem ser todos zero.'); labObjs.push({t:'plane',n:a.slice(0,3),d:a[3],c,l:'π'+(labObjs.length+1)}) }
+    else if(t==='point') labObjs.push({t:'pt',p:parse('add1'),c,l:'P'+(labObjs.length+1)});
+    else labObjs.push({t:'vec',a:parse('add1'),v:parse('add2'),c,l:'v'+(labObjs.length+1)});
+    labTxt='Cena personalizada.'; renderLab() }catch(e){ er.textContent=e.message } };
+  document.getElementById('clrBtn').onclick=()=>{ labObjs=[]; labTxt='Cena vazia. Adicione objetos ou escolha uma cena pronta.'; renderLab() } }
+
+/* ========= boot ========= */
+let hero,retaV,planoV;
+load(); initEx(); initCalcs(); renderQuiz(); renderProg(); dotDemo();
+hero=new Viewer(document.getElementById('heroCv'),{auto:true,range:6,controls:false});
+hero.set([{t:'plane',n:[0,0.35,1],d:-0.5,c:'c2',l:'π'},{t:'line',p:[0,0,0.5],v:[1,-0.6,1.4],c:'c1',l:'r'},{t:'vec',a:[0,0.4,0.36],v:mul(unit([0,0.35,1]),3),c:'c3',l:'n'},{t:'pt',p:[0.06,-0.04,0.58],c:'c3'}]);
+retaV=new Viewer(document.getElementById('retaCv'),{range:6});
+const drawReta=()=>{ const t=+document.getElementById('retaT').value, A=[3,0,-1], v=[1,1,1]; document.getElementById('retaTV').textContent=String(t).replace('.',',');
+  retaV.set([{t:'line',p:A,v,c:'c1',l:'r'},{t:'pt',p:A,c:'ink',l:'A (t=0)'},{t:'vec',a:A,v,c:'c2',l:'v'},{t:'pt',p:add(A,mul(v,t)),c:'c3',l:'P = A + '+String(t).replace('.',',')+'v'}]) };
+document.getElementById('retaT').oninput=drawReta; drawReta();
+planoV=new Viewer(document.getElementById('planoCv'),{range:8});
+planoV.set([{t:'plane',n:[2,-3,2],d:11,c:'c2',l:'π'},{t:'pt',p:[1,3,-2],c:'c1',l:'Q'},{t:'vec',a:[1,3,-2],v:mul(unit([2,-3,2]),3),c:'c3',l:'n'}]);
+lab=new Viewer(document.getElementById('labCv'),{range:8});
+initLab(); loadScene(SCENES[0].o,SCENES[0].t,8,SCENES[0].n);
+addEventListener('hashchange',route); route();
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>[hero,retaV,planoV,lab].forEach(v=>v.draw()));
+new MutationObserver(()=>[hero,retaV,planoV,lab].forEach(v=>v.draw())).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+</script>
+</body>
+</html>

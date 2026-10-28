@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Faculdade de Bolso</title>
+<meta name="description" content="Hub de estudos de Engenharia Mecânica do Guilherme Braz: matérias por período com os materiais interativos de cada uma.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: caderneta de engenharia — folha milimetrada, cada período é uma "régua" com as matérias como fichas de arquivo */
+:root{
+  --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
+  --accent:#D9531A; --accent2:#0C8587;
+  --f-disp:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Atkinson Hyperlegible","Segoe UI",system-ui,sans-serif;
+  --f-mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --accent:#FF7B3F; --accent2:#3CC6C8; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --accent:#FF7B3F; --accent2:#3CC6C8; color-scheme:dark}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
+[hidden]{display:none!important}
+.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-disp);margin:0;line-height:1.1;text-wrap:balance}
+a{color:inherit}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.mono{font-family:var(--f-mono)}
+.eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:600}
+
+/* topo */
+.top{padding-block:40px 26px;display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end}
+.top h1{font-size:clamp(2.6rem,9vw,5rem);font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.top h1 span{color:var(--accent)}
+.top p{color:var(--ink2);max-width:52ch;margin:.6rem 0 0;font-size:1.05rem}
+.stamp{border:1.5px solid var(--ink);background:var(--sheet);font-family:var(--f-mono);font-size:.78rem;min-width:220px}
+.stamp div{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:6px 12px;border-top:1px solid var(--line)}
+.stamp div:first-child{border-top:0}
+.stamp b{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
+.stamp span{color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;font-size:.68rem;align-self:center}
+@media (max-width:640px){.top{grid-template-columns:1fr}.stamp{min-width:0}}
+
+.search{position:relative;margin-bottom:30px}
+.search input{width:100%;font:500 1rem var(--f-body);padding:13px 16px 13px 44px;border:1.5px solid var(--line);border-radius:10px;background:var(--sheet);color:var(--ink)}
+.search input:focus{outline:none;border-color:var(--accent2)}
+.search svg{position:absolute;left:14px;top:50%;transform:translateY(-50%);width:20px;height:20px;color:var(--ink2)}
+.results{display:grid;gap:8px;margin-top:10px}
+
+/* recentes */
+.recent{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin:12px 0 38px}
+
+/* períodos */
+.periodo{margin-bottom:34px}
+.ruler{display:flex;align-items:center;gap:12px;margin-bottom:14px}
+.ruler h2{font-size:1.35rem;font-weight:800;white-space:nowrap}
+.ruler .ticks{flex:1;height:12px;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 10px);border-bottom:1px solid var(--line)}
+.ruler .ct{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);white-space:nowrap}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px}
+.mat{--mc:var(--accent);display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:center;text-decoration:none;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;position:relative;transition:transform .15s,border-color .15s}
+.mat:hover{transform:translateY(-2px);border-color:var(--mc)}
+.ic{width:44px;height:44px;border-radius:10px;display:grid;place-items:center;background:color-mix(in srgb,var(--mc) 14%,var(--sheet));color:var(--mc);grid-row:span 2}
+.ic svg{width:24px;height:24px}
+.mat .sg{font-family:var(--f-disp);font-weight:800;font-size:1.15rem;line-height:1.1}
+.mat .nm{font-size:.84rem;color:var(--ink2);line-height:1.3;grid-column:2}
+.mat .n{grid-column:1/-1;margin-top:8px;font-family:var(--f-mono);font-size:.72rem;color:var(--ink2);display:flex;justify-content:space-between;border-top:1px dashed var(--line);padding-top:8px}
+.mat.empty .n{opacity:.7}
+.mat .n b{color:var(--mc);font-weight:600}
+
+/* matéria */
+.back{display:inline-flex;align-items:center;gap:6px;font-weight:700;font-size:.9rem;text-decoration:none;color:var(--ink2);margin-block:28px 18px}
+.back:hover{color:var(--ink)}
+.mhead{--mc:var(--accent);display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding-bottom:22px;border-bottom:1.5px solid var(--ink);margin-bottom:22px}
+.mhead .ic{width:72px;height:72px;border-radius:16px;grid-row:auto}
+.mhead .ic svg{width:38px;height:38px}
+.mhead h1{font-size:clamp(1.7rem,5vw,2.6rem);font-weight:800;letter-spacing:-.015em}
+.mhead p{margin:.3rem 0 0;color:var(--ink2)}
+.files{display:grid;gap:10px}
+.file{--mc:var(--accent);display:grid;grid-template-columns:auto 1fr auto;gap:6px 16px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--ink);transition:border-color .15s}
+.file:hover{border-color:var(--mc)}
+.badge{font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;font-weight:600;padding:4px 8px;border-radius:5px;background:var(--ink);color:var(--sheet);grid-row:span 2;align-self:start;margin-top:2px}
+.file h3{font-size:1.1rem;font-weight:700}
+.file .meta{grid-column:2;font-size:.9rem;color:var(--ink2);min-width:0}
+.file .meta small{display:block;font-family:var(--f-mono);font-size:.72rem;margin-top:4px}
+.file .go{grid-row:span 2;font-weight:700;color:var(--mc);white-space:nowrap}
+.file .from{font-family:var(--f-mono);font-size:.7rem;color:var(--mc);font-weight:600;letter-spacing:.04em}
+@media (max-width:560px){.file{grid-template-columns:1fr}.badge{grid-row:auto;justify-self:start}.file .meta{grid-column:auto}.file .go{grid-row:auto}}
+.blank{border:1.5px dashed var(--line);border-radius:10px;padding:26px;text-align:center;color:var(--ink2)}
+.blank b{display:block;font-family:var(--f-disp);color:var(--ink);font-size:1.1rem;margin-bottom:4px}
+footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-size:.75rem}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<main class="wrap">
+
+<section id="home">
+  <header class="top">
+    <div>
+      <div class="eyebrow" id="curso">Engenharia</div>
+      <h1>Faculdade<br>de <span>Bolso</span></h1>
+      <p>Todas as matérias do curso, organizadas por período. Cada uma guarda os materiais de estudo criados ao longo do semestre, para nada se perder.</p>
+    </div>
+    <div class="stamp" id="stamp"></div>
+  </header>
+
+  <div class="search">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
+    <input type="search" id="q" placeholder="Buscar matéria ou assunto (ex.: planos, integral)" aria-label="Buscar">
+    <div class="results" id="results" hidden></div>
+  </div>
+
+  <div id="recentWrap">
+    <div class="eyebrow">Adicionados recentemente</div>
+    <div class="recent" id="recent"></div>
+  </div>
+
+  <div id="periodos"></div>
+</section>
+
+<section id="materia" hidden></section>
+
+<footer>Faculdade de Bolso · <span id="foot"></span></footer>
+</main>
+
+<script src="dados/materias.js"></script>
+<script>
+const D = window.FACULDADE || {periodos:[]};
+const ICONS = {
+  vetor:'<path d="M4 20 18 6"/><path d="M12 6h6v6"/>',
+  calculo:'<path d="M15 3c-2 0-2.6 2-3 5l-1.8 9c-.5 3-1.2 4-3.2 4"/>',
+  fisica:'<circle cx="12" cy="12" r="1.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="9" ry="3.6" transform="rotate(120 12 12)"/>',
+  quimica:'<path d="M9 3h6"/><path d="M10 3v6l-5.4 9.3A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.7-2.7L14 9V3"/><path d="M7.5 15h9"/>',
+  programacao:'<path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 5-3 14"/>',
+  desenho:'<path d="M4 20V4l16 16z"/><path d="M8 16v-3.5l3.5 3.5z"/>',
+  engrenagem:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/>',
+  materiais:'<path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12 4 7.5"/>',
+  estatistica:'<path d="M3 20h18"/><path d="M6 20v-8M11 20V5M16 20v-6M20.5 20V9"/>',
+  termo:'<path d="M10 13.5V5a2 2 0 0 1 4 0v8.5a4 4 0 1 1-4 0z"/><path d="M12 9v7"/>',
+  fluidos:'<path d="M12 3s6 7 6 11a6 6 0 0 1-12 0c0-4 6-11 6-11z"/><path d="M9 15a3 3 0 0 0 3 3"/>',
+  eletrica:'<path d="M13 2 5 14h6l-1 8 8-12h-6z"/>',
+  estrutura:'<path d="M2 18h20"/><path d="M3 18 7.5 9l4.5 9 4.5-9 4.5 9"/><path d="M7.5 9h9"/>',
+  usinagem:'<path d="M3 9h9v6H3z"/><path d="M12 10.5h5l4 1.5-4 1.5h-5"/><path d="M6 15v4M9 15v4"/>',
+  solda:'<path d="m3 21 9-9"/><path d="m12 12 3-3 2 2-3 3z"/><path d="M18 3v2M21 6h-2M20 4l-1.5 1.5"/>',
+  gestao:'<path d="m3 18 6-6 4 3 8-9"/><path d="M15 6h6v6"/>',
+  texto:'<path d="M5 5h14M5 10h14M5 15h14M5 20h8"/>',
+  pesquisa:'<circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/>',
+  livro:'<path d="M5 4.5A1.5 1.5 0 0 1 6.5 3H19v15H6.5A1.5 1.5 0 0 0 5 19.5z"/><path d="M5 19.5A1.5 1.5 0 0 0 6.5 21H19v-3"/>'
+};
+const icon = k => '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'+(ICONS[k]||ICONS.livro)+'</svg>';
+const TIPOS = {site:'Site',pdf:'PDF',resumo:'Resumo',lista:'Lista',prova:'Prova',link:'Link'};
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const fdate = d => { if(!d) return ''; const [y,m,dd]=d.split('-'); return dd+'/'+m+'/'+y };
+const MATS = D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.numero,arquivos:m.arquivos||[]})));
+const FILES = MATS.flatMap(m=>m.arquivos.map(a=>({...a,mat:m})));
+const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
+
+function fileRow(a,showMat){
+  const ext = /^https?:/.test(a.caminho);
+  return '<a class="file" style="--mc:'+esc(a.mat.cor)+'" href="'+esc(a.caminho)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+
+    '<span class="badge">'+esc(TIPOS[a.tipo]||a.tipo||'Arquivo')+'</span>'+
+    '<h3>'+esc(a.titulo)+'</h3><span class="go">Abrir →</span>'+
+    '<div class="meta">'+(showMat?'<span class="from">'+esc(a.mat.sigla)+' · '+a.mat.periodo+'º período</span><br>':'')+esc(a.descricao)+
+    '<small>'+[fdate(a.data),...(a.tags||[]).map(t=>'#'+t)].filter(Boolean).map(esc).join(' · ')+'</small></div></a>';
+}
+function matCard(m){
+  const n=m.arquivos.length;
+  return '<a class="mat'+(n?'':' empty')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+esc(m.nome)+'</span>'+
+    '<span class="n"><span>'+(n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):'sem materiais ainda')+'</span><span>'+m.periodo+'º</span></span></a>';
+}
+function renderHome(){
+  document.getElementById('curso').textContent=[D.curso,D.instituicao].filter(Boolean).join(' · ');
+  document.getElementById('foot').textContent=[D.aluno,D.instituicao].filter(Boolean).join(' · ');
+  document.getElementById('stamp').innerHTML=
+    '<div><span>Períodos</span><b>'+D.periodos.length+'</b></div><div><span>Matérias</span><b>'+MATS.length+'</b></div><div><span>Materiais</span><b>'+FILES.length+'</b></div>'+
+    '<div><span>Atualizado</span><b>'+(fdate(FILES.map(f=>f.data).filter(Boolean).sort().pop())||'—')+'</b></div>';
+  const rec=[...FILES].sort((a,b)=>String(b.data).localeCompare(String(a.data))).slice(0,3);
+  document.getElementById('recentWrap').hidden=!rec.length;
+  document.getElementById('recent').innerHTML=rec.map(a=>fileRow(a,true)).join('');
+  document.getElementById('periodos').innerHTML=D.periodos.map(p=>{
+    const ms=p.materias||[], nf=ms.reduce((s,m)=>s+(m.arquivos||[]).length,0);
+    return '<section class="periodo" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2><span class="ticks"></span><span class="ct">'+ms.length+' matérias · '+nf+' materiais</span></div>'+
+      '<div class="grid">'+MATS.filter(m=>m.periodo===p.numero).map(matCard).join('')+'</div></section>' }).join('');
+}
+function renderMat(id){
+  const m=MATS.find(x=>x.id===id), box=document.getElementById('materia');
+  if(!m){ location.hash=''; return }
+  document.title=m.sigla+' · Faculdade de Bolso';
+  box.innerHTML='<a class="back" href="#">← Todas as matérias</a>'+
+    '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+(m.professor?'<p>Prof.ª/Prof. '+esc(m.professor)+'</p>':'')+'</div></div>'+
+    (m.arquivos.length?'<div class="files">'+[...m.arquivos].sort((a,b)=>String(b.data).localeCompare(String(a.data))).map(a=>fileRow({...a,mat:m},false)).join('')+'</div>'
+      :'<div class="blank"><b>Nada aqui ainda</b>Os materiais desta matéria vão aparecer aqui assim que forem adicionados.</div>');
+}
+function route(){
+  const h=location.hash.slice(1);
+  const isMat=h.startsWith('m-');
+  document.getElementById('home').hidden=isMat; document.getElementById('materia').hidden=!isMat;
+  if(isMat) renderMat(h.slice(2)); else document.title='Faculdade de Bolso';
+  window.scrollTo(0,0);
+}
+const q=document.getElementById('q'), res=document.getElementById('results');
+q.addEventListener('input',()=>{
+  const t=norm(q.value.trim());
+  if(!t){res.hidden=true;return}
+  const ms=MATS.filter(m=>norm(m.nome+' '+m.sigla).includes(t));
+  const fs=FILES.filter(f=>norm([f.titulo,f.descricao,(f.tags||[]).join(' '),f.mat.sigla].join(' ')).includes(t));
+  res.hidden=false;
+  res.innerHTML=(ms.length?'<div class="grid">'+ms.map(matCard).join('')+'</div>':'')+fs.map(f=>fileRow(f,true)).join('')||'<div class="blank"><b>Nada encontrado</b>Tente outra palavra, como o nome da matéria ou um assunto.</div>';
+});
+renderHome(); addEventListener('hashchange',route); route();
+</script>
+</body>
+</html>
