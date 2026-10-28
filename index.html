@@ -204,7 +204,7 @@ function fileRow(a,showMat){
 }
 function matCard(m){
   const n=m.arquivos.length;
-  return '<a class="mat'+(n?'':' empty')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+esc(m.nome)+'</span>'+
+  return '<a class="mat'+(n?'':' empty')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+
     '<span class="n"><span>'+(n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):'sem materiais ainda')+'</span><span>'+(m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
 }
 function renderHome(){
