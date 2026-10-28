@@ -126,6 +126,27 @@ details.periodo h2{color:var(--ink2)}
 .mat.reprovada .sg{color:var(--bad)}
 #jump button.done{border-color:var(--ok);color:var(--ok)}
 #jump button.done.on{background:var(--ink);color:var(--sheet)}
+.editbtn{flex:none;margin-left:auto;font:700 .84rem var(--f-body);padding:7px 13px;border-radius:8px;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet);cursor:pointer;white-space:nowrap}
+.editbtn.on{background:var(--ok);border-color:var(--ok)}
+.editpanel{background:var(--sheet);border:1.5px dashed var(--ok);border-radius:10px;padding:12px 16px;margin:-10px 0 24px;font-size:.92rem}
+.editpanel p{margin:.2rem 0}
+.editpanel .mono{font-size:.78rem;color:var(--ok);min-height:1.2em}
+.bk{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0 4px}
+.bk input{flex:1;min-width:0;font:500 .85rem var(--f-mono);padding:7px 10px;border-radius:7px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
+.bk button{font:700 .82rem var(--f-body);padding:7px 12px;border-radius:7px;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet);cursor:pointer}
+.bk button.ghost{background:transparent;color:var(--ink)}
+.stsel{grid-column:1/-1;display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:10px}
+.stsel button{font:600 .72rem var(--f-mono);letter-spacing:.03em;padding:7px 4px;border-radius:6px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink2);cursor:pointer}
+.stsel button:hover{border-color:var(--ink2)}
+.stsel button.on{background:var(--ink);border-color:var(--ink);color:var(--sheet)}
+.stsel button.cursando.on{background:var(--accent);border-color:var(--accent)}
+.stsel button.aprovada.on{background:var(--ok);border-color:var(--ok)}
+.stsel button.reprovada.on{background:var(--bad);border-color:var(--bad)}
+.stbox{margin:-8px 0 22px;max-width:520px}
+.stbox .stsel{grid-template-columns:repeat(4,1fr)}
+@media (max-width:480px){.stbox .stsel{grid-template-columns:1fr 1fr}.jumpbar{flex-wrap:wrap}.editbtn{margin-left:0}}
+.mat.edit{cursor:default}
+.mat.edit:hover{transform:none}
 .jumpbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;display:flex;align-items:center;gap:12px;background:var(--paper);padding-block:10px;margin-bottom:22px;border-bottom:1px solid var(--line)}
 #jump{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;min-width:0}
 #jump::-webkit-scrollbar{display:none}
@@ -166,7 +187,12 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
     <div class="recent" id="recent"></div>
   </div>
 
-  <div class="jumpbar"><span class="eyebrow">Ir para</span><div id="jump"></div></div>
+  <div class="jumpbar"><span class="eyebrow">Ir para</span><div id="jump"></div><button type="button" id="editBtn" class="editbtn" aria-pressed="false">Dar baixa nas matérias</button></div>
+  <div class="editpanel" id="editPanel" hidden>
+    <p><b>Toque na situação de cada matéria.</b> A porcentagem atualiza na hora. As marcações ficam salvas neste navegador; para levar para outro aparelho, copie o backup e restaure lá.</p>
+    <div class="bk"><button type="button" id="bkCopy">Copiar backup</button><input type="text" id="bkTxt" placeholder="cole aqui o backup do outro aparelho" aria-label="Código de backup"><button type="button" id="bkLoad" class="ghost">Restaurar</button></div>
+    <p class="mono" id="bkMsg" aria-live="polite"></p>
+  </div>
   <div id="periodos"></div>
 </section>
 
@@ -226,6 +252,13 @@ const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>'
 const fdate = d => { if(!d) return ''; const [y,m,dd]=d.split('-'); return dd+'/'+m+'/'+y };
 const AR = D.areas||{};
 const MATS = D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.numero,cor:m.cor||(AR[m.area]||{}).cor||'#D9531A',arquivos:m.arquivos||[]})));
+let OV={}; try{ OV=JSON.parse(localStorage.getItem('fdb-status')||'{}')||{} }catch(e){}
+MATS.forEach(m=>{ m._base=m.status||''; if(m.id in OV) m.status=OV[m.id]||'' });
+let EDIT=false;
+function setSt(id,st){ const m=MATS.find(x=>x.id===id); if(!m)return; m.status=st; if(st===m._base) delete OV[id]; else OV[id]=st;
+  try{ localStorage.setItem('fdb-status',JSON.stringify(OV)) }catch(e){} renderHome(); if(location.hash==='#m-'+id) renderMat(id) }
+const OPTS=[['','não cursada'],['cursando','cursando'],['aprovada','aprovada'],['reprovada','reprovada']];
+const stBtns=m=>'<div class="stsel" role="group" aria-label="Situação de '+esc(m.sigla)+'">'+OPTS.map(([v,l])=>'<button type="button" data-id="'+esc(m.id)+'" data-s="'+v+'" class="'+v+((m.status||'')===v?' on':'')+'" aria-pressed="'+((m.status||'')===v)+'">'+l+'</button>').join('')+'</div>';
 const FILES = MATS.flatMap(m=>m.arquivos.map(a=>({...a,mat:m})));
 const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 
@@ -239,6 +272,7 @@ function fileRow(a,showMat){
 }
 function matCard(m){
   const n=m.arquivos.length, st=m.status||'';
+  if(EDIT) return '<div class="mat edit'+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+stBtns(m)+'</div>';
   return '<a class="mat'+(n?'':' empty')+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+
     '<span class="n"><span>'+(ST[st]?'<span class="st">'+ST[st]+'</span> ':'')+(n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):(ST[st]?'':'sem materiais ainda'))+'</span><span>'+(m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
 }
@@ -251,7 +285,7 @@ function renderHome(){
   const rec=[...FILES].sort((a,b)=>String(b.data).localeCompare(String(a.data))).slice(0,3);
   document.getElementById('recentWrap').hidden=!rec.length;
   document.getElementById('recent').innerHTML=rec.map(a=>fileRow(a,true)).join('');
-  const pst=p=>{ const ms=p.materias||[]; const ok=ms.filter(m=>m.status==='aprovada'), rp=ms.filter(m=>m.status==='reprovada');
+  const pst=p=>{ const ms=MATS.filter(m=>m.periodo===p.numero); const ok=ms.filter(m=>m.status==='aprovada'), rp=ms.filter(m=>m.status==='reprovada');
     const tot=ms.reduce((a,m)=>a+(m.ch||0),0), done=ok.reduce((a,m)=>a+(m.ch||0),0);
     return {ms,ok,rp,tot,done,closed:ms.length>0&&ms.every(m=>m.status==='aprovada'||m.status==='reprovada'),full:ms.length>0&&ok.length===ms.length} };
   const P=D.periodos.map(p=>({p,...pst(p)}));
@@ -262,11 +296,13 @@ function renderHome(){
     '<div class="sub"><span><b>'+Dn.toLocaleString('pt-BR')+'</b> de '+T.toLocaleString('pt-BR')+' h</span><span><b>'+nOk+'</b> de '+MATS.length+' matérias aprovadas</span><span><b>'+nClosed+'</b> de '+P.length+' períodos concluídos</span>'+(nCur?'<span><b>'+nCur+'</b> cursando</span>':'')+(nRp?'<span class="bad"><b>'+nRp+'</b> '+(nRp===1?'reprovada':'reprovadas')+' a refazer</span>':'')+'</div>';
   document.getElementById('jump').innerHTML=P.map(x=>'<button data-p="'+x.p.numero+'" class="'+(x.p.atual?'on ':'')+(x.full?'done':'')+'">'+(x.full?'✓ ':'')+x.p.numero+'º</button>').join('');
   document.querySelectorAll('#jump button').forEach(b=>b.onclick=()=>{ const el=document.getElementById('p'+b.dataset.p); if(el.tagName==='DETAILS')el.open=true; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
+  const eb=document.getElementById('editBtn'); eb.textContent=EDIT?'✓ Concluir':'Dar baixa nas matérias'; eb.classList.toggle('on',EDIT); eb.setAttribute('aria-pressed',EDIT);
+  document.getElementById('editPanel').hidden=!EDIT;
   document.getElementById('periodos').innerHTML=P.map(x=>{
     const p=x.p, ms=x.ms, nf=ms.reduce((s,m)=>s+(m.arquivos||[]).length,0);
     const info=ms.length+' matérias'+(p.ch?' · '+p.ch+' h':'')+(nf?' · '+nf+(nf===1?' material':' materiais'):'');
     const grid='<div class="grid">'+MATS.filter(m=>m.periodo===p.numero).map(matCard).join('')+'</div>';
-    if(x.closed){
+    if(x.closed&&!EDIT){
       const tag=x.full?'<span class="pill ok">concluído · 100%</span>':'<span class="pill bad">'+x.rp.length+' '+(x.rp.length===1?'reprovada':'reprovadas')+'</span>';
       return '<details class="periodo" id="p'+p.numero+'"><summary><div class="ruler"><h2>'+p.numero+'º período</h2>'+tag+'<span class="ticks"></span><span class="tg">'+info+'</span></div></summary>'+grid+'</details>' }
     return '<section class="periodo'+(p.atual?' now':'')+'" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2>'+(p.atual?'<span class="pill">cursando</span>':'')+'<span class="ticks"></span><span class="ct">'+info+(x.done?' · '+Math.round(x.done/x.tot*100)+'%':'')+'</span></div>'+grid+'</section>' }).join('');
@@ -277,6 +313,7 @@ function renderMat(id){
   document.title=m.sigla+' · Faculdade de Bolso';
   box.innerHTML='<a class="back" href="#">← Todas as matérias</a>'+
     '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+'<p>'+[m.ch?m.ch+' h':'',m.professor?'Prof. '+esc(m.professor):'',ST[m.status]||''].filter(Boolean).join(' · ')+'</p>'+'</div></div>'+
+    '<div class="stbox"><span class="eyebrow">Situação</span>'+stBtns(m)+'</div>'+
     (m.arquivos.length?'<div class="files">'+[...m.arquivos].sort((a,b)=>String(b.data).localeCompare(String(a.data))).map(a=>fileRow({...a,mat:m},false)).join('')+'</div>'
       :'<div class="blank"><b>Nada aqui ainda</b>Os materiais desta matéria vão aparecer aqui assim que forem adicionados.</div>');
 }
@@ -296,6 +333,14 @@ q.addEventListener('input',()=>{
   res.hidden=false;
   res.innerHTML=(ms.length?'<div class="grid">'+ms.map(matCard).join('')+'</div>':'')+fs.map(f=>fileRow(f,true)).join('')||'<div class="blank"><b>Nada encontrado</b>Tente outra palavra, como o nome da matéria ou um assunto.</div>';
 });
+document.addEventListener('click',e=>{ const b=e.target.closest('.stsel button'); if(!b)return; e.preventDefault(); setSt(b.dataset.id,b.dataset.s) });
+document.getElementById('editBtn').onclick=()=>{ EDIT=!EDIT; renderHome() };
+document.getElementById('bkCopy').onclick=()=>{ const t=JSON.stringify(OV), ta=document.getElementById('bkTxt'), msg=document.getElementById('bkMsg'); ta.value=t;
+  const ok=()=>msg.textContent='Copiado. Cole no outro aparelho e toque em Restaurar.';
+  try{ navigator.clipboard.writeText(t).then(ok,()=>{ta.select();msg.textContent='Selecionei o código: copie com Ctrl+C.'}) }catch(_){ta.select();msg.textContent='Selecionei o código: copie com Ctrl+C.'} };
+document.getElementById('bkLoad').onclick=()=>{ const msg=document.getElementById('bkMsg'); try{ const o=JSON.parse(document.getElementById('bkTxt').value||'{}'); if(typeof o!=='object'||Array.isArray(o))throw 0;
+    MATS.forEach(m=>{ m.status = m.id in o ? (o[m.id]||'') : m._base }); OV={}; MATS.forEach(m=>{ if(m.status!==m._base) OV[m.id]=m.status });
+    try{ localStorage.setItem('fdb-status',JSON.stringify(OV)) }catch(_){} renderHome(); msg.textContent='Progresso restaurado.' }catch(_){ msg.textContent='Esse código não é um backup válido. Copie de novo no outro aparelho.' } };
 renderHome(); addEventListener('hashchange',route); route();
 </script>
 </body>

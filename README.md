@@ -45,7 +45,9 @@ Em `dados/materias.js`, dentro de `materias` do período certo:
 
 ## Acompanhar o progresso
 
-Cada matéria em `dados/materias.js` pode ter um `status`:
+No site, toque em **Dar baixa nas matérias** (barra "Ir para") e marque cada matéria como não cursada, cursando, aprovada ou reprovada. Dá também na página de cada matéria. As marcações ficam salvas no navegador; use **Copiar backup** / **Restaurar** para levá-las a outro aparelho.
+
+O valor padrão vem do campo `status` em `dados/materias.js`. Cada matéria em `dados/materias.js` pode ter um `status`:
 
 | status | efeito |
 |---|---|
