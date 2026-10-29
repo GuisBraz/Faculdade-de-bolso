@@ -65,6 +65,10 @@ A aba **Provas** mostra a contagem regressiva da próxima prova, todas as datas 
 - Provas de cronogramas oficiais ficam em `dados/provas.js`.
 - Provas sem cronograma podem ser incluídas pelo formulário da própria aba (salvas no navegador e incluídas no backup).
 
+## Atalho
+
+**Esc** volta um nível: dentro de uma oficina, de um módulo para o início dela e depois para o hub; no hub, da matéria ou das provas para a página inicial.
+
 ## Materiais
 
 | Matéria | Material |

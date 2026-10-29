@@ -490,5 +490,17 @@ document.getElementById('pForm').addEventListener('submit',e=>{ e.preventDefault
 document.addEventListener('click',e=>{ const b=e.target.closest('.rm'); if(!b)return; MAN=MAN.filter(x=>x.mid!==b.dataset.mid); saveMan(); if(location.hash.startsWith('#m-'))renderMat(location.hash.slice(3)) });
 renderHome(); renderAlerts(); addEventListener('hashchange',route); route();
 </script>
+<script>
+/* Esc volta um nível: busca → edição → página da matéria/provas → topo */
+addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
+  const a=document.activeElement, typing=a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName);
+  const q=document.getElementById('q');
+  if(typing){ if(a===q&&q.value){ q.value=''; q.dispatchEvent(new Event('input')) } a.blur(); return }
+  const open=document.querySelector('details[open].addp'); if(open&&location.hash==='#provas'){ open.open=false; return }
+  if(location.hash&&location.hash!=='#'){ location.hash=''; return }
+  if(typeof EDIT!=='undefined'&&EDIT){ EDIT=false; renderHome(); return }
+  if(q&&q.value){ q.value=''; q.dispatchEvent(new Event('input')); return }
+  scrollTo({top:0,behavior:'smooth'}) });
+</script>
 </body>
 </html>

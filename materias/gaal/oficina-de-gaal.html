@@ -973,5 +973,13 @@ addEventListener('hashchange',route); route();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>[hero,retaV,planoV,lab].forEach(v=>v.draw()));
 new MutationObserver(()=>[hero,retaV,planoV,lab].forEach(v=>v.draw())).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 </script>
+<script>
+/* Esc volta um nível: módulo → início da oficina → hub */
+addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
+  const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){ a.blur(); return }
+  const h=location.hash.slice(1);
+  if(h&&h!=='inicio'){ location.hash='inicio'; return }
+  location.href='../../index.html#m-gaal' });
+</script>
 </body>
 </html>

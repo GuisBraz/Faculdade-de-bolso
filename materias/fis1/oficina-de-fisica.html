@@ -759,5 +759,13 @@ const redraw=()=>sims.forEach(s=>s&&s.draw());
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
 new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
 </script>
+<script>
+/* Esc volta um nível: módulo → início da oficina → hub */
+addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
+  const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){ a.blur(); return }
+  const h=location.hash.slice(1);
+  if(h&&h!=='inicio'){ location.hash='inicio'; return }
+  location.href='../../index.html#m-fis1' });
+</script>
 </body>
 </html>
