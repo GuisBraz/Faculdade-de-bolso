@@ -37,10 +37,22 @@ a{color:inherit}
 .eyebrow{font-family:var(--f-mono);font-size:.74rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2);font-weight:600}
 
 /* topo */
-.top{padding-block:40px 26px}
-.top h1{font-size:clamp(2.6rem,9vw,5rem);font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.topbar{background:var(--ink);color:var(--sheet)}
+.tbin{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:9px;flex-wrap:wrap}
+.tbc{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
+.mini{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font-family:var(--f-mono);font-size:.74rem}
+.mini b{font-size:.9rem;font-variant-numeric:tabular-nums}
+.mbar{display:flex;gap:2px;width:170px;height:6px}
+.mbar i{display:block;height:100%;border-radius:2px;background:color-mix(in srgb,var(--sheet) 28%,transparent);overflow:hidden;position:relative}
+.mbar i em{position:absolute;inset:0 auto 0 0;background:var(--ok)}
+.mbar i.cur{outline:1.5px solid var(--accent);outline-offset:1px}
+.mini .rp{color:#FF8C80;white-space:nowrap}
+.top{padding-block:30px 22px;display:flex;align-items:flex-end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.tt{min-width:0}
+.top h1 a{text-decoration:none;color:inherit}
+.top h1{font-size:clamp(2.3rem,6.5vw,4.2rem);font-weight:800;letter-spacing:-.03em}
 .top h1 span{color:var(--accent)}
-.top p{color:var(--ink2);max-width:52ch;margin:.6rem 0 0;font-size:1.05rem}
+.top p{color:var(--ink2);max-width:52ch;margin:.4rem 0 0;font-size:1rem}
 .stamp{border:1.5px solid var(--ink);background:var(--sheet);font-family:var(--f-mono);font-size:.78rem;min-width:220px}
 .stamp div{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:6px 12px;border-top:1px solid var(--line)}
 .stamp div:first-child{border-top:0}
@@ -157,21 +169,22 @@ details.periodo h2{color:var(--ink2)}
 .pill{font-family:var(--f-mono);font-size:.68rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;background:var(--accent);color:var(--sheet);padding:3px 8px;border-radius:999px;white-space:nowrap}
 body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--paper)}
 @media (max-width:480px){.ruler{flex-wrap:wrap}.ruler .ticks{display:none}.ruler .ct{width:100%}}
-.tabs{display:flex;gap:4px;padding-block:18px 0;border-bottom:1.5px solid var(--ink)}
+.tabs{display:flex;gap:4px;padding-block:0;margin-bottom:6px;border-bottom:1.5px solid var(--ink)}
 .tabs a{font:700 .95rem var(--f-body);text-decoration:none;color:var(--ink2);padding:8px 14px;border-radius:8px 8px 0 0;display:flex;align-items:center;gap:8px;margin-bottom:-1.5px;border:1.5px solid transparent}
 .tabs a:hover{color:var(--ink)}
 .tabs a.on{color:var(--ink);background:var(--sheet);border-color:var(--ink);border-bottom-color:var(--sheet)}
 .tb{font:600 .68rem var(--f-mono);background:var(--accent);color:var(--sheet);border-radius:999px;padding:2px 7px}
-.alerts{display:grid;gap:8px;margin-bottom:16px}
-.alert{--lv:var(--accent2);display:grid;grid-template-columns:auto 1fr auto;gap:4px 14px;align-items:center;text-decoration:none;color:var(--ink);background:color-mix(in srgb,var(--lv) 10%,var(--sheet));border:1.5px solid var(--lv);border-radius:10px;padding:10px 14px}
+.alerts{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+.alerts:empty{display:none}
+.alert{--lv:var(--accent2);width:96px;aspect-ratio:1/1;display:flex;flex-direction:column;justify-content:space-between;text-decoration:none;color:var(--ink);background:color-mix(in srgb,var(--lv) 10%,var(--sheet));border:1.5px solid var(--lv);border-radius:10px;padding:8px 9px;transition:transform .15s}
+.alert:hover{transform:translateY(-2px)}
 .alert.l1{--lv:var(--bad)}.alert.l2{--lv:var(--accent)}
-.alert .cd{font-family:var(--f-disp);font-weight:800;font-size:1.6rem;line-height:1;color:var(--lv);text-align:center;min-width:52px}
-.alert .cd small{display:block;font:600 .62rem var(--f-mono);letter-spacing:.08em;text-transform:uppercase}
-.alert b{font-family:var(--f-disp)}
-.alert span{font-size:.88rem;color:var(--ink2)}
-.alert .go{font-weight:700;color:var(--lv);white-space:nowrap;font-size:.88rem}
-.phead{padding-block:30px 20px}
-.phead h1{font-size:clamp(2.4rem,8vw,4rem);font-weight:800;letter-spacing:-.03em;margin-top:6px}
+.alert .cd{font-family:var(--f-disp);font-weight:800;font-size:1.7rem;line-height:.95;color:var(--lv)}
+.alert .cd small{font:600 .6rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-left:3px}
+.alert b{font-family:var(--f-disp);font-size:.86rem;line-height:1.1;display:block}
+.alert span.t{font:600 .64rem var(--f-mono);color:var(--ink2);line-height:1.2;display:block}
+.phead{padding-block:18px 16px}
+.phead h1{font-size:clamp(1.8rem,5vw,2.6rem);font-weight:800;letter-spacing:-.03em;margin-top:6px}
 .phead p{color:var(--ink2);max-width:60ch;margin:.5rem 0 0}
 .next{--mc:var(--accent);display:grid;grid-template-columns:auto 1fr;gap:6px 24px;align-items:center;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;padding:20px;margin-bottom:22px;position:relative}
 .next .big{font-family:var(--f-disp);font-weight:800;font-size:clamp(3.4rem,12vw,5rem);line-height:.9;color:var(--mc);text-align:center;grid-row:span 3;font-variant-numeric:tabular-nums}
@@ -223,21 +236,18 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
 </style>
 </head>
 <body>
+<div class="topbar"><div class="wrap tbin"><span class="tbc" id="curso">Engenharia Mecânica</span><a class="mini" id="prog" href="#" aria-label="Progresso do curso"></a></div></div>
 <main class="wrap">
+<header class="top">
+  <div class="tt">
+    <h1><a href="#">Faculdade de <span>Bolso</span></a></h1>
+    <p>Todas as matérias do curso, organizadas por período, com os materiais de estudo de cada uma.</p>
+  </div>
+  <div class="alerts" id="alerts" aria-label="Provas chegando"></div>
+</header>
 <nav class="tabs" aria-label="Seções"><a href="#" id="tabMat">Matérias</a><a href="#provas" id="tabProv">Provas<span class="tb" id="tabBadge" hidden></span></a></nav>
 
 <section id="home">
-  <header class="top">
-    <div>
-      <div class="eyebrow" id="curso">Engenharia</div>
-      <h1>Faculdade<br>de <span>Bolso</span></h1>
-      <p>Todas as matérias do curso, organizadas por período. Cada uma guarda os materiais de estudo criados ao longo do semestre, para nada se perder.</p>
-    </div>
-  </header>
-
-  <div class="alerts" id="alerts"></div>
-
-  <section class="prog" id="prog" aria-label="Progresso do curso"></section>
 
   <div class="search">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
@@ -376,9 +386,9 @@ function renderHome(){
   const P=D.periodos.map(p=>({p,...pst(p)}));
   const T=P.reduce((a,x)=>a+x.tot,0), Dn=P.reduce((a,x)=>a+x.done,0), pct=T?Dn/T*100:0;
   const nOk=P.reduce((a,x)=>a+x.ok.length,0), nRp=P.reduce((a,x)=>a+x.rp.length,0), nCur=MATS.filter(m=>m.status==='cursando').length, nClosed=P.filter(x=>x.full).length;
-  document.getElementById('prog').innerHTML='<div class="pct">'+(pct<10&&pct>0?pct.toFixed(1).replace('.',','):Math.floor(pct))+'<small>%</small></div><div class="lb">Progresso do curso · pela carga horária aprovada</div>'+
-    '<div class="segs">'+P.map(x=>'<div class="seg'+(x.p.atual?' cur':'')+'" style="flex:'+x.tot+'" title="'+x.p.numero+'º período: '+(x.tot?Math.round(x.done/x.tot*100):0)+'%"><i style="width:'+(x.tot?x.done/x.tot*100:0)+'%"></i><span>'+x.p.numero+'º</span></div>').join('')+'</div>'+
-    '<div class="sub"><span><b>'+Dn.toLocaleString('pt-BR')+'</b> de '+T.toLocaleString('pt-BR')+' h</span><span><b>'+nOk+'</b> de '+MATS.length+' matérias aprovadas</span><span><b>'+nClosed+'</b> de '+P.length+' períodos concluídos</span>'+(nCur?'<span><b>'+nCur+'</b> cursando</span>':'')+(nRp?'<span class="bad"><b>'+nRp+'</b> '+(nRp===1?'reprovada':'reprovadas')+' a refazer</span>':'')+'</div>';
+  const pctT=(pct<10&&pct>0?pct.toFixed(1).replace('.',','):Math.floor(pct))+'%';
+  const pg=document.getElementById('prog'); pg.title=Dn.toLocaleString('pt-BR')+' de '+T.toLocaleString('pt-BR')+' h · '+nOk+' de '+MATS.length+' matérias aprovadas · '+nClosed+' de '+P.length+' períodos concluídos'+(nCur?' · '+nCur+' cursando':'')+(nRp?' · '+nRp+' reprovada(s) a refazer':'');
+  pg.innerHTML='<span>Progresso</span><span class="mbar">'+P.map(x=>'<i class="'+(x.p.atual?'cur':'')+'" style="flex:'+x.tot+'"><em style="width:'+(x.tot?x.done/x.tot*100:0)+'%"></em></i>').join('')+'</span><b>'+pctT+'</b>'+(nRp?'<span class="rp">· '+nRp+' a refazer</span>':'');
   document.getElementById('jump').innerHTML=P.map(x=>'<button data-p="'+x.p.numero+'" class="'+(x.p.atual?'on ':'')+(x.full?'done':'')+'">'+(x.full?'✓ ':'')+x.p.numero+'º</button>').join('');
   document.querySelectorAll('#jump button').forEach(b=>b.onclick=()=>{ const el=document.getElementById('p'+b.dataset.p); if(el.tagName==='DETAILS')el.open=true; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
   const eb=document.getElementById('editBtn'); eb.textContent=EDIT?'✓ Concluir':'Dar baixa nas matérias'; eb.classList.toggle('on',EDIT); eb.setAttribute('aria-pressed',EDIT);
@@ -448,7 +458,7 @@ function upcoming(lim){ return PR.filter(x=>x.tipo!=='reserva'&&daysTo(x.data)>=
 function renderAlerts(){
   const up=upcoming(14); const box=document.getElementById('alerts');
   box.innerHTML=up.slice(0,3).map(x=>{ const n=daysTo(x.data);
-    return '<a class="alert '+lvl(n)+'" href="#provas"><span class="cd">'+(n<=1?(n?'1':'!'):n)+'<small>'+(n===0?'hoje':n===1?'dia':'dias')+'</small></span><div><b>'+esc(x.mat.sigla)+' · '+esc(x.titulo)+'</b><br><span>'+cdTxt(n)+' · '+fdate(x.data)+(x.valor?' · '+x.valor+' pts':'')+'</span></div><span class="go">Ver →</span></a>' }).join('');
+    return '<a class="alert '+lvl(n)+'" href="#provas" title="'+esc(x.mat.nome+' · '+x.titulo+' · '+cdTxt(n)+' · '+fdate(x.data))+'"><span class="cd">'+(n===0?'hoje':n)+(n?'<small>'+(n===1?'dia':'dias')+'</small>':'')+'</span><span><b>'+esc(x.mat.sigla)+'</b><span class="t">'+esc(x.titulo.replace(/ \+ .*/,''))+' · '+fdate(x.data).slice(0,5)+'</span></span></a>' }).join('');
   const b=document.getElementById('tabBadge'), n7=upcoming(7).length; b.hidden=!n7; b.textContent=n7;
 }
 function provRow(x){ const n=daysTo(x.data), d=pd(x.data), past=n<0, res=x.tipo==='reserva';
