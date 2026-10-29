@@ -253,8 +253,9 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
       <a href="#circular" data-m="circular">6 · Circular</a>
       <a href="#potencial" data-m="potencial">7 · Energia potencial</a>
       <a href="#conserva" data-m="conserva">8 · Conservação</a>
-      <a href="#curva" data-m="curva">9 · Curva de U</a>
-      <a href="#termica" data-m="termica">10 · Energia térmica</a>
+      <a href="#mola" data-m="mola">9 · Massa-mola</a>
+      <a href="#curva" data-m="curva">10 · Curva de U</a>
+      <a href="#termica" data-m="termica">11 · Energia térmica</a>
       <a href="#lab">Laboratório</a>
       <a href="#problemas">Problemas resolvidos</a>
       <a href="#quiz">Quiz</a>
@@ -278,7 +279,7 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
   </div>
 
   <h3 style="margin-top:0">A trilha</h3>
-  <p class="read">Os módulos 1 a 3 são o capítulo 5, os módulos 4 a 6 são o capítulo 6 e os módulos 7 a 10 são o capítulo 8 (energia). Marque cada um como estudado no final da página.</p>
+  <p class="read">Os módulos 1 a 3 são o capítulo 5, os módulos 4 a 6 são o capítulo 6 e os módulos 7 a 11 são o capítulo 8 (energia), com o módulo 9 (massa-mola) vindo direto da aula. Marque cada um como estudado no final da página.</p>
   <div class="trail" id="trail"></div>
 
   <h3>O método que resolve quase tudo</h3>
@@ -603,17 +604,86 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
   <div class="done-btn" data-done="conserva"></div>
 </section>
 
-<!-- ============ 9 CURVA DE EP ============ -->
+<!-- ============ 9 MASSA-MOLA ============ -->
+<section class="view read" id="v-mola" hidden>
+  <div class="eyebrow">Módulo 9 · Da aula de 28/10</div>
+  <h2>Sistema massa-mola: o vai-e-vem da energia</h2>
+  <p class="lede">Um bloco preso a uma mola, num piso sem atrito, oscila para sempre entre −x<sub>m</sub> e +x<sub>m</sub>. É o exemplo mais limpo de conservação: a energia fica trocando entre a mola (U) e o bloco (K), sem perder nada.</p>
+
+  <h3>Lei de Hooke: a força da mola</h3>
+  <div class="fx"><span class="tag">Fórmula 9.1 · lei de Hooke</span>
+    <div class="eq"><i>F</i> = <i>k x</i> &nbsp;&nbsp;&nbsp; <i>k</i> = <i>F</i> / <i>x</i></div><div class="eq" style="font-size:1.15rem;padding-top:0">com sinal: <i>F</i> = −<i>k x</i></div>
+    <dl class="legend"><dt>k</dt><dd>constante elástica (N/m): força necessária para deformar a mola 1 metro. Quanto maior, mais dura</dd><dt>x</dt><dd>deformação a partir da posição relaxada x<sub>0</sub> (esticada ou comprimida)</dd><dt>sinal −</dt><dd>a força sempre aponta <b>de volta para x<sub>0</sub></b>: esticou para a direita, ela puxa para a esquerda. Por isso se chama força restauradora</dd></dl>
+  </div>
+  <div class="aula"><span class="k">Da aula · 28/10</span>
+    <p>Os exemplos do quadro dão k em <b>N/cm</b>: quantos newtons para deformar 1 cm.</p>
+    <div class="tbl" style="margin:8px 0"><table><tr><th>Mola</th><th>Leitura</th><th>Em N/m</th></tr>
+      <tr><td>k = 20 N/cm</td><td>20 N estica 1 cm</td><td>20 · 100 = <b>2 000 N/m</b></td></tr>
+      <tr><td>k = 50 N/cm</td><td>50 N estica 1 cm (mais dura)</td><td>50 · 100 = <b>5 000 N/m</b></td></tr></table></div>
+    <p style="font-size:.9rem;color:var(--ink2)">Para passar de N/cm para N/m, multiplique por 100 (1 m = 100 cm). Use sempre N/m em U = ½kx², com x em metros.</p>
+  </div>
+  <div class="calc" data-calc="hooke"><h4>Calculadora da lei de Hooke</h4><p class="hint">Informe a força e a deformação medidas. A conta sai em N/cm, em N/m e com a energia guardada.</p>
+    <div class="fields"><label>força F (N) <input type="text" id="hk-f" value="60"></label><label>deformação x (cm) <input type="text" id="hk-x" value="3"></label></div>
+    <div class="out"></div></div>
+
+  <h3>O ciclo completo</h3>
+  <p>Do quadro: o bloco é solto em −x<sub>m</sub> (mola comprimida), passa por x<sub>0</sub>, chega a +x<sub>m</sub> (mola esticada) e volta. O eixo de −2 a +2 do desenho marca essas posições, com x<sub>0</sub> no zero.</p>
+  <div class="tbl"><table><tr><th>Posição</th><th>v</th><th>K</th><th>U = ½kx²</th><th>F = −kx</th></tr>
+    <tr><td><b>−x<sub>m</sub></b> (comprimida ao máximo)</td><td>0</td><td>0</td><td>máxima</td><td>máxima, para a direita</td></tr>
+    <tr><td><b>x<sub>0</sub></b> (relaxada)</td><td>máxima</td><td>máxima</td><td>0</td><td>0</td></tr>
+    <tr><td><b>+x<sub>m</sub></b> (esticada ao máximo)</td><td>0</td><td>0</td><td>máxima</td><td>máxima, para a esquerda</td></tr></table></div>
+  <div class="fx"><span class="tag">Fórmula 9.2 · energia no massa-mola</span>
+    <div class="eq"><i>E</i> = ½ <i>m v</i>² + ½ <i>k x</i>² = ½ <i>k x</i><sub>m</sub>²</div><div class="eq" style="padding-top:0"><i>v</i><sub>máx</sub> = <i>x</i><sub>m</sub> √(<i>k</i>/<i>m</i>)</div>
+    <dl class="legend"><dt>E</dt><dd>a energia total é a da mola no extremo, onde v = 0</dd><dt>v<sub>máx</sub></dt><dd>em x<sub>0</sub> toda a energia é cinética: ½mv² = ½kx<sub>m</sub>²</dd><dt>T</dt><dd>período (tempo de uma ida e volta): T = 2π√(m/k). Não depende de x<sub>m</sub></dd></dl>
+  </div>
+
+  <h3>Simulador de mola</h3>
+  <p>Seta <b style="color:var(--bad)">vermelha</b>: força da mola. Seta <b style="color:var(--c2)">azul</b>: velocidade. Use os botões para congelar o bloco nos pontos do quadro.</p>
+  <div class="cv sim" id="springSim" style="aspect-ratio:16/6;min-height:270px;max-height:440px"><canvas></canvas></div>
+  <div class="simctl" id="springCtl"></div>
+  <div class="btns" style="margin-top:4px"><button type="button" id="springGo">Soltar</button><button type="button" class="ghost" data-sp="0">−x<sub>m</sub></button><button type="button" class="ghost" data-sp="1">x<sub>0</sub> (indo)</button><button type="button" class="ghost" data-sp="2">+x<sub>m</sub></button><button type="button" class="ghost" data-sp="3">x<sub>0</sub> (voltando)</button></div>
+  <div class="out" id="springOut" style="margin-top:10px"></div>
+
+  <div class="aula"><span class="k">Sua pergunta · 28/10</span>
+    <p><b>"Depois do empurrão da mola, a velocidade não aumenta mais, só reduz?"</b> Isso mesmo, com um detalhe: a mola empurra o tempo todo, mas <b>a direção do empurrão muda em relação ao movimento</b>.</p>
+    <ol class="recipe">
+      <li><span><b>De −x<sub>m</sub> até x<sub>0</sub> (descomprimindo):</b> a mola empurra para a direita e o bloco anda para a direita. Força <b>a favor</b> da velocidade → o bloco acelera.</span></li>
+      <li><span><b>Em x<sub>0</sub>:</b> x = 0, então F = −kx = 0. Acabou o empurrão. Aqui a velocidade é a maior de todo o ciclo.</span></li>
+      <li><span><b>De x<sub>0</sub> até +x<sub>m</sub> (esticando):</b> o bloco continua para a direita, mas agora a mola puxa para a esquerda. Força <b>contra</b> a velocidade → só freia, até parar em +x<sub>m</sub>.</span></li>
+      <li><span><b>Na volta é igual, espelhado:</b> de +x<sub>m</sub> até x<sub>0</sub> acelera; passou de x<sub>0</sub>, comprimindo, só freia até −x<sub>m</sub>.</span></li>
+    </ol>
+    <p><b>Pela energia é ainda mais direto:</b> K = E − ½kx². Como E é fixo, K é máxima onde ½kx² é mínimo, ou seja, em x = 0. Qualquer passo para longe de x<sub>0</sub>, para um lado ou para o outro, aumenta U e por isso diminui K. Então a velocidade máxima acontece em x<sub>0</sub> <b>nas duas passagens</b>, comprimindo ou descomprimindo, e tem o mesmo valor nas duas.</p>
+    <p style="font-size:.9rem;color:var(--ink2)">Regra geral, que vale para qualquer movimento: força no mesmo sentido da velocidade → acelera; força contra → freia; força zero → velocidade no máximo (ou mínimo) daquele trecho. No simulador, a frase acima do bloco mostra em que fase você está.</p>
+  </div>
+
+  <h3>O mesmo vai-e-vem numa pista em U</h3>
+  <div class="aula"><span class="k">Da aula · 28/10</span>
+    <p>Uma bola solta de uma altura h numa pista em U <b>sem atrito</b> sobe do outro lado até <b>a mesma altura h</b>, nem mais, nem menos: lá em cima K = 0 de novo, então U tem que ser igual à do começo. No fundo, U é mínima e a velocidade é máxima, como em x<sub>0</sub> na mola.</p>
+    <div class="cv sim" id="uTrack" style="aspect-ratio:16/7;min-height:220px"><canvas></canvas></div>
+    <div class="btns" style="margin-top:6px"><button type="button" id="uTrackGo">Soltar</button><label class="mono" style="font-size:.82rem;display:inline-flex;gap:6px;align-items:center"><input type="checkbox" id="uTrackMu"> com atrito</label></div>
+    <p style="font-size:.9rem;color:var(--ink2)">Ligue o atrito: a cada passagem parte da energia vira térmica (módulo 11) e a bola sobe cada vez menos.</p>
+  </div>
+
+  <div class="ex" data-ex><div class="q">Uma mola de k = 20 N/cm é esticada 3,0 cm. Qual a força que ela faz e quanta energia guarda?</div>
+    <ol><li>Força: F = kx = 20 N/cm · 3,0 cm = 60 N (aqui pode ficar em cm).</li><li>Energia: passe para o SI. k = 2 000 N/m e x = 0,030 m.</li><li>U = ½kx² = ½ · 2 000 · 0,030² = 1 000 · 0,0009.</li></ol>
+    <div class="ans">F = 60 N · U = 0,90 J</div></div>
+
+  <div class="ofi"><span class="k">Para explorar</span>O professor citou o <b>PhET</b>, simulações gratuitas da Universidade do Colorado. Vale abrir <a href="https://phet.colorado.edu/pt_BR/simulations/masses-and-springs" target="_blank" rel="noopener">Massas e Molas</a> (mola vertical, com gráfico de energia) e <a href="https://phet.colorado.edu/pt_BR/simulations/energy-skate-park-basics" target="_blank" rel="noopener">Parque de Skate: Energia</a> (a pista em U).</div>
+
+  <div class="done-btn" data-done="mola"></div>
+</section>
+
+<!-- ============ 10 CURVA DE EP ============ -->
 <section class="view read" id="v-curva" hidden>
-  <div class="eyebrow">Módulo 9 · Capítulo 8-3</div>
+  <div class="eyebrow">Módulo 10 · Capítulo 8-3</div>
   <h2>Lendo uma curva de energia potencial</h2>
   <p class="lede">O gráfico U(x) é um mapa: mostra para onde a força empurra, onde o corpo para e volta, e onde ele pode ficar em equilíbrio.</p>
 
-  <div class="fx"><span class="tag">Fórmula 9.1 · força a partir de U</span>
+  <div class="fx"><span class="tag">Fórmula 10.1 · força a partir de U</span>
     <div class="eq"><i>F</i>(<i>x</i>) = −<span class="fr"><span><i>dU</i></span><span><i>dx</i></span></span></div>
     <dl class="legend"><dt>leitura</dt><dd>a força é menos a inclinação da curva. Curva subindo → força para a esquerda (−x). Curva descendo → força para a direita (+x)</dd><dt>imagem</dt><dd>pense numa bolinha numa pista com esse formato: ela sempre "rola morro abaixo"</dd></dl>
   </div>
-  <div class="fx"><span class="tag">Fórmula 9.2 · energia cinética no gráfico</span>
+  <div class="fx"><span class="tag">Fórmula 10.2 · energia cinética no gráfico</span>
     <div class="eq"><i>K</i>(<i>x</i>) = <i>E</i><sub>mec</sub> − <i>U</i>(<i>x</i>)</div>
     <dl class="legend"><dt>E<sub>mec</sub></dt><dd>linha horizontal no gráfico (constante)</dd><dt>K</dt><dd>a distância entre a linha E<sub>mec</sub> e a curva. Como K ≥ 0, o corpo só existe onde U ≤ E<sub>mec</sub></dd></dl>
   </div>
@@ -635,16 +705,16 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
 
 <!-- ============ 10 ENERGIA TÉRMICA E CONSERVAÇÃO GERAL ============ -->
 <section class="view read" id="v-termica" hidden>
-  <div class="eyebrow">Módulo 10 · Capítulo 8-4 e 8-5</div>
+  <div class="eyebrow">Módulo 11 · Capítulo 8-4 e 8-5</div>
   <h2>Atrito, energia térmica e a conservação de tudo</h2>
   <p class="lede">Com atrito a energia mecânica diminui, mas não some: vira calor nas superfícies. Contando todas as formas, a energia total sempre se conserva.</p>
 
   <h3>Trabalho de uma força externa</h3>
-  <div class="fx"><span class="tag">Fórmula 10.1 · sem atrito</span>
+  <div class="fx"><span class="tag">Fórmula 11.1 · sem atrito</span>
     <div class="eq"><i>W</i> = Δ<i>E</i><sub>mec</sub> = Δ<i>K</i> + Δ<i>U</i></div>
     <dl class="legend"><dt>W</dt><dd>trabalho de uma força de fora do sistema (sua mão, um motor, um cabo)</dd></dl>
   </div>
-  <div class="fx"><span class="tag">Fórmula 10.2 · com atrito</span>
+  <div class="fx"><span class="tag">Fórmula 11.2 · com atrito</span>
     <div class="eq"><i>W</i> = Δ<i>E</i><sub>mec</sub> + Δ<i>E</i><sub>t</sub> &nbsp;&nbsp;&nbsp; Δ<i>E</i><sub>t</sub> = <i>f<sub>k</sub> d</i></div>
     <dl class="legend"><dt>ΔE<sub>t</sub></dt><dd>aumento da energia térmica (o "esquentar" do bloco e do piso)</dd><dt>f<sub>k</sub></dt><dd>atrito cinético = μ<sub>k</sub>N (módulo 4!)</dd><dt>d</dt><dd>distância percorrida deslizando</dd></dl>
   </div>
@@ -666,11 +736,11 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
   </div>
 
   <h3>Lei de conservação da energia</h3>
-  <div class="fx"><span class="tag">Fórmula 10.3 · conservação geral</span>
+  <div class="fx"><span class="tag">Fórmula 11.3 · conservação geral</span>
     <div class="eq"><i>W</i> = Δ<i>E</i> = Δ<i>E</i><sub>mec</sub> + Δ<i>E</i><sub>t</sub> + Δ<i>E</i><sub>int</sub></div>
     <dl class="legend"><dt>ΔE<sub>int</sub></dt><dd>outras formas internas (química, nos músculos ou num combustível)</dd><dt>sistema isolado</dt><dd>W = 0: a energia total não muda, só troca de forma</dd></dl>
   </div>
-  <div class="fx"><span class="tag">Fórmula 10.4 · potência</span>
+  <div class="fx"><span class="tag">Fórmula 11.4 · potência</span>
     <div class="eq"><i>P</i><sub>méd</sub> = <span class="fr"><span>Δ<i>E</i></span><span>Δ<i>t</i></span></span> &nbsp;&nbsp;&nbsp; <i>P</i> = <span class="fr"><span><i>dE</i></span><span><i>dt</i></span></span></div>
     <dl class="legend"><dt>P</dt><dd>rapidez com que a energia é transferida, em watts (1 W = 1 J/s)</dd><dt>escala</dt><dd>1 cv ≈ 735 W; um motor de ponte rolante tem alguns kW</dd></dl>
   </div>
@@ -743,6 +813,7 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
     <div class="fx"><span class="tag">Potencial e trabalho</span><div class="eq">Δ<i>U</i> = −<i>W</i></div><p>só para forças conservativas</p></div>
     <div class="fx"><span class="tag">U gravitacional</span><div class="eq"><i>U</i> = <i>mgy</i></div><p>só ΔU importa; escolha a referência</p></div>
     <div class="fx"><span class="tag">U elástica</span><div class="eq"><i>U</i> = ½<i>kx</i>²</div><p>x = deformação da mola</p></div>
+    <div class="fx"><span class="tag">Hooke · massa-mola</span><div class="eq"><i>F</i> = −<i>kx</i> &nbsp; <i>v</i><sub>máx</sub> = <i>x</i><sub>m</sub>√(<i>k</i>/<i>m</i>)</div><p>v máx em x0; v = 0 em ±xm · 1 N/cm = 100 N/m</p></div>
     <div class="fx"><span class="tag">Conservação (sem atrito)</span><div class="eq"><i>K</i>₁ + <i>U</i>₁ = <i>K</i>₂ + <i>U</i>₂</div><p>tobogã: v = √(2gh)</p></div>
     <div class="fx"><span class="tag">Curva de U(x)</span><div class="eq"><i>F</i> = −<i>dU</i>/<i>dx</i>, &nbsp;<i>K</i> = <i>E</i> − <i>U</i></div><p>retorno: U = E · vale estável · morro instável</p></div>
     <div class="fx"><span class="tag">Com atrito</span><div class="eq"><i>W</i> = Δ<i>E</i><sub>mec</sub> + Δ<i>E</i><sub>t</sub></div><p>ΔE<sub>t</sub> = f<sub>k</sub>d</p></div>
@@ -936,7 +1007,7 @@ function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHT
 function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · pronto para a prova!':ok>=9?' · quase lá':' · revise os módulos'):'') }
 
 /* ===== progresso ===== */
-const MODS=[['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops'],['potencial','Energia potencial','U = mgy, U = ½kx² e forças conservativas'],['conserva','Conservação da energia','K + U constante, tobogãs e molas'],['curva','Curva de energia potencial','Retorno, equilíbrio e F = −dU/dx'],['termica','Energia térmica e potência','Atrito, ΔEt e P = ΔE/Δt']];
+const MODS=[['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops'],['potencial','Energia potencial','U = mgy, U = ½kx² e forças conservativas'],['conserva','Conservação da energia','K + U constante, tobogãs e molas'],['mola','Sistema massa-mola','Lei de Hooke, ciclo −xm ↔ +xm, v máx em x0'],['curva','Curva de energia potencial','Retorno, equilíbrio e F = −dU/dx'],['termica','Energia térmica e potência','Atrito, ΔEt e P = ΔE/Δt']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('fis-done')||'{}'); qa=JSON.parse(localStorage.getItem('fis-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('fis-done',JSON.stringify(done)); localStorage.setItem('fis-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -949,7 +1020,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getEl
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ===== rotas ===== */
-const VIEWS=['inicio','forcas','newton','aplic','atrito','arrasto','circular','potencial','conserva','curva','termica','lab','problemas','quiz','cola'];
+const VIEWS=['inicio','forcas','newton','aplic','atrito','arrasto','circular','potencial','conserva','mola','curva','termica','lab','problemas','quiz','cola'];
 let sims=[];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
@@ -1053,6 +1124,85 @@ QUIZ.push(
  ['Potência mede…',['quanta energia o corpo tem','quão rápido a energia é transferida','a força do motor','o trabalho total'],1,'P = ΔE/Δt, em watts (J/s).']
 );
 
+/* ===== aula 28/10: sistema massa-mola ===== */
+function SpringSim(box,ctlEl,goBtn,outEl,jumpBtns){
+  const AMAX=.20; let p={k:200,m:2,A:.10,sp:.25}, t=0, run=false, last=0;
+  const st=()=>{ const w=Math.sqrt(p.k/p.m), x=-p.A*Math.cos(w*t), v=p.A*w*Math.sin(w*t), F=-p.k*x, U=.5*p.k*x*x, K=.5*p.m*v*v, E=.5*p.k*p.A*p.A; return {w,x,v,F,U,K,E,T:2*Math.PI/w,vmax:p.A*w} };
+  const phase=s=>{ const eps=s.vmax*.03, ex=p.A*.03;
+    if(Math.abs(s.v)<eps) return s.x<0?['v = 0 em −xm: mola comprimida ao máximo, F máxima para a direita','c3']:['v = 0 em +xm: mola esticada ao máximo, F máxima para a esquerda','c3'];
+    if(Math.abs(s.x)<ex) return ['em x0: F = 0, velocidade máxima','ok'];
+    return s.F*s.v>0?[(s.x<0?'descomprimindo':'voltando de +xm')+': F a favor de v → acelera','c2']:[(s.x>0?'esticando':'comprimindo')+': F contra v → freia','bad'] };
+  const cv=new Cv(box,(x,w,h)=>{ const s=st(), small=w<520, wallX=small?14:24, floorY=Math.max(h-(small?54:64),0)-(small?0:Math.max(0,(h-300)*.25)), cx=wallX+(w-wallX)*.5, sc=((w-wallX)*.5-(small?40:70))/AMAX, bw=small?44:(w>900?76:58), bh=small?36:(w>900?58:46), bx=cx+s.x*sc;
+    x.font='600 '+(small?10:11)+'px "JetBrains Mono", monospace';
+    /* barras de energia */
+    const items=[['K',s.K,'c2'],['U',s.U,'c3'],['E',s.E,'ink']], barW=Math.min(small?w-60:260,w*.45), Emax=.5*1000*AMAX*AMAX;
+    items.forEach((it,i)=>{ const y=10+i*16; x.fillStyle=tok('ink2'); x.fillText(it[0],8,y+9); x.fillStyle=tok('line'); x.fillRect(24,y,barW,10); x.fillStyle=tok(it[2]); x.fillRect(24,y,barW*Math.min(1,s.E>0?it[1]/s.E:0),10); x.fillStyle=tok('ink'); x.fillText(dec(it[1],2)+' J',30+barW,y+9) });
+    const ph=phase(s); x.fillStyle=tok(ph[1]); x.font='700 '+(small?11:13)+'px "Atkinson Hyperlegible", sans-serif'; x.fillText(ph[0],8,small?72:68);
+    /* piso e parede */
+    x.strokeStyle=tok('ink2'); x.lineWidth=1.5; x.beginPath(); x.moveTo(wallX,floorY); x.lineTo(w-6,floorY); x.stroke();
+    x.fillStyle=tok('line'); x.fillRect(0,floorY-bh-40,wallX,bh+40); x.strokeStyle=tok('ink'); x.beginPath(); x.moveTo(wallX,floorY-bh-40); x.lineTo(wallX,floorY); x.stroke();
+    /* marcas −xm, x0, +xm */
+    x.setLineDash([4,4]); x.lineWidth=1; [[-p.A,'−xm'],[0,'x0'],[p.A,'+xm']].forEach(([xx,l])=>{ const X=cx+xx*sc; x.strokeStyle=xx?tok('c3'):tok('ok'); x.beginPath(); x.moveTo(X,floorY-bh-30); x.lineTo(X,floorY+8); x.stroke() }); x.setLineDash([]);
+    /* eixo em cm */
+    x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace'; x.textAlign='center';
+    for(let c=-20;c<=20;c+=5){ const X=cx+c/100*sc; x.fillRect(X-.5,floorY+2,1,c%10?4:7); if(!(c%10)||!small) x.fillText((c>0?'+':'')+c,X,floorY+18) }
+    x.fillText('x (cm)',cx,floorY+31); x.font='600 11px "JetBrains Mono", monospace';
+    [[-p.A,'−xm'],[0,'x0'],[p.A,'+xm']].forEach(([xx,l])=>{ x.fillStyle=xx?tok('c3'):tok('ok'); x.fillText(l,cx+xx*sc,floorY+44) }); x.textAlign='left';
+    /* mola em zigue-zague */
+    const y0=floorY-bh/2, n=14, L=bx-bw/2-wallX, amp=small?7:9; x.strokeStyle=tok('ink'); x.lineWidth=1.8; x.beginPath(); x.moveTo(wallX,y0); x.lineTo(wallX+L*.06,y0);
+    for(let i=1;i<=n;i++){ const X=wallX+L*.06+(L*.88)*(i-.5)/n; x.lineTo(X,y0+(i%2?-amp:amp)) } x.lineTo(wallX+L*.94,y0); x.lineTo(bx-bw/2,y0); x.stroke();
+    /* bloco */
+    x.fillStyle=tok('sheet'); x.strokeStyle=tok('ink'); x.lineWidth=2; x.fillRect(bx-bw/2,floorY-bh,bw,bh); x.strokeRect(bx-bw/2,floorY-bh,bw,bh);
+    x.fillStyle=tok('ink'); x.textAlign='center'; x.font='700 11px "JetBrains Mono", monospace'; x.fillText(dec(p.m,1)+' kg',bx,floorY-bh/2+4); x.textAlign='left';
+    /* setas */
+    const Fl=s.F/(p.k*p.A)*(small?60:100), vl=s.vmax>0?s.v/s.vmax*(small?50:80):0;
+    arrow(x,bx,floorY-bh*.3,Fl,0,tok('bad'),Math.abs(Fl)>14?'F':'');
+    arrow(x,bx,floorY-bh-12,vl,0,tok('c2'),Math.abs(vl)>14?'v':'') });
+  const out=()=>{ const s=st(); if(outEl) outEl.innerHTML='<ol><li>x = '+dec(s.x*100,1)+' cm · v = '+dec(s.v,2)+' m/s · F = −kx = '+dec(s.F,1)+' N</li><li>K = '+dec(s.K,2)+' J · U = ½kx² = '+dec(s.U,2)+' J · K + U = '+dec(s.K+s.U,2)+' J</li><li>ω = √(k/m) = '+dec(s.w,2)+' rad/s · período T = 2π√(m/k) = '+dec(s.T,2)+' s · v máx = x<sub>m</sub>√(k/m) = '+dec(s.vmax,2)+' m/s</li></ol>' };
+  const step=tt=>{ const dt=Math.min(.05,(tt-last)/1000||0); last=tt; if(run&&box.offsetParent){ t+=dt*p.sp; cv.draw(); out() } requestAnimationFrame(step) }; requestAnimationFrame(step);
+  goBtn.onclick=()=>{ run=!run; goBtn.textContent=run?'Pausar':'Continuar' };
+  jumpBtns.forEach(b=>b.onclick=()=>{ run=false; goBtn.textContent='Continuar'; t=(+b.dataset.sp)*st().T/4; cv.draw(); out() });
+  controls(ctlEl,[{k:'k',l:'constante k',min:50,max:1000,st:10,v:p.k,d:0,u:' N/m'},{k:'m',l:'massa m',min:.5,max:5,st:.1,v:p.m,d:1,u:' kg'},{k:'A',l:'amplitude xm',min:.04,max:.2,st:.01,v:p.A,d:2,u:' m'},{k:'sp',l:'velocidade da animação',min:.05,max:1,st:.05,v:p.sp,d:2,u:'×'}],val=>{ const keepT=t; p={...p,...val}; t=keepT; cv.draw(); out() });
+  return cv }
+
+/* pista em U */
+function UTrackSim(box,goBtn,muEl){ const H0=1, yf=x=>x*x, X1=1.15; let s, run=false, last=0, trail=[];
+  const reset=()=>{ s={x:-1,dir:1,E:G*H0}; trail=[]; run=false; goBtn.textContent='Soltar' };
+  const cv=new Cv(box,(x,w,h)=>{ const T=22,B=h-16, sy=v=>B-v/1.25*(B-T), sx=v=>w/2+v/X1*(w/2-20);
+    x.strokeStyle=tok('line'); x.setLineDash([5,5]); x.lineWidth=1; x.beginPath(); x.moveTo(12,sy(H0)); x.lineTo(w-12,sy(H0)); x.stroke(); x.setLineDash([]);
+    x.fillStyle=tok('ink2'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('altura inicial h',w/2-50,sy(H0)-6);
+    x.strokeStyle=tok('ink'); x.lineWidth=2.4; x.beginPath(); for(let i=0;i<=120;i++){ const xx=-X1+2*X1*i/120; i?x.lineTo(sx(xx),sy(yf(xx))):x.moveTo(sx(xx),sy(yf(xx))) } x.stroke();
+    const y=yf(s.x), hmax=s.E/G; if(muEl.checked&&hmax<H0-.01){ x.strokeStyle=tok('bad'); x.setLineDash([3,4]); x.beginPath(); x.moveTo(12,sy(hmax)); x.lineTo(w-12,sy(hmax)); x.stroke(); x.setLineDash([]); x.fillStyle=tok('bad'); x.fillText('altura máxima agora',w-170,sy(hmax)-6) }
+    x.fillStyle=tok('c3'); x.beginPath(); x.arc(sx(s.x),sy(y)-9,9,0,7); x.fill();
+    const K=Math.max(0,s.E-G*y), U=G*y; x.fillStyle=tok('ink2'); x.textAlign='right'; x.fillText('K '+Math.round(K/(G*H0)*100)+'% · U '+Math.round(U/(G*H0)*100)+'% da energia inicial',w-12,T-6); x.textAlign='left' });
+  const step=t=>{ const dt=Math.min(.03,(t-last)/1000||0); last=t;
+    if(run&&box.offsetParent){ for(let i=0;i<8;i++){ const hh=dt/8*1.4, y=yf(s.x), sl=2*s.x, ds=1/Math.sqrt(1+sl*sl); let K=s.E-G*y; let v=Math.sqrt(Math.max(0,2*K));
+        if(K<=1e-6||v<.03){ st=-Math.sign(sl)||1; s.dir=st; v=.03 }
+        const nx=s.x+s.dir*v*ds*hh; if(muEl.checked){ const loss=.05*G*ds*Math.abs(nx-s.x)*Math.sqrt(1+sl*sl)*1.2; s.E=Math.max(0,s.E-loss) }
+        if(s.E-G*yf(nx)<0) s.dir*=-1; else s.x=nx; if(s.E<.004){ run=false; goBtn.textContent='Parou' } }
+      cv.draw() } requestAnimationFrame(step) }; let st=1; requestAnimationFrame(step);
+  goBtn.onclick=()=>{ if(goBtn.textContent==='Parou'){ reset(); cv.draw(); return } run=!run; goBtn.textContent=run?'Pausar':'Continuar' };
+  muEl.onchange=()=>{ reset(); cv.draw() };
+  reset(); return cv }
+
+Object.assign(CALCS,{
+ hooke(){ const F=num('hk-f'), xc=num('hk-x'); if(xc===0) throw new Error('A deformação não pode ser zero.'); const kc=F/xc, km=kc*100, xm=xc/100, U=.5*km*xm*xm;
+  return [['k = F / x = '+dec(F,1)+' N / '+dec(xc,2)+' cm = '+dec(kc,2)+' N/cm','Em N/m: '+dec(kc,2)+' · 100 = '+dec(km,0)+' N/m (1 m = 100 cm)','Energia guardada: U = ½kx² = ½ · '+dec(km,0)+' · '+dec(xm,4)+'² = '+dec(U,3)+' J'],'k = '+dec(kc,2)+' N/cm = '+dec(km,0)+' N/m · U = '+dec(U,3)+' J'] }
+});
+
+PROBS.push(
+ {n:'23',m:'massa-mola · Hooke',q:'Uma mola estica 4,0 cm quando penduramos nela um peso de 20 N. Qual o k em N/cm e em N/m? Quanto ela estica com 50 N?',
+  s:['k = F/x = 20 N / 4,0 cm = 5,0 N/cm.','Em N/m: 5,0 · 100 = 500 N/m.','Com 50 N: x = F/k = 50 / 5,0 = 10 cm.'],a:'k = 5,0 N/cm = 500 N/m · estica 10 cm'},
+ {n:'24',m:'massa-mola · v máx',q:'Um bloco de 2,0 kg preso a uma mola de k = 200 N/m é solto em x = −0,10 m, num piso sem atrito. Qual a velocidade em x0? E em x = +0,05 m?',
+  s:['Energia total (no extremo, v = 0): E = ½kx<sub>m</sub>² = ½ · 200 · 0,10² = 1,0 J.','Em x0, U = 0: ½mv² = 1,0 → v = √(2 · 1,0 / 2,0) = 1,0 m/s (velocidade máxima).','Em x = 0,05 m: U = ½ · 200 · 0,05² = 0,25 J → K = 0,75 J → v = √(2 · 0,75 / 2,0) ≈ 0,87 m/s, menor que em x0, porque a mola já está freando.'],a:'1,0 m/s em x0 · ≈ 0,87 m/s em +0,05 m'}
+);
+QUIZ.push(
+ ['Num massa-mola sem atrito, onde a velocidade do bloco é máxima?',['em −xm','em +xm','em x0, nas duas passagens','depende do sentido'],2,'K = E − ½kx² é máxima onde x = 0. Comprimindo ou descomprimindo, a velocidade em x0 é a mesma.'],
+ ['O bloco acabou de passar por x0 indo para +xm. A mola agora…',['empurra a favor do movimento','puxa contra o movimento, então ele freia','não faz força','faz força para cima'],1,'Depois de x0 a mola está esticada e F = −kx aponta de volta para x0, contra a velocidade: o bloco só freia até parar em +xm.'],
+ ['Uma mola de 20 N/cm vale, em N/m…',['0,2 N/m','200 N/m','2 000 N/m','20 000 N/m'],2,'1 m = 100 cm, então 20 N/cm = 20 · 100 N/m = 2 000 N/m.'],
+ ['Numa pista em U sem atrito, uma bola solta da altura h sobe do outro lado até…',['menos que h','exatamente h','mais que h','depende da massa'],1,'No ponto mais alto K = 0 de novo, então U = mgh tem que ser igual à inicial.']
+);
+
 /* ===== aula 28/10: queda com 30 J ===== */
 (function(){ const r=document.getElementById('qH'); if(!r)return; const up=()=>{ const f=+r.value/100, U=30*f, K=30-U;
   document.getElementById('qHv').textContent=r.value+'%'; document.getElementById('qBall').style.bottom=(f*100)+'%';
@@ -1082,6 +1232,8 @@ sims=[somaCv,dragCv,
   USim(document.getElementById('labU'),document.getElementById('labUCtl'),document.getElementById('labUOut')),
   CurveSim(document.getElementById('curveSim'),document.getElementById('curveCtl'),document.getElementById('curveOut')),
   CurveSim(document.getElementById('labCurve'),document.getElementById('labCurveCtl'),document.getElementById('labCurveOut'))];
+sims.push(SpringSim(document.getElementById('springSim'),document.getElementById('springCtl'),document.getElementById('springGo'),document.getElementById('springOut'),[...document.querySelectorAll('[data-sp]')]),
+  UTrackSim(document.getElementById('uTrack'),document.getElementById('uTrackGo'),document.getElementById('uTrackMu')));
 renderQuiz(); renderProg();
 addEventListener('hashchange',route); route();
 const redraw=()=>sims.forEach(s=>s&&s.draw());

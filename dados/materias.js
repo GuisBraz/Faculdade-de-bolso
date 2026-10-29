@@ -65,7 +65,8 @@ window.FACULDADE = {
               atualizacoes: [
                 { data: "2026-10-28", texto: "Criada com os capítulos 5 e 6 (Força e Movimento I e II)." },
                 { data: "2026-10-28", texto: "Incluído o capítulo 8 (Energia Potencial e Conservação da Energia)." },
-                { data: "2026-10-28", texto: "Aula de 28/10: conservação geral da energia (formas de energia) e o exemplo de queda com 30 J (K + U)." }
+                { data: "2026-10-28", texto: "Aula de 28/10: conservação geral da energia (formas de energia) e o exemplo de queda com 30 J (K + U)." },
+                { data: "2026-10-28", texto: "Aula de 28/10: novo módulo Massa-mola — lei de Hooke (k em N/cm e N/m), ciclo −xm ↔ +xm, simulador de mola, v máx em x0 nas duas passagens, pista em U e PhET." }
               ],
               descricao: "Capítulos 5, 6 e 8 do Halliday: leis de Newton, atrito, arrasto, movimento circular, energia potencial e conservação da energia, com simuladores, 22 problemas resolvidos e quiz.",
               data: "2026-10-28",
