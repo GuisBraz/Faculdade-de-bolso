@@ -1,0 +1,912 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oficina de Cálculo II</title>
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,500;1,500&display=swap">
+<style>
+/* Layout: prancheta técnica — folha milimetrada, carimbos de desenho técnico nas fórmulas, uma coluna de leitura com laboratório 3D */
+:root{
+  --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
+  --c1:#D9531A; --c2:#0C8587; --c3:#6447BE; --ok:#2A7F3E; --bad:#BF3328; --hl:rgba(217,83,26,.10); --hl2:rgba(12,133,135,.10);
+  --f-disp:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif, "Cambria Math", "STIX Two Text";
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif, "Cambria Math", "STIX Two Text", "Segoe UI Symbol";
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace, "Cambria Math", "STIX Two Text";
+  --f-math:"STIX Two Text", "Cambria Math", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+h1,h2,h3{font-family:var(--f-disp);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,5vw,2.4rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700;margin-top:2.2rem}
+p{margin:.6rem 0}
+a{color:var(--c2)}
+i.m,.m{font-family:var(--f-math);font-style:italic}
+:focus-visible{outline:2.5px solid var(--c1);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sheet);border-bottom:1px solid var(--line)}
+.hwrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 0}
+.brand{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.brand a{font-family:var(--f-disp);font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo{width:26px;height:26px}
+.prog{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.bar{width:90px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c2);width:0;transition:width .4s}
+nav{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;font-size:.86rem;font-weight:700;text-decoration:none;color:var(--ink2);padding:6px 11px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--ink);border-color:var(--line)}
+nav a.on{background:var(--ink);color:var(--sheet)}
+nav a .dn{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-left:5px;vertical-align:middle}
+
+main{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 80px}
+.view{display:block}
+.read{max-width:700px}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.lede{font-size:1.12rem;color:var(--ink2);max-width:62ch}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;margin-bottom:36px}
+.hero h1{font-size:clamp(2.2rem,7vw,3.9rem);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--c1)}
+.hero .cv{aspect-ratio:1/1;max-width:100%}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+
+/* trilha */
+.trail{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:18px}
+.stop{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;padding:14px 16px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
+.stop:hover{transform:translateY(-2px);border-color:var(--c2)}
+.stop .n{grid-row:span 2;font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ink2);color:var(--ink2)}
+.stop.done .n{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.stop b{font-family:var(--f-disp);font-size:1.05rem}
+.stop span{font-size:.88rem;color:var(--ink2);line-height:1.4}
+
+/* blocos */
+.fx{position:relative;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;margin:20px 0;padding:30px 18px 16px;overflow-x:auto}
+.fx .tag{position:absolute;top:0;left:0;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--sheet);padding:3px 9px;border-bottom-right-radius:4px}
+.fx .eq{font-family:var(--f-math);font-size:1.45rem;text-align:center;padding:6px 0 10px;white-space:nowrap}
+.fx .eq i{font-style:italic}
+.legend{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.93rem;border-top:1px dashed var(--line);padding-top:10px;margin:0}
+.legend dt{font-family:var(--f-math);font-style:italic;font-size:1.05rem;color:var(--c1);white-space:nowrap}
+.legend dd{margin:0;color:var(--ink2)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .25em .05em}
+.fr>span:last-child{padding:.05em .25em 0}
+.rt{white-space:nowrap}.rt::before{content:"√"}.rt>span{border-top:1.5px solid currentColor;padding:0 .1em}
+.v{position:relative}
+.ofi{background:var(--hl2);border-radius:8px;padding:12px 16px;margin:18px 0}
+.ofi .k,.cuid .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--c2);display:block;margin-bottom:2px}
+.cuid{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:12px 16px 12px;margin:18px 0;position:relative;overflow:hidden}
+.cuid::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:repeating-linear-gradient(-45deg,#E8B511 0 8px,#1b1b1b 8px 16px)}
+.cuid .k{color:var(--c1);margin-top:4px}
+ol.recipe{counter-reset:s;list-style:none;padding:0;margin:14px 0;display:grid;gap:8px}
+ol.recipe>li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+ol.recipe>li::before{content:counter(s);font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:26px;height:26px;border-radius:50%;background:var(--c1);color:var(--sheet);display:grid;place-items:center;margin-top:1px}
+code,.mono{font-family:var(--f-mono);font-size:.9em}
+.tbl{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--sheet)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+
+/* exemplo passo a passo */
+.ex{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:18px 0}
+.ex .q{font-weight:700}
+.ex ol{margin:10px 0 0;padding-left:1.3em;display:grid;gap:8px}
+.ex ol li{padding-left:4px}
+.ex ol li.hid{display:none}
+.ex .ans{display:none;margin-top:10px;padding:8px 12px;background:var(--hl);border-radius:6px;font-weight:700}
+.ex.all .ans{display:block}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button,.btn{font:700 .88rem var(--f-body);border-radius:8px;padding:8px 14px;cursor:pointer;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet)}
+button.ghost{background:transparent;color:var(--ink)}
+button:disabled{opacity:.4;cursor:default}
+button:hover:not(:disabled){filter:brightness(1.1)}
+
+/* calculadoras */
+.calc{background:var(--sheet);border:1.5px solid var(--c2);border-radius:10px;padding:16px;margin:24px 0}
+.calc h4{margin:0 0 4px;font-family:var(--f-disp);font-size:1.1rem;color:var(--c2)}
+.calc .hint{font-size:.85rem;color:var(--ink2);margin:0 0 10px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.fields label{display:grid;gap:3px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+input[type=text],select{font:500 1rem var(--f-mono);padding:8px 10px;border-radius:6px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%;min-width:0}
+input[type=text]:focus{border-color:var(--c2);outline:none}
+.out{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;font-size:.95rem}
+.out ol{margin:0;padding-left:1.3em;display:grid;gap:5px}
+.out .res{margin-top:8px;font-weight:700;padding:8px 12px;border-radius:6px;background:var(--hl2)}
+.out .err{color:var(--bad);font-weight:700}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.seg button{background:transparent;color:var(--ink2);border-color:var(--line);font-size:.82rem;padding:6px 11px}
+.seg button.on{background:var(--c2);border-color:var(--c2);color:var(--sheet)}
+.done-btn{margin-top:36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--line)}
+.done-btn button.isdone{background:var(--ok);border-color:var(--ok)}
+
+/* 3D */
+.cv{position:relative;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--sheet);overflow:hidden;touch-action:none}
+.cv canvas{display:block;width:100%;height:100%;cursor:grab}
+.cv .ctl{position:absolute;right:8px;bottom:8px;display:flex;gap:6px}
+.cv .ctl button{padding:4px 10px;font-size:.85rem;background:var(--sheet);color:var(--ink);border-color:var(--line)}
+.cv .lbl{position:absolute;left:10px;top:8px;font-family:var(--f-mono);font-size:.7rem;color:var(--ink2)}
+.labgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start}
+.labgrid .cv{aspect-ratio:4/3.4}
+@media (max-width:760px){.labgrid{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{font-size:.8rem;padding:6px 10px;background:transparent;color:var(--ink);border-color:var(--line)}
+.objlist{list-style:none;padding:0;margin:10px 0;display:grid;gap:6px;font-size:.88rem}
+.objlist li{display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:6px;padding:6px 8px}
+.objlist li .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.objlist li span{flex:1;min-width:0;font-family:var(--f-mono);font-size:.8rem;overflow-wrap:anywhere}
+.objlist li button{padding:2px 8px;font-size:.75rem;background:transparent;color:var(--bad);border-color:var(--line)}
+.inline-cv{aspect-ratio:16/10;margin:16px 0}
+
+/* fluxograma */
+.flow{display:grid;gap:10px;margin:16px 0}
+.node{background:var(--sheet);border:1.5px solid var(--ink);border-radius:8px;padding:10px 14px}
+.node b{font-family:var(--f-disp)}
+.branch{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.leaf{border-radius:8px;padding:10px 12px;font-size:.92rem;border:1.5px solid var(--line);background:var(--sheet)}
+.leaf b{display:block;font-family:var(--f-disp);font-size:1rem}
+.leaf.a b{color:var(--c1)}.leaf.b b{color:var(--c2)}.leaf.c b{color:var(--c3)}
+.arrow{text-align:center;font-family:var(--f-mono);color:var(--ink2);font-size:.8rem}
+@media (max-width:520px){.branch{grid-template-columns:1fr}}
+
+/* lista */
+.qitem{background:var(--sheet);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.qitem summary{cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;list-style:none}
+.qitem summary::-webkit-details-marker{display:none}
+.qitem summary .qn{font-family:var(--f-mono);font-weight:600;font-size:.8rem;background:var(--ink);color:var(--sheet);border-radius:5px;padding:2px 8px;margin-top:2px}
+.qitem[open] summary{border-bottom:1px dashed var(--line)}
+.qitem .body{padding:6px 16px 16px}
+.qitem .tagt{font-family:var(--f-mono);font-size:.72rem;color:var(--c2);margin-top:4px;display:block}
+.part{margin-top:14px}
+.part h5{margin:0;font-family:var(--f-disp);font-size:1rem}
+
+/* quiz */
+.qz{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+.qz .opts{display:grid;gap:8px;margin-top:10px}
+.qz .opts button{text-align:left;background:var(--paper);color:var(--ink);border:1.5px solid var(--line);font-weight:400}
+.qz .opts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--sheet))}
+.qz .opts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--sheet))}
+.qz .why{margin-top:10px;font-size:.93rem;color:var(--ink2)}
+.score{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--ink);color:var(--sheet);border-radius:10px;padding:10px 16px;font-family:var(--f-mono);font-size:.9rem}
+.score button{background:var(--sheet);color:var(--ink);border-color:var(--sheet);padding:4px 10px;font-size:.8rem}
+
+/* cola */
+.cola{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.cola .fx{margin:0}
+.cola .fx .eq{font-size:1.2rem}
+.cola p{font-size:.85rem;color:var(--ink2);margin:6px 0 0}
+
+/* demo escalar */
+.dot2d{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin:18px 0}
+.dot2d canvas{width:200px;height:200px;max-width:100%}
+.dot2d input[type=range]{width:100%;accent-color:var(--c1)}
+.verdict{font-family:var(--f-disp);font-size:1.2rem;font-weight:700}
+@media (max-width:520px){.dot2d{grid-template-columns:1fr;justify-items:center}}
+footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* física */
+.aula{background:var(--sheet);border:1.5px solid var(--c1);border-radius:10px;padding:14px 16px;margin:22px 0;position:relative}
+.aula .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sheet);background:var(--c1);padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.queda{display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:stretch;margin:10px 0}
+.qcol{display:grid;grid-template-rows:1fr auto;justify-items:center;gap:4px}
+.qtrack{position:relative;width:8px;min-height:190px;height:100%;background:var(--line);border-radius:4px}
+.qball{position:absolute;left:50%;width:22px;height:22px;border-radius:50%;background:var(--c3);transform:translate(-50%,50%);bottom:100%}
+.qlbl{font:600 .66rem var(--f-mono);color:var(--ink2);text-transform:uppercase}
+.qinfo input[type=range]{width:100%;accent-color:var(--c1)}
+.qbars{display:grid;gap:6px;margin-top:8px}
+.qbars div{display:grid;grid-template-columns:34px 1fr 54px;gap:8px;align-items:center;font-family:var(--f-mono);font-size:.82rem}
+.qbars i{display:block;height:14px;background:var(--line);border-radius:3px;overflow:hidden}
+.qbars em{display:block;height:100%}
+.qbars b{text-align:right}
+.formas{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.formas span{--mc:var(--c1);border:1.5px solid var(--mc);border-radius:999px;padding:4px 12px;font-size:.85rem;background:color-mix(in srgb,var(--mc) 8%,var(--sheet))}
+.formas b{font-family:var(--f-math);font-style:italic;color:var(--mc);margin-right:2px}
+@media (max-width:480px){.queda{grid-template-columns:50px 1fr}}
+.simctl{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px 16px;margin:12px 0 4px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.simctl label{display:grid;gap:2px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+.simctl label b{color:var(--ink);font-family:var(--f-mono)}
+.simctl input[type=range]{width:100%;accent-color:var(--c1)}
+.simout{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:10px 14px 12px;margin-bottom:10px}
+.sim canvas{cursor:default}
+.labgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:4px 24px}
+
+@media (min-width:1400px){
+  .hwrap,main,footer{max-width:min(1320px,92vw)}
+  .view.read{max-width:1120px}
+  .view.read>p,.view.read>ul,.view.read>ol,.view.read>h2,.view.read>h3{max-width:78ch}
+  nav{flex-wrap:wrap;overflow:visible}
+}
+@media (min-width:1900px){body{font-size:17px}.hwrap,main,footer{max-width:1440px}}
+
+.fx .eq{text-wrap:balance}
+@media (max-width:560px){.fx .eq{white-space:normal;font-size:1.18rem;line-height:1.5}}
+.row-ctl{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:10px 0}
+.row-ctl select{font:600 .9rem var(--f-body);padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink);margin-left:6px;max-width:100%}
+.row-ctl input[type=range]{accent-color:var(--c3)}
+.labgrid2 .cv{min-height:260px}
+.arvore{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin:16px 0;text-align:center;font-family:var(--f-math);font-style:italic;font-size:1.2rem;max-width:420px}
+.arvore>div{display:flex;justify-content:space-around;margin:6px 0}
+.arvore span,.arvore .nz{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper,var(--sheet))}
+.arvore .nz{margin:0 auto;background:var(--c1);color:var(--sheet);border-color:var(--c1)}
+.arvore .nm span{border-color:var(--c2)}
+.arvore p{font-family:var(--f-mono);font-style:normal;font-size:.78rem;color:var(--ink2);margin:8px 0 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0"><a href="../../index.html#m-calc2" style="font-size:.8rem;font-weight:700;color:var(--ink2);text-decoration:none;margin-right:6px" aria-label="Voltar ao hub">← Hub</a><a href="#inicio"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17c3-1 4-9 9-9s6 8 9 9"/><path d="M3 21h18"/><path d="M12 8V3"/></svg>Oficina de Cálculo II</a></div>
+      <div class="prog"><span id="progtxt">0/7</span><div class="bar"><i id="progbar"></i></div></div>
+    </div>
+    <nav id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#funcoes" data-m="funcoes">1 · Funções de 2 variáveis</a>
+      <a href="#nivel" data-m="nivel">2 · Curvas de nível</a>
+      <a href="#parciais" data-m="parciais">3 · Derivadas parciais</a>
+      <a href="#ordem" data-m="ordem">4 · 2ª ordem</a>
+      <a href="#cadeia" data-m="cadeia">5 · Regra da cadeia</a>
+      <a href="#gradiente" data-m="gradiente">6 · Gradiente</a>
+      <a href="#extremos" data-m="extremos">7 · Máximos e mínimos</a>
+      <a href="#lab">Laboratório</a>
+      <a href="#lista">Lista resolvida</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#cola">Cola</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ INÍCIO ============ -->
+<section class="view" id="v-inicio">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Cálculo II · 2ª prova · 12/11</div>
+      <h1>Uma função, <em>várias entradas</em>. O cálculo agora é uma superfície.</h1>
+      <p class="lede">Funções de várias variáveis do zero: domínio, gráfico, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos. Cada fórmula vem explicada símbolo por símbolo, com superfícies 3D que você gira com o dedo e a lista da professora resolvida passo a passo.</p>
+      <div class="btns"><a class="btn" href="#funcoes" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lista'">Ir para a lista</button></div>
+    </div>
+    <div class="cv sim" id="heroSim" style="aspect-ratio:1/1"><canvas></canvas></div>
+  </div>
+
+  <h3 style="margin-top:0">A trilha</h3>
+  <p class="read">Os módulos 1 a 5 seguem os slides das aulas 21/10, 22/10 e 28/10. Os módulos 6 e 7 (gradiente e máximos e mínimos) são das aulas de 29/10, 04/11 e 05/11 e já estão aqui pelo Stewart, porque a lista cobra. Conforme as aulas acontecerem, eu acrescento o que a professora passar.</p>
+  <div class="trail" id="trail"></div>
+
+  <h3>A ideia que atravessa tudo</h3>
+  <ol class="recipe read">
+    <li><span><b>Uma variável por vez.</b> Quase tudo em várias variáveis é o Cálculo I aplicado a uma variável enquanto as outras ficam paradas.</span></li>
+    <li><span><b>Derivada parcial = inclinação numa direção.</b> f<sub>x</sub> é a inclinação andando em x; f<sub>y</sub>, andando em y.</span></li>
+    <li><span><b>O gradiente junta as duas</b> num vetor ∇f = ⟨f<sub>x</sub>, f<sub>y</sub>⟩, que aponta para onde a função sobe mais rápido.</span></li>
+    <li><span><b>Máximo, mínimo ou sela</b> só pode acontecer onde ∇f = 0. O teste da derivada segunda decide qual dos três.</span></li>
+  </ol>
+</section>
+
+<!-- ============ 1 FUNÇÕES ============ -->
+<section class="view read" id="v-funcoes" hidden>
+  <div class="eyebrow">Módulo 1 · Aula de 21/10 · Stewart 14.1</div>
+  <h2>Funções de duas (ou três) variáveis</h2>
+  <p class="lede">A temperatura de uma chapa depende de onde você mede: do x e do y. Uma função de duas variáveis pega um par (x, y) e devolve um único número f(x, y).</p>
+
+  <div class="fx"><span class="tag">Definição 1.1 · função de duas variáveis</span>
+    <div class="eq"><i>f</i> : <i>D</i> ⊂ ℝ² → ℝ</div><div class="eq" style="padding-top:0">(<i>x</i>, <i>y</i>) ↦ <i>z</i> = <i>f</i>(<i>x</i>, <i>y</i>)</div>
+    <dl class="legend"><dt>D</dt><dd><b>domínio</b>: todos os pares (x, y) em que a fórmula faz sentido</dd><dt>imagem</dt><dd>todos os valores z que a função chega a dar</dd><dt>gráfico</dt><dd>a <b>superfície</b> z = f(x, y) no espaço: cada ponto do chão (x, y) recebe uma altura</dd></dl>
+  </div>
+
+  <h3>Como achar o domínio</h3>
+  <p>Procure as três "proibições" do Cálculo I e escreva a condição de cada uma:</p>
+  <div class="tbl"><table><tr><th>Aparece na fórmula</th><th>Condição</th><th>Exemplo</th></tr>
+    <tr><td>raiz quadrada √(…)</td><td>(…) ≥ 0</td><td>√(x + y): y ≥ −x</td></tr>
+    <tr><td>logaritmo ln(…)</td><td>(…) &gt; 0</td><td>ln(9 − x² − 9y²): x²/9 + y² &lt; 1 (interior de uma elipse)</td></tr>
+    <tr><td>fração …/(…)</td><td>denominador ≠ 0</td><td>1/(x − 1): x ≠ 1</td></tr></table></div>
+
+  <div class="ex" data-ex><div class="q">Exemplo 1 da aula: calcule f(3, 2) e o domínio de f(x, y) = √(x + y + 1) / (x − 1).</div>
+    <ol><li>f(3, 2) = √(3 + 2 + 1)/(3 − 1) = √6 / 2.</li><li>Raiz: x + y + 1 ≥ 0, ou seja, y ≥ −x − 1 (sobre ou acima da reta).</li><li>Fração: x − 1 ≠ 0, ou seja, x ≠ 1 (tira a reta vertical x = 1).</li></ol>
+    <div class="ans">f(3, 2) = √6/2 ≈ 1,22 · D = {(x, y) | x + y + 1 ≥ 0, x ≠ 1}</div></div>
+
+  <div class="ex" data-ex><div class="q">Exemplo 1b: f(3, 2) e domínio de f(x, y) = x ln(y² − x).</div>
+    <ol><li>f(3, 2) = 3 · ln(4 − 3) = 3 · ln 1 = 0.</li><li>Logaritmo: y² − x &gt; 0, ou seja, x &lt; y² (a região à esquerda da parábola x = y²).</li></ol>
+    <div class="ans">f(3, 2) = 0 · D = {(x, y) | x &lt; y²}</div></div>
+
+  <div class="ex" data-ex><div class="q">Exemplo 2: domínio e imagem de g(x, y) = √(9 − x² − y²).</div>
+    <ol><li>Raiz: 9 − x² − y² ≥ 0 → x² + y² ≤ 9: o disco de raio 3 centrado na origem.</li><li>O maior valor é na origem: √9 = 3. O menor é na borda do disco: √0 = 0.</li><li>O gráfico é a metade de cima de uma esfera de raio 3.</li></ol>
+    <div class="ans">D = {x² + y² ≤ 9} · imagem = [0, 3]</div></div>
+
+  <h3>O gráfico é uma superfície</h3>
+  <p>Gire com o dedo ou o mouse. Cada cor é uma altura: verde-azulado embaixo, laranja em cima.</p>
+  <div class="seg" id="fnSeg"><button class="on" data-f="esfera">√(9 − x² − y²)</button><button data-f="plano">6 − 3x − 2y</button><button data-f="parab">x² + y²</button><button data-f="sela">x² − y²</button></div>
+  <div class="cv sim" id="fn3d" style="aspect-ratio:16/10"><canvas></canvas></div>
+
+  <h3>Três variáveis</h3>
+  <p>f(x, y, z) associa um número a cada ponto do espaço, como a temperatura dentro de uma sala. O gráfico precisaria de 4 dimensões, então a gente olha as <b>superfícies de nível</b> f(x, y, z) = k. Exemplo da aula: as superfícies de nível de x² + y² + z² são esferas.</p>
+  <div class="ex" data-ex><div class="q">Exemplo 7: domínio de f(x, y, z) = ln(z − y) + xy sen z.</div>
+    <ol><li>Só o logaritmo restringe: z − y &gt; 0.</li><li>Os pontos acima do plano z = y.</li></ol><div class="ans">D = {(x, y, z) | z &gt; y}</div></div>
+  <div class="ex" data-ex><div class="q">Praticando 2: f(x, y, z) = e<sup>√(z − x² − y²)</sup>. Calcule f(2, −1, 6), o domínio e a imagem.</div>
+    <ol><li>f(2, −1, 6) = e<sup>√(6 − 4 − 1)</sup> = e<sup>1</sup> = e.</li><li>Domínio: z − x² − y² ≥ 0 → z ≥ x² + y² (dentro e acima do paraboloide).</li><li>A raiz vale de 0 a ∞, então e<sup>raiz</sup> vale de e⁰ = 1 a ∞.</li></ol><div class="ans">f = e · D = {z ≥ x² + y²} · imagem = [1, ∞)</div></div>
+
+  <div class="done-btn" data-done="funcoes"></div>
+</section>
+
+<!-- ============ 2 CURVAS DE NÍVEL ============ -->
+<section class="view read" id="v-nivel" hidden>
+  <div class="eyebrow">Módulo 2 · Aula de 21/10 · Stewart 14.1</div>
+  <h2>Curvas de nível: o mapa topográfico da função</h2>
+  <p class="lede">Corte a superfície com um plano horizontal z = k e projete o corte no chão. Essa curva é a curva de nível k: todos os pontos onde a função vale exatamente k.</p>
+
+  <div class="fx"><span class="tag">Definição 2.1 · curva de nível</span>
+    <div class="eq"><i>f</i>(<i>x</i>, <i>y</i>) = <i>k</i></div>
+    <dl class="legend"><dt>k</dt><dd>uma constante da imagem de f (a "altura" da curva)</dd><dt>leitura</dt><dd>andando sobre a curva você nem sobe nem desce, como numa trilha de mapa topográfico</dd><dt>espaçamento</dt><dd>curvas <b>juntas</b> = superfície <b>íngreme</b>; curvas afastadas = superfície plana</dd></dl>
+  </div>
+
+  <h3>Simulador: o plano z = k cortando a superfície</h3>
+  <p>Mexa em k. À esquerda, o plano corta a superfície; à direita, a mesma curva (roxa) no mapa de contorno.</p>
+  <div class="row-ctl"><label class="mono" style="font-size:.82rem">função <select id="nvFn"><option value="esfera">√(9 − x² − y²)</option><option value="plano">6 − 3x − 2y</option><option value="elipse">4x² + y²</option><option value="parab">x² + y²</option><option value="sela">x² − y²</option><option value="ondas">sen x · cos y</option></select></label>
+    <label class="mono" style="font-size:.82rem;flex:1;min-width:200px">k = <b id="nvKv"></b> <input type="range" id="nvK" style="width:100%"></label></div>
+  <div class="labgrid2"><div class="cv sim" id="nv3d" style="aspect-ratio:1/1"><canvas></canvas></div><div class="cv sim" id="nvMap" style="aspect-ratio:1/1"><canvas></canvas></div></div>
+
+  <h3>Os exemplos da aula</h3>
+  <div class="ex" data-ex><div class="q">Exemplo 4: curvas de nível de f(x, y) = 6 − 3x − 2y para k = −6, 0, 6, 12.</div>
+    <ol><li>6 − 3x − 2y = k → y = −(3/2)x + (6 − k)/2.</li><li>Para cada k, uma reta de inclinação −3/2. Mudar k só desloca a reta.</li><li>São retas paralelas e igualmente espaçadas, porque o gráfico é um plano.</li></ol>
+    <div class="ans">k = −6: y = −1,5x + 6 · k = 0: y = −1,5x + 3 · k = 6: y = −1,5x · k = 12: y = −1,5x − 3</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 5: curvas de nível de g(x, y) = √(9 − x² − y²) para k = 0, 1, 2, 3.</div>
+    <ol><li>√(9 − x² − y²) = k → x² + y² = 9 − k².</li><li>Circunferências centradas na origem, de raio √(9 − k²).</li><li>k = 0: raio 3 · k = 1: raio √8 ≈ 2,83 · k = 2: raio √5 ≈ 2,24 · k = 3: só o ponto (0, 0).</li></ol>
+    <div class="ans">Circunferências concêntricas, cada vez mais próximas perto da borda (a esfera fica íngreme ali)</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 6: curvas de nível de h(x, y) = 4x² + y² para k = 0, 4, 16.</div>
+    <ol><li>4x² + y² = k → x²/(k/4) + y²/k = 1: elipses.</li><li>k = 0: só a origem · k = 4: x² + y²/4 = 1 (semieixos 1 e 2) · k = 16: x²/4 + y²/16 = 1 (semieixos 2 e 4).</li></ol>
+    <div class="ans">Elipses centradas na origem, mais "altas" que largas</div></div>
+  <div class="cuid"><span class="k">Lendo um mapa de contorno</span>No exercício 3 da aula, para estimar f(1, 3) você acha o ponto no mapa e vê entre quais curvas ele está (a resposta da aula foi f(1, 3) ≈ 73). Se cair entre 70 e 80, mais perto da curva de 70, chute um valor um pouco acima de 70.</div>
+
+  <div class="done-btn" data-done="nivel"></div>
+</section>
+
+<!-- ============ 3 DERIVADAS PARCIAIS ============ -->
+<section class="view read" id="v-parciais" hidden>
+  <div class="eyebrow">Módulo 3 · Aula de 22/10 · Stewart 14.3</div>
+  <h2>Derivadas parciais: derive em uma, congele as outras</h2>
+  <p class="lede">Para ver como a temperatura muda andando só na horizontal, você trava o y e deriva em x. Essa é a derivada parcial f<sub>x</sub>.</p>
+
+  <div class="fx"><span class="tag">Definição 3.1 · derivadas parciais</span>
+    <div class="eq"><i>f<sub>x</sub></i>(<i>x</i>, <i>y</i>) = lim<sub><i>h</i>→0</sub> [<i>f</i>(<i>x</i>+<i>h</i>, <i>y</i>) − <i>f</i>(<i>x</i>, <i>y</i>)] / <i>h</i></div>
+    <div class="eq" style="padding-top:0"><i>f<sub>y</sub></i>(<i>x</i>, <i>y</i>) = lim<sub><i>h</i>→0</sub> [<i>f</i>(<i>x</i>, <i>y</i>+<i>h</i>) − <i>f</i>(<i>x</i>, <i>y</i>)] / <i>h</i></div>
+    <dl class="legend"><dt>notação</dt><dd>f<sub>x</sub> = ∂f/∂x = ∂z/∂x = D<sub>x</sub>f (todas significam a mesma coisa)</dd><dt>f<sub>x</sub></dt><dd>taxa de variação de z em relação a x, <b>com y fixo</b></dd><dt>f<sub>y</sub></dt><dd>taxa de variação de z em relação a y, <b>com x fixo</b></dd></dl>
+  </div>
+  <div class="ofi"><span class="k">Regra prática</span>Para f<sub>x</sub>: trate y como se fosse um número (tipo 5) e derive em x com as regras do Cálculo I. Para f<sub>y</sub>: o contrário.</div>
+
+  <h3>Simulador: a inclinação no corte</h3>
+  <p>O plano vertical y = b corta a superfície numa curva (preta). A reta laranja é tangente a essa curva: sua inclinação é f<sub>x</sub>(a, b). Troque para "andar em y" para ver f<sub>y</sub>.</p>
+  <div class="row-ctl"><label class="mono" style="font-size:.82rem">função <select id="pcFn"><option value="cupula">4 − x² − 2y² (exemplo 3)</option><option value="parab">x² + y²</option><option value="sela">x² − y²</option><option value="ondas">sen x · cos y</option><option value="plano">6 − 3x − 2y</option></select></label>
+    <div class="seg" id="pcSeg" style="margin:0"><button class="on" data-e="x">andar em x (f<sub>x</sub>)</button><button data-e="y">andar em y (f<sub>y</sub>)</button></div></div>
+  <div class="labgrid2"><div class="cv sim" id="pc3d" style="aspect-ratio:1/1"><canvas></canvas></div><div class="cv sim" id="pc2d" style="aspect-ratio:1/1"><canvas></canvas></div></div>
+  <div class="simctl" id="pcCtl"></div>
+  <div class="simout" id="pcOut"></div>
+
+  <h3>Exemplos da aula</h3>
+  <div class="ex" data-ex><div class="q">Exemplo 1: f(x, y) = x³ + x²y³ − 2y². Ache f<sub>x</sub>(2, 1) e f<sub>y</sub>(2, 1).</div>
+    <ol><li>f<sub>x</sub>: y é constante. x³ → 3x²; x²y³ → 2x·y³; −2y² → 0. Então f<sub>x</sub> = 3x² + 2xy³.</li><li>f<sub>x</sub>(2, 1) = 3·4 + 2·2·1 = 16.</li><li>f<sub>y</sub>: x é constante. x³ → 0; x²y³ → x²·3y²; −2y² → −4y. Então f<sub>y</sub> = 3x²y² − 4y.</li><li>f<sub>y</sub>(2, 1) = 3·4·1 − 4 = 8.</li></ol>
+    <div class="ans">f<sub>x</sub>(2, 1) = 16 · f<sub>y</sub>(2, 1) = 8</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 3: f(x, y) = 4 − x² − 2y². Ache f<sub>x</sub>(1, 1) e f<sub>y</sub>(1, 1) e interprete.</div>
+    <ol><li>f<sub>x</sub> = −2x → f<sub>x</sub>(1, 1) = −2.</li><li>f<sub>y</sub> = −4y → f<sub>y</sub>(1, 1) = −4.</li><li>Em (1, 1), andando em x a superfície desce 2 por unidade; andando em y, desce 4 (é o caso do simulador acima).</li></ol>
+    <div class="ans">f<sub>x</sub>(1, 1) = −2 · f<sub>y</sub>(1, 1) = −4</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 4: f(x, y, z) = e<sup>xy</sup> ln z. Ache f<sub>x</sub>, f<sub>y</sub> e f<sub>z</sub>.</div>
+    <ol><li>f<sub>x</sub>: y e z constantes. Derivada de e<sup>xy</sup> em x é y·e<sup>xy</sup> (regra da cadeia). ln z é constante.</li><li>f<sub>y</sub>: igual, trocando: x·e<sup>xy</sup> ln z.</li><li>f<sub>z</sub>: e<sup>xy</sup> é constante e (ln z)' = 1/z.</li></ol>
+    <div class="ans">f<sub>x</sub> = y e<sup>xy</sup> ln z · f<sub>y</sub> = x e<sup>xy</sup> ln z · f<sub>z</sub> = e<sup>xy</sup>/z</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 7 (aplicação): T(x, y) = 100 − 2x² − y² numa placa. Taxas de variação em (2, 1)?</div>
+    <ol><li>∂T/∂x = −4x e ∂T/∂y = −2y.</li><li>No ponto (2, 1): T<sub>x</sub> = −8 e T<sub>y</sub> = −2.</li></ol>
+    <div class="ans">Andando em x a temperatura cai 8 °C por unidade; em y, cai 2 °C por unidade</div></div>
+  <div class="cuid"><span class="k">Pegadinha</span>Na derivada parcial, um termo que só tem a outra variável é <b>constante</b> e some: em f<sub>x</sub> de −2y⁴, a derivada é 0. Já um termo misto como x²y³ não some: o y³ fica multiplicando.</div>
+
+  <div class="done-btn" data-done="parciais"></div>
+</section>
+
+<!-- ============ 4 SEGUNDA ORDEM ============ -->
+<section class="view read" id="v-ordem" hidden>
+  <div class="eyebrow">Módulo 4 · Aula de 22/10 · Stewart 14.3</div>
+  <h2>Derivadas de segunda ordem e equações famosas</h2>
+  <p class="lede">f<sub>x</sub> e f<sub>y</sub> também são funções de x e y, então dá para derivar de novo. São quatro derivadas segundas.</p>
+
+  <div class="fx"><span class="tag">Fórmula 4.1 · notação</span>
+    <div class="eq"><i>f<sub>xx</sub></i> = ∂²<i>f</i>/∂<i>x</i>² &nbsp;&nbsp; <i>f<sub>xy</sub></i> = ∂²<i>f</i>/∂<i>y</i>∂<i>x</i> &nbsp;&nbsp; <i>f<sub>yx</sub></i> = ∂²<i>f</i>/∂<i>x</i>∂<i>y</i> &nbsp;&nbsp; <i>f<sub>yy</sub></i></div>
+    <dl class="legend"><dt>f<sub>xy</sub></dt><dd>derive <b>primeiro em x, depois em y</b> (lê da esquerda para a direita no índice)</dd><dt>∂²f/∂y∂x</dt><dd>na fração, a ordem é ao contrário: o que está mais perto do f é o primeiro</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Teorema 4.2 · Clairaut</span>
+    <div class="eq"><i>f<sub>xy</sub></i>(<i>a</i>, <i>b</i>) = <i>f<sub>yx</sub></i>(<i>a</i>, <i>b</i>)</div>
+    <dl class="legend"><dt>vale quando</dt><dd>f<sub>xy</sub> e f<sub>yx</sub> são contínuas perto de (a, b), o que acontece com praticamente toda função da prova</dd><dt>uso</dt><dd>confira as contas: se as mistas deram diferentes, tem erro</dd></dl>
+  </div>
+  <div class="ex" data-ex><div class="q">Exemplo 5: todas as derivadas segundas de f(x, y) = x³ + x²y³ − 2y².</div>
+    <ol><li>Do módulo 3: f<sub>x</sub> = 3x² + 2xy³ e f<sub>y</sub> = 3x²y² − 4y.</li><li>f<sub>xx</sub> = 6x + 2y³ · f<sub>xy</sub> = (f<sub>x</sub>)<sub>y</sub> = 6xy².</li><li>f<sub>yx</sub> = (f<sub>y</sub>)<sub>x</sub> = 6xy² · f<sub>yy</sub> = 6x²y − 4.</li></ol>
+    <div class="ans">f<sub>xx</sub> = 6x + 2y³ · f<sub>xy</sub> = f<sub>yx</sub> = 6xy² · f<sub>yy</sub> = 6x²y − 4</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 6: f<sub>xyyz</sub> se f(x, y, z) = 1 − 2xy²z + x²y.</div>
+    <ol><li>f<sub>x</sub> = −2y²z + 2xy.</li><li>f<sub>xy</sub> = −4yz + 2x.</li><li>f<sub>xyy</sub> = −4z.</li><li>f<sub>xyyz</sub> = −4.</li></ol><div class="ans">f<sub>xyyz</sub> = −4</div></div>
+
+  <h3>Onde isso aparece na engenharia</h3>
+  <div class="branch"><div class="leaf a"><b>Equação de Laplace</b>T<sub>xx</sub> + T<sub>yy</sub> = 0: temperatura em regime estacionário numa placa sem fonte de calor (dissipadores, componentes mecânicos).</div><div class="leaf b"><b>Equação da onda</b>u<sub>tt</sub> = c² u<sub>xx</sub>: vibração de uma corda, com c = √(F/μ) (tensão sobre massa por comprimento).</div></div>
+  <div class="ex" data-ex><div class="q">Exercício de aplicação da aula: u(x, t) = cos(2x + 2ct) satisfaz a equação da onda?</div>
+    <ol><li>u<sub>x</sub> = −2 sen(2x + 2ct) → u<sub>xx</sub> = −4 cos(2x + 2ct).</li><li>u<sub>t</sub> = −2c sen(2x + 2ct) → u<sub>tt</sub> = −4c² cos(2x + 2ct).</li><li>c²·u<sub>xx</sub> = −4c² cos(2x + 2ct) = u<sub>tt</sub>.</li></ol>
+    <div class="ans">Sim: u<sub>tt</sub> = c² u<sub>xx</sub></div></div>
+
+  <div class="done-btn" data-done="ordem"></div>
+</section>
+
+<!-- ============ 5 REGRA DA CADEIA ============ -->
+<section class="view read" id="v-cadeia" hidden>
+  <div class="eyebrow">Módulo 5 · Aula de 28/10 · Stewart 14.5</div>
+  <h2>Regra da cadeia: some um caminho por variável</h2>
+  <p class="lede">A temperatura depende de x e y, e x e y dependem do tempo (você está andando). Quão rápido a temperatura muda para você? Some o efeito de cada caminho.</p>
+
+  <div class="fx"><span class="tag">Fórmula 5.1 · caso I (tudo depende de t)</span>
+    <div class="eq"><i>dz</i>/<i>dt</i> = (∂<i>f</i>/∂<i>x</i>)(<i>dx</i>/<i>dt</i>) + (∂<i>f</i>/∂<i>y</i>)(<i>dy</i>/<i>dt</i>)</div>
+    <dl class="legend"><dt>z = f(x, y)</dt><dd>a função "de fora"</dd><dt>x = g(t), y = h(t)</dt><dd>o caminho: onde você está no instante t</dd><dt>cada parcela</dt><dd>quanto z muda por causa de x, vezes quanto x muda com t (e o mesmo para y)</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 5.2 · caso II (x e y dependem de s e t)</span>
+    <div class="eq">∂<i>z</i>/∂<i>s</i> = <i>z<sub>x</sub></i>·∂<i>x</i>/∂<i>s</i> + <i>z<sub>y</sub></i>·∂<i>y</i>/∂<i>s</i></div>
+    <div class="eq" style="padding-top:0">∂<i>z</i>/∂<i>t</i> = <i>z<sub>x</sub></i>·∂<i>x</i>/∂<i>t</i> + <i>z<sub>y</sub></i>·∂<i>y</i>/∂<i>t</i></div>
+    <dl class="legend"><dt>diagrama de árvore</dt><dd>z no topo, x e y no meio, s e t embaixo. Cada caminho de z até a variável pedida vira um produto; some os caminhos</dd></dl>
+  </div>
+  <div class="arvore" aria-label="diagrama de árvore"><div class="nz">z</div><div class="nm"><span>x</span><span>y</span></div><div class="nb"><span>s</span><span>t</span><span>s</span><span>t</span></div><p>z → x → s &nbsp;+&nbsp; z → y → s &nbsp;=&nbsp; ∂z/∂s</p></div>
+
+  <div class="calc" data-calc="cadeia"><h4>Calculadora do caso I</h4><p class="hint">Informe as derivadas no instante pedido. Serve para a questão 5 da lista e para o inseto da questão 6.</p>
+    <div class="fields"><label><span>f<sub>x</sub> no ponto</span> <input type="text" id="ca-fx" value="6"></label><label><span>f<sub>y</sub> no ponto</span> <input type="text" id="ca-fy" value="-8"></label><label><span>dx/dt</span> <input type="text" id="ca-dx" value="5"></label><label><span>dy/dt</span> <input type="text" id="ca-dy" value="-4"></label></div>
+    <div class="out"></div></div>
+
+  <h3>Exemplos da aula</h3>
+  <div class="ex" data-ex><div class="q">Exemplo 1: z = x²y + 3xy⁴, x = sen 2t, y = cos t. Ache dz/dt em t = 0.</div>
+    <ol><li>z<sub>x</sub> = 2xy + 3y⁴ e z<sub>y</sub> = x² + 12xy³.</li><li>dx/dt = 2 cos 2t e dy/dt = −sen t.</li><li>Em t = 0: x = 0, y = 1, dx/dt = 2, dy/dt = 0.</li><li>dz/dt = (0 + 3)·2 + (0 + 0)·0 = 6.</li></ol>
+    <div class="ans">dz/dt = 6 em t = 0: a taxa de variação de z andando pela curva no ponto (0, 1)</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 2: gás ideal PV = 8,31T. T = 300 K subindo 0,1 K/s, V = 100 L subindo 0,2 L/s. Como P varia?</div>
+    <ol><li>P = 8,31 T/V → ∂P/∂T = 8,31/V e ∂P/∂V = −8,31T/V².</li><li>dP/dt = (8,31/100)(0,1) + (−8,31·300/100²)(0,2).</li><li>= 0,00831 − 0,04986.</li></ol>
+    <div class="ans">dP/dt ≈ −0,042 kPa/s (a pressão cai)</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 3: cone com h diminuindo 2,5 cm/s e r aumentando 1,8 cm/s. Taxa do volume quando r = 120 cm e h = 150 cm?</div>
+    <ol><li>V = πr²h/3 → ∂V/∂r = 2πrh/3 e ∂V/∂h = πr²/3.</li><li>dV/dt = (2π·120·150/3)(1,8) + (π·120²/3)(−2,5).</li><li>= π(12 000·1,8 − 4 800·2,5) = π(21 600 − 12 000).</li></ol>
+    <div class="ans">dV/dt = 9 600π ≈ 30 159 cm³/s (o volume aumenta)</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 4: z = eˣ sen y, x = st², y = s²t. Ache ∂z/∂s e ∂z/∂t.</div>
+    <ol><li>z<sub>x</sub> = eˣ sen y e z<sub>y</sub> = eˣ cos y.</li><li>∂x/∂s = t², ∂y/∂s = 2st, ∂x/∂t = 2st, ∂y/∂t = s².</li><li>∂z/∂s = eˣ sen y·t² + eˣ cos y·2st.</li><li>∂z/∂t = eˣ sen y·2st + eˣ cos y·s².</li></ol>
+    <div class="ans">∂z/∂s = t²e<sup>st²</sup> sen(s²t) + 2st e<sup>st²</sup> cos(s²t) · ∂z/∂t = 2st e<sup>st²</sup> sen(s²t) + s² e<sup>st²</sup> cos(s²t)</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 5: lei de Ohm V = IR. R = 400 Ω, I = 0,08 A, dV/dt = −0,01 V/s e dR/dt = 0,03 Ω/s. Como I varia?</div>
+    <ol><li>I = V/R → ∂I/∂V = 1/R e ∂I/∂R = −V/R².</li><li>V = IR = 0,08·400 = 32 V.</li><li>dI/dt = (1/400)(−0,01) + (−32/400²)(0,03) = −0,000025 − 0,000006.</li></ol>
+    <div class="ans">dI/dt ≈ −3,1 × 10⁻⁵ A/s</div></div>
+
+  <div class="done-btn" data-done="cadeia"></div>
+</section>
+
+<!-- ============ 6 GRADIENTE ============ -->
+<section class="view read" id="v-gradiente" hidden>
+  <div class="eyebrow">Módulo 6 · Aulas de 29/10 e 04/11 · Stewart 14.6</div>
+  <h2>Derivada direcional e gradiente: para onde a função sobe mais</h2>
+  <p class="lede">f<sub>x</sub> e f<sub>y</sub> medem a inclinação só nas direções dos eixos. A derivada direcional mede em qualquer direção, e o gradiente diz qual é a direção mais íngreme.</p>
+
+  <div class="fx"><span class="tag">Fórmula 6.1 · vetor gradiente</span>
+    <div class="eq">∇<i>f</i>(<i>x</i>, <i>y</i>) = ⟨<i>f<sub>x</sub></i>, <i>f<sub>y</sub></i>⟩ &nbsp;&nbsp;&nbsp; ∇<i>f</i>(<i>x</i>, <i>y</i>, <i>z</i>) = ⟨<i>f<sub>x</sub></i>, <i>f<sub>y</sub></i>, <i>f<sub>z</sub></i>⟩</div>
+    <dl class="legend"><dt>∇</dt><dd>"nabla" ou "del": o vetor das derivadas parciais</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 6.2 · derivada direcional</span>
+    <div class="eq"><i>D</i><sub>u</sub><i>f</i> = ∇<i>f</i> · <b>u</b> = |∇<i>f</i>| cos <i>θ</i></div>
+    <dl class="legend"><dt>u</dt><dd>vetor <b>unitário</b> da direção. Se a direção vier como v, use u = v/|v|</dd><dt>θ</dt><dd>ângulo entre ∇f e u</dd><dt>leitura</dt><dd>taxa de variação de f andando na direção u</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 6.3 · taxa máxima</span>
+    <div class="eq">máx <i>D</i><sub>u</sub><i>f</i> = |∇<i>f</i>| &nbsp;&nbsp; na direção de ∇<i>f</i></div>
+    <dl class="legend"><dt>cos θ = 1</dt><dd>u na mesma direção do gradiente: a maior subida</dd><dt>cos θ = −1</dt><dd>direção −∇f: a maior descida, −|∇f|</dd><dt>cos θ = 0</dt><dd>perpendicular ao gradiente: D<sub>u</sub>f = 0. É a direção da curva de nível</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">A frase para a prova</span>O gradiente é <b>perpendicular às curvas de nível</b> e aponta para onde f cresce mais rápido. Seu tamanho é essa taxa máxima.</div>
+
+  <h3>Simulador: gradiente no mapa de contorno</h3>
+  <p>Toque no mapa para escolher o ponto P. A seta laranja é ∇f (sempre perpendicular à curva de nível tracejada); a roxa é a direção u que você escolhe.</p>
+  <div class="row-ctl"><label class="mono" style="font-size:.82rem">função <select id="grFn"><option value="cupula">4 − x² − 2y²</option><option value="parab">x² + y²</option><option value="sela">x² − y²</option><option value="ondas">sen x · cos y</option><option value="q16c">x³ − 12xy + 8y³</option></select></label></div>
+  <div class="cv sim" id="grMap" style="aspect-ratio:1/1;max-width:620px"><canvas></canvas></div>
+  <div class="simctl" id="grCtl"></div>
+  <div class="simout" id="grOut"></div>
+
+  <h3>Receita</h3>
+  <ol class="recipe">
+    <li><span>Calcule as parciais e monte ∇f.</span></li>
+    <li><span>Substitua o ponto P: ∇f(P) é um vetor de números.</span></li>
+    <li><span>Deixe a direção unitária: u = v/|v|. Se vier "na direção de Q", use v = Q − P.</span></li>
+    <li><span>Faça o produto escalar ∇f(P) · u. Taxa máxima? Calcule |∇f(P)|.</span></li>
+  </ol>
+  <div class="ex" data-ex><div class="q">Exemplo: f(x, y) = x²y³ − 4y em (2, −1), na direção de v = ⟨2, 5⟩ (Stewart, exemplo 14.6.4).</div>
+    <ol><li>∇f = ⟨2xy³, 3x²y² − 4⟩.</li><li>∇f(2, −1) = ⟨2·2·(−1), 3·4·1 − 4⟩ = ⟨−4, 8⟩.</li><li>|v| = √(4 + 25) = √29 → u = ⟨2, 5⟩/√29.</li><li>D<sub>u</sub>f = (−4·2 + 8·5)/√29 = 32/√29.</li></ol>
+    <div class="ans">D<sub>u</sub>f(2, −1) = 32/√29 ≈ 5,94</div></div>
+  <div class="cuid"><span class="k">Pegadinha</span>Esquecer de dividir v pelo módulo é o erro mais comum. Na lista, os vetores u das questões 8 e 9 já são unitários (confira: (5/13)² + (12/13)² = 1); os v das questões 10, 11 e 15 não são.</div>
+
+  <div class="done-btn" data-done="gradiente"></div>
+</section>
+
+<!-- ============ 7 EXTREMOS ============ -->
+<section class="view read" id="v-extremos" hidden>
+  <div class="eyebrow">Módulo 7 · Aula de 05/11 · Stewart 14.7</div>
+  <h2>Máximos, mínimos e pontos de sela</h2>
+  <p class="lede">No topo de um morro, a superfície fica "plana": nenhuma direção sobe. Por isso os extremos só aparecem onde ∇f = 0. O teste da derivada segunda decide se é topo, fundo ou sela.</p>
+
+  <div class="fx"><span class="tag">Fórmula 7.1 · ponto crítico</span>
+    <div class="eq"><i>f<sub>x</sub></i>(<i>a</i>, <i>b</i>) = 0 &nbsp; e &nbsp; <i>f<sub>y</sub></i>(<i>a</i>, <i>b</i>) = 0</div>
+    <dl class="legend"><dt>(a, b)</dt><dd>candidato a máximo, mínimo ou sela. Resolva o sistema das duas equações</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 7.2 · teste da derivada segunda</span>
+    <div class="eq"><i>D</i> = <i>f<sub>xx</sub></i>·<i>f<sub>yy</sub></i> − (<i>f<sub>xy</sub></i>)²</div>
+    <dl class="legend"><dt>D &gt; 0 e f<sub>xx</sub> &gt; 0</dt><dd><b>mínimo local</b> (fundo de vale)</dd><dt>D &gt; 0 e f<sub>xx</sub> &lt; 0</dt><dd><b>máximo local</b> (topo de morro)</dd><dt>D &lt; 0</dt><dd><b>ponto de sela</b>: sobe numa direção e desce em outra</dd><dt>D = 0</dt><dd>o teste não decide</dd></dl>
+  </div>
+
+  <h3>Simulador: a questão 16 da lista, em 3D</h3>
+  <p>Escolha a função. Os pontos marcados são os críticos, e a tabela aplica o teste em cada um.</p>
+  <div class="row-ctl"><label class="mono" style="font-size:.82rem">função <select id="exFn"><option value="q16c">16c · x³ − 12xy + 8y³</option><option value="q16b">16b · x² + y² + x²y + 4</option><option value="q16a">16a · 9 − 2x + 4y − x² − 4y²</option><option value="sela">x² − y² (sela pura)</option></select></label></div>
+  <div class="labgrid2"><div class="cv sim" id="ex3d" style="aspect-ratio:1/1"><canvas></canvas></div><div class="cv sim" id="exMap" style="aspect-ratio:1/1"><canvas></canvas></div></div>
+  <div class="simout" id="exOut"></div>
+
+  <div class="calc" data-calc="teste"><h4>Calculadora do teste da derivada segunda</h4><p class="hint">Calcule f<sub>xx</sub>, f<sub>yy</sub> e f<sub>xy</sub> no ponto crítico e coloque aqui.</p>
+    <div class="fields"><label><span>f<sub>xx</sub>(a, b)</span> <input type="text" id="ts-a" value="12"></label><label><span>f<sub>yy</sub>(a, b)</span> <input type="text" id="ts-b" value="48"></label><label><span>f<sub>xy</sub>(a, b)</span> <input type="text" id="ts-c" value="-12"></label></div>
+    <div class="out"></div></div>
+
+  <h3>Problemas de otimização</h3>
+  <ol class="recipe">
+    <li><span>Escreva o que quer maximizar ou minimizar (volume, área, produto).</span></li>
+    <li><span>Use a condição do problema para eliminar uma variável. Fica uma função de duas.</span></li>
+    <li><span>Ponto crítico: f<sub>x</sub> = 0 e f<sub>y</sub> = 0. Em problemas físicos, o único ponto crítico com valores positivos costuma ser a resposta.</span></li>
+  </ol>
+  <div class="cuid"><span class="k">Pegadinha</span>Na hora de resolver f<sub>x</sub> = 0 e f<sub>y</sub> = 0, não divida por uma variável que pode ser zero: fatore. Em 2x(1 + y) = 0, são dois casos (x = 0 ou y = −1), e cada um gera pontos críticos diferentes.</div>
+
+  <div class="done-btn" data-done="extremos"></div>
+</section>
+
+<!-- ============ LAB ============ -->
+<section class="view" id="v-lab" hidden>
+  <div class="eyebrow">Laboratório</div>
+  <h2>Gire, compare, leia o mapa</h2>
+  <p class="lede read">Escolha uma função e compare a superfície com o seu mapa de contorno. Tente prever as curvas antes de olhar.</p>
+  <div class="row-ctl"><label class="mono" style="font-size:.82rem">função <select id="labFn"><option value="parab">x² + y²</option><option value="sela">x² − y²</option><option value="esfera">√(9 − x² − y²)</option><option value="plano">6 − 3x − 2y</option><option value="elipse">4x² + y²</option><option value="cupula">4 − x² − 2y²</option><option value="ondas">sen x · cos y</option><option value="q16a">9 − 2x + 4y − x² − 4y²</option><option value="q16b">x² + y² + x²y + 4</option><option value="q16c">x³ − 12xy + 8y³</option></select></label></div>
+  <div class="labgrid2"><div class="cv sim" id="lab3d" style="aspect-ratio:1/1"><canvas></canvas></div><div class="cv sim" id="labMap" style="aspect-ratio:1/1"><canvas></canvas></div></div>
+</section>
+
+<!-- ============ LISTA ============ -->
+<section class="view read" id="v-lista" hidden>
+  <div class="eyebrow">Lista · Derivadas Parciais, Máximos e Mínimos</div>
+  <h2>A lista da professora, resolvida</h2>
+  <p class="lede">Tente cada questão antes de abrir. Dentro, a resolução vem um passo por vez.</p>
+  <div class="cuid"><span class="k">Gabarito com erro</span>Na 1a, o gabarito diz f<sub>y</sub> = 8y³, mas a derivada de −2y⁴ é <b>−8y³</b> (o sinal se perdeu).</div>
+  <div id="probBox"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="view read" id="v-quiz" hidden>
+  <div class="eyebrow">Quiz</div>
+  <h2>Você está pronto?</h2>
+  <div class="score"><span id="scoreTxt"></span><button id="quizReset">Zerar</button></div>
+  <div id="quizBox"></div>
+</section>
+
+<!-- ============ COLA ============ -->
+<section class="view" id="v-cola" hidden>
+  <div class="eyebrow">Cola</div>
+  <h2>Todas as fórmulas numa folha</h2>
+  <div class="cola">
+    <div class="fx"><span class="tag">Domínio</span><div class="eq" style="font-size:1rem">√(…) ≥ 0 · ln(…) &gt; 0 · den ≠ 0</div><p>escreva a condição de cada uma</p></div>
+    <div class="fx"><span class="tag">Curva de nível</span><div class="eq"><i>f</i>(<i>x</i>, <i>y</i>) = <i>k</i></div><p>juntas = íngreme · afastadas = plano</p></div>
+    <div class="fx"><span class="tag">Parcial</span><div class="eq"><i>f<sub>x</sub></i>: y constante</div><p>f<sub>y</sub>: x constante · taxa de variação numa direção do eixo</p></div>
+    <div class="fx"><span class="tag">Clairaut</span><div class="eq"><i>f<sub>xy</sub></i> = <i>f<sub>yx</sub></i></div><p>f<sub>xy</sub>: primeiro x, depois y</p></div>
+    <div class="fx"><span class="tag">Cadeia · caso I</span><div class="eq" style="font-size:1.05rem"><i>dz</i>/<i>dt</i> = <i>f<sub>x</sub></i><i>x</i>' + <i>f<sub>y</sub></i><i>y</i>'</div><p>um produto por caminho da árvore</p></div>
+    <div class="fx"><span class="tag">Cadeia · caso II</span><div class="eq" style="font-size:1.05rem"><i>z<sub>s</sub></i> = <i>z<sub>x</sub></i><i>x<sub>s</sub></i> + <i>z<sub>y</sub></i><i>y<sub>s</sub></i></div><p>idem para t</p></div>
+    <div class="fx"><span class="tag">Gradiente</span><div class="eq">∇<i>f</i> = ⟨<i>f<sub>x</sub></i>, <i>f<sub>y</sub></i>, <i>f<sub>z</sub></i>⟩</div><p>⊥ às curvas de nível · aponta para a maior subida</p></div>
+    <div class="fx"><span class="tag">Derivada direcional</span><div class="eq"><i>D</i><sub>u</sub><i>f</i> = ∇<i>f</i> · <b>u</b></div><p>u UNITÁRIO: u = v/|v|</p></div>
+    <div class="fx"><span class="tag">Taxa máxima</span><div class="eq">|∇<i>f</i>(<i>P</i>)|</div><p>direção: ∇f(P) · mínima: −|∇f|</p></div>
+    <div class="fx"><span class="tag">Ponto crítico</span><div class="eq"><i>f<sub>x</sub></i> = <i>f<sub>y</sub></i> = 0</div><p>fatore, não divida</p></div>
+    <div class="fx"><span class="tag">Teste da 2ª derivada</span><div class="eq"><i>D</i> = <i>f<sub>xx</sub>f<sub>yy</sub></i> − <i>f<sub>xy</sub></i>²</div><p>D&gt;0, f<sub>xx</sub>&gt;0: mín · D&gt;0, f<sub>xx</sub>&lt;0: máx · D&lt;0: sela · D=0: ?</p></div>
+    <div class="fx"><span class="tag">Onda e Laplace</span><div class="eq" style="font-size:1rem"><i>u<sub>tt</sub></i> = <i>c</i>²<i>u<sub>xx</sub></i> · <i>T<sub>xx</sub></i> + <i>T<sub>yy</sub></i> = 0</div><p>verifique substituindo as derivadas</p></div>
+  </div>
+</section>
+
+</main>
+<footer>Oficina de Cálculo II · material de apoio baseado nos slides e na lista da disciplina e no Stewart, Cálculo vol. 2 (IFMG Campus Betim)</footer>
+
+<script>
+const G=9.8;
+const tok=n=>getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();
+const M='−';
+const dec=(x,n=2)=>{ if(!isFinite(x))return '∞'; const r=Math.round(x*10**n)/10**n; return (Object.is(r,-0)?0:r).toLocaleString('pt-BR',{maximumFractionDigits:n}).replace('-',M) };
+const rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+function num(id){ const v=document.getElementById(id).value.replace(',','.').trim(); const x=Number(v); if(v===''||!isFinite(x)) throw new Error('Digite um número válido em todos os campos.'); return x }
+function pair(id){ const v=document.getElementById(id).value.replace(/−/g,'-').trim(); if(!v)return null; const a=v.split(/[\s;]+|,\s+|,(?=\s*-?\d)/).filter(Boolean).map(Number); if(a.length!==2||a.some(x=>!isFinite(x)))throw new Error('Use "módulo, ângulo", por exemplo 10, 30.'); return a }
+
+/* ===== canvas base ===== */
+class Cv{ constructor(box,draw){ this.box=box; this.c=box.querySelector('canvas'); this.x=this.c.getContext('2d'); this.drawFn=draw; new ResizeObserver(()=>this.resize()).observe(box); this.resize() }
+  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const d=devicePixelRatio||1; this.w=r.width; this.h=r.height; this.c.width=this.w*d; this.c.height=this.h*d; this.x.setTransform(d,0,0,d,0,0); this.draw() }
+  draw(){ if(this.w) { this.x.clearRect(0,0,this.w,this.h); this.drawFn(this.x,this.w,this.h) } } }
+function arrow(x,x0,y0,dx,dy,col,lbl,wd=2.6){ const L=Math.hypot(dx,dy); if(L<2)return; x.strokeStyle=col; x.fillStyle=col; x.lineWidth=wd; x.beginPath(); x.moveTo(x0,y0); x.lineTo(x0+dx,y0+dy); x.stroke();
+  const a=Math.atan2(dy,dx), hx=x0+dx, hy=y0+dy, s=Math.min(11,L*.5); x.beginPath(); x.moveTo(hx,hy); x.lineTo(hx-s*Math.cos(a-.42),hy-s*Math.sin(a-.42)); x.lineTo(hx-s*Math.cos(a+.42),hy-s*Math.sin(a+.42)); x.closePath(); x.fill();
+  if(lbl){ x.font='600 12px "JetBrains Mono", monospace'; x.fillText(lbl,hx+6*Math.cos(a)+(Math.cos(a)<-.3?-8*lbl.length:2),hy+6*Math.sin(a)+(Math.sin(a)>.3?12:-2)) } }
+
+/* ===== controles de simulador ===== */
+function controls(el,spec,onch){ el.innerHTML=spec.map(s=>'<label><span>'+s.l+': <b data-v="'+s.k+'"></b></span><input type="range" min="'+s.min+'" max="'+s.max+'" step="'+s.st+'" value="'+s.v+'" data-k="'+s.k+'" aria-label="'+s.l+'"></label>').join('');
+  const val={}; const upd=()=>{ el.querySelectorAll('input').forEach(i=>{ val[i.dataset.k]=+i.value; const s=spec.find(z=>z.k===i.dataset.k); el.querySelector('[data-v="'+s.k+'"]').textContent=dec(+i.value,s.d??2)+(s.u||'') }); onch(val) };
+  el.addEventListener('input',upd); upd(); return val }
+
+/* ===== funções prontas ===== */
+const FN={
+  parab:{l:'x² + y²',f:(x,y)=>x*x+y*y,R:2.5},
+  sela:{l:'x² − y²',f:(x,y)=>x*x-y*y,R:2.5},
+  esfera:{l:'√(9 − x² − y²)',f:(x,y)=>{ const v=9-x*x-y*y; return v<-1e-9?NaN:Math.sqrt(Math.max(0,v)) },R:3.2,disco:3},
+  plano:{l:'6 − 3x − 2y',f:(x,y)=>6-3*x-2*y,R:3},
+  elipse:{l:'4x² + y²',f:(x,y)=>4*x*x+y*y,R:2.5},
+  cupula:{l:'4 − x² − 2y²',f:(x,y)=>4-x*x-2*y*y,R:2},
+  ondas:{l:'sen x · cos y',f:(x,y)=>Math.sin(x)*Math.cos(y),R:3.3},
+  q16a:{l:'9 − 2x + 4y − x² − 4y²',f:(x,y)=>9-2*x+4*y-x*x-4*y*y,R:3,c:[-1,0.5]},
+  q16b:{l:'x² + y² + x²y + 4',f:(x,y)=>x*x+y*y+x*x*y+4,R:2.4,c:[0,-1]},
+  q16c:{l:'x³ − 12xy + 8y³',f:(x,y)=>x**3-12*x*y+8*y**3,R:3,c:[1,0.5]}
+};
+const H=1e-4;
+const dfx=(f,x,y)=>(f(x+H,y)-f(x-H,y))/(2*H), dfy=(f,x,y)=>(f(x,y+H)-f(x,y-H))/(2*H);
+const dxx=(f,x,y)=>(f(x+1e-3,y)-2*f(x,y)+f(x-1e-3,y))/1e-6, dyy=(f,x,y)=>(f(x,y+1e-3)-2*f(x,y)+f(x,y-1e-3))/1e-6;
+const dxy=(f,x,y)=>(f(x+1e-3,y+1e-3)-f(x+1e-3,y-1e-3)-f(x-1e-3,y+1e-3)+f(x-1e-3,y-1e-3))/4e-6;
+function hexRgb(h){ h=h.replace('#',''); if(h.length===3)h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255] }
+function rampa(t){ const a=hexRgb(tok('c2')||'#0C8587'), b=hexRgb('#E8D27A'), c=hexRgb(tok('c1')||'#D9531A'); t=Math.max(0,Math.min(1,t));
+  const [p,q,u]=t<.5?[a,b,t*2]:[b,c,(t-.5)*2]; return [0,1,2].map(i=>Math.round(p[i]+(q[i]-p[i])*u)) }
+function faixa(f,R,N=40){ let lo=Infinity,hi=-Infinity; for(let i=0;i<=N;i++)for(let j=0;j<=N;j++){ const v=f(-R+2*R*i/N,-R+2*R*j/N); if(isFinite(v)){ if(v<lo)lo=v; if(v>hi)hi=v } } if(hi-lo<1e-9){ hi=lo+1 } return [lo,hi] }
+
+/* ===== superfície 3D (arraste para girar) ===== */
+function Surf(box,op){ let yaw=op.yaw??-0.75, pit=op.pit??0.62, drag=null; const st={...op};
+  const cv=new Cv(box,(x,w,h)=>{ const F=FN[st.fn], f=F.f, R=F.R, N=st.N||34, [lo,hi]=faixa(f,R), zs=st.zs||1;
+    const span=hi-lo, zn=z=>((z-lo)/span-.5)*2*R*.75*zs;
+    const ca=Math.cos(yaw), sa=Math.sin(yaw), cp=Math.cos(pit), sp=Math.sin(pit), sc=Math.min(w,h)/(R*3.1), cx=w/2, cy=h*.54;
+    const P=(X,Y,Z)=>{ const xr=X*ca-Y*sa, yr=X*sa+Y*ca; return {x:cx+sc*xr,y:cy-sc*(Z*cp+yr*sp),d:yr*cp-Z*sp} };
+    /* eixos */
+    const ax=(a,b,lbl)=>{ const p=P(...a), q=P(...b); x.strokeStyle=tok('ink2'); x.lineWidth=1; x.setLineDash([4,4]); x.beginPath(); x.moveTo(p.x,p.y); x.lineTo(q.x,q.y); x.stroke(); x.setLineDash([]); x.fillStyle=tok('ink2'); x.font='600 12px "JetBrains Mono", monospace'; x.fillText(lbl,q.x+4,q.y) };
+    const zb=zn(lo)-.05;
+    const quads=[]; const g=[]; for(let i=0;i<=N;i++){ g[i]=[]; for(let j=0;j<=N;j++){ let X=-R+2*R*i/N, Y=-R+2*R*j/N; if(F.disco){ const r=F.disco*i/N, th=2*Math.PI*j/N; X=r*Math.cos(th); Y=r*Math.sin(th) } const z=f(X,Y); g[i][j]=isFinite(z)?{X,Y,z,p:P(X,Y,zn(z))}:null } }
+    for(let i=0;i<N;i++)for(let j=0;j<N;j++){ const a=g[i][j],b=g[i+1][j],c=g[i+1][j+1],d=g[i][j+1]; if(!a||!b||!c||!d)continue; const zz=(a.z+b.z+c.z+d.z)/4; quads.push({pts:[a.p,b.p,c.p,d.p],d:(a.p.d+b.p.d+c.p.d+d.p.d)/4,t:(zz-lo)/span}) }
+    quads.sort((u,v)=>v.d-u.d);
+    ax([-R,0,zb],[R*1.25,0,zb],'x'); ax([0,-R,zb],[0,R*1.25,zb],'y');
+    const lv=st.level!=null?zn(st.level):null;
+    quads.forEach(q=>{ const [r,gg,bb]=rampa(q.t); x.fillStyle='rgba('+r+','+gg+','+bb+','+(st.alpha||.92)+')'; x.strokeStyle='rgba(20,35,58,.28)'; x.lineWidth=.6; x.beginPath(); q.pts.forEach((p,k)=>k?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y)); x.closePath(); x.fill(); x.stroke() });
+    { const p=P(0,0,zb), q=P(0,0,zn(hi)+.6); x.strokeStyle=tok('ink2'); x.setLineDash([4,4]); x.beginPath(); x.moveTo(p.x,p.y); x.lineTo(q.x,q.y); x.stroke(); x.setLineDash([]); x.fillStyle=tok('ink2'); x.fillText('z',q.x+4,q.y) }
+    /* plano de nível z = k */
+    if(lv!=null){ const c=[[-R,-R],[R,-R],[R,R],[-R,R]].map(([a,b])=>P(a,b,lv)); x.fillStyle='rgba(255,255,255,.28)'; x.strokeStyle=tok('ink'); x.lineWidth=1; x.beginPath(); c.forEach((p,k)=>k?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y)); x.closePath(); x.fill(); x.stroke();
+      x.strokeStyle=tok('c3'); x.lineWidth=3; segs(f,R,st.level,70).forEach(([u,v])=>{ const p=P(u[0],u[1],lv), q=P(v[0],v[1],lv); x.beginPath(); x.moveTo(p.x,p.y); x.lineTo(q.x,q.y); x.stroke() }) }
+    /* corte: y = b (curva em x) ou x = a */
+    if(st.corte){ const {eixo,a,b}=st.corte; x.strokeStyle=tok('ink'); x.lineWidth=3.2; x.beginPath(); let on=false;
+      for(let k=0;k<=120;k++){ const t=-R+2*R*k/120, X=eixo==='x'?t:a, Y=eixo==='x'?b:t, z=f(X,Y); if(!isFinite(z)){ on=false; continue } const p=P(X,Y,zn(z)); on?x.lineTo(p.x,p.y):x.moveTo(p.x,p.y); on=true } x.stroke();
+      const z0=f(a,b); if(isFinite(z0)){ const s=eixo==='x'?dfx(f,a,b):dfy(f,a,b), L=R*.55, p0=P(a,b,zn(z0));
+        const e=t=>eixo==='x'?P(a+t,b,zn(z0+s*t)):P(a,b+t,zn(z0+s*t)); const p1=e(-L), p2=e(L); x.strokeStyle=tok('c1'); x.lineWidth=2.6; x.beginPath(); x.moveTo(p1.x,p1.y); x.lineTo(p2.x,p2.y); x.stroke();
+        x.fillStyle=tok('c1'); x.beginPath(); x.arc(p0.x,p0.y,5.5,0,7); x.fill() } }
+    /* pontos marcados */
+    (st.pontos||[]).forEach(pt=>{ const z=f(pt.x,pt.y); if(!isFinite(z))return; const p=P(pt.x,pt.y,zn(z)); x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(p.x,p.y,6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px "Atkinson Hyperlegible", sans-serif'; x.fillText(pt.l,p.x+8,p.y-8) } });
+    x.fillStyle=tok('ink2'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('z = '+F.l,10,18); x.fillText('arraste para girar',10,h-10) });
+  const c=box.querySelector('canvas'); c.style.cursor='grab';
+  c.addEventListener('pointerdown',e=>{ drag={x:e.clientX,y:e.clientY,yaw,pit}; c.setPointerCapture(e.pointerId); c.style.cursor='grabbing' });
+  c.addEventListener('pointermove',e=>{ if(!drag)return; yaw=drag.yaw+(e.clientX-drag.x)*.01; pit=Math.max(.05,Math.min(1.5,drag.pit+(e.clientY-drag.y)*.008)); cv.draw() });
+  const up=()=>{ drag=null; c.style.cursor='grab' }; c.addEventListener('pointerup',up); c.addEventListener('pointercancel',up);
+  cv.set=o=>{ Object.assign(st,o); cv.draw() }; cv.st=st; return cv }
+
+/* ===== curvas de nível: segmentos por "marching squares" ===== */
+function segs(f,R,k,N=60){ const out=[], h=2*R/N, v=[]; for(let i=0;i<=N;i++){ v[i]=[]; for(let j=0;j<=N;j++) v[i][j]=f(-R+i*h,-R+j*h)-k }
+  for(let i=0;i<N;i++)for(let j=0;j<N;j++){ const x0=-R+i*h, y0=-R+j*h, c=[[x0,y0,v[i][j]],[x0+h,y0,v[i+1][j]],[x0+h,y0+h,v[i+1][j+1]],[x0,y0+h,v[i][j+1]]];
+    if(c.some(p=>!isFinite(p[2]))) continue; const pts=[];
+    for(let e=0;e<4;e++){ const a=c[e], b=c[(e+1)%4]; if((a[2]<0)!==(b[2]<0)){ const t=a[2]/(a[2]-b[2]); pts.push([a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t]) } }
+    if(pts.length===2) out.push(pts); else if(pts.length===4){ out.push([pts[0],pts[1]]); out.push([pts[2],pts[3]]) } }
+  return out }
+function Mapa(box,op){ const st={...op};
+  const cv=new Cv(box,(x,w,h)=>{ const F=FN[st.fn], f=F.f, R=F.R, s=Math.min(w,h)/(2*R)*.92, cx=w/2, cy=h/2, X=u=>cx+u*s, Y=v=>cy-v*s;
+    const [lo,hi]=faixa(f,R); const img=x.createImageData(Math.ceil(w),Math.ceil(h)); const step=3; const d=devicePixelRatio||1;
+    /* fundo colorido por altura (baixa resolução) */
+    for(let py=0;py<h;py+=step)for(let px=0;px<w;px+=step){ const u=(px-cx)/s, v=(cy-py)/s; if(Math.abs(u)>R||Math.abs(v)>R)continue; const z=f(u,v); if(!isFinite(z))continue; const [r,g,b]=rampa((z-lo)/(hi-lo)); x.fillStyle='rgba('+r+','+g+','+b+',.30)'; x.fillRect(px,py,step,step) }
+    x.strokeStyle=tok('line'); x.lineWidth=1; x.beginPath(); x.moveTo(X(-R),Y(0)); x.lineTo(X(R),Y(0)); x.moveTo(X(0),Y(-R)); x.lineTo(X(0),Y(R)); x.stroke();
+    x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace'; for(let t=Math.ceil(-R);t<=R;t++){ if(!t)continue; x.fillText(t,X(t)-3,Y(0)+12); x.fillText(t,X(0)+4,Y(t)+3) } x.fillText('x',X(R)-8,Y(0)-6); x.fillText('y',X(0)+6,Y(R)+10);
+    const n=st.niveis||9, lv=st.levels||Array.from({length:n},(_,i)=>lo+(hi-lo)*(i+1)/(n+1));
+    lv.forEach(k=>{ const [r,g,b]=rampa((k-lo)/(hi-lo)); x.strokeStyle='rgb('+r+','+g+','+b+')'; x.lineWidth=1.6; segs(f,R,k,st.N||70).forEach(([a,b2])=>{ x.beginPath(); x.moveTo(X(a[0]),Y(a[1])); x.lineTo(X(b2[0]),Y(b2[1])); x.stroke() }) });
+    if(st.level!=null){ x.strokeStyle=tok('c3'); x.lineWidth=3.2; segs(f,R,st.level,90).forEach(([a,b2])=>{ x.beginPath(); x.moveTo(X(a[0]),Y(a[1])); x.lineTo(X(b2[0]),Y(b2[1])); x.stroke() }) }
+    if(st.labels!==false){ x.fillStyle=tok('ink2'); x.font='600 10px "JetBrains Mono", monospace'; lv.forEach((k,ik)=>{ if(ik%2)return; const sg=segs(f,R,k,40); if(sg.length){ const q=sg[Math.floor(sg.length*.3)][0]; x.fillText(dec(k,1),X(q[0])+2,Y(q[1])-2) } }) }
+    if(st.p){ const {x:px,y:py}=st.p; const gx=dfx(f,px,py), gy=dfy(f,px,py), gn=Math.hypot(gx,gy);
+      if(st.grad&&gn>1e-9){ const L=Math.min(R*.8,.6+gn*.25)*s; arrow(x,X(px),Y(py),gx/gn*L,-gy/gn*L,tok('c1'),'∇f',3) }
+      if(st.dir!=null){ const L=R*.55*s; arrow(x,X(px),Y(py),Math.cos(st.dir)*L,-Math.sin(st.dir)*L,tok('c3'),'u',2.6) }
+      if(st.tang&&gn>1e-9){ x.strokeStyle=tok('ink'); x.setLineDash([5,4]); x.lineWidth=1.4; const L=R*.5*s; x.beginPath(); x.moveTo(X(px)-(-gy/gn)*L,Y(py)+(gx/gn)*L); x.lineTo(X(px)+(-gy/gn)*L,Y(py)-(gx/gn)*L); x.stroke(); x.setLineDash([]) }
+      x.fillStyle=tok('ink'); x.beginPath(); x.arc(X(px),Y(py),5.5,0,7); x.fill() }
+    (st.pontos||[]).forEach(pt=>{ x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(X(pt.x),Y(pt.y),6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px "Atkinson Hyperlegible", sans-serif'; x.fillText(pt.l,X(pt.x)+8,Y(pt.y)-8) } });
+    if(st.caminho){ x.strokeStyle=tok('ink'); x.lineWidth=2.2; x.beginPath(); st.caminho.forEach(([u,v],k)=>k?x.lineTo(X(u),Y(v)):x.moveTo(X(u),Y(v))); x.stroke() }
+    cv.toWorld=(px,py)=>({x:(px-cx)/s,y:(cy-py)/s}) });
+  if(st.click){ const c=box.querySelector('canvas'); c.style.cursor='crosshair'; const go=e=>{ const r=c.getBoundingClientRect(); const p=cv.toWorld(e.clientX-r.left,e.clientY-r.top); const R=FN[st.fn].R; if(Math.abs(p.x)>R||Math.abs(p.y)>R)return; st.click(p) };
+    let dn=false; c.addEventListener('pointerdown',e=>{ dn=true; c.setPointerCapture(e.pointerId); go(e) }); c.addEventListener('pointermove',e=>{ if(dn)go(e) }); c.addEventListener('pointerup',()=>dn=false) }
+  cv.set=o=>{ Object.assign(st,o); cv.draw() }; cv.st=st; return cv }
+
+/* ===== gráfico 2D do corte ===== */
+function Corte(box,st){ const cv=new Cv(box,(x,w,h)=>{ const F=FN[st.fn], f=F.f, R=F.R, {eixo,a,b}=st.corte, g=t=>eixo==='x'?f(t,b):f(a,t), t0=eixo==='x'?a:b;
+    let lo=Infinity,hi=-Infinity; for(let k=0;k<=100;k++){ const v=g(-R+2*R*k/100); if(isFinite(v)){ lo=Math.min(lo,v); hi=Math.max(hi,v) } } if(hi-lo<1e-6){ hi+=1; lo-=1 } const pad=(hi-lo)*.12; lo-=pad; hi+=pad;
+    const L=34,Rr=w-12,T=14,B=h-24, sx=t=>L+(t+R)/(2*R)*(Rr-L), sy=v=>B-(v-lo)/(hi-lo)*(B-T);
+    x.strokeStyle=tok('line'); x.lineWidth=1; x.strokeRect(L,T,Rr-L,B-T); x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace'; x.fillText(eixo,Rr-8,B+14); x.fillText('z',4,T+8); x.fillText(dec(hi,1),2,T+18); x.fillText(dec(lo,1),2,B);
+    x.save(); x.beginPath(); x.rect(L,T,Rr-L,B-T); x.clip(); x.strokeStyle=tok('ink'); x.lineWidth=2.4; x.beginPath(); let on=false; for(let k=0;k<=200;k++){ const t=-R+2*R*k/200, v=g(t); if(!isFinite(v)){ on=false; continue } on?x.lineTo(sx(t),sy(v)):x.moveTo(sx(t),sy(v)); on=true } x.stroke();
+    const z0=g(t0); if(isFinite(z0)){ const m=eixo==='x'?dfx(f,a,b):dfy(f,a,b); x.strokeStyle=tok('c1'); x.lineWidth=2.2; x.beginPath(); x.moveTo(sx(t0-R*.6),sy(z0-m*R*.6)); x.lineTo(sx(t0+R*.6),sy(z0+m*R*.6)); x.stroke(); x.fillStyle=tok('c1'); x.beginPath(); x.arc(sx(t0),sy(z0),5,0,7); x.fill();
+      x.font='600 11px "JetBrains Mono", monospace'; x.fillText('inclinação = f'+eixo+' = '+dec(m,2),L+6,T+14) } x.restore();
+    x.fillStyle=tok('ink2'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText(eixo==='x'?'corte y = '+dec(b,2):'corte x = '+dec(a,2),L+6,B-6) }); cv.st=st; return cv }
+
+/* ===== simuladores dos módulos ===== */
+function simNivel(){ const sel=document.getElementById('nvFn'), st={fn:'esfera',level:2};
+  const s3=Surf(document.getElementById('nv3d'),{fn:st.fn,level:st.level,alpha:.85}), m=Mapa(document.getElementById('nvMap'),{fn:st.fn,level:st.level});
+  const range=document.getElementById('nvK'), lab=document.getElementById('nvKv');
+  const set=()=>{ const F=FN[sel.value], [lo,hi]=faixa(F.f,F.R); range.min=lo; range.max=hi; range.step=(hi-lo)/200; if(+range.value<lo||+range.value>hi) range.value=(lo+hi)/2 };
+  const draw=()=>{ const k=+range.value; lab.textContent=dec(k,2); s3.set({fn:sel.value,level:k}); m.set({fn:sel.value,level:k}) };
+  sel.onchange=()=>{ set(); draw() }; range.oninput=draw; set(); range.value=FN[sel.value].f(1.5,1.5)||2; draw(); return [s3,m] }
+function simParcial(){ const st={fn:'cupula',corte:{eixo:'x',a:1,b:1}}; const s3=Surf(document.getElementById('pc3d'),{fn:st.fn,corte:st.corte,alpha:.82}), c2=Corte(document.getElementById('pc2d'),st);
+  const sel=document.getElementById('pcFn'), out=document.getElementById('pcOut'), seg=document.getElementById('pcSeg');
+  const ctl=controls(document.getElementById('pcCtl'),[{k:'a',l:'a (x do ponto)',min:-2,max:2,st:.05,v:1},{k:'b',l:'b (y do ponto)',min:-2,max:2,st:.05,v:1}],v=>{ st.corte.a=v.a; st.corte.b=v.b; draw() });
+  function draw(){ st.fn=sel.value; const F=FN[st.fn], f=F.f, {a,b}=st.corte; s3.set({fn:st.fn,corte:st.corte}); c2.draw();
+    out.innerHTML='<ol><li>Ponto (a, b) = ('+dec(a)+', '+dec(b)+') · f(a, b) = '+dec(f(a,b))+'</li><li>f<sub>x</sub>(a, b) ≈ '+dec(dfx(f,a,b))+' (inclinação andando em x, com y = '+dec(b)+' fixo)</li><li>f<sub>y</sub>(a, b) ≈ '+dec(dfy(f,a,b))+' (inclinação andando em y, com x = '+dec(a)+' fixo)</li></ol>' }
+  seg.querySelectorAll('button').forEach(bt=>bt.onclick=()=>{ seg.querySelectorAll('button').forEach(z=>z.classList.toggle('on',z===bt)); st.corte.eixo=bt.dataset.e; draw() });
+  sel.onchange=draw; draw(); return [s3,c2] }
+function simGrad(){ const st={fn:'cupula',p:{x:1,y:.5},grad:true,dir:0,tang:true}; const sel=document.getElementById('grFn'), out=document.getElementById('grOut');
+  const m=Mapa(document.getElementById('grMap'),{...st,click:p=>{ st.p=p; draw() }});
+  controls(document.getElementById('grCtl'),[{k:'th',l:'direção de u (ângulo com +x)',min:0,max:360,st:1,v:0,d:0,u:'°'}],v=>{ st.dir=rad(v.th); draw() });
+  function draw(){ st.fn=sel.value; const f=FN[st.fn].f, {x:a,y:b}=st.p, gx=dfx(f,a,b), gy=dfy(f,a,b), ux=Math.cos(st.dir), uy=Math.sin(st.dir), D=gx*ux+gy*uy, gn=Math.hypot(gx,gy);
+    m.set({fn:st.fn,p:st.p,dir:st.dir});
+    out.innerHTML='<ol><li>P = ('+dec(a)+', '+dec(b)+') · ∇f(P) = ⟨'+dec(gx)+', '+dec(gy)+'⟩</li><li>u = ⟨cos θ, sen θ⟩ = ⟨'+dec(ux)+', '+dec(uy)+'⟩ (já unitário)</li><li>D<sub>u</sub>f = ∇f · u = '+dec(gx)+'·'+dec(ux)+' + '+dec(gy)+'·'+dec(uy)+' = <b>'+dec(D)+'</b></li><li>Maior taxa possível em P: |∇f| = '+dec(gn)+', na direção da seta laranja'+(gn>1e-9?' (θ ≈ '+dec((deg(Math.atan2(gy,gx))+360)%360,0)+'°)':'')+'. Andando pela linha tracejada (a curva de nível), D<sub>u</sub>f = 0.</li></ol>' }
+  sel.onchange=draw; draw(); return [m] }
+function simExt(){ const sel=document.getElementById('exFn'), out=document.getElementById('exOut');
+  const CR={q16a:[{x:-1,y:.5}],q16b:[{x:0,y:0},{x:-Math.SQRT2,y:-1},{x:Math.SQRT2,y:-1}],q16c:[{x:0,y:0},{x:2,y:1}],parab:[{x:0,y:0}],sela:[{x:0,y:0}],cupula:[{x:0,y:0}]};
+  const pts=fn=>(CR[fn]||[]).map(p=>{ const f=FN[fn].f, A=dxx(f,p.x,p.y), B=dyy(f,p.x,p.y), C=dxy(f,p.x,p.y), D=A*B-C*C, tipo=D>1e-6?(A>0?'mínimo local':'máximo local'):D<-1e-6?'ponto de sela':'inconclusivo';
+    return {...p,A,B,C,D,tipo,z:f(p.x,p.y),c:tipo==='mínimo local'?'c2':tipo==='máximo local'?'c1':'c3',l:tipo==='ponto de sela'?'sela':tipo.split(' ')[0]} });
+  const s3=Surf(document.getElementById('ex3d'),{fn:'q16c',alpha:.9}), m=Mapa(document.getElementById('exMap'),{fn:'q16c',niveis:26,labels:false});
+  function draw(){ const fn=sel.value, P=pts(fn); s3.set({fn,pontos:P}); m.set({fn,pontos:P});
+    out.innerHTML='<div class="tbl" style="margin:0"><table><tr><th>ponto crítico</th><th>f<sub>xx</sub></th><th>f<sub>yy</sub></th><th>f<sub>xy</sub></th><th>D = f<sub>xx</sub>f<sub>yy</sub> − f<sub>xy</sub>²</th><th>conclusão</th></tr>'+P.map(p=>'<tr><td>('+dec(p.x)+', '+dec(p.y)+')</td><td>'+dec(p.A,1)+'</td><td>'+dec(p.B,1)+'</td><td>'+dec(p.C,1)+'</td><td>'+dec(p.D,1)+'</td><td><b>'+p.tipo+'</b>, f = '+dec(p.z,2)+'</td></tr>').join('')+'</table></div>' }
+  sel.onchange=draw; draw(); return [s3,m] }
+function simLab(){ const sel=document.getElementById('labFn'); const s3=Surf(document.getElementById('lab3d'),{fn:sel.value}), m=Mapa(document.getElementById('labMap'),{fn:sel.value,niveis:11});
+  sel.onchange=()=>{ s3.set({fn:sel.value}); m.set({fn:sel.value}) }; return [s3,m] }
+function simHero(){ const s=Surf(document.getElementById('heroSim'),{fn:'ondas',alpha:.95,N:30}); let t=0, last=0;
+  const step=tt=>{ if(document.getElementById('v-inicio').hidden||matchMedia('(prefers-reduced-motion: reduce)').matches){ requestAnimationFrame(step); return } if(tt-last>60){ last=tt; t+=.02; s.set({level:Math.sin(t)*.9}) } requestAnimationFrame(step) }; requestAnimationFrame(step); return [s] }
+
+/* ===== calculadoras ===== */
+function out(el,steps,res,err){ el.innerHTML=err?'<p class="err">'+err+'</p>':'<ol>'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol>'+(res?'<div class="res">'+res+'</div>':'') }
+const CALCS={
+ cadeia(){ const fx=num('ca-fx'),fy=num('ca-fy'),dx=num('ca-dx'),dy=num('ca-dy'); const a=fx*dx, b=fy*dy;
+  return [['Caminho por x: f<sub>x</sub>·dx/dt = '+dec(fx)+' · '+dec(dx)+' = '+dec(a),'Caminho por y: f<sub>y</sub>·dy/dt = '+dec(fy)+' · '+dec(dy)+' = '+dec(b),'Some os caminhos'],'dz/dt = '+dec(a)+' + '+dec(b)+' = '+dec(a+b)] },
+ teste(){ const A=num('ts-a'),B=num('ts-b'),C=num('ts-c'), D=A*B-C*C;
+  const t=D>0?(A>0?'mínimo local (D > 0 e f<sub>xx</sub> > 0)':'máximo local (D > 0 e f<sub>xx</sub> < 0)'):D<0?'ponto de sela (D < 0)':'o teste não decide (D = 0)';
+  return [['D = f<sub>xx</sub>·f<sub>yy</sub> − (f<sub>xy</sub>)² = '+dec(A)+' · '+dec(B)+' − ('+dec(C)+')²','D = '+dec(A*B)+' − '+dec(C*C)+' = '+dec(D)],'Conclusão: '+t] }
+};
+function runCalc(b){ const o=b.querySelector('.out'); try{ const [s,r]=CALCS[b.dataset.calc](); out(o,s,r) }catch(e){ out(o,null,null,e.message) } }
+
+/* ===== resolução passo a passo ===== */
+function exHTML(steps,ans){ return '<ol>'+steps.map((s,i)=>'<li class="'+(i?'hid':'')+'">'+s+'</li>').join('')+'</ol><div class="ans">'+ans+'</div><div class="btns"><button class="nx">Próximo passo</button><button class="ghost al">Ver resolução toda</button></div>' }
+function bindEx(box){ const lis=[...box.querySelectorAll('ol>li')], nx=box.querySelector('.nx'), al=box.querySelector('.al');
+  const upd=()=>{ const left=lis.filter(l=>l.classList.contains('hid')).length; nx.textContent=left?'Próximo passo ('+left+')':'Ver resposta'; if(box.classList.contains('all'))nx.disabled=al.disabled=true };
+  nx.onclick=()=>{ const h=lis.find(l=>l.classList.contains('hid')); if(h)h.classList.remove('hid'); else box.classList.add('all'); upd() }; al.onclick=()=>{ lis.forEach(l=>l.classList.remove('hid')); box.classList.add('all'); upd() }; upd() }
+
+/* ===== lista resolvida ===== */
+const PROBS=[
+ {n:'1a',m:'derivadas parciais',q:'f(x, y) = 3x − 2y⁴. Derivadas parciais de primeira ordem.',
+  s:['f<sub>x</sub>: y é constante, então −2y⁴ some. (3x)\' = 3.','f<sub>y</sub>: x é constante, então 3x some. (−2y⁴)\' = −2·4y³.'],a:'f<sub>x</sub> = 3 · f<sub>y</sub> = −8y³ (o gabarito esqueceu o sinal)'},
+ {n:'1b',m:'derivadas parciais',q:'z = x e<sup>3y</sup>.',
+  s:['∂z/∂x: e<sup>3y</sup> é constante (multiplica x). Derivada de x é 1.','∂z/∂y: x é constante. (e<sup>3y</sup>)\' = 3e<sup>3y</sup> (regra da cadeia).'],a:'∂z/∂x = e<sup>3y</sup> · ∂z/∂y = 3x e<sup>3y</sup>'},
+ {n:'1c',m:'derivadas parciais',q:'z = (2x + 3y)¹⁰.',
+  s:['Regra da cadeia do Cálculo I: 10(2x + 3y)⁹ vezes a derivada de dentro.','Em x, a derivada de dentro é 2; em y, é 3.'],a:'∂z/∂x = 20(2x + 3y)⁹ · ∂z/∂y = 30(2x + 3y)⁹'},
+ {n:'1d',m:'derivadas parciais',q:'f(x, y) = ln(x + √(x² + y²)). Calcule f<sub>x</sub>(3, 4).',
+  s:['Derivada de ln(u) é u\'/u, com u = x + √(x² + y²).','u<sub>x</sub> = 1 + x/√(x² + y²) = (√(x² + y²) + x)/√(x² + y²).','f<sub>x</sub> = u<sub>x</sub>/u = 1/√(x² + y²) (o numerador cancela com u).','Em (3, 4): √(9 + 16) = 5.'],a:'f<sub>x</sub>(3, 4) = 1/5'},
+ {n:'2',m:'derivadas parciais · aplicação',q:'T(x, y) = 60/(1 + x² + y²) numa chapa (°C, metros). Taxas de variação em (1, 2) em x e em y.',
+  s:['Escreva T = 60(1 + x² + y²)⁻¹.','T<sub>x</sub> = −60(1 + x² + y²)⁻²·2x = −120x/(1 + x² + y²)².','T<sub>y</sub> = −120y/(1 + x² + y²)².','Em (1, 2): 1 + 1 + 4 = 6, ao quadrado 36. T<sub>x</sub> = −120/36 e T<sub>y</sub> = −240/36.'],a:'T<sub>x</sub>(1, 2) = −10/3 °C/m · T<sub>y</sub>(1, 2) = −20/3 °C/m'},
+ {n:'3',m:'regra da cadeia · caso I',q:'z = sen x cos y, x = πt, y = √t. Ache dz/dt.',
+  s:['z<sub>x</sub> = cos x cos y e z<sub>y</sub> = −sen x sen y.','dx/dt = π e dy/dt = 1/(2√t).','dz/dt = z<sub>x</sub>·dx/dt + z<sub>y</sub>·dy/dt.'],a:'dz/dt = π cos x cos y − (sen x sen y)/(2√t)'},
+ {n:'4',m:'regra da cadeia · caso II',q:'z = x²y³, x = s cos t, y = s sen t. Ache ∂z/∂s e ∂z/∂t.',
+  s:['z<sub>x</sub> = 2xy³ e z<sub>y</sub> = 3x²y².','x<sub>s</sub> = cos t, y<sub>s</sub> = sen t, x<sub>t</sub> = −s sen t, y<sub>t</sub> = s cos t.','∂z/∂s = 2xy³ cos t + 3x²y² sen t.','∂z/∂t = 2xy³(−s sen t) + 3x²y²(s cos t).'],a:'∂z/∂s = 2xy³ cos t + 3x²y² sen t · ∂z/∂t = −2sxy³ sen t + 3sx²y² cos t'},
+ {n:'5',m:'regra da cadeia · valores',q:'z = f(x, y), x = g(t), y = h(t), com g(3) = 2, h(3) = 7, g\'(3) = 5, h\'(3) = −4, f<sub>x</sub>(2, 7) = 6, f<sub>y</sub>(2, 7) = −8. Ache dz/dt em t = 3.',
+  s:['Em t = 3 o ponto é (x, y) = (g(3), h(3)) = (2, 7): por isso a questão dá f<sub>x</sub> e f<sub>y</sub> em (2, 7).','dz/dt = f<sub>x</sub>·g\' + f<sub>y</sub>·h\' = 6·5 + (−8)(−4).'],a:'dz/dt = 30 + 32 = 62'},
+ {n:'6',m:'regra da cadeia · aplicação',q:'Inseto em x = √(1 + t), y = 2 + t/3 (cm). T<sub>x</sub>(2, 3) = 4 e T<sub>y</sub>(2, 3) = 3. Quão rápido a temperatura sobe em t = 3 s?',
+  s:['Em t = 3: x = √4 = 2 e y = 2 + 1 = 3 (o ponto (2, 3) do enunciado).','dx/dt = 1/(2√(1 + t)) = 1/4 e dy/dt = 1/3.','dT/dt = T<sub>x</sub>·dx/dt + T<sub>y</sub>·dy/dt = 4·(1/4) + 3·(1/3).'],a:'dT/dt = 1 + 1 = 2 °C/s'},
+ {n:'7',m:'regra da cadeia · caixa',q:'Caixa com ℓ = 1, w = h = 2 (m); ℓ e w aumentam 2 m/s e h diminui 3 m/s. Taxas do volume, da área e da diagonal.',
+  s:['Volume V = ℓwh: dV/dt = wh·ℓ\' + ℓh·w\' + ℓw·h\' = 4·2 + 2·2 + 2·(−3) = 6.','Área S = 2(ℓw + ℓh + wh): dS/dt = 2[(w + h)ℓ\' + (ℓ + h)w\' + (ℓ + w)h\'] = 2[4·2 + 3·2 + 3·(−3)] = 2·5 = 10.','Diagonal D = √(ℓ² + w² + h²) = 3: dD/dt = (ℓℓ\' + ww\' + hh\')/D = (2 + 4 − 6)/3 = 0.'],a:'dV/dt = 6 m³/s · dS/dt = 10 m²/s · dD/dt = 0 m/s'},
+ {n:'8',m:'gradiente · derivada direcional',q:'f(x, y) = 5xy² − 4x³y, P(1, 2), u = ⟨5/13, 12/13⟩. (a) ∇f (b) ∇f(P) (c) taxa na direção u.',
+  s:['f<sub>x</sub> = 5y² − 12x²y e f<sub>y</sub> = 10xy − 4x³.','∇f(1, 2) = ⟨20 − 24, 20 − 4⟩ = ⟨−4, 16⟩.','u já é unitário: (5/13)² + (12/13)² = 1.','D<sub>u</sub>f = −4·5/13 + 16·12/13 = (−20 + 192)/13.'],a:'(a) ⟨5y² − 12x²y, 10xy − 4x³⟩ · (b) ⟨−4, 16⟩ · (c) 172/13'},
+ {n:'9',m:'gradiente · 3 variáveis',q:'f(x, y, z) = x e<sup>2yz</sup>, P(3, 0, 2), u = ⟨2/3, −2/3, 1/3⟩.',
+  s:['f<sub>x</sub> = e<sup>2yz</sup>, f<sub>y</sub> = 2xz e<sup>2yz</sup>, f<sub>z</sub> = 2xy e<sup>2yz</sup>.','Em P: e⁰ = 1, então ∇f(P) = ⟨1, 2·3·2, 0⟩ = ⟨1, 12, 0⟩.','D<sub>u</sub>f = 1·2/3 + 12·(−2/3) + 0 = (2 − 24)/3.'],a:'(a) ⟨e<sup>2yz</sup>, 2xz e<sup>2yz</sup>, 2xy e<sup>2yz</sup>⟩ · (b) ⟨1, 12, 0⟩ · (c) −22/3'},
+ {n:'10',m:'derivada direcional',q:'f(x, y) = 1 + 2x√y em (3, 4), na direção de v = ⟨4, −3⟩.',
+  s:['f<sub>x</sub> = 2√y e f<sub>y</sub> = x/√y.','∇f(3, 4) = ⟨4, 3/2⟩.','|v| = 5 → u = ⟨4/5, −3/5⟩.','D<sub>u</sub>f = 4·4/5 − (3/2)·3/5 = 16/5 − 9/10.'],a:'D<sub>u</sub>f = 23/10'},
+ {n:'11',m:'derivada direcional · 3 variáveis',q:'f(x, y, z) = x eʸ + y eᶻ + z eˣ em (0, 0, 0), na direção de v = ⟨5, 1, −2⟩.',
+  s:['f<sub>x</sub> = eʸ + z eˣ, f<sub>y</sub> = x eʸ + eᶻ, f<sub>z</sub> = y eᶻ + eˣ.','Na origem: ∇f = ⟨1, 1, 1⟩.','|v| = √(25 + 1 + 4) = √30.','D<sub>u</sub>f = (5 + 1 − 2)/√30.'],a:'D<sub>u</sub>f = 4/√30 ≈ 0,73'},
+ {n:'12',m:'derivada direcional · ponto a ponto',q:'f(x, y) = √(xy) em P(2, 8), na direção de Q(5, 4).',
+  s:['f<sub>x</sub> = y/(2√(xy)) e f<sub>y</sub> = x/(2√(xy)). Em P, √(xy) = 4.','∇f(2, 8) = ⟨8/8, 2/8⟩ = ⟨1, 1/4⟩.','v = Q − P = ⟨3, −4⟩, |v| = 5, u = ⟨3/5, −4/5⟩.','D<sub>u</sub>f = 3/5 − (1/4)(4/5) = 3/5 − 1/5.'],a:'D<sub>u</sub>f = 2/5'},
+ {n:'13',m:'taxa máxima',q:'f(x, y) = sen(xy) em (1, 0): taxa de variação máxima e direção.',
+  s:['∇f = ⟨y cos(xy), x cos(xy)⟩.','Em (1, 0): ∇f = ⟨0, 1⟩.','Taxa máxima = |∇f| = 1, na direção do próprio gradiente.'],a:'Taxa máxima 1, na direção ⟨0, 1⟩'},
+ {n:'14',m:'gradiente · aplicação',q:'T em uma bola é inversamente proporcional à distância ao centro; T(1, 2, 2) = 120°. Taxa de variação em (1, 2, 2) em direção a (2, 1, 3).',
+  s:['T = k/√(x² + y² + z²). Em (1, 2, 2), a distância é 3: 120 = k/3 → k = 360.','∇T = −k⟨x, y, z⟩/(x² + y² + z²)^(3/2). Em (1, 2, 2): −360⟨1, 2, 2⟩/27 = −(40/3)⟨1, 2, 2⟩.','v = (2, 1, 3) − (1, 2, 2) = ⟨1, −1, 1⟩, |v| = √3.','D<sub>u</sub>T = −(40/3)(1 − 2 + 2)/√3 = −40/(3√3).'],a:'D<sub>u</sub>T = −40/(3√3) ≈ −7,7 °/unidade (a temperatura cai)'},
+ {n:'15',m:'gradiente · potencial',q:'V = 5x² − 3xy + xyz. Em P(3, 4, 5): (a) taxa na direção v = i + j − k (b) direção de maior variação (c) taxa máxima.',
+  s:['∇V = ⟨10x − 3y + yz, −3x + xz, xy⟩.','∇V(3, 4, 5) = ⟨30 − 12 + 20, −9 + 15, 12⟩ = ⟨38, 6, 12⟩.','(a) u = ⟨1, 1, −1⟩/√3: D<sub>u</sub>V = (38 + 6 − 12)/√3 = 32/√3.','(b) a direção de ∇V(P) = ⟨38, 6, 12⟩.','(c) |∇V| = √(1444 + 36 + 144) = √1624 = 2√406.'],a:'(a) 32/√3 · (b) ⟨38, 6, 12⟩ · (c) 2√406 ≈ 40,3'},
+ {n:'16a',m:'máximos e mínimos',q:'f(x, y) = 9 − 2x + 4y − x² − 4y². Extremos locais e selas.',
+  s:['f<sub>x</sub> = −2 − 2x = 0 → x = −1. f<sub>y</sub> = 4 − 8y = 0 → y = 1/2.','f<sub>xx</sub> = −2, f<sub>yy</sub> = −8, f<sub>xy</sub> = 0 → D = 16 &gt; 0 e f<sub>xx</sub> &lt; 0: máximo.','f(−1, 1/2) = 9 + 2 + 2 − 1 − 1 = 11.'],a:'Máximo local f(−1, 1/2) = 11'},
+ {n:'16b',m:'máximos e mínimos',q:'f(x, y) = x² + y² + x²y + 4.',
+  s:['f<sub>x</sub> = 2x + 2xy = 2x(1 + y) = 0 → x = 0 ou y = −1.','f<sub>y</sub> = 2y + x² = 0. Se x = 0: y = 0. Se y = −1: x² = 2, x = ±√2.','Pontos: (0, 0), (√2, −1), (−√2, −1). f<sub>xx</sub> = 2 + 2y, f<sub>yy</sub> = 2, f<sub>xy</sub> = 2x.','(0, 0): D = 2·2 − 0 = 4 &gt; 0, f<sub>xx</sub> = 2 &gt; 0 → mínimo, f = 4.','(±√2, −1): f<sub>xx</sub> = 0, D = 0·2 − (±2√2)² = −8 &lt; 0 → sela.'],a:'Mínimo f(0, 0) = 4 · selas em (±√2, −1)'},
+ {n:'16c',m:'máximos e mínimos',q:'f(x, y) = x³ − 12xy + 8y³.',
+  s:['f<sub>x</sub> = 3x² − 12y = 0 → y = x²/4. f<sub>y</sub> = −12x + 24y² = 0 → x = 2y².','Substitua: y = (2y²)²/4 = y⁴ → y(y³ − 1) = 0 → y = 0 ou y = 1. Pontos (0, 0) e (2, 1).','f<sub>xx</sub> = 6x, f<sub>yy</sub> = 48y, f<sub>xy</sub> = −12.','(0, 0): D = 0 − 144 &lt; 0 → sela. (2, 1): D = 12·48 − 144 = 432 &gt; 0 e f<sub>xx</sub> = 12 &gt; 0 → mínimo, f = 8 − 24 + 8 = −8.'],a:'Mínimo f(2, 1) = −8 · sela em (0, 0)'},
+ {n:'17',m:'otimização',q:'Três números positivos com soma 100 e produto máximo.',
+  s:['z = 100 − x − y, então P = xy(100 − x − y) = 100xy − x²y − xy².','P<sub>x</sub> = y(100 − 2x − y) = 0 e P<sub>y</sub> = x(100 − x − 2y) = 0. Como x, y &gt; 0: 2x + y = 100 e x + 2y = 100.','Resolvendo: x = y = 100/3, e z = 100/3.'],a:'Os três valem 100/3'},
+ {n:'18',m:'otimização',q:'Caixa de volume máximo cuja soma das 12 arestas é c.',
+  s:['4x + 4y + 4z = c → z = c/4 − x − y. V = xy(c/4 − x − y).','V<sub>x</sub> = y(c/4 − 2x − y) = 0 e V<sub>y</sub> = x(c/4 − x − 2y) = 0.','2x + y = c/4 e x + 2y = c/4 → x = y = c/12 e z = c/12.'],a:'Um cubo de aresta c/12'},
+ {n:'19',m:'otimização',q:'Caixa sem tampa com volume 32 000 cm³ e o mínimo de papelão.',
+  s:['Base x por y, altura z = 32 000/(xy). Área S = xy + 2xz + 2yz = xy + 64 000/y + 64 000/x.','S<sub>x</sub> = y − 64 000/x² = 0 e S<sub>y</sub> = x − 64 000/y² = 0.','Por simetria x = y, então x³ = 64 000 → x = 40 e z = 32 000/1 600 = 20.','Teste: S<sub>xx</sub> = 128 000/x³ = 2, S<sub>yy</sub> = 2, S<sub>xy</sub> = 1 → D = 3 &gt; 0, mínimo.'],a:'Base quadrada de 40 cm e altura 20 cm'}
+];
+
+/* ===== quiz ===== */
+const QUIZ=[
+ ['O domínio de f(x, y) = ln(x − y) é…',['x ≥ y','x > y','x ≠ y','todo o plano'],1,'Logaritmo exige argumento positivo: x − y > 0.'],
+ ['As curvas de nível de f(x, y) = x² + y² são…',['retas paralelas','parábolas','circunferências concêntricas','hipérboles'],2,'x² + y² = k são circunferências de raio √k.'],
+ ['Num mapa de contorno, curvas bem próximas umas das outras indicam…',['superfície plana','superfície íngreme','um ponto de sela','um mínimo'],1,'A altura muda muito em pouca distância: a subida é forte.'],
+ ['Para calcular f<sub>x</sub>, você…',['deriva tudo em x e em y','trata y como constante','trata x como constante','iguala y a zero'],1,'Derivada parcial em x: o y fica congelado.'],
+ ['Se f(x, y) = x²y³, então f<sub>y</sub> é…',['2xy³','3x²y²','6xy²','x²'],1,'x² é constante; derivada de y³ é 3y².'],
+ ['f<sub>xy</sub> significa…',['derivar em y e depois em x','derivar em x e depois em y','multiplicar f<sub>x</sub> por f<sub>y</sub>','sempre zero'],1,'O índice se lê da esquerda para a direita. Pelo teorema de Clairaut, costuma ser igual a f<sub>yx</sub>.'],
+ ['Na regra da cadeia caso I, dz/dt é…',['f<sub>x</sub> + f<sub>y</sub>','f<sub>x</sub>·dx/dt + f<sub>y</sub>·dy/dt','f<sub>x</sub>·f<sub>y</sub>','dx/dt + dy/dt'],1,'Um produto por caminho da árvore, somados.'],
+ ['O gradiente ∇f num ponto é…',['tangente à curva de nível','perpendicular à curva de nível','sempre nulo','paralelo ao eixo x'],1,'Andando pela curva de nível f não muda (D<sub>u</sub>f = 0), então o gradiente é perpendicular a ela.'],
+ ['A taxa máxima de variação de f em P vale…',['f(P)','|∇f(P)|','f<sub>x</sub>(P) + f<sub>y</sub>(P)','1'],1,'D<sub>u</sub>f = |∇f|cos θ, máximo quando θ = 0.'],
+ ['Para usar D<sub>u</sub>f = ∇f · u com v = ⟨3, 4⟩, você usa u = …',['⟨3, 4⟩','⟨3/5, 4/5⟩','⟨4, 3⟩','⟨1, 1⟩'],1,'u precisa ser unitário: v/|v| com |v| = 5.'],
+ ['Se ∇f(P) = ⟨−4, 16⟩ e u = ⟨5/13, 12/13⟩, D<sub>u</sub>f(P) vale…',['172/13','−4/13','12','188/13'],0,'−4·5/13 + 16·12/13 = (−20 + 192)/13 = 172/13 (questão 8 da lista).'],
+ ['Num ponto crítico, D = f<sub>xx</sub>f<sub>yy</sub> − f<sub>xy</sub>² = −144. O ponto é…',['máximo','mínimo','sela','inconclusivo'],2,'D < 0 é sempre ponto de sela.'],
+ ['D > 0 e f<sub>xx</sub> < 0 indicam…',['mínimo local','máximo local','sela','nada'],1,'Côncava para baixo em todas as direções: topo de morro.'],
+ ['Pontos críticos de f(x, y) = x² + y² + x²y + 4 incluem…',['só (0, 0)','(0, 0) e (±√2, −1)','(1, 1)','nenhum'],1,'2x(1 + y) = 0 dá dois casos: x = 0 ou y = −1 (questão 16b).'],
+ ['u(x, t) = sen(x − ct) satisfaz…',['u<sub>tt</sub> = c²u<sub>xx</sub>','u<sub>xx</sub> + u<sub>tt</sub> = 0','u<sub>t</sub> = u<sub>x</sub>','nenhuma'],0,'u<sub>xx</sub> = −sen(x − ct) e u<sub>tt</sub> = −c²sen(x − ct): é a equação da onda.'],
+ ['T(x, y) = 60/(1 + x² + y²). Em (1, 2), andando no sentido de +x, a temperatura…',['sobe','cai','não muda','depende de y'],1,'T<sub>x</sub>(1, 2) = −10/3 < 0 (questão 2).']
+];
+let qa={};
+function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<div class="qz" data-i="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="opts">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="why" hidden></div></div>').join('');
+  box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i], bs=c.querySelectorAll('button');
+    const show=j=>{ bs.forEach((b,k)=>{ b.disabled=true; if(k===q[2])b.classList.add('right'); else if(k===j)b.classList.add('wrong') }); const w=c.querySelector('.why'); w.hidden=false; w.innerHTML=(j===q[2]?'<b style="color:var(--ok)">Certo!</b> ':'<b style="color:var(--bad)">Quase.</b> ')+q[3] };
+    bs.forEach(b=>b.onclick=()=>{ qa[i]=+b.dataset.j; show(qa[i]); score(); save() }); if(qa[i]!==undefined)show(qa[i]) }); score() }
+function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=13?' · pronto para a prova!':ok>=10?' · quase lá':' · revise os módulos'):'') }
+
+/* ===== progresso ===== */
+const MODS=[['funcoes','Funções de 2 variáveis','Domínio, imagem e gráfico'],['nivel','Curvas de nível','f(x, y) = k e mapas de contorno'],['parciais','Derivadas parciais','Uma variável por vez'],['ordem','Segunda ordem','f<sub>xx</sub>, f<sub>xy</sub>, Clairaut, onda e Laplace'],['cadeia','Regra da cadeia','Casos I e II, diagrama de árvore'],['gradiente','Gradiente','Derivada direcional e taxa máxima'],['extremos','Máximos e mínimos','Pontos críticos, teste D e otimização']];
+let done={};
+function load(){ try{ done=JSON.parse(localStorage.getItem('calc2-done')||'{}'); qa=JSON.parse(localStorage.getItem('calc2-quiz')||'{}') }catch(e){} }
+function save(){ try{ localStorage.setItem('calc2-done',JSON.stringify(done)); localStorage.setItem('calc2-quiz',JSON.stringify(qa)) }catch(e){} }
+function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getElementById('progtxt').textContent=n+'/'+MODS.length+' módulos'; document.getElementById('progbar').style.width=(n/MODS.length*100)+'%';
+  document.getElementById('trail').innerHTML=MODS.map((m,i)=>'<a class="stop'+(done[m[0]]?' done':'')+'" href="#'+m[0]+'"><span class="n">'+(done[m[0]]?'✓':i+1)+'</span><b>'+m[1]+'</b><span>'+m[2]+'</span></a>').join('')+
+    '<a class="stop" href="#lista"><span class="n">L</span><b>Lista resolvida</b><span>'+PROBS.length+' itens, um passo de cada vez</span></a><a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
+  document.querySelectorAll('#nav a[data-m]').forEach(a=>{ a.querySelector('.dn')?.remove(); if(done[a.dataset.m])a.insertAdjacentHTML('beforeend','<i class="dn"></i>') });
+  document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
+    d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#lista">Agora encare a lista →</a>');
+    d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
+
+/* ===== rotas ===== */
+const VIEWS=['inicio','funcoes','nivel','parciais','ordem','cadeia','gradiente','extremos','lab','lista','quiz','cola'];
+let sims=[];
+function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
+  VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
+  document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
+  window.scrollTo(0,0); requestAnimationFrame(()=>sims.forEach(s=>s&&s.resize())) }
+
+/* ===== boot ===== */
+load();
+document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'), steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); bindEx(b) });
+document.getElementById('probBox').innerHTML=PROBS.map(p=>'<details class="qitem"><summary><span class="qn">'+p.n+'</span><span>'+p.q+'<span class="tagt">'+p.m+'</span></span></summary><div class="body"><div class="part ex" style="border:none;padding:0;margin:14px 0 0">'+exHTML(p.s,p.a)+'</div></div></details>').join('');
+document.querySelectorAll('#probBox .part').forEach(bindEx);
+document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('input',()=>runCalc(b)); runCalc(b) });
+document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
+const fn3d=Surf(document.getElementById('fn3d'),{fn:'esfera'});
+document.querySelectorAll('#fnSeg button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#fnSeg button').forEach(z=>z.classList.toggle('on',z===b)); fn3d.set({fn:b.dataset.f}) });
+sims=[fn3d,...simHero(),...simNivel(),...simParcial(),...simGrad(),...simExt(),...simLab()];
+renderQuiz(); renderProg();
+addEventListener('hashchange',route); route();
+const redraw=()=>sims.forEach(s=>s&&s.draw());
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+</script>
+<script>
+/* Esc volta um nível: módulo → início da oficina → hub */
+addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
+  const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){ a.blur(); return }
+  const h=location.hash.slice(1);
+  if(h&&h!=='inicio'){ location.hash='inicio'; return }
+  location.href='../../index.html#m-calc2' });
+</script>
+<script src="../../dados/cartas.js"></script>
+<script src="../../js/anki.js" data-materia="calc2"></script>
+</body>
+</html>

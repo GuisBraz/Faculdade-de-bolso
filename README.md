@@ -125,3 +125,4 @@ O site é um PWA: no Chrome do celular ou do PC, use **Instalar app** / **Adicio
 |---|---|
 | GAAL | [Oficina de GAAL](materias/gaal/oficina-de-gaal.html): retas, planos, posições, ângulos e distâncias com laboratório 3D, lista resolvida e quiz |
 | Física I | [Oficina de Física](materias/fis1/oficina-de-fisica.html): Halliday caps. 5, 6 e 8 (Força e Movimento I e II; Energia Potencial e Conservação da Energia) mais o módulo de sistema massa-mola da aula, com simuladores de plano inclinado, elevador, curva, montanha-russa, curva de U(x), mola e pista em U, problemas resolvidos e quiz |
+| Cálculo II | [Oficina de Cálculo II](materias/calc2/oficina-de-calculo-2.html): funções de várias variáveis, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos, com superfícies 3D, a lista resolvida e quiz |

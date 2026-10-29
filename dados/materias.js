@@ -54,7 +54,20 @@ window.FACULDADE = {
       numero: 2, ch: 300, atual: true,
       materias: [
         { id: "qg", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", arquivos: [] },
-        { id: "calc2", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", arquivos: [] },
+        { id: "calc2", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", arquivos: [
+            {
+              titulo: "Oficina de Cálculo II · Várias Variáveis",
+              tipo: "site",
+              caminho: "materias/calc2/oficina-de-calculo-2.html",
+              ciclo: "2ª Prova", ate: "2026-11-12",
+              atualizacoes: [
+                { data: "2026-10-29", texto: "Criada: funções de várias variáveis, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos, com a lista resolvida e cartas." }
+              ],
+              descricao: "Funções de várias variáveis do zero, com superfícies 3D, mapas de contorno, gradiente ao vivo, a lista de derivadas parciais e máximos e mínimos resolvida e quiz.",
+              data: "2026-10-29",
+              tags: ["derivadas parciais", "regra da cadeia", "gradiente", "máximos e mínimos", "curvas de nível", "prova"]
+            }
+          ] },
         { id: "fis1", sigla: "Física I", nome: "Física I", ch: 60, icone: "fisica", area: "f", arquivos: [
             {
               titulo: "Oficina de Física · Força, Movimento e Energia",
