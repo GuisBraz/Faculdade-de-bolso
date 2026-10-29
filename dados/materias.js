@@ -64,7 +64,8 @@ window.FACULDADE = {
               ciclo: "2ª Prova", ate: "2026-11-04",
               atualizacoes: [
                 { data: "2026-10-28", texto: "Criada com os capítulos 5 e 6 (Força e Movimento I e II)." },
-                { data: "2026-10-28", texto: "Incluído o capítulo 8 (Energia Potencial e Conservação da Energia)." }
+                { data: "2026-10-28", texto: "Incluído o capítulo 8 (Energia Potencial e Conservação da Energia)." },
+                { data: "2026-10-28", texto: "Aula de 28/10: conservação geral da energia (formas de energia) e o exemplo de queda com 30 J (K + U)." }
               ],
               descricao: "Capítulos 5, 6 e 8 do Halliday: leis de Newton, atrito, arrasto, movimento circular, energia potencial e conservação da energia, com simuladores, 22 problemas resolvidos e quiz.",
               data: "2026-10-28",

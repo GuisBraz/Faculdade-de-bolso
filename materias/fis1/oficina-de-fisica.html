@@ -202,6 +202,23 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
 /* física */
+.aula{background:var(--sheet);border:1.5px solid var(--c1);border-radius:10px;padding:14px 16px;margin:22px 0;position:relative}
+.aula .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sheet);background:var(--c1);padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.queda{display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:stretch;margin:10px 0}
+.qcol{display:grid;grid-template-rows:1fr auto;justify-items:center;gap:4px}
+.qtrack{position:relative;width:8px;min-height:190px;height:100%;background:var(--line);border-radius:4px}
+.qball{position:absolute;left:50%;width:22px;height:22px;border-radius:50%;background:var(--c3);transform:translate(-50%,50%);bottom:100%}
+.qlbl{font:600 .66rem var(--f-mono);color:var(--ink2);text-transform:uppercase}
+.qinfo input[type=range]{width:100%;accent-color:var(--c1)}
+.qbars{display:grid;gap:6px;margin-top:8px}
+.qbars div{display:grid;grid-template-columns:34px 1fr 54px;gap:8px;align-items:center;font-family:var(--f-mono);font-size:.82rem}
+.qbars i{display:block;height:14px;background:var(--line);border-radius:3px;overflow:hidden}
+.qbars em{display:block;height:100%}
+.qbars b{text-align:right}
+.formas{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.formas span{--mc:var(--c1);border:1.5px solid var(--mc);border-radius:999px;padding:4px 12px;font-size:.85rem;background:color-mix(in srgb,var(--mc) 8%,var(--sheet))}
+.formas b{font-family:var(--f-math);font-style:italic;color:var(--mc);margin-right:2px}
+@media (max-width:480px){.queda{grid-template-columns:50px 1fr}}
 .simctl{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px 16px;margin:12px 0 4px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .simctl label{display:grid;gap:2px;font-size:.8rem;font-weight:700;color:var(--ink2)}
 .simctl label b{color:var(--ink);font-family:var(--f-mono)}
@@ -536,6 +553,21 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
   </div>
   <div class="ofi"><span class="k">Por que é tão bom</span>Num tobogã curvo, calcular a velocidade com F = ma seria um pesadelo (a inclinação muda a cada ponto). Com energia: mgh = ½mv², pronto. A forma do tobogã não importa.</div>
 
+  <div class="aula"><span class="k">Da aula · 28/10</span>
+    <p><b>Quando apenas forças conservativas atuam em um corpo, a energia mecânica se conserva:</b> E<sub>M</sub> = K + U não muda.</p>
+    <p>O exemplo do quadro: um corpo cai do alto com E<sub>M</sub> = 30 J. Arraste a altura e veja a troca. A soma é sempre 30 J.</p>
+    <div class="queda">
+      <div class="qcol"><div class="qtrack"><span class="qball" id="qBall"></span></div><span class="qlbl">altura</span></div>
+      <div class="qinfo">
+        <label for="qH" class="mono" style="font-size:.8rem">posição: <b id="qHv"></b> da altura inicial</label>
+        <input type="range" id="qH" min="0" max="100" step="1" value="100">
+        <div class="qbars"><div><span>K</span><i><em id="qK" style="background:var(--c2)"></em></i><b id="qKv"></b></div><div><span>U</span><i><em id="qU" style="background:var(--c3)"></em></i><b id="qUv"></b></div><div><span>E<sub>M</sub></span><i><em style="width:100%;background:var(--ink)"></em></i><b>30 J</b></div></div>
+        <div class="tbl" style="margin:10px 0 0"><table><tr><th>No quadro</th><th>K</th><th>U</th><th>E<sub>M</sub></th></tr><tr><td>topo (solto do repouso)</td><td>0</td><td>30 J</td><td>30 J</td></tr><tr><td>descendo</td><td>10 J</td><td>20 J</td><td>30 J</td></tr><tr><td>metade da altura</td><td>15 J</td><td>15 J</td><td>30 J</td></tr><tr><td>no chão</td><td>30 J</td><td>0</td><td>30 J</td></tr></table></div>
+      </div>
+    </div>
+    <p style="font-size:.9rem;color:var(--ink2)">Repare: na <b>metade da altura</b>, K = U. Isso vale para qualquer queda a partir do repouso, porque U = mgy cai pela metade quando a altura cai pela metade.</p>
+  </div>
+
   <h3>Receita</h3>
   <ol class="recipe">
     <li><span>Confira: não há atrito nem arrasto? Então E<sub>mec</sub> se conserva.</span></li>
@@ -609,6 +641,21 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
     <dl class="legend"><dt>ΔE<sub>t</sub></dt><dd>aumento da energia térmica (o "esquentar" do bloco e do piso)</dd><dt>f<sub>k</sub></dt><dd>atrito cinético = μ<sub>k</sub>N (módulo 4!)</dd><dt>d</dt><dd>distância percorrida deslizando</dd></dl>
   </div>
   <div class="ofi"><span class="k">Na oficina</span>Lixar ou esmerilhar uma peça: todo o trabalho da máquina contra o atrito vira calor. Por isso a peça esquenta e a ferramenta precisa de refrigeração.</div>
+
+  <div class="aula"><span class="k">Da aula · 28/10</span>
+    <p><b>"Na natureza nada se perde, nada se cria, tudo se transforma."</b> A frase de Lavoisier foi dita sobre a massa, mas vale também para a energia: <b>a quantidade de energia total do universo é constante.</b> Ela só muda de forma.</p>
+    <p>O desenho do quadro mostra a energia mecânica (K e U, trocando entre si) dentro de um universo de outras formas, todas convertendo umas nas outras:</p>
+    <div class="formas">
+      <span style="--mc:var(--c2)"><b>K</b> cinética</span><span style="--mc:var(--c3)"><b>U</b> potencial</span><span style="--mc:var(--bad)"><b>E<sub>T</sub></b> térmica</span><span style="--mc:#C9A400"><b>E<sub>E</sub></b> elétrica</span><span style="--mc:var(--ok)"><b>E<sub>Q</sub></b> química</span><span style="--mc:var(--ink2)"><b>E<sub>S</sub></b> sonora</span><span style="--mc:var(--c1)"><b>E<sub>N</sub></b> nuclear</span><span style="--mc:var(--c2)"><b>…</b> luminosa, magnética e outras</span>
+    </div>
+    <div class="tbl"><table><tr><th>Onde aparece</th><th>Cadeia de transformações</th></tr>
+      <tr><td>Usina hidrelétrica</td><td>U da água na represa → K da água → K da turbina → elétrica</td></tr>
+      <tr><td>Motor a combustão</td><td>química (combustível) → térmica → K do pistão → K do carro (+ térmica e sonora perdidas)</td></tr>
+      <tr><td>Freada</td><td>K do carro → térmica nos discos e pastilhas (+ sonora do chiado)</td></tr>
+      <tr><td>Solda a arco</td><td>elétrica → térmica (funde o metal) + luminosa (o arco)</td></tr>
+      <tr><td>Sol</td><td>nuclear (fusão) → luminosa e térmica</td></tr></table></div>
+    <p style="font-size:.9rem;color:var(--ink2)">A conservação da <b>energia mecânica</b> (módulo 8) é um caso especial: só vale quando nada "vaza" de K + U para as outras formas, ou seja, sem atrito e sem arrasto.</p>
+  </div>
 
   <h3>Lei de conservação da energia</h3>
   <div class="fx"><span class="tag">Fórmula 10.3 · conservação geral</span>
@@ -986,6 +1033,7 @@ PROBS.push(
   s:['Velocidade constante: ΔK = 0, todo o trabalho vira U.','ΔE = mgh = 800 · 9,8 · 20 = 156 800 J.','P = ΔE/Δt = 156 800 / 10.'],a:'P ≈ 15,7 kW (≈ 21 cv)'}
 );
 QUIZ.push(
+ ['Um corpo solto do repouso tem U = 30 J no topo. Sem atrito, na metade da altura ele tem…',['K = 30 J, U = 0','K = 15 J, U = 15 J','K = 10 J, U = 20 J','K = 0, U = 15 J'],1,'U = mgy cai pela metade; os 15 J que saíram de U viraram K. Soma: 30 J (exemplo da aula de 28/10).'],
  ['O trabalho do peso para levar uma caixa do chão a uma prateleira…',['depende do caminho','só depende da diferença de altura','é sempre zero','depende da velocidade'],1,'O peso é conservativo: W = −mgΔy, qualquer que seja o caminho.'],
  ['Qual destas forças NÃO é conservativa?',['peso','força elástica','atrito cinético','todas são'],2,'O atrito transforma energia mecânica em térmica e o trabalho dele depende do caminho.'],
  ['Mudar o nível de referência da energia potencial gravitacional muda…',['U e ΔU','só U','só ΔU','nada'],1,'O valor de U depende da referência, mas a variação ΔU = mgΔy não.'],
@@ -996,6 +1044,12 @@ QUIZ.push(
  ['Um bloco desliza no piso com atrito até parar. Sua energia cinética…',['desapareceu','virou energia potencial','virou energia térmica','virou trabalho externo'],2,'ΔEmec + ΔEt = 0: a energia cinética virou calor no bloco e no piso.'],
  ['Potência mede…',['quanta energia o corpo tem','quão rápido a energia é transferida','a força do motor','o trabalho total'],1,'P = ΔE/Δt, em watts (J/s).']
 );
+
+/* ===== aula 28/10: queda com 30 J ===== */
+(function(){ const r=document.getElementById('qH'); if(!r)return; const up=()=>{ const f=+r.value/100, U=30*f, K=30-U;
+  document.getElementById('qHv').textContent=r.value+'%'; document.getElementById('qBall').style.bottom=(f*100)+'%';
+  document.getElementById('qK').style.width=(K/30*100)+'%'; document.getElementById('qU').style.width=(U/30*100)+'%';
+  document.getElementById('qKv').textContent=dec(K,1)+' J'; document.getElementById('qUv').textContent=dec(U,1)+' J' }; r.addEventListener('input',up); up() })();
 
 /* ===== boot ===== */
 load();
