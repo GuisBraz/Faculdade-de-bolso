@@ -1,0 +1,763 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oficina de Física</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,500;1,500&display=swap">
+<style>
+/* Layout: prancheta técnica — folha milimetrada, carimbos de desenho técnico nas fórmulas, uma coluna de leitura com laboratório 3D */
+:root{
+  --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
+  --c1:#D9531A; --c2:#0C8587; --c3:#6447BE; --ok:#2A7F3E; --bad:#BF3328; --hl:rgba(217,83,26,.10); --hl2:rgba(12,133,135,.10);
+  --f-disp:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif, "Cambria Math", "STIX Two Text";
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif, "Cambria Math", "STIX Two Text", "Segoe UI Symbol";
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace, "Cambria Math", "STIX Two Text";
+  --f-math:"STIX Two Text", "Cambria Math", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+h1,h2,h3{font-family:var(--f-disp);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,5vw,2.4rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700;margin-top:2.2rem}
+p{margin:.6rem 0}
+a{color:var(--c2)}
+i.m,.m{font-family:var(--f-math);font-style:italic}
+:focus-visible{outline:2.5px solid var(--c1);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sheet);border-bottom:1px solid var(--line)}
+.hwrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 0}
+.brand{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.brand a{font-family:var(--f-disp);font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo{width:26px;height:26px}
+.prog{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.bar{width:90px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c2);width:0;transition:width .4s}
+nav{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;font-size:.86rem;font-weight:700;text-decoration:none;color:var(--ink2);padding:6px 11px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--ink);border-color:var(--line)}
+nav a.on{background:var(--ink);color:var(--sheet)}
+nav a .dn{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-left:5px;vertical-align:middle}
+
+main{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 80px}
+.view{display:block}
+.read{max-width:700px}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.lede{font-size:1.12rem;color:var(--ink2);max-width:62ch}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;margin-bottom:36px}
+.hero h1{font-size:clamp(2.2rem,7vw,3.9rem);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--c1)}
+.hero .cv{aspect-ratio:1/1;max-width:100%}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+
+/* trilha */
+.trail{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:18px}
+.stop{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;padding:14px 16px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
+.stop:hover{transform:translateY(-2px);border-color:var(--c2)}
+.stop .n{grid-row:span 2;font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ink2);color:var(--ink2)}
+.stop.done .n{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.stop b{font-family:var(--f-disp);font-size:1.05rem}
+.stop span{font-size:.88rem;color:var(--ink2);line-height:1.4}
+
+/* blocos */
+.fx{position:relative;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;margin:20px 0;padding:30px 18px 16px;overflow-x:auto}
+.fx .tag{position:absolute;top:0;left:0;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--sheet);padding:3px 9px;border-bottom-right-radius:4px}
+.fx .eq{font-family:var(--f-math);font-size:1.45rem;text-align:center;padding:6px 0 10px;white-space:nowrap}
+.fx .eq i{font-style:italic}
+.legend{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.93rem;border-top:1px dashed var(--line);padding-top:10px;margin:0}
+.legend dt{font-family:var(--f-math);font-style:italic;font-size:1.05rem;color:var(--c1);white-space:nowrap}
+.legend dd{margin:0;color:var(--ink2)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .25em .05em}
+.fr>span:last-child{padding:.05em .25em 0}
+.rt{white-space:nowrap}.rt::before{content:"√"}.rt>span{border-top:1.5px solid currentColor;padding:0 .1em}
+.v{position:relative}
+.ofi{background:var(--hl2);border-radius:8px;padding:12px 16px;margin:18px 0}
+.ofi .k,.cuid .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--c2);display:block;margin-bottom:2px}
+.cuid{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:12px 16px 12px;margin:18px 0;position:relative;overflow:hidden}
+.cuid::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:repeating-linear-gradient(-45deg,#E8B511 0 8px,#1b1b1b 8px 16px)}
+.cuid .k{color:var(--c1);margin-top:4px}
+ol.recipe{counter-reset:s;list-style:none;padding:0;margin:14px 0;display:grid;gap:8px}
+ol.recipe>li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+ol.recipe>li::before{content:counter(s);font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:26px;height:26px;border-radius:50%;background:var(--c1);color:var(--sheet);display:grid;place-items:center;margin-top:1px}
+code,.mono{font-family:var(--f-mono);font-size:.9em}
+.tbl{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--sheet)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+
+/* exemplo passo a passo */
+.ex{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:18px 0}
+.ex .q{font-weight:700}
+.ex ol{margin:10px 0 0;padding-left:1.3em;display:grid;gap:8px}
+.ex ol li{padding-left:4px}
+.ex ol li.hid{display:none}
+.ex .ans{display:none;margin-top:10px;padding:8px 12px;background:var(--hl);border-radius:6px;font-weight:700}
+.ex.all .ans{display:block}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button,.btn{font:700 .88rem var(--f-body);border-radius:8px;padding:8px 14px;cursor:pointer;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet)}
+button.ghost{background:transparent;color:var(--ink)}
+button:disabled{opacity:.4;cursor:default}
+button:hover:not(:disabled){filter:brightness(1.1)}
+
+/* calculadoras */
+.calc{background:var(--sheet);border:1.5px solid var(--c2);border-radius:10px;padding:16px;margin:24px 0}
+.calc h4{margin:0 0 4px;font-family:var(--f-disp);font-size:1.1rem;color:var(--c2)}
+.calc .hint{font-size:.85rem;color:var(--ink2);margin:0 0 10px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.fields label{display:grid;gap:3px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+input[type=text],select{font:500 1rem var(--f-mono);padding:8px 10px;border-radius:6px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%;min-width:0}
+input[type=text]:focus{border-color:var(--c2);outline:none}
+.out{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;font-size:.95rem}
+.out ol{margin:0;padding-left:1.3em;display:grid;gap:5px}
+.out .res{margin-top:8px;font-weight:700;padding:8px 12px;border-radius:6px;background:var(--hl2)}
+.out .err{color:var(--bad);font-weight:700}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.seg button{background:transparent;color:var(--ink2);border-color:var(--line);font-size:.82rem;padding:6px 11px}
+.seg button.on{background:var(--c2);border-color:var(--c2);color:var(--sheet)}
+.done-btn{margin-top:36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--line)}
+.done-btn button.isdone{background:var(--ok);border-color:var(--ok)}
+
+/* 3D */
+.cv{position:relative;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--sheet);overflow:hidden;touch-action:none}
+.cv canvas{display:block;width:100%;height:100%;cursor:grab}
+.cv .ctl{position:absolute;right:8px;bottom:8px;display:flex;gap:6px}
+.cv .ctl button{padding:4px 10px;font-size:.85rem;background:var(--sheet);color:var(--ink);border-color:var(--line)}
+.cv .lbl{position:absolute;left:10px;top:8px;font-family:var(--f-mono);font-size:.7rem;color:var(--ink2)}
+.labgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start}
+.labgrid .cv{aspect-ratio:4/3.4}
+@media (max-width:760px){.labgrid{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{font-size:.8rem;padding:6px 10px;background:transparent;color:var(--ink);border-color:var(--line)}
+.objlist{list-style:none;padding:0;margin:10px 0;display:grid;gap:6px;font-size:.88rem}
+.objlist li{display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:6px;padding:6px 8px}
+.objlist li .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.objlist li span{flex:1;min-width:0;font-family:var(--f-mono);font-size:.8rem;overflow-wrap:anywhere}
+.objlist li button{padding:2px 8px;font-size:.75rem;background:transparent;color:var(--bad);border-color:var(--line)}
+.inline-cv{aspect-ratio:16/10;margin:16px 0}
+
+/* fluxograma */
+.flow{display:grid;gap:10px;margin:16px 0}
+.node{background:var(--sheet);border:1.5px solid var(--ink);border-radius:8px;padding:10px 14px}
+.node b{font-family:var(--f-disp)}
+.branch{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.leaf{border-radius:8px;padding:10px 12px;font-size:.92rem;border:1.5px solid var(--line);background:var(--sheet)}
+.leaf b{display:block;font-family:var(--f-disp);font-size:1rem}
+.leaf.a b{color:var(--c1)}.leaf.b b{color:var(--c2)}.leaf.c b{color:var(--c3)}
+.arrow{text-align:center;font-family:var(--f-mono);color:var(--ink2);font-size:.8rem}
+@media (max-width:520px){.branch{grid-template-columns:1fr}}
+
+/* lista */
+.qitem{background:var(--sheet);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.qitem summary{cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;list-style:none}
+.qitem summary::-webkit-details-marker{display:none}
+.qitem summary .qn{font-family:var(--f-mono);font-weight:600;font-size:.8rem;background:var(--ink);color:var(--sheet);border-radius:5px;padding:2px 8px;margin-top:2px}
+.qitem[open] summary{border-bottom:1px dashed var(--line)}
+.qitem .body{padding:6px 16px 16px}
+.qitem .tagt{font-family:var(--f-mono);font-size:.72rem;color:var(--c2);margin-top:4px;display:block}
+.part{margin-top:14px}
+.part h5{margin:0;font-family:var(--f-disp);font-size:1rem}
+
+/* quiz */
+.qz{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+.qz .opts{display:grid;gap:8px;margin-top:10px}
+.qz .opts button{text-align:left;background:var(--paper);color:var(--ink);border:1.5px solid var(--line);font-weight:400}
+.qz .opts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--sheet))}
+.qz .opts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--sheet))}
+.qz .why{margin-top:10px;font-size:.93rem;color:var(--ink2)}
+.score{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--ink);color:var(--sheet);border-radius:10px;padding:10px 16px;font-family:var(--f-mono);font-size:.9rem}
+.score button{background:var(--sheet);color:var(--ink);border-color:var(--sheet);padding:4px 10px;font-size:.8rem}
+
+/* cola */
+.cola{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.cola .fx{margin:0}
+.cola .fx .eq{font-size:1.2rem}
+.cola p{font-size:.85rem;color:var(--ink2);margin:6px 0 0}
+
+/* demo escalar */
+.dot2d{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin:18px 0}
+.dot2d canvas{width:200px;height:200px;max-width:100%}
+.dot2d input[type=range]{width:100%;accent-color:var(--c1)}
+.verdict{font-family:var(--f-disp);font-size:1.2rem;font-weight:700}
+@media (max-width:520px){.dot2d{grid-template-columns:1fr;justify-items:center}}
+footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* física */
+.simctl{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px 16px;margin:12px 0 4px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.simctl label{display:grid;gap:2px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+.simctl label b{color:var(--ink);font-family:var(--f-mono)}
+.simctl input[type=range]{width:100%;accent-color:var(--c1)}
+.simout{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:10px 14px 12px;margin-bottom:10px}
+.sim canvas{cursor:default}
+.labgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:4px 24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0"><a href="../../index.html#m-fis1" style="font-size:.8rem;font-weight:700;color:var(--ink2);text-decoration:none;margin-right:6px" aria-label="Voltar para a Faculdade de Bolso">← Hub</a><a href="#inicio"><svg class="logo" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="7" y="9" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 13.5h6" stroke="var(--c1)" stroke-width="2.4" stroke-linecap="round"/><path d="M19.5 11l2.5 2.5-2.5 2.5" fill="none" stroke="var(--c1)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Oficina de Física</a></div>
+      <div class="prog"><span id="progtxt">0/6</span><div class="bar"><i id="progbar"></i></div></div>
+    </div>
+    <nav id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#forcas" data-m="forcas">1 · Forças</a>
+      <a href="#newton" data-m="newton">2 · Leis de Newton</a>
+      <a href="#aplic" data-m="aplic">3 · Aplicações</a>
+      <a href="#atrito" data-m="atrito">4 · Atrito</a>
+      <a href="#arrasto" data-m="arrasto">5 · Arrasto</a>
+      <a href="#circular" data-m="circular">6 · Circular</a>
+      <a href="#lab">Laboratório</a>
+      <a href="#problemas">Problemas resolvidos</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#cola">Cola</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ INÍCIO ============ -->
+<section class="view" id="v-inicio">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Física I · Halliday, capítulos 5 e 6</div>
+      <h1>Nada se mexe <em>sem um motivo</em>. O motivo é a força.</h1>
+      <p class="lede">Força e Movimento I e II do zero: as três leis de Newton, peso, normal, tração, atrito, arrasto e movimento circular. Cada fórmula explicada, simuladores para mexer, problemas resolvidos passo a passo e quiz.</p>
+      <div class="btns"><a class="btn" href="#forcas" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lab'">Abrir o laboratório</button></div>
+    </div>
+    <div class="cv sim" id="heroSim" style="aspect-ratio:1/1"><canvas></canvas><div class="lbl">plano inclinado ao vivo</div></div>
+  </div>
+
+  <h3 style="margin-top:0">A trilha</h3>
+  <p class="read">Os módulos 1 a 3 são o capítulo 5; os módulos 4 a 6 são o capítulo 6. Marque cada um como estudado no final da página.</p>
+  <div class="trail" id="trail"></div>
+
+  <h3>O método que resolve quase tudo</h3>
+  <ol class="recipe read">
+    <li><span><b>Escolha o corpo</b> (ou os corpos) e desenhe só ele, isolado.</span></li>
+    <li><span><b>Desenhe todas as forças sobre ele</b>: peso, normal, tração, atrito, a força aplicada. Esse desenho é o <b>diagrama de corpo livre</b>.</span></li>
+    <li><span><b>Escolha os eixos</b>: um deles na direção em que o corpo acelera (no plano inclinado, ao longo da rampa).</span></li>
+    <li><span><b>Escreva ΣF = m·a em cada eixo</b>, separando componentes x e y.</span></li>
+    <li><span><b>Resolva o sistema</b> e confira unidade e sinal. Aceleração negativa só quer dizer "no sentido contrário ao eixo".</span></li>
+  </ol>
+</section>
+
+<!-- ============ 1 FORÇAS ============ -->
+<section class="view read" id="v-forcas" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 5-1</div>
+  <h2>Força é um vetor: tem tamanho, direção e sentido</h2>
+  <p class="lede">Empurrar uma caixa com 50 N para a direita é diferente de empurrar com 50 N para cima. Por isso forças se somam como setas, não como números comuns.</p>
+
+  <h3>Unidade: o newton</h3>
+  <div class="fx"><span class="tag">Definição · 1 newton</span>
+    <div class="eq">1 N = 1 kg · m/s²</div>
+    <dl class="legend"><dt>1 N</dt><dd>a força que dá a um corpo de 1 kg uma aceleração de 1 m/s²</dd><dt>escala</dt><dd>uma maçã pequena pesa cerca de 1 N; uma pessoa de 70 kg pesa uns 686 N</dd></dl>
+  </div>
+
+  <h3>Decompor uma força em x e y</h3>
+  <p>Toda seta inclinada pode ser trocada por duas setas retas, uma em x e uma em y, que juntas fazem o mesmo efeito.</p>
+  <div class="fx"><span class="tag">Fórmula 1.1 · componentes</span>
+    <div class="eq"><i>F<sub>x</sub></i> = <i>F</i> cos <i>θ</i> &nbsp;&nbsp;&nbsp; <i>F<sub>y</sub></i> = <i>F</i> sen <i>θ</i></div>
+    <dl class="legend"><dt>F</dt><dd>módulo (tamanho) da força</dd><dt>θ</dt><dd>ângulo medido a partir do eixo +x, no sentido anti-horário</dd><dt>F<sub>x</sub>, F<sub>y</sub></dt><dd>"pedaços" da força em cada eixo, com sinal</dd></dl>
+  </div>
+  <div class="cuid"><span class="k">Pegadinha</span>Se o ângulo for dado em relação ao eixo y (ou à vertical), o seno e o cosseno trocam de lugar. Sempre desenhe e veja qual lado do triângulo fica "colado" no ângulo: esse é o cosseno.</div>
+
+  <h3>Força resultante</h3>
+  <div class="fx"><span class="tag">Fórmula 1.2 · resultante</span>
+    <div class="eq"><i>F</i><sub>res,x</sub> = Σ<i>F<sub>x</sub></i> &nbsp;&nbsp; <i>F</i><sub>res,y</sub> = Σ<i>F<sub>y</sub></i> &nbsp;&nbsp; |<i>F</i><sub>res</sub>| = <span class="rt"><span><i>F</i><sub>x</sub>² + <i>F</i><sub>y</sub>²</span></span></div>
+    <dl class="legend"><dt>Σ</dt><dd>"some todos". Some todos os x entre si e todos os y entre si, nunca x com y</dd><dt>direção</dt><dd>tg θ = F<sub>res,y</sub> / F<sub>res,x</sub> (cuidado com o quadrante)</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">Na oficina</span>Duas talhas puxando uma peça em ângulos diferentes: o que importa é a soma das setas. Se elas se cancelam numa direção, a peça só anda na outra.</div>
+
+  <div class="calc" data-calc="soma"><h4>Somador de forças</h4><p class="hint">Digite módulo (N) e ângulo (graus a partir de +x). Deixe em branco o que não usar.</p>
+    <div class="fields"><label>F₁: módulo, ângulo <input type="text" id="s-1" value="10, 0"></label><label>F₂: módulo, ângulo <input type="text" id="s-2" value="4, 120"></label><label>F₃: módulo, ângulo <input type="text" id="s-3" value=""></label><label>massa (kg) <input type="text" id="s-m" value="2"></label></div>
+    <div class="cv" id="somaCv" style="aspect-ratio:16/9;margin-top:12px"><canvas></canvas></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="forcas"></div>
+</section>
+
+<!-- ============ 2 NEWTON ============ -->
+<section class="view read" id="v-newton" hidden>
+  <div class="eyebrow">Módulo 2 · Capítulo 5-1 e 5-3</div>
+  <h2>As três leis de Newton</h2>
+  <p class="lede">Três frases curtas que explicam por que uma caixa para, por que um carro acelera e por que um foguete sobe.</p>
+
+  <h3>1ª lei · Inércia</h3>
+  <div class="fx"><span class="tag">1ª lei</span>
+    <div class="eq">Σ<i>F</i>⃗ = 0 &nbsp; ⇒ &nbsp; <i>v</i>⃗ = constante</div>
+    <dl class="legend"><dt>leitura</dt><dd>se nenhuma força resultante atua, o corpo parado continua parado e o corpo em movimento continua em linha reta com a mesma velocidade</dd><dt>referencial</dt><dd>vale em referenciais inerciais (que não estão acelerando). O chão serve, para quase todos os problemas</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">No dia a dia</span>Freada brusca no ônibus e você "vai para frente". Nenhuma força te empurrou: o ônibus parou e você tentou continuar como estava.</div>
+
+  <h3>2ª lei · A equação que resolve a prova</h3>
+  <div class="fx"><span class="tag">2ª lei · Fórmula 2.1</span>
+    <div class="eq"><i>F</i>⃗<sub>res</sub> = <i>m</i> <i>a</i>⃗ &nbsp;&nbsp;→&nbsp;&nbsp; Σ<i>F<sub>x</sub></i> = <i>m a<sub>x</sub></i> &nbsp;&nbsp; Σ<i>F<sub>y</sub></i> = <i>m a<sub>y</sub></i></div>
+    <dl class="legend"><dt>F⃗<sub>res</sub></dt><dd>soma vetorial de <b>todas</b> as forças que agem sobre <b>o corpo escolhido</b></dd><dt>m</dt><dd>massa (kg): a "teimosia" do corpo em mudar de velocidade</dd><dt>a⃗</dt><dd>aceleração (m/s²), sempre no mesmo sentido da força resultante</dd></dl>
+  </div>
+  <div class="cuid"><span class="k">Pegadinha clássica</span>Só entram as forças <b>sobre</b> o corpo escolhido. A força que o corpo faz em outro corpo vai no diagrama do <b>outro</b> corpo.</div>
+
+  <h3>3ª lei · Ação e reação</h3>
+  <div class="fx"><span class="tag">3ª lei</span>
+    <div class="eq"><i>F</i>⃗<sub>AB</sub> = −<i>F</i>⃗<sub>BA</sub></div>
+    <dl class="legend"><dt>F⃗<sub>AB</sub></dt><dd>força que A faz em B</dd><dt>F⃗<sub>BA</sub></dt><dd>força que B faz em A: mesmo tamanho, sentido oposto</dd><dt>importante</dt><dd>o par age em corpos <b>diferentes</b>, por isso nunca se cancela num mesmo diagrama</dd></dl>
+  </div>
+  <div class="cuid"><span class="k">Pegadinha</span>Peso e normal <b>não</b> são par ação-reação. O par do peso (Terra puxa o livro) é o livro puxando a Terra. O par da normal (mesa empurra o livro) é o livro empurrando a mesa.</div>
+
+  <h3>Elevador: onde a normal muda</h3>
+  <p>Uma balança mede a normal, não o seu peso. Num elevador acelerando, a normal muda. Mexa na aceleração:</p>
+  <div class="cv sim" id="elevSim" style="aspect-ratio:16/10"><canvas></canvas></div>
+  <div class="simctl" id="elevCtl"></div>
+  <div class="fx"><span class="tag">Fórmula 2.2 · elevador (eixo para cima)</span>
+    <div class="eq"><i>N</i> − <i>mg</i> = <i>ma</i> &nbsp; ⇒ &nbsp; <i>N</i> = <i>m</i>(<i>g</i> + <i>a</i>)</div>
+    <dl class="legend"><dt>a &gt; 0</dt><dd>acelerando para cima (subindo e ganhando velocidade, ou descendo e freando): balança marca mais</dd><dt>a &lt; 0</dt><dd>acelerando para baixo: balança marca menos</dd><dt>a = −g</dt><dd>queda livre (cabo rompeu): N = 0, "sem peso"</dd></dl>
+  </div>
+
+  <div class="done-btn" data-done="newton"></div>
+</section>
+
+<!-- ============ 3 APLICAÇÕES ============ -->
+<section class="view read" id="v-aplic" hidden>
+  <div class="eyebrow">Módulo 3 · Capítulo 5-2 e 5-3</div>
+  <h2>As forças especiais e onde elas aparecem</h2>
+  <p class="lede">Quase toda questão usa as mesmas quatro forças. Conhecendo bem cada uma, o diagrama de corpo livre sai sozinho.</p>
+
+  <div class="tbl"><table><tr><th>Força</th><th>Quem faz</th><th>Direção</th><th>Quanto vale</th></tr>
+    <tr><td><b>Peso</b> P⃗</td><td>a Terra</td><td>sempre vertical, para baixo</td><td>P = m·g (g = 9,8 m/s²)</td></tr>
+    <tr><td><b>Normal</b> N⃗</td><td>a superfície de apoio</td><td>perpendicular à superfície, "para fora" dela</td><td>o que for preciso para o corpo não atravessar a superfície. <b>Não</b> é sempre igual a mg</td></tr>
+    <tr><td><b>Tração</b> T⃗</td><td>uma corda ou cabo</td><td>ao longo da corda, puxando</td><td>corda ideal (sem massa) tem a mesma tração em toda parte; polia ideal só muda a direção</td></tr>
+    <tr><td><b>Atrito</b> f⃗</td><td>a superfície</td><td>paralelo à superfície, contra o deslizamento</td><td>módulo 4</td></tr></table></div>
+
+  <h3>Plano inclinado</h3>
+  <p>O truque é girar os eixos: x ao longo da rampa, y perpendicular a ela. Aí só o peso precisa ser decomposto.</p>
+  <div class="fx"><span class="tag">Fórmula 3.1 · plano inclinado</span>
+    <div class="eq"><i>P</i><sub>∥</sub> = <i>mg</i> sen <i>θ</i> &nbsp;&nbsp;&nbsp; <i>P</i><sub>⊥</sub> = <i>mg</i> cos <i>θ</i></div>
+    <dl class="legend"><dt>P<sub>∥</sub></dt><dd>pedaço do peso que puxa o bloco rampa abaixo</dd><dt>P<sub>⊥</sub></dt><dd>pedaço que aperta o bloco contra a rampa. Sem outras forças perpendiculares, N = mg cos θ</dd><dt>θ</dt><dd>inclinação da rampa. O ângulo entre o peso e a perpendicular à rampa também é θ</dd><dt>sem atrito</dt><dd>a = g sen θ, e não depende da massa</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">Para conferir</span>θ = 0 (chão plano): sen 0 = 0, não desliza, e N = mg. θ = 90° (parede): sen 90° = 1, a = g, queda livre. Se a fórmula falhar nesses extremos, você trocou seno com cosseno.</div>
+
+  <h3>Bloco na mesa puxado por um bloco pendurado</h3>
+  <p>Exemplo clássico do livro (bloco deslizante e bloco pendente). A corda liga os dois: mesma tração e mesma aceleração (em módulo).</p>
+  <ol class="recipe">
+    <li><span>Bloco da mesa (m₁), eixo para o lado da polia: <b>T = m₁a</b> (sem atrito).</span></li>
+    <li><span>Bloco pendurado (m₂), eixo para baixo: <b>m₂g − T = m₂a</b>.</span></li>
+    <li><span>Somando as duas, a tração some: m₂g = (m₁ + m₂)a ⇒ <b>a = m₂g / (m₁ + m₂)</b>.</span></li>
+  </ol>
+  <div class="calc" data-calc="polia"><h4>Calculadora: mesa + polia + bloco pendurado</h4><p class="hint">Com μ = 0 fica o caso sem atrito.</p>
+    <div class="fields"><label>m₁ na mesa (kg) <input type="text" id="po-1" value="3"></label><label>m₂ pendurado (kg) <input type="text" id="po-2" value="2"></label><label>μ (atrito na mesa) <input type="text" id="po-u" value="0"></label></div>
+    <div class="out"></div></div>
+
+  <h3>Blocos encostados</h3>
+  <div class="ex" data-ex><div class="q">Uma força de 20 N empurra o bloco A (3,0 kg), que empurra o bloco B (2,0 kg), num piso sem atrito. Qual a aceleração e a força entre os blocos?</div>
+    <ol><li>Os dois andam juntos: trate como um bloco só de 5,0 kg. a = 20 / 5,0 = 4,0 m/s².</li><li>Agora isole B: a única força horizontal nele é a que A faz.</li><li>F<sub>AB</sub> = m<sub>B</sub>·a = 2,0 · 4,0 = 8,0 N.</li><li>Conferindo em A: 20 − 8,0 = 12 N = 3,0 · 4,0 ✓ (pela 3ª lei, B empurra A com 8,0 N para trás).</li></ol>
+    <div class="ans">a = 4,0 m/s² · força de contato = 8,0 N</div></div>
+  <div class="cuid"><span class="k">Pegadinha</span>A força de contato não é 20 N. A força aplicada não "atravessa" inteira: o bloco A gasta parte dela para acelerar a si mesmo.</div>
+
+  <div class="done-btn" data-done="aplic"></div>
+</section>
+
+<!-- ============ 4 ATRITO ============ -->
+<section class="view read" id="v-atrito" hidden>
+  <div class="eyebrow">Módulo 4 · Capítulo 6-1</div>
+  <h2>Atrito: a força que só aparece quando precisa</h2>
+  <p class="lede">Atrito estático segura o corpo parado e cresce até um limite. Passou do limite, o corpo escorrega e entra o atrito cinético, que é menor e constante.</p>
+
+  <div class="fx"><span class="tag">Fórmula 4.1 · atrito estático</span>
+    <div class="eq"><i>f<sub>s</sub></i> ≤ <i>f</i><sub>s,máx</sub> = <i>μ<sub>s</sub></i> <i>N</i></div>
+    <dl class="legend"><dt>f<sub>s</sub></dt><dd>vale exatamente o necessário para manter o corpo parado (pode ser 0, 10 N, 30 N…)</dd><dt>μ<sub>s</sub></dt><dd>coeficiente de atrito estático, sem unidade (depende dos dois materiais)</dd><dt>N</dt><dd>força normal (não o peso!)</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 4.2 · atrito cinético</span>
+    <div class="eq"><i>f<sub>k</sub></i> = <i>μ<sub>k</sub></i> <i>N</i></div>
+    <dl class="legend"><dt>f<sub>k</sub></dt><dd>atrito enquanto desliza: valor fixo, contra o movimento</dd><dt>μ<sub>k</sub></dt><dd>coeficiente cinético, normalmente menor que μ<sub>s</sub>. Por isso é mais difícil tirar do lugar do que manter andando</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">Na oficina</span>Arrastar uma chapa grossa no piso da fábrica: o primeiro tranco é o pior (estático). Depois que ela "solta", dá para manter andando com menos força (cinético).</div>
+
+  <h3>Receita: ele se move ou não?</h3>
+  <ol class="recipe">
+    <li><span>Calcule N (cuidado se houver força inclinada: ela muda a normal).</span></li>
+    <li><span>Calcule a força que tenta fazer deslizar (componente paralela à superfície).</span></li>
+    <li><span>Compare com f<sub>s,máx</sub> = μ<sub>s</sub>N. Menor ou igual: <b>fica parado</b> e f<sub>s</sub> = a força que tenta deslizar. Maior: <b>desliza</b>.</span></li>
+    <li><span>Se desliza: use f<sub>k</sub> = μ<sub>k</sub>N contra o movimento e aplique ΣF = ma.</span></li>
+  </ol>
+
+  <h3>Simulador: bloco no plano inclinado</h3>
+  <p>Mude o ângulo, os coeficientes e a força aplicada (positiva = rampa acima). O diagrama de corpo livre e a conta mudam juntos.</p>
+  <div class="cv sim" id="atritoSim" style="aspect-ratio:16/10"><canvas></canvas><div class="lbl" id="atritoLbl"></div></div>
+  <div class="simctl" id="atritoCtl"></div>
+  <div class="out simout" id="atritoOut"></div>
+
+  <h3>Força inclinada muda a normal</h3>
+  <div class="ex" data-ex><div class="q">Puxa-se uma caixa de 10 kg com 60 N numa corda a 30° acima da horizontal, μ<sub>k</sub> = 0,30. A caixa já está deslizando. Qual a aceleração?</div>
+    <ol><li>Peso: P = 10 · 9,8 = 98 N.</li><li>A corda também puxa para cima: F sen 30° = 60 · 0,5 = 30 N. Em y: N + 30 − 98 = 0 → N = 68 N (menor que o peso!).</li><li>Atrito: f<sub>k</sub> = 0,30 · 68 = 20,4 N.</li><li>Em x: F cos 30° − f<sub>k</sub> = ma → 51,96 − 20,4 = 10a.</li></ol>
+    <div class="ans">a ≈ 3,16 m/s²</div></div>
+
+  <h3>Ângulo em que começa a escorregar</h3>
+  <p>Inclinando a rampa aos poucos, o bloco solta quando mg sen θ = μ<sub>s</sub> mg cos θ, ou seja, <b>tg θ = μ<sub>s</sub></b>. Medir esse ângulo é o jeito de laboratório de achar μ<sub>s</sub>.</p>
+  <div class="cuid"><span class="k">Pegadinha</span>Não escreva f = μN quando o corpo está parado. Parado, o atrito é só o necessário; μ<sub>s</sub>N é o <b>máximo</b> possível.</div>
+
+  <div class="done-btn" data-done="atrito"></div>
+</section>
+
+<!-- ============ 5 ARRASTO ============ -->
+<section class="view read" id="v-arrasto" hidden>
+  <div class="eyebrow">Módulo 5 · Capítulo 6-2</div>
+  <h2>Arrasto e velocidade terminal</h2>
+  <p class="lede">O ar também é atrito. Quanto mais rápido você vai, mais ele empurra para trás, até que o empurrão iguala o peso e a velocidade para de crescer.</p>
+
+  <div class="fx"><span class="tag">Fórmula 5.1 · força de arrasto</span>
+    <div class="eq"><i>D</i> = ½ <i>C</i> <i>ρ</i> <i>A</i> <i>v</i>²</div>
+    <dl class="legend"><dt>D</dt><dd>força de arrasto (N), contra o movimento</dd><dt>C</dt><dd>coeficiente de arrasto (formato do corpo), sem unidade, entre 0,4 e 1,0 em geral</dd><dt>ρ</dt><dd>massa específica do ar (≈ 1,2 kg/m³)</dd><dt>A</dt><dd>área da seção reta "de frente" para o vento (m²)</dd><dt>v²</dt><dd>dobrou a velocidade, o arrasto fica <b>4 vezes</b> maior</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 5.2 · velocidade terminal</span>
+    <div class="eq"><i>v<sub>t</sub></i> = <span class="rt"><span><span class="fr"><span>2<i>F<sub>g</sub></i></span><span><i>C ρ A</i></span></span></span></span></div>
+    <dl class="legend"><dt>de onde vem</dt><dd>na velocidade terminal a resultante é zero: D = F<sub>g</sub>. Basta isolar v</dd><dt>F<sub>g</sub></dt><dd>peso do corpo (mg)</dd></dl>
+  </div>
+  <p>Escolha um caso e veja a velocidade subindo até encostar na linha da terminal:</p>
+  <div class="seg" id="dragPre"><button class="on" data-p="para">Paraquedista</button><button data-p="aberto">Paraquedas aberto</button><button data-p="gota">Gota de chuva</button></div>
+  <div class="cv sim" id="dragCv" style="aspect-ratio:16/9"><canvas></canvas></div>
+  <div class="calc" data-calc="drag" style="margin-top:12px"><h4>Velocidade terminal</h4>
+    <div class="fields"><label>massa (kg) <input type="text" id="dr-m" value="80"></label><label>C <input type="text" id="dr-c" value="1.0"></label><label>área A (m²) <input type="text" id="dr-a" value="0.7"></label><label>ρ do ar (kg/m³) <input type="text" id="dr-r" value="1.2"></label></div>
+    <div class="out"></div></div>
+  <div class="ofi"><span class="k">Por que a gota não machuca</span>Uma gota de chuva cai de mais de 1 km de altura. Sem ar ela chegaria a centenas de km/h; com arrasto, chega a uns 7 m/s (≈ 27 km/h).</div>
+
+  <div class="done-btn" data-done="arrasto"></div>
+</section>
+
+<!-- ============ 6 CIRCULAR ============ -->
+<section class="view read" id="v-circular" hidden>
+  <div class="eyebrow">Módulo 6 · Capítulo 6-3</div>
+  <h2>Movimento circular uniforme</h2>
+  <p class="lede">Fazer uma curva com velocidade constante ainda é acelerar: a direção da velocidade muda o tempo todo. Essa aceleração aponta para o centro.</p>
+
+  <div class="fx"><span class="tag">Fórmula 6.1 · aceleração centrípeta</span>
+    <div class="eq"><i>a</i> = <span class="fr"><span><i>v</i>²</span><span><i>R</i></span></span> &nbsp;&nbsp;&nbsp; <i>F</i> = <span class="fr"><span><i>m v</i>²</span><span><i>R</i></span></span></div>
+    <dl class="legend"><dt>v</dt><dd>velocidade (m/s), constante em módulo</dd><dt>R</dt><dd>raio da curva (m)</dd><dt>F</dt><dd>força resultante <b>para o centro</b>, a "força centrípeta"</dd></dl>
+  </div>
+  <div class="cuid"><span class="k">A pegadinha mais cobrada</span>"Força centrípeta" <b>não é uma força nova</b> para desenhar no diagrama. É o nome do papel que alguma força real já cumpre: o atrito do pneu, a tração da corda, a normal do trilho, a gravidade da Terra. Não existe "força centrífuga" no referencial do chão.</div>
+
+  <h3>Três situações do livro</h3>
+  <div class="tbl"><table><tr><th>Situação</th><th>Quem faz o papel de centrípeta</th><th>Resultado</th></tr>
+    <tr><td>Carro em curva plana</td><td>atrito estático dos pneus</td><td>μ<sub>s</sub>mg = mv²/R ⇒ <b>v<sub>máx</sub> = √(μ<sub>s</sub>gR)</b></td></tr>
+    <tr><td>Curva compensada (inclinada), sem atrito</td><td>componente horizontal da normal</td><td>N sen θ = mv²/R e N cos θ = mg ⇒ <b>tg θ = v²/(gR)</b></td></tr>
+    <tr><td>Loop vertical, no topo</td><td>peso + normal (ambos para baixo)</td><td>N + mg = mv²/R. Mínimo: N = 0 ⇒ <b>v<sub>mín</sub> = √(gR)</b></td></tr></table></div>
+
+  <h3>Simulador: carro na curva</h3>
+  <p>Corte da pista vista de frente. Com inclinação zero é uma curva plana. O simulador mostra quanto atrito o pneu precisaria fazer e se ele aguenta.</p>
+  <div class="cv sim" id="curveSim" style="aspect-ratio:16/10"><canvas></canvas></div>
+  <div class="simctl" id="curveCtl"></div>
+  <div class="out simout" id="curveOut"></div>
+
+  <div class="ex" data-ex><div class="q">Loop de montanha-russa com raio 3,0 m. Qual a menor velocidade no topo para o carrinho não perder contato?</div>
+    <ol><li>No topo, o centro fica para baixo. Peso e normal apontam para baixo.</li><li>N + mg = mv²/R. Perder contato é o limite N = 0.</li><li>mg = mv²/R → v² = gR = 9,8 · 3,0 = 29,4.</li></ol>
+    <div class="ans">v<sub>mín</sub> = √29,4 ≈ 5,4 m/s (a massa não importa)</div></div>
+
+  <div class="done-btn" data-done="circular"></div>
+</section>
+
+<!-- ============ LAB ============ -->
+<section class="view" id="v-lab" hidden>
+  <div class="eyebrow">Laboratório</div>
+  <h2>Mexa nas forças</h2>
+  <p class="lede read">Todos os simuladores num lugar só. Use para testar a resposta de um exercício: monte a situação e veja se bate.</p>
+  <div class="labgrid2">
+    <div><h3 style="margin-top:20px">Plano inclinado com atrito</h3><div class="cv sim" id="labIncl" style="aspect-ratio:16/10"><canvas></canvas><div class="lbl" id="labInclLbl"></div></div><div class="simctl" id="labInclCtl"></div><div class="out simout" id="labInclOut"></div></div>
+    <div><h3 style="margin-top:20px">Elevador e balança</h3><div class="cv sim" id="labElev" style="aspect-ratio:16/10"><canvas></canvas></div><div class="simctl" id="labElevCtl"></div></div>
+    <div><h3 style="margin-top:20px">Carro na curva</h3><div class="cv sim" id="labCurve" style="aspect-ratio:16/10"><canvas></canvas></div><div class="simctl" id="labCurveCtl"></div><div class="out simout" id="labCurveOut"></div></div>
+  </div>
+</section>
+
+<!-- ============ PROBLEMAS ============ -->
+<section class="view read" id="v-problemas" hidden>
+  <div class="eyebrow">Problemas resolvidos</div>
+  <h2>Treino no estilo da prova</h2>
+  <p class="lede">Problemas no formato dos exemplos dos capítulos 5 e 6, com números próprios. Tente primeiro, depois revele um passo de cada vez. A etiqueta diz qual módulo revisar.</p>
+  <div id="probBox"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="view read" id="v-quiz" hidden>
+  <div class="eyebrow">Quiz relâmpago</div>
+  <h2>Você entendeu ou decorou?</h2>
+  <p class="lede">Perguntas conceituais, do tipo que derruba quem só decorou fórmula. Cada resposta traz a explicação.</p>
+  <div class="score"><span id="scoreTxt">0 de 0 respondidas</span><button id="quizReset">Recomeçar</button></div>
+  <div id="quizBox"></div>
+</section>
+
+<!-- ============ COLA ============ -->
+<section class="view" id="v-cola" hidden>
+  <div class="eyebrow">Revisão de véspera</div>
+  <h2>Capítulos 5 e 6 numa folha</h2>
+  <p class="lede read">g = 9,8 m/s². Tire um print desta tela.</p>
+  <div class="cola" style="margin-top:20px">
+    <div class="fx"><span class="tag">2ª lei</span><div class="eq">Σ<i>F</i>⃗ = <i>m</i><i>a</i>⃗</div><p>em cada eixo: ΣF<sub>x</sub> = ma<sub>x</sub>, ΣF<sub>y</sub> = ma<sub>y</sub></p></div>
+    <div class="fx"><span class="tag">3ª lei</span><div class="eq"><i>F</i>⃗<sub>AB</sub> = −<i>F</i>⃗<sub>BA</sub></div><p>em corpos diferentes, nunca se cancelam</p></div>
+    <div class="fx"><span class="tag">Componentes</span><div class="eq"><i>F<sub>x</sub></i> = <i>F</i> cos θ, <i>F<sub>y</sub></i> = <i>F</i> sen θ</div><p>θ a partir de +x</p></div>
+    <div class="fx"><span class="tag">Peso</span><div class="eq"><i>P</i> = <i>mg</i></div><p>sempre vertical para baixo</p></div>
+    <div class="fx"><span class="tag">Plano inclinado</span><div class="eq"><i>mg</i> sen θ ∥ &nbsp; <i>mg</i> cos θ ⊥</div><p>sem atrito: a = g sen θ</p></div>
+    <div class="fx"><span class="tag">Elevador</span><div class="eq"><i>N</i> = <i>m</i>(<i>g</i> + <i>a</i>)</div><p>a positivo para cima</p></div>
+    <div class="fx"><span class="tag">Polia + mesa</span><div class="eq"><i>a</i> = <span class="fr"><span><i>m</i>₂<i>g</i> − <i>μm</i>₁<i>g</i></span><span><i>m</i>₁ + <i>m</i>₂</span></span></div><p>T = m₁(a + μg)</p></div>
+    <div class="fx"><span class="tag">Atrito estático</span><div class="eq"><i>f<sub>s</sub></i> ≤ <i>μ<sub>s</sub>N</i></div><p>parado: só o necessário</p></div>
+    <div class="fx"><span class="tag">Atrito cinético</span><div class="eq"><i>f<sub>k</sub></i> = <i>μ<sub>k</sub>N</i></div><p>deslizando: fixo, contra o movimento</p></div>
+    <div class="fx"><span class="tag">Ângulo crítico</span><div class="eq">tg θ = <i>μ<sub>s</sub></i></div><p>bloco começa a escorregar</p></div>
+    <div class="fx"><span class="tag">Arrasto</span><div class="eq"><i>D</i> = ½<i>CρAv</i>²</div><p>cresce com v²</p></div>
+    <div class="fx"><span class="tag">Velocidade terminal</span><div class="eq"><i>v<sub>t</sub></i> = <span class="rt"><span>2<i>F<sub>g</sub></i>/(<i>CρA</i>)</span></span></div><p>D = F<sub>g</sub></p></div>
+    <div class="fx"><span class="tag">Centrípeta</span><div class="eq"><i>a</i> = <i>v</i>²/<i>R</i>, &nbsp;<i>F</i> = <i>mv</i>²/<i>R</i></div><p>aponta para o centro; é papel de uma força real</p></div>
+    <div class="fx"><span class="tag">Curva plana</span><div class="eq"><i>v</i><sub>máx</sub> = <span class="rt"><span><i>μ<sub>s</sub>gR</i></span></span></div><p>atrito faz a centrípeta</p></div>
+    <div class="fx"><span class="tag">Curva compensada</span><div class="eq">tg θ = <i>v</i>²/(<i>gR</i>)</div><p>sem precisar de atrito</p></div>
+    <div class="fx"><span class="tag">Loop (topo)</span><div class="eq"><i>v</i><sub>mín</sub> = <span class="rt"><span><i>gR</i></span></span></div><p>N = 0 no limite</p></div>
+  </div>
+</section>
+
+</main>
+<footer>Oficina de Física · material de apoio aos capítulos 5 e 6 de Halliday, Fundamentos de Física vol. 1 (10ª ed.) · feito por Guilherme Braz</footer>
+
+<script>
+const G=9.8;
+const tok=n=>getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();
+const M='−';
+const dec=(x,n=2)=>{ if(!isFinite(x))return '∞'; const r=Math.round(x*10**n)/10**n; return (Object.is(r,-0)?0:r).toLocaleString('pt-BR',{maximumFractionDigits:n}).replace('-',M) };
+const rad=d=>d*Math.PI/180, deg=r=>r*180/Math.PI;
+function num(id){ const v=document.getElementById(id).value.replace(',','.').trim(); const x=Number(v); if(v===''||!isFinite(x)) throw new Error('Digite um número válido em todos os campos.'); return x }
+function pair(id){ const v=document.getElementById(id).value.replace(/−/g,'-').trim(); if(!v)return null; const a=v.split(/[\s;]+|,\s+|,(?=\s*-?\d)/).filter(Boolean).map(Number); if(a.length!==2||a.some(x=>!isFinite(x)))throw new Error('Use "módulo, ângulo", por exemplo 10, 30.'); return a }
+
+/* ===== canvas base ===== */
+class Cv{ constructor(box,draw){ this.box=box; this.c=box.querySelector('canvas'); this.x=this.c.getContext('2d'); this.drawFn=draw; new ResizeObserver(()=>this.resize()).observe(box); this.resize() }
+  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const d=devicePixelRatio||1; this.w=r.width; this.h=r.height; this.c.width=this.w*d; this.c.height=this.h*d; this.x.setTransform(d,0,0,d,0,0); this.draw() }
+  draw(){ if(this.w) { this.x.clearRect(0,0,this.w,this.h); this.drawFn(this.x,this.w,this.h) } } }
+function arrow(x,x0,y0,dx,dy,col,lbl,wd=2.6){ const L=Math.hypot(dx,dy); if(L<2)return; x.strokeStyle=col; x.fillStyle=col; x.lineWidth=wd; x.beginPath(); x.moveTo(x0,y0); x.lineTo(x0+dx,y0+dy); x.stroke();
+  const a=Math.atan2(dy,dx), hx=x0+dx, hy=y0+dy, s=Math.min(11,L*.5); x.beginPath(); x.moveTo(hx,hy); x.lineTo(hx-s*Math.cos(a-.42),hy-s*Math.sin(a-.42)); x.lineTo(hx-s*Math.cos(a+.42),hy-s*Math.sin(a+.42)); x.closePath(); x.fill();
+  if(lbl){ x.font='600 12px "JetBrains Mono", monospace'; x.fillText(lbl,hx+6*Math.cos(a)+(Math.cos(a)<-.3?-8*lbl.length:2),hy+6*Math.sin(a)+(Math.sin(a)>.3?12:-2)) } }
+
+/* ===== controles de simulador ===== */
+function controls(el,spec,onch){ el.innerHTML=spec.map(s=>'<label><span>'+s.l+': <b data-v="'+s.k+'"></b></span><input type="range" min="'+s.min+'" max="'+s.max+'" step="'+s.st+'" value="'+s.v+'" data-k="'+s.k+'" aria-label="'+s.l+'"></label>').join('');
+  const val={}; const upd=()=>{ el.querySelectorAll('input').forEach(i=>{ val[i.dataset.k]=+i.value; const s=spec.find(z=>z.k===i.dataset.k); el.querySelector('[data-v="'+s.k+'"]').textContent=dec(+i.value,s.d??2)+(s.u||'') }); onch(val) };
+  el.addEventListener('input',upd); upd(); return val }
+
+/* ===== simulador: plano inclinado ===== */
+function inclinePhys(v){ const th=rad(v.th), m=v.m, P=m*G, N=P*Math.cos(th), Ppar=P*Math.sin(th), drive=v.F-Ppar, fsmax=v.us*N;
+  let state,f,a=0; if(Math.abs(drive)<=fsmax+1e-9){ state='parado'; f=-drive } else { const dir=Math.sign(drive); f=-dir*v.uk*N; a=(drive+f)/m; state=dir>0?'sobe':'desce' }
+  return {th,m,P,N,Ppar,drive,fsmax,state,f,a} }
+function InclineSim(box,ctlEl,outEl,lblEl,init={},compact=false){
+  let v={th:30,m:5,us:.4,uk:.3,F:0,...init}, s=.5, vel=0, last=0, ph;
+  const cv=new Cv(box,(x,w,h)=>{ ph=inclinePhys(v); const th=ph.th; const pad=compact?20:34, y0=h-pad-6, x1=w-pad; let bl=w-2*pad, hh=bl*Math.tan(th); if(hh>h-2*pad-30){ hh=h-2*pad-30; bl=hh/Math.tan(th) }
+    const x0=x1-bl; x.fillStyle=tok('line'); x.strokeStyle=tok('ink2'); x.lineWidth=1.5; x.beginPath(); x.moveTo(x0,y0); x.lineTo(x1,y0); x.lineTo(x1,y0-hh); x.closePath(); x.globalAlpha=.55; x.fill(); x.globalAlpha=1; x.stroke();
+    x.beginPath(); x.moveTo(pad,y0); x.lineTo(w-pad+10,y0); x.stroke();
+    if(v.th>0){ x.strokeStyle=tok('ink2'); x.beginPath(); x.arc(x0,y0,32,-th,0); x.stroke(); x.fillStyle=tok('ink2'); x.font='600 12px "JetBrains Mono", monospace'; x.fillText(dec(v.th,0)+'°',x0+38,y0-6) }
+    const L=Math.hypot(bl,hh), ux=Math.cos(th), uy=-Math.sin(th), nx=-Math.sin(th), ny=-Math.cos(th), bs=compact?34:44;
+    const px=x0+ux*L*s, py=y0+uy*L*s, cx=px+nx*bs/2, cy=py+ny*bs/2;
+    x.save(); x.translate(cx,cy); x.rotate(-th); x.fillStyle=tok('sheet'); x.strokeStyle=tok('ink'); x.lineWidth=2; x.fillRect(-bs/2,-bs/2,bs,bs); x.strokeRect(-bs/2,-bs/2,bs,bs); x.fillStyle=tok('ink'); x.font='700 12px "JetBrains Mono", monospace'; x.textAlign='center'; x.fillText(dec(v.m,0)+' kg',0,4); x.restore(); x.textAlign='left';
+    const k=(compact?55:72)/ph.P;
+    arrow(x,cx,cy,0,ph.P*k,tok('c1'),'P');
+    arrow(x,px+nx*bs,py+ny*bs,nx*ph.N*k,ny*ph.N*k,tok('c2'),'N');
+    if(Math.abs(ph.f)>1e-6) arrow(x,px,py,ux*ph.f*k,uy*ph.f*k,tok('bad'),ph.state==='parado'?'fs':'fk');
+    if(Math.abs(v.F)>1e-6) arrow(x,cx+ux*bs*.5*Math.sign(v.F),cy+uy*bs*.5*Math.sign(v.F),ux*v.F*k,uy*v.F*k,tok('c3'),'F');
+  });
+  const step=t=>{ const dt=Math.min(.05,(t-last)/1000||0); last=t; if(ph&&ph.state!=='parado'&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&box.offsetParent){ vel+=ph.a*dt; s+=vel*dt*0.06; if(s<.12||s>.9){ s=.5; vel=0 } cv.draw() } requestAnimationFrame(step) }; requestAnimationFrame(step);
+  const render=()=>{ s=.5; vel=0; ph=inclinePhys(v); cv.draw(); const p=ph; if(lblEl) lblEl.textContent=p.state==='parado'?'parado':'desliza: '+(p.state==='sobe'?'rampa acima':'rampa abaixo');
+    if(outEl) outEl.innerHTML='<ol><li>Peso: P = mg = '+dec(v.m,1)+' · 9,8 = '+dec(p.P)+' N</li><li>Normal: N = mg cos θ = '+dec(p.N)+' N</li><li>Peso ao longo da rampa: mg sen θ = '+dec(p.Ppar)+' N (rampa abaixo)</li><li>Força que tenta mover: F − mg sen θ = '+dec(v.F,0)+' − '+dec(p.Ppar)+' = '+dec(p.drive)+' N</li><li>Atrito estático máximo: μs·N = '+dec(v.us)+' · '+dec(p.N)+' = '+dec(p.fsmax)+' N</li>'+
+      (p.state==='parado'?'<li>|'+dec(p.drive)+'| ≤ '+dec(p.fsmax)+' → <b>fica parado</b>; o atrito estático vale '+dec(Math.abs(p.f))+' N</li>':'<li>|'+dec(p.drive)+'| &gt; '+dec(p.fsmax)+' → <b>desliza</b>. Atrito cinético: μk·N = '+dec(Math.abs(p.f))+' N, contra o movimento</li><li>a = (força que move − fk)/m = '+dec(Math.abs(p.a))+' m/s² '+(p.state==='sobe'?'rampa acima':'rampa abaixo')+'</li>')+'</ol>' };
+  controls(ctlEl,[{k:'th',l:'ângulo θ',min:0,max:60,st:1,v:v.th,d:0,u:'°'},{k:'m',l:'massa',min:1,max:20,st:1,v:v.m,d:0,u:' kg'},{k:'us',l:'μs',min:0,max:1,st:.05,v:v.us},{k:'uk',l:'μk',min:0,max:1,st:.05,v:v.uk},{k:'F',l:'força F (rampa acima +)',min:-100,max:100,st:1,v:v.F,d:0,u:' N'}],
+    val=>{ if(val.uk>val.us){ val.uk=val.us; ctlEl.querySelector('[data-k="uk"]').value=val.us; ctlEl.querySelector('[data-v="uk"]').textContent=dec(val.us) } v={...v,...val}; render() });
+  return cv }
+
+/* ===== simulador: elevador ===== */
+function ElevSim(box,ctlEl){ let a=2, m=70, t=0;
+  const cv=new Cv(box,(x,w,h)=>{ const N=m*(G+a), sw=Math.min(w*.42,220), bx=w*.08, bw=sw, bh=h*.78, by=h*.11;
+    x.strokeStyle=tok('line'); x.lineWidth=1; for(let i=0;i<8;i++){ const yy=((i*h/8)+(t*(a>0?1:a<0?-1:0)*30))%h; x.beginPath(); x.moveTo(bx-12,(yy+h)%h); x.lineTo(bx-4,(yy+h)%h); x.stroke() }
+    x.strokeStyle=tok('ink'); x.lineWidth=2; x.strokeRect(bx,by,bw,bh); x.beginPath(); x.moveTo(bx+bw/2,0); x.lineTo(bx+bw/2,by); x.stroke();
+    const fy=by+bh-14; x.fillStyle=tok('ink2'); x.fillRect(bx+bw/2-34,fy,68,10);
+    x.fillStyle=tok('sheet'); x.strokeStyle=tok('ink'); x.beginPath(); x.arc(bx+bw/2,fy-bh*.62,13,0,7); x.fill(); x.stroke(); x.beginPath(); x.moveTo(bx+bw/2,fy-bh*.62+13); x.lineTo(bx+bw/2,fy-bh*.3); x.moveTo(bx+bw/2-16,fy-bh*.5); x.lineTo(bx+bw/2+16,fy-bh*.5); x.moveTo(bx+bw/2,fy-bh*.3); x.lineTo(bx+bw/2-12,fy); x.moveTo(bx+bw/2,fy-bh*.3); x.lineTo(bx+bw/2+12,fy); x.stroke();
+    if(Math.abs(a)>.05) arrow(x,bx+bw+22,h/2,0,-a*9,tok('c3'),'a');
+    const k=60/(m*G); arrow(x,bx+bw/2+24,fy-bh*.35,0,m*G*k,tok('c1'),'P'); arrow(x,bx+bw/2-24,fy,0,-N*k,tok('c2'),'N');
+    const rx=bx+bw+60; x.fillStyle=tok('ink'); x.font='700 '+Math.min(34,w*.06)+'px "Bricolage Grotesque", sans-serif'; x.fillText(dec(N/G,1)+' kg',rx,h*.38);
+    x.font='600 12px "JetBrains Mono", monospace'; x.fillStyle=tok('ink2'); x.fillText('a balança marca',rx,h*.38-Math.min(34,w*.06)-6); x.fillText('N = m(g + a) = '+dec(N,0)+' N',rx,h*.38+22);
+    x.fillText(a>.05?'acelerando para cima':a<-.05?(a<=-9.79?'queda livre: N = 0':'acelerando para baixo'):'parado ou velocidade constante',rx,h*.38+42) });
+  setInterval(()=>{ if(box.offsetParent&&!matchMedia('(prefers-reduced-motion: reduce)').matches){ t+=.05; cv.draw() } },50);
+  controls(ctlEl,[{k:'a',l:'aceleração (para cima +)',min:-9.8,max:6,st:.2,v:a,d:1,u:' m/s²'},{k:'m',l:'massa da pessoa',min:30,max:120,st:1,v:m,d:0,u:' kg'}],val=>{ a=val.a; m=val.m; cv.draw() }); return cv }
+
+/* ===== simulador: curva ===== */
+function curvePhys(c){ const v=c.v/3.6, th=rad(c.b), R=c.R, ac=v*v/R; const N=(G*Math.cos(th)+ac*Math.sin(th)), f=(ac*Math.cos(th)-G*Math.sin(th)); // por kg
+  const need=Math.abs(f)/N, ok=need<=c.us+1e-9, vid=Math.sqrt(G*R*Math.tan(th)), den=Math.cos(th)-c.us*Math.sin(th), vmax=den>0?Math.sqrt(G*R*(Math.sin(th)+c.us*Math.cos(th))/den):Infinity;
+  return {v,th,ac,N,f,need,ok,vid,vmax} }
+function CurveSim(box,ctlEl,outEl){ let c={v:60,R:50,b:0,us:.8}, p;
+  const cv=new Cv(box,(x,w,h)=>{ p=curvePhys(c); const th=p.th, cx=w*.5, cy=h*.62, L=w*.7;
+    x.strokeStyle=tok('ink2'); x.lineWidth=1; x.setLineDash([5,5]); x.beginPath(); x.moveTo(w*.06,cy-6); x.lineTo(w*.06,h*.12); x.stroke(); x.setLineDash([]); x.fillStyle=tok('ink2'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('centro da curva',w*.06+6,h*.14); arrow(x,w*.2,h*.14,-w*.1,0,tok('ink2'),'',1.4);
+    const ux=Math.cos(th), uy=Math.sin(th); x.strokeStyle=tok('ink'); x.lineWidth=3; x.beginPath(); x.moveTo(cx-ux*L/2,cy+uy*L/2); x.lineTo(cx+ux*L/2,cy-uy*L/2); x.stroke();
+    x.save(); x.translate(cx,cy); x.rotate(-th); x.fillStyle=tok('sheet'); x.strokeStyle=tok('ink'); x.lineWidth=2; x.fillRect(-44,-40,88,30); x.strokeRect(-44,-40,88,30); x.fillStyle=tok('ink'); [-28,28].forEach(xx=>{ x.beginPath(); x.arc(xx,-8,7,0,7); x.fill() }); x.restore();
+    const k=56/G, bx=cx-Math.sin(th)*26, by=cy-Math.cos(th)*26;
+    arrow(x,bx,by,0,G*k,tok('c1'),'P'); arrow(x,bx,by,-Math.sin(th)*p.N*k,-Math.cos(th)*p.N*k,tok('c2'),'N');
+    if(Math.abs(p.f)>.01) arrow(x,cx+Math.sin(th)*10,cy+Math.cos(th)*10,-ux*p.f*k,uy*p.f*k,p.ok?tok('c3'):tok('bad'),'f (atrito)');
+    x.fillStyle=tok('ink2'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('a = v²/R = '+dec(p.ac)+' m/s², para o centro',w*.3,h*.93); arrow(x,w*.28,h*.92,-p.ac*k,0,tok('ink'),'',1.8);
+    if(th>0){ x.fillStyle=tok('ink2'); x.fillText(dec(c.b,0)+'°',cx+L*.32,cy+12) }
+    x.font='700 15px "Bricolage Grotesque", sans-serif'; x.fillStyle=p.ok?tok('ok'):tok('bad'); x.fillText(p.ok?'Faz a curva':'Derrapa!',w*.62,h*.14) });
+  const render=()=>{ p=curvePhys(c); cv.draw(); if(!outEl)return; outEl.innerHTML='<ol><li>v = '+dec(c.v,0)+' km/h = '+dec(p.v)+' m/s · aceleração centrípeta v²/R = '+dec(p.ac)+' m/s²</li>'+
+    '<li>Atrito necessário (por kg): '+dec(Math.abs(p.f))+' N/kg '+(p.f>=0?'para dentro da curva':'para fora (o carro tende a escorregar para dentro)')+'; normal: '+dec(p.N)+' N/kg</li>'+
+    '<li>Coeficiente exigido: |f|/N = '+dec(p.need)+' '+(p.ok?'≤':'&gt;')+' μs = '+dec(c.us)+' → <b>'+(p.ok?'o pneu aguenta':'o pneu não aguenta')+'</b></li>'+
+    (c.b>0?'<li>Velocidade ideal (sem precisar de atrito): √(gR tg θ) = '+dec(p.vid*3.6,0)+' km/h</li>':'')+
+    '<li>Velocidade máxima com esse μs: '+(isFinite(p.vmax)?dec(p.vmax*3.6,0)+' km/h':'sem limite')+'</li></ol>' };
+  controls(ctlEl,[{k:'v',l:'velocidade',min:10,max:180,st:5,v:c.v,d:0,u:' km/h'},{k:'R',l:'raio R',min:10,max:300,st:5,v:c.R,d:0,u:' m'},{k:'b',l:'inclinação da pista',min:0,max:40,st:1,v:c.b,d:0,u:'°'},{k:'us',l:'μs pneu/asfalto',min:0,max:1.2,st:.05,v:c.us}],val=>{ c={...c,...val}; render() }); return cv }
+
+/* ===== calculadoras ===== */
+let somaCv, somaF=[], somaR=null;
+function out(el,steps,res,err){ el.innerHTML=err?'<p class="err">'+err+'</p>':'<ol>'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol>'+(res?'<div class="res">'+res+'</div>':'') }
+const CALCS={
+ soma(){ const fs=['s-1','s-2','s-3'].map(pair).filter(Boolean), m=num('s-m'); if(!fs.length)throw new Error('Informe pelo menos uma força.');
+  let X=0,Y=0; const st=fs.map(([F,a],i)=>{ const fx=F*Math.cos(rad(a)), fy=F*Math.sin(rad(a)); X+=fx; Y+=fy; return 'F'+(i+1)+': x = '+dec(F,1)+'·cos '+dec(a,0)+'° = '+dec(fx)+' N · y = '+dec(F,1)+'·sen '+dec(a,0)+'° = '+dec(fy)+' N' });
+  const R=Math.hypot(X,Y), ang=(deg(Math.atan2(Y,X))+360)%360; st.push('Somando: Fres,x = '+dec(X)+' N e Fres,y = '+dec(Y)+' N','|Fres| = √('+dec(X)+'² + '+dec(Y)+'²) = '+dec(R)+' N, a '+dec(ang,1)+'° de +x');
+  somaF=fs; somaR=[X,Y]; somaCv&&somaCv.draw();
+  return [st,'a = Fres/m = '+dec(R)+' / '+dec(m)+' = '+dec(R/m)+' m/s², na mesma direção da resultante'] },
+ polia(){ const m1=num('po-1'),m2=num('po-2'),u=num('po-u'); if(m1<=0||m2<=0)throw new Error('Massas precisam ser positivas.');
+  const drive=m2*G, fr=u*m1*G, st=['Peso pendurado puxa: m₂g = '+dec(drive)+' N','Atrito na mesa: μm₁g = '+dec(fr)+' N'];
+  if(drive<=fr) return [[...st,'m₂g ≤ atrito máximo → o sistema não se move (tomando μ como estático).'],'a = 0 · T = m₂g = '+dec(drive)+' N'];
+  const a=(drive-fr)/(m1+m2), T=m1*a+fr; st.push('a = (m₂g − μm₁g)/(m₁ + m₂) = '+dec(drive-fr)+' / '+dec(m1+m2)+' = '+dec(a)+' m/s²','T = m₁a + μm₁g = '+dec(T)+' N (confira: m₂g − T = '+dec(drive-T)+' = m₂a ✓)');
+  return [st,'a = '+dec(a)+' m/s² · T = '+dec(T)+' N'] },
+ drag(){ const m=num('dr-m'),C=num('dr-c'),A=num('dr-a'),r=num('dr-r'); if(m<=0||C<=0||A<=0||r<=0)throw new Error('Todos os valores precisam ser positivos.');
+  const vt=Math.sqrt(2*m*G/(C*r*A)); dragV={m,C,A,r}; dragCv&&dragCv.draw();
+  return [['Peso: Fg = mg = '+dec(m*G,m<.01?6:2)+' N','Denominador: CρA = '+dec(C*r*A,6),'vt = √(2Fg / CρA)'],'vt ≈ '+dec(vt)+' m/s ≈ '+dec(vt*3.6,0)+' km/h'] }
+};
+function runCalc(b){ const o=b.querySelector('.out'); try{ const [s,r]=CALCS[b.dataset.calc](); out(o,s,r) }catch(e){ out(o,null,null,e.message) } }
+
+/* ===== gráfico de arrasto ===== */
+let dragV={m:80,C:1,A:.7,r:1.2}, dragCv;
+function drawDrag(x,w,h){ const {m,C,A,r}=dragV, k=C*r*A/(2*m), vt=Math.sqrt(G/k); let T=Math.max(2,5*vt/G); const pts=[]; let v=0,t=0; const dt=T/400; for(let i=0;i<=400;i++){ pts.push([t,v]); v+=(G-k*v*v)*dt; t+=dt }
+  const L=46,B=h-30,Rr=w-14,Tp=16, sx=t=>L+(t/T)*(Rr-L), vmax=vt*1.15, sy=v=>B-(v/vmax)*(B-Tp);
+  x.strokeStyle=tok('line'); x.lineWidth=1; x.fillStyle=tok('ink2'); x.font='11px "JetBrains Mono", monospace';
+  for(let i=0;i<=4;i++){ const vv=vmax*i/4, y=sy(vv); x.beginPath(); x.moveTo(L,y); x.lineTo(Rr,y); x.stroke(); x.fillText(dec(vv,vv<10?1:0),4,y+4) }
+  for(let i=0;i<=4;i++){ const tt=T*i/4; x.fillText(dec(tt,1)+' s',sx(tt)-12,h-10) }
+  x.setLineDash([6,5]); x.strokeStyle=tok('c1'); x.lineWidth=1.6; x.beginPath(); x.moveTo(L,sy(vt)); x.lineTo(Rr,sy(vt)); x.stroke(); x.setLineDash([]); x.fillStyle=tok('c1'); x.font='600 12px "JetBrains Mono", monospace'; x.fillText('vt = '+dec(vt,1)+' m/s',Rr-130,sy(vt)-6);
+  x.strokeStyle=tok('c2'); x.lineWidth=2.4; x.beginPath(); pts.forEach(([t,v],i)=>i?x.lineTo(sx(t),sy(v)):x.moveTo(sx(t),sy(v))); x.stroke();
+  x.fillStyle=tok('ink2'); x.font='11px "JetBrains Mono", monospace'; x.fillText('v (m/s)',L+4,Tp+2) }
+
+/* ===== soma: desenho ===== */
+function drawSoma(x,w,h){ const all=[...somaF.map(([F,a])=>[F*Math.cos(rad(a)),F*Math.sin(rad(a))]),...(somaR?[somaR]:[])]; const mx=Math.max(1,...all.map(v=>Math.hypot(...v))); const s=Math.min(w,h)*.4/mx, cx=w/2, cy=h/2;
+  x.strokeStyle=tok('line'); x.lineWidth=1; x.beginPath(); x.moveTo(10,cy); x.lineTo(w-10,cy); x.moveTo(cx,8); x.lineTo(cx,h-8); x.stroke(); x.fillStyle=tok('ink2'); x.font='11px "JetBrains Mono", monospace'; x.fillText('x',w-18,cy-6); x.fillText('y',cx+6,16);
+  const cols=['c2','c3','ink2']; somaF.forEach(([F,a],i)=>arrow(x,cx,cy,F*Math.cos(rad(a))*s,-F*Math.sin(rad(a))*s,tok(cols[i]),'F'+(i+1)));
+  if(somaR) arrow(x,cx,cy,somaR[0]*s,-somaR[1]*s,tok('c1'),'Fres',3.2) }
+
+/* ===== exemplos passo a passo ===== */
+function exHTML(steps,ans){ return '<ol>'+steps.map((s,i)=>'<li class="'+(i?'hid':'')+'">'+s+'</li>').join('')+'</ol><div class="ans">'+ans+'</div><div class="btns"><button class="nx">Próximo passo</button><button class="ghost al">Ver resolução toda</button></div>' }
+function bindEx(box){ const lis=[...box.querySelectorAll('ol>li')], nx=box.querySelector('.nx'), al=box.querySelector('.al');
+  const upd=()=>{ const left=lis.filter(l=>l.classList.contains('hid')).length; nx.textContent=left?'Próximo passo ('+left+')':'Ver resposta'; if(box.classList.contains('all'))nx.disabled=al.disabled=true };
+  nx.onclick=()=>{ const h=lis.find(l=>l.classList.contains('hid')); if(h)h.classList.remove('hid'); else box.classList.add('all'); upd() }; al.onclick=()=>{ lis.forEach(l=>l.classList.remove('hid')); box.classList.add('all'); upd() }; upd() }
+
+const PROBS=[
+ {n:'1',m:'forças · 2ª lei',q:'Duas forças agem num disco de 2,0 kg sobre um piso sem atrito: F₁ = 10 N no sentido +x e F₂ = 4,0 N a 120° do eixo +x. Qual a aceleração do disco?',
+  s:['Componentes de F₁: (10, 0) N.','Componentes de F₂: x = 4,0·cos 120° = −2,0 N; y = 4,0·sen 120° = 3,46 N.','Resultante: Fx = 10 − 2,0 = 8,0 N; Fy = 3,46 N.','|Fres| = √(8,0² + 3,46²) = √76 = 8,72 N. Direção: tg θ = 3,46/8,0 → θ ≈ 23,4°.','a = Fres/m = 8,72/2,0.'],a:'a ≈ 4,4 m/s², a 23° acima de +x'},
+ {n:'2',m:'Newton · elevador',q:'Uma pessoa de 70 kg está numa balança dentro de um elevador. Quanto a balança marca (em N) se o elevador (a) sobe acelerando a 2,0 m/s², (b) desce acelerando a 2,0 m/s², (c) sobe com velocidade constante, (d) o cabo rompe?',
+  s:['Eixo para cima: N − mg = ma → N = m(g + a).','(a) a = +2,0: N = 70(9,8 + 2,0) = 826 N.','(b) acelerando para baixo, a = −2,0: N = 70(7,8) = 546 N.','(c) velocidade constante, a = 0: N = mg = 686 N.','(d) queda livre, a = −9,8: N = 0.'],a:'826 N · 546 N · 686 N · 0'},
+ {n:'3',m:'aplicações · polia',q:'Um bloco de 3,0 kg numa mesa sem atrito está ligado por uma corda, que passa por uma polia, a um bloco pendurado de 2,0 kg. Ache a aceleração e a tração.',
+  s:['Bloco da mesa: T = m₁a.','Bloco pendurado (eixo para baixo): m₂g − T = m₂a.','Somando: m₂g = (m₁ + m₂)a → a = 2,0·9,8/5,0 = 3,92 m/s².','T = m₁a = 3,0·3,92 = 11,8 N (menor que o peso pendurado, 19,6 N: se fosse igual, nada aceleraria).'],a:'a = 3,92 m/s² · T ≈ 11,8 N'},
+ {n:'4',m:'aplicações · plano inclinado',q:'Um bloco de 5,0 kg desliza por uma rampa sem atrito inclinada de 30°. Ache a aceleração e a força normal.',
+  s:['Eixos: x ao longo da rampa (para baixo), y perpendicular.','Em x: mg sen 30° = ma → a = 9,8·0,50.','Em y: N − mg cos 30° = 0 → N = 5,0·9,8·0,866.'],a:'a = 4,9 m/s² · N ≈ 42,4 N'},
+ {n:'5',m:'aplicações · blocos',q:'Uma força horizontal de 20 N empurra o bloco A (3,0 kg), que empurra o bloco B (2,0 kg), sem atrito. Ache a aceleração e a força entre os blocos.',
+  s:['Sistema inteiro (5,0 kg): a = 20/5,0 = 4,0 m/s².','Isolando B: F_AB = m_B·a = 2,0·4,0.'],a:'a = 4,0 m/s² · contato = 8,0 N'},
+ {n:'6',m:'atrito · estático × cinético',q:'Uma caixa de 20 kg está no chão, μs = 0,50 e μk = 0,40. Ela se move se empurrada horizontalmente com (a) 80 N? (b) 120 N? Se mover, qual a aceleração?',
+  s:['N = mg = 196 N. Atrito estático máximo: 0,50·196 = 98 N.','(a) 80 N ≤ 98 N → fica parada; o atrito estático vale exatamente 80 N.','(b) 120 N &gt; 98 N → desliza. Agora vale o cinético: fk = 0,40·196 = 78,4 N.','a = (120 − 78,4)/20.'],a:'(a) não se move · (b) a ≈ 2,1 m/s²'},
+ {n:'7',m:'atrito · força inclinada',q:'Puxa-se uma caixa de 10 kg por uma corda a 30° acima da horizontal com 60 N; μk = 0,30 e a caixa já desliza. Ache a aceleração.',
+  s:['Em y: N + 60 sen 30° − mg = 0 → N = 98 − 30 = 68 N.','fk = 0,30·68 = 20,4 N.','Em x: 60 cos 30° − 20,4 = 10a → 51,96 − 20,4 = 10a.'],a:'a ≈ 3,16 m/s²'},
+ {n:'8',m:'atrito · plano inclinado',q:'Um bloco está numa rampa com μs = 0,40 e μk = 0,30. (a) A partir de que ângulo ele começa a escorregar? (b) Com a rampa a 30°, qual a aceleração descendo?',
+  s:['(a) Começa quando mg sen θ = μs mg cos θ → tg θ = μs = 0,40 → θ ≈ 21,8°.','(b) 30° &gt; 21,8°: escorrega. Em x: mg sen θ − μk mg cos θ = ma.','a = g(sen 30° − 0,30·cos 30°) = 9,8(0,500 − 0,260).'],a:'(a) θ ≈ 21,8° · (b) a ≈ 2,35 m/s²'},
+ {n:'9',m:'atrito · derrapagem',q:'Um carro a 80 km/h trava as rodas numa pista plana. Qual a distância até parar com μk = 0,60 (seco)? E com μk = 0,30 (molhado)?',
+  s:['80 km/h = 22,2 m/s.','O atrito é a única força horizontal: μk mg = ma → a = μk g (a massa some).','Seco: a = 5,88 m/s². Torricelli: d = v²/(2a) = 493,8/11,76 = 42 m.','Molhado: a = 2,94 m/s² → d = 84 m. Metade do μ, o dobro da distância.'],a:'42 m no seco · 84 m no molhado'},
+ {n:'10',m:'arrasto · velocidade terminal',q:'Um paraquedista de 80 kg cai de braços abertos (C = 1,0; A = 0,70 m²; ρ = 1,2 kg/m³). Qual a velocidade terminal? E com o paraquedas aberto (C = 1,5; A = 40 m²)?',
+  s:['vt = √(2mg / CρA). Numerador: 2·80·9,8 = 1568 N.','Sem paraquedas: CρA = 1,0·1,2·0,70 = 0,84 → vt = √1867 ≈ 43 m/s (≈ 156 km/h).','Com paraquedas: CρA = 1,5·1,2·40 = 72 → vt = √21,8 ≈ 4,7 m/s (≈ 17 km/h).'],a:'≈ 43 m/s fechado · ≈ 4,7 m/s aberto'},
+ {n:'11',m:'circular · curva plana',q:'Qual a maior velocidade com que um carro faz uma curva plana de raio 50 m sem derrapar, com μs = 0,80?',
+  s:['O atrito estático faz a centrípeta: fs = mv²/R.','No limite, fs = μs N = μs mg.','μs mg = mv²/R → v = √(μs g R) = √(0,80·9,8·50) = √392.'],a:'v ≈ 19,8 m/s ≈ 71 km/h'},
+ {n:'12',m:'circular · curva compensada',q:'Uma curva de raio 100 m deve ser feita a 20 m/s sem depender de atrito. Qual a inclinação da pista?',
+  s:['Sem atrito, só peso e normal. Em y: N cos θ = mg. Em x (para o centro): N sen θ = mv²/R.','Dividindo: tg θ = v²/(gR) = 400/980 = 0,408.'],a:'θ ≈ 22,2°'},
+ {n:'13',m:'circular · loop',q:'Um carrinho de 60 kg passa pelo topo de um loop de raio 3,0 m a 8,0 m/s. Qual a força normal do trilho? Qual a velocidade mínima no topo?',
+  s:['No topo, peso e normal apontam para baixo (para o centro): N + mg = mv²/R.','N = m(v²/R − g) = 60(64/3,0 − 9,8) = 60(21,3 − 9,8).','Mínima: N = 0 → v = √(gR) = √29,4.'],a:'N ≈ 692 N · v_mín ≈ 5,4 m/s'}
+];
+const QUIZ=[
+ ['Um corpo se move em linha reta com velocidade constante. A força resultante sobre ele é…',['zero','no sentido do movimento','contra o movimento','igual ao peso'],0,'1ª lei: velocidade constante (inclusive em módulo e direção) significa aceleração zero, então ΣF = 0.'],
+ ['Peso e normal de um livro sobre a mesa formam um par de ação e reação?',['Sim, são iguais e opostos','Não: agem no mesmo corpo','Sim, se a mesa estiver parada','Só se não houver atrito'],1,'Par ação-reação age em corpos diferentes. Peso e normal agem ambos no livro; são iguais aqui por causa da 2ª lei (a = 0).'],
+ ['Num elevador descendo e freando, a balança marca…',['mais que seu peso','menos que seu peso','exatamente seu peso','zero'],0,'Descendo e freando, a aceleração aponta para cima. N = m(g + a) com a &gt; 0.'],
+ ['Num plano inclinado sem atrito, um bloco mais pesado desce com aceleração…',['maior','menor','igual','depende da normal'],2,'a = g sen θ. A massa cancela.'],
+ ['Uma caixa parada no chão com μs = 0,5 e peso 100 N é empurrada com 20 N. O atrito vale…',['50 N','20 N','0 N','70 N'],1,'Parado, o atrito estático vale só o necessário para equilibrar: 20 N. 50 N é o máximo possível.'],
+ ['Por que é mais fácil manter uma caixa deslizando do que tirá-la do lugar?',['μk costuma ser menor que μs','a normal diminui','a massa diminui','o peso muda'],0,'Atrito cinético (μk N) é em geral menor que o estático máximo (μs N).'],
+ ['Puxar uma caixa por uma corda inclinada para cima (em vez de horizontal) faz a normal…',['aumentar','diminuir','ficar igual','zerar sempre'],1,'A componente vertical da corda alivia o apoio: N = mg − F sen θ. Por isso o atrito também diminui.'],
+ ['O bloco começa a escorregar numa rampa quando…',['tg θ = μs','sen θ = μs','cos θ = μs','θ = 45° sempre'],0,'mg sen θ = μs mg cos θ ⇒ tg θ = μs.'],
+ ['Dobrando a velocidade, a força de arrasto fica…',['2 vezes maior','4 vezes maior','igual','metade'],1,'D = ½CρAv²: depende de v ao quadrado.'],
+ ['Na velocidade terminal, a força resultante sobre o corpo é…',['igual ao peso','zero','igual ao arrasto','máxima'],1,'Arrasto e peso se igualam: ΣF = 0, a velocidade para de crescer.'],
+ ['Um carro faz uma curva plana com velocidade constante. A aceleração dele é…',['zero','para fora da curva','para o centro da curva','para frente'],2,'A direção da velocidade muda: aceleração centrípeta v²/R, para o centro.'],
+ ['Num carro fazendo curva plana, quem fornece a força centrípeta?',['a força centrífuga','o atrito estático dos pneus','o peso','o motor'],1,'É o atrito estático (o pneu não está escorregando de lado). Força centrífuga não existe no referencial do chão.'],
+ ['Na curva plana, dobrar o raio permite uma velocidade máxima…',['2 vezes maior','√2 vezes maior','4 vezes maior','igual'],1,'v_máx = √(μs g R): dobrar R multiplica v por √2 ≈ 1,41.'],
+ ['No topo de um loop, na velocidade mínima, a força normal vale…',['mg','2mg','zero','mv²/R + mg'],2,'No limite o trilho deixa de empurrar: só o peso faz a centrípeta, mg = mv²/R.']
+];
+
+/* ===== quiz ===== */
+let qa={};
+function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<div class="qz" data-i="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="opts">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="why" hidden></div></div>').join('');
+  box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i], bs=c.querySelectorAll('button');
+    const show=j=>{ bs.forEach((b,k)=>{ b.disabled=true; if(k===q[2])b.classList.add('right'); else if(k===j)b.classList.add('wrong') }); const w=c.querySelector('.why'); w.hidden=false; w.innerHTML=(j===q[2]?'<b style="color:var(--ok)">Certo!</b> ':'<b style="color:var(--bad)">Quase.</b> ')+q[3] };
+    bs.forEach(b=>b.onclick=()=>{ qa[i]=+b.dataset.j; show(qa[i]); score(); save() }); if(qa[i]!==undefined)show(qa[i]) }); score() }
+function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · pronto para a prova!':ok>=9?' · quase lá':' · revise os módulos'):'') }
+
+/* ===== progresso ===== */
+const MODS=[['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops']];
+let done={};
+function load(){ try{ done=JSON.parse(localStorage.getItem('fis-done')||'{}'); qa=JSON.parse(localStorage.getItem('fis-quiz')||'{}') }catch(e){} }
+function save(){ try{ localStorage.setItem('fis-done',JSON.stringify(done)); localStorage.setItem('fis-quiz',JSON.stringify(qa)) }catch(e){} }
+function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getElementById('progtxt').textContent=n+'/6 módulos'; document.getElementById('progbar').style.width=(n/6*100)+'%';
+  document.getElementById('trail').innerHTML=MODS.map((m,i)=>'<a class="stop'+(done[m[0]]?' done':'')+'" href="#'+m[0]+'"><span class="n">'+(done[m[0]]?'✓':i+1)+'</span><b>'+m[1]+'</b><span>'+m[2]+'</span></a>').join('')+
+    '<a class="stop" href="#problemas"><span class="n">P</span><b>Problemas resolvidos</b><span>'+PROBS.length+' problemas, um passo de cada vez</span></a><a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
+  document.querySelectorAll('#nav a[data-m]').forEach(a=>{ a.querySelector('.dn')?.remove(); if(done[a.dataset.m])a.insertAdjacentHTML('beforeend','<i class="dn"></i>') });
+  document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
+    d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#problemas">Agora encare os problemas →</a>');
+    d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
+
+/* ===== rotas ===== */
+const VIEWS=['inicio','forcas','newton','aplic','atrito','arrasto','circular','lab','problemas','quiz','cola'];
+let sims=[];
+function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
+  VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
+  document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
+  window.scrollTo(0,0); requestAnimationFrame(()=>sims.forEach(s=>s&&s.resize())) }
+
+/* ===== boot ===== */
+load();
+document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'), steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); bindEx(b) });
+document.getElementById('probBox').innerHTML=PROBS.map(p=>'<details class="qitem"><summary><span class="qn">P'+p.n+'</span><span>'+p.q+'<span class="tagt">revise: '+p.m+'</span></span></summary><div class="body"><div class="part ex" style="border:none;padding:0;margin:14px 0 0">'+exHTML(p.s,p.a)+'</div></div></details>').join('');
+document.querySelectorAll('#probBox .part').forEach(bindEx);
+somaCv=new Cv(document.getElementById('somaCv'),drawSoma);
+dragCv=new Cv(document.getElementById('dragCv'),drawDrag);
+document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('input',()=>runCalc(b)); runCalc(b) });
+const PRE={para:[80,1.0,0.7,1.2],aberto:[80,1.5,40,1.2],gota:[0.0000141,0.6,0.00000707,1.2]};
+document.querySelectorAll('#dragPre button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#dragPre button').forEach(x=>x.classList.toggle('on',x===b)); const v=PRE[b.dataset.p]; ['dr-m','dr-c','dr-a','dr-r'].forEach((id,i)=>document.getElementById(id).value=String(v[i])); runCalc(document.querySelector('.calc[data-calc="drag"]')) });
+document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
+sims=[somaCv,dragCv,
+  InclineSim(document.getElementById('heroSim'),document.createElement('div'),null,null,{th:25,us:.3,uk:.2},true),
+  InclineSim(document.getElementById('atritoSim'),document.getElementById('atritoCtl'),document.getElementById('atritoOut'),document.getElementById('atritoLbl')),
+  InclineSim(document.getElementById('labIncl'),document.getElementById('labInclCtl'),document.getElementById('labInclOut'),document.getElementById('labInclLbl')),
+  ElevSim(document.getElementById('elevSim'),document.getElementById('elevCtl')),
+  ElevSim(document.getElementById('labElev'),document.getElementById('labElevCtl')),
+  CurveSim(document.getElementById('curveSim'),document.getElementById('curveCtl'),document.getElementById('curveOut')),
+  CurveSim(document.getElementById('labCurve'),document.getElementById('labCurveCtl'),document.getElementById('labCurveOut'))];
+renderQuiz(); renderProg();
+addEventListener('hashchange',route); route();
+const redraw=()=>sims.forEach(s=>s&&s.draw());
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change',redraw);
+new MutationObserver(redraw).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+</script>
+</body>
+</html>

@@ -70,3 +70,4 @@ A aba **Provas** mostra a contagem regressiva da próxima prova, todas as datas 
 | Matéria | Material |
 |---|---|
 | GAAL | [Oficina de GAAL](materias/gaal/oficina-de-gaal.html): retas, planos, posições, ângulos e distâncias com laboratório 3D, lista resolvida e quiz |
+| Física I | [Oficina de Física](materias/fis1/oficina-de-fisica.html): Halliday caps. 5 e 6 (Força e Movimento I e II) com simuladores de plano inclinado, elevador e curva, problemas resolvidos e quiz |
