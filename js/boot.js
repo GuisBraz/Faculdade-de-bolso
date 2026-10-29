@@ -32,21 +32,26 @@ mostrarLogin(false); $('app').hidden=true; document.querySelector('.topbar').hid
 carregar(CFG.lib||'js/vendor/supabase-2.117.3.js').then(()=>{
   const sb=window.supabase.createClient(CFG.url,CFG.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   window.FDB_SB=sb;
-  sb.auth.getSession().then(({data})=>{ if(data&&data.session) entrar(data.session.user); else telaLogin() });
+  sb.auth.getSession().then(({data})=>{ if(data&&data.session) entrar(data.session.user); else publico() });
+  /* sem login: modo estudante público (oficinas do semestre + cartas, progresso só neste aparelho) */
+  function publico(){ window.FDB_MODE='visitante'; mostrarLogin(false); const c=$('conta'); c.hidden=false;
+    c.innerHTML='<button type="button" id="entrarBtn">Entrar</button>'; $('entrarBtn').onclick=telaLogin; iniciarHub() }
   sb.auth.onAuthStateChange((ev,sess)=>{ if(ev==='SIGNED_OUT') location.reload(); if(ev==='PASSWORD_RECOVERY') novaSenha() });
 
   /* ----- tela de login ----- */
   let criando=false;
   function telaLogin(){ mostrarLogin(true); $('aEmail').focus() }
   const msg=(t,tipo)=>{ const m=$('aMsg'); m.textContent=t; m.className='mono amsg'+(tipo?' '+tipo:'') };
-  $('aMode').onclick=()=>{ criando=!criando; $('aGo').textContent=criando?'Criar conta':'Entrar'; $('aMode').textContent=criando?'Já tenho conta':'Criar conta de visitante';
+  $('aMode').textContent='Voltar sem entrar'; $('authSub').textContent='Acesso do administrador. Para estudar não precisa de conta: volte e use o site normalmente.';
+  $('aMode').onclick=()=>{ mostrarLogin(false); msg('') };
+  const _antigo=()=>{ criando=!criando; $('aGo').textContent=criando?'Criar conta':'Entrar'; $('aMode').textContent=criando?'Já tenho conta':'Criar conta de visitante';
     document.querySelector('.authbox h1').textContent=criando?'Criar conta':'Entrar'; $('aPass').autocomplete=criando?'new-password':'current-password';
     $('authSub').textContent=criando?'Conta de visitante: acesso às oficinas do semestre e às cartas de revisão, com o seu próprio progresso. Use uma senha com pelo menos 8 caracteres.':'Use sua conta para ver as oficinas, as cartas de revisão e salvar o seu progresso em qualquer aparelho.'; msg('') };
   $('authForm').onsubmit=async e=>{ e.preventDefault(); const email=$('aEmail').value.trim(), password=$('aPass').value; $('aGo').disabled=true; msg(criando?'Criando conta…':'Entrando…');
     try{
       if(criando){ const {data,error}=await sb.auth.signUp({email,password,options:{emailRedirectTo:location.origin+location.pathname}}); if(error) throw error;
         if(data.session) return entrar(data.session.user); msg('Conta criada. Confirme pelo link que chegou no seu e-mail e depois entre aqui.','ok') }
-      else { const {data,error}=await sb.auth.signInWithPassword({email,password}); if(error) throw error; entrar(data.user) }
+      else { const {data,error}=await sb.auth.signInWithPassword({email,password}); if(error) throw error; location.reload() }
     }catch(err){ msg(traduz(err),'err') } finally{ $('aGo').disabled=false } };
   $('aForgot').onclick=async()=>{ const email=$('aEmail').value.trim(); if(!email){ msg('Digite seu e-mail acima e toque de novo em "Esqueci minha senha".','err'); return }
     const {error}=await sb.auth.resetPasswordForEmail(email,{redirectTo:location.origin+location.pathname}); msg(error?traduz(error):'Se esse e-mail tiver conta, chegou um link para criar uma senha nova.',error?'err':'ok') };

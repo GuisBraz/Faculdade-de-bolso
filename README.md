@@ -100,12 +100,12 @@ A aba **Provas** mostra a contagem regressiva da próxima prova, todas as datas 
 
 ## Contas (Supabase)
 
-Com `dados/config.js` preenchido, o hub pede login:
+Com `dados/config.js` preenchido, o site abre **sem login** no modo estudante (público). O botão **Entrar**, no topo, é o acesso do admin:
 
 | papel | vê |
 |---|---|
 | admin | tudo: progresso, provas, horário, professores (dados lidos do banco, tabela `privado`) |
-| visitante | só as oficinas do semestre atual (com as datas de atualização) e as cartas, com o próprio progresso |
+| estudante (sem login) | só as oficinas do semestre atual (com as datas de atualização) e as cartas; o progresso fica no aparelho dele |
 
 O progresso (status, provas manuais, módulos, quiz e cartas) sincroniza com a conta na tabela `estado`. As regras RLS de `supabase/schema.sql` garantem que cada conta só acessa o que é dela e que só o admin lê os dados pessoais. A anon key é pública por natureza; a service_role key nunca entra no site.
 
