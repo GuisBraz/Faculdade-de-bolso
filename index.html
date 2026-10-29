@@ -29,7 +29,7 @@
 body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.55 var(--f-body);
   background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:24px 24px}
 [hidden]{display:none!important}
-.wrap{max-width:1040px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.wrap{--gut:clamp(16px,3vw,56px);max-width:1680px;margin:0 auto;padding-left:max(var(--gut),env(safe-area-inset-left,0px));padding-right:max(var(--gut),env(safe-area-inset-right,0px))}
 h1,h2,h3{font-family:var(--f-disp);margin:0;line-height:1.1;text-wrap:balance}
 a{color:inherit}
 :focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
@@ -272,6 +272,26 @@ body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset
 .mprov{margin:0 0 22px;display:grid;gap:6px}
 footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-size:.75rem}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+/* telas largas */
+@media (min-width:1200px){
+  #home:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) clamp(300px,24vw,400px);grid-template-rows:repeat(6,auto) 1fr;column-gap:clamp(24px,2.5vw,44px)}
+  #home>*{grid-column:1}
+  #home>#today{grid-row:1}#home>.search{grid-row:2}#home>.jumpbar{grid-row:3}#home>#editPanel{grid-row:4}#home>#periodos{grid-row:5}#home>#pshow{grid-row:6}
+  #home>#recentWrap{grid-column:2;grid-row:1/-1;align-self:start;position:sticky;top:16px;padding-top:14px}
+  #recentWrap .recent{grid-template-columns:1fr;margin-bottom:0}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
+  #materia{max-width:1180px}
+}
+@media (min-width:1900px){
+  body{font-size:17px}
+  .grid{grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+}
+@media (max-width:480px){
+  .top{padding-block:22px 16px}
+  .grid{grid-template-columns:1fr;gap:10px}
+  .mat{padding:12px}
+}
 </style>
 </head>
 <body>

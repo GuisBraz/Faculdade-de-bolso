@@ -203,6 +203,14 @@ input[type=text]:focus{border-color:var(--c2);outline:none}
 @media (max-width:520px){.dot2d{grid-template-columns:1fr;justify-items:center}}
 footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+@media (min-width:1400px){
+  .hwrap,main,footer{max-width:min(1320px,92vw)}
+  .view.read{max-width:1120px}
+  .view.read>p,.view.read>ul,.view.read>ol,.view.read>h2,.view.read>h3{max-width:78ch}
+  nav{flex-wrap:wrap;overflow:visible}
+}
+@media (min-width:1900px){body{font-size:17px}.hwrap,main,footer{max-width:1440px}}
 </style>
 </head>
 <body>

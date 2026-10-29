@@ -226,6 +226,14 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
 .simout{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:10px 14px 12px;margin-bottom:10px}
 .sim canvas{cursor:default}
 .labgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:4px 24px}
+
+@media (min-width:1400px){
+  .hwrap,main,footer{max-width:min(1320px,92vw)}
+  .view.read{max-width:1120px}
+  .view.read>p,.view.read>ul,.view.read>ol,.view.read>h2,.view.read>h3{max-width:78ch}
+  nav{flex-wrap:wrap;overflow:visible}
+}
+@media (min-width:1900px){body{font-size:17px}.hwrap,main,footer{max-width:1440px}}
 </style>
 </head>
 <body>
