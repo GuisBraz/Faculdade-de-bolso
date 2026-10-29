@@ -8,5 +8,5 @@
 */
 window.FDB_CONFIG = {
   url: "https://zqdpvawnodrhnmntbuvr.supabase.co",
-  anonKey: ""
+  anonKey: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpxZHB2YXdub2RyaG5tbnRidXZyIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTMyMzUwOTEsImV4cCI6MjEwODgxMTA5MX0.noIGDt47lJU75qDammEAmke29EEwKCZp3ApXPh8HYwo"
 };
