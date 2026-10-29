@@ -13,7 +13,7 @@
 const KEY='fdb-anki', DAY=864e5, MIN=6e4, HOUR=36e5;
 const me=document.currentScript;
 const MAT=me&&me.dataset.materia||'';
-const NOMES={gaal:'GAAL',fis1:'Física I',calc2:'Cálculo II',qg:'Química',cm2:'Materiais II',dt2:'Desenho II'};
+const NOMES={usin:'Usinagem',gaal:'GAAL',fis1:'Física I',calc2:'Cálculo II',qg:'Química',cm2:'Materiais II',dt2:'Desenho II'};
 const nomeMat=id=>{ const F=window.FACULDADE; if(F&&F.periodos){ for(const p of F.periodos) for(const m of p.materias||[]) if(m.id===id) return m.sigla } return NOMES[id]||id };
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=s=>esc(s).replace(/([A-Za-z]{1,3}[₀-₉]?)\u20D7/g,'<span class="ak-vec">$1</span>');
@@ -135,7 +135,7 @@ const CSS=`
 @media (prefers-reduced-motion:reduce){.ak-pop{animation:none}}
 `;
 let cssOk=false; function css(){ if(cssOk)return; const s=document.createElement('style'); s.textContent=CSS; document.head.appendChild(s); cssOk=true }
-const CORES={gaal:'#0C8587',fis1:'#6447BE'};
+const CORES={gaal:'#0C8587',fis1:'#6447BE',usin:'#D9531A'};
 const corDe=m=>{ const F=window.FACULDADE; if(F&&F.periodos){ const ar=F.areas||{}; for(const p of F.periodos) for(const x of p.materias||[]) if(x.id===m) return x.cor||(ar[x.area]||{}).cor } return CORES[m] };
 
 /* ===== componente: uma carta ===== */

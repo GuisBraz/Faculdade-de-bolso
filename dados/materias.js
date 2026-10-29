@@ -198,5 +198,23 @@ window.FACULDADE = {
         { id: "seg", sigla: "Segurança", nome: "Introdução à Segurança do Trabalho", ch: 30, icone: "capacete", area: "h", arquivos: [] }
       ]
     }
+  ],
+
+  /* Projetos complementares: matérias extras, fora dos semestres e da conta de progresso */
+  extras: [
+    { id: "usin", sigla: "Usinagem", nome: "Usinagem Básica", icone: "usinagem", area: "p", arquivos: [
+        {
+          titulo: "Oficina de Usinagem · do básico ao avançado",
+          tipo: "site",
+          caminho: "materias/usinagem/oficina-de-usinagem.html",
+          ciclo: "Contínua",
+          atualizacoes: [
+            { data: "2026-10-29", texto: "Entrou no Faculdade de Bolso: visual das oficinas, cartas de revisão e simulador CNC mais leve (só redesenha quando algo muda)." }
+          ],
+          descricao: "Furadeira, torno, mandrilhadora e centro de usinagem em 3D, grandezas de corte, força e potência, desgaste, tolerâncias, CNC e código G com simulador, tempos e planejamento de processo.",
+          data: "2026-10-29",
+          tags: ["usinagem", "torno", "fresamento", "CNC", "código G", "tempo de máquina"]
+        }
+      ] }
   ]
 };

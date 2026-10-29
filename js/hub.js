@@ -52,7 +52,9 @@ const TIPOS = {site:'Site',pdf:'PDF',resumo:'Resumo',lista:'Lista',prova:'Prova'
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fdate = d => { if(!d) return ''; const [y,m,dd]=d.split('-'); return dd+'/'+m+'/'+y };
 const AR = D.areas||{};
-const MATS = D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.numero,cor:m.cor||(AR[m.area]||{}).cor||'#D9531A',arquivos:m.arquivos||[]})));
+const MATS = [...D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.numero,cor:m.cor||(AR[m.area]||{}).cor||'#D9531A',arquivos:m.arquivos||[]}))),
+  ...(D.extras||[]).map(m=>({...m,periodo:0,extra:true,cor:m.cor||(AR[m.area]||{}).cor||'#D9531A',arquivos:m.arquivos||[]}))];
+const onde=m=>m.extra?'projeto complementar':m.periodo+'º período';
 let OV={}; try{ OV=JSON.parse(localStorage.getItem('fdb-status')||'{}')||{} }catch(e){}
 MATS.forEach(m=>{ m._base=m.status||''; if(m.id in OV) m.status=OV[m.id]||'' });
 let EDIT=false; const SHOWP={past:false,fut:false};
@@ -70,14 +72,14 @@ function fileRow(a,showMat){
   return '<a class="file" style="--mc:'+esc(a.mat.cor)+'" href="'+esc(a.caminho)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+
     '<span class="badge">'+esc(TIPOS[a.tipo]||a.tipo||'Arquivo')+'</span>'+
     '<h3>'+esc(a.titulo)+'</h3><span class="go">Abrir →</span>'+(a.ciclo?'<div class="meta">'+cyChip(a)+'</div>':'')+
-    '<div class="meta">'+(showMat?'<span class="from">'+esc(a.mat.sigla)+' · '+a.mat.periodo+'º período</span><br>':'')+esc(a.descricao)+
+    '<div class="meta">'+(showMat?'<span class="from">'+esc(a.mat.sigla)+' · '+onde(a.mat)+'</span><br>':'')+esc(a.descricao)+
     '<small>'+[fdate(a.data),...(a.tags||[]).map(t=>'#'+t)].filter(Boolean).map(esc).join(' · ')+'</small></div></a>';
 }
 function matCard(m){
   const n=m.arquivos.length, st=m.status||'';
   if(EDIT) return '<div class="mat edit'+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+stBtns(m)+'</div>';
   return '<a class="mat'+(n?'':' empty')+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+
-    '<span class="n"><span>'+(ST[st]?'<span class="st">'+ST[st]+'</span> ':'')+(m.arquivos.some(isOpen)?'<b>oficina aberta</b>':n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):(ST[st]?'':'sem materiais ainda'))+'</span><span>'+(m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
+    '<span class="n"><span>'+(ST[st]?'<span class="st">'+ST[st]+'</span> ':'')+(m.arquivos.some(isOpen)?'<b>oficina aberta</b>':n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):(ST[st]?'':'sem materiais ainda'))+'</span><span>'+(m.extra?'extra':m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
 }
 function renderHome(){
   document.getElementById('curso').textContent=[D.curso,D.instituicao].filter(Boolean).join(' · ');
@@ -92,10 +94,11 @@ function renderHome(){
   const T=P.reduce((a,x)=>a+x.tot,0), Dn=P.reduce((a,x)=>a+x.done,0), pct=T?Dn/T*100:0;
   const nOk=P.reduce((a,x)=>a+x.ok.length,0), nRp=P.reduce((a,x)=>a+x.rp.length,0), nCur=MATS.filter(m=>m.status==='cursando').length, nClosed=P.filter(x=>x.full).length;
   const pctT=(pct<10&&pct>0?pct.toFixed(1).replace('.',','):Math.floor(pct))+'%';
-  const pg=document.getElementById('prog'); pg.title=Dn.toLocaleString('pt-BR')+' de '+T.toLocaleString('pt-BR')+' h · '+nOk+' de '+MATS.length+' matérias aprovadas · '+nClosed+' de '+P.length+' períodos concluídos'+(nCur?' · '+nCur+' cursando':'')+(nRp?' · '+nRp+' reprovada(s) a refazer':'');
+  const pg=document.getElementById('prog'); pg.title=Dn.toLocaleString('pt-BR')+' de '+T.toLocaleString('pt-BR')+' h · '+nOk+' de '+MATS.filter(m=>!m.extra).length+' matérias aprovadas · '+nClosed+' de '+P.length+' períodos concluídos'+(nCur?' · '+nCur+' cursando':'')+(nRp?' · '+nRp+' reprovada(s) a refazer':'');
   pg.innerHTML='<span>Progresso</span><span class="mbar">'+P.map(x=>'<i class="'+(x.p.atual?'cur':'')+'" style="flex:'+x.tot+'"><em style="width:'+(x.tot?x.done/x.tot*100:0)+'%"></em></i>').join('')+'</span><b>'+pctT+'</b>'+(nRp?'<span class="rp">· '+nRp+' a refazer</span>':'');
-  document.getElementById('jump').innerHTML=P.map(x=>'<button data-p="'+x.p.numero+'" class="'+(x.p.atual?'on ':'')+(x.full?'done':'')+'">'+(x.full?'✓ ':'')+x.p.numero+'º</button>').join('');
-  document.querySelectorAll('#jump button').forEach(b=>b.onclick=()=>{ const cn=(D.periodos.find(p=>p.atual)||{}).numero||1, n=+b.dataset.p; if(!document.getElementById('p'+n)){ if(n<cn)SHOWP.past=true; else SHOWP.fut=true; renderHome() } const el=document.getElementById('p'+n); if(el.tagName==='DETAILS')el.open=true; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
+  document.getElementById('jump').innerHTML=P.map(x=>'<button data-p="'+x.p.numero+'" class="'+(x.p.atual?'on ':'')+(x.full?'done':'')+'">'+(x.full?'✓ ':'')+x.p.numero+'º</button>').join('')+(MATS.some(m=>m.extra)?'<button data-x="1">Extras</button>':'');
+  document.querySelectorAll('#jump button[data-x]').forEach(b=>b.onclick=()=>{ const el=document.getElementById('pX'); if(el) el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
+  document.querySelectorAll('#jump button[data-p]').forEach(b=>b.onclick=()=>{ const cn=(D.periodos.find(p=>p.atual)||{}).numero||1, n=+b.dataset.p; if(!document.getElementById('p'+n)){ if(n<cn)SHOWP.past=true; else SHOWP.fut=true; renderHome() } const el=document.getElementById('p'+n); if(el.tagName==='DETAILS')el.open=true; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
   const eb=document.getElementById('editBtn'); eb.textContent=EDIT?'✓ Concluir':'Dar baixa nas matérias'; eb.classList.toggle('on',EDIT); eb.setAttribute('aria-pressed',EDIT);
   document.getElementById('editPanel').hidden=!EDIT;
   const curN=(D.periodos.find(p=>p.atual)||{}).numero||1;
@@ -113,20 +116,22 @@ function renderHome(){
     if(x.closed&&!EDIT){
       const tag=x.full?'<span class="pill ok">concluído · 100%</span>':'<span class="pill bad">'+x.rp.length+' '+(x.rp.length===1?'reprovada':'reprovadas')+'</span>';
       return '<details class="periodo" id="p'+p.numero+'"><summary><div class="ruler"><h2>'+p.numero+'º período</h2>'+tag+'<span class="ticks"></span><span class="tg">'+info+'</span></div></summary>'+grid+'</details>' }
-    return '<section class="periodo'+(p.atual?' now':'')+'" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2>'+(p.atual?'<span class="pill">cursando</span>':'')+'<span class="ticks"></span><span class="ct">'+info+(x.done?' · '+Math.round(x.done/x.tot*100)+'%':'')+'</span></div>'+grid+'</section>' }).join('');
+    return '<section class="periodo'+(p.atual?' now':'')+'" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2>'+(p.atual?'<span class="pill">cursando</span>':'')+'<span class="ticks"></span><span class="ct">'+info+(x.done?' · '+Math.round(x.done/x.tot*100)+'%':'')+'</span></div>'+grid+'</section>' }).join('')+extrasHTML();
 }
+function extrasHTML(){ const ex=MATS.filter(m=>m.extra); if(!ex.length||EDIT) return '';
+  return '<section class="periodo extras" id="pX"><div class="ruler"><h2>Projetos complementares</h2><span class="pill gh">extra</span><span class="ticks"></span><span class="ct">'+ex.length+(ex.length===1?' matéria':' matérias')+' fora dos semestres · não entram no progresso</span></div><div class="grid">'+ex.map(matCard).join('')+'</div></section>' }
 function renderMat(id){
   const m=MATS.find(x=>x.id===id), box=document.getElementById('materia');
   if(!m){ location.hash=''; return }
   document.title=m.sigla+' · Faculdade de Bolso';
   box.innerHTML='<a class="back" href="#">← Todas as matérias</a>'+
-    '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+'<p>'+[m.codigo||'',m.ch?m.ch+' h':'',m.professor?'Prof. '+esc(m.professor):'',ST[m.status]||''].filter(Boolean).join(' · ')+'</p>'+(aulasDe(m.id).length?'<p class="mono" style="font-size:.8rem">Aulas: '+aulasDe(m.id).map(a=>DIAS[a.dia]+' '+H.faixas[a.faixa].inicio).join(' · ')+'</p>':'')+'</div></div>'+
+    '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+onde(m)+' · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+'<p>'+[m.codigo||'',m.ch?m.ch+' h':'',m.professor?'Prof. '+esc(m.professor):'',ST[m.status]||''].filter(Boolean).join(' · ')+'</p>'+(aulasDe(m.id).length?'<p class="mono" style="font-size:.8rem">Aulas: '+aulasDe(m.id).map(a=>DIAS[a.dia]+' '+H.faixas[a.faixa].inicio).join(' · ')+'</p>':'')+'</div></div>'+
     '<div class="stbox"><span class="eyebrow">Situação</span>'+stBtns(m)+'</div>'+
     ((window.PROVAS||[]).some(x=>x.materia===m.id)?'<div class="eyebrow">Provas</div><div class="mprov">'+(typeof PR!=='undefined'?PR:[]).filter(x=>x.materia===m.id).map(provRow).join('')+'</div>':'')+
     (m.arquivos.length?(()=>{ const all=[...m.arquivos].map(a=>({...a,mat:m})).sort((a,b)=>String(b.ate||b.data).localeCompare(String(a.ate||a.data)));
       const op=all.filter(isOpen), cl=all.filter(a=>!isOpen(a));
       const upd=a=>(a.atualizacoes&&a.atualizacoes.length)?'<ul class="upd">'+[...a.atualizacoes].sort((x,y)=>y.data.localeCompare(x.data)).slice(0,6).map(u=>'<li><span>'+fdate(u.data).slice(0,5)+'</span>'+esc(u.texto)+'</li>').join('')+'</ul>':'';
-      return (op.length?'<div class="eyebrow" style="margin-bottom:8px">Oficina aberta · acumulando até a prova</div><div class="files">'+op.map(a=>fileRow(a,false)+upd(a)).join('')+'</div>':'')+
+      return (op.length?'<div class="eyebrow" style="margin-bottom:8px">'+(m.extra?'Oficina contínua · vai acumulando conteúdo':'Oficina aberta · acumulando até a prova')+'</div><div class="files">'+op.map(a=>fileRow(a,false)+upd(a)).join('')+'</div>':'')+
         (cl.length?'<div class="eyebrow" style="margin:26px 0 8px">'+(op.length?'Oficinas anteriores':'Materiais')+'</div><div class="files">'+cl.map(a=>fileRow(a,false)).join('')+'</div>':'') })()
       :'<div class="blank"><b>Nada aqui ainda</b>Os materiais desta matéria vão aparecer aqui assim que forem adicionados.</div>');
 }
@@ -140,7 +145,7 @@ function route(){
 }
 
 /* ===== revisão (cartas tipo Anki) ===== */
-function revMats(){ const cn=(D.periodos.find(p=>p.atual)||{}).numero; return MATS.filter(m=>m.periodo===cn||m.status==='cursando').map(m=>m.id) }
+function revMats(){ const cn=(D.periodos.find(p=>p.atual)||{}).numero; return MATS.filter(m=>m.periodo===cn||m.status==='cursando'||m.extra).map(m=>m.id) }
 function renderRev(){ if(window.FDB_ANKI) FDB_ANKI.montarJogo(document.getElementById('revBox'),revMats()) }
 function revBadge(){ if(!window.FDB_ANKI)return; const n=FDB_ANKI.contarDue(revMats()), b=document.getElementById('revBadge'); b.hidden=!n; b.textContent=n }
 if(window.FDB_ANKI){ FDB_ANKI.onChange(revBadge); setInterval(revBadge,60000) }
@@ -245,7 +250,7 @@ function ics(){ const pad=n=>String(n).padStart(2,'0'), f=d=>d.getFullYear()+pad
 document.getElementById('icsBtn').onclick=()=>{ const a=document.createElement('a'); a.href=URL.createObjectURL(new Blob([ics()],{type:'text/calendar'})); a.download='provas-faculdade-de-bolso.ics'; document.body.appendChild(a); a.click(); a.remove();
   document.getElementById('icsMsg').textContent='Arquivo baixado. Abra no celular ou no Google/Outlook Agenda: cada prova vem com lembrete 7 dias e 1 dia antes.' };
 
-(function(){ const sel=document.getElementById('pfMat'); const cur=MATS.filter(m=>m.status==='cursando'), rest=MATS.filter(m=>m.status!=='cursando');
+(function(){ const sel=document.getElementById('pfMat'); const cur=MATS.filter(m=>m.status==='cursando'), rest=MATS.filter(m=>m.status!=='cursando'&&!m.extra);
   sel.innerHTML=(cur.length?'<optgroup label="Cursando">'+cur.map(m=>'<option value="'+m.id+'">'+esc(m.sigla)+'</option>').join('')+'</optgroup>':'')+'<optgroup label="Todas">'+rest.map(m=>'<option value="'+m.id+'">'+m.periodo+'º · '+esc(m.sigla)+'</option>').join('')+'</optgroup>' })();
 document.getElementById('pForm').addEventListener('submit',e=>{ e.preventDefault(); const g=id=>document.getElementById(id).value.trim();
   const v=g('pfVal').replace(',','.'); MAN.push({mid:Date.now().toString(36),materia:g('pfMat'),titulo:g('pfTit'),data:g('pfData'),...(v&&isFinite(+v)?{valor:+v}:{}),...(g('pfCont')?{conteudo:g('pfCont')}:{})});
