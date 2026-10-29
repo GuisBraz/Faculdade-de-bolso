@@ -67,7 +67,15 @@ a{color:inherit}
 .results{display:grid;gap:8px;margin-top:10px}
 
 /* recentes */
-.recent{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,480px),1fr));gap:10px;margin:12px 0 38px}
+.rc{--mc:var(--accent);display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;text-decoration:none;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:9px;padding:8px 12px;transition:border-color .15s}
+.rc:hover{border-color:var(--mc)}
+.rc .ic{width:32px;height:32px;border-radius:8px;grid-row:auto}
+.rc .ic svg{width:18px;height:18px}
+.rc .rt{min-width:0}
+.rc b{display:block;font-size:.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc small{display:block;font:600 .7rem var(--f-mono);color:var(--mc)}
+.rc .go{font-weight:700;color:var(--mc)}
+.recent{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,280px),1fr));gap:10px;margin:12px 0 38px}
 
 /* períodos */
 .periodo{margin-bottom:34px}
@@ -379,7 +387,7 @@ function renderHome(){
   document.getElementById('foot').textContent=[D.aluno,D.instituicao].filter(Boolean).join(' · ');
   const rec=[...FILES].sort((a,b)=>String(b.data).localeCompare(String(a.data))).slice(0,3);
   document.getElementById('recentWrap').hidden=!rec.length;
-  document.getElementById('recent').innerHTML=rec.map(a=>fileRow(a,true)).join('');
+  document.getElementById('recent').innerHTML=rec.map(a=>'<a class="rc" style="--mc:'+esc(a.mat.cor)+'" href="'+esc(a.caminho)+'" title="'+esc(a.descricao||'')+'"><span class="ic">'+icon(a.mat.icone)+'</span><span class="rt"><b>'+esc(a.titulo)+'</b><small>'+esc(a.mat.sigla)+' · '+fdate(a.data)+'</small></span><span class="go">→</span></a>').join('');
   const pst=p=>{ const ms=MATS.filter(m=>m.periodo===p.numero); const ok=ms.filter(m=>m.status==='aprovada'), rp=ms.filter(m=>m.status==='reprovada');
     const tot=ms.reduce((a,m)=>a+(m.ch||0),0), done=ok.reduce((a,m)=>a+(m.ch||0),0);
     return {ms,ok,rp,tot,done,closed:ms.length>0&&ms.every(m=>m.status==='aprovada'||m.status==='reprovada'),full:ms.length>0&&ok.length===ms.length} };
