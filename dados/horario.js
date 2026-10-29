@@ -9,8 +9,8 @@ window.HORARIO = {
   semestre: "2º/2026",
   turno: "Noturno",
   faixas: [
-    { inicio: "19:00", fim: "20:40" },
-    { inicio: "21:00", fim: "22:40" }
+    { inicio: "19:00", fim: "20:20" },
+    { inicio: "21:00", fim: "22:20" }
   ],
   aulas: [
     { dia: 1, faixa: 0, materia: "fis1" },
