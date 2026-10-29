@@ -216,7 +216,7 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
   <div class="hwrap">
     <div class="brand">
       <div style="display:flex;align-items:center;gap:10px;min-width:0"><a href="../../index.html#m-fis1" style="font-size:.8rem;font-weight:700;color:var(--ink2);text-decoration:none;margin-right:6px" aria-label="Voltar para a Faculdade de Bolso">← Hub</a><a href="#inicio"><svg class="logo" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="7" y="9" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 13.5h6" stroke="var(--c1)" stroke-width="2.4" stroke-linecap="round"/><path d="M19.5 11l2.5 2.5-2.5 2.5" fill="none" stroke="var(--c1)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Oficina de Física</a></div>
-      <div class="prog"><span id="progtxt">0/6</span><div class="bar"><i id="progbar"></i></div></div>
+      <div class="prog"><span id="progtxt">0/10</span><div class="bar"><i id="progbar"></i></div></div>
     </div>
     <nav id="nav">
       <a href="#inicio">Início</a>
@@ -226,6 +226,10 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
       <a href="#atrito" data-m="atrito">4 · Atrito</a>
       <a href="#arrasto" data-m="arrasto">5 · Arrasto</a>
       <a href="#circular" data-m="circular">6 · Circular</a>
+      <a href="#potencial" data-m="potencial">7 · Energia potencial</a>
+      <a href="#conserva" data-m="conserva">8 · Conservação</a>
+      <a href="#curva" data-m="curva">9 · Curva de U</a>
+      <a href="#termica" data-m="termica">10 · Energia térmica</a>
       <a href="#lab">Laboratório</a>
       <a href="#problemas">Problemas resolvidos</a>
       <a href="#quiz">Quiz</a>
@@ -240,16 +244,16 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
 <section class="view" id="v-inicio">
   <div class="hero">
     <div>
-      <div class="eyebrow">Física I · Halliday, capítulos 5 e 6</div>
+      <div class="eyebrow">Física I · Halliday, capítulos 5, 6 e 8</div>
       <h1>Nada se mexe <em>sem um motivo</em>. O motivo é a força.</h1>
-      <p class="lede">Força e Movimento I e II do zero: as três leis de Newton, peso, normal, tração, atrito, arrasto e movimento circular. Cada fórmula explicada, simuladores para mexer, problemas resolvidos passo a passo e quiz.</p>
+      <p class="lede">Força e Movimento I e II e Energia Potencial do zero: leis de Newton, peso, normal, tração, atrito, arrasto, movimento circular, energia potencial e conservação da energia. Cada fórmula explicada, simuladores para mexer, problemas resolvidos passo a passo e quiz.</p>
       <div class="btns"><a class="btn" href="#forcas" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lab'">Abrir o laboratório</button></div>
     </div>
     <div class="cv sim" id="heroSim" style="aspect-ratio:1/1"><canvas></canvas><div class="lbl">plano inclinado ao vivo</div></div>
   </div>
 
   <h3 style="margin-top:0">A trilha</h3>
-  <p class="read">Os módulos 1 a 3 são o capítulo 5; os módulos 4 a 6 são o capítulo 6. Marque cada um como estudado no final da página.</p>
+  <p class="read">Os módulos 1 a 3 são o capítulo 5, os módulos 4 a 6 são o capítulo 6 e os módulos 7 a 10 são o capítulo 8 (energia). Marque cada um como estudado no final da página.</p>
   <div class="trail" id="trail"></div>
 
   <h3>O método que resolve quase tudo</h3>
@@ -474,6 +478,159 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
   <div class="done-btn" data-done="circular"></div>
 </section>
 
+<!-- ============ 7 ENERGIA POTENCIAL ============ -->
+<section class="view read" id="v-potencial" hidden>
+  <div class="eyebrow">Módulo 7 · Capítulo 8-1</div>
+  <h2>Energia potencial: energia guardada pela posição</h2>
+  <p class="lede">Uma peça pendurada na ponte rolante "guarda" energia: se o cabo soltar, ela vira velocidade. Essa energia armazenada pela posição (ou pela deformação de uma mola) é a energia potencial.</p>
+
+  <h3>Antes: trabalho e energia cinética (capítulo 7)</h3>
+  <p>O capítulo 8 usa duas ideias do 7. Em resumo:</p>
+  <div class="fx"><span class="tag">Base · capítulo 7</span>
+    <div class="eq"><i>K</i> = ½ <i>m v</i>² &nbsp;&nbsp;&nbsp; <i>W</i> = <i>F d</i> cos <i>φ</i> &nbsp;&nbsp;&nbsp; <i>W</i><sub>res</sub> = Δ<i>K</i></div>
+    <dl class="legend"><dt>K</dt><dd>energia cinética (J), a energia do movimento</dd><dt>W</dt><dd>trabalho (J) de uma força constante ao longo de um deslocamento d; φ é o ângulo entre força e deslocamento</dd><dt>W<sub>res</sub> = ΔK</dt><dd>teorema do trabalho e energia cinética: o trabalho total muda a energia cinética</dd><dt>1 J</dt><dd>1 N·m = 1 kg·m²/s²</dd></dl>
+  </div>
+
+  <h3>Trabalho e energia potencial</h3>
+  <div class="fx"><span class="tag">Fórmula 7.1 · definição</span>
+    <div class="eq">Δ<i>U</i> = −<i>W</i></div>
+    <dl class="legend"><dt>ΔU</dt><dd>variação da energia potencial do sistema</dd><dt>W</dt><dd>trabalho feito pela força conservativa (peso, mola) dentro do sistema</dd><dt>sinal</dt><dd>a gravidade faz trabalho positivo quando a bola cai, então a energia potencial <b>diminui</b></dd></dl>
+  </div>
+
+  <h3>Forças conservativas</h3>
+  <p>Uma força é <b>conservativa</b> quando o trabalho que ela faz entre dois pontos <b>não depende do caminho</b>. Num caminho fechado (sai e volta ao mesmo ponto) o trabalho total é zero.</p>
+  <div class="tbl"><table><tr><th>Conservativas</th><th>Não conservativas</th></tr>
+    <tr><td>peso (gravitacional), força elástica da mola</td><td>atrito cinético, arrasto do ar</td></tr>
+    <tr><td>a energia "volta" quando o movimento se inverte</td><td>a energia vira calor (energia térmica) e não volta sozinha</td></tr></table></div>
+  <div class="ofi"><span class="k">Na oficina</span>Levantar uma chapa de 1 m pela escada ou pelo guindaste dá o mesmo trabalho contra o peso: só importa que ela subiu 1 m. Já arrastar a mesma chapa por 10 m de piso gasta muito mais energia que arrastar por 2 m: o atrito depende do caminho.</div>
+
+  <h3>Energia potencial gravitacional</h3>
+  <div class="fx"><span class="tag">Fórmula 7.2 · gravitacional</span>
+    <div class="eq"><i>U</i> = <i>m g y</i> &nbsp;&nbsp;&nbsp; Δ<i>U</i> = <i>m g</i> Δ<i>y</i></div>
+    <dl class="legend"><dt>y</dt><dd>altura medida a partir de um <b>nível de referência</b> que você escolhe (chão, mesa, fundo do poço)</dd><dt>ΔU</dt><dd>só a <b>diferença</b> de altura importa, e ela não depende da referência escolhida</dd></dl>
+  </div>
+  <div class="cuid"><span class="k">Pegadinha</span>O valor de U muda com a referência (pode até ser negativo, abaixo dela), mas ΔU nunca muda. Escolha a referência que deixa a conta mais fácil, normalmente o ponto mais baixo.</div>
+
+  <h3>Energia potencial elástica</h3>
+  <div class="fx"><span class="tag">Fórmula 7.3 · elástica</span>
+    <div class="eq"><i>U</i> = ½ <i>k x</i>²</div>
+    <dl class="legend"><dt>k</dt><dd>constante elástica da mola (N/m): quanto mais dura, maior</dd><dt>x</dt><dd>quanto a mola está esticada ou comprimida em relação ao tamanho relaxado (m)</dd><dt>x²</dt><dd>comprimir 2 vezes mais guarda 4 vezes mais energia. Comprimida ou esticada dá o mesmo U</dd></dl>
+  </div>
+
+  <div class="calc" data-calc="pot"><h4>Calculadora de energia potencial</h4><p class="hint">Use o que precisar: gravitacional, elástica ou as duas.</p>
+    <div class="fields"><label>massa m (kg) <input type="text" id="pt-m" value="2"></label><label>altura y (m) <input type="text" id="pt-y" value="1.8"></label><label>constante k (N/m) <input type="text" id="pt-k" value="800"></label><label>deformação x (m) <input type="text" id="pt-x" value="0.15"></label></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="potencial"></div>
+</section>
+
+<!-- ============ 8 CONSERVAÇÃO ============ -->
+<section class="view read" id="v-conserva" hidden>
+  <div class="eyebrow">Módulo 8 · Capítulo 8-2</div>
+  <h2>Conservação da energia mecânica</h2>
+  <p class="lede">Sem atrito e sem arrasto, a energia só troca de forma: potencial vira cinética e cinética vira potencial. A soma das duas não muda. Esse é o atalho mais poderoso da mecânica.</p>
+
+  <div class="fx"><span class="tag">Fórmula 8.1 · energia mecânica</span>
+    <div class="eq"><i>E</i><sub>mec</sub> = <i>K</i> + <i>U</i> &nbsp;&nbsp;&nbsp; <i>K</i><sub>1</sub> + <i>U</i><sub>1</sub> = <i>K</i><sub>2</sub> + <i>U</i><sub>2</sub></div>
+    <dl class="legend"><dt>vale quando</dt><dd>só forças conservativas fazem trabalho (a normal pode existir: ela é perpendicular ao movimento e não faz trabalho)</dd><dt>1 e 2</dt><dd>dois instantes quaisquer. Você não precisa saber o que aconteceu no meio do caminho</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">Por que é tão bom</span>Num tobogã curvo, calcular a velocidade com F = ma seria um pesadelo (a inclinação muda a cada ponto). Com energia: mgh = ½mv², pronto. A forma do tobogã não importa.</div>
+
+  <h3>Receita</h3>
+  <ol class="recipe">
+    <li><span>Confira: não há atrito nem arrasto? Então E<sub>mec</sub> se conserva.</span></li>
+    <li><span>Escolha a referência de altura (y = 0) no ponto mais baixo.</span></li>
+    <li><span>Escreva K + U no ponto 1 e no ponto 2. Inclua ½kx² se houver mola.</span></li>
+    <li><span>Iguale e isole o que pede. A massa costuma cancelar quando só há gravidade.</span></li>
+  </ol>
+
+  <h3>Simulador: montanha-russa</h3>
+  <p>Solte o carrinho e veja as barras: o que some de U aparece em K. Com atrito ligado, surge a barra de energia térmica e o carrinho nunca mais volta à altura inicial.</p>
+  <div class="cv sim" id="energySim" style="aspect-ratio:16/10"><canvas></canvas></div>
+  <div class="simctl" id="energyCtl"></div>
+  <div class="btns" style="margin-top:4px"><button type="button" id="energyGo">Soltar</button><button type="button" class="ghost" id="energyReset">Reiniciar</button></div>
+
+  <div class="ex" data-ex><div class="q">Uma criança de 25 kg parte do repouso no topo de um tobogã sem atrito de 8,5 m de altura. Com que velocidade chega embaixo?</div>
+    <ol><li>Sem atrito: K₁ + U₁ = K₂ + U₂.</li><li>Referência no fim do tobogã: U₁ = mgh, K₁ = 0 (repouso), U₂ = 0.</li><li>mgh = ½mv² → a massa cancela → v = √(2gh) = √(2·9,8·8,5) = √166,6.</li></ol>
+    <div class="ans">v ≈ 12,9 m/s, para qualquer massa e qualquer formato de tobogã</div></div>
+
+  <h3>Com mola</h3>
+  <div class="calc" data-calc="cons"><h4>Calculadora de conservação</h4><p class="hint">Estado 1 → estado 2, sem atrito. Deixe k = 0 se não houver mola.</p>
+    <div class="fields"><label>massa (kg) <input type="text" id="cs-m" value="2"></label><label>altura no início y₁ (m) <input type="text" id="cs-y1" value="0"></label><label>velocidade no início v₁ (m/s) <input type="text" id="cs-v1" value="3"></label><label>altura no fim y₂ (m) <input type="text" id="cs-y2" value="0"></label><label>mola k (N/m) <input type="text" id="cs-k" value="800"></label><label>mola: x₁ no início (m) <input type="text" id="cs-x1" value="0"></label><label>mola: x₂ no fim (m) <input type="text" id="cs-x2" value="0.15"></label></div>
+    <div class="out"></div></div>
+  <div class="cuid"><span class="k">Pegadinha</span>Se a conta der K₂ negativo, o corpo <b>não chega</b> ao ponto 2. Ele para antes e volta: é um ponto de retorno (próximo módulo).</div>
+
+  <div class="done-btn" data-done="conserva"></div>
+</section>
+
+<!-- ============ 9 CURVA DE EP ============ -->
+<section class="view read" id="v-curva" hidden>
+  <div class="eyebrow">Módulo 9 · Capítulo 8-3</div>
+  <h2>Lendo uma curva de energia potencial</h2>
+  <p class="lede">O gráfico U(x) é um mapa: mostra para onde a força empurra, onde o corpo para e volta, e onde ele pode ficar em equilíbrio.</p>
+
+  <div class="fx"><span class="tag">Fórmula 9.1 · força a partir de U</span>
+    <div class="eq"><i>F</i>(<i>x</i>) = −<span class="fr"><span><i>dU</i></span><span><i>dx</i></span></span></div>
+    <dl class="legend"><dt>leitura</dt><dd>a força é menos a inclinação da curva. Curva subindo → força para a esquerda (−x). Curva descendo → força para a direita (+x)</dd><dt>imagem</dt><dd>pense numa bolinha numa pista com esse formato: ela sempre "rola morro abaixo"</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 9.2 · energia cinética no gráfico</span>
+    <div class="eq"><i>K</i>(<i>x</i>) = <i>E</i><sub>mec</sub> − <i>U</i>(<i>x</i>)</div>
+    <dl class="legend"><dt>E<sub>mec</sub></dt><dd>linha horizontal no gráfico (constante)</dd><dt>K</dt><dd>a distância entre a linha E<sub>mec</sub> e a curva. Como K ≥ 0, o corpo só existe onde U ≤ E<sub>mec</sub></dd></dl>
+  </div>
+  <div class="tbl"><table><tr><th>No gráfico</th><th>Significado</th></tr>
+    <tr><td>U(x) = E<sub>mec</sub></td><td><b>ponto de retorno</b>: K = 0, o corpo para e volta</td></tr>
+    <tr><td>U(x) &gt; E<sub>mec</sub></td><td>região <b>proibida</b>: o corpo não chega lá</td></tr>
+    <tr><td>fundo de vale (mínimo)</td><td>equilíbrio <b>estável</b>: deslocou um pouco, volta</td></tr>
+    <tr><td>topo de morro (máximo)</td><td>equilíbrio <b>instável</b>: qualquer toque e ele sai</td></tr>
+    <tr><td>trecho plano</td><td>equilíbrio <b>neutro</b>: F = 0 em toda a região</td></tr></table></div>
+
+  <h3>Explore</h3>
+  <p>Mova a linha de energia e a posição da partícula. As regiões cinza são proibidas para aquela energia.</p>
+  <div class="cv sim" id="uSim" style="aspect-ratio:16/10"><canvas></canvas></div>
+  <div class="simctl" id="uCtl"></div>
+  <div class="out simout" id="uOut"></div>
+
+  <div class="done-btn" data-done="curva"></div>
+</section>
+
+<!-- ============ 10 ENERGIA TÉRMICA E CONSERVAÇÃO GERAL ============ -->
+<section class="view read" id="v-termica" hidden>
+  <div class="eyebrow">Módulo 10 · Capítulo 8-4 e 8-5</div>
+  <h2>Atrito, energia térmica e a conservação de tudo</h2>
+  <p class="lede">Com atrito a energia mecânica diminui, mas não some: vira calor nas superfícies. Contando todas as formas, a energia total sempre se conserva.</p>
+
+  <h3>Trabalho de uma força externa</h3>
+  <div class="fx"><span class="tag">Fórmula 10.1 · sem atrito</span>
+    <div class="eq"><i>W</i> = Δ<i>E</i><sub>mec</sub> = Δ<i>K</i> + Δ<i>U</i></div>
+    <dl class="legend"><dt>W</dt><dd>trabalho de uma força de fora do sistema (sua mão, um motor, um cabo)</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 10.2 · com atrito</span>
+    <div class="eq"><i>W</i> = Δ<i>E</i><sub>mec</sub> + Δ<i>E</i><sub>t</sub> &nbsp;&nbsp;&nbsp; Δ<i>E</i><sub>t</sub> = <i>f<sub>k</sub> d</i></div>
+    <dl class="legend"><dt>ΔE<sub>t</sub></dt><dd>aumento da energia térmica (o "esquentar" do bloco e do piso)</dd><dt>f<sub>k</sub></dt><dd>atrito cinético = μ<sub>k</sub>N (módulo 4!)</dd><dt>d</dt><dd>distância percorrida deslizando</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">Na oficina</span>Lixar ou esmerilhar uma peça: todo o trabalho da máquina contra o atrito vira calor. Por isso a peça esquenta e a ferramenta precisa de refrigeração.</div>
+
+  <h3>Lei de conservação da energia</h3>
+  <div class="fx"><span class="tag">Fórmula 10.3 · conservação geral</span>
+    <div class="eq"><i>W</i> = Δ<i>E</i> = Δ<i>E</i><sub>mec</sub> + Δ<i>E</i><sub>t</sub> + Δ<i>E</i><sub>int</sub></div>
+    <dl class="legend"><dt>ΔE<sub>int</sub></dt><dd>outras formas internas (química, nos músculos ou num combustível)</dd><dt>sistema isolado</dt><dd>W = 0: a energia total não muda, só troca de forma</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 10.4 · potência</span>
+    <div class="eq"><i>P</i><sub>méd</sub> = <span class="fr"><span>Δ<i>E</i></span><span>Δ<i>t</i></span></span> &nbsp;&nbsp;&nbsp; <i>P</i> = <span class="fr"><span><i>dE</i></span><span><i>dt</i></span></span></div>
+    <dl class="legend"><dt>P</dt><dd>rapidez com que a energia é transferida, em watts (1 W = 1 J/s)</dd><dt>escala</dt><dd>1 cv ≈ 735 W; um motor de ponte rolante tem alguns kW</dd></dl>
+  </div>
+
+  <div class="ex" data-ex><div class="q">Um caixote de 15 kg parte do repouso e é empurrado por 5,0 m com força horizontal de 40 N, μ<sub>k</sub> = 0,20. Quanto vira energia térmica e qual a velocidade no fim?</div>
+    <ol><li>Trabalho da força: W = 40 · 5,0 = 200 J.</li><li>Atrito: f<sub>k</sub> = 0,20 · 15 · 9,8 = 29,4 N → ΔE<sub>t</sub> = 29,4 · 5,0 = 147 J.</li><li>Piso plano (ΔU = 0): W = ΔK + ΔE<sub>t</sub> → ΔK = 200 − 147 = 53 J.</li><li>½ · 15 · v² = 53 → v² = 7,07.</li></ol>
+    <div class="ans">ΔE<sub>t</sub> = 147 J · v ≈ 2,7 m/s</div></div>
+
+  <div class="calc" data-calc="term"><h4>Bloco deslizando com atrito</h4><p class="hint">Piso plano: quanto vira calor e onde o bloco para.</p>
+    <div class="fields"><label>massa (kg) <input type="text" id="tm-m" value="15"></label><label>velocidade inicial (m/s) <input type="text" id="tm-v" value="6"></label><label>μk <input type="text" id="tm-u" value="0.2"></label><label>distância d (m) <input type="text" id="tm-d" value="5"></label></div>
+    <div class="out"></div></div>
+
+  <div class="done-btn" data-done="termica"></div>
+</section>
+
 <!-- ============ LAB ============ -->
 <section class="view" id="v-lab" hidden>
   <div class="eyebrow">Laboratório</div>
@@ -482,6 +639,8 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
   <div class="labgrid2">
     <div><h3 style="margin-top:20px">Plano inclinado com atrito</h3><div class="cv sim" id="labIncl" style="aspect-ratio:16/10"><canvas></canvas><div class="lbl" id="labInclLbl"></div></div><div class="simctl" id="labInclCtl"></div><div class="out simout" id="labInclOut"></div></div>
     <div><h3 style="margin-top:20px">Elevador e balança</h3><div class="cv sim" id="labElev" style="aspect-ratio:16/10"><canvas></canvas></div><div class="simctl" id="labElevCtl"></div></div>
+    <div><h3 style="margin-top:20px">Montanha-russa: energia</h3><div class="cv sim" id="labEnergy" style="aspect-ratio:16/10"><canvas></canvas></div><div class="simctl" id="labEnergyCtl"></div><div class="btns" style="margin-top:4px"><button type="button" id="labEnergyGo">Soltar</button><button type="button" class="ghost" id="labEnergyReset">Reiniciar</button></div></div>
+    <div><h3 style="margin-top:20px">Curva de energia potencial</h3><div class="cv sim" id="labU" style="aspect-ratio:16/10"><canvas></canvas></div><div class="simctl" id="labUCtl"></div><div class="out simout" id="labUOut"></div></div>
     <div><h3 style="margin-top:20px">Carro na curva</h3><div class="cv sim" id="labCurve" style="aspect-ratio:16/10"><canvas></canvas></div><div class="simctl" id="labCurveCtl"></div><div class="out simout" id="labCurveOut"></div></div>
   </div>
 </section>
@@ -506,7 +665,7 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
 <!-- ============ COLA ============ -->
 <section class="view" id="v-cola" hidden>
   <div class="eyebrow">Revisão de véspera</div>
-  <h2>Capítulos 5 e 6 numa folha</h2>
+  <h2>Capítulos 5, 6 e 8 numa folha</h2>
   <p class="lede read">g = 9,8 m/s². Tire um print desta tela.</p>
   <div class="cola" style="margin-top:20px">
     <div class="fx"><span class="tag">2ª lei</span><div class="eq">Σ<i>F</i>⃗ = <i>m</i><i>a</i>⃗</div><p>em cada eixo: ΣF<sub>x</sub> = ma<sub>x</sub>, ΣF<sub>y</sub> = ma<sub>y</sub></p></div>
@@ -525,11 +684,19 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
     <div class="fx"><span class="tag">Curva plana</span><div class="eq"><i>v</i><sub>máx</sub> = <span class="rt"><span><i>μ<sub>s</sub>gR</i></span></span></div><p>atrito faz a centrípeta</p></div>
     <div class="fx"><span class="tag">Curva compensada</span><div class="eq">tg θ = <i>v</i>²/(<i>gR</i>)</div><p>sem precisar de atrito</p></div>
     <div class="fx"><span class="tag">Loop (topo)</span><div class="eq"><i>v</i><sub>mín</sub> = <span class="rt"><span><i>gR</i></span></span></div><p>N = 0 no limite</p></div>
+    <div class="fx"><span class="tag">Energia cinética · trabalho</span><div class="eq"><i>K</i> = ½<i>mv</i>², &nbsp;<i>W</i> = <i>Fd</i> cos φ</div><p>W<sub>res</sub> = ΔK</p></div>
+    <div class="fx"><span class="tag">Potencial e trabalho</span><div class="eq">Δ<i>U</i> = −<i>W</i></div><p>só para forças conservativas</p></div>
+    <div class="fx"><span class="tag">U gravitacional</span><div class="eq"><i>U</i> = <i>mgy</i></div><p>só ΔU importa; escolha a referência</p></div>
+    <div class="fx"><span class="tag">U elástica</span><div class="eq"><i>U</i> = ½<i>kx</i>²</div><p>x = deformação da mola</p></div>
+    <div class="fx"><span class="tag">Conservação (sem atrito)</span><div class="eq"><i>K</i>₁ + <i>U</i>₁ = <i>K</i>₂ + <i>U</i>₂</div><p>tobogã: v = √(2gh)</p></div>
+    <div class="fx"><span class="tag">Curva de U(x)</span><div class="eq"><i>F</i> = −<i>dU</i>/<i>dx</i>, &nbsp;<i>K</i> = <i>E</i> − <i>U</i></div><p>retorno: U = E · vale estável · morro instável</p></div>
+    <div class="fx"><span class="tag">Com atrito</span><div class="eq"><i>W</i> = Δ<i>E</i><sub>mec</sub> + Δ<i>E</i><sub>t</sub></div><p>ΔE<sub>t</sub> = f<sub>k</sub>d</p></div>
+    <div class="fx"><span class="tag">Potência</span><div class="eq"><i>P</i> = Δ<i>E</i>/Δ<i>t</i></div><p>1 W = 1 J/s · 1 cv ≈ 735 W</p></div>
   </div>
 </section>
 
 </main>
-<footer>Oficina de Física · material de apoio aos capítulos 5 e 6 de Halliday, Fundamentos de Física vol. 1 (10ª ed.) · feito por Guilherme Braz</footer>
+<footer>Oficina de Física · material de apoio aos capítulos 5, 6 e 8 de Halliday, Fundamentos de Física vol. 1 (10ª ed.) · feito por Guilherme Braz</footer>
 
 <script>
 const G=9.8;
@@ -714,11 +881,11 @@ function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHT
 function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · pronto para a prova!':ok>=9?' · quase lá':' · revise os módulos'):'') }
 
 /* ===== progresso ===== */
-const MODS=[['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops']];
+const MODS=[['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops'],['potencial','Energia potencial','U = mgy, U = ½kx² e forças conservativas'],['conserva','Conservação da energia','K + U constante, tobogãs e molas'],['curva','Curva de energia potencial','Retorno, equilíbrio e F = −dU/dx'],['termica','Energia térmica e potência','Atrito, ΔEt e P = ΔE/Δt']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('fis-done')||'{}'); qa=JSON.parse(localStorage.getItem('fis-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('fis-done',JSON.stringify(done)); localStorage.setItem('fis-quiz',JSON.stringify(qa)) }catch(e){} }
-function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getElementById('progtxt').textContent=n+'/6 módulos'; document.getElementById('progbar').style.width=(n/6*100)+'%';
+function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getElementById('progtxt').textContent=n+'/'+MODS.length+' módulos'; document.getElementById('progbar').style.width=(n/MODS.length*100)+'%';
   document.getElementById('trail').innerHTML=MODS.map((m,i)=>'<a class="stop'+(done[m[0]]?' done':'')+'" href="#'+m[0]+'"><span class="n">'+(done[m[0]]?'✓':i+1)+'</span><b>'+m[1]+'</b><span>'+m[2]+'</span></a>').join('')+
     '<a class="stop" href="#problemas"><span class="n">P</span><b>Problemas resolvidos</b><span>'+PROBS.length+' problemas, um passo de cada vez</span></a><a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
   document.querySelectorAll('#nav a[data-m]').forEach(a=>{ a.querySelector('.dn')?.remove(); if(done[a.dataset.m])a.insertAdjacentHTML('beforeend','<i class="dn"></i>') });
@@ -727,12 +894,108 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getEl
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ===== rotas ===== */
-const VIEWS=['inicio','forcas','newton','aplic','atrito','arrasto','circular','lab','problemas','quiz','cola'];
+const VIEWS=['inicio','forcas','newton','aplic','atrito','arrasto','circular','potencial','conserva','curva','termica','lab','problemas','quiz','cola'];
 let sims=[];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
   window.scrollTo(0,0); requestAnimationFrame(()=>sims.forEach(s=>s&&s.resize())) }
+
+/* ===== capítulo 8 ===== */
+function bars(x,X,Y,W,H,items,emax){ const bw=Math.min(34,(W-10)/items.length-8); x.font='600 11px "JetBrains Mono", monospace';
+  items.forEach((it,i)=>{ const bx=X+i*(bw+10), hgt=emax>0?Math.max(0,it.v)/emax*H:0; x.fillStyle=tok('line'); x.fillRect(bx,Y,bw,H); x.fillStyle=tok(it.c); x.fillRect(bx,Y+H-hgt,bw,hgt); x.fillStyle=tok('ink'); x.textAlign='center'; x.fillText(it.l,bx+bw/2,Y+H+14); x.fillStyle=tok('ink2'); x.fillText(dec(it.v,0),bx+bw/2,Y-6) }); x.textAlign='left' }
+
+/* montanha-russa */
+function EnergySim(box,ctlEl,goBtn,resetBtn){ const trk=x=>2.5+2.3*Math.cos(.75*x)+.1*x, dtrk=x=>-2.3*.75*Math.sin(.75*x)+.1, X1=12;
+  let p={x0:.4,m:50,mu:0}, st, run=false, last=0;
+  const reset=()=>{ const y=trk(p.x0); st={x:p.x0,dir:1,E:p.m*G*y,Et:0,Ei:p.m*G*y}; run=false; goBtn.textContent='Soltar'; cv.draw() };
+  const cv=new Cv(box,(x,w,h)=>{ if(!st)return; const bwArea=Math.min(190,w*.32), L=28, R=w-bwArea-20, T=26, B=h-28, ymax=6.5, sx=v=>L+v/X1*(R-L), sy=v=>B-v/ymax*(B-T);
+    x.strokeStyle=tok('line'); x.lineWidth=1; for(let i=0;i<=6;i++){ x.beginPath(); x.moveTo(L,sy(i)); x.lineTo(R,sy(i)); x.stroke(); x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace'; x.fillText(i+' m',2,sy(i)+3) }
+    x.beginPath(); for(let i=0;i<=200;i++){ const xx=i/200*X1; i?x.lineTo(sx(xx),sy(trk(xx))):x.moveTo(sx(xx),sy(trk(xx))) } x.lineTo(R,B); x.lineTo(L,B); x.closePath(); x.fillStyle=tok('line'); x.globalAlpha=.5; x.fill(); x.globalAlpha=1;
+    x.strokeStyle=tok('ink'); x.lineWidth=2.4; x.beginPath(); for(let i=0;i<=200;i++){ const xx=i/200*X1; i?x.lineTo(sx(xx),sy(trk(xx))):x.moveTo(sx(xx),sy(trk(xx))) } x.stroke();
+    const yE=st.E/(p.m*G); x.setLineDash([6,5]); x.strokeStyle=tok('c1'); x.lineWidth=1.4; x.beginPath(); x.moveTo(L,sy(yE)); x.lineTo(R,sy(yE)); x.stroke(); x.setLineDash([]); x.fillStyle=tok('c1'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('altura máxima possível',L+4,sy(yE)-5);
+    const yy=trk(st.x), sl=dtrk(st.x), nl=Math.hypot(1,sl), nx=-sl/nl, ny=1/nl, px=sx(st.x)-nx*0, py=sy(yy);
+    x.fillStyle=tok('c3'); x.beginPath(); x.arc(px+(-sl/nl)*-9*0,py-9,9,0,7); x.fill();
+    const U=p.m*G*yy, K=Math.max(0,st.E-U); bars(x,R+24,T+16,bwArea,B-T-34,[{l:'K',v:K,c:'c2'},{l:'U',v:U,c:'c3'},{l:'Et',v:st.Et,c:'bad'},{l:'Total',v:K+U+st.Et,c:'ink'}],st.Ei*1.05);
+    x.fillStyle=tok('ink2'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('energia (J)',R+24,T); x.fillText('v = '+dec(Math.sqrt(2*K/p.m),1)+' m/s · y = '+dec(yy,2)+' m',L+4,T-8) });
+  const step=t=>{ const dt=Math.min(.03,(t-last)/1000||0); last=t;
+    if(run&&box.offsetParent){ for(let k=0;k<6;k++){ const h=dt/6, y=trk(st.x), K=st.E-p.m*G*y; let v=Math.sqrt(Math.max(0,2*K/p.m)); const sl=dtrk(st.x), ds=1/Math.sqrt(1+sl*sl);
+        if(K<=1e-6||v<.05){ const a=-G*sl*ds; st.dir=a>=0?1:-1; v=.05 }
+        const dx=st.dir*v*ds*h; let nx=st.x+dx; if(nx<0){ nx=0; st.dir=1 } if(nx>X1){ nx=X1; st.dir=-1 }
+        const dist=Math.abs(nx-st.x)*Math.sqrt(1+sl*sl), loss=p.mu*p.m*G*ds*dist; if(p.mu>0){ st.E-=loss; st.Et+=loss }
+        const yn=trk(nx); if(st.E-p.m*G*yn<0){ st.dir*=-1; } else st.x=nx; if(p.mu>0&&st.E-p.m*G*trk(st.x)<.5&&Math.abs(dtrk(st.x))<.08){ run=false; goBtn.textContent='Parou' } }
+      cv.draw() } requestAnimationFrame(step) }; requestAnimationFrame(step);
+  goBtn.onclick=()=>{ if(goBtn.textContent==='Parou')reset(); run=!run; goBtn.textContent=run?'Pausar':'Continuar' }; resetBtn.onclick=reset;
+  controls(ctlEl,[{k:'x0',l:'ponto de partida',min:0,max:3,st:.1,v:p.x0,d:1,u:' m'},{k:'m',l:'massa',min:10,max:100,st:5,v:p.m,d:0,u:' kg'},{k:'mu',l:'atrito (μk)',min:0,max:.15,st:.01,v:p.mu}],val=>{ p={...p,...val}; reset() });
+  return cv }
+
+/* curva de energia potencial */
+function USim(box,ctlEl,outEl){ const U=x=>4+3*Math.sin(1.1*x)+.12*(x-5)**2, dU=x=>3*1.1*Math.cos(1.1*x)+.24*(x-5), X0=0,X1=10;
+  let E=6, xp=4.2;
+  const eq=[]; for(let i=0;i<1000;i++){ const a=X0+i/1000*(X1-X0), b=a+(X1-X0)/1000; if(dU(a)*dU(b)<0){ const m=(a+b)/2; eq.push({x:m,est:dU(b)>0}) } }
+  const cv=new Cv(box,(x,w,h)=>{ const L=40,R=w-14,T=18,B=h-30, umax=12, sx=v=>L+(v-X0)/(X1-X0)*(R-L), sy=v=>B-v/umax*(B-T);
+    x.fillStyle=tok('line'); for(let i=0;i<400;i++){ const a=X0+i/400*(X1-X0); if(U(a)>E){ x.globalAlpha=.55; x.fillRect(sx(a),T,(R-L)/400+1,B-T); x.globalAlpha=1 } }
+    x.strokeStyle=tok('line'); x.lineWidth=1; x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace';
+    for(let i=0;i<=12;i+=2){ x.beginPath(); x.moveTo(L,sy(i)); x.lineTo(R,sy(i)); x.stroke(); x.fillText(i+' J',4,sy(i)+3) } for(let i=0;i<=10;i+=2) x.fillText(i+' m',sx(i)-8,h-12);
+    x.strokeStyle=tok('c3'); x.lineWidth=2.6; x.beginPath(); for(let i=0;i<=300;i++){ const a=X0+i/300*(X1-X0); i?x.lineTo(sx(a),sy(U(a))):x.moveTo(sx(a),sy(U(a))) } x.stroke();
+    x.strokeStyle=tok('c1'); x.lineWidth=1.8; x.setLineDash([6,5]); x.beginPath(); x.moveTo(L,sy(E)); x.lineTo(R,sy(E)); x.stroke(); x.setLineDash([]); x.fillStyle=tok('c1'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('Emec = '+dec(E,1)+' J',R-110,sy(E)-6);
+    eq.forEach(q=>{ x.fillStyle=q.est?tok('ok'):tok('bad'); x.beginPath(); x.arc(sx(q.x),sy(U(q.x)),4,0,7); x.fill(); x.font='10px "JetBrains Mono", monospace'; x.fillText(q.est?'estável':'instável',sx(q.x)-20,sy(U(q.x))+(q.est?16:-8)) });
+    const ux=U(xp), ok=ux<=E; x.strokeStyle=tok('c2'); x.lineWidth=1.4; if(ok){ x.beginPath(); x.moveTo(sx(xp),sy(ux)); x.lineTo(sx(xp),sy(E)); x.stroke(); x.fillStyle=tok('c2'); x.fillText('K',sx(xp)+5,(sy(ux)+sy(E))/2) }
+    x.fillStyle=ok?tok('ink'):tok('bad'); x.beginPath(); x.arc(sx(xp),sy(ux),7,0,7); x.fill();
+    const F=-dU(xp); if(Math.abs(F)>.05) arrow(x,sx(xp),sy(ux)-18,Math.sign(F)*Math.min(60,Math.abs(F)*14),0,tok('c1'),'F') });
+  const render=()=>{ cv.draw(); const ux=U(xp), F=-dU(xp), K=E-ux; const tp=[]; for(let i=0;i<1000;i++){ const a=X0+i/1000*(X1-X0), b=a+(X1-X0)/1000; if((U(a)-E)*(U(b)-E)<0) tp.push((a+b)/2) }
+    outEl.innerHTML='<ol><li>Em x = '+dec(xp,1)+' m: U = '+dec(ux,2)+' J</li><li>K = Emec − U = '+dec(E,1)+' − '+dec(ux,2)+' = '+(K>=0?dec(K,2)+' J':'<b>negativo: região proibida</b>, a partícula não pode estar aqui com essa energia')+'</li>'+
+      '<li>F = −dU/dx = '+dec(F,2)+' N → '+(Math.abs(F)<.05?'quase zero (perto de um equilíbrio)':F>0?'empurra para +x (a curva desce para a direita)':'empurra para −x (a curva sobe para a direita)')+'</li>'+
+      '<li>Pontos de retorno com essa energia: '+(tp.length?tp.map(t=>'x ≈ '+dec(t,1)+' m').join(', '):'nenhum dentro do gráfico')+'</li></ol>' };
+  controls(ctlEl,[{k:'E',l:'energia mecânica Emec',min:1,max:12,st:.1,v:E,d:1,u:' J'},{k:'xp',l:'posição da partícula x',min:0,max:10,st:.1,v:xp,d:1,u:' m'}],val=>{ E=val.E; xp=val.xp; render() });
+  return cv }
+
+Object.assign(CALCS,{
+ pot(){ const m=num('pt-m'),y=num('pt-y'),k=num('pt-k'),xx=num('pt-x'); const Ug=m*G*y, Ue=.5*k*xx*xx;
+  return [['Gravitacional: U = mgy = '+dec(m,1)+' · 9,8 · '+dec(y,2)+' = '+dec(Ug)+' J (em relação a y = 0)','Trabalho do peso se cair até y = 0: W = −ΔU = +'+dec(Ug)+' J','Elástica: U = ½kx² = ½ · '+dec(k,0)+' · '+dec(xx,3)+'² = '+dec(Ue,3)+' J'],'U gravitacional = '+dec(Ug)+' J · U elástica = '+dec(Ue,3)+' J'] },
+ cons(){ const m=num('cs-m'),y1=num('cs-y1'),v1=num('cs-v1'),y2=num('cs-y2'),k=num('cs-k'),x1=num('cs-x1'),x2=num('cs-x2'); if(m<=0)throw new Error('A massa precisa ser positiva.');
+  const K1=.5*m*v1*v1, U1=m*G*y1+.5*k*x1*x1, U2=m*G*y2+.5*k*x2*x2, K2=K1+U1-U2;
+  const st=['Início: K₁ = ½mv₁² = '+dec(K1)+' J · U₁ = mgy₁ + ½kx₁² = '+dec(U1)+' J → Emec = '+dec(K1+U1)+' J','Fim: U₂ = mgy₂ + ½kx₂² = '+dec(U2)+' J','K₂ = Emec − U₂ = '+dec(K2)+' J'];
+  if(K2<-1e-9){ st.push('K₂ negativo: o corpo não chega a esse estado; ele para antes e volta.'); return [st,'Não alcança o estado 2'] }
+  return [st,'v₂ = √(2K₂/m) = '+dec(Math.sqrt(2*K2/m))+' m/s'] },
+ term(){ const m=num('tm-m'),v=num('tm-v'),u=num('tm-u'),d=num('tm-d'); if(m<=0||u<0||d<0)throw new Error('Use massa positiva, μ e d não negativos.');
+  const K0=.5*m*v*v, fk=u*m*G, dmax=fk>0?K0/fk:Infinity, dd=Math.min(d,dmax), Et=fk*dd, K=K0-Et;
+  const st=['K inicial = ½mv² = '+dec(K0)+' J','Atrito: fk = μk·m·g = '+dec(fk)+' N','Distância até parar: K/fk = '+(isFinite(dmax)?dec(dmax)+' m':'nunca (sem atrito)')];
+  st.push(d>dmax?'O bloco para antes dos '+dec(d)+' m: toda a energia cinética vira térmica.':'Em '+dec(d)+' m: ΔEt = fk·d = '+dec(Et)+' J; sobra K = '+dec(K)+' J');
+  return [st,'ΔEt = '+dec(Et)+' J · v final = '+dec(Math.sqrt(Math.max(0,2*K/m)))+' m/s'] }
+});
+
+PROBS.push(
+ {n:'14',m:'potencial · referência',q:'Um livro de 2,0 kg está numa prateleira a 1,8 m do chão. Uma mesa tem 0,80 m de altura. Ache a energia potencial do livro em relação ao chão e em relação ao tampo da mesa, e a variação ΔU se ele cair até o chão.',
+  s:['Em relação ao chão: U = mgy = 2,0 · 9,8 · 1,8 = 35,3 J.','Em relação à mesa: y = 1,8 − 0,80 = 1,0 m → U = 19,6 J.','Queda até o chão: Δy = −1,8 m nos dois casos → ΔU = 2,0 · 9,8 · (−1,8) = −35,3 J.'],a:'35,3 J (chão) · 19,6 J (mesa) · ΔU = −35,3 J em qualquer referência'},
+ {n:'15',m:'potencial · conservativa',q:'Uma bola de 0,50 kg desce 3,0 m de altura de dois jeitos: caindo na vertical ou rolando por uma rampa curva sem atrito. Qual o trabalho do peso em cada caso?',
+  s:['O peso é conservativo: o trabalho só depende das alturas inicial e final.','W = −ΔU = mgh = 0,50 · 9,8 · 3,0.'],a:'14,7 J nos dois caminhos'},
+ {n:'16',m:'conservação · tobogã',q:'Uma criança de 25 kg parte do repouso no topo de um tobogã sem atrito de 8,5 m. Qual a velocidade embaixo?',
+  s:['K₁ + U₁ = K₂ + U₂ com referência embaixo.','0 + mgh = ½mv² + 0 → v = √(2gh).','v = √(2 · 9,8 · 8,5) = √166,6.'],a:'v ≈ 12,9 m/s'},
+ {n:'17',m:'conservação · mola',q:'Um bloco de 2,0 kg a 3,0 m/s, num piso sem atrito, bate numa mola de k = 800 N/m. Qual a compressão máxima?',
+  s:['Na compressão máxima o bloco para: toda a K vira U elástica.','½mv² = ½kx² → x = v√(m/k).','x = 3,0 · √(2,0/800) = 3,0 · 0,050.'],a:'x = 0,15 m'},
+ {n:'18',m:'conservação · mola vertical',q:'Uma mola de k = 500 N/m está comprimida 0,20 m e lança verticalmente uma bola de 0,10 kg. Que altura a bola sobe acima do ponto de compressão?',
+  s:['Energia na mola: ½kx² = ½ · 500 · 0,040 = 10 J.','No topo, toda ela virou U gravitacional: mgh = 10 J.','h = 10 / (0,10 · 9,8).'],a:'h ≈ 10,2 m'},
+ {n:'19',m:'curva de EP',q:'Uma partícula de 2,0 kg tem Emec = 5,0 J. Num ponto onde U = 2,0 J, qual sua velocidade? E onde U = 6,0 J?',
+  s:['K = Emec − U.','Onde U = 2,0 J: K = 3,0 J → v = √(2K/m) = √3,0.','Onde U = 6,0 J: K seria −1,0 J, impossível. A partícula nunca chega lá (região proibida); ela retorna onde U = 5,0 J.'],a:'v ≈ 1,7 m/s · não alcança U = 6,0 J'},
+ {n:'20',m:'energia térmica',q:'Um caixote de 15 kg parte do repouso e é empurrado 5,0 m por 40 N horizontais, μk = 0,20. Ache ΔEt e a velocidade final.',
+  s:['W = Fd = 200 J.','ΔEt = μk mg d = 0,20 · 15 · 9,8 · 5,0 = 147 J.','W = ΔK + ΔEt → ΔK = 53 J → v = √(2 · 53/15).'],a:'ΔEt = 147 J · v ≈ 2,7 m/s'},
+ {n:'21',m:'energia térmica · perdas',q:'Um esquiador de 60 kg parte do repouso, desce 20 m de altura e chega embaixo a 15 m/s. Quanta energia virou térmica?',
+  s:['Energia inicial: mgh = 60 · 9,8 · 20 = 11 760 J.','Energia cinética final: ½ · 60 · 15² = 6 750 J.','Sem trabalho externo: ΔEmec + ΔEt = 0 → ΔEt = 11 760 − 6 750.'],a:'ΔEt ≈ 5,0 kJ (43% da energia virou calor)'},
+ {n:'22',m:'potência',q:'Um elevador de 800 kg sobe 20 m com velocidade constante em 10 s. Qual a potência média do motor?',
+  s:['Velocidade constante: ΔK = 0, todo o trabalho vira U.','ΔE = mgh = 800 · 9,8 · 20 = 156 800 J.','P = ΔE/Δt = 156 800 / 10.'],a:'P ≈ 15,7 kW (≈ 21 cv)'}
+);
+QUIZ.push(
+ ['O trabalho do peso para levar uma caixa do chão a uma prateleira…',['depende do caminho','só depende da diferença de altura','é sempre zero','depende da velocidade'],1,'O peso é conservativo: W = −mgΔy, qualquer que seja o caminho.'],
+ ['Qual destas forças NÃO é conservativa?',['peso','força elástica','atrito cinético','todas são'],2,'O atrito transforma energia mecânica em térmica e o trabalho dele depende do caminho.'],
+ ['Mudar o nível de referência da energia potencial gravitacional muda…',['U e ΔU','só U','só ΔU','nada'],1,'O valor de U depende da referência, mas a variação ΔU = mgΔy não.'],
+ ['Comprimir uma mola o dobro faz a energia armazenada ficar…',['o dobro','4 vezes maior','igual','metade'],1,'U = ½kx²: depende do quadrado da deformação.'],
+ ['Duas bolas, uma de 1 kg e outra de 5 kg, descem o mesmo tobogã sem atrito a partir do repouso. Embaixo…',['a de 5 kg é mais rápida','a de 1 kg é mais rápida','têm a mesma velocidade','depende do formato'],2,'mgh = ½mv² → v = √(2gh). A massa cancela.'],
+ ['Num gráfico U(x), um ponto de retorno é onde…',['U é mínimo','U = Emec','F é máxima','K é máxima'],1,'Ali K = Emec − U = 0: a partícula para e volta.'],
+ ['O fundo de um "vale" na curva U(x) é um ponto de equilíbrio…',['estável','instável','neutro','proibido'],0,'F = −dU/dx = 0 e, deslocando um pouco, a força aponta de volta para o fundo.'],
+ ['Um bloco desliza no piso com atrito até parar. Sua energia cinética…',['desapareceu','virou energia potencial','virou energia térmica','virou trabalho externo'],2,'ΔEmec + ΔEt = 0: a energia cinética virou calor no bloco e no piso.'],
+ ['Potência mede…',['quanta energia o corpo tem','quão rápido a energia é transferida','a força do motor','o trabalho total'],1,'P = ΔE/Δt, em watts (J/s).']
+);
 
 /* ===== boot ===== */
 load();
@@ -751,6 +1014,10 @@ sims=[somaCv,dragCv,
   InclineSim(document.getElementById('labIncl'),document.getElementById('labInclCtl'),document.getElementById('labInclOut'),document.getElementById('labInclLbl')),
   ElevSim(document.getElementById('elevSim'),document.getElementById('elevCtl')),
   ElevSim(document.getElementById('labElev'),document.getElementById('labElevCtl')),
+  EnergySim(document.getElementById('energySim'),document.getElementById('energyCtl'),document.getElementById('energyGo'),document.getElementById('energyReset')),
+  EnergySim(document.getElementById('labEnergy'),document.getElementById('labEnergyCtl'),document.getElementById('labEnergyGo'),document.getElementById('labEnergyReset')),
+  USim(document.getElementById('uSim'),document.getElementById('uCtl'),document.getElementById('uOut')),
+  USim(document.getElementById('labU'),document.getElementById('labUCtl'),document.getElementById('labUOut')),
   CurveSim(document.getElementById('curveSim'),document.getElementById('curveCtl'),document.getElementById('curveOut')),
   CurveSim(document.getElementById('labCurve'),document.getElementById('labCurveCtl'),document.getElementById('labCurveOut'))];
 renderQuiz(); renderProg();

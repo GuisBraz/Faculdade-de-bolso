@@ -53,12 +53,12 @@ window.FACULDADE = {
         { id: "calc2", status: "cursando", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", professor: "Gabriela Oliveira", arquivos: [] },
         { id: "fis1", status: "cursando", sigla: "Física I", nome: "Física I", ch: 60, icone: "fisica", area: "f", professor: "", arquivos: [
             {
-              titulo: "Oficina de Física · Força e Movimento",
+              titulo: "Oficina de Física · Força, Movimento e Energia",
               tipo: "site",
               caminho: "materias/fis1/oficina-de-fisica.html",
-              descricao: "Capítulos 5 e 6 do Halliday: leis de Newton, peso, normal, tração, atrito, arrasto e movimento circular, com simuladores, 13 problemas resolvidos e quiz.",
+              descricao: "Capítulos 5, 6 e 8 do Halliday: leis de Newton, atrito, arrasto, movimento circular, energia potencial e conservação da energia, com simuladores, 22 problemas resolvidos e quiz.",
               data: "2026-10-28",
-              tags: ["newton", "atrito", "plano inclinado", "arrasto", "movimento circular", "halliday"]
+              tags: ["newton", "atrito", "arrasto", "movimento circular", "energia", "conservação", "halliday"]
             }
           ] },
         { id: "cm2", status: "cursando", sigla: "Materiais II", nome: "Ciência dos Materiais II", ch: 30, icone: "materiais", area: "m", professor: "", arquivos: [] },
