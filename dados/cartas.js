@@ -1,0 +1,77 @@
+/*
+  FACULDADE DE BOLSO · cartas de revisão (sistema tipo Anki)
+  ------------------------------------------------------------
+  id: único e estável (não renomeie: o histórico de revisão usa o id)
+  m:  id da matéria (dados/materias.js)
+  t:  tópico (aparece na carta)
+  f:  frente (pergunta) · v: verso (resposta)
+*/
+window.FDB_CARTAS = [
+  /* ===== GAAL ===== */
+  { id:"gaal-001", m:"gaal", t:"Vetores", f:"Como se calcula o vetor AB⃗ a partir dos pontos A e B?", v:"AB⃗ = B − A (chegada menos saída), coordenada por coordenada." },
+  { id:"gaal-002", m:"gaal", t:"Vetores", f:"Fórmula da norma (módulo) de u⃗ = (a, b, c).", v:"‖u⃗‖ = √(a² + b² + c²)." },
+  { id:"gaal-003", m:"gaal", t:"Vetores", f:"O que significa u⃗ · v⃗ = 0?", v:"u⃗ e v⃗ são perpendiculares (ortogonais)." },
+  { id:"gaal-004", m:"gaal", t:"Vetores", f:"Produto escalar de u⃗ = (u₁,u₂,u₃) e v⃗ = (v₁,v₂,v₃).", v:"u⃗·v⃗ = u₁v₁ + u₂v₂ + u₃v₃ (resultado é um número)." },
+  { id:"gaal-005", m:"gaal", t:"Vetores", f:"O produto vetorial u⃗ × v⃗ é perpendicular a quem?", v:"Aos dois: a u⃗ e a v⃗. Por isso ele dá a normal de um plano que contém u⃗ e v⃗." },
+  { id:"gaal-006", m:"gaal", t:"Vetores", f:"O que mede ‖u⃗ × v⃗‖?", v:"A área do paralelogramo formado por u⃗ e v⃗ (o triângulo é metade)." },
+  { id:"gaal-007", m:"gaal", t:"Vetores", f:"O que o produto misto (u⃗, v⃗, w⃗) indica quando vale 0?", v:"Os três vetores são coplanares. |(u⃗,v⃗,w⃗)| é o volume do paralelepípedo." },
+  { id:"gaal-008", m:"gaal", t:"Retas", f:"Do que você precisa para escrever uma reta?", v:"Um ponto A e um vetor diretor v⃗: (x, y, z) = A + t·v⃗." },
+  { id:"gaal-009", m:"gaal", t:"Retas", f:"Em x = 1 + 2t, y = −3 + t, z = 4t, qual é o ponto e qual é o diretor?", v:"Números soltos = ponto (1, −3, 0). Números com t = diretor (2, 1, 4)." },
+  { id:"gaal-010", m:"gaal", t:"Retas", f:"Como ficam as equações simétricas da reta A + t(a, b, c)?", v:"(x − x₀)/a = (y − y₀)/b = (z − z₀)/c, com a, b, c ≠ 0." },
+  { id:"gaal-011", m:"gaal", t:"Retas", f:"Reta pelos pontos A e B: qual diretor usar?", v:"v⃗ = AB⃗ = B − A (qualquer múltiplo dele também serve)." },
+  { id:"gaal-012", m:"gaal", t:"Planos", f:"Na equação ax + by + cz + d = 0, o que é (a, b, c)?", v:"O vetor normal n⃗ do plano (perpendicular a ele)." },
+  { id:"gaal-013", m:"gaal", t:"Planos", f:"Como achar d no plano de normal (a, b, c) que passa por P₀(x₀, y₀, z₀)?", v:"Substitua o ponto: d = −(a·x₀ + b·y₀ + c·z₀)." },
+  { id:"gaal-014", m:"gaal", t:"Planos", f:"Como achar a normal de um plano que passa por A, B e C?", v:"n⃗ = AB⃗ × AC⃗ (produto vetorial de dois vetores do plano)." },
+  { id:"gaal-015", m:"gaal", t:"Planos", f:"Qual o diretor da reta de interseção de dois planos?", v:"v⃗ = n⃗₁ × n⃗₂ (perpendicular às duas normais)." },
+  { id:"gaal-016", m:"gaal", t:"Posições", f:"Duas retas com diretores paralelos: como saber se são paralelas ou coincidentes?", v:"Teste um ponto de uma na outra (ou se PQ⃗ ∥ u⃗). Se o ponto está na outra: coincidentes; se não: paralelas." },
+  { id:"gaal-017", m:"gaal", t:"Posições", f:"Diretores não paralelos: como decidir entre concorrentes e reversas?", v:"Calcule det(u⃗, v⃗, PQ⃗). = 0 → concorrentes (coplanares); ≠ 0 → reversas." },
+  { id:"gaal-018", m:"gaal", t:"Posições", f:"Reta de diretor u⃗ e plano de normal n⃗: n⃗ · u⃗ ≠ 0 significa…", v:"A reta fura o plano (é concorrente a ele) em um único ponto." },
+  { id:"gaal-019", m:"gaal", t:"Posições", f:"Se n⃗ · u⃗ = 0, a reta pode estar…", v:"Contida no plano (se um ponto dela satisfaz a equação) ou paralela a ele (se não satisfaz)." },
+  { id:"gaal-020", m:"gaal", t:"Posições", f:"Dois planos são paralelos quando…", v:"As normais são paralelas (n⃗₁ = k·n⃗₂). Se as equações também forem proporcionais, são coincidentes." },
+  { id:"gaal-021", m:"gaal", t:"Ângulos", f:"Em que intervalo fica o ângulo entre retas, entre planos e entre reta e plano?", v:"Sempre entre 0° e 90°. Por isso as fórmulas usam módulo no numerador." },
+  { id:"gaal-022", m:"gaal", t:"Ângulos", f:"Fórmula do ângulo entre duas retas (diretores u⃗ e v⃗).", v:"cos θ = |u⃗·v⃗| / (‖u⃗‖‖v⃗‖)." },
+  { id:"gaal-023", m:"gaal", t:"Ângulos", f:"Ângulo entre reta (diretor v⃗) e plano (normal n⃗): seno ou cosseno?", v:"SENO: sen θ = |v⃗·n⃗| / (‖v⃗‖‖n⃗‖), porque a normal é perpendicular ao plano." },
+  { id:"gaal-024", m:"gaal", t:"Ângulos", f:"Ângulo entre dois planos: quais vetores entram na conta?", v:"As normais: cos θ = |n⃗₁·n⃗₂| / (‖n⃗₁‖‖n⃗₂‖)." },
+  { id:"gaal-025", m:"gaal", t:"Distâncias", f:"Distância do ponto P₀(x₀,y₀,z₀) ao plano ax + by + cz + d = 0.", v:"d = |a·x₀ + b·y₀ + c·z₀ + d| / √(a² + b² + c²)." },
+  { id:"gaal-026", m:"gaal", t:"Distâncias", f:"Distância de um ponto P a uma reta (ponto P₁, diretor v⃗).", v:"d = ‖v⃗ × P₁P⃗‖ / ‖v⃗‖ (área do paralelogramo ÷ base)." },
+  { id:"gaal-027", m:"gaal", t:"Distâncias", f:"Distância entre retas reversas (pontos P e Q, diretores u⃗ e v⃗).", v:"d = |(u⃗, v⃗, PQ⃗)| / ‖u⃗ × v⃗‖ (volume ÷ área da base)." },
+  { id:"gaal-028", m:"gaal", t:"Distâncias", f:"Como calcular a distância entre dois planos paralelos?", v:"Pegue um ponto qualquer de um deles e use a distância ponto–plano até o outro." },
+  { id:"gaal-029", m:"gaal", t:"Distâncias", f:"Como achar o pé da perpendicular de P até uma reta?", v:"Escreva o ponto genérico Q(t) da reta e resolva PQ⃗(t) · v⃗ = 0 para achar t." },
+
+  /* ===== FÍSICA I ===== */
+  { id:"fis-001", m:"fis1", t:"Forças", f:"Como decompor uma força F que faz ângulo θ com o eixo x?", v:"Fx = F cos θ e Fy = F sen θ." },
+  { id:"fis-002", m:"fis1", t:"Newton", f:"O que diz a 1ª lei de Newton (inércia)?", v:"Se a força resultante é zero, o corpo fica parado ou em movimento retilíneo com velocidade constante." },
+  { id:"fis-003", m:"fis1", t:"Newton", f:"Enuncie a 2ª lei de Newton.", v:"F⃗res = m·a⃗: a aceleração tem a direção da resultante e é inversamente proporcional à massa." },
+  { id:"fis-004", m:"fis1", t:"Newton", f:"Ação e reação (3ª lei) se anulam? Por quê?", v:"Não: têm mesmo módulo e sentidos opostos, mas atuam em corpos DIFERENTES." },
+  { id:"fis-005", m:"fis1", t:"Aplicações", f:"Normal de um bloco num plano inclinado de ângulo θ (sem outras forças perpendiculares).", v:"N = m g cos θ." },
+  { id:"fis-006", m:"fis1", t:"Aplicações", f:"Componente do peso que puxa o bloco rampa abaixo.", v:"P∥ = m g sen θ." },
+  { id:"fis-007", m:"fis1", t:"Aplicações", f:"Num elevador acelerando para cima com a, quanto marca a balança?", v:"N = m(g + a): você parece mais pesado. Descendo acelerado: N = m(g − a)." },
+  { id:"fis-008", m:"fis1", t:"Atrito", f:"Atrito estático: qual é o seu valor?", v:"O necessário para impedir o deslizamento, até o máximo fs,máx = μs·N." },
+  { id:"fis-009", m:"fis1", t:"Atrito", f:"Atrito cinético: fórmula e sentido.", v:"fk = μk·N, sempre contra o deslizamento. Normalmente μk < μs." },
+  { id:"fis-010", m:"fis1", t:"Atrito", f:"Qual o ângulo crítico em que um bloco começa a escorregar numa rampa?", v:"tg θc = μs." },
+  { id:"fis-011", m:"fis1", t:"Arrasto", f:"Fórmula da força de arrasto do ar.", v:"D = ½ C ρ A v² (cresce com o quadrado da velocidade)." },
+  { id:"fis-012", m:"fis1", t:"Arrasto", f:"O que é a velocidade terminal e qual a fórmula?", v:"É quando o arrasto iguala o peso e a aceleração some: vt = √(2mg / (CρA))." },
+  { id:"fis-013", m:"fis1", t:"Circular", f:"Aceleração centrípeta num movimento circular uniforme.", v:"a = v²/R, apontando para o centro da curva." },
+  { id:"fis-014", m:"fis1", t:"Circular", f:"A força centrípeta é uma força nova no diagrama?", v:"Não. É o nome da resultante que aponta para o centro (atrito, normal, tração ou peso fazem esse papel)." },
+  { id:"fis-015", m:"fis1", t:"Circular", f:"Velocidade máxima numa curva plana com atrito μs.", v:"v máx = √(μs g R)." },
+  { id:"fis-016", m:"fis1", t:"Energia", f:"Fórmulas da energia cinética e do trabalho de uma força constante.", v:"K = ½ m v² · W = F d cos φ. E W total = ΔK." },
+  { id:"fis-017", m:"fis1", t:"Energia potencial", f:"O que define uma força conservativa?", v:"O trabalho dela entre dois pontos não depende do caminho (num caminho fechado dá zero). Ex.: peso e mola." },
+  { id:"fis-018", m:"fis1", t:"Energia potencial", f:"Energia potencial gravitacional e o que depende da referência.", v:"U = m g y. O valor de U depende da referência; ΔU = m g Δy não depende." },
+  { id:"fis-019", m:"fis1", t:"Energia potencial", f:"Energia potencial elástica de uma mola.", v:"U = ½ k x² (x = deformação; comprimir o dobro guarda 4 vezes mais)." },
+  { id:"fis-020", m:"fis1", t:"Conservação", f:"Quando a energia mecânica se conserva?", v:"Quando só forças conservativas fazem trabalho: K₁ + U₁ = K₂ + U₂." },
+  { id:"fis-021", m:"fis1", t:"Conservação", f:"Corpo solto do repouso com Em = 30 J. Na metade da altura, quanto valem K e U?", v:"K = 15 J e U = 15 J (a soma continua 30 J)." },
+  { id:"fis-022", m:"fis1", t:"Conservação", f:"Velocidade no pé de um tobogã sem atrito de altura h.", v:"v = √(2 g h): não depende da massa nem do formato do tobogã." },
+  { id:"fis-023", m:"fis1", t:"Massa-mola", f:"Lei de Hooke: fórmula e o que é k.", v:"F = k x (com sinal: F = −kx, sempre de volta para x0). k = F/x é a constante elástica, em N/m." },
+  { id:"fis-024", m:"fis1", t:"Massa-mola", f:"Converta k = 20 N/cm para N/m.", v:"20 · 100 = 2 000 N/m (1 m = 100 cm)." },
+  { id:"fis-025", m:"fis1", t:"Massa-mola", f:"No massa-mola, o que acontece em ±xm (extremos)?", v:"v = 0, K = 0, U máxima e força máxima apontando para x0." },
+  { id:"fis-026", m:"fis1", t:"Massa-mola", f:"No massa-mola, o que acontece em x0?", v:"x = 0: F = 0, U = 0, K máxima, velocidade máxima." },
+  { id:"fis-027", m:"fis1", t:"Massa-mola", f:"Depois de passar por x0, a velocidade do bloco aumenta ou diminui? Por quê?", v:"Diminui: a mola passa a fazer força contra o movimento (F = −kx aponta para x0) e o freia até ±xm." },
+  { id:"fis-028", m:"fis1", t:"Massa-mola", f:"Velocidade máxima e período do massa-mola.", v:"v máx = xm √(k/m) · T = 2π √(m/k) (o período não depende da amplitude)." },
+  { id:"fis-029", m:"fis1", t:"Conservação", f:"Bola solta da altura h numa pista em U sem atrito: até onde sobe do outro lado?", v:"Até a mesma altura h, porque lá em cima K = 0 de novo e U volta ao valor inicial." },
+  { id:"fis-030", m:"fis1", t:"Curva de U", f:"Como achar a força a partir do gráfico U(x)?", v:"F = −dU/dx: a força aponta para onde U diminui." },
+  { id:"fis-031", m:"fis1", t:"Curva de U", f:"O que é um ponto de retorno no gráfico U(x)?", v:"Onde U = Emec: K = 0, a partícula para e volta. Regiões com U > Emec são proibidas." },
+  { id:"fis-032", m:"fis1", t:"Curva de U", f:"Equilíbrio estável x instável no gráfico U(x).", v:"Estável: fundo de vale (mínimo de U). Instável: topo de morro (máximo de U)." },
+  { id:"fis-033", m:"fis1", t:"Energia térmica", f:"Energia transformada em térmica pelo atrito cinético.", v:"ΔEt = fk · d = μk N d." },
+  { id:"fis-034", m:"fis1", t:"Energia térmica", f:"Equação da conservação da energia com trabalho externo e atrito.", v:"W = ΔEmec + ΔEt (+ ΔEint). Sem trabalho externo: ΔEmec + ΔEt = 0." },
+  { id:"fis-035", m:"fis1", t:"Energia térmica", f:"O que é potência e qual sua unidade?", v:"Rapidez da transferência de energia: P = ΔE/Δt = W/Δt, em watts (1 W = 1 J/s). Também P = F·v." }
+];

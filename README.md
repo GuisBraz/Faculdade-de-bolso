@@ -9,8 +9,14 @@ As 65 matérias dos 10 períodos (2.805 h) já estão cadastradas; cada uma ganh
 ## Estrutura
 
 ```
-index.html            → o hub (não precisa mexer)
+index.html            → o hub
+js/boot.js            → decide o modo (local, admin, visitante), login e sincronização
+js/hub.js             → telas do hub
+js/anki.js            → cartas de revisão (hub e oficinas)
 dados/materias.js     → catálogo: períodos, matérias e materiais
+dados/cartas.js       → cartas de revisão prontas
+dados/config.js       → URL e anon key do Supabase (vazia = modo local)
+supabase/schema.sql   → tabelas e regras de acesso do banco
 materias/<id>/        → os arquivos de cada matéria
 ```
 
@@ -84,6 +90,30 @@ A aba **Provas** mostra a contagem regressiva da próxima prova, todas as datas 
 
 - Provas de cronogramas oficiais ficam em `dados/provas.js`.
 - Provas sem cronograma podem ser incluídas pelo formulário da própria aba (salvas no navegador e incluídas no backup).
+
+## Cartas de revisão (Anki)
+
+- Aba **Revisão** no hub: um jogo com as cartas das matérias do semestre, com meta diária, sequência de dias e pontos. Errei volta em 10 min; Difícil, Bom e Fácil espaçam pelo algoritmo SM-2.
+- Em cada oficina, o botão **Cartas** abre as cartas daquela matéria (revisar, ver todas, criar as suas).
+- **Carta surpresa**: a cada 10–20 min, no máximo 4 por visita, só nos módulos de teoria (nunca em laboratório, problemas, lista, quiz ou cola), nunca enquanto você digita ou mexe num simulador. Esc fecha; dá para adiar ou desligar.
+- Cartas novas vão em `dados/cartas.js` (o `id` não pode mudar). As suas cartas ficam no navegador e na conta.
+
+## Contas (Supabase)
+
+Com `dados/config.js` preenchido, o hub pede login:
+
+| papel | vê |
+|---|---|
+| admin | tudo: progresso, provas, horário, professores (dados lidos do banco, tabela `privado`) |
+| visitante | só as oficinas do semestre atual (com as datas de atualização) e as cartas, com o próprio progresso |
+
+O progresso (status, provas manuais, módulos, quiz e cartas) sincroniza com a conta na tabela `estado`. As regras RLS de `supabase/schema.sql` garantem que cada conta só acessa o que é dela e que só o admin lê os dados pessoais. A anon key é pública por natureza; a service_role key nunca entra no site.
+
+O workflow **Despertador Supabase** (`.github/workflows`) consulta a tabela `ping` a cada 3 dias para o projeto gratuito não pausar. Precisa dos secrets `SUPABASE_URL` e `SUPABASE_ANON_KEY`.
+
+## App instalável
+
+O site é um PWA: no Chrome do celular ou do PC, use **Instalar app** / **Adicionar à tela inicial**. O que já foi aberto continua funcionando offline.
 
 ## Atalho
 
