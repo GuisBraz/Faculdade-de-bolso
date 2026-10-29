@@ -72,6 +72,32 @@ a{color:inherit}
 .upd{list-style:none;margin:-4px 0 6px;padding:8px 16px 10px 16px;border:1px dashed var(--line);border-top:0;border-radius:0 0 10px 10px;font-size:.86rem;color:var(--ink2);display:grid;gap:3px}
 .upd li{display:grid;grid-template-columns:44px 1fr;gap:6px}
 .upd li span{font:600 .72rem var(--f-mono);color:var(--ink)}
+.pshow{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 10px}
+.pshow button{font:600 .8rem var(--f-mono);padding:8px 14px;border-radius:8px;border:1.5px dashed var(--line);background:transparent;color:var(--ink2);cursor:pointer}
+.pshow button:hover{border-color:var(--ink2);color:var(--ink)}
+.today{display:flex;flex-wrap:wrap;align-items:center;gap:8px;text-decoration:none;color:var(--ink);margin:14px 0 14px;font-size:.88rem}
+.today .tk{font:600 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-right:4px}
+.today .tc{--mc:var(--accent);border:1.5px solid var(--line);background:var(--sheet);border-radius:999px;padding:4px 12px}
+.today .tc b{font-family:var(--f-mono);font-size:.8rem;color:var(--mc)}
+.today .tc.prox{border-color:var(--mc)}
+.today .tc.agora{border-color:var(--mc);background:color-mix(in srgb,var(--mc) 12%,var(--sheet))}
+.today .tc.agora em{font-style:normal;font:600 .66rem var(--f-mono);text-transform:uppercase;color:var(--mc)}
+.today .tc.feita{opacity:.5}
+.today .go{font-weight:700;color:var(--ink2);margin-left:auto;font-size:.82rem}
+.hgrid table{width:100%;min-width:640px;table-layout:fixed;border-collapse:separate;border-spacing:0;background:transparent}
+.hgrid th,.hgrid td{border:0;padding:4px;text-align:center}
+.hgrid th{font:600 .74rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink2);padding-bottom:8px}
+.hgrid th.hoje{color:var(--accent)}
+.hgrid th.fx2{width:64px;text-transform:none;font-size:.72rem;line-height:1.4}
+.hgrid td.hoje{background:color-mix(in srgb,var(--accent) 6%,transparent);border-radius:8px}
+.hc{--mc:var(--accent);display:grid;justify-items:center;gap:4px;text-decoration:none;color:var(--ink);background:var(--sheet);border:1.5px solid var(--line);border-top:4px solid var(--mc);border-radius:9px;padding:12px 6px;min-height:118px;align-content:center}
+.hc:hover{border-color:var(--mc)}
+.hc.on{border-color:var(--mc);box-shadow:0 0 0 2px color-mix(in srgb,var(--mc) 25%,transparent)}
+.hc .ic{width:34px;height:34px;border-radius:8px;grid-row:auto}
+.hc .ic svg{width:19px;height:19px}
+.hc b{font-family:var(--f-disp);font-size:.95rem}
+.hc small{font:600 .64rem var(--f-mono);color:var(--ink2)}
+.hc em{font-style:normal;font:600 .62rem var(--f-mono);text-transform:uppercase;color:var(--sheet);background:var(--mc);border-radius:4px;padding:1px 6px}
 .rc{--mc:var(--accent);display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;text-decoration:none;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:9px;padding:8px 12px;transition:border-color .15s}
 .rc:hover{border-color:var(--mc)}
 .rc .ic{width:32px;height:32px;border-radius:8px;grid-row:auto}
@@ -258,9 +284,11 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
   </div>
   <div class="alerts" id="alerts" aria-label="Provas chegando"></div>
 </header>
-<nav class="tabs" aria-label="Seções"><a href="#" id="tabMat">Matérias</a><a href="#provas" id="tabProv">Provas<span class="tb" id="tabBadge" hidden></span></a></nav>
+<nav class="tabs" aria-label="Seções"><a href="#" id="tabMat">Matérias</a><a href="#provas" id="tabProv">Provas<span class="tb" id="tabBadge" hidden></span></a><a href="#horario" id="tabHor">Horário</a></nav>
 
 <section id="home">
+
+  <a class="today" id="today" href="#horario" hidden></a>
 
   <div class="search">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
@@ -280,9 +308,19 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
     <p class="mono" id="bkMsg" aria-live="polite"></p>
   </div>
   <div id="periodos"></div>
+  <div class="pshow" id="pshow"></div>
 </section>
 
 <section id="materia" hidden></section>
+
+<section id="horario" hidden>
+  <header class="phead">
+    <div class="eyebrow" id="horSem">Semestre</div>
+    <h1>Horário</h1>
+    <p id="horSub"></p>
+  </header>
+  <div class="tbl hgrid" id="horGrid"></div>
+</section>
 
 <section id="provas" hidden>
   <header class="phead">
@@ -313,6 +351,7 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
 
 <script src="dados/materias.js"></script>
 <script src="dados/provas.js"></script>
+<script src="dados/horario.js"></script>
 <script>
 const D = window.FACULDADE || {periodos:[]};
 const ICONS = {
@@ -365,7 +404,7 @@ const AR = D.areas||{};
 const MATS = D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.numero,cor:m.cor||(AR[m.area]||{}).cor||'#D9531A',arquivos:m.arquivos||[]})));
 let OV={}; try{ OV=JSON.parse(localStorage.getItem('fdb-status')||'{}')||{} }catch(e){}
 MATS.forEach(m=>{ m._base=m.status||''; if(m.id in OV) m.status=OV[m.id]||'' });
-let EDIT=false;
+let EDIT=false; const SHOWP={past:false,fut:false};
 function setSt(id,st){ const m=MATS.find(x=>x.id===id); if(!m)return; m.status=st; if(st===m._base) delete OV[id]; else OV[id]=st;
   try{ localStorage.setItem('fdb-status',JSON.stringify(OV)) }catch(e){} renderHome(); if(location.hash==='#m-'+id) renderMat(id) }
 const OPTS=[['','não cursada'],['cursando','cursando'],['aprovada','aprovada'],['reprovada','reprovada']];
@@ -405,10 +444,18 @@ function renderHome(){
   const pg=document.getElementById('prog'); pg.title=Dn.toLocaleString('pt-BR')+' de '+T.toLocaleString('pt-BR')+' h · '+nOk+' de '+MATS.length+' matérias aprovadas · '+nClosed+' de '+P.length+' períodos concluídos'+(nCur?' · '+nCur+' cursando':'')+(nRp?' · '+nRp+' reprovada(s) a refazer':'');
   pg.innerHTML='<span>Progresso</span><span class="mbar">'+P.map(x=>'<i class="'+(x.p.atual?'cur':'')+'" style="flex:'+x.tot+'"><em style="width:'+(x.tot?x.done/x.tot*100:0)+'%"></em></i>').join('')+'</span><b>'+pctT+'</b>'+(nRp?'<span class="rp">· '+nRp+' a refazer</span>':'');
   document.getElementById('jump').innerHTML=P.map(x=>'<button data-p="'+x.p.numero+'" class="'+(x.p.atual?'on ':'')+(x.full?'done':'')+'">'+(x.full?'✓ ':'')+x.p.numero+'º</button>').join('');
-  document.querySelectorAll('#jump button').forEach(b=>b.onclick=()=>{ const el=document.getElementById('p'+b.dataset.p); if(el.tagName==='DETAILS')el.open=true; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
+  document.querySelectorAll('#jump button').forEach(b=>b.onclick=()=>{ const cn=(D.periodos.find(p=>p.atual)||{}).numero||1, n=+b.dataset.p; if(!document.getElementById('p'+n)){ if(n<cn)SHOWP.past=true; else SHOWP.fut=true; renderHome() } const el=document.getElementById('p'+n); if(el.tagName==='DETAILS')el.open=true; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
   const eb=document.getElementById('editBtn'); eb.textContent=EDIT?'✓ Concluir':'Dar baixa nas matérias'; eb.classList.toggle('on',EDIT); eb.setAttribute('aria-pressed',EDIT);
   document.getElementById('editPanel').hidden=!EDIT;
-  document.getElementById('periodos').innerHTML=P.map(x=>{
+  const curN=(D.periodos.find(p=>p.atual)||{}).numero||1;
+  const vis=x=>EDIT||x.p.numero===curN||x.ms.some(m=>m.status==='cursando')||(x.p.numero<curN?SHOWP.past:SHOWP.fut);
+  const hidPast=P.filter(x=>x.p.numero<curN&&!vis(x)), hidFut=P.filter(x=>x.p.numero>curN&&!vis(x));
+  const rng=a=>a.length?(a.length===1?a[0].p.numero+'º':a[0].p.numero+'º ao '+a[a.length-1].p.numero+'º'):'';
+  document.getElementById('pshow').innerHTML=(EDIT?'':
+    (hidPast.length||SHOWP.past&&P.some(x=>x.p.numero<curN)?'<button type="button" data-g="past">'+(SHOWP.past?'Ocultar períodos anteriores':'Mostrar períodos anteriores · '+rng(hidPast))+'</button>':'')+
+    (hidFut.length||SHOWP.fut&&P.some(x=>x.p.numero>curN)?'<button type="button" data-g="fut">'+(SHOWP.fut?'Ocultar próximos períodos':'Mostrar próximos períodos · '+rng(hidFut))+'</button>':''));
+  document.querySelectorAll('#pshow button').forEach(b=>b.onclick=()=>{ SHOWP[b.dataset.g]=!SHOWP[b.dataset.g]; renderHome() });
+  document.getElementById('periodos').innerHTML=P.filter(vis).map(x=>{
     const p=x.p, ms=x.ms, nf=ms.reduce((s,m)=>s+(m.arquivos||[]).length,0);
     const info=ms.length+' matérias'+(p.ch?' · '+p.ch+' h':'')+(nf?' · '+nf+(nf===1?' material':' materiais'):'');
     const grid='<div class="grid">'+MATS.filter(m=>m.periodo===p.numero).map(matCard).join('')+'</div>';
@@ -422,7 +469,7 @@ function renderMat(id){
   if(!m){ location.hash=''; return }
   document.title=m.sigla+' · Faculdade de Bolso';
   box.innerHTML='<a class="back" href="#">← Todas as matérias</a>'+
-    '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+'<p>'+[m.ch?m.ch+' h':'',m.professor?'Prof. '+esc(m.professor):'',ST[m.status]||''].filter(Boolean).join(' · ')+'</p>'+'</div></div>'+
+    '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+'<p>'+[m.codigo||'',m.ch?m.ch+' h':'',m.professor?'Prof. '+esc(m.professor):'',ST[m.status]||''].filter(Boolean).join(' · ')+'</p>'+(aulasDe(m.id).length?'<p class="mono" style="font-size:.8rem">Aulas: '+aulasDe(m.id).map(a=>DIAS[a.dia]+' '+H.faixas[a.faixa].inicio).join(' · ')+'</p>':'')+'</div></div>'+
     '<div class="stbox"><span class="eyebrow">Situação</span>'+stBtns(m)+'</div>'+
     ((window.PROVAS||[]).some(x=>x.materia===m.id)?'<div class="eyebrow">Provas</div><div class="mprov">'+(typeof PR!=='undefined'?PR:[]).filter(x=>x.materia===m.id).map(provRow).join('')+'</div>':'')+
     (m.arquivos.length?(()=>{ const all=[...m.arquivos].map(a=>({...a,mat:m})).sort((a,b)=>String(b.ate||b.data).localeCompare(String(a.ate||a.data)));
@@ -434,12 +481,37 @@ function renderMat(id){
 }
 function route(){
   const h=location.hash.slice(1);
-  const isMat=h.startsWith('m-'), isProv=h==='provas';
-  document.getElementById('home').hidden=isMat||isProv; document.getElementById('materia').hidden=!isMat; document.getElementById('provas').hidden=!isProv;
-  document.getElementById('tabMat').classList.toggle('on',!isProv); document.getElementById('tabProv').classList.toggle('on',isProv);
-  if(isMat) renderMat(h.slice(2)); else if(isProv){ renderProvas(); document.title='Provas · Faculdade de Bolso' } else document.title='Faculdade de Bolso';
+  const isMat=h.startsWith('m-'), isProv=h==='provas', isHor=h==='horario';
+  document.getElementById('home').hidden=isMat||isProv||isHor; document.getElementById('materia').hidden=!isMat; document.getElementById('provas').hidden=!isProv; document.getElementById('horario').hidden=!isHor;
+  document.getElementById('tabMat').classList.toggle('on',!isProv&&!isHor); document.getElementById('tabProv').classList.toggle('on',isProv); document.getElementById('tabHor').classList.toggle('on',isHor);
+  if(isMat) renderMat(h.slice(2)); else if(isHor){ renderHorario(); document.title='Horário · Faculdade de Bolso' } else if(isProv){ renderProvas(); document.title='Provas · Faculdade de Bolso' } else document.title='Faculdade de Bolso';
   window.scrollTo(0,0);
 }
+
+/* ===== horário ===== */
+const H=window.HORARIO||{faixas:[],aulas:[]};
+const DIAS=['dom','seg','ter','qua','qui','sex','sáb'], DIASL=['Domingo','Segunda','Terça','Quarta','Quinta','Sexta','Sábado'];
+const aulasDe=id=>H.aulas.filter(a=>a.materia===id).sort((a,b)=>a.dia-b.dia||a.faixa-b.faixa);
+const hm=t=>{ const [h,m]=t.split(':').map(Number); return h*60+m };
+function nextClass(){ const now=new Date(), d=now.getDay(), mins=now.getHours()*60+now.getMinutes();
+  for(let k=0;k<8;k++){ const dd=(d+k)%7; const list=H.aulas.filter(a=>a.dia===dd).sort((a,b)=>a.faixa-b.faixa);
+    for(const a of list){ const f=H.faixas[a.faixa]; if(k>0||hm(f.fim)>mins) return {a,k,now:k===0&&hm(f.inicio)<=mins} } } return null }
+function renderToday(){ const el=document.getElementById('today'); if(!H.aulas.length){ el.hidden=true; return }
+  const d=new Date().getDay(), hoje=H.aulas.filter(a=>a.dia===d).sort((a,b)=>a.faixa-b.faixa), nx=nextClass(); el.hidden=false;
+  const nm=a=>{ const m=MATS.find(x=>x.id===a.materia); return m?m.sigla:a.materia };
+  let h='<span class="tk">'+(hoje.length?'Hoje · '+DIASL[d]:'Próxima aula')+'</span>';
+  if(hoje.length) h+=hoje.map(a=>{ const f=H.faixas[a.faixa], m=MATS.find(x=>x.id===a.materia)||{}; const st=nx&&nx.a===a?(nx.now?' agora':' prox'):(hm(f.fim)<=new Date().getHours()*60+new Date().getMinutes()?' feita':'');
+    return '<span class="tc'+st+'" style="--mc:'+(m.cor||'var(--accent)')+'"><b>'+f.inicio+'</b> '+esc(nm(a))+(st===' agora'?' <em>agora</em>':'')+'</span>' }).join('');
+  else if(nx){ const f=H.faixas[nx.a.faixa], m=MATS.find(x=>x.id===nx.a.materia)||{}; h+='<span class="tc prox" style="--mc:'+(m.cor||'var(--accent)')+'"><b>'+DIASL[nx.a.dia].toLowerCase()+' '+f.inicio+'</b> '+esc(nm(nx.a))+'</span>' }
+  el.innerHTML=h+'<span class="go">horário →</span>' }
+function renderHorario(){ document.getElementById('horSem').textContent=(H.semestre||'')+' · '+(H.turno||'');
+  document.getElementById('horSub').textContent='Local padrão: '+(H.localPadrao||'')+'. Os horários vêm do SUAP.';
+  const d=new Date().getDay(), nx=nextClass();
+  let t='<table><tr><th></th>'+[1,2,3,4,5].map(i=>'<th class="'+(i===d?'hoje':'')+'">'+DIASL[i]+(i===d?' · hoje':'')+'</th>').join('')+'</tr>';
+  H.faixas.forEach((f,fi)=>{ t+='<tr><th class="fx2">'+f.inicio+'<br>'+f.fim+'</th>'+[1,2,3,4,5].map(i=>{ const a=H.aulas.find(z=>z.dia===i&&z.faixa===fi); if(!a)return '<td></td>';
+      const m=MATS.find(x=>x.id===a.materia)||{sigla:a.materia,cor:'#888'}; const st=nx&&nx.a===a?(nx.now?'agora':'próxima'):'';
+      return '<td class="'+(i===d?'hoje':'')+'"><a class="hc'+(st?' on':'')+'" href="#m-'+esc(m.id||'')+'" style="--mc:'+m.cor+'"><span class="ic">'+icon(m.icone)+'</span><b>'+esc(m.sigla)+'</b><small>'+esc(a.local||H.localPadrao||'')+'</small>'+(st?'<em>'+st+'</em>':'')+'</a></td>' }).join('')+'</tr>' });
+  document.getElementById('horGrid').innerHTML=t+'</table>' }
 const q=document.getElementById('q'), res=document.getElementById('results');
 q.addEventListener('input',()=>{
   const t=norm(q.value.trim());
@@ -517,7 +589,7 @@ document.getElementById('pForm').addEventListener('submit',e=>{ e.preventDefault
   const v=g('pfVal').replace(',','.'); MAN.push({mid:Date.now().toString(36),materia:g('pfMat'),titulo:g('pfTit'),data:g('pfData'),...(v&&isFinite(+v)?{valor:+v}:{}),...(g('pfCont')?{conteudo:g('pfCont')}:{})});
   saveMan(); ['pfTit','pfData','pfVal','pfCont'].forEach(i=>document.getElementById(i).value=''); document.getElementById('pfMsg').textContent='Prova incluída.' });
 document.addEventListener('click',e=>{ const b=e.target.closest('.rm'); if(!b)return; MAN=MAN.filter(x=>x.mid!==b.dataset.mid); saveMan(); if(location.hash.startsWith('#m-'))renderMat(location.hash.slice(3)) });
-renderHome(); renderAlerts(); addEventListener('hashchange',route); route();
+renderHome(); renderAlerts(); renderToday(); setInterval(renderToday,60000); addEventListener('hashchange',route); route();
 </script>
 <script>
 /* Esc volta um nível: busca → edição → página da matéria/provas → topo */

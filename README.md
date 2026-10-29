@@ -72,6 +72,12 @@ Cada matéria tem **uma oficina aberta por prova**:
   atualizacoes: [{ data: "2026-10-28", texto: "Criada: retas, planos, ..." }] }
 ```
 
+## Horário
+
+A aba **Horário** mostra a grade semanal (dados em `dados/horario.js`), destacando o dia de hoje e a aula atual ou a próxima. Na página inicial, a faixa **Hoje** lista as aulas do dia.
+
+Na página inicial só aparece o **período em andamento**; os anteriores e os próximos ficam recolhidos nos botões abaixo dele (ou pela barra "Ir para").
+
 ## Provas
 
 A aba **Provas** mostra a contagem regressiva da próxima prova, todas as datas por mês e alertas no topo do hub quando uma prova está a 14 dias ou menos (laranja com 7 dias, vermelho com 2). O botão **Adicionar ao calendário** baixa um `.ics` com lembretes 7 dias e 1 dia antes.

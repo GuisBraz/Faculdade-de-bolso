@@ -54,9 +54,9 @@ window.FACULDADE = {
     {
       numero: 2, ch: 300, atual: true,
       materias: [
-        { id: "qg", status: "cursando", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", professor: "Paula Sevenini Pinto", arquivos: [] },
-        { id: "calc2", status: "cursando", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", professor: "Gabriela Oliveira", arquivos: [] },
-        { id: "fis1", status: "cursando", sigla: "Física I", nome: "Física I", ch: 60, icone: "fisica", area: "f", professor: "", arquivos: [
+        { id: "qg", codigo: "BTBEMEC.004", status: "cursando", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", professor: "Paula Sevenini Pinto", arquivos: [] },
+        { id: "calc2", codigo: "BTBEMEC.010", status: "cursando", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", professor: "Gabriela Oliveira", arquivos: [] },
+        { id: "fis1", codigo: "BTBEMEC.012", status: "cursando", sigla: "Física I", nome: "Física I", ch: 60, icone: "fisica", area: "f", professor: "Thiago Alonso Merici", arquivos: [
             {
               titulo: "Oficina de Física · Força, Movimento e Energia",
               tipo: "site",
@@ -71,9 +71,9 @@ window.FACULDADE = {
               tags: ["newton", "atrito", "arrasto", "movimento circular", "energia", "conservação", "halliday"]
             }
           ] },
-        { id: "cm2", status: "cursando", sigla: "Materiais II", nome: "Ciência dos Materiais II", ch: 30, icone: "materiais", area: "m", professor: "", arquivos: [] },
-        { id: "dt2", status: "cursando", sigla: "Desenho II", nome: "Desenho Técnico II – DAC", ch: 30, icone: "desenho", area: "d", professor: "", arquivos: [] },
-        { id: "gaal", status: "cursando", sigla: "GAAL", nome: "Geometria Analítica e Álgebra Linear", ch: 60, icone: "vetor", area: "a", professor: "Gabriela Oliveira", arquivos: [
+        { id: "cm2", codigo: "BTBEMEC.018", status: "cursando", sigla: "Materiais II", nome: "Ciência dos Materiais II", ch: 30, icone: "materiais", area: "m", professor: "Flavio Magno de Carvalho Fonseca", arquivos: [] },
+        { id: "dt2", codigo: "BTBEMEC.026", status: "cursando", sigla: "Desenho II", nome: "Desenho Técnico II – DAC", ch: 30, icone: "desenho", area: "d", professor: "Vinicius Maia de Sa", arquivos: [] },
+        { id: "gaal", codigo: "BTBEMEC.113", status: "cursando", sigla: "GAAL", nome: "Geometria Analítica e Álgebra Linear", ch: 60, icone: "vetor", area: "a", professor: "Gabriela Oliveira", arquivos: [
             {
               titulo: "Oficina de GAAL",
               tipo: "site",
