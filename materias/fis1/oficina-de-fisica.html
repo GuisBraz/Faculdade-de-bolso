@@ -228,13 +228,18 @@ footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-l
 .sim canvas{cursor:default}
 .labgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:4px 24px}
 
-@media (min-width:1400px){
-  .hwrap,main,footer{max-width:min(1320px,92vw)}
-  .view.read{max-width:1120px}
-  .view.read>p,.view.read>ul,.view.read>ol,.view.read>h2,.view.read>h3{max-width:78ch}
-  nav{flex-wrap:wrap;overflow:visible}
-}
-@media (min-width:1900px){body{font-size:17px}.hwrap,main,footer{max-width:1440px}}
+
+/* escala fluida: acompanha a resolução de cada tela e usa a largura toda */
+html{font-size:clamp(15px,calc(9.5px + .48vw),19px)}
+body{font-size:1rem}
+:root{--gut:clamp(16px,3vw,64px)}
+.hwrap,main,footer{max-width:1760px!important;padding-left:max(var(--gut),env(safe-area-inset-left,0px))!important;padding-right:max(var(--gut),env(safe-area-inset-right,0px))!important}
+.view.read{max-width:none}
+.view.read>p,.view.read>ul,.view.read>ol,.view.read>h2,.view.read>h3,p.read,ol.read{max-width:82ch}
+.lede{max-width:72ch}
+.cv.sim{max-height:82vh}
+.hero .cv{max-height:72vh;justify-self:center}
+@media (min-width:1200px){nav{flex-wrap:wrap;overflow:visible}}
 </style>
 </head>
 <body>
