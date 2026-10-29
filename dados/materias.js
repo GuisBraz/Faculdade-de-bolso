@@ -7,6 +7,11 @@
     coloque o arquivo em materias/<id-da-materia>/.
       { titulo, tipo, caminho, descricao, data: "AAAA-MM-DD", tags: [] }
     tipos: site, pdf, resumo, lista, prova, link
+  • Oficinas acumulativas (uma por prova):
+      ciclo: "2ª Prova"       → a prova que a oficina prepara
+      ate: "AAAA-MM-DD"       → data da prova; depois dela a oficina fecha sozinha
+      aberta: false           → fecha antes da data, se precisar
+      atualizacoes: [{ data, texto }] → o que entrou a cada aula
   • Período atual: marque "atual: true" no período que está cursando.
   • Situação da matéria (campo "status"):
       "aprovada"  → conta no progresso
@@ -56,6 +61,11 @@ window.FACULDADE = {
               titulo: "Oficina de Física · Força, Movimento e Energia",
               tipo: "site",
               caminho: "materias/fis1/oficina-de-fisica.html",
+              ciclo: "2ª Prova", ate: "2026-11-04",
+              atualizacoes: [
+                { data: "2026-10-28", texto: "Criada com os capítulos 5 e 6 (Força e Movimento I e II)." },
+                { data: "2026-10-28", texto: "Incluído o capítulo 8 (Energia Potencial e Conservação da Energia)." }
+              ],
               descricao: "Capítulos 5, 6 e 8 do Halliday: leis de Newton, atrito, arrasto, movimento circular, energia potencial e conservação da energia, com simuladores, 22 problemas resolvidos e quiz.",
               data: "2026-10-28",
               tags: ["newton", "atrito", "arrasto", "movimento circular", "energia", "conservação", "halliday"]
@@ -68,6 +78,10 @@ window.FACULDADE = {
               titulo: "Oficina de GAAL",
               tipo: "site",
               caminho: "materias/gaal/oficina-de-gaal.html",
+              ciclo: "2ª Prova", ate: "2026-11-06",
+              atualizacoes: [
+                { data: "2026-10-28", texto: "Criada: retas, planos, posições relativas, ângulos e distâncias, com a lista 4 resolvida." }
+              ],
               descricao: "Retas, planos, posições relativas, ângulos e distâncias do zero, com laboratório 3D, calculadoras, a lista 4 resolvida e quiz.",
               data: "2026-10-28",
               tags: ["retas", "planos", "distâncias", "ângulos", "prova"]

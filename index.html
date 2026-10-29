@@ -67,6 +67,11 @@ a{color:inherit}
 .results{display:grid;gap:8px;margin-top:10px}
 
 /* recentes */
+.cy{display:inline-block;font:600 .66rem var(--f-mono);letter-spacing:.05em;text-transform:uppercase;padding:2px 7px;border-radius:4px;background:var(--line);color:var(--ink2);margin-top:2px}
+.cy.on{background:color-mix(in srgb,var(--accent) 15%,var(--sheet));color:var(--accent)}
+.upd{list-style:none;margin:-4px 0 6px;padding:8px 16px 10px 16px;border:1px dashed var(--line);border-top:0;border-radius:0 0 10px 10px;font-size:.86rem;color:var(--ink2);display:grid;gap:3px}
+.upd li{display:grid;grid-template-columns:44px 1fr;gap:6px}
+.upd li span{font:600 .72rem var(--f-mono);color:var(--ink)}
 .rc{--mc:var(--accent);display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:center;text-decoration:none;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:9px;padding:8px 12px;transition:border-color .15s}
 .rc:hover{border-color:var(--mc)}
 .rc .ic{width:32px;height:32px;border-radius:8px;grid-row:auto}
@@ -368,11 +373,13 @@ const stBtns=m=>'<div class="stsel" role="group" aria-label="Situação de '+esc
 const FILES = MATS.flatMap(m=>m.arquivos.map(a=>({...a,mat:m})));
 const norm = s => String(s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'');
 
+function isOpen(a){ return !!a.ciclo && a.aberta!==false && (!a.ate || daysTo(a.ate)>=0) }
+function cyChip(a){ if(!a.ciclo) return ''; if(isOpen(a)){ const n=a.ate?daysTo(a.ate):null; return '<span class="cy on">em construção · '+esc(a.ciclo)+(n!=null?' · prova '+cdTxt(n):'')+'</span>' } return '<span class="cy">'+esc(a.ciclo)+' · fechada</span>' }
 function fileRow(a,showMat){
   const ext = /^https?:/.test(a.caminho);
   return '<a class="file" style="--mc:'+esc(a.mat.cor)+'" href="'+esc(a.caminho)+'"'+(ext?' target="_blank" rel="noopener"':'')+'>'+
     '<span class="badge">'+esc(TIPOS[a.tipo]||a.tipo||'Arquivo')+'</span>'+
-    '<h3>'+esc(a.titulo)+'</h3><span class="go">Abrir →</span>'+
+    '<h3>'+esc(a.titulo)+'</h3><span class="go">Abrir →</span>'+(a.ciclo?'<div class="meta">'+cyChip(a)+'</div>':'')+
     '<div class="meta">'+(showMat?'<span class="from">'+esc(a.mat.sigla)+' · '+a.mat.periodo+'º período</span><br>':'')+esc(a.descricao)+
     '<small>'+[fdate(a.data),...(a.tags||[]).map(t=>'#'+t)].filter(Boolean).map(esc).join(' · ')+'</small></div></a>';
 }
@@ -380,7 +387,7 @@ function matCard(m){
   const n=m.arquivos.length, st=m.status||'';
   if(EDIT) return '<div class="mat edit'+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+stBtns(m)+'</div>';
   return '<a class="mat'+(n?'':' empty')+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+
-    '<span class="n"><span>'+(ST[st]?'<span class="st">'+ST[st]+'</span> ':'')+(n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):(ST[st]?'':'sem materiais ainda'))+'</span><span>'+(m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
+    '<span class="n"><span>'+(ST[st]?'<span class="st">'+ST[st]+'</span> ':'')+(m.arquivos.some(isOpen)?'<b>oficina aberta</b>':n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):(ST[st]?'':'sem materiais ainda'))+'</span><span>'+(m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
 }
 function renderHome(){
   document.getElementById('curso').textContent=[D.curso,D.instituicao].filter(Boolean).join(' · ');
@@ -418,7 +425,11 @@ function renderMat(id){
     '<div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">'+m.periodo+'º período · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1>'+'<p>'+[m.ch?m.ch+' h':'',m.professor?'Prof. '+esc(m.professor):'',ST[m.status]||''].filter(Boolean).join(' · ')+'</p>'+'</div></div>'+
     '<div class="stbox"><span class="eyebrow">Situação</span>'+stBtns(m)+'</div>'+
     ((window.PROVAS||[]).some(x=>x.materia===m.id)?'<div class="eyebrow">Provas</div><div class="mprov">'+(typeof PR!=='undefined'?PR:[]).filter(x=>x.materia===m.id).map(provRow).join('')+'</div>':'')+
-    (m.arquivos.length?'<div class="files">'+[...m.arquivos].sort((a,b)=>String(b.data).localeCompare(String(a.data))).map(a=>fileRow({...a,mat:m},false)).join('')+'</div>'
+    (m.arquivos.length?(()=>{ const all=[...m.arquivos].map(a=>({...a,mat:m})).sort((a,b)=>String(b.ate||b.data).localeCompare(String(a.ate||a.data)));
+      const op=all.filter(isOpen), cl=all.filter(a=>!isOpen(a));
+      const upd=a=>(a.atualizacoes&&a.atualizacoes.length)?'<ul class="upd">'+[...a.atualizacoes].sort((x,y)=>y.data.localeCompare(x.data)).slice(0,6).map(u=>'<li><span>'+fdate(u.data).slice(0,5)+'</span>'+esc(u.texto)+'</li>').join('')+'</ul>':'';
+      return (op.length?'<div class="eyebrow" style="margin-bottom:8px">Oficina aberta · acumulando até a prova</div><div class="files">'+op.map(a=>fileRow(a,false)+upd(a)).join('')+'</div>':'')+
+        (cl.length?'<div class="eyebrow" style="margin:26px 0 8px">'+(op.length?'Oficinas anteriores':'Materiais')+'</div><div class="files">'+cl.map(a=>fileRow(a,false)).join('')+'</div>':'') })()
       :'<div class="blank"><b>Nada aqui ainda</b>Os materiais desta matéria vão aparecer aqui assim que forem adicionados.</div>');
 }
 function route(){

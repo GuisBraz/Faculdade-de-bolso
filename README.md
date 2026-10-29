@@ -58,6 +58,20 @@ O valor padrão vem do campo `status` em `dados/materias.js`. Cada matéria em `
 
 Quando todas as matérias de um período estão aprovadas ou reprovadas, o período é recolhido automaticamente (clique para abrir). Ao refazer uma matéria reprovada, mude o status para `"cursando"` ou mova o objeto para o período em que vai cursá-la.
 
+## Oficinas acumulativas
+
+Cada matéria tem **uma oficina aberta por prova**:
+
+1. Durante as aulas, o conteúdo novo vai sendo revisado e **acrescentado à oficina aberta** (cada inclusão fica registrada em `atualizacoes`).
+2. Na data da prova (`ate`), a oficina **fecha sozinha** e vai para "Oficinas anteriores", continuando disponível para revisão.
+3. Depois da prova, começa uma **oficina nova** para a próxima prova (novo arquivo em `materias/<id>/`, novo `ciclo`).
+
+```js
+{ titulo: "Oficina de GAAL", tipo: "site", caminho: "materias/gaal/oficina-de-gaal.html",
+  ciclo: "2ª Prova", ate: "2026-11-06",
+  atualizacoes: [{ data: "2026-10-28", texto: "Criada: retas, planos, ..." }] }
+```
+
 ## Provas
 
 A aba **Provas** mostra a contagem regressiva da próxima prova, todas as datas por mês e alertas no topo do hub quando uma prova está a 14 dias ou menos (laranja com 7 dias, vermelho com 2). O botão **Adicionar ao calendário** baixa um `.ics` com lembretes 7 dias e 1 dia antes.
