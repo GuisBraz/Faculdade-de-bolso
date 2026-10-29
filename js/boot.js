@@ -21,7 +21,7 @@ if('serviceWorker' in navigator && location.protocol==='https:') addEventListene
 
 if(!CFG.url||!CFG.anonKey){
   window.FDB_MODE='local';
-  carregar('dados/provas.js').catch(()=>{}).then(()=>carregar('dados/horario.js').catch(()=>{})).then(iniciarHub);
+  iniciarHub();
   return;
 }
 
@@ -108,5 +108,5 @@ carregar(CFG.lib||'js/vendor/supabase-2.117.3.js').then(()=>{
     lsSet(META,JSON.stringify(meta)); ultimo=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
   })().finally(()=>{ rodando=null }); return rodando }
 }).catch(e=>{ console.error(e); window.FDB_MODE='local'; $('app').hidden=false; document.querySelector('.topbar').hidden=false;
-  carregar('dados/provas.js').catch(()=>{}).then(()=>carregar('dados/horario.js').catch(()=>{})).then(iniciarHub) });
+  iniciarHub() });
 })();

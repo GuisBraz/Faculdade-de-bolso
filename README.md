@@ -53,7 +53,7 @@ Em `dados/materias.js`, dentro de `materias` do período certo:
 
 No site, toque em **Dar baixa nas matérias** (barra "Ir para") e marque cada matéria como não cursada, cursando, aprovada ou reprovada. Dá também na página de cada matéria. As marcações ficam salvas no navegador; use **Copiar backup** / **Restaurar** para levá-las a outro aparelho.
 
-O valor padrão vem do campo `status` em `dados/materias.js`. Cada matéria em `dados/materias.js` pode ter um `status`:
+O valor padrão de cada matéria vem do banco (tabela `privado`, chave `materias`) e as suas marcações sincronizam com a conta. Os status possíveis:
 
 | status | efeito |
 |---|---|
@@ -80,7 +80,7 @@ Cada matéria tem **uma oficina aberta por prova**:
 
 ## Horário
 
-A aba **Horário** mostra a grade semanal (dados em `dados/horario.js`), destacando o dia de hoje e a aula atual ou a próxima. Na página inicial, a faixa **Hoje** lista as aulas do dia.
+A aba **Horário** (só para o admin) mostra a grade semanal (dados no banco, tabela `privado`), destacando o dia de hoje e a aula atual ou a próxima. Na página inicial, a faixa **Hoje** lista as aulas do dia.
 
 Na página inicial só aparece o **período em andamento**; os anteriores e os próximos ficam recolhidos nos botões abaixo dele (ou pela barra "Ir para").
 
@@ -88,7 +88,7 @@ Na página inicial só aparece o **período em andamento**; os anteriores e os p
 
 A aba **Provas** mostra a contagem regressiva da próxima prova, todas as datas por mês e alertas no topo do hub quando uma prova está a 14 dias ou menos (laranja com 7 dias, vermelho com 2). O botão **Adicionar ao calendário** baixa um `.ics` com lembretes 7 dias e 1 dia antes.
 
-- Provas de cronogramas oficiais ficam em `dados/provas.js`.
+- Provas de cronogramas oficiais, horário, professores e status ficam no banco (tabela `privado`, só o admin lê); nada disso fica no repositório.
 - Provas sem cronograma podem ser incluídas pelo formulário da própria aba (salvas no navegador e incluídas no backup).
 
 ## Cartas de revisão (Anki)
