@@ -96,7 +96,8 @@ window.FACULDADE = {
               ciclo: "2ª Prova", ate: "2026-11-06",
               atualizacoes: [
                 { data: "2026-10-28", texto: "Criada: retas, planos, posições relativas, ângulos e distâncias, com a lista 4 resolvida." },
-                { data: "2026-10-29", texto: "Cartas de revisão (Anki): botão Cartas na oficina, carta surpresa nos módulos de teoria e 29 cartas de GAAL." }
+                { data: "2026-10-29", texto: "Cartas de revisão (Anki): botão Cartas na oficina, carta surpresa nos módulos de teoria e 29 cartas de GAAL." },
+                { data: "2026-10-30", texto: "Aula de 30/10: plano que contém duas retas (concorrentes: N = v₁ × v₂; paralelas: N = P₂P₁ × v₂), exercício 2 resolvido e calculadora." }
               ],
               descricao: "Retas, planos, posições relativas, ângulos e distâncias do zero, com laboratório 3D, calculadoras, a lista 4 resolvida e quiz.",
               data: "2026-10-28",

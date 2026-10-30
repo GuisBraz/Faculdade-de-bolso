@@ -37,6 +37,10 @@ window.FDB_CARTAS = [
   { id:"gaal-027", m:"gaal", t:"Distâncias", f:"Distância entre retas reversas (pontos P e Q, diretores u⃗ e v⃗).", v:"d = |(u⃗, v⃗, PQ⃗)| / ‖u⃗ × v⃗‖ (volume ÷ área da base)." },
   { id:"gaal-028", m:"gaal", t:"Distâncias", f:"Como calcular a distância entre dois planos paralelos?", v:"Pegue um ponto qualquer de um deles e use a distância ponto–plano até o outro." },
   { id:"gaal-029", m:"gaal", t:"Distâncias", f:"Como achar o pé da perpendicular de P até uma reta?", v:"Escreva o ponto genérico Q(t) da reta e resolva PQ⃗(t) · v⃗ = 0 para achar t." },
+  { id:"gaal-030", m:"gaal", t:"Planos", f:"Como achar o plano que contém duas retas concorrentes?", v:"N⃗ = v⃗₁ × v⃗₂ (os dois diretores estão no plano). Depois d = −N⃗·P, com P de qualquer uma das retas." },
+  { id:"gaal-031", m:"gaal", t:"Planos", f:"E se as duas retas forem paralelas?", v:"Os diretores são paralelos, então use o vetor que liga as retas: N⃗ = P₂P₁⃗ × v⃗₂, com P₁ em r₁ e P₂ em r₂." },
+  { id:"gaal-032", m:"gaal", t:"Planos", f:"Plano que contém r₁: (2t, t, 2 − t) e r₂: (s, s, 2).", v:"N⃗ = (2, 1, −1) × (1, 1, 0) = (1, −1, 1); com P = (0, 0, 2): x − y + z − 2 = 0." },
+  { id:"gaal-033", m:"gaal", t:"Planos", f:"Quando NÃO existe plano contendo duas retas?", v:"Quando são reversas: diretores não paralelos e (v⃗₁ × v⃗₂) · P₁P₂⃗ ≠ 0." },
 
   /* ===== CÁLCULO II ===== */
   { id:"calc2-001", m:"calc2", t:"Funções", f:"Quais são as três condições que restringem o domínio de uma função de várias variáveis?", v:"√(…) exige (…) ≥ 0; ln(…) exige (…) > 0; fração exige denominador ≠ 0." },
