@@ -1,0 +1,517 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oficina de Inglês</title>
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,500;1,500&display=swap">
+<style>
+/* Layout: prancheta técnica — folha milimetrada, carimbos de desenho técnico nas fórmulas, uma coluna de leitura com laboratório 3D */
+:root{
+  --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
+  --c1:#D9531A; --c2:#0C8587; --c3:#6447BE; --ok:#2A7F3E; --bad:#BF3328; --hl:rgba(217,83,26,.10); --hl2:rgba(12,133,135,.10);
+  --f-disp:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif, "Cambria Math", "STIX Two Text";
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif, "Cambria Math", "STIX Two Text", "Segoe UI Symbol";
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace, "Cambria Math", "STIX Two Text";
+  --f-math:"STIX Two Text", "Cambria Math", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+h1,h2,h3{font-family:var(--f-disp);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,5vw,2.4rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700;margin-top:2.2rem}
+p{margin:.6rem 0}
+a{color:var(--c2)}
+i.m,.m{font-family:var(--f-math);font-style:italic}
+:focus-visible{outline:2.5px solid var(--c1);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sheet);border-bottom:1px solid var(--line)}
+.hwrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 0}
+.brand{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.brand a{font-family:var(--f-disp);font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo{width:26px;height:26px}
+.prog{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.bar{width:90px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c2);width:0;transition:width .4s}
+nav{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;font-size:.86rem;font-weight:700;text-decoration:none;color:var(--ink2);padding:6px 11px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--ink);border-color:var(--line)}
+nav a.on{background:var(--ink);color:var(--sheet)}
+nav a .dn{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-left:5px;vertical-align:middle}
+
+main{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 80px}
+.view{display:block}
+.read{max-width:700px}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.lede{font-size:1.12rem;color:var(--ink2);max-width:62ch}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;margin-bottom:36px}
+.hero h1{font-size:clamp(2.2rem,7vw,3.9rem);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--c1)}
+.hero .cv{aspect-ratio:1/1;max-width:100%}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+
+/* trilha */
+.trail{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:18px}
+.stop{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;padding:14px 16px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
+.stop:hover{transform:translateY(-2px);border-color:var(--c2)}
+.stop .n{grid-row:span 2;font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ink2);color:var(--ink2)}
+.stop.done .n{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.stop b{font-family:var(--f-disp);font-size:1.05rem}
+.stop span{font-size:.88rem;color:var(--ink2);line-height:1.4}
+
+/* blocos */
+.fx{position:relative;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;margin:20px 0;padding:30px 18px 16px;overflow-x:auto}
+.fx .tag{position:absolute;top:0;left:0;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--sheet);padding:3px 9px;border-bottom-right-radius:4px}
+.fx .eq{font-family:var(--f-math);font-size:1.45rem;text-align:center;padding:6px 0 10px;white-space:nowrap}
+.fx .eq i{font-style:italic}
+.legend{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.93rem;border-top:1px dashed var(--line);padding-top:10px;margin:0}
+.legend dt{font-family:var(--f-math);font-style:italic;font-size:1.05rem;color:var(--c1);white-space:nowrap}
+.legend dd{margin:0;color:var(--ink2)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .25em .05em}
+.fr>span:last-child{padding:.05em .25em 0}
+.rt{white-space:nowrap}.rt::before{content:"√"}.rt>span{border-top:1.5px solid currentColor;padding:0 .1em}
+.v{position:relative}
+.ofi{background:var(--hl2);border-radius:8px;padding:12px 16px;margin:18px 0}
+.ofi .k,.cuid .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--c2);display:block;margin-bottom:2px}
+.cuid{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:12px 16px 12px;margin:18px 0;position:relative;overflow:hidden}
+.cuid::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:repeating-linear-gradient(-45deg,#E8B511 0 8px,#1b1b1b 8px 16px)}
+.cuid .k{color:var(--c1);margin-top:4px}
+ol.recipe{counter-reset:s;list-style:none;padding:0;margin:14px 0;display:grid;gap:8px}
+ol.recipe>li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+ol.recipe>li::before{content:counter(s);font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:26px;height:26px;border-radius:50%;background:var(--c1);color:var(--sheet);display:grid;place-items:center;margin-top:1px}
+code,.mono{font-family:var(--f-mono);font-size:.9em}
+.tbl{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--sheet)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+
+/* exemplo passo a passo */
+.ex{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:18px 0}
+.ex .q{font-weight:700}
+.ex ol{margin:10px 0 0;padding-left:1.3em;display:grid;gap:8px}
+.ex ol li{padding-left:4px}
+.ex ol li.hid{display:none}
+.ex .ans{display:none;margin-top:10px;padding:8px 12px;background:var(--hl);border-radius:6px;font-weight:700}
+.ex.all .ans{display:block}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button,.btn{font:700 .88rem var(--f-body);border-radius:8px;padding:8px 14px;cursor:pointer;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet)}
+button.ghost{background:transparent;color:var(--ink)}
+button:disabled{opacity:.4;cursor:default}
+button:hover:not(:disabled){filter:brightness(1.1)}
+
+/* calculadoras */
+.calc{background:var(--sheet);border:1.5px solid var(--c2);border-radius:10px;padding:16px;margin:24px 0}
+.calc h4{margin:0 0 4px;font-family:var(--f-disp);font-size:1.1rem;color:var(--c2)}
+.calc .hint{font-size:.85rem;color:var(--ink2);margin:0 0 10px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.fields label{display:grid;gap:3px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+input[type=text],select{font:500 1rem var(--f-mono);padding:8px 10px;border-radius:6px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%;min-width:0}
+input[type=text]:focus{border-color:var(--c2);outline:none}
+.out{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;font-size:.95rem}
+.out ol{margin:0;padding-left:1.3em;display:grid;gap:5px}
+.out .res{margin-top:8px;font-weight:700;padding:8px 12px;border-radius:6px;background:var(--hl2)}
+.out .err{color:var(--bad);font-weight:700}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.seg button{background:transparent;color:var(--ink2);border-color:var(--line);font-size:.82rem;padding:6px 11px}
+.seg button.on{background:var(--c2);border-color:var(--c2);color:var(--sheet)}
+.done-btn{margin-top:36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--line)}
+.done-btn button.isdone{background:var(--ok);border-color:var(--ok)}
+
+/* 3D */
+.cv{position:relative;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--sheet);overflow:hidden;touch-action:none}
+.cv canvas{display:block;width:100%;height:100%;cursor:grab}
+.cv .ctl{position:absolute;right:8px;bottom:8px;display:flex;gap:6px}
+.cv .ctl button{padding:4px 10px;font-size:.85rem;background:var(--sheet);color:var(--ink);border-color:var(--line)}
+.cv .lbl{position:absolute;left:10px;top:8px;font-family:var(--f-mono);font-size:.7rem;color:var(--ink2)}
+.labgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start}
+.labgrid .cv{aspect-ratio:4/3.4}
+@media (max-width:760px){.labgrid{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{font-size:.8rem;padding:6px 10px;background:transparent;color:var(--ink);border-color:var(--line)}
+.objlist{list-style:none;padding:0;margin:10px 0;display:grid;gap:6px;font-size:.88rem}
+.objlist li{display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:6px;padding:6px 8px}
+.objlist li .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.objlist li span{flex:1;min-width:0;font-family:var(--f-mono);font-size:.8rem;overflow-wrap:anywhere}
+.objlist li button{padding:2px 8px;font-size:.75rem;background:transparent;color:var(--bad);border-color:var(--line)}
+.inline-cv{aspect-ratio:16/10;margin:16px 0}
+
+/* fluxograma */
+.flow{display:grid;gap:10px;margin:16px 0}
+.node{background:var(--sheet);border:1.5px solid var(--ink);border-radius:8px;padding:10px 14px}
+.node b{font-family:var(--f-disp)}
+.branch{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.leaf{border-radius:8px;padding:10px 12px;font-size:.92rem;border:1.5px solid var(--line);background:var(--sheet)}
+.leaf b{display:block;font-family:var(--f-disp);font-size:1rem}
+.leaf.a b{color:var(--c1)}.leaf.b b{color:var(--c2)}.leaf.c b{color:var(--c3)}
+.arrow{text-align:center;font-family:var(--f-mono);color:var(--ink2);font-size:.8rem}
+@media (max-width:520px){.branch{grid-template-columns:1fr}}
+
+/* lista */
+.qitem{background:var(--sheet);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.qitem summary{cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;list-style:none}
+.qitem summary::-webkit-details-marker{display:none}
+.qitem summary .qn{font-family:var(--f-mono);font-weight:600;font-size:.8rem;background:var(--ink);color:var(--sheet);border-radius:5px;padding:2px 8px;margin-top:2px}
+.qitem[open] summary{border-bottom:1px dashed var(--line)}
+.qitem .body{padding:6px 16px 16px}
+.qitem .tagt{font-family:var(--f-mono);font-size:.72rem;color:var(--c2);margin-top:4px;display:block}
+.part{margin-top:14px}
+.part h5{margin:0;font-family:var(--f-disp);font-size:1rem}
+
+/* quiz */
+.qz{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+.qz .opts{display:grid;gap:8px;margin-top:10px}
+.qz .opts button{text-align:left;background:var(--paper);color:var(--ink);border:1.5px solid var(--line);font-weight:400}
+.qz .opts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--sheet))}
+.qz .opts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--sheet))}
+.qz .why{margin-top:10px;font-size:.93rem;color:var(--ink2)}
+.score{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--ink);color:var(--sheet);border-radius:10px;padding:10px 16px;font-family:var(--f-mono);font-size:.9rem}
+.score button{background:var(--sheet);color:var(--ink);border-color:var(--sheet);padding:4px 10px;font-size:.8rem}
+
+/* cola */
+.cola{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.cola .fx{margin:0}
+.cola .fx .eq{font-size:1.2rem}
+.cola p{font-size:.85rem;color:var(--ink2);margin:6px 0 0}
+
+/* demo escalar */
+.dot2d{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin:18px 0}
+.dot2d canvas{width:200px;height:200px;max-width:100%}
+.dot2d input[type=range]{width:100%;accent-color:var(--c1)}
+.verdict{font-family:var(--f-disp);font-size:1.2rem;font-weight:700}
+@media (max-width:520px){.dot2d{grid-template-columns:1fr;justify-items:center}}
+footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+/* física */
+.aula{background:var(--sheet);border:1.5px solid var(--c1);border-radius:10px;padding:14px 16px;margin:22px 0;position:relative}
+.aula .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sheet);background:var(--c1);padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.queda{display:grid;grid-template-columns:70px 1fr;gap:16px;align-items:stretch;margin:10px 0}
+.qcol{display:grid;grid-template-rows:1fr auto;justify-items:center;gap:4px}
+.qtrack{position:relative;width:8px;min-height:190px;height:100%;background:var(--line);border-radius:4px}
+.qball{position:absolute;left:50%;width:22px;height:22px;border-radius:50%;background:var(--c3);transform:translate(-50%,50%);bottom:100%}
+.qlbl{font:600 .66rem var(--f-mono);color:var(--ink2);text-transform:uppercase}
+.qinfo input[type=range]{width:100%;accent-color:var(--c1)}
+.qbars{display:grid;gap:6px;margin-top:8px}
+.qbars div{display:grid;grid-template-columns:34px 1fr 54px;gap:8px;align-items:center;font-family:var(--f-mono);font-size:.82rem}
+.qbars i{display:block;height:14px;background:var(--line);border-radius:3px;overflow:hidden}
+.qbars em{display:block;height:100%}
+.qbars b{text-align:right}
+.formas{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.formas span{--mc:var(--c1);border:1.5px solid var(--mc);border-radius:999px;padding:4px 12px;font-size:.85rem;background:color-mix(in srgb,var(--mc) 8%,var(--sheet))}
+.formas b{font-family:var(--f-math);font-style:italic;color:var(--mc);margin-right:2px}
+@media (max-width:480px){.queda{grid-template-columns:50px 1fr}}
+.simctl{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px 16px;margin:12px 0 4px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.simctl label{display:grid;gap:2px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+.simctl label b{color:var(--ink);font-family:var(--f-mono)}
+.simctl input[type=range]{width:100%;accent-color:var(--c1)}
+.simout{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:10px 14px 12px;margin-bottom:10px}
+.sim canvas{cursor:default}
+.labgrid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:4px 24px}
+
+
+.fx .eq{text-wrap:balance}
+@media (max-width:560px){.fx .eq{white-space:normal;font-size:1.18rem;line-height:1.5}}
+.row-ctl{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:10px 0}
+.row-ctl select{font:600 .9rem var(--f-body);padding:7px 10px;border:1.5px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink);margin-left:6px;max-width:100%}
+.row-ctl input[type=range]{accent-color:var(--c3)}
+.labgrid2 .cv{min-height:260px}
+.arvore{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin:16px 0;text-align:center;font-family:var(--f-math);font-style:italic;font-size:1.2rem;max-width:420px}
+.arvore>div{display:flex;justify-content:space-around;margin:6px 0}
+.arvore span,.arvore .nz{display:inline-grid;place-items:center;width:38px;height:38px;border-radius:50%;border:1.5px solid var(--ink);background:var(--paper,var(--sheet))}
+.arvore .nz{margin:0 auto;background:var(--c1);color:var(--sheet);border-color:var(--c1)}
+.arvore .nm span{border-color:var(--c2)}
+.arvore p{font-family:var(--f-mono);font-style:normal;font-size:.78rem;color:var(--ink2);margin:8px 0 0}
+
+/* escala fluida: acompanha a resolução de cada tela e usa a largura toda */
+html{font-size:clamp(15px,calc(9.5px + .48vw),19px)}
+body{font-size:1rem}
+:root{--gut:clamp(16px,3vw,64px)}
+.hwrap,main,footer{max-width:1760px!important;padding-left:max(var(--gut),env(safe-area-inset-left,0px))!important;padding-right:max(var(--gut),env(safe-area-inset-right,0px))!important}
+.view.read{max-width:none}
+.view.read>p,.view.read>ul,.view.read>ol,.view.read>h2,.view.read>h3,p.read,ol.read{max-width:82ch}
+.lede{max-width:72ch}
+.cv.sim{max-height:82vh}
+.hero .cv{max-height:72vh;justify-self:center}
+@media (min-width:1200px){nav{flex-wrap:wrap;overflow:visible}}
+
+/* ===== Oficina de Inglês ===== */
+.levelbox{display:grid;gap:14px;align-self:center}
+.lbk{display:grid;gap:6px;background:var(--sheet);border:1.5px solid var(--ink);border-radius:12px;padding:18px}
+.lbk .mono{font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.lbk b{font-family:var(--f-disp);font-size:1.5rem;line-height:1.15}
+.lbk span{color:var(--ink2)}
+.lbk .btn{justify-self:start;margin-top:6px}
+.steps3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.s3{border:1.5px solid var(--line);border-radius:10px;padding:10px;text-align:center;background:var(--sheet)}
+.s3 b{display:block;font-family:var(--f-disp);font-size:1.4rem}.s3 span{font:600 .75rem var(--f-mono);color:var(--ink2)}
+.s3.half{border-color:var(--c1)}.s3.full{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 10%,var(--sheet))}
+.rota{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:12px;margin:12px 0 8px}
+.lvcard{display:grid;gap:6px;text-decoration:none;color:var(--ink);background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;transition:transform .15s,border-color .15s}
+.lvcard:hover{transform:translateY(-2px);border-color:var(--c2)}
+.lvcard .lvid{font:800 2rem var(--f-disp);color:var(--c1);line-height:1}
+a.btn.ghost{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
+.lvcard b{font-family:var(--f-disp);font-size:1.15rem}.lvcard>span{color:var(--ink2);font-size:.92rem}
+.lvcard i{display:block;height:6px;border-radius:3px;background:var(--line);overflow:hidden}.lvcard i em{display:block;height:100%;background:var(--ok)}
+.lvcard small{font:600 .72rem var(--f-mono);color:var(--ink2)}
+.unav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font:600 .8rem var(--f-mono);color:var(--ink2);margin:6px 0 4px}
+.unav a{color:var(--c2)}
+.gram{background:var(--sheet);border:1px solid var(--line);border-left:4px solid var(--c2);border-radius:10px;padding:12px 16px;margin:12px 0}
+.gram h4{margin:0 0 6px;font-family:var(--f-disp);font-size:1.05rem}
+.gram p{margin:.4rem 0}.gram i{font-style:normal;font-weight:700;color:var(--c3)}
+.gram table{border-collapse:collapse;margin:8px 0;font-size:.95rem}
+.gram th,.gram td{border:1px solid var(--line);padding:6px 10px;text-align:left}
+.gram th{font:600 .72rem var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--ink2);background:var(--paper)}
+h3 .mini{margin-left:8px;vertical-align:middle}
+.mini{font-size:.75rem!important;padding:4px 10px!important}
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,210px),1fr));gap:8px;margin:10px 0}
+.vw{display:grid;grid-template-columns:1fr auto;gap:0 8px;text-align:left;background:var(--sheet);color:var(--ink);border:1px solid var(--line);border-radius:9px;padding:9px 12px;cursor:pointer;font:inherit}
+.vw:hover{border-color:var(--c2)}
+.vw b{font-size:1rem;grid-column:1}.vw span{font-size:.85rem;color:var(--ink2);grid-column:1}.vw svg{grid-column:2;grid-row:1/3;align-self:center;color:var(--c2)}
+.frases{display:grid;gap:8px;margin:10px 0}
+.fr{display:grid;grid-template-columns:auto 1fr;gap:10px;align-items:start;background:var(--sheet);border:1px solid var(--line);border-radius:9px;padding:9px 12px}
+.fr b{display:block}.fr span{font-size:.88rem;color:var(--ink2)}
+.spk{width:32px;height:32px;padding:0!important;display:inline-grid;place-items:center;border-radius:50%!important;background:color-mix(in srgb,var(--c2) 14%,var(--sheet))!important;color:var(--c2)!important;border:1px solid color-mix(in srgb,var(--c2) 40%,transparent)!important;vertical-align:middle;cursor:pointer}
+.exi{display:grid;grid-template-columns:auto 1fr;gap:12px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 14px;margin:10px 0}
+.exi.ok{border-color:var(--ok)}.exi.bad{border-color:var(--bad)}
+.exn{font:600 .8rem var(--f-mono);width:28px;height:28px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--line)}
+.exi.ok .exn{background:var(--ok);border-color:var(--ok);color:var(--sheet)}.exi.bad .exn{border-color:var(--bad);color:var(--bad)}
+.exb p{margin:2px 0 8px}
+.exb input{width:100%;max-width:520px;font:1.05rem var(--f-body);padding:9px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--paper);color:var(--ink)}
+.exb input:focus{outline:none;border-color:var(--c2)}
+.exi .opts,.pool{display:flex;flex-wrap:wrap;gap:6px}
+.exi .opts button,.pool button{background:var(--paper);color:var(--ink);border:1.5px solid var(--line);font-weight:600;padding:7px 12px}
+.exi .opts button.sel{border-color:var(--ink);background:var(--sheet)}
+.exi .opts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--sheet))}
+.exi .opts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--sheet))}
+.pool button:disabled{opacity:.3}
+.built{min-height:2.2em;border-bottom:2px dashed var(--line);margin:4px 0 10px;font-size:1.1rem;font-weight:700;padding:4px 2px}
+.gap{font-family:var(--f-mono);color:var(--c1)}
+.why{margin-top:8px;font-size:.92rem}.okc{color:var(--ok)}.badc{color:var(--bad)}
+@media (max-width:720px){.steps3 b{font-size:1.15rem}}
+</style>
+</head>
+<body>
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0"><a href="../../index.html#m-ingl" style="font-size:.8rem;font-weight:700;color:var(--ink2);text-decoration:none;margin-right:6px" aria-label="Voltar ao hub">← Hub</a><a href="#inicio"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 5h11a3 3 0 0 1 3 3v11"/><path d="M4 5v14h14"/><path d="M8 10h6M8 14h4"/></svg>Oficina de Inglês</a></div>
+      <div class="prog"><span id="progtxt">0/24</span><div class="bar"><i id="progbar"></i></div></div>
+    </div>
+    <nav id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#A1" data-lv="A1">A1 · Iniciante</a>
+      <a href="#A2" data-lv="A2">A2 · Básico</a>
+      <a href="#B1" data-lv="B1">B1 · Intermediário</a>
+      <a href="#tecnico">Inglês técnico</a>
+      <a href="#pronuncia">Pronúncia</a>
+      <a href="#nivelamento">Nivelamento</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="view" id="v-inicio">
+  <div class="hero">
+    <div>
+      <div class="eyebrow">Projeto complementar · do zero ao B1</div>
+      <h1>Inglês <em>do zero</em> ao B1, um passo por dia.</h1>
+      <p class="lede">24 unidades curtas, na ordem certa: gramática explicada em português, vocabulário com áudio, frases do dia a dia e do trabalho e exercícios que corrigem na hora. As palavras de cada unidade que você abre entram nas suas cartas de revisão.</p>
+      <div class="btns"><a class="btn" id="goNext" href="#u01" style="text-decoration:none">Começar</a><a class="btn ghost" href="#nivelamento" style="text-decoration:none">Fazer o nivelamento</a></div>
+    </div>
+    <div class="levelbox" id="levelBox"></div>
+  </div>
+
+  <h3>A rota</h3>
+  <div class="rota" id="rota"></div>
+
+  <h3>Quanto tempo leva</h3>
+  <div class="read">
+    <p>O B1 do Quadro Europeu (CEFR) é o nível em que você conversa sobre trabalho, experiências e planos, entende o essencial de conversas claras e escreve e-mails simples. A Cambridge estima por volta de <b>350 a 400 horas de estudo guiado</b> desde o zero até ele (A2 fica em torno de 180 a 200).</p>
+    <div class="tbl"><table><tr><th>Ritmo</th><th>Até o A2</th><th>Até o B1</th></tr><tr><td>20 min por dia, 7 dias</td><td>≈ 18 meses</td><td>≈ 3 anos</td></tr><tr><td>40 min por dia, 7 dias</td><td>≈ 9 meses</td><td>≈ 1 ano e meio</td></tr><tr><td>1 h por dia, 7 dias</td><td>≈ 6 meses</td><td>≈ 1 ano</td></tr></table></div>
+    <p>As unidades daqui são o roteiro e a base de gramática e vocabulário; o resto das horas vem de <b>ouvir e ler inglês de verdade</b> (vídeos, séries com legenda em inglês, manuais e catálogos técnicos).</p>
+  </div>
+
+  <h3>Um plano que cabe na sua semana</h3>
+  <ol class="recipe read">
+    <li><span><b>Dias úteis, 15 a 20 min:</b> no almoço ou antes de dormir, faça um pedaço da unidade (gramática + exercícios) e as cartas do dia na aba Revisão do hub.</span></li>
+    <li><span><b>No trajeto:</b> ouça os áudios das frases da unidade e repita em voz alta.</span></li>
+    <li><span><b>Fim de semana, 1 hora:</b> termine a unidade, refaça os exercícios que errou e assista a 20 minutos de algo em inglês com legenda em inglês.</span></li>
+    <li><span><b>Ritmo sugerido:</b> uma unidade por semana. Só avance quando acertar pelo menos 70% dos exercícios.</span></li>
+  </ol>
+  <div class="ofi"><span class="k">Voz</span>O áudio usa a voz em inglês do seu navegador. <span id="ttsInfo"></span> <label class="mono" style="font-size:.8rem;display:inline-flex;gap:6px;align-items:center;margin-left:6px"><input type="checkbox" id="slowChk"> falar devagar</label></div>
+</section>
+
+<section class="view" id="v-level" hidden></section>
+<section class="view read" id="v-unit" hidden></section>
+
+<section class="view read" id="v-tecnico" hidden>
+  <div class="eyebrow">Vocabulário de trabalho</div>
+  <h2>Inglês técnico: caldeiraria e usinagem</h2>
+  <p class="lede">Os termos que aparecem em desenhos, catálogos, procedimentos de solda e e-mails com fornecedores. Toque em uma linha para ouvir.</p>
+  <div class="row-ctl"><input type="search" id="tecQ" placeholder="Buscar (ex.: solda, flange, tolerance)" aria-label="Buscar termo técnico" style="flex:1;min-width:220px;font:1rem var(--f-body);padding:10px 12px;border:1.5px solid var(--line);border-radius:8px;background:var(--sheet);color:var(--ink)"></div>
+  <div class="vgrid" id="tecList"></div>
+</section>
+
+<section class="view read" id="v-pronuncia" hidden>
+  <div class="eyebrow">Pronúncia</div>
+  <h2>Os sons que mais pegam para quem fala português</h2>
+  <p class="lede">Ouça, repita em voz alta e grave no celular para comparar. Toque nas palavras.</p>
+  <div id="pronList"></div>
+</section>
+
+<section class="view read" id="v-nivelamento" hidden>
+  <div class="eyebrow">Teste rápido</div>
+  <h2>Nivelamento: por onde começar?</h2>
+  <p class="lede">16 perguntas, do mais fácil ao mais difícil. Se não souber, não chute: deixe em branco. No fim eu digo em qual unidade começar.</p>
+  <div id="nivBox"></div>
+  <div class="btns"><button type="button" id="nivGo">Ver resultado</button><button type="button" class="ghost" id="nivReset">Recomeçar</button></div>
+  <div class="simout" id="nivOut" hidden></div>
+</section>
+</main>
+<footer>Oficina de Inglês · projeto complementar do Faculdade de Bolso · níveis do Quadro Europeu Comum de Referência (CEFR)</footer>
+
+<script src="../../dados/ingles.js"></script>
+<script>
+/* ===== dados ===== */
+const I=window.FDB_INGLES, U=I.unidades, LV=I.niveis;
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const $=id=>document.getElementById(id);
+
+/* ===== progresso: ingl-done {u01:true} · ingl-quiz {score:{u01:{ok,n}}, seen:{u01:1}, niv:{...}} (sincronizam com a conta) ===== */
+let done={}, Q={score:{},seen:{}};
+function load(){ try{ done=JSON.parse(localStorage.getItem('ingl-done')||'{}')||{}; Q=JSON.parse(localStorage.getItem('ingl-quiz')||'{}')||{}; }catch(e){} Q.score=Q.score||{}; Q.seen=Q.seen||{} }
+function save(){ try{ localStorage.setItem('ingl-done',JSON.stringify(done)); localStorage.setItem('ingl-quiz',JSON.stringify(Q)) }catch(e){} }
+addEventListener('storage',e=>{ if(e.key==='ingl-done'||e.key==='ingl-quiz'){ load(); renderProg() } });
+
+/* ===== voz ===== */
+let VOICE=null, slow=false;
+try{ slow=localStorage.getItem('ingl-slow')==='1' }catch(e){}
+function pickVoice(){ if(!('speechSynthesis' in window)) return; const vs=speechSynthesis.getVoices(); if(!vs.length) return;
+  VOICE=vs.find(v=>/en[-_]US/i.test(v.lang)&&/google|natural|online/i.test(v.name))||vs.find(v=>/en[-_]US/i.test(v.lang))||vs.find(v=>/^en/i.test(v.lang))||null; ttsInfo() }
+function ttsInfo(){ const el=$('ttsInfo'); if(!el) return; el.textContent=!('speechSynthesis' in window)?'Este navegador não tem voz: use o Chrome ou o Edge.':VOICE?'Voz em uso: '+VOICE.name+'.':'Procurando uma voz em inglês…' }
+if('speechSynthesis' in window){ pickVoice(); speechSynthesis.onvoiceschanged=pickVoice }
+function say(t){ if(!('speechSynthesis' in window)) return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(String(t).replace(/\s*\/\s*/g,', ').replace(/\(.*?\)/g,'')); u.lang=VOICE?VOICE.lang:'en-US'; if(VOICE) u.voice=VOICE; u.rate=slow?.72:.95; speechSynthesis.speak(u) }
+const SPK='<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M15.5 8.5a5 5 0 0 1 0 7M18.5 5.5a9 9 0 0 1 0 13"/></svg>';
+const spk=t=>'<button type="button" class="spk" data-say="'+esc(t)+'" aria-label="Ouvir">'+SPK+'</button>';
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-say]'); if(b){ e.preventDefault(); say(b.dataset.say) } });
+
+/* ===== normalização de respostas ===== */
+function norm(s){ return String(s).toLowerCase().replace(/[’‘`´]/g,"'").replace(/[.,!?;:"]/g,' ').replace(/\s+/g,' ').trim() }
+function expand(s){ return norm(s).replace(/\bwon't\b/g,'will not').replace(/\bcan't\b|\bcannot\b/g,'can not').replace(/n't\b/g,' not').replace(/'m\b/g,' am').replace(/'re\b/g,' are').replace(/'ll\b/g,' will').replace(/'ve\b/g,' have').replace(/'d\b/g,' would').replace(/\s+/g,' ').trim() }
+const same=(a,b)=>norm(a)===norm(b)||expand(a)===expand(b);
+
+/* ===== unidade ===== */
+const lvOf=id=>LV.find(l=>l.id===id);
+const unitIdx=x=>U.findIndex(u=>u.id===(x&&x.id||x));
+function unitHTML(u){ const i=unitIdx(u), prev=U[i-1], next=U[i+1], sc=Q.score[u.id];
+  return '<div class="eyebrow">Unidade '+(i+1)+' · '+esc(lvOf(u.nivel).nome)+'</div><h2>'+esc(u.titulo)+'</h2><p class="lede">'+esc(u.meta)+'</p>'+
+    '<div class="unav"><a href="#'+u.nivel+'">← todas do '+u.nivel+'</a><span>'+(sc?'exercícios: '+sc.ok+' de '+sc.n+' na última vez':'')+'</span></div>'+
+    '<h3>1 · Gramática</h3>'+u.gram.map(g=>'<div class="gram"><h4>'+esc(g.t)+'</h4>'+g.h+'</div>').join('')+
+    '<h3>2 · Vocabulário <button type="button" class="ghost mini" data-all="v">ouvir tudo</button></h3><div class="vgrid">'+u.vocab.map(([en,pt])=>'<button type="button" class="vw" data-say="'+esc(en)+'"><b>'+esc(en)+'</b><span>'+esc(pt)+'</span>'+SPK+'</button>').join('')+'</div>'+
+    '<h3>3 · Frases <button type="button" class="ghost mini" data-all="f">ouvir tudo</button></h3><div class="frases">'+u.frases.map(([en,pt])=>'<div class="fr">'+spk(en)+'<div><b>'+esc(en)+'</b><span>'+esc(pt)+'</span></div></div>').join('')+'</div>'+
+    '<h3>4 · Exercícios</h3><div id="exBox">'+u.ex.map((e,k)=>exHTML(e,k)).join('')+'</div>'+
+    '<div class="btns"><button type="button" id="exCheck">Corrigir tudo</button><button type="button" class="ghost" id="exReset">Refazer</button></div><div class="simout" id="exRes" hidden></div>'+
+    '<div class="done-btn"><button type="button" id="uDone" class="'+(done[u.id]?'isdone':'')+'">'+(done[u.id]?'✓ Unidade concluída':'Marcar unidade como concluída')+'</button>'+(next?'<a href="#'+next.id+'">Próxima: '+esc(next.titulo)+' →</a>':'<a href="#nivelamento">Fechou o B1? Refaça o nivelamento →</a>')+(prev?' <a href="#'+prev.id+'" style="margin-left:auto">← '+esc(prev.titulo)+'</a>':'')+'</div>' }
+function exHTML(e,k){ const n='<span class="exn">'+(k+1)+'</span>';
+  if(e.t==='mc') return '<div class="exi" data-k="'+k+'">'+n+'<div class="exb"><p>'+esc(e.q)+'</p><div class="opts">'+e.o.map((o,j)=>'<button type="button" data-j="'+j+'">'+esc(o)+'</button>').join('')+'</div><div class="why" hidden></div></div></div>';
+  if(e.t==='fill') return '<div class="exi" data-k="'+k+'">'+n+'<div class="exb"><p>'+esc(e.q).replace('___','<span class="gap">___</span>')+(e.dica?' <small class="mono">('+esc(e.dica)+')</small>':'')+'</p><input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Resposta"><div class="why" hidden></div></div></div>';
+  if(e.t==='order'){ const sh=[...e.w].map((w,i)=>({w,i})).sort(()=>Math.random()-.5); return '<div class="exi" data-k="'+k+'">'+n+'<div class="exb"><p>Monte a frase: <i>'+esc(e.tr)+'</i></p><div class="built" aria-live="polite"></div><div class="pool">'+sh.map(x=>'<button type="button" data-w="'+esc(x.w)+'">'+esc(x.w)+'</button>').join('')+'</div><button type="button" class="ghost mini clr">limpar</button><div class="why" hidden></div></div></div>' }
+  if(e.t==='listen') return '<div class="exi" data-k="'+k+'">'+n+'<div class="exb"><p>Ouça e escreva o que ouviu. '+spk(e.s)+'<button type="button" class="ghost mini" data-slow="'+esc(e.s)+'">devagar</button></p><input type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="O que você ouviu"><div class="why" hidden></div></div></div>';
+  return '' }
+function bindUnit(u){ const box=$('exBox'); const st={};
+  box.querySelectorAll('.exi').forEach(el=>{ const k=+el.dataset.k, e=u.ex[k];
+    if(e.t==='mc') el.querySelectorAll('.opts button').forEach(b=>b.onclick=()=>{ el.querySelectorAll('.opts button').forEach(x=>x.classList.toggle('sel',x===b)); st[k]=+b.dataset.j });
+    if(e.t==='order'){ const built=el.querySelector('.built'); const upd=()=>built.textContent=(st[k]||[]).join(' ');
+      el.querySelectorAll('.pool button').forEach(b=>b.onclick=()=>{ if(b.disabled)return; b.disabled=true; (st[k]=st[k]||[]).push(b.dataset.w); upd() });
+      el.querySelector('.clr').onclick=()=>{ st[k]=[]; el.querySelectorAll('.pool button').forEach(b=>b.disabled=false); upd(); el.classList.remove('ok','bad'); el.querySelector('.why').hidden=true } }
+    const sl=el.querySelector('[data-slow]'); if(sl) sl.onclick=()=>{ const s0=slow; slow=true; say(sl.dataset.slow); slow=s0 };
+    const inp=el.querySelector('input'); if(inp) inp.addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); corrigir() } }) });
+  function corrigir(){ let ok=0; u.ex.forEach((e,k)=>{ const el=box.querySelector('.exi[data-k="'+k+'"]'), w=el.querySelector('.why'); let r=false, ans='';
+      if(e.t==='mc'){ r=st[k]===e.a; ans=e.o[e.a]; el.querySelectorAll('.opts button').forEach((b,j)=>{ b.classList.toggle('right',j===e.a); b.classList.toggle('wrong',j===st[k]&&j!==e.a) }) }
+      if(e.t==='fill'){ const v=el.querySelector('input').value; r=e.a.some(a=>same(v,a)); ans=e.a[0] }
+      if(e.t==='order'){ r=same((st[k]||[]).join(' '),e.a); ans=e.a }
+      if(e.t==='listen'){ r=same(el.querySelector('input').value,e.s); ans=e.s+' — '+e.tr }
+      if(r) ok++; el.classList.toggle('ok',r); el.classList.toggle('bad',!r); w.hidden=false; w.innerHTML=(r?'<b class="okc">Certo!</b> ':'<b class="badc">Resposta:</b> '+esc(ans)+' ')+(e.why?esc(e.why):'') });
+    const n=u.ex.length, pct=Math.round(ok/n*100); Q.score[u.id]={ok,n,t:Date.now()}; if(pct>=70&&!done[u.id]){ done[u.id]=true } save(); renderProg();
+    const r=$('exRes'); r.hidden=false; r.innerHTML='<b>'+ok+' de '+n+' certos ('+pct+'%).</b> '+(pct>=70?'Unidade concluída. Pode seguir para a próxima.':'Releia a gramática e refaça os que errou: o ideal é passar de 70%.');
+    const d=$('uDone'); d.className=done[u.id]?'isdone':''; d.textContent=done[u.id]?'✓ Unidade concluída':'Marcar unidade como concluída' }
+  $('exCheck').onclick=corrigir;
+  $('exReset').onclick=()=>{ $('v-unit').innerHTML=unitHTML(u); bindUnit(u) };
+  $('uDone').onclick=()=>{ done[u.id]=!done[u.id]; save(); renderProg(); const d=$('uDone'); d.className=done[u.id]?'isdone':''; d.textContent=done[u.id]?'✓ Unidade concluída':'Marcar unidade como concluída' };
+  document.querySelectorAll('[data-all]').forEach(b=>b.onclick=()=>{ const list=b.dataset.all==='v'?u.vocab:u.frases; let i=0; speechSynthesis&&speechSynthesis.cancel();
+    const go=()=>{ if(i>=list.length)return; const ut=new SpeechSynthesisUtterance(list[i][0].replace(/\s*\/\s*/g,', ').replace(/\(.*?\)/g,'')); ut.lang='en-US'; if(VOICE) ut.voice=VOICE; ut.rate=slow?.72:.95; ut.onend=()=>{ i++; setTimeout(go,450) }; speechSynthesis.speak(ut) }; go() });
+  if(!Q.seen[u.id]){ Q.seen[u.id]=Date.now(); save() } }
+
+/* ===== nível ===== */
+function levelHTML(id){ const l=lvOf(id), us=U.filter(u=>u.nivel===id), n=us.filter(u=>done[u.id]).length;
+  return '<div class="eyebrow">Nível '+esc(id)+' · '+esc(l.horas)+'</div><h2>'+esc(l.nome)+'</h2><p class="lede">'+esc(l.desc)+'</p><p class="mono" style="font-size:.85rem;color:var(--ink2)">'+n+' de '+us.length+' unidades concluídas</p>'+
+    '<div class="trail">'+us.map(u=>{ const i=unitIdx(u), sc=Q.score[u.id]; return '<a class="stop'+(done[u.id]?' done':'')+'" href="#'+u.id+'"><span class="n">'+(done[u.id]?'✓':i+1)+'</span><b>'+esc(u.titulo)+'</b><span>'+esc(u.meta)+(sc?' · '+sc.ok+'/'+sc.n:'')+'</span></a>' }).join('')+'</div>' }
+
+/* ===== início, rota e progresso ===== */
+function nextUnit(){ return U.find(u=>!done[u.id])||U[U.length-1] }
+function renderProg(){ const n=U.filter(u=>done[u.id]).length; $('progtxt').textContent=n+'/'+U.length+' unidades'; $('progbar').style.width=(n/U.length*100)+'%';
+  const nx=nextUnit(); const g=$('goNext'); g.href='#'+nx.id; g.textContent=n?'Continuar: unidade '+(unitIdx(nx)+1):'Começar pela unidade 1';
+  $('rota').innerHTML=LV.map(l=>{ const us=U.filter(u=>u.nivel===l.id), k=us.filter(u=>done[u.id]).length; return '<a class="lvcard" href="#'+l.id+'"><span class="lvid">'+l.id+'</span><b>'+esc(l.nome.split('· ')[1])+'</b><span>'+esc(l.desc)+'</span><i><em style="width:'+(k/us.length*100)+'%"></em></i><small>'+k+' de '+us.length+' unidades · '+esc(l.horas)+'</small></a>' }).join('');
+  const cur=nextUnit(); $('levelBox').innerHTML='<div class="lbk"><span class="mono">Próxima unidade</span><b>'+(unitIdx(cur)+1)+' · '+esc(cur.titulo)+'</b><span>'+esc(cur.meta)+'</span><a class="btn" href="#'+cur.id+'" style="text-decoration:none">Abrir</a></div>'+
+    '<div class="steps3">'+LV.map(l=>{ const us=U.filter(u=>u.nivel===l.id), k=us.filter(u=>done[u.id]).length; return '<div class="s3'+(k===us.length?' full':k?' half':'')+'"><b>'+l.id+'</b><span>'+k+'/'+us.length+'</span></div>' }).join('')+'</div>'+
+    (Q.niv?'<p class="mono" style="font-size:.78rem;color:var(--ink2);margin:8px 0 0">Nivelamento: '+Q.niv.ok+'/'+Q.niv.n+' · sugestão: unidade '+(unitIdx(Q.niv.u)+1)+'</p>':'') }
+
+/* ===== técnico e pronúncia ===== */
+function renderTec(){ const t=norm($('tecQ').value||''); $('tecList').innerHTML=I.tecnico.filter(([en,pt])=>!t||norm(en+' '+pt).includes(t)).map(([en,pt])=>'<button type="button" class="vw" data-say="'+esc(en)+'"><b>'+esc(en)+'</b><span>'+esc(pt)+'</span>'+SPK+'</button>').join('')||'<p>Nada encontrado.</p>' }
+function renderPron(){ $('pronList').innerHTML=I.pronuncia.map(p=>'<div class="gram"><h4>'+esc(p.t)+'</h4><p>'+p.h+'</p><div class="pool">'+p.ex.map(w=>'<button type="button" data-say="'+esc(w)+'">'+SPK+' '+esc(w)+'</button>').join('')+'</div></div>').join('') }
+
+/* ===== nivelamento ===== */
+let niv={};
+function renderNiv(){ niv={}; $('nivOut').hidden=true; $('nivBox').innerHTML=I.nivelamento.map((q,k)=>'<div class="exi" data-k="'+k+'"><span class="exn">'+(k+1)+'</span><div class="exb"><p>'+esc(q.q)+'</p><div class="opts">'+q.o.map((o,j)=>'<button type="button" data-j="'+j+'">'+esc(o)+'</button>').join('')+'</div></div></div>').join('');
+  $('nivBox').querySelectorAll('.exi').forEach(el=>el.querySelectorAll('button').forEach(b=>b.onclick=()=>{ el.querySelectorAll('button').forEach(x=>x.classList.toggle('sel',x===b)); niv[+el.dataset.k]=+b.dataset.j })) }
+function resultNiv(){ const N=I.nivelamento; let ok=0, firstWrong=null;
+  N.forEach((q,k)=>{ const el=$('nivBox').querySelector('.exi[data-k="'+k+'"]'), r=niv[k]===q.a; if(r) ok++; else if(!firstWrong) firstWrong=q; el.classList.toggle('ok',r); el.classList.toggle('bad',!r); el.querySelectorAll('button').forEach((b,j)=>{ b.classList.toggle('right',j===q.a); b.classList.toggle('wrong',j===niv[k]&&j!==q.a) }) });
+  const u=firstWrong?firstWrong.u:U[U.length-1].id, uu=U[unitIdx(u)], lvl=ok<=3?'iniciante (comece do A1)':ok<=8?'entre A1 e A2':ok<=13?'entre A2 e B1':'perto do B1';
+  Q.niv={ok,n:N.length,u,t:Date.now()}; save(); renderProg();
+  const o=$('nivOut'); o.hidden=false; o.innerHTML='<b>'+ok+' de '+N.length+' certas</b>: nível '+lvl+'.<br>Comece pela <a href="#'+u+'">unidade '+(unitIdx(u)+1)+' · '+esc(uu.titulo)+'</a>, onde está o primeiro assunto que você errou. As unidades anteriores valem como revisão rápida: faça só os exercícios delas e marque como concluídas.' }
+
+/* ===== rotas ===== */
+function route(){ let h=location.hash.slice(1)||'inicio'; const isU=U.some(u=>u.id===h), isL=LV.some(l=>l.id===h);
+  if(!isU&&!isL&&!['inicio','tecnico','pronuncia','nivelamento'].includes(h)) h='inicio';
+  ['inicio','tecnico','pronuncia','nivelamento'].forEach(v=>$('v-'+v).hidden=v!==h); $('v-level').hidden=!isL; $('v-unit').hidden=!isU;
+  const lvSel=isU?U.find(u=>u.id===h).nivel:isL?h:null;
+  document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h||(lvSel&&a.dataset.lv===lvSel); a.classList.toggle('on',!!on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
+  if(isU){ const u=U.find(x=>x.id===h); $('v-unit').innerHTML=unitHTML(u); bindUnit(u); document.title=u.titulo+' · Oficina de Inglês' }
+  else if(isL){ $('v-level').innerHTML=levelHTML(h); document.title=h+' · Oficina de Inglês' }
+  else document.title='Oficina de Inglês';
+  if(h==='tecnico'){ renderTec(); if(!Q.seen.tecnico){ Q.seen.tecnico=Date.now(); save() } } if(h==='pronuncia') renderPron(); if(h==='inicio') renderProg();
+  window.scrollTo(0,0) }
+
+/* ===== boot ===== */
+load(); renderNiv(); renderProg(); ttsInfo();
+$('slowChk').checked=slow; $('slowChk').onchange=e=>{ slow=e.target.checked; try{ localStorage.setItem('ingl-slow',slow?'1':'0') }catch(_){} };
+$('tecQ').addEventListener('input',renderTec);
+$('nivGo').onclick=resultNiv; $('nivReset').onclick=renderNiv;
+addEventListener('hashchange',route); route();
+addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return; const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){ a.blur(); return }
+  const h=location.hash.slice(1); const u=U.find(x=>x.id===h); if(u){ location.hash=u.nivel; return } if(h&&h!=='inicio'){ location.hash='inicio'; return } location.href='../../index.html#m-ingl' });
+</script>
+<script src="../../dados/cartas.js"></script>
+<script src="../../js/anki.js" data-materia="ingl"></script>
+</body>
+</html>

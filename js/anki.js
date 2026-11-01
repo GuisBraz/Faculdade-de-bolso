@@ -13,7 +13,7 @@
 const KEY='fdb-anki', DAY=864e5, MIN=6e4, HOUR=36e5;
 const me=document.currentScript;
 const MAT=me&&me.dataset.materia||'';
-const NOMES={usin:'Usinagem',gaal:'GAAL',fis1:'Física I',calc2:'Cálculo II',qg:'Química',cm2:'Materiais II',dt2:'Desenho II'};
+const NOMES={ingl:'Inglês',usin:'Usinagem',gaal:'GAAL',fis1:'Física I',calc2:'Cálculo II',qg:'Química',cm2:'Materiais II',dt2:'Desenho II'};
 const nomeMat=id=>{ const F=window.FACULDADE; if(F&&F.periodos){ for(const p of F.periodos) for(const m of p.materias||[]) if(m.id===id) return m.sigla } return NOMES[id]||id };
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fmt=s=>esc(s).replace(/([A-Za-z]{1,3}[₀-₉]?)\u20D7/g,'<span class="ak-vec">$1</span>');
@@ -30,8 +30,11 @@ addEventListener('storage',e=>{ if(e.key===KEY){ S=norm(ls.get(KEY,{})); emit() 
 const subs=new Set(); function emit(){ subs.forEach(f=>{ try{ f() }catch(e){} }) }
 
 /* ===== cartas ===== */
-function todas(mats){ const base=window.FDB_CARTAS||[]; const own=S.custom.filter(c=>!c.del).map(c=>({...c,own:true}));
-  return [...base,...own].filter(c=>!mats||!mats.length||mats.includes(c.m)) }
+/* cartas de inglês só entram depois que a unidade foi aberta na Oficina de Inglês */
+function inglVistas(){ try{ const q=JSON.parse(localStorage.getItem('ingl-quiz')||'{}')||{}; return q.seen||{} }catch(e){ return {} } }
+function todas(mats){ const base=window.FDB_CARTAS||[]; const own=S.custom.filter(c=>!c.del).map(c=>({...c,own:true})); const vis=inglVistas();
+  return [...base,...own].filter(c=>(!mats||!mats.length||mats.includes(c.m))&&(!c.u||vis[c.u])) }
+function falar(t){ try{ if(!('speechSynthesis' in window))return; speechSynthesis.cancel(); const u=new SpeechSynthesisUtterance(String(t).replace(/\s*\/\s*/g,', ').replace(/\(.*?\)/g,'')); u.lang='en-US'; const v=speechSynthesis.getVoices().find(x=>/en[-_]US/i.test(x.lang)); if(v)u.voice=v; u.rate=.95; speechSynthesis.speak(u) }catch(e){} }
 const rev=id=>S.rv[id];
 const isDue=(c,now=Date.now())=>{ const r=rev(c.id); return !!r&&r.due<=now };
 const isNew=c=>!rev(c.id);
@@ -120,6 +123,7 @@ const CSS=`
 .ak-empty b{display:block;font-family:var(--f-disp);font-size:1.2rem;color:var(--ink);margin-bottom:4px}
 .ak-vec{position:relative;display:inline-block}
 .ak-vec::before{content:"→";position:absolute;left:0;right:0;top:-.62em;text-align:center;font-size:.72em;line-height:1}
+.ak-say{border:1px solid var(--line);background:transparent;border-radius:999px;cursor:pointer;font-size:.9rem;padding:1px 7px;vertical-align:middle}
 .ak-pop{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:80;width:min(380px,calc(100vw - 32px));box-shadow:0 14px 40px rgba(0,0,0,.28);border-radius:12px;animation:akin .25s ease-out}
 .ak-pop .ak-card{border-color:var(--ink)}
 .ak-pop .ak-f{font-size:1.05rem}
@@ -135,12 +139,12 @@ const CSS=`
 @media (prefers-reduced-motion:reduce){.ak-pop{animation:none}}
 `;
 let cssOk=false; function css(){ if(cssOk)return; const s=document.createElement('style'); s.textContent=CSS; document.head.appendChild(s); cssOk=true }
-const CORES={gaal:'#0C8587',fis1:'#6447BE',usin:'#D9531A'};
+const CORES={gaal:'#0C8587',fis1:'#6447BE',usin:'#D9531A',ingl:'#2F6FD0'};
 const corDe=m=>{ const F=window.FACULDADE; if(F&&F.periodos){ const ar=F.areas||{}; for(const p of F.periodos) for(const x of p.materias||[]) if(x.id===m) return x.cor||(ar[x.area]||{}).cor } return CORES[m] };
 
 /* ===== componente: uma carta ===== */
-function cartaUI(el,c,op={}){ const cor=corDe(c.m); el.innerHTML='<div class="ak-card"'+(cor?' style="--ak-c:'+cor+'"':'')+'><div class="ak-tp"><span>'+esc(nomeMat(c.m))+' · '+esc(c.t||'')+'</span><span>'+(isNew(c)?'nova':'revisão')+'</span></div><div class="ak-f">'+fmt(c.f)+'</div><div class="ak-v" hidden>'+fmt(c.v)+'</div><div class="ak-act"><button type="button" class="ak-show">Mostrar resposta</button></div>'+(op.kbd?'<div class="ak-kbd">Espaço: mostrar · 1 a 4: avaliar</div>':'')+'</div>';
-  const act=el.querySelector('.ak-act'), v=el.querySelector('.ak-v'); let aberta=false;
+function cartaUI(el,c,op={}){ const cor=corDe(c.m); el.innerHTML='<div class="ak-card"'+(cor?' style="--ak-c:'+cor+'"':'')+'><div class="ak-tp"><span>'+esc(nomeMat(c.m))+' · '+esc(c.t||'')+'</span><span>'+(isNew(c)?'nova':'revisão')+'</span></div><div class="ak-f">'+fmt(c.f)+(c.lang==='en'?' <button type="button" class="ak-say" aria-label="Ouvir">🔊</button>':'')+'</div><div class="ak-v" hidden>'+fmt(c.v)+'</div><div class="ak-act"><button type="button" class="ak-show">Mostrar resposta</button></div>'+(op.kbd?'<div class="ak-kbd">Espaço: mostrar · 1 a 4: avaliar</div>':'')+'</div>';
+  const act=el.querySelector('.ak-act'), v=el.querySelector('.ak-v'); let aberta=false; const sb=el.querySelector('.ak-say'); if(sb){ sb.onclick=()=>falar(c.f); if(op.auto) setTimeout(()=>falar(c.f),150) }
   const mostrar=()=>{ if(aberta)return; aberta=true; v.hidden=false; const now=Date.now();
     act.innerHTML=NOTAS.map(([q,l,k])=>'<button type="button" class="g '+k+'" data-q="'+q+'"><b>'+l+'</b><small>'+(q<3?'10 min':proximo(c.id,q,now).iv+' d')+'</small></button>').join('');
     act.querySelectorAll('[data-q]').forEach(b=>b.onclick=()=>nota(+b.dataset.q)) };
@@ -153,7 +157,7 @@ function sessaoUI(el,mats,op={}){ const f=fila(mats); let q=f.lista, i=0, cur=nu
   const fim=()=>{ cur=null; el.innerHTML='<div class="ak-empty"><b>'+(feitas?'Sessão concluída':'Nada para revisar agora')+'</b>'+(feitas?feitas+' cartas · '+certas+' certas · +'+pts+' pontos':'As próximas revisões aparecem quando chegar a hora. Você pode ver todas as cartas ou criar as suas.')+'</div>'+(op.onEnd?'<div class="ak-row" style="justify-content:center"><button type="button" class="ak-btn gh ak-back">Voltar</button>'+(todas(mats).length?'<button type="button" class="ak-btn ak-extra">Praticar 10 aleatórias</button>':'')+'</div>':'');
     const b=el.querySelector('.ak-back'); if(b) b.onclick=op.onEnd; const x=el.querySelector('.ak-extra'); if(x) x.onclick=()=>{ q=embaralha(todas(mats)).slice(0,10); i=0; prox() } };
   const prox=()=>{ if(i>=q.length) return fim(); const c=q[i++]; const box=document.createElement('div'); el.innerHTML='<div class="ak-row" style="justify-content:space-between"><span class="ak-kbd" style="margin:0">'+i+' de '+q.length+(f.due.length?' · '+f.due.length+' para revisar':'')+'</span><span class="ak-kbd" style="margin:0">+'+pts+' pts</span></div>'; el.appendChild(box);
-    cur=cartaUI(box,c,{kbd:matchMedia('(hover:hover)').matches,onGrade:(n,res)=>{ feitas++; pts+=res.pts; if(n>=3)certas++; else if(q.indexOf(c,i)<0) q.push(c); op.onProgress&&op.onProgress(); prox() }}) };
+    cur=cartaUI(box,c,{auto:true,kbd:matchMedia('(hover:hover)').matches,onGrade:(n,res)=>{ feitas++; pts+=res.pts; if(n>=3)certas++; else if(q.indexOf(c,i)<0) q.push(c); op.onProgress&&op.onProgress(); prox() }}) };
   prox();
   return {tecla(e){ if(!cur)return false; if(e.key===' '||e.key==='Enter'){ if(!cur.aberta){ cur.mostrar(); return true } } const m={'1':0,'2':3,'3':4,'4':5}[e.key]; if(m!=null&&cur.aberta){ cur.nota(m); return true } return false }} }
 
@@ -239,7 +243,7 @@ function oficina(m){ const nav=document.getElementById('nav'); if(!nav||!m) retu
   const b=document.createElement('button'); b.type='button'; b.className='ak-navbtn'; nav.appendChild(b);
   const upd=()=>{ const n=fila([m]).due.length; b.innerHTML='Cartas'+(n?'<b>'+n+'</b>':'') }; upd(); subs.add(upd); setInterval(upd,60000);
   b.onclick=()=>abrirPainel([m]); css();
-  const FORA=['','inicio','lab','problemas','lista','quiz','cola'];
+  const FORA=['','inicio','lab','problemas','lista','quiz','cola','nivelamento'];
   automatico({mats:[m],teoria:()=>!FORA.includes(location.hash.slice(1))}) }
 
 window.FDB_ANKI={todas,fila,avaliar,criar,apagar,stats,streakAtual,abrirPainel,fecharPainel,mostrarPop,montarJogo,mesclar,substituir,estado:()=>S,KEY,
