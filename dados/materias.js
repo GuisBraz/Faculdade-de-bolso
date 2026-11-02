@@ -224,7 +224,8 @@ window.FACULDADE = {
           caminho: "materias/ingles/oficina-de-ingles.html",
           ciclo: "Contínua",
           atualizacoes: [
-            { data: "2026-11-01", texto: "Criada: 24 unidades (A1, A2 e B1) com gramática em português, vocabulário com áudio, frases, exercícios, inglês técnico, pronúncia e nivelamento." }
+            { data: "2026-11-01", texto: "Criada: 24 unidades (A1, A2 e B1) com gramática em português, vocabulário com áudio, frases, exercícios, inglês técnico, pronúncia e nivelamento." },
+            { data: "2026-11-01", texto: "Versão 2: visual novo, fases em abas, XP e conquistas, 5 jogos (memória, corrida, forca, fala e ditado), Arcade e a Playlist com músicas, filmes, livros e jogos de cada fase." }
           ],
           descricao: "Rota do zero ao B1 em 24 unidades curtas, com áudio, exercícios que corrigem na hora, inglês técnico de caldeiraria e usinagem e as palavras nas cartas de revisão.",
           data: "2026-11-01",
