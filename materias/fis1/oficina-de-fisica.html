@@ -240,6 +240,9 @@ body{font-size:1rem}
 .cv.sim{max-height:82vh}
 .hero .cv{max-height:72vh;justify-self:center}
 @media (min-width:1200px){nav{flex-wrap:wrap;overflow:visible}}
+.rampa-fig{margin:6px 0 18px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
+.rampa-fig svg{display:block;width:100%;max-width:640px;height:auto;margin:0 auto}
+.rampa-fig figcaption{font-size:.92rem;color:var(--ink2);margin-top:8px;max-width:82ch}
 </style>
 </head>
 <body>
@@ -390,6 +393,26 @@ body{font-size:1rem}
     <div class="eq"><i>P</i><sub>∥</sub> = <i>mg</i> sen <i>θ</i> &nbsp;&nbsp;&nbsp; <i>P</i><sub>⊥</sub> = <i>mg</i> cos <i>θ</i></div>
     <dl class="legend"><dt>P<sub>∥</sub></dt><dd>pedaço do peso que puxa o bloco rampa abaixo</dd><dt>P<sub>⊥</sub></dt><dd>pedaço que aperta o bloco contra a rampa. Sem outras forças perpendiculares, N = mg cos θ</dd><dt>θ</dt><dd>inclinação da rampa. O ângulo entre o peso e a perpendicular à rampa também é θ</dd><dt>sem atrito</dt><dd>a = g sen θ, e não depende da massa</dd></dl>
   </div>
+<figure class="rampa-fig"><svg viewBox="0 0 580 330" role="img" aria-label="Bloco numa rampa de inclinação θ com o peso decomposto em P paralelo e P perpendicular, e a normal">
+<defs><marker id="ah-c1" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--c1)"/></marker><marker id="ah-c2" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--c2)"/></marker><marker id="ah-c3" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--c3)"/></marker><marker id="ah-bad" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0 10 5 0 10z" style="fill:var(--bad)"/></marker></defs>
+<polygon points="60,300 520,300 520.0,34.4" style="fill:var(--line);stroke:var(--ink2)" stroke-width="1.5" opacity=".9"/>
+<line x1="20" y1="300" x2="560" y2="300" style="stroke:var(--ink2)" stroke-width="1.5"/>
+<path d="M106 300 A46 46 0 0 0 99.8 277.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6"/>
+<text x="114" y="292" style="fill:var(--ink)" font-family="STIX Two Text, serif" font-style="italic" font-size="20">θ</text>
+<g transform="rotate(-30 263.0 151.6)"><rect x="223.0" y="124.6" width="80" height="54" rx="4" style="fill:var(--sheet);stroke:var(--ink)" stroke-width="2"/><text x="289.0" y="151.6" text-anchor="middle" style="fill:var(--ink)" font-family="JetBrains Mono, monospace" font-size="15" font-weight="700">m</text></g>
+<line x1="211.9" y1="181.1" x2="263.0" y2="269.6" style="stroke:var(--ink2)" stroke-width="1.4" stroke-dasharray="5 5"/>
+<line x1="314.1" y1="240.1" x2="263.0" y2="269.6" style="stroke:var(--ink2)" stroke-width="1.4" stroke-dasharray="5 5"/>
+<path d="M263.0 191.6 A40 40 0 0 0 283.0 186.3" fill="none" style="stroke:var(--ink)" stroke-width="1.4"/>
+<text x="272.0" y="209.6" style="fill:var(--ink)" font-family="STIX Two Text, serif" font-style="italic" font-size="17">θ</text>
+<line x1="263.0" y1="151.6" x2="263.0" y2="269.6" style="stroke:var(--c1)" stroke-width="3.2"  marker-end="url(#ah-c1)"/>
+<line x1="263.0" y1="151.6" x2="211.9" y2="181.1" style="stroke:var(--c2)" stroke-width="3.2"  marker-end="url(#ah-c2)"/>
+<line x1="263.0" y1="151.6" x2="314.1" y2="240.1" style="stroke:var(--c3)" stroke-width="3.2"  marker-end="url(#ah-c3)"/>
+<line x1="263.0" y1="151.6" x2="211.9" y2="63.1" style="stroke:var(--bad)" stroke-width="2.6"  marker-end="url(#ah-bad)"/>
+<text x="271.0" y="273.6" style="fill:var(--c1)" font-family="STIX Two Text, serif" font-style="italic" font-size="19">P = mg</text>
+<text x="71.9" y="163.1" style="fill:var(--c2)" font-family="STIX Two Text, serif" font-style="italic" font-size="18">P∥ = mg sen θ</text>
+<text x="324.1" y="246.1" style="fill:var(--c3)" font-family="STIX Two Text, serif" font-style="italic" font-size="18">P⊥ = mg cos θ</text>
+<text x="187.9" y="55.1" style="fill:var(--bad)" font-family="STIX Two Text, serif" font-style="italic" font-size="18">N</text>
+</svg><figcaption>O peso <b style="color:var(--c1)">P</b> aponta sempre para baixo. Ele se divide em <b style="color:var(--c2)">P∥</b>, ao longo da rampa (puxa o bloco para baixo), e <b style="color:var(--c3)">P⊥</b>, perpendicular a ela (aperta o bloco contra a rampa). As linhas tracejadas fecham o paralelogramo: P∥ + P⊥ = P. A normal <b style="color:var(--bad)">N</b> equilibra P⊥. O ângulo entre P e P⊥ é o mesmo θ da rampa, porque os dois lados de cada ângulo são perpendiculares entre si.</figcaption></figure>
   <div class="ofi"><span class="k">Para conferir</span>θ = 0 (chão plano): sen 0 = 0, não desliza, e N = mg. θ = 90° (parede): sen 90° = 1, a = g, queda livre. Se a fórmula falhar nesses extremos, você trocou seno com cosseno.</div>
 
   <h3>Bloco na mesa puxado por um bloco pendurado</h3>

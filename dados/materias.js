@@ -79,7 +79,8 @@ window.FACULDADE = {
                 { data: "2026-10-28", texto: "Incluído o capítulo 8 (Energia Potencial e Conservação da Energia)." },
                 { data: "2026-10-28", texto: "Aula de 28/10: conservação geral da energia (formas de energia) e o exemplo de queda com 30 J (K + U)." },
                 { data: "2026-10-28", texto: "Aula de 28/10: novo módulo Massa-mola — lei de Hooke (k em N/cm e N/m), ciclo −xm ↔ +xm, simulador de mola, v máx em x0 nas duas passagens, pista em U e PhET." },
-                { data: "2026-10-29", texto: "Cartas de revisão (Anki): botão Cartas na oficina, carta surpresa nos módulos de teoria e 35 cartas de Física." }
+                { data: "2026-10-29", texto: "Cartas de revisão (Anki): botão Cartas na oficina, carta surpresa nos módulos de teoria e 35 cartas de Física." },
+                { data: "2026-11-03", texto: "Plano inclinado (Fórmula 3.1): desenho do bloco na rampa com P, P∥, P⊥, N e o ângulo θ." }
               ],
               descricao: "Capítulos 5, 6 e 8 do Halliday: leis de Newton, atrito, arrasto, movimento circular, energia potencial e conservação da energia, com simuladores, 22 problemas resolvidos e quiz.",
               data: "2026-10-28",
