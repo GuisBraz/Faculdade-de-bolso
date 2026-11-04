@@ -62,7 +62,7 @@ window.FACULDADE = {
               ciclo: "2ª Prova", ate: "2026-11-12",
               atualizacoes: [
                 { data: "2026-10-29", texto: "Criada: funções de várias variáveis, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos, com a lista resolvida e cartas." },
-                { data: "2026-11-04", texto: "Aula de 04/11: ponto crítico de 9 − x² − y², a sela de x² − y², o teste da 2ª derivada com a Hessiana, os exemplos 1 e 2 resolvidos passo a passo (com os links do GeoGebra) e os dois no simulador 3D." }
+                { data: "2026-11-04", texto: "Aula de 04/11: ponto crítico de 9 − x² − y², a sela de x² − y², o teste da 2ª derivada com a Hessiana, os exemplos 1 e 2 resolvidos passo a passo e os dois no simulador 3D. Cada exemplo tem gráfico 3D e mapa de nível próprios." }
               ],
               descricao: "Funções de várias variáveis do zero, com superfícies 3D, mapas de contorno, gradiente ao vivo, a lista de derivadas parciais e máximos e mínimos resolvida e quiz.",
               data: "2026-10-29",

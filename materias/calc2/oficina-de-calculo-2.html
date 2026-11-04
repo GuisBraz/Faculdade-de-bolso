@@ -253,6 +253,8 @@ body{font-size:1rem}
 .cv.sim{max-height:82vh}
 .hero .cv{max-height:72vh;justify-self:center}
 @media (min-width:1200px){nav{flex-wrap:wrap;overflow:visible}}
+.aulafig{margin:10px 0 4px}.aulafig .labgrid2{gap:10px}
+.ex .aulafig{margin-top:12px}
 </style>
 </head>
 <body>
@@ -552,9 +554,10 @@ body{font-size:1rem}
   <div class="aula"><span class="k">Aula de 04/11</span>
     <h4 style="margin:6px 0 4px">1. Achar o ponto crítico: f(x, y) = 9 − x² − y²</h4>
     <p>∂f/∂x = −2x e ∂f/∂y = −2y. Igualando a zero: −2x = 0 ⇒ x = 0 e −2y = 0 ⇒ y = 0. <b>(0, 0) é ponto crítico.</b> Aqui ele é o topo do morro: f(0, 0) = 9 é o <b>máximo</b>, porque qualquer outro ponto subtrai x² + y² &gt; 0.</p>
+    <div class="aulafig"><div class="labgrid2"><div class="cv sim" id="au13d" style="aspect-ratio:4/3"><canvas></canvas></div><div class="cv sim" id="au1map" style="aspect-ratio:4/3"><canvas></canvas></div></div><p class="hint" style="margin:6px 0 0">Topo do morro em (0, 0, 9). No mapa, as curvas de nível são círculos fechando em volta do ponto: sinal de extremo.</p></div>
     <h4 style="margin:12px 0 4px">2. Nem todo ponto crítico é de máximo/mínimo: f(x, y) = x² − y²</h4>
     <p>∂f/∂x = 2x e ∂f/∂y = −2y. Igualando a zero, o único ponto crítico também é (0, 0). Mas andando no eixo x a função <b>sobe</b> (x²) e no eixo y ela <b>desce</b> (−y²). Então (0, 0) não é máximo nem mínimo: é um <b>ponto de sela</b>.</p>
-    <div class="btns" style="margin:6px 0 0"><a class="btn ghost" href="https://www.geogebra.org/m/hjb4df5x" target="_blank" rel="noopener">↗ Ver a sela no GeoGebra</a></div>
+    <div class="aulafig"><div class="labgrid2"><div class="cv sim" id="au23d" style="aspect-ratio:4/3"><canvas></canvas></div><div class="cv sim" id="au2map" style="aspect-ratio:4/3"><canvas></canvas></div></div><p class="hint" style="margin:6px 0 0">Sobe ao longo de x e desce ao longo de y. No mapa, as curvas de nível formam um "X" cruzando no ponto: sinal de sela.</p></div>
     <h4 style="margin:14px 0 4px">3. O teste da 2ª derivada, como a professora escreveu</h4>
     <p>(a, b) ponto crítico. D é o determinante da matriz das derivadas segundas (a <b>Hessiana</b>). Como f<sub>xy</sub> = f<sub>yx</sub> (Clairaut), as duas diagonais ficam iguais:</p>
     <div class="fx" style="margin:10px 0"><span class="tag">D(a, b)</span><div class="eq">D = det <span class="mat">[ <i>f<sub>xx</sub></i> &nbsp; <i>f<sub>xy</sub></i> ; &nbsp;<i>f<sub>yx</sub></i> &nbsp; <i>f<sub>yy</sub></i> ]</span> = <i>f<sub>xx</sub> f<sub>yy</sub></i> − <i>f<sub>xy</sub></i>²</div></div>
@@ -566,11 +569,11 @@ body{font-size:1rem}
   <div class="ex" data-ex><div class="q">Exemplo 1: determine os pontos críticos, valores máximos e mínimos locais e os pontos de sela de f(x, y) = x² + y² − 2x − 6y + 14.</div>
     <ol><li>Derivadas primeiras: f<sub>x</sub> = 2x − 2 e f<sub>y</sub> = 2y − 6.</li><li>Derivadas segundas: f<sub>xx</sub> = 2, f<sub>yy</sub> = 2 e f<sub>xy</sub> = f<sub>yx</sub> = 0.</li><li>Pontos críticos: 2x − 2 = 0 ⇒ x = 1 e 2y − 6 = 0 ⇒ y = 3. Único ponto crítico: (1, 3).</li><li>Teste: D(1, 3) = 2 · 2 − 0² = 4 &gt; 0 e f<sub>xx</sub> = 2 &gt; 0 → mínimo local.</li><li>Valor: f(1, 3) = 1 + 9 − 2 − 18 + 14 = 4. (Completando quadrados: f = (x − 1)² + (y − 3)² + 4, um "vale" com fundo em altura 4.)</li></ol>
     <div class="ans">(1, 3) é mínimo local, com f(1, 3) = 4. Não há máximo nem sela.</div>
-    <div class="btns" style="margin-top:4px"><a class="btn ghost" href="https://www.geogebra.org/3d/djqpvujj" target="_blank" rel="noopener">↗ Gráfico do Exemplo 1 no GeoGebra</a></div></div>
+    <div class="aulafig"><div class="labgrid2"><div class="cv sim" id="au33d" style="aspect-ratio:4/3"><canvas></canvas></div><div class="cv sim" id="au3map" style="aspect-ratio:4/3"><canvas></canvas></div></div><p class="hint" style="margin:6px 0 0">Fundo do vale em (1, 3, 4). O gráfico está centrado no ponto crítico (1, 3).</p></div></div>
   <div class="ex" data-ex><div class="q">Exemplo 2: determine os valores extremos de f(x, y) = x⁴ + y⁴ − 4xy + 1.</div>
     <ol><li>Derivadas primeiras: f<sub>x</sub> = 4x³ − 4y e f<sub>y</sub> = 4y³ − 4x.</li><li>Derivadas segundas: f<sub>xx</sub> = 12x², f<sub>yy</sub> = 12y² e f<sub>xy</sub> = −4.</li><li>Pontos críticos: 4x³ − 4y = 0 ⇒ <b>y = x³</b>; e 4y³ − 4x = 0 ⇒ y³ − x = 0.</li><li>Substituindo y = x³ na 2ª equação: (x³)³ − x = 0 → x⁹ − x = 0 → x(x⁸ − 1) = 0 → x = 0 ou x⁸ = 1 → x = ±1.</li><li>Voltando em y = x³: x = 0 ⇒ (0, 0); x = 1 ⇒ (1, 1); x = −1 ⇒ (−1, −1). Pontos críticos: (0, 0), (1, 1) e (−1, −1).</li><li>D = det[12x² −4; −4 12y²] = 144x²y² − 16.</li><li>(0, 0): D = 0 − 16 = −16 &lt; 0 → ponto de sela.</li><li>(1, 1): D = 144 − 16 = 128 &gt; 0 e f<sub>xx</sub> = 12 &gt; 0 → mínimo local. (−1, −1): D = 144·1·1 − 16 = 128 &gt; 0 e f<sub>xx</sub> = 12 &gt; 0 → mínimo local.</li><li>Valores: f(1, 1) = 1 + 1 − 4 + 1 = −1 e f(−1, −1) = 1 + 1 − 4 + 1 = −1.</li></ol>
     <div class="ans">Sela em (0, 0) · mínimos locais em (1, 1) e (−1, −1), ambos com f = −1.</div>
-    <div class="btns" style="margin-top:4px"><a class="btn ghost" href="https://www.geogebra.org/3d/kgmjprmd" target="_blank" rel="noopener">↗ Gráfico do Exemplo 2 no GeoGebra</a></div></div>
+    <div class="aulafig"><div class="labgrid2"><div class="cv sim" id="au43d" style="aspect-ratio:4/3"><canvas></canvas></div><div class="cv sim" id="au4map" style="aspect-ratio:4/3"><canvas></canvas></div></div><p class="hint" style="margin:6px 0 0">Dois vales em (1, 1) e (−1, −1), ligados por uma "sela" em (0, 0). No mapa, o 8 deitado mostra os dois fundos.</p></div></div>
   <div class="cuid"><span class="k">Pegadinha do Exemplo 2</span>Em x⁹ − x = 0 não divida por x: fatore, x(x⁸ − 1) = 0. Dividir faz você perder o ponto (0, 0), que é justamente a sela.</div>
 
   <h3>Simulador: os exemplos e a questão 16 da lista, em 3D</h3>
@@ -678,7 +681,7 @@ const FN={
   q16b:{l:'x² + y² + x²y + 4',f:(x,y)=>x*x+y*y+x*x*y+4,R:2.4,c:[0,-1]},
   q16c:{l:'x³ − 12xy + 8y³',f:(x,y)=>x**3-12*x*y+8*y**3,R:3,c:[1,0.5]},
   morro:{l:'9 − x² − y²',f:(x,y)=>9-x*x-y*y,R:2.5},
-  aex1:{l:'x² + y² − 2x − 6y + 14',f:(x,y)=>x*x+y*y-2*x-6*y+14,R:4.2},
+  aex1:{l:'x² + y² − 2x − 6y + 14',f:(x,y)=>x*x+y*y-2*x-6*y+14,R:2.5,o:[1,3]},
   aex2:{l:'x⁴ + y⁴ − 4xy + 1',f:(x,y)=>x**4+y**4-4*x*y+1,R:1.7}
 };
 const H=1e-4;
@@ -692,7 +695,7 @@ function faixa(f,R,N=40){ let lo=Infinity,hi=-Infinity; for(let i=0;i<=N;i++)for
 
 /* ===== superfície 3D (arraste para girar) ===== */
 function Surf(box,op){ let yaw=op.yaw??-0.75, pit=op.pit??0.62, drag=null; const st={...op};
-  const cv=new Cv(box,(x,w,h)=>{ const F=FN[st.fn], f=F.f, R=F.R, N=st.N||34, [lo,hi]=faixa(f,R), zs=st.zs||1;
+  const cv=new Cv(box,(x,w,h)=>{ const F=FN[st.fn], [ox,oy]=F.o||[0,0], f=(u,v)=>F.f(u+ox,v+oy), R=F.R, N=st.N||34, [lo,hi]=faixa(f,R), zs=st.zs||1;
     const span=hi-lo, zn=z=>((z-lo)/span-.5)*2*R*.75*zs;
     const ca=Math.cos(yaw), sa=Math.sin(yaw), cp=Math.cos(pit), sp=Math.sin(pit), sc=Math.min(w,h)/(R*3.1), cx=w/2, cy=h*.54;
     const P=(X,Y,Z)=>{ const xr=X*ca-Y*sa, yr=X*sa+Y*ca; return {x:cx+sc*xr,y:cy-sc*(Z*cp+yr*sp),d:yr*cp-Z*sp} };
@@ -716,7 +719,7 @@ function Surf(box,op){ let yaw=op.yaw??-0.75, pit=op.pit??0.62, drag=null; const
         const e=t=>eixo==='x'?P(a+t,b,zn(z0+s*t)):P(a,b+t,zn(z0+s*t)); const p1=e(-L), p2=e(L); x.strokeStyle=tok('c1'); x.lineWidth=2.6; x.beginPath(); x.moveTo(p1.x,p1.y); x.lineTo(p2.x,p2.y); x.stroke();
         x.fillStyle=tok('c1'); x.beginPath(); x.arc(p0.x,p0.y,5.5,0,7); x.fill() } }
     /* pontos marcados */
-    (st.pontos||[]).forEach(pt=>{ const z=f(pt.x,pt.y); if(!isFinite(z))return; const p=P(pt.x,pt.y,zn(z)); x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(p.x,p.y,6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px "Atkinson Hyperlegible", sans-serif'; x.fillText(pt.l,p.x+8,p.y-8) } });
+    (st.pontos||[]).map(q=>({...q,x:q.x-ox,y:q.y-oy})).forEach(pt=>{ const z=f(pt.x,pt.y); if(!isFinite(z))return; const p=P(pt.x,pt.y,zn(z)); x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(p.x,p.y,6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px "Atkinson Hyperlegible", sans-serif'; x.fillText(pt.l,p.x+8,p.y-8) } });
     x.fillStyle=tok('ink2'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('z = '+F.l,10,18); x.fillText('arraste para girar',10,h-10) });
   const c=box.querySelector('canvas'); c.style.cursor='grab';
   c.addEventListener('pointerdown',e=>{ drag={x:e.clientX,y:e.clientY,yaw,pit}; c.setPointerCapture(e.pointerId); c.style.cursor='grabbing' });
@@ -732,12 +735,12 @@ function segs(f,R,k,N=60){ const out=[], h=2*R/N, v=[]; for(let i=0;i<=N;i++){ v
     if(pts.length===2) out.push(pts); else if(pts.length===4){ out.push([pts[0],pts[1]]); out.push([pts[2],pts[3]]) } }
   return out }
 function Mapa(box,op){ const st={...op};
-  const cv=new Cv(box,(x,w,h)=>{ const F=FN[st.fn], f=F.f, R=F.R, s=Math.min(w,h)/(2*R)*.92, cx=w/2, cy=h/2, X=u=>cx+u*s, Y=v=>cy-v*s;
+  const cv=new Cv(box,(x,w,h)=>{ const F=FN[st.fn], [ox,oy]=F.o||[0,0], f=(u,v)=>F.f(u+ox,v+oy), R=F.R, s=Math.min(w,h)/(2*R)*.92, cx=w/2, cy=h/2, X=u=>cx+u*s, Y=v=>cy-v*s;
     const [lo,hi]=faixa(f,R); const img=x.createImageData(Math.ceil(w),Math.ceil(h)); const step=3; const d=devicePixelRatio||1;
     /* fundo colorido por altura (baixa resolução) */
     for(let py=0;py<h;py+=step)for(let px=0;px<w;px+=step){ const u=(px-cx)/s, v=(cy-py)/s; if(Math.abs(u)>R||Math.abs(v)>R)continue; const z=f(u,v); if(!isFinite(z))continue; const [r,g,b]=rampa((z-lo)/(hi-lo)); x.fillStyle='rgba('+r+','+g+','+b+',.30)'; x.fillRect(px,py,step,step) }
     x.strokeStyle=tok('line'); x.lineWidth=1; x.beginPath(); x.moveTo(X(-R),Y(0)); x.lineTo(X(R),Y(0)); x.moveTo(X(0),Y(-R)); x.lineTo(X(0),Y(R)); x.stroke();
-    x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace'; for(let t=Math.ceil(-R);t<=R;t++){ if(!t)continue; x.fillText(t,X(t)-3,Y(0)+12); x.fillText(t,X(0)+4,Y(t)+3) } x.fillText('x',X(R)-8,Y(0)-6); x.fillText('y',X(0)+6,Y(R)+10);
+    x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace'; for(let t=Math.ceil(-R);t<=R;t++){ if(!t)continue; x.fillText(t+ox,X(t)-3,Y(0)+12); x.fillText(t+oy,X(0)+4,Y(t)+3) } x.fillText('x',X(R)-8,Y(0)-6); x.fillText('y',X(0)+6,Y(R)+10); if(ox||oy){ x.fillText('centro ('+ox+', '+oy+')',X(-R)+2,Y(-R)-4) }
     const n=st.niveis||9, lv=st.levels||Array.from({length:n},(_,i)=>lo+(hi-lo)*(i+1)/(n+1));
     lv.forEach(k=>{ const [r,g,b]=rampa((k-lo)/(hi-lo)); x.strokeStyle='rgb('+r+','+g+','+b+')'; x.lineWidth=1.6; segs(f,R,k,st.N||70).forEach(([a,b2])=>{ x.beginPath(); x.moveTo(X(a[0]),Y(a[1])); x.lineTo(X(b2[0]),Y(b2[1])); x.stroke() }) });
     if(st.level!=null){ x.strokeStyle=tok('c3'); x.lineWidth=3.2; segs(f,R,st.level,90).forEach(([a,b2])=>{ x.beginPath(); x.moveTo(X(a[0]),Y(a[1])); x.lineTo(X(b2[0]),Y(b2[1])); x.stroke() }) }
@@ -747,7 +750,7 @@ function Mapa(box,op){ const st={...op};
       if(st.dir!=null){ const L=R*.55*s; arrow(x,X(px),Y(py),Math.cos(st.dir)*L,-Math.sin(st.dir)*L,tok('c3'),'u',2.6) }
       if(st.tang&&gn>1e-9){ x.strokeStyle=tok('ink'); x.setLineDash([5,4]); x.lineWidth=1.4; const L=R*.5*s; x.beginPath(); x.moveTo(X(px)-(-gy/gn)*L,Y(py)+(gx/gn)*L); x.lineTo(X(px)+(-gy/gn)*L,Y(py)-(gx/gn)*L); x.stroke(); x.setLineDash([]) }
       x.fillStyle=tok('ink'); x.beginPath(); x.arc(X(px),Y(py),5.5,0,7); x.fill() }
-    (st.pontos||[]).forEach(pt=>{ x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(X(pt.x),Y(pt.y),6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px "Atkinson Hyperlegible", sans-serif'; x.fillText(pt.l,X(pt.x)+8,Y(pt.y)-8) } });
+    (st.pontos||[]).map(q=>({...q,x:q.x-ox,y:q.y-oy})).forEach(pt=>{ x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(X(pt.x),Y(pt.y),6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px "Atkinson Hyperlegible", sans-serif'; x.fillText(pt.l,X(pt.x)+8,Y(pt.y)-8) } });
     if(st.caminho){ x.strokeStyle=tok('ink'); x.lineWidth=2.2; x.beginPath(); st.caminho.forEach(([u,v],k)=>k?x.lineTo(X(u),Y(v)):x.moveTo(X(u),Y(v))); x.stroke() }
     cv.toWorld=(px,py)=>({x:(px-cx)/s,y:(cy-py)/s}) });
   if(st.click){ const c=box.querySelector('canvas'); c.style.cursor='crosshair'; const go=e=>{ const r=c.getBoundingClientRect(); const p=cv.toWorld(e.clientX-r.left,e.clientY-r.top); const R=FN[st.fn].R; if(Math.abs(p.x)>R||Math.abs(p.y)>R)return; st.click(p) };
@@ -785,6 +788,8 @@ function simGrad(){ const st={fn:'cupula',p:{x:1,y:.5},grad:true,dir:0,tang:true
     m.set({fn:st.fn,p:st.p,dir:st.dir});
     out.innerHTML='<ol><li>P = ('+dec(a)+', '+dec(b)+') · ∇f(P) = ⟨'+dec(gx)+', '+dec(gy)+'⟩</li><li>u = ⟨cos θ, sen θ⟩ = ⟨'+dec(ux)+', '+dec(uy)+'⟩ (já unitário)</li><li>D<sub>u</sub>f = ∇f · u = '+dec(gx)+'·'+dec(ux)+' + '+dec(gy)+'·'+dec(uy)+' = <b>'+dec(D)+'</b></li><li>Maior taxa possível em P: |∇f| = '+dec(gn)+', na direção da seta laranja'+(gn>1e-9?' (θ ≈ '+dec((deg(Math.atan2(gy,gx))+360)%360,0)+'°)':'')+'. Andando pela linha tracejada (a curva de nível), D<sub>u</sub>f = 0.</li></ol>' }
   sel.onchange=draw; draw(); return [m] }
+function simAula(){ const L=[['1','morro',[{x:0,y:0,c:'c1',l:'máximo'}]],['2','sela',[{x:0,y:0,c:'c3',l:'sela'}]],['3','aex1',[{x:1,y:3,c:'c2',l:'mínimo'}]],['4','aex2',[{x:0,y:0,c:'c3',l:'sela'},{x:1,y:1,c:'c2',l:'mínimo'},{x:-1,y:-1,c:'c2',l:'mínimo'}]]];
+  const out=[]; L.forEach(([i,fn,P])=>{ const a=document.getElementById('au'+i+'3d'), b=document.getElementById('au'+i+'map'); if(!a||!b)return; out.push(Surf(a,{fn,pontos:P,alpha:.9,N:30}), Mapa(b,{fn,pontos:P,niveis:16,labels:false})) }); return out }
 function simExt(){ const sel=document.getElementById('exFn'), out=document.getElementById('exOut');
   const CR={q16a:[{x:-1,y:.5}],q16b:[{x:0,y:0},{x:-Math.SQRT2,y:-1},{x:Math.SQRT2,y:-1}],q16c:[{x:0,y:0},{x:2,y:1}],parab:[{x:0,y:0}],sela:[{x:0,y:0}],cupula:[{x:0,y:0}],morro:[{x:0,y:0}],aex1:[{x:1,y:3}],aex2:[{x:0,y:0},{x:1,y:1},{x:-1,y:-1}]};
   const pts=fn=>(CR[fn]||[]).map(p=>{ const f=FN[fn].f, A=dxx(f,p.x,p.y), B=dyy(f,p.x,p.y), C=dxy(f,p.x,p.y), D=A*B-C*C, tipo=D>1e-6?(A>0?'mínimo local':'máximo local'):D<-1e-6?'ponto de sela':'inconclusivo';
@@ -916,14 +921,14 @@ function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio'
 
 /* ===== boot ===== */
 load();
-document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'), steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); bindEx(b) });
+document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'), steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); { const fg=b.querySelector('.aulafig'); if(fg) b.appendChild(fg) } bindEx(b) });
 document.getElementById('probBox').innerHTML=PROBS.map(p=>'<details class="qitem"><summary><span class="qn">'+p.n+'</span><span>'+p.q+'<span class="tagt">'+p.m+'</span></span></summary><div class="body"><div class="part ex" style="border:none;padding:0;margin:14px 0 0">'+exHTML(p.s,p.a)+'</div></div></details>').join('');
 document.querySelectorAll('#probBox .part').forEach(bindEx);
 document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('input',()=>runCalc(b)); runCalc(b) });
 document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
 const fn3d=Surf(document.getElementById('fn3d'),{fn:'esfera'});
 document.querySelectorAll('#fnSeg button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#fnSeg button').forEach(z=>z.classList.toggle('on',z===b)); fn3d.set({fn:b.dataset.f}) });
-sims=[fn3d,...simHero(),...simNivel(),...simParcial(),...simGrad(),...simExt(),...simLab()];
+sims=[fn3d,...simHero(),...simNivel(),...simParcial(),...simGrad(),...simAula(),...simExt(),...simLab()];
 renderQuiz(); renderProg();
 addEventListener('hashchange',route); route();
 const redraw=()=>sims.forEach(s=>s&&s.draw());
