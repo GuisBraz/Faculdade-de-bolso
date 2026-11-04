@@ -539,17 +539,21 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
     <dl class="legend"><dt>D</dt><dd>força de arrasto (N), contra o movimento</dd><dt>C</dt><dd>coeficiente de arrasto (formato do corpo), sem unidade, entre 0,4 e 1,0 em geral</dd><dt>ρ</dt><dd>massa específica do ar (≈ 1,2 kg/m³)</dd><dt>A</dt><dd>área da seção reta "de frente" para o vento (m²)</dd><dt>v²</dt><dd>dobrou a velocidade, o arrasto fica <b>4 vezes</b> maior</dd></dl>
   </div>
   <div class="fx"><span class="tag">Fórmula 5.2 · velocidade terminal</span>
-    <div class="eq"><i>v<sub>t</sub></i> = <span class="rt"><span><span class="fr"><span>2<i>F<sub>g</sub></i></span><span><i>C ρ A</i></span></span></span></span></div>
-    <dl class="legend"><dt>de onde vem</dt><dd>na velocidade terminal a resultante é zero: D = F<sub>g</sub>. Basta isolar v</dd><dt>F<sub>g</sub></dt><dd>peso do corpo (mg)</dd></dl>
+    <div class="eq"><i>v<sub>t</sub></i> = <span class="rt"><span><span class="fr"><span>2<i>P</i></span><span><i>C ρ A</i></span></span></span></span></div>
+    <dl class="legend"><dt>de onde vem</dt><dd>na velocidade terminal a resultante é zero: D = P. Basta isolar v</dd><dt>P</dt><dd>peso do corpo, P = mg (o Halliday escreve P: é a mesma coisa)</dd></dl>
   </div>
   <h3>O que é a velocidade terminal</h3>
   <p>É a velocidade máxima que um corpo atinge caindo (ou se movendo) num fluido. A partir dela ele <b>para de acelerar</b> e segue com velocidade constante.</p>
   <ol class="recipe">
     <li><span><b>Começo:</b> v ≈ 0, então D ≈ 0 e o corpo cai acelerando com a ≈ g.</span></li>
     <li><span><b>Ganhando velocidade:</b> D = ½CρAv² cresce e puxa para cima.</span></li>
-    <li><span><b>A resultante diminui:</b> F<sub>res</sub> = F<sub>g</sub> − D, então a aceleração a = F<sub>res</sub>/m também diminui.</span></li>
-    <li><span><b>Equilíbrio:</b> quando D = F<sub>g</sub>, a resultante é zero, a = 0 e a velocidade para de mudar. Essa é a <b>velocidade terminal</b>.</span></li>
+    <li><span><b>A resultante diminui:</b> F<sub>res</sub> = P − D, então a aceleração a = F<sub>res</sub>/m também diminui.</span></li>
+    <li><span><b>Equilíbrio:</b> quando D = P, a resultante é zero, a = 0 e a velocidade para de mudar. Essa é a <b>velocidade terminal</b>.</span></li>
   </ol>
+  <div class="ofi"><span class="k">Por que igualar com mg?</span>Não é uma escolha: é Newton no eixo vertical (para baixo positivo). O peso P = mg puxa para baixo e o arrasto D empurra para cima:
+    <span class="rf" style="display:block;font-family:var(--f-math);font-size:1.08rem;margin:8px 0">P − D = m a &nbsp;→&nbsp; velocidade terminal: a = 0 &nbsp;→&nbsp; P − D = 0 &nbsp;→&nbsp; <b>D = P = mg</b></span>
+    As duas forças verticais se cancelam. Por isso, quando o problema diz "velocidade constante" ou "terminal", você escreve D = mg, troca D por ½CρAv² e resolve.</div>
+  <div class="ofi"><span class="k">Notação</span>P, F<sub>g</sub>, W e mg são todos o <b>peso</b>. Aqui usamos <b>P</b>. O Halliday escreve F<sub>g</sub> (força gravitacional) porque, no capítulo 7, ele usa W para <b>trabalho</b>. Se o enunciado ou o professor escrever F<sub>g</sub>, leia como P.</div>
   <div class="fx"><span class="tag">De onde sai a fórmula 5.2</span>
     <div class="eq">½ <i>C ρ A v<sub>t</sub></i>² = <i>m g</i> &nbsp;⇒&nbsp; <i>v<sub>t</sub></i> = <span class="rt"><span><span class="fr"><span>2<i>m g</i></span><span><i>C ρ A</i></span></span></span></span></div>
   </div>
@@ -567,7 +571,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
       <p>Um paraquedista de braços abertos chega a v<sub>t</sub> ≈ 55 m/s (≈ 200 km/h). Com o paraquedas aberto, A aumenta muito e v<sub>t</sub> cai para uns 5 m/s.</p>
     </div>
   </div>
-  <div class="ofi"><span class="k">Nos problemas</span>"Velocidade terminal" ou "velocidade constante" quase sempre significa <b>a = 0</b> e <b>D = F<sub>g</sub></b>. Iguale as duas e resolva para a variável que faltar (v, A, C ou m).</div>
+  <div class="ofi"><span class="k">Nos problemas</span>"Velocidade terminal" ou "velocidade constante" quase sempre significa <b>a = 0</b> e <b>D = P</b>. Iguale as duas e resolva para a variável que faltar (v, A, C ou m).</div>
 
   <p>Escolha um caso e veja a velocidade subindo até encostar na linha da terminal:</p>
   <div class="seg" id="dragPre"><button class="on" data-p="para">Paraquedista</button><button data-p="aberto">Paraquedas aberto</button><button data-p="gota">Gota de chuva</button></div>
@@ -911,7 +915,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
     <div class="fx"><span class="tag">Atrito cinético</span><div class="eq"><i>f<sub>k</sub></i> = <i>μ<sub>k</sub>N</i></div><p>deslizando: fixo, contra o movimento</p></div>
     <div class="fx"><span class="tag">Ângulo crítico</span><div class="eq">tg θ = <i>μ<sub>s</sub></i></div><p>bloco começa a escorregar</p></div>
     <div class="fx"><span class="tag">Arrasto</span><div class="eq"><i>D</i> = ½<i>CρAv</i>²</div><p>cresce com v²</p></div>
-    <div class="fx"><span class="tag">Velocidade terminal</span><div class="eq"><i>v<sub>t</sub></i> = <span class="rt"><span>2<i>F<sub>g</sub></i>/(<i>CρA</i>)</span></span></div><p>D = F<sub>g</sub></p></div>
+    <div class="fx"><span class="tag">Velocidade terminal</span><div class="eq"><i>v<sub>t</sub></i> = <span class="rt"><span>2<i>P</i>/(<i>CρA</i>)</span></span></div><p>D = P</p></div>
     <div class="fx"><span class="tag">Centrípeta</span><div class="eq"><i>a</i> = <i>v</i>²/<i>R</i>, &nbsp;<i>F</i> = <i>mv</i>²/<i>R</i></div><p>aponta para o centro; é papel de uma força real</p></div>
     <div class="fx"><span class="tag">Curva plana</span><div class="eq"><i>v</i><sub>máx</sub> = <span class="rt"><span><i>μ<sub>s</sub>gR</i></span></span></div><p>atrito faz a centrípeta</p></div>
     <div class="fx"><span class="tag">Curva compensada</span><div class="eq">tg θ = <i>v</i>²/(<i>gR</i>)</div><p>sem precisar de atrito</p></div>
@@ -1033,7 +1037,7 @@ const CALCS={
   return [st,'a = '+dec(a)+' m/s² · T = '+dec(T)+' N'] },
  drag(){ const m=num('dr-m'),C=num('dr-c'),A=num('dr-a'),r=num('dr-r'); if(m<=0||C<=0||A<=0||r<=0)throw new Error('Todos os valores precisam ser positivos.');
   const vt=Math.sqrt(2*m*G/(C*r*A)); dragV={m,C,A,r}; dragCv&&dragCv.draw();
-  return [['Peso: Fg = mg = '+dec(m*G,m<.01?6:2)+' N','Denominador: CρA = '+dec(C*r*A,6),'vt = √(2Fg / CρA)'],'vt ≈ '+dec(vt)+' m/s ≈ '+dec(vt*3.6,0)+' km/h'] }
+  return [['Peso: P = mg = '+dec(m*G,m<.01?6:2)+' N','Denominador: CρA = '+dec(C*r*A,6),'vt = √(2P / CρA)'],'vt ≈ '+dec(vt)+' m/s ≈ '+dec(vt*3.6,0)+' km/h'] }
 };
 function runCalc(b){ const o=b.querySelector('.out'); try{ const [s,r]=CALCS[b.dataset.calc](); out(o,s,r) }catch(e){ out(o,null,null,e.message) } }
 
