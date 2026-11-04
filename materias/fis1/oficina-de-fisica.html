@@ -89,7 +89,8 @@ main{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-lef
 .fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em}
 .fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .25em .05em}
 .fr>span:last-child{padding:.05em .25em 0}
-.rt{white-space:nowrap}.rt::before{content:"√"}.rt>span{border-top:1.5px solid currentColor;padding:0 .1em}
+.rt{white-space:nowrap;display:inline-flex;align-items:stretch;vertical-align:middle}.rt::before{content:"√";font-size:1.6em;line-height:1;align-self:center;margin-right:-.05em}.rt>span{border-top:1.5px solid currentColor;padding:.2em .15em 0;display:inline-flex;align-items:center}
+.duo{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:4px 28px}
 .v{position:relative}
 .ofi{background:var(--hl2);border-radius:8px;padding:12px 16px;margin:18px 0}
 .ofi .k,.cuid .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--c2);display:block;margin-bottom:2px}
@@ -523,6 +524,16 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
   <h2>Arrasto e velocidade terminal</h2>
   <p class="lede">O ar também é atrito. Quanto mais rápido você vai, mais ele empurra para trás, até que o empurrão iguala o peso e a velocidade para de crescer.</p>
 
+  <h3>O que é a força de arrasto</h3>
+  <p>É a força que um <b>fluido</b> (ar ou água) faz <b>contra</b> um corpo que se move dentro dele, sempre no sentido oposto à velocidade. Pensar nela como o "atrito do ar" ajuda, mas há diferenças importantes em relação ao atrito de superfície:</p>
+  <div class="tbl"><table>
+    <tr><th></th><th>Atrito (superfície)</th><th>Arrasto (fluido)</th></tr>
+    <tr><td>Depende da velocidade?</td><td>Não: f<sub>k</sub> = μ<sub>k</sub>N é fixo</td><td><b>Sim</b>: D = ½CρAv², cresce com v²</td></tr>
+    <tr><td>Depende da normal N?</td><td>Sim</td><td>Não</td></tr>
+    <tr><td>Existe com o corpo parado?</td><td>Sim (atrito estático)</td><td>Não: se v = 0, D = 0</td></tr>
+    <tr><td>Do que depende</td><td>μ e N</td><td>formato (C), fluido (ρ), área de frente (A) e velocidade (v)</td></tr>
+  </table></div>
+
   <div class="fx"><span class="tag">Fórmula 5.1 · força de arrasto</span>
     <div class="eq"><i>D</i> = ½ <i>C</i> <i>ρ</i> <i>A</i> <i>v</i>²</div>
     <dl class="legend"><dt>D</dt><dd>força de arrasto (N), contra o movimento</dd><dt>C</dt><dd>coeficiente de arrasto (formato do corpo), sem unidade, entre 0,4 e 1,0 em geral</dd><dt>ρ</dt><dd>massa específica do ar (≈ 1,2 kg/m³)</dd><dt>A</dt><dd>área da seção reta "de frente" para o vento (m²)</dd><dt>v²</dt><dd>dobrou a velocidade, o arrasto fica <b>4 vezes</b> maior</dd></dl>
@@ -531,6 +542,33 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
     <div class="eq"><i>v<sub>t</sub></i> = <span class="rt"><span><span class="fr"><span>2<i>F<sub>g</sub></i></span><span><i>C ρ A</i></span></span></span></span></div>
     <dl class="legend"><dt>de onde vem</dt><dd>na velocidade terminal a resultante é zero: D = F<sub>g</sub>. Basta isolar v</dd><dt>F<sub>g</sub></dt><dd>peso do corpo (mg)</dd></dl>
   </div>
+  <h3>O que é a velocidade terminal</h3>
+  <p>É a velocidade máxima que um corpo atinge caindo (ou se movendo) num fluido. A partir dela ele <b>para de acelerar</b> e segue com velocidade constante.</p>
+  <ol class="recipe">
+    <li><span><b>Começo:</b> v ≈ 0, então D ≈ 0 e o corpo cai acelerando com a ≈ g.</span></li>
+    <li><span><b>Ganhando velocidade:</b> D = ½CρAv² cresce e puxa para cima.</span></li>
+    <li><span><b>A resultante diminui:</b> F<sub>res</sub> = F<sub>g</sub> − D, então a aceleração a = F<sub>res</sub>/m também diminui.</span></li>
+    <li><span><b>Equilíbrio:</b> quando D = F<sub>g</sub>, a resultante é zero, a = 0 e a velocidade para de mudar. Essa é a <b>velocidade terminal</b>.</span></li>
+  </ol>
+  <div class="fx"><span class="tag">De onde sai a fórmula 5.2</span>
+    <div class="eq">½ <i>C ρ A v<sub>t</sub></i>² = <i>m g</i> &nbsp;⇒&nbsp; <i>v<sub>t</sub></i> = <span class="rt"><span><span class="fr"><span>2<i>m g</i></span><span><i>C ρ A</i></span></span></span></span></div>
+  </div>
+  <div class="duo">
+    <div>
+      <h4>O que muda a v<sub>t</sub></h4>
+      <ul>
+        <li>Mais pesado (m maior): v<sub>t</sub> <b>maior</b>.</li>
+        <li>Mais área de frente (A maior): v<sub>t</sub> <b>menor</b>. É por isso que o paraquedas funciona.</li>
+        <li>Formato mais aerodinâmico (C menor): v<sub>t</sub> <b>maior</b>.</li>
+      </ul>
+    </div>
+    <div>
+      <h4>Exemplo</h4>
+      <p>Um paraquedista de braços abertos chega a v<sub>t</sub> ≈ 55 m/s (≈ 200 km/h). Com o paraquedas aberto, A aumenta muito e v<sub>t</sub> cai para uns 5 m/s.</p>
+    </div>
+  </div>
+  <div class="ofi"><span class="k">Nos problemas</span>"Velocidade terminal" ou "velocidade constante" quase sempre significa <b>a = 0</b> e <b>D = F<sub>g</sub></b>. Iguale as duas e resolva para a variável que faltar (v, A, C ou m).</div>
+
   <p>Escolha um caso e veja a velocidade subindo até encostar na linha da terminal:</p>
   <div class="seg" id="dragPre"><button class="on" data-p="para">Paraquedista</button><button data-p="aberto">Paraquedas aberto</button><button data-p="gota">Gota de chuva</button></div>
   <div class="cv sim" id="dragCv" style="aspect-ratio:16/9"><canvas></canvas></div>

@@ -81,7 +81,8 @@ window.FACULDADE = {
                 { data: "2026-10-28", texto: "Aula de 28/10: novo módulo Massa-mola — lei de Hooke (k em N/cm e N/m), ciclo −xm ↔ +xm, simulador de mola, v máx em x0 nas duas passagens, pista em U e PhET." },
                 { data: "2026-10-29", texto: "Cartas de revisão (Anki): botão Cartas na oficina, carta surpresa nos módulos de teoria e 35 cartas de Física." },
                 { data: "2026-11-03", texto: "Plano inclinado (Fórmula 3.1): desenho do bloco na rampa com P, P∥, P⊥, N e o ângulo θ." },
-                { data: "2026-11-03", texto: "Atrito: receita em 7 passos com as fórmulas de cada um (peso, normal, força que faz deslizar, atrito, Newton), tabela de normais e exemplo completo." }
+                { data: "2026-11-03", texto: "Atrito: receita em 7 passos com as fórmulas de cada um (peso, normal, força que faz deslizar, atrito, Newton), tabela de normais e exemplo completo." },
+                { data: "2026-11-03", texto: "Arrasto: o que é a força de arrasto (comparada ao atrito) e o que é a velocidade terminal, com a dedução, o que muda a vt e o exemplo do paraquedista." }
               ],
               descricao: "Capítulos 5, 6 e 8 do Halliday: leis de Newton, atrito, arrasto, movimento circular, energia potencial e conservação da energia, com simuladores, 22 problemas resolvidos e quiz.",
               data: "2026-10-28",
