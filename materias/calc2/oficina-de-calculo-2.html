@@ -536,7 +536,7 @@ body{font-size:1rem}
 
 <!-- ============ 7 EXTREMOS ============ -->
 <section class="view read" id="v-extremos" hidden>
-  <div class="eyebrow">Módulo 7 · Aula de 05/11 · Stewart 14.7</div>
+  <div class="eyebrow">Módulo 7 · Aula de 04/11 · Stewart 14.7</div>
   <h2>Máximos, mínimos e pontos de sela</h2>
   <p class="lede">No topo de um morro, a superfície fica "plana": nenhuma direção sobe. Por isso os extremos só aparecem onde ∇f = 0. O teste da derivada segunda decide se é topo, fundo ou sela.</p>
 
@@ -549,9 +549,33 @@ body{font-size:1rem}
     <dl class="legend"><dt>D &gt; 0 e f<sub>xx</sub> &gt; 0</dt><dd><b>mínimo local</b> (fundo de vale)</dd><dt>D &gt; 0 e f<sub>xx</sub> &lt; 0</dt><dd><b>máximo local</b> (topo de morro)</dd><dt>D &lt; 0</dt><dd><b>ponto de sela</b>: sobe numa direção e desce em outra</dd><dt>D = 0</dt><dd>o teste não decide</dd></dl>
   </div>
 
-  <h3>Simulador: a questão 16 da lista, em 3D</h3>
+  <div class="aula"><span class="k">Aula de 04/11</span>
+    <h4 style="margin:6px 0 4px">1. Achar o ponto crítico: f(x, y) = 9 − x² − y²</h4>
+    <p>∂f/∂x = −2x e ∂f/∂y = −2y. Igualando a zero: −2x = 0 ⇒ x = 0 e −2y = 0 ⇒ y = 0. <b>(0, 0) é ponto crítico.</b> Aqui ele é o topo do morro: f(0, 0) = 9 é o <b>máximo</b>, porque qualquer outro ponto subtrai x² + y² &gt; 0.</p>
+    <h4 style="margin:12px 0 4px">2. Nem todo ponto crítico é de máximo/mínimo: f(x, y) = x² − y²</h4>
+    <p>∂f/∂x = 2x e ∂f/∂y = −2y. Igualando a zero, o único ponto crítico também é (0, 0). Mas andando no eixo x a função <b>sobe</b> (x²) e no eixo y ela <b>desce</b> (−y²). Então (0, 0) não é máximo nem mínimo: é um <b>ponto de sela</b>.</p>
+    <div class="btns" style="margin:6px 0 0"><a class="btn ghost" href="https://www.geogebra.org/m/hjb4df5x" target="_blank" rel="noopener">↗ Ver a sela no GeoGebra</a></div>
+    <h4 style="margin:14px 0 4px">3. O teste da 2ª derivada, como a professora escreveu</h4>
+    <p>(a, b) ponto crítico. D é o determinante da matriz das derivadas segundas (a <b>Hessiana</b>). Como f<sub>xy</sub> = f<sub>yx</sub> (Clairaut), as duas diagonais ficam iguais:</p>
+    <div class="fx" style="margin:10px 0"><span class="tag">D(a, b)</span><div class="eq">D = det <span class="mat">[ <i>f<sub>xx</sub></i> &nbsp; <i>f<sub>xy</sub></i> ; &nbsp;<i>f<sub>yx</sub></i> &nbsp; <i>f<sub>yy</sub></i> ]</span> = <i>f<sub>xx</sub> f<sub>yy</sub></i> − <i>f<sub>xy</sub></i>²</div></div>
+    <div class="tbl" style="margin:8px 0"><table><tr><th>Resultado</th><th>Conclusão</th></tr><tr><td>D &gt; 0 e f<sub>xx</sub> &gt; 0</td><td>f(a, b) é <b>mínimo local</b></td></tr><tr><td>D &gt; 0 e f<sub>xx</sub> &lt; 0</td><td>f(a, b) é <b>máximo local</b></td></tr><tr><td>D &lt; 0</td><td>(a, b) é <b>ponto de sela</b></td></tr><tr><td>D = 0</td><td>o teste é <b>inconclusivo</b></td></tr></table></div>
+    <p class="hint" style="margin:0">Na sela x² − y²: f<sub>xx</sub> = 2, f<sub>yy</sub> = −2, f<sub>xy</sub> = 0 → D = −4 &lt; 0 ✓. No morro 9 − x² − y²: f<sub>xx</sub> = f<sub>yy</sub> = −2 → D = 4 &gt; 0 e f<sub>xx</sub> &lt; 0 → máximo ✓.</p>
+  </div>
+
+  <h3>Exemplos da aula</h3>
+  <div class="ex" data-ex><div class="q">Exemplo 1: determine os pontos críticos, valores máximos e mínimos locais e os pontos de sela de f(x, y) = x² + y² − 2x − 6y + 14.</div>
+    <ol><li>Derivadas primeiras: f<sub>x</sub> = 2x − 2 e f<sub>y</sub> = 2y − 6.</li><li>Derivadas segundas: f<sub>xx</sub> = 2, f<sub>yy</sub> = 2 e f<sub>xy</sub> = f<sub>yx</sub> = 0.</li><li>Pontos críticos: 2x − 2 = 0 ⇒ x = 1 e 2y − 6 = 0 ⇒ y = 3. Único ponto crítico: (1, 3).</li><li>Teste: D(1, 3) = 2 · 2 − 0² = 4 &gt; 0 e f<sub>xx</sub> = 2 &gt; 0 → mínimo local.</li><li>Valor: f(1, 3) = 1 + 9 − 2 − 18 + 14 = 4. (Completando quadrados: f = (x − 1)² + (y − 3)² + 4, um "vale" com fundo em altura 4.)</li></ol>
+    <div class="ans">(1, 3) é mínimo local, com f(1, 3) = 4. Não há máximo nem sela.</div>
+    <div class="btns" style="margin-top:4px"><a class="btn ghost" href="https://www.geogebra.org/3d/djqpvujj" target="_blank" rel="noopener">↗ Gráfico do Exemplo 1 no GeoGebra</a></div></div>
+  <div class="ex" data-ex><div class="q">Exemplo 2: determine os valores extremos de f(x, y) = x⁴ + y⁴ − 4xy + 1.</div>
+    <ol><li>Derivadas primeiras: f<sub>x</sub> = 4x³ − 4y e f<sub>y</sub> = 4y³ − 4x.</li><li>Derivadas segundas: f<sub>xx</sub> = 12x², f<sub>yy</sub> = 12y² e f<sub>xy</sub> = −4.</li><li>Pontos críticos: 4x³ − 4y = 0 ⇒ <b>y = x³</b>; e 4y³ − 4x = 0 ⇒ y³ − x = 0.</li><li>Substituindo y = x³ na 2ª equação: (x³)³ − x = 0 → x⁹ − x = 0 → x(x⁸ − 1) = 0 → x = 0 ou x⁸ = 1 → x = ±1.</li><li>Voltando em y = x³: x = 0 ⇒ (0, 0); x = 1 ⇒ (1, 1); x = −1 ⇒ (−1, −1). Pontos críticos: (0, 0), (1, 1) e (−1, −1).</li><li>D = det[12x² −4; −4 12y²] = 144x²y² − 16.</li><li>(0, 0): D = 0 − 16 = −16 &lt; 0 → ponto de sela.</li><li>(1, 1): D = 144 − 16 = 128 &gt; 0 e f<sub>xx</sub> = 12 &gt; 0 → mínimo local. (−1, −1): D = 144·1·1 − 16 = 128 &gt; 0 e f<sub>xx</sub> = 12 &gt; 0 → mínimo local.</li><li>Valores: f(1, 1) = 1 + 1 − 4 + 1 = −1 e f(−1, −1) = 1 + 1 − 4 + 1 = −1.</li></ol>
+    <div class="ans">Sela em (0, 0) · mínimos locais em (1, 1) e (−1, −1), ambos com f = −1.</div>
+    <div class="btns" style="margin-top:4px"><a class="btn ghost" href="https://www.geogebra.org/3d/kgmjprmd" target="_blank" rel="noopener">↗ Gráfico do Exemplo 2 no GeoGebra</a></div></div>
+  <div class="cuid"><span class="k">Pegadinha do Exemplo 2</span>Em x⁹ − x = 0 não divida por x: fatore, x(x⁸ − 1) = 0. Dividir faz você perder o ponto (0, 0), que é justamente a sela.</div>
+
+  <h3>Simulador: os exemplos e a questão 16 da lista, em 3D</h3>
   <p>Escolha a função. Os pontos marcados são os críticos, e a tabela aplica o teste em cada um.</p>
-  <div class="row-ctl"><label class="mono" style="font-size:.82rem">função <select id="exFn"><option value="q16c">16c · x³ − 12xy + 8y³</option><option value="q16b">16b · x² + y² + x²y + 4</option><option value="q16a">16a · 9 − 2x + 4y − x² − 4y²</option><option value="sela">x² − y² (sela pura)</option></select></label></div>
+  <div class="row-ctl"><label class="mono" style="font-size:.82rem">função <select id="exFn"><option value="aex2">Aula · Ex. 2 · x⁴ + y⁴ − 4xy + 1</option><option value="aex1">Aula · Ex. 1 · x² + y² − 2x − 6y + 14</option><option value="morro">Aula · 9 − x² − y² (máximo)</option><option value="q16c">16c · x³ − 12xy + 8y³</option><option value="q16b">16b · x² + y² + x²y + 4</option><option value="q16a">16a · 9 − 2x + 4y − x² − 4y²</option><option value="sela">x² − y² (sela pura)</option></select></label></div>
   <div class="labgrid2"><div class="cv sim" id="ex3d" style="aspect-ratio:1/1"><canvas></canvas></div><div class="cv sim" id="exMap" style="aspect-ratio:1/1"><canvas></canvas></div></div>
   <div class="simout" id="exOut"></div>
 
@@ -652,7 +676,10 @@ const FN={
   ondas:{l:'sen x · cos y',f:(x,y)=>Math.sin(x)*Math.cos(y),R:3.3},
   q16a:{l:'9 − 2x + 4y − x² − 4y²',f:(x,y)=>9-2*x+4*y-x*x-4*y*y,R:3,c:[-1,0.5]},
   q16b:{l:'x² + y² + x²y + 4',f:(x,y)=>x*x+y*y+x*x*y+4,R:2.4,c:[0,-1]},
-  q16c:{l:'x³ − 12xy + 8y³',f:(x,y)=>x**3-12*x*y+8*y**3,R:3,c:[1,0.5]}
+  q16c:{l:'x³ − 12xy + 8y³',f:(x,y)=>x**3-12*x*y+8*y**3,R:3,c:[1,0.5]},
+  morro:{l:'9 − x² − y²',f:(x,y)=>9-x*x-y*y,R:2.5},
+  aex1:{l:'x² + y² − 2x − 6y + 14',f:(x,y)=>x*x+y*y-2*x-6*y+14,R:4.2},
+  aex2:{l:'x⁴ + y⁴ − 4xy + 1',f:(x,y)=>x**4+y**4-4*x*y+1,R:1.7}
 };
 const H=1e-4;
 const dfx=(f,x,y)=>(f(x+H,y)-f(x-H,y))/(2*H), dfy=(f,x,y)=>(f(x,y+H)-f(x,y-H))/(2*H);
@@ -759,10 +786,10 @@ function simGrad(){ const st={fn:'cupula',p:{x:1,y:.5},grad:true,dir:0,tang:true
     out.innerHTML='<ol><li>P = ('+dec(a)+', '+dec(b)+') · ∇f(P) = ⟨'+dec(gx)+', '+dec(gy)+'⟩</li><li>u = ⟨cos θ, sen θ⟩ = ⟨'+dec(ux)+', '+dec(uy)+'⟩ (já unitário)</li><li>D<sub>u</sub>f = ∇f · u = '+dec(gx)+'·'+dec(ux)+' + '+dec(gy)+'·'+dec(uy)+' = <b>'+dec(D)+'</b></li><li>Maior taxa possível em P: |∇f| = '+dec(gn)+', na direção da seta laranja'+(gn>1e-9?' (θ ≈ '+dec((deg(Math.atan2(gy,gx))+360)%360,0)+'°)':'')+'. Andando pela linha tracejada (a curva de nível), D<sub>u</sub>f = 0.</li></ol>' }
   sel.onchange=draw; draw(); return [m] }
 function simExt(){ const sel=document.getElementById('exFn'), out=document.getElementById('exOut');
-  const CR={q16a:[{x:-1,y:.5}],q16b:[{x:0,y:0},{x:-Math.SQRT2,y:-1},{x:Math.SQRT2,y:-1}],q16c:[{x:0,y:0},{x:2,y:1}],parab:[{x:0,y:0}],sela:[{x:0,y:0}],cupula:[{x:0,y:0}]};
+  const CR={q16a:[{x:-1,y:.5}],q16b:[{x:0,y:0},{x:-Math.SQRT2,y:-1},{x:Math.SQRT2,y:-1}],q16c:[{x:0,y:0},{x:2,y:1}],parab:[{x:0,y:0}],sela:[{x:0,y:0}],cupula:[{x:0,y:0}],morro:[{x:0,y:0}],aex1:[{x:1,y:3}],aex2:[{x:0,y:0},{x:1,y:1},{x:-1,y:-1}]};
   const pts=fn=>(CR[fn]||[]).map(p=>{ const f=FN[fn].f, A=dxx(f,p.x,p.y), B=dyy(f,p.x,p.y), C=dxy(f,p.x,p.y), D=A*B-C*C, tipo=D>1e-6?(A>0?'mínimo local':'máximo local'):D<-1e-6?'ponto de sela':'inconclusivo';
     return {...p,A,B,C,D,tipo,z:f(p.x,p.y),c:tipo==='mínimo local'?'c2':tipo==='máximo local'?'c1':'c3',l:tipo==='ponto de sela'?'sela':tipo.split(' ')[0]} });
-  const s3=Surf(document.getElementById('ex3d'),{fn:'q16c',alpha:.9}), m=Mapa(document.getElementById('exMap'),{fn:'q16c',niveis:26,labels:false});
+  const s3=Surf(document.getElementById('ex3d'),{fn:'aex2',alpha:.9}), m=Mapa(document.getElementById('exMap'),{fn:'aex2',niveis:26,labels:false});
   function draw(){ const fn=sel.value, P=pts(fn); s3.set({fn,pontos:P}); m.set({fn,pontos:P});
     out.innerHTML='<div class="tbl" style="margin:0"><table><tr><th>ponto crítico</th><th>f<sub>xx</sub></th><th>f<sub>yy</sub></th><th>f<sub>xy</sub></th><th>D = f<sub>xx</sub>f<sub>yy</sub> − f<sub>xy</sub>²</th><th>conclusão</th></tr>'+P.map(p=>'<tr><td>('+dec(p.x)+', '+dec(p.y)+')</td><td>'+dec(p.A,1)+'</td><td>'+dec(p.B,1)+'</td><td>'+dec(p.C,1)+'</td><td>'+dec(p.D,1)+'</td><td><b>'+p.tipo+'</b>, f = '+dec(p.z,2)+'</td></tr>').join('')+'</table></div>' }
   sel.onchange=draw; draw(); return [s3,m] }
@@ -913,5 +940,6 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 </script>
 <script src="../../dados/cartas.js"></script>
 <script src="../../js/anki.js" data-materia="calc2"></script>
+<script src="../../js/aviso.js" defer></script>
 </body>
 </html>
