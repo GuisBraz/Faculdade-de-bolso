@@ -924,6 +924,7 @@ load();
 document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'), steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); { const fg=b.querySelector('.aulafig'); if(fg) b.appendChild(fg) } bindEx(b) });
 document.getElementById('probBox').innerHTML=PROBS.map(p=>'<details class="qitem"><summary><span class="qn">'+p.n+'</span><span>'+p.q+'<span class="tagt">'+p.m+'</span></span></summary><div class="body"><div class="part ex" style="border:none;padding:0;margin:14px 0 0">'+exHTML(p.s,p.a)+'</div></div></details>').join('');
 document.querySelectorAll('#probBox .part').forEach(bindEx);
+window.FDB_QLISTA={sel:'#probBox',itens:PROBS.map(p=>({titulo:'Questão '+p.n,tag:'Lista · '+p.m,enun:p.q,secoes:[{passos:p.s,resp:p.a}]}))};
 document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('input',()=>runCalc(b)); runCalc(b) });
 document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
 const fn3d=Surf(document.getElementById('fn3d'),{fn:'esfera'});
@@ -946,5 +947,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../dados/cartas.js"></script>
 <script src="../../js/anki.js" data-materia="calc2"></script>
 <script src="../../js/aviso.js" defer></script>
+<script src="../../dados/cola-explica.js"></script>
+<script src="../../js/quadro.js" data-materia="calc2"></script>
 </body>
 </html>
