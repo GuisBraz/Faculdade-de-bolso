@@ -243,6 +243,9 @@ body{font-size:1rem}
 .rampa-fig{margin:6px 0 18px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:12px 14px}
 .rampa-fig svg{display:block;width:100%;max-width:640px;height:auto;margin:0 auto}
 .rampa-fig figcaption{font-size:.92rem;color:var(--ink2);margin-top:8px;max-width:82ch}
+ol.rec2>li{grid-template-columns:30px minmax(0,1fr)}
+.rec2 .rf{display:block;font-family:var(--f-math);font-size:1.08rem;background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c1);border-radius:4px;padding:6px 10px;margin:6px 0;overflow-x:auto;white-space:nowrap}
+ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 </style>
 </head>
 <body>
@@ -399,7 +402,7 @@ body{font-size:1rem}
 <line x1="20" y1="300" x2="560" y2="300" style="stroke:var(--ink2)" stroke-width="1.5"/>
 <path d="M106 300 A46 46 0 0 0 99.8 277.0" fill="none" style="stroke:var(--ink)" stroke-width="1.6"/>
 <text x="114" y="292" style="fill:var(--ink)" font-family="STIX Two Text, serif" font-style="italic" font-size="20">θ</text>
-<g transform="rotate(-30 263.0 151.6)"><rect x="223.0" y="124.6" width="80" height="54" rx="4" style="fill:var(--sheet);stroke:var(--ink)" stroke-width="2"/><text x="289.0" y="151.6" text-anchor="middle" style="fill:var(--ink)" font-family="JetBrains Mono, monospace" font-size="15" font-weight="700">m</text></g>
+<g transform="rotate(-30 263.0 151.6)"><rect x="223.0" y="124.6" width="80" height="54" rx="4" style="fill:var(--sheet);stroke:var(--ink)" stroke-width="2"/></g><text x="289.0" y="151.6" text-anchor="middle" style="fill:var(--ink)" font-family="JetBrains Mono, monospace" font-size="15" font-weight="700">m</text>
 <line x1="211.9" y1="181.1" x2="263.0" y2="269.6" style="stroke:var(--ink2)" stroke-width="1.4" stroke-dasharray="5 5"/>
 <line x1="314.1" y1="240.1" x2="263.0" y2="269.6" style="stroke:var(--ink2)" stroke-width="1.4" stroke-dasharray="5 5"/>
 <path d="M263.0 191.6 A40 40 0 0 0 283.0 186.3" fill="none" style="stroke:var(--ink)" stroke-width="1.4"/>
@@ -451,13 +454,50 @@ body{font-size:1rem}
   </div>
   <div class="ofi"><span class="k">Na oficina</span>Arrastar uma chapa grossa no piso da fábrica: o primeiro tranco é o pior (estático). Depois que ela "solta", dá para manter andando com menos força (cinético).</div>
 
-  <h3>Receita: ele se move ou não?</h3>
-  <ol class="recipe">
-    <li><span>Calcule N (cuidado se houver força inclinada: ela muda a normal).</span></li>
-    <li><span>Calcule a força que tenta fazer deslizar (componente paralela à superfície).</span></li>
-    <li><span>Compare com f<sub>s,máx</sub> = μ<sub>s</sub>N. Menor ou igual: <b>fica parado</b> e f<sub>s</sub> = a força que tenta deslizar. Maior: <b>desliza</b>.</span></li>
-    <li><span>Se desliza: use f<sub>k</sub> = μ<sub>k</sub>N contra o movimento e aplique ΣF = ma.</span></li>
+  <h3>Receita: achar todas as forças e resolver qualquer exercício de atrito</h3>
+  <p>Sempre a mesma sequência. Decore a ordem: <b>desenha → eixos → peso → normal → empurrão → atrito → Newton</b>.</p>
+  <ol class="recipe rec2">
+    <li><span><b>Desenhe o diagrama de corpo livre.</b> Só as forças que agem <i>no</i> bloco: peso <i>P</i>, normal <i>N</i>, atrito <i>f</i> e as forças aplicadas (corda, empurrão).
+      <span class="rf">P = m g &nbsp;(g = 9,8 m/s²)</span></span></li>
+    <li><span><b>Escolha os eixos pela superfície</b>, não pela horizontal: eixo <b>x ao longo</b> da superfície (sentido do movimento) e eixo <b>y perpendicular</b> a ela.
+      <span class="rf">chão plano: θ = 0 &nbsp;·&nbsp; rampa: θ = inclinação</span></span></li>
+    <li><span><b>Decomponha o peso</b> nos eixos da superfície.
+      <span class="rf">P<sub>∥</sub> = m g sen θ &nbsp;(rampa abaixo) &nbsp;&nbsp; P<sub>⊥</sub> = m g cos θ &nbsp;(contra a superfície)</span>
+      No chão plano: P<sub>∥</sub> = 0 e P<sub>⊥</sub> = m g.</span></li>
+    <li><span><b>Decomponha cada força aplicada</b> pelo ângulo α que ela faz <b>com a superfície</b>.
+      <span class="rf">F<sub>∥</sub> = F cos α &nbsp;&nbsp; F<sub>⊥</sub> = F sen α</span>
+      Força deitada na superfície (α = 0): F<sub>⊥</sub> = 0, ela não mexe na normal.</span></li>
+    <li><span><b>Ache a normal</b>: no eixo y o bloco não afunda nem sai da superfície, então ΣF<sub>y</sub> = 0.
+      <span class="rf">N = P<sub>⊥</sub> − (partes que puxam para fora) + (partes que empurram contra)</span>
+      Se der N ≤ 0, o bloco saiu da superfície e não há atrito.</span></li>
+    <li><span><b>Ele se move?</b> Some o que tenta fazer deslizar no eixo x (sem o atrito) e compare com o atrito estático máximo.
+      <span class="rf">F<sub>desliza</sub> = |F<sub>∥</sub> ± P<sub>∥</sub>| &nbsp;&nbsp; f<sub>s,máx</sub> = μ<sub>s</sub> N</span>
+      F<sub>desliza</sub> ≤ f<sub>s,máx</sub>: <b>fica parado</b>, a = 0 e f<sub>s</sub> = F<sub>desliza</sub> (não μ<sub>s</sub>N!). F<sub>desliza</sub> &gt; f<sub>s,máx</sub>: <b>desliza</b>. Se o enunciado diz que já está deslizando, pule direto para o passo 7.</span></li>
+    <li><span><b>Desliza: atrito cinético contra o movimento e Newton no eixo x.</b>
+      <span class="rf">f<sub>k</sub> = μ<sub>k</sub> N &nbsp;&nbsp; m a = (forças a favor) − (forças contra) &nbsp;&nbsp; a = ΣF<sub>x</sub> / m</span>
+      Confira o sinal: a negativa quer dizer que você chutou o sentido errado ou que o bloco está freando.</span></li>
   </ol>
+
+  <div class="tbl"><table>
+    <tr><th>Situação</th><th>Normal N</th><th>Força que faz deslizar</th></tr>
+    <tr><td>Chão plano, F horizontal</td><td>m g</td><td>F</td></tr>
+    <tr><td>Chão plano, F puxando α acima</td><td>m g − F sen α</td><td>F cos α</td></tr>
+    <tr><td>Chão plano, F empurrando α abaixo</td><td>m g + F sen α</td><td>F cos α</td></tr>
+    <tr><td>Rampa θ, sem F</td><td>m g cos θ</td><td>m g sen θ (rampa abaixo)</td></tr>
+    <tr><td>Rampa θ, F paralela rampa acima</td><td>m g cos θ</td><td>F − m g sen θ (se &gt; 0, sobe)</td></tr>
+    <tr><td>Rampa θ, F horizontal contra a rampa</td><td>m g cos θ + F sen θ</td><td>F cos θ − m g sen θ</td></tr>
+  </table></div>
+
+  <div class="ofi"><span class="k">Exemplo completo</span>Caixa de 10 kg puxada por 60 N numa corda 30° acima do chão plano, μ<sub>k</sub> = 0,30, já deslizando.
+    <ol class="mini">
+      <li>Forças: P = 98 N, N, f<sub>k</sub>, F = 60 N.</li>
+      <li>Chão plano: θ = 0, então P<sub>∥</sub> = 0 e P<sub>⊥</sub> = 98 N.</li>
+      <li>Corda (α = 30°): F<sub>∥</sub> = 60 cos 30° = 51,96 N; F<sub>⊥</sub> = 60 sen 30° = 30 N, puxando para fora.</li>
+      <li>Normal: N = 98 − 30 = 68 N.</li>
+      <li>Já desliza: f<sub>k</sub> = 0,30 · 68 = 20,4 N.</li>
+      <li>Newton: 10 a = 51,96 − 20,4 → <b>a ≈ 3,16 m/s²</b>.</li>
+    </ol>
+  </div>
 
   <h3>Simulador: bloco no plano inclinado</h3>
   <p>Mude o ângulo, os coeficientes e a força aplicada (positiva = rampa acima). O diagrama de corpo livre e a conta mudam juntos.</p>
