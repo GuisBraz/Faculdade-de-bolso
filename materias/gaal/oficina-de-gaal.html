@@ -237,6 +237,12 @@ input[type=text]:focus{border-color:var(--c2);outline:none}
 .cheque i{font-style:normal}
 .jogo .opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
 .jogo .fb{margin-top:10px;font-size:.93rem}
+.dinch{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.dinch button{font-size:.82rem;padding:6px 10px}
+.mesa td.q{background:transparent;border:1.5px dashed var(--line);color:var(--ink2)}
+.din .enun{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c2);border-radius:6px;padding:8px 12px;line-height:1.5}
+.din .enun .k{display:block;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:2px}
+.wout .big{font-size:1.1rem}
 footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
@@ -362,12 +368,7 @@ body{font-size:1rem}
     </div>
   </div>
   <div class="ofi"><span class="k">Em uma frase</span>O produto escalar responde: <b>"quanto um vetor ajuda o outro?"</b>. Pense em puxar um carrinho com uma corda. Se a corda está na direção do trilho, toda a força ajuda (valor grande). Se a corda está de lado, a 90°, ela não ajuda nada (zero). Se puxa para trás, atrapalha (negativo).</div>
-  <div class="wid" id="escW"><h4>Máquina do produto escalar</h4><p class="sub">Coloque dois vetores. A máquina multiplica coluna com coluna (x com x, y com y, z com z) e soma.</p>
-    <div class="fields3"><label>u⃗ <input type="text" id="esc-u" value="2, 1, -1"></label><label>v⃗ <input type="text" id="esc-v" value="1, 3, 2"></label></div>
-    <div style="overflow-x:auto"><table class="mesa" id="escT"></table></div>
-    <div class="wout" id="escO"></div>
-    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="ghost" data-esc="1, 0, 0|0, 1, 0">Teste: perpendiculares</button><button class="ghost" data-esc="1, 2, 2|2, 4, 4">Teste: mesma direção</button><button class="ghost" data-esc="1, 2, 0|-1, -1, 0">Teste: lados opostos</button></div>
-  </div>
+  <div class="wid din" id="dinEsc"><h4>Exemplos da lista, passo a passo</h4><p class="sub">Escolha um exercício e avance. A tabela acende a coluna que está sendo multiplicada.</p><div class="dinbox"></div></div>
   <div class="tbl"><table><tr><th>Para que serve na prova</th><th>Como usar</th></tr>
     <tr><td>Saber se são perpendiculares</td><td>u⃗·v⃗ = 0</td></tr>
     <tr><td>Achar o ângulo entre retas ou planos</td><td>cos θ = |u⃗·v⃗| / (‖u⃗‖‖v⃗‖)</td></tr>
@@ -398,12 +399,7 @@ body{font-size:1rem}
       </div></div>
   </div>
   <div class="ofi"><span class="k">Regra da mão direita</span>Aponte os dedos da mão direita para u⃗ e feche-os em direção a v⃗. O polegar aponta para u⃗ × v⃗. Trocar a ordem (v⃗ × u⃗) vira a mão: o palito aponta para o outro lado. Por isso v⃗ × u⃗ = −(u⃗ × v⃗).</div>
-  <div class="wid" id="detW"><h4>Máquina do produto vetorial (o "cobre a coluna")</h4><p class="sub">Toque em 1ª, 2ª e 3ª coordenada. A coluna coberta some, e as duas diagonais acendem: laranja (desce) menos roxo (sobe).</p>
-    <div class="fields3"><label>u⃗ <input type="text" id="det-u" value="2, 1, -1"></label><label>v⃗ <input type="text" id="det-v" value="1, 1, 0"></label></div>
-    <div style="overflow-x:auto"><table class="mesa" id="detT"></table></div>
-    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0"><button data-k="0">1ª coordenada (x)</button><button data-k="1">2ª coordenada (y)</button><button data-k="2">3ª coordenada (z)</button><button class="ghost" data-k="all">Ver tudo</button></div>
-    <div class="wout" id="detO"></div>
-  </div>
+  <div class="wid din" id="dinVet"><h4>Exemplos da lista, passo a passo ("cobre a coluna")</h4><p class="sub">Escreva u⃗ e v⃗ duas vezes em fila. Para cada coordenada, a coluna dela some e as duas diagonais acendem: laranja (desce) menos roxo (sobe).</p><div class="dinbox"></div></div>
   <h3>Ferramenta 3 · Produto misto (dá um número)</h3>
   <div class="fx"><span class="tag">Fórmula 1.5 · produto misto</span>
     <div class="eq">(<i>u</i>⃗, <i>v</i>⃗, <i>w</i>⃗) = (<i>u</i>⃗ × <i>v</i>⃗) · <i>w</i>⃗ = det [ <i>u</i>⃗ ; <i>v</i>⃗ ; <i>w</i>⃗ ]</div>
@@ -421,6 +417,7 @@ body{font-size:1rem}
       </div></div>
   </div>
   <div class="ofi"><span class="k">Repare</span>Inclinar w⃗ <b>não muda o volume</b>: a caixa só "escorrega", como um maço de cartas empurrado de lado. O que importa é a altura. É por isso que (u⃗, v⃗, w⃗) = área da base × altura.</div>
+  <div class="wid din" id="dinMis"><h4>Exemplo da lista, passo a passo</h4><p class="sub">Primeiro o vetorial de u⃗ e v⃗, depois o escalar com o terceiro vetor.</p><div class="dinbox"></div></div>
   <div class="calc" data-calc="kit"><h4>Calculadora de vetores</h4><p class="hint">Digite as coordenadas separadas por vírgula. A conta aparece inteira.</p>
     <div class="fields"><label>u⃗ <input type="text" id="k-u" value="2, 1, -1"></label><label>v⃗ <input type="text" id="k-v" value="1, 1, 0"></label><label>w⃗ (para o misto) <input type="text" id="k-w" value="0, 0, 2"></label></div>
     <div class="out"></div></div>
@@ -1090,29 +1087,56 @@ function dotDemo(){ const c=document.getElementById('dotCv'),x=c.getContext('2d'
 /* ========= widgets dos produtos e das retas ========= */
 function parseV(id){ const v=document.getElementById(id).value.replace(/−/g,'-').split(/[;,\s]+/).filter(Boolean).map(Number); return v.length===3&&v.every(isFinite)?v:null }
 const corS=x=>Math.abs(x)<1e-9?tok('ok'):x>0?tok('c2'):tok('bad');
-function escW(){ const T=document.getElementById('escT'),O=document.getElementById('escO'); if(!T)return;
-  const go=()=>{ const u=parseV('esc-u'),v=parseV('esc-v'); if(!u||!v){O.innerHTML='Digite 3 números em cada vetor.';return}
-    const pr=u.map((a,i)=>a*v[i]), d=pr[0]+pr[1]+pr[2];
-    T.innerHTML='<tr><td class="h"></td><td class="h">x</td><td class="h">y</td><td class="h">z</td></tr><tr><td class="h">u⃗</td>'+u.map(a=>'<td class="on1">'+fmt(a)+'</td>').join('')+'</tr><tr><td class="h">v⃗</td>'+v.map(a=>'<td class="on2">'+fmt(a)+'</td>').join('')+'</tr><tr><td class="h">×</td>'+pr.map(a=>'<td class="p">'+fmt(a)+'</td>').join('')+'</tr>';
-    const nu=nrm(u),nv=nrm(v), c=nu&&nv?d/(nu*nv):NaN, ang=isFinite(c)?angDeg(c):NaN, col=corS(d);
-    O.innerHTML='u⃗·v⃗ = '+pr.map(a=>a<0?'('+fmt(a)+')':fmt(a)).join(' + ')+' = <span class="big" style="color:'+col+'">'+fmt(d)+'</span><br>'+(isFinite(ang)?'ângulo: cos θ = '+fmt(d)+' / ('+nStr(u)+' · '+nStr(v)+') → θ ≈ '+dec(Math.round(ang*10)/10)+'°<br>':'')+'<b style="color:'+col+'">'+(Math.abs(d)<1e-9?'Zero: são perpendiculares (90°).':d>0?'Positivo: apontam mais ou menos para o mesmo lado (ângulo menor que 90°).':'Negativo: apontam para lados opostos (ângulo maior que 90°).')+'</b>' };
-  ['esc-u','esc-v'].forEach(i=>document.getElementById(i).addEventListener('input',go));
-  document.querySelectorAll('[data-esc]').forEach(b=>b.onclick=()=>{ const [a,c]=b.dataset.esc.split('|'); document.getElementById('esc-u').value=a; document.getElementById('esc-v').value=c; go() }); go() }
-function detW(){ const T=document.getElementById('detT'),O=document.getElementById('detO'); if(!T)return; let k=0;
-  const NM=['1ª (x)','2ª (y)','3ª (z)'], IDX=[[1,2],[2,0],[0,1]];
-  const go=()=>{ const u=parseV('det-u'),v=parseV('det-v'); if(!u||!v){O.innerHTML='Digite 3 números em cada vetor.';return}
-    const ext=a=>[a[0],a[1],a[2],a[0],a[1]]; const U=ext(u),Vv=ext(v), r=cross(u,v);
-    let html='<tr><td class="h"></td>'+['x','y','z','x','y'].map(c=>'<td class="h">'+c+'</td>').join('')+'</tr>';
-    if(k==='all'){ html+='<tr><td class="h">i⃗ j⃗ k⃗</td><td colspan="5" class="h" style="text-align:left">calcule as três coordenadas</td></tr>' }
-    const [a,b]=k==='all'?[-1,-1]:IDX[k]; const ca=k==='all'?-1:(a===2&&b===0?2:a), cb=k==='all'?-1:(a===2&&b===0?3:b);
-    const cl=(row,j)=>{ if(k==='all')return ''; if(j!==ca&&j!==cb)return 'off'; return (row===0&&j===ca)||(row===1&&j===cb)?'on1':'on2' };
-    html+='<tr><td class="h">u⃗</td>'+U.map((x,j)=>'<td class="'+cl(0,j)+'">'+fmt(x)+'</td>').join('')+'</tr><tr><td class="h">v⃗</td>'+Vv.map((x,j)=>'<td class="'+cl(1,j)+'">'+fmt(x)+'</td>').join('')+'</tr>';
-    T.innerHTML=html;
-    const pz=x=>x<0?'('+fmt(x)+')':fmt(x);
-    const linha=i=>{ const [p,q]=IDX[i]; return NM[i]+': '+pz(u[p])+'·'+pz(v[q])+' − '+pz(u[q])+'·'+pz(v[p])+' = '+fmt(u[p]*v[q])+' − '+pz(u[q]*v[p])+' = <b>'+fmt(r[i])+'</b>' };
-    O.innerHTML=(k==='all'?[0,1,2].map(linha).join('<br>'):linha(k))+'<br>u⃗ × v⃗ = <span class="big" style="color:'+tok('c2')+'">'+V(r)+'</span><br><span style="color:var(--ink2)">Prova real: (u⃗×v⃗)·u⃗ = '+fmt(dot(r,u))+' e (u⃗×v⃗)·v⃗ = '+fmt(dot(r,v))+(isZ([dot(r,u),dot(r,v),0])?' ✓ perpendicular aos dois':'')+(isZ(r)?' · deu 0⃗: u⃗ e v⃗ são paralelos':'')+'</span>' };
-  document.querySelectorAll('#detW [data-k]').forEach(b=>b.onclick=()=>{ k=b.dataset.k==='all'?'all':+b.dataset.k; document.querySelectorAll('#detW [data-k]').forEach(x=>x.setAttribute('aria-pressed',x===b)); go() });
-  ['det-u','det-v'].forEach(i=>document.getElementById(i).addEventListener('input',go)); go() }
+
+/* ===== exemplos dinâmicos (exercícios da lista) ===== */
+const pz=x=>x<0?'('+fmt(x)+')':fmt(x);
+function stEsc(u,v,lu,lv){ const pr=u.map((a,i)=>a*v[i]), d=pr[0]+pr[1]+pr[2], C=['x','y','z']; const st=[];
+  const tab=(k,showP)=>({cols:C,rows:[[lu,u.map((x,j)=>[fmt(x),k===j?'on1':k==='all'?'on1':k>=0?'off':''])],[lv,v.map((x,j)=>[fmt(x),k===j?'on2':k==='all'?'on2':k>=0?'off':''])],['×',pr.map((x,j)=>[j<showP?fmt(x):'?',j<showP?'p':'q'])]]});
+  st.push({t:tab(-1,0),x:'Escreva os dois vetores um em cima do outro.'});
+  [0,1,2].forEach(j=>st.push({t:tab(j,j+1),x:C[j]+' com '+C[j]+': '+pz(u[j])+' · '+pz(v[j])+' = <b>'+fmt(pr[j])+'</b>'}));
+  st.push({t:tab('all',3),x:'Soma: '+pr.map(pz).join(' + ')+' = <b class="big">'+fmt(d)+'</b>'}); return {st,d} }
+function stVet(u,v,lu,lv){ const r=cross(u,v), IDX=[[1,2],[2,0],[0,1]], NM=['1ª coordenada (x)','2ª coordenada (y)','3ª coordenada (z)'], E=a=>[a[0],a[1],a[2],a[0],a[1]], C=['x','y','z','x','y']; const st=[];
+  const tab=k=>{ let ca=-1,cb=-1; if(k>=0){ const [a,b]=IDX[k]; ca=a===2&&b===0?2:a; cb=a===2&&b===0?3:b }
+    const cl=(row,j)=>k<0?'':(j!==ca&&j!==cb)?'off':((row===0&&j===ca)||(row===1&&j===cb))?'on1':'on2';
+    return {cols:C,rows:[[lu,E(u).map((x,j)=>[fmt(x),cl(0,j)])],[lv,E(v).map((x,j)=>[fmt(x),cl(1,j)])]],res:k<0?null:r.map((x,i)=>i<=k?fmt(x):'?')} };
+  st.push({t:tab(-1),x:'Repita as duas primeiras colunas no fim: assim as diagonais ficam sempre lado a lado.'});
+  [0,1,2].forEach(k=>{ const [p,q]=IDX[k]; st.push({t:tab(k),x:NM[k]+': cubra a coluna '+['x','y','z'][k]+'. <span style="color:var(--c1)">'+pz(u[p])+'·'+pz(v[q])+'</span> − <span style="color:var(--c3)">'+pz(u[q])+'·'+pz(v[p])+'</span> = '+fmt(u[p]*v[q])+' − '+pz(u[q]*v[p])+' = <b>'+fmt(r[k])+'</b>'}) });
+  return {st,r} }
+const DIN={
+ dinEsc:[
+  {n:'Lista Q3c · ângulo entre r e s',e:'r tem diretor u⃗ = (2, 1, 1) e s tem diretor v⃗ = (1, 1, 1). Qual o ângulo entre as retas?',mk:()=>{ const u=[2,1,1],v=[1,1,1],o=stEsc(u,v,'u⃗','v⃗');
+    o.st.push({t:o.st[o.st.length-1].t,x:'Normas: ‖u⃗‖ = √(4 + 1 + 1) = √6 e ‖v⃗‖ = √3.'});
+    o.st.push({t:o.st[o.st.length-1].t,x:'cos θ = |u⃗·v⃗| / (‖u⃗‖‖v⃗‖) = 4 / (√6·√3) = 4/√18 ≈ 0,943 → <b class="big">θ ≈ 19,5°</b>'}); return o.st }},
+  {n:'Lista Q4b · conferir a perpendicular',e:'Na Q4b achamos t = −2, então AQ⃗ = (−4, 0, 2). Ele é mesmo perpendicular ao diretor (1, −1, 2) da reta r?',mk:()=>{ const o=stEsc([-4,0,2],[1,-1,2],'AQ⃗','v⃗');
+    o.st.push({t:o.st[o.st.length-1].t,x:'<b style="color:var(--ok)">Deu zero → perpendiculares ✓.</b> É exatamente a condição que usamos para achar t.'}); return o.st }},
+  {n:'Lista Q14 · a reta fura o plano?',e:'A reta tem diretor v⃗ = (1, 2, 1) e o plano 2x + y + z = 5 tem normal n⃗ = (2, 1, 1). A reta fura o plano?',mk:()=>{ const o=stEsc([1,2,1],[2,1,1],'v⃗','n⃗');
+    o.st.push({t:o.st[o.st.length-1].t,x:'<b>5 ≠ 0</b> → o diretor não é perpendicular à normal → a reta <b>fura</b> o plano (num ponto só: 2t + 2t + t = 5 → t = 1 → (1, 2, 1)).'}); return o.st }}],
+ dinVet:[
+  {n:'Lista Q12 · normal de um plano',e:'O plano procurado é perpendicular aos planos de normais n⃗₁ = (1, 2, −3) e n⃗₂ = (2, −1, 4). A normal dele é n⃗₁ × n⃗₂.',mk:()=>{ const o=stVet([1,2,-3],[2,-1,4],'n⃗₁','n⃗₂');
+    o.st.push({t:o.st[o.st.length-1].t,x:'n⃗ = (5, −10, −5). Dá para dividir por 5: <b class="big">n⃗ = (1, −2, −1)</b>. Com P = (2, 1, 0): x − 2y − z = 0.'}); return o.st }},
+  {n:'Lista Q8 · reta paralela a dois planos',e:'A reta é paralela aos planos de normais (2, 3, 1) e (1, −1, 1). O diretor dela é o produto vetorial das normais.',mk:()=>{ const o=stVet([2,3,1],[1,-1,1],'n⃗₁','n⃗₂');
+    o.st.push({t:o.st[o.st.length-1].t,x:'Diretor <b class="big">(4, −1, −5)</b>. Reta: (1, 0, 1) + t(4, −1, −5).'}); return o.st }},
+  {n:'Lista Q3b · direção da perpendicular comum',e:'A reta t é perpendicular a r (diretor u⃗ = (2, 1, 1)) e a s (diretor v⃗ = (1, 1, 1)) ao mesmo tempo. Diretor de t = u⃗ × v⃗.',mk:()=>{ const o=stVet([2,1,1],[1,1,1],'u⃗','v⃗');
+    o.st.push({t:o.st[o.st.length-1].t,x:'w⃗ = <b class="big">(0, −1, 1)</b>. Prova real: (0, −1, 1)·(2, 1, 1) = 0 e (0, −1, 1)·(1, 1, 1) = 0 ✓.'}); return o.st }}],
+ dinMis:[
+  {n:'Lista Q3a · r e s são reversas?',e:'r: Pᵣ = (2, 0, −1), u⃗ = (2, 1, 1). s: Pₛ = (0, −1, 2), v⃗ = (1, 1, 1). Os diretores não são paralelos. Calcule (u⃗, v⃗, PᵣPₛ⃗).',mk:()=>{ const a=stVet([2,1,1],[1,1,1],'u⃗','v⃗'); const PQ=[-2,-1,3];
+    const b=stEsc([0,-1,1],PQ,'u⃗×v⃗','PᵣPₛ⃗'); b.st[0].x='PᵣPₛ⃗ = Pₛ − Pᵣ = (0 − 2, −1 − 0, 2 − (−1)) = (−2, −1, 3). Agora o escalar de u⃗ × v⃗ = (0, −1, 1) com ele.';
+    const st=[...a.st.slice(0,4).map((x,i)=>i===0?{...x,x:'Passo 1, o vetorial u⃗ × v⃗. '+x.x}:x),{t:a.st[3].t,x:'u⃗ × v⃗ = (0, −1, 1).'},...b.st];
+    st.push({t:st[st.length-1].t,x:'<b>4 ≠ 0</b> → a caixa tem volume → as retas estão em "andares" diferentes → <b class="big">reversas</b>. A distância entre elas é 4/‖(0, −1, 1)‖ = 4/√2 = 2√2.'}); return st }}]};
+function dinRender(box,ex){ let k=0; const st=ex.mk(); const db=box.querySelector('.dinbox');
+  const draw=()=>{ const S=st[k], t=S.t;
+    let h='<div class="enun" style="margin:0 0 10px"><span class="k">Enunciado</span>'+ex.e+'</div><div style="overflow-x:auto"><table class="mesa"><tr><td class="h"></td>'+t.cols.map(c=>'<td class="h">'+c+'</td>').join('')+'</tr>';
+    t.rows.forEach(([lb,cells])=>{ h+='<tr><td class="h">'+lb+'</td>'+cells.map(([v,c])=>'<td class="'+c+'">'+v+'</td>').join('')+'</tr>' });
+    if(t.res) h+='<tr><td class="h">=</td><td colspan="'+t.cols.length+'" class="p" style="text-align:left;padding-left:12px">('+t.res.join(', ')+')</td></tr>';
+    h+='</table></div><div class="wout"><span class="mono" style="color:var(--ink2);font-size:.75rem">passo '+(k+1)+' de '+st.length+'</span><br>'+S.x+'</div>'+
+      '<div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="ghost" data-a="p"'+(k?'':' disabled')+'>← Anterior</button><button data-a="n"'+(k<st.length-1?'':' disabled')+'>Próximo passo →</button><button class="ghost" data-a="r">↺ Do início</button></div>';
+    db.innerHTML=h; db.querySelectorAll('[data-a]').forEach(b=>b.onclick=()=>{ k=b.dataset.a==='n'?Math.min(st.length-1,k+1):b.dataset.a==='p'?Math.max(0,k-1):0; draw() }) };
+  draw() }
+function dinW(){ Object.entries(DIN).forEach(([id,L])=>{ const box=document.getElementById(id); if(!box)return;
+  if(L.length>1){ const ch=document.createElement('div'); ch.className='dinch'; ch.innerHTML=L.map((e,i)=>'<button class="'+(i?'ghost':'')+'" data-i="'+i+'">'+e.n+'</button>').join(''); box.insertBefore(ch,box.querySelector('.dinbox'));
+    ch.querySelectorAll('button').forEach(b=>b.onclick=()=>{ ch.querySelectorAll('button').forEach(x=>x.className='ghost'); b.className=''; dinRender(box,L[+b.dataset.i]) }) }
+  else box.querySelector('h4').textContent='Exemplo da lista, passo a passo · '+L[0].n;
+  dinRender(box,L[0]) }) }
 function vxW(){ const box=document.getElementById('vxCv'); if(!box)return; const vw=new Viewer(box,{range:5,yaw:-2.5,pitch:.5}); let sw=false;
   const A=document.getElementById('vxA'),U=document.getElementById('vxU'),Vv=document.getElementById('vxV'),O=document.getElementById('vxO'),B=document.getElementById('vxSw');
   const go=()=>{ const t=+A.value*Math.PI/180, a=+U.value, b=+Vv.value; const u=[a,0,0], v=[b*Math.cos(t),b*Math.sin(t),0];
@@ -1187,7 +1211,7 @@ planoV=new Viewer(document.getElementById('planoCv'),{range:8});
 planoV.set([{t:'plane',n:[2,-3,2],d:11,c:'c2',l:'π'},{t:'pt',p:[1,3,-2],c:'c1',l:'Q'},{t:'vec',a:[1,3,-2],v:mul(unit([2,-3,2]),3),c:'c3',l:'n'}]);
 lab=new Viewer(document.getElementById('labCv'),{range:8});
 initLab(); loadScene(SCENES[0].o,SCENES[0].t,8,SCENES[0].n);
-escW(); detW(); vxW(); mxW(); retW(); retJogo();
+dinW(); vxW(); mxW(); retW(); retJogo();
 addEventListener('hashchange',route); route();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>[hero,retaV,planoV,lab].forEach(v=>v.draw()));
 new MutationObserver(()=>[hero,retaV,planoV,lab].forEach(v=>v.draw())).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
