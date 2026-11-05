@@ -51,6 +51,7 @@
 .cola .fx.fdbq-on:hover,.cola .fx.fdbq-on:focus-visible{transform:translateY(-2px);box-shadow:0 6px 18px rgba(19,35,58,.14);outline:none;border-color:var(--c1,#E2591B)}
 .cola .fx.fdbq-on::after{content:"ⓘ toque para entender";position:absolute;right:8px;bottom:6px;font-family:var(--f-mono,monospace);font-size:.62rem;color:var(--ink2,#4B5C71);opacity:.75}
 .fdbq-btn{font:700 .85rem var(--f-body,system-ui);display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:8px 12px;cursor:pointer;border:1.5px solid var(--c1,#E2591B);background:transparent;color:var(--c1,#E2591B);margin:12px 0 2px}
+.fdbq-btn.fdbq-mini{margin:0;padding:7px 11px}
 .fdbq-btn:hover{background:var(--c1,#E2591B);color:#fff}
 @media (max-width:640px){.fdbq-bg{padding:0;align-items:flex-end}.fdbq{border-radius:14px 14px 0 0;max-height:92vh}.fdbq-bd{padding:14px 16px 22px}.fdbq-terms{grid-template-columns:minmax(56px,38%) 1fr;gap:8px 10px}.fdbq-board{font-size:1.04rem}}
 @media (prefers-reduced-motion: reduce){.fdbq-bg,.fdbq{transition:none}.fdbq-board .w{clip-path:none;opacity:1;animation:none}}
@@ -134,7 +135,22 @@
     });
   }
 
-  window.FDB_QUADRO = { lista, abrirQuadro, abrirCola, fechar };
-  const ini = () => { ligarCola(); const L = window.FDB_QLISTA; if (L) lista(L.sel, L.itens) };
+  /* 3) exemplos resolvidos dos módulos ([data-ex]): botão no fim de cada exemplo, lido na hora do clique */
+  function exemplos() {
+    document.querySelectorAll('[data-ex]').forEach((ex, i) => {
+      if (ex.querySelector('.fdbq-btn') || ex.closest('#probBox,#listaBox')) return;
+      const btns = ex.querySelector('.btns'); if (!btns) return;
+      const bt = document.createElement('button'); bt.type = 'button'; bt.className = 'fdbq-btn fdbq-mini'; bt.innerHTML = '✍️ Ver no quadro';
+      bt.onclick = () => {
+        const sec = ex.closest('section'), eb = sec && sec.querySelector('.eyebrow'), h2 = sec && sec.querySelector('h2');
+        const q = ex.querySelector('.q'), lis = [...ex.querySelectorAll('ol>li')].map(l => l.innerHTML), ans = ex.querySelector('.ans');
+        abrirQuadro({ titulo: 'Exemplo resolvido', tag: (eb ? eb.textContent.split('·')[0].trim() + ' · ' : '') + (h2 ? h2.textContent.split(':')[0].trim() : 'Exemplo'),
+          enun: q ? q.innerHTML : '', secoes: [{ passos: lis, resp: ans ? ans.innerHTML : '' }] });
+      };
+      btns.appendChild(bt);
+    });
+  }
+  window.FDB_QUADRO = { lista, abrirQuadro, abrirCola, fechar, exemplos };
+  const ini = () => { ligarCola(); exemplos(); const L = window.FDB_QLISTA; if (L) lista(L.sel, L.itens) };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', ini); else ini();
 })();
