@@ -111,7 +111,8 @@ window.FACULDADE = {
                 { data: "2026-10-30", texto: "Aula de 30/10: plano que contém duas retas (concorrentes: N = v₁ × v₂; paralelas: N = P₂P₁ × v₂), exercício 2 resolvido e calculadora." },
                 { data: "2026-11-04", texto: "Cola: toque numa caixinha para abrir a explicação de cada termo da fórmula. Lista resolvida: botão Ver resolução no quadro, com a resolução escrita linha por linha." },
                 { data: "2026-11-04", texto: "Lista resolvida: cada questão agora mostra o enunciado completo da professora (também na janela do quadro)." },
-                { data: "2026-11-04", texto: "Exemplos resolvidos dos módulos: novo botão Ver no quadro, com a resolução escrita linha por linha." }
+                { data: "2026-11-04", texto: "Exemplos resolvidos dos módulos: novo botão Ver no quadro, com a resolução escrita linha por linha." },
+                { data: "2026-11-05", texto: "Produtos escalar, vetorial e misto explicados de novo, com máquinas interativas (coluna a coluna e cobre a coluna) e o paralelogramo e a caixa em 3D. Retas paralelas, concorrentes, reversas e coincidentes explicadas com exemplos do dia a dia, em 3D, e um jogo de adivinhar o caso." }
               ],
               descricao: "Retas, planos, posições relativas, ângulos e distâncias do zero, com laboratório 3D, calculadoras, a lista 4 resolvida e quiz.",
               data: "2026-10-28",

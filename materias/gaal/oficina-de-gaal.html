@@ -202,6 +202,41 @@ input[type=text]:focus{border-color:var(--c2);outline:none}
 .dot2d input[type=range]{width:100%;accent-color:var(--c1)}
 .verdict{font-family:var(--f-disp);font-size:1.2rem;font-weight:700}
 @media (max-width:520px){.dot2d{grid-template-columns:1fr;justify-items:center}}
+/* ===== widgets: produtos e retas ===== */
+.wid{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;margin:18px 0}
+.wid h4{margin:0 0 4px;font-family:var(--f-disp)}
+.wid .sub{margin:0 0 12px;color:var(--ink2);font-size:.92rem}
+.wgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.wgrid .cv{aspect-ratio:4/3.2}
+@media (max-width:760px){.wgrid{grid-template-columns:1fr}}
+.wctl label{display:block;font-family:var(--f-mono);font-size:.78rem;color:var(--ink2);margin:8px 0 2px}
+.wctl input[type=range]{width:100%;accent-color:var(--c1)}
+.wctl .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.wout{font-family:var(--f-mono);font-size:.88rem;line-height:1.7;background:var(--paper,transparent);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px}
+.wout b{font-family:var(--f-body)}
+.wout .big{font-family:var(--f-disp);font-size:1.15rem;font-weight:700}
+.chip3{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:.78rem}
+.mesa{border-collapse:separate;border-spacing:4px;margin:6px 0;font-family:var(--f-mono);font-size:1rem}
+.mesa td{min-width:44px;text-align:center;padding:6px 4px;border-radius:6px;background:color-mix(in srgb,var(--line) 45%,transparent);transition:background .2s,color .2s,opacity .2s}
+.mesa td.h{background:none;color:var(--ink2);font-size:.75rem;min-width:26px}
+.mesa td.on1{background:var(--c1);color:#fff}
+.mesa td.on2{background:var(--c3);color:#fff}
+.mesa td.off{opacity:.28}
+.mesa td.p{background:color-mix(in srgb,var(--c2) 18%,transparent);color:var(--ink);font-weight:700}
+.fields3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 12px}
+.fields3 label{font-family:var(--f-mono);font-size:.78rem;color:var(--ink2)}
+.fields3 input{width:100%}
+.analog{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px;margin:14px 0}
+.analog button{all:unset;cursor:pointer;display:block;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--sheet);transition:border-color .15s,transform .15s}
+.analog button:hover{transform:translateY(-2px)}
+.analog button[aria-pressed=true]{border-color:var(--c1);box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 18%,transparent)}
+.analog .em{font-size:1.6rem;line-height:1}
+.analog b{display:block;margin:4px 0 2px;font-family:var(--f-disp)}
+.analog span{font-size:.86rem;color:var(--ink2)}
+.cheque{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:.92rem;margin-top:8px}
+.cheque i{font-style:normal}
+.jogo .opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.jogo .fb{margin-top:10px;font-size:.93rem}
 footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
@@ -326,6 +361,18 @@ body{font-size:1rem}
       <p style="font-size:.88rem;color:var(--ink2)">A sombra laranja é a "projeção" de v⃗ sobre u⃗. O produto escalar mede quanto v⃗ anda na direção de u⃗.</p>
     </div>
   </div>
+  <div class="ofi"><span class="k">Em uma frase</span>O produto escalar responde: <b>"quanto um vetor ajuda o outro?"</b>. Pense em puxar um carrinho com uma corda. Se a corda está na direção do trilho, toda a força ajuda (valor grande). Se a corda está de lado, a 90°, ela não ajuda nada (zero). Se puxa para trás, atrapalha (negativo).</div>
+  <div class="wid" id="escW"><h4>Máquina do produto escalar</h4><p class="sub">Coloque dois vetores. A máquina multiplica coluna com coluna (x com x, y com y, z com z) e soma.</p>
+    <div class="fields3"><label>u⃗ <input type="text" id="esc-u" value="2, 1, -1"></label><label>v⃗ <input type="text" id="esc-v" value="1, 3, 2"></label></div>
+    <div style="overflow-x:auto"><table class="mesa" id="escT"></table></div>
+    <div class="wout" id="escO"></div>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="ghost" data-esc="1, 0, 0|0, 1, 0">Teste: perpendiculares</button><button class="ghost" data-esc="1, 2, 2|2, 4, 4">Teste: mesma direção</button><button class="ghost" data-esc="1, 2, 0|-1, -1, 0">Teste: lados opostos</button></div>
+  </div>
+  <div class="tbl"><table><tr><th>Para que serve na prova</th><th>Como usar</th></tr>
+    <tr><td>Saber se são perpendiculares</td><td>u⃗·v⃗ = 0</td></tr>
+    <tr><td>Achar o ângulo entre retas ou planos</td><td>cos θ = |u⃗·v⃗| / (‖u⃗‖‖v⃗‖)</td></tr>
+    <tr><td>Pé da perpendicular (ponto mais próximo)</td><td>impor AQ⃗·v⃗ = 0 e resolver para t</td></tr>
+    <tr><td>Conferir um produto vetorial</td><td>(u⃗ × v⃗)·u⃗ = 0 e (u⃗ × v⃗)·v⃗ = 0</td></tr></table></div>
   <div class="cuid"><span class="k">A regra de ouro</span><b>u⃗ · v⃗ = 0 ⇔ u⃗ e v⃗ são perpendiculares.</b> Você vai usar isso o tempo todo: para achar plano perpendicular, reta perpendicular, ponto mais próximo…</div>
 
   <h3>Ferramenta 2 · Produto vetorial (dá um vetor)</h3>
@@ -339,6 +386,24 @@ body{font-size:1rem}
     <ol><li>1ª: u₂v₃ − u₃v₂ = 1·0 − (−1)·1 = 0 + 1 = 1</li><li>2ª: u₃v₁ − u₁v₃ = (−1)·1 − 2·0 = −1</li><li>3ª: u₁v₂ − u₂v₁ = 2·1 − 1·1 = 1</li><li>Conferindo: (1, −1, 1)·(2, 1, −1) = 2 − 1 − 1 = 0 ✓ e (1, −1, 1)·(1, 1, 0) = 0 ✓</li></ol>
     <div class="ans">u⃗ × v⃗ = (1, −1, 1). Sempre confira com o escalar dando zero!</div></div>
 
+  <div class="ofi"><span class="k">Em uma frase</span>u⃗ × v⃗ é a <b>"seta espetada"</b> que sai do chão formado por u⃗ e v⃗. Imagine u⃗ e v⃗ desenhados numa folha sobre a mesa: o produto vetorial é um palito fincado na folha, em pé. O <b>tamanho</b> do palito é a área da folha (o paralelogramo) e o <b>sentido</b> segue a regra da mão direita.</div>
+  <div class="wid"><h4>Produto vetorial em 3D</h4><p class="sub">Arraste para girar. Mude o ângulo e veja o palito crescer e encolher junto com a área.</p>
+    <div class="wgrid"><div class="cv" id="vxCv"><canvas></canvas><div class="lbl">u laranja · v roxo · u × v verde</div></div>
+      <div class="wctl">
+        <label for="vxA">ângulo entre u⃗ e v⃗: <b id="vxAv"></b></label><input type="range" id="vxA" min="0" max="180" value="70">
+        <label for="vxU">tamanho de u⃗: <b id="vxUv"></b></label><input type="range" id="vxU" min="1" max="4" step=".5" value="3">
+        <label for="vxV">tamanho de v⃗: <b id="vxVv"></b></label><input type="range" id="vxV" min="1" max="4" step=".5" value="2.5">
+        <div class="row"><button class="ghost" id="vxSw" aria-pressed="false">Inverter a ordem: v⃗ × u⃗</button></div>
+        <div class="wout" id="vxO"></div>
+      </div></div>
+  </div>
+  <div class="ofi"><span class="k">Regra da mão direita</span>Aponte os dedos da mão direita para u⃗ e feche-os em direção a v⃗. O polegar aponta para u⃗ × v⃗. Trocar a ordem (v⃗ × u⃗) vira a mão: o palito aponta para o outro lado. Por isso v⃗ × u⃗ = −(u⃗ × v⃗).</div>
+  <div class="wid" id="detW"><h4>Máquina do produto vetorial (o "cobre a coluna")</h4><p class="sub">Toque em 1ª, 2ª e 3ª coordenada. A coluna coberta some, e as duas diagonais acendem: laranja (desce) menos roxo (sobe).</p>
+    <div class="fields3"><label>u⃗ <input type="text" id="det-u" value="2, 1, -1"></label><label>v⃗ <input type="text" id="det-v" value="1, 1, 0"></label></div>
+    <div style="overflow-x:auto"><table class="mesa" id="detT"></table></div>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin:8px 0"><button data-k="0">1ª coordenada (x)</button><button data-k="1">2ª coordenada (y)</button><button data-k="2">3ª coordenada (z)</button><button class="ghost" data-k="all">Ver tudo</button></div>
+    <div class="wout" id="detO"></div>
+  </div>
   <h3>Ferramenta 3 · Produto misto (dá um número)</h3>
   <div class="fx"><span class="tag">Fórmula 1.5 · produto misto</span>
     <div class="eq">(<i>u</i>⃗, <i>v</i>⃗, <i>w</i>⃗) = (<i>u</i>⃗ × <i>v</i>⃗) · <i>w</i>⃗ = det [ <i>u</i>⃗ ; <i>v</i>⃗ ; <i>w</i>⃗ ]</div>
@@ -346,6 +411,16 @@ body{font-size:1rem}
   </div>
   <p>Na prática: calcule <i class="m">u</i>⃗ × <i class="m">v</i>⃗ e depois faça o escalar com <i class="m">w</i>⃗. É o que decide se duas retas são <b>reversas</b> (módulo 4).</p>
 
+  <div class="ofi"><span class="k">Em uma frase</span>O produto misto mede o <b>volume da caixa</b> que os três vetores montam. u⃗ e v⃗ formam o fundo da caixa e w⃗ é a parede inclinada. Se w⃗ "deita" no mesmo chão de u⃗ e v⃗, a caixa fica achatada: <b>volume zero = os três no mesmo plano</b>.</div>
+  <div class="wid"><h4>A caixa do produto misto</h4><p class="sub">Abaixe a altura de w⃗ até zero e veja a caixa achatar. Arraste para girar.</p>
+    <div class="wgrid"><div class="cv" id="mxCv"><canvas></canvas><div class="lbl">u laranja · v roxo · w verde</div></div>
+      <div class="wctl">
+        <label for="mxH">altura de w⃗ (quanto sai do chão): <b id="mxHv"></b></label><input type="range" id="mxH" min="-3" max="3" step=".25" value="2">
+        <label for="mxI">inclinação de w⃗ (tombar para o lado): <b id="mxIv"></b></label><input type="range" id="mxI" min="-2" max="2" step=".25" value="1">
+        <div class="wout" id="mxO"></div>
+      </div></div>
+  </div>
+  <div class="ofi"><span class="k">Repare</span>Inclinar w⃗ <b>não muda o volume</b>: a caixa só "escorrega", como um maço de cartas empurrado de lado. O que importa é a altura. É por isso que (u⃗, v⃗, w⃗) = área da base × altura.</div>
   <div class="calc" data-calc="kit"><h4>Calculadora de vetores</h4><p class="hint">Digite as coordenadas separadas por vírgula. A conta aparece inteira.</p>
     <div class="fields"><label>u⃗ <input type="text" id="k-u" value="2, 1, -1"></label><label>v⃗ <input type="text" id="k-v" value="1, 1, 0"></label><label>w⃗ (para o misto) <input type="text" id="k-w" value="0, 0, 2"></label></div>
     <div class="out"></div></div>
@@ -482,6 +557,24 @@ body{font-size:1rem}
   <div class="eyebrow">Módulo 4 · Posições relativas</div>
   <h2>Quem cruza com quem?</h2>
   <p class="lede">Dadas duas retas, uma reta e um plano, ou dois planos, a pergunta é sempre a mesma: eles se encontram, são paralelos ou passam um pelo outro sem se tocar?</p>
+
+  <h3>Duas retas, explicado como para um amigo</h3>
+  <p>Imagine duas varetas de churrasco compridas, sem fim. Só existem quatro jeitos de elas ficarem uma em relação à outra. Toque em cada caso para ver em 3D (dá para girar):</p>
+  <div class="analog" id="retA">
+    <button data-c="par" aria-pressed="true"><div class="em">🛤️</div><b>Paralelas</b><span>Trilhos de trem: mesma direção, sempre à mesma distância, nunca se encontram.</span></button>
+    <button data-c="con" aria-pressed="false"><div class="em">✖️</div><b>Concorrentes</b><span>Duas ruas que se cruzam numa esquina: direções diferentes, um ponto em comum.</span></button>
+    <button data-c="rev" aria-pressed="false"><div class="em">🌉</div><b>Reversas</b><span>Um viaduto passando por cima de uma rua: direções diferentes e nunca se tocam, porque estão em alturas diferentes.</span></button>
+    <button data-c="coi" aria-pressed="false"><div class="em">🟰</div><b>Coincidentes</b><span>Uma vareta exatamente em cima da outra: na verdade é a mesma reta, escrita de dois jeitos.</span></button>
+  </div>
+  <div class="wid" style="margin-top:6px"><div class="wgrid"><div class="cv" id="retCv"><canvas></canvas><div class="lbl" id="retL"></div></div>
+    <div><h4 id="retT"></h4><p class="sub" id="retD" style="margin-bottom:6px"></p><div class="cheque" id="retC"></div></div></div></div>
+  <div class="ofi"><span class="k">As duas perguntas que resolvem tudo</span><b>1. Elas apontam para o mesmo lado?</b> (diretores paralelos: um é múltiplo do outro) &nbsp;<b>2. Elas se encostam?</b> (têm ponto em comum)<br>
+    Mesmo lado + se encostam = <b>coincidentes</b> · Mesmo lado + não se encostam = <b>paralelas</b> · Lados diferentes + se encostam = <b>concorrentes</b> · Lados diferentes + não se encostam = <b>reversas</b>.</div>
+  <div class="cuid"><span class="k">Por que reversas só existem em 3D</span>Numa folha de papel (2D), duas retas que não são paralelas sempre acabam se cruzando. Reversas precisam da terceira dimensão: uma passa "por cima" da outra. Por isso nenhuma folha (plano) consegue conter as duas, e o produto misto (o volume da caixa) dá diferente de zero.</div>
+  <div class="wid jogo" id="retJ"><h4>Jogo: que caso é esse?</h4><p class="sub">Gire a cena, olhe as equações e chute. Depois veja a conta que confirma.</p>
+    <div class="wgrid"><div class="cv" id="retJCv"><canvas></canvas></div>
+      <div><div class="wout" id="retJE"></div><div class="opts"><button data-r="par">Paralelas</button><button data-r="con">Concorrentes</button><button data-r="rev">Reversas</button><button data-r="coi">Coincidentes</button></div>
+        <div class="fb" id="retJF"></div><div class="row" style="display:flex;gap:8px;margin-top:10px"><button class="ghost" id="retJN">Outra cena →</button><span class="mono" id="retJS" style="align-self:center;font-size:.8rem;color:var(--ink2)"></span></div></div></div></div>
 
   <h3>Duas retas: quatro possibilidades</h3>
   <div class="tbl"><table><tr><th>Caso</th><th>Diretores</th><th>Ponto em comum</th></tr>
@@ -860,6 +953,7 @@ class Viewer{
     for(let i=-R;i<=R;i+=1){ this.seg([i,-R,0],[i,R,0],line,0.6); this.seg([-R,i,0],[R,i,0],line,0.6) }
     [['x',[R+0.8,0,0]],['y',[0,R+0.8,0]],['z',[0,0,R+0.8]]].forEach(([n,e])=>{ this.seg(mul(e,-1).map((v,i)=>n==='z'?v*0.3:v),e,ink2,1.4); this.text(e,n,ink2) });
     const planes=this.objs.filter(o=>o.t==='plane'), rest=this.objs.filter(o=>o.t!=='plane');
+    this.objs.filter(o=>o.t==='poly').forEach(o=>{ const col=this.col(o.c), q=o.pts.map(p=>this.P(p)); x.fillStyle=col; x.globalAlpha=o.al??.18; x.beginPath(); q.forEach((p,i)=>i?x.lineTo(...p):x.moveTo(...p)); x.closePath(); x.fill(); x.globalAlpha=1; if(o.edge){ x.strokeStyle=col; x.lineWidth=1.2; x.stroke() } });
     planes.forEach(o=>{ if(isZ(o.n))return; const n=o.n,c=[0,0,0]; const p0=sub(c,mul(n,(dot(n,c)+o.d)/dot(n,n))); const e1=unit(cross(n,Math.abs(n[0])<0.9*nrm(n)?[1,0,0]:[0,1,0])), e2=unit(cross(n,e1)); const S=R*0.85;
       const col=this.col(o.c); const cr=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([a,b])=>this.P(add(p0,add(mul(e1,a*S),mul(e2,b*S)))));
       x.fillStyle=col; x.globalAlpha=0.13; x.beginPath(); cr.forEach((p,i)=>i?x.lineTo(...p):x.moveTo(...p)); x.closePath(); x.fill(); x.globalAlpha=0.5;
@@ -992,6 +1086,80 @@ function dotDemo(){ const c=document.getElementById('dotCv'),x=c.getContext('2d'
   s.oninput=draw; draw(); matchMedia('(prefers-color-scheme: dark)').addEventListener('change',draw) }
 
 /* ========= add objeto no lab ========= */
+
+/* ========= widgets dos produtos e das retas ========= */
+function parseV(id){ const v=document.getElementById(id).value.replace(/−/g,'-').split(/[;,\s]+/).filter(Boolean).map(Number); return v.length===3&&v.every(isFinite)?v:null }
+const corS=x=>Math.abs(x)<1e-9?tok('ok'):x>0?tok('c2'):tok('bad');
+function escW(){ const T=document.getElementById('escT'),O=document.getElementById('escO'); if(!T)return;
+  const go=()=>{ const u=parseV('esc-u'),v=parseV('esc-v'); if(!u||!v){O.innerHTML='Digite 3 números em cada vetor.';return}
+    const pr=u.map((a,i)=>a*v[i]), d=pr[0]+pr[1]+pr[2];
+    T.innerHTML='<tr><td class="h"></td><td class="h">x</td><td class="h">y</td><td class="h">z</td></tr><tr><td class="h">u⃗</td>'+u.map(a=>'<td class="on1">'+fmt(a)+'</td>').join('')+'</tr><tr><td class="h">v⃗</td>'+v.map(a=>'<td class="on2">'+fmt(a)+'</td>').join('')+'</tr><tr><td class="h">×</td>'+pr.map(a=>'<td class="p">'+fmt(a)+'</td>').join('')+'</tr>';
+    const nu=nrm(u),nv=nrm(v), c=nu&&nv?d/(nu*nv):NaN, ang=isFinite(c)?angDeg(c):NaN, col=corS(d);
+    O.innerHTML='u⃗·v⃗ = '+pr.map(a=>a<0?'('+fmt(a)+')':fmt(a)).join(' + ')+' = <span class="big" style="color:'+col+'">'+fmt(d)+'</span><br>'+(isFinite(ang)?'ângulo: cos θ = '+fmt(d)+' / ('+nStr(u)+' · '+nStr(v)+') → θ ≈ '+dec(Math.round(ang*10)/10)+'°<br>':'')+'<b style="color:'+col+'">'+(Math.abs(d)<1e-9?'Zero: são perpendiculares (90°).':d>0?'Positivo: apontam mais ou menos para o mesmo lado (ângulo menor que 90°).':'Negativo: apontam para lados opostos (ângulo maior que 90°).')+'</b>' };
+  ['esc-u','esc-v'].forEach(i=>document.getElementById(i).addEventListener('input',go));
+  document.querySelectorAll('[data-esc]').forEach(b=>b.onclick=()=>{ const [a,c]=b.dataset.esc.split('|'); document.getElementById('esc-u').value=a; document.getElementById('esc-v').value=c; go() }); go() }
+function detW(){ const T=document.getElementById('detT'),O=document.getElementById('detO'); if(!T)return; let k=0;
+  const NM=['1ª (x)','2ª (y)','3ª (z)'], IDX=[[1,2],[2,0],[0,1]];
+  const go=()=>{ const u=parseV('det-u'),v=parseV('det-v'); if(!u||!v){O.innerHTML='Digite 3 números em cada vetor.';return}
+    const ext=a=>[a[0],a[1],a[2],a[0],a[1]]; const U=ext(u),Vv=ext(v), r=cross(u,v);
+    let html='<tr><td class="h"></td>'+['x','y','z','x','y'].map(c=>'<td class="h">'+c+'</td>').join('')+'</tr>';
+    if(k==='all'){ html+='<tr><td class="h">i⃗ j⃗ k⃗</td><td colspan="5" class="h" style="text-align:left">calcule as três coordenadas</td></tr>' }
+    const [a,b]=k==='all'?[-1,-1]:IDX[k]; const ca=k==='all'?-1:(a===2&&b===0?2:a), cb=k==='all'?-1:(a===2&&b===0?3:b);
+    const cl=(row,j)=>{ if(k==='all')return ''; if(j!==ca&&j!==cb)return 'off'; return (row===0&&j===ca)||(row===1&&j===cb)?'on1':'on2' };
+    html+='<tr><td class="h">u⃗</td>'+U.map((x,j)=>'<td class="'+cl(0,j)+'">'+fmt(x)+'</td>').join('')+'</tr><tr><td class="h">v⃗</td>'+Vv.map((x,j)=>'<td class="'+cl(1,j)+'">'+fmt(x)+'</td>').join('')+'</tr>';
+    T.innerHTML=html;
+    const pz=x=>x<0?'('+fmt(x)+')':fmt(x);
+    const linha=i=>{ const [p,q]=IDX[i]; return NM[i]+': '+pz(u[p])+'·'+pz(v[q])+' − '+pz(u[q])+'·'+pz(v[p])+' = '+fmt(u[p]*v[q])+' − '+pz(u[q]*v[p])+' = <b>'+fmt(r[i])+'</b>' };
+    O.innerHTML=(k==='all'?[0,1,2].map(linha).join('<br>'):linha(k))+'<br>u⃗ × v⃗ = <span class="big" style="color:'+tok('c2')+'">'+V(r)+'</span><br><span style="color:var(--ink2)">Prova real: (u⃗×v⃗)·u⃗ = '+fmt(dot(r,u))+' e (u⃗×v⃗)·v⃗ = '+fmt(dot(r,v))+(isZ([dot(r,u),dot(r,v),0])?' ✓ perpendicular aos dois':'')+(isZ(r)?' · deu 0⃗: u⃗ e v⃗ são paralelos':'')+'</span>' };
+  document.querySelectorAll('#detW [data-k]').forEach(b=>b.onclick=()=>{ k=b.dataset.k==='all'?'all':+b.dataset.k; document.querySelectorAll('#detW [data-k]').forEach(x=>x.setAttribute('aria-pressed',x===b)); go() });
+  ['det-u','det-v'].forEach(i=>document.getElementById(i).addEventListener('input',go)); go() }
+function vxW(){ const box=document.getElementById('vxCv'); if(!box)return; const vw=new Viewer(box,{range:5,yaw:-2.5,pitch:.5}); let sw=false;
+  const A=document.getElementById('vxA'),U=document.getElementById('vxU'),Vv=document.getElementById('vxV'),O=document.getElementById('vxO'),B=document.getElementById('vxSw');
+  const go=()=>{ const t=+A.value*Math.PI/180, a=+U.value, b=+Vv.value; const u=[a,0,0], v=[b*Math.cos(t),b*Math.sin(t),0];
+    let n=cross(u,v); if(sw)n=mul(n,-1); const area=a*b*Math.sin(t);
+    vw.set([{t:'poly',pts:[[0,0,0],u,add(u,v),v],c:'c2',al:.22,edge:true},{t:'vec',a:[0,0,0],v:u,c:'c1',l:'u'},{t:'vec',a:[0,0,0],v:v,c:'c3',l:'v'},...(area>1e-6?[{t:'vec',a:[0,0,0],v:mul(n,.5),c:'c2',l:sw?'v×u':'u×v'}]:[])]);
+    document.getElementById('vxAv').textContent=A.value+'°'; document.getElementById('vxUv').textContent=dec(a); document.getElementById('vxVv').textContent=dec(b);
+    O.innerHTML='área do paralelogramo = ‖u⃗‖‖v⃗‖ sen θ = '+dec(a)+' · '+dec(b)+' · sen '+A.value+'° = <span class="big" style="color:'+tok('c2')+'">'+dec(Math.round(area*100)/100)+'</span><br>'+(sw?'v⃗ × u⃗':'u⃗ × v⃗')+' = (0, 0, '+dec(Math.round(n[2]*100)/100)+'): o tamanho do palito é a área (no desenho ele está na metade do tamanho, para caber).<br><b>'+(area<1e-6?'θ = 0° ou 180°: paralelos, área zero, o produto vetorial some (0⃗).':+A.value===90?'90°: área máxima, o palito fica do maior tamanho.':sw?'Ordem invertida: o palito aponta para baixo.':'O palito é perpendicular a u⃗ e a v⃗ ao mesmo tempo.')+'</b>' };
+  [A,U,Vv].forEach(e=>e.addEventListener('input',go)); B.onclick=()=>{ sw=!sw; B.setAttribute('aria-pressed',sw); B.textContent=sw?'Voltar para u⃗ × v⃗':'Inverter a ordem: v⃗ × u⃗'; go() }; go() }
+function mxW(){ const box=document.getElementById('mxCv'); if(!box)return; const vw=new Viewer(box,{range:5,yaw:-2.4,pitch:.45});
+  const H=document.getElementById('mxH'),I=document.getElementById('mxI'),O=document.getElementById('mxO');
+  const go=()=>{ const u=[3,0,0], v=[1,2.5,0], w=[+I.value,+I.value*.5,+H.value], o=[0,0,0];
+    const P=(...vs)=>vs.reduce((a,b)=>add(a,b),o); const top=[w,P(u,w),P(u,v,w),P(v,w)], bot=[o,u,P(u,v),v];
+    const ed=[]; for(let i=0;i<4;i++){ ed.push({t:'seg',a:bot[i],b:top[i]}); ed.push({t:'seg',a:top[i],b:top[(i+1)%4]}) }
+    const det=dot(cross(u,v),w), base=nrm(cross(u,v));
+    vw.set([{t:'poly',pts:bot,c:'c1',al:.16,edge:true},{t:'poly',pts:top,c:'c2',al:.14,edge:true},{t:'poly',pts:[o,u,P(u,w),w],c:'c3',al:.08},{t:'poly',pts:[o,v,P(v,w),w],c:'c3',al:.08},...ed,{t:'vec',a:o,v:u,c:'c1',l:'u'},{t:'vec',a:o,v:v,c:'c3',l:'v'},{t:'vec',a:o,v:w,c:'c2',l:'w'}]);
+    document.getElementById('mxHv').textContent=dec(+H.value); document.getElementById('mxIv').textContent=dec(+I.value);
+    O.innerHTML='u⃗ = (3, 0, 0) · v⃗ = (1, 2,5, 0) · w⃗ = '+V(w)+'<br>área da base = ‖u⃗ × v⃗‖ = ‖(0, 0, 7,5)‖ = '+dec(base)+'<br>(u⃗, v⃗, w⃗) = (u⃗ × v⃗)·w⃗ = 7,5 · '+pzD(w[2])+' = <span class="big" style="color:'+corS(det)+'">'+dec(det)+'</span><br><b>'+(Math.abs(det)<1e-9?'Zero: w⃗ deitou no chão. Os três vetores estão no mesmo plano (coplanares), a caixa achatou.':'Volume da caixa = |'+dec(det)+'| = '+dec(Math.abs(det))+(det<0?'. O sinal negativo só diz que w⃗ está do outro lado do chão.':''))+'</b>' };
+  const pzD=x=>x<0?'('+dec(x)+')':dec(x);
+  [H,I].forEach(e=>e.addEventListener('input',go)); go() }
+const RCASOS={
+  par:{t:'Paralelas',em:'🛤️',d:'Mesma direção e nenhum ponto em comum. Sempre existe um plano (uma "folha") que contém as duas.',o:[{t:'line',p:[0,-1.5,0],v:[2,1,1],c:'c1',l:'r'},{t:'line',p:[0,1.5,0],v:[2,1,1],c:'c2',l:'s'}],ck:[['✔️','diretores paralelos (um é múltiplo do outro)'],['❌','nenhum ponto em comum']]},
+  con:{t:'Concorrentes',em:'✖️',d:'Direções diferentes e se cruzam em exatamente um ponto. Também cabem numa mesma folha.',o:[{t:'line',p:[1,1,1],v:[2,1,0],c:'c1',l:'r'},{t:'line',p:[1,1,1],v:[-1,2,1],c:'c2',l:'s'},{t:'pt',p:[1,1,1],c:'c3',l:'cruzam aqui'}],ck:[['❌','diretores não paralelos'],['✔️','um ponto em comum'],['🧮','produto misto (u⃗, v⃗, PQ⃗) = 0']]},
+  rev:{t:'Reversas',em:'🌉',d:'Direções diferentes e nunca se tocam: uma passa por cima da outra, como um viaduto. Nenhuma folha contém as duas.',o:[{t:'line',p:[0,0,-1.5],v:[1,0,0],c:'c1',l:'r (rua)'},{t:'line',p:[0,0,1.5],v:[0,1,0],c:'c2',l:'s (viaduto)'},{t:'seg',a:[0,0,-1.5],b:[0,0,1.5]}],ck:[['❌','diretores não paralelos'],['❌','nenhum ponto em comum'],['🧮','produto misto (u⃗, v⃗, PQ⃗) ≠ 0'],['📏','o tracejado é a menor distância entre elas']]},
+  coi:{t:'Coincidentes',em:'🟰',d:'É a mesma reta escrita com outro ponto ou outro diretor (múltiplo). Todos os pontos são comuns.',o:[{t:'line',p:[-1,-1,0],v:[2,1,1],c:'c1',l:'r'},{t:'line',p:[1,0,1],v:[4,2,2],c:'c2',l:'s'},{t:'pt',p:[-1,-1,0],c:'c1',l:'P (de r)'},{t:'pt',p:[1,0,1],c:'c2',l:'Q (de s)'}],ck:[['✔️','diretores paralelos'],['✔️','o ponto de uma está na outra (todos em comum)']]}};
+function retW(){ const box=document.getElementById('retCv'); if(!box)return; const vw=new Viewer(box,{range:4,yaw:-2.3,pitch:.4});
+  const show=c=>{ const R=RCASOS[c]; vw.set(R.o); document.getElementById('retT').textContent=R.em+' '+R.t; document.getElementById('retD').textContent=R.d; document.getElementById('retL').textContent=R.t.toLowerCase()+' · arraste para girar';
+    document.getElementById('retC').innerHTML=R.ck.map(([a,b])=>'<i>'+a+'</i><span>'+b+'</span>').join('');
+    document.querySelectorAll('#retA button').forEach(b=>b.setAttribute('aria-pressed',b.dataset.c===c)) };
+  document.querySelectorAll('#retA button').forEach(b=>b.onclick=()=>show(b.dataset.c)); show('par') }
+function retJogo(){ const box=document.getElementById('retJCv'); if(!box)return; const vw=new Viewer(box,{range:6,yaw:-2.2,pitch:.45}); let cur=null, ok=0, tot=0, resp=false;
+  const ri=(a,b)=>a+Math.floor(Math.random()*(b-a+1)), rv=()=>{ let v; do{ v=[ri(-3,3),ri(-3,3),ri(-2,3)] }while(isZ(v)); return v };
+  const nova=()=>{ const tipo=['par','con','rev','coi'][ri(0,3)]; const P=[ri(-2,2),ri(-2,2),ri(-2,2)], u=rv(); let Q,v;
+    if(tipo==='par'||tipo==='coi'){ const k=[2,-1,3,-2][ri(0,3)]; v=mul(u,k); if(tipo==='coi'){ Q=add(P,mul(u,ri(-2,2)||1)) } else { let w; do{ w=rv() }while(isZ(cross(w,u))); Q=add(P,mul(unit(cross(u,cross(w,u))),2)).map(x=>Math.round(x)); if(isZ(cross(sub(Q,P),u))) Q=add(Q,[1,0,0]) } }
+    else { do{ v=rv() }while(isZ(cross(u,v))); if(tipo==='con'){ const X=add(P,mul(u,ri(-1,1)||1)); Q=add(X,mul(v,ri(-1,1)||-1)) } else { const n=cross(u,v); let k=ri(1,2); Q=add(add(P,mul(v,ri(-1,1))),n.map(x=>Math.sign(x)*k)); if(Math.abs(dot(n,sub(Q,P)))<1e-9) Q=add(Q,n) } }
+    const PQ=sub(Q,P), par=isZ(cross(u,v)), d=dot(cross(u,v),PQ); const real=par?(isZ(cross(PQ,u))?'coi':'par'):(Math.abs(d)<1e-9?'con':'rev');
+    cur={P,u,Q,v,PQ,par,d,real}; resp=false;
+    vw.set([{t:'line',p:P,v:u,c:'c1',l:'r'},{t:'line',p:Q,v:v,c:'c2',l:'s'}]);
+    document.getElementById('retJE').innerHTML='r: (x, y, z) = '+V(P)+' + t'+V(u)+'<br>s: (x, y, z) = '+V(Q)+' + λ'+V(v);
+    document.getElementById('retJF').innerHTML=''; document.querySelectorAll('#retJ .opts button').forEach(b=>{b.disabled=false;b.className=''}) };
+  document.querySelectorAll('#retJ .opts button').forEach(b=>b.onclick=()=>{ if(resp)return; resp=true; tot++; const c=cur, acertou=b.dataset.r===c.real; if(acertou)ok++;
+    document.querySelectorAll('#retJ .opts button').forEach(x=>{ x.disabled=true; if(x.dataset.r===c.real)x.className=''; else x.className='ghost' });
+    const nome={par:'paralelas',con:'concorrentes',rev:'reversas',coi:'coincidentes'}[c.real];
+    document.getElementById('retJF').innerHTML='<b style="color:'+(acertou?tok('ok'):tok('bad'))+'">'+(acertou?'Acertou! ':'Quase. ')+'São '+nome+'.</b><br>'+
+      (c.par?'1. Diretores '+V(c.u)+' e '+V(c.v)+': um é múltiplo do outro → mesma direção.<br>2. PQ⃗ = '+V(c.PQ)+(c.real==='coi'?' também é múltiplo de u⃗ → Q está em r → coincidentes.':' não é múltiplo de u⃗ → Q fora de r → paralelas distintas.')
+      :'1. Diretores '+V(c.u)+' e '+V(c.v)+' não são múltiplos → direções diferentes.<br>2. PQ⃗ = '+V(c.PQ)+' e (u⃗, v⃗, PQ⃗) = '+fmt(c.d)+(c.real==='con'?' = 0 → cabem numa folha → concorrentes.':' ≠ 0 → andares diferentes → reversas.'));
+    document.getElementById('retJS').textContent='placar: '+ok+'/'+tot });
+  document.getElementById('retJN').onclick=nova; nova() }
 function initLab(){ const pr=document.getElementById('presets'); pr.innerHTML=SCENES.map((s,i)=>'<button data-i="'+i+'">'+s.n+'</button>').join('');
   pr.querySelectorAll('button').forEach(b=>b.onclick=()=>{ const s=SCENES[+b.dataset.i]; loadScene(s.o,s.t,s.range||8,s.n) });
   const T=document.getElementById('addT'),L1=document.getElementById('addL1'),L2=document.getElementById('addL2'),W2=document.getElementById('add2w'),i1=document.getElementById('add1'),i2=document.getElementById('add2');
@@ -1019,6 +1187,7 @@ planoV=new Viewer(document.getElementById('planoCv'),{range:8});
 planoV.set([{t:'plane',n:[2,-3,2],d:11,c:'c2',l:'π'},{t:'pt',p:[1,3,-2],c:'c1',l:'Q'},{t:'vec',a:[1,3,-2],v:mul(unit([2,-3,2]),3),c:'c3',l:'n'}]);
 lab=new Viewer(document.getElementById('labCv'),{range:8});
 initLab(); loadScene(SCENES[0].o,SCENES[0].t,8,SCENES[0].n);
+escW(); detW(); vxW(); mxW(); retW(); retJogo();
 addEventListener('hashchange',route); route();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>[hero,retaV,planoV,lab].forEach(v=>v.draw()));
 new MutationObserver(()=>[hero,retaV,planoV,lab].forEach(v=>v.draw())).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
