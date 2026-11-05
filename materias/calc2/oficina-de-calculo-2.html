@@ -255,6 +255,8 @@ body{font-size:1rem}
 @media (min-width:1200px){nav{flex-wrap:wrap;overflow:visible}}
 .aulafig{margin:10px 0 4px}.aulafig .labgrid2{gap:10px}
 .ex .aulafig{margin-top:12px}
+.qitem .enun{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c2);border-radius:6px;padding:10px 14px;margin:12px 0 4px;line-height:1.55}
+.qitem .enun .k{display:block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:4px}
 </style>
 </head>
 <body>
@@ -844,53 +846,53 @@ function bindEx(box){ const lis=[...box.querySelectorAll('ol>li')], nx=box.query
 
 /* ===== lista resolvida ===== */
 const PROBS=[
- {n:'1a',m:'derivadas parciais',q:'f(x, y) = 3x − 2y⁴. Derivadas parciais de primeira ordem.',
+ {n:'1a',m:'derivadas parciais',e:'Determine as derivadas parciais de primeira ordem da função f(x, y) = 3x − 2y⁴.',q:'f(x, y) = 3x − 2y⁴. Derivadas parciais de primeira ordem.',
   s:['f<sub>x</sub>: y é constante, então −2y⁴ some. (3x)\' = 3.','f<sub>y</sub>: x é constante, então 3x some. (−2y⁴)\' = −2·4y³.'],a:'f<sub>x</sub> = 3 · f<sub>y</sub> = −8y³ (o gabarito esqueceu o sinal)'},
- {n:'1b',m:'derivadas parciais',q:'z = x e<sup>3y</sup>.',
+ {n:'1b',m:'derivadas parciais',e:'Determine as derivadas parciais de primeira ordem da função z = x e<sup>3y</sup>.',q:'z = x e<sup>3y</sup>.',
   s:['∂z/∂x: e<sup>3y</sup> é constante (multiplica x). Derivada de x é 1.','∂z/∂y: x é constante. (e<sup>3y</sup>)\' = 3e<sup>3y</sup> (regra da cadeia).'],a:'∂z/∂x = e<sup>3y</sup> · ∂z/∂y = 3x e<sup>3y</sup>'},
- {n:'1c',m:'derivadas parciais',q:'z = (2x + 3y)¹⁰.',
+ {n:'1c',m:'derivadas parciais',e:'Determine as derivadas parciais de primeira ordem da função z = (2x + 3y)¹⁰.',q:'z = (2x + 3y)¹⁰.',
   s:['Regra da cadeia do Cálculo I: 10(2x + 3y)⁹ vezes a derivada de dentro.','Em x, a derivada de dentro é 2; em y, é 3.'],a:'∂z/∂x = 20(2x + 3y)⁹ · ∂z/∂y = 30(2x + 3y)⁹'},
- {n:'1d',m:'derivadas parciais',q:'f(x, y) = ln(x + √(x² + y²)). Calcule f<sub>x</sub>(3, 4).',
+ {n:'1d',m:'derivadas parciais',e:'Determine as derivadas parciais de primeira ordem da função f(x, y) = ln(x + √(x² + y²)) e calcule f<sub>x</sub>(3, 4).',q:'f(x, y) = ln(x + √(x² + y²)). Calcule f<sub>x</sub>(3, 4).',
   s:['Derivada de ln(u) é u\'/u, com u = x + √(x² + y²).','u<sub>x</sub> = 1 + x/√(x² + y²) = (√(x² + y²) + x)/√(x² + y²).','f<sub>x</sub> = u<sub>x</sub>/u = 1/√(x² + y²) (o numerador cancela com u).','Em (3, 4): √(9 + 16) = 5.'],a:'f<sub>x</sub>(3, 4) = 1/5'},
- {n:'2',m:'derivadas parciais · aplicação',q:'T(x, y) = 60/(1 + x² + y²) numa chapa (°C, metros). Taxas de variação em (1, 2) em x e em y.',
+ {n:'2',m:'derivadas parciais · aplicação',e:'A temperatura em um ponto (x, y) de uma chapa de metal é dada por T(x, y) = 60/(1 + x² + y²), onde T é medido em °C e x e y em metros. Determine a taxa de variação da temperatura no ponto (1, 2) com relação a x e com relação a y.',q:'T(x, y) = 60/(1 + x² + y²) numa chapa (°C, metros). Taxas de variação em (1, 2) em x e em y.',
   s:['Escreva T = 60(1 + x² + y²)⁻¹.','T<sub>x</sub> = −60(1 + x² + y²)⁻²·2x = −120x/(1 + x² + y²)².','T<sub>y</sub> = −120y/(1 + x² + y²)².','Em (1, 2): 1 + 1 + 4 = 6, ao quadrado 36. T<sub>x</sub> = −120/36 e T<sub>y</sub> = −240/36.'],a:'T<sub>x</sub>(1, 2) = −10/3 °C/m · T<sub>y</sub>(1, 2) = −20/3 °C/m'},
- {n:'3',m:'regra da cadeia · caso I',q:'z = sen x cos y, x = πt, y = √t. Ache dz/dt.',
+ {n:'3',m:'regra da cadeia · caso I',e:'Use a Regra da Cadeia para determinar dz/dt: z = sen x cos y, x = πt, y = √t.',q:'z = sen x cos y, x = πt, y = √t. Ache dz/dt.',
   s:['z<sub>x</sub> = cos x cos y e z<sub>y</sub> = −sen x sen y.','dx/dt = π e dy/dt = 1/(2√t).','dz/dt = z<sub>x</sub>·dx/dt + z<sub>y</sub>·dy/dt.'],a:'dz/dt = π cos x cos y − (sen x sen y)/(2√t)'},
- {n:'4',m:'regra da cadeia · caso II',q:'z = x²y³, x = s cos t, y = s sen t. Ache ∂z/∂s e ∂z/∂t.',
+ {n:'4',m:'regra da cadeia · caso II',e:'Utilize a Regra da Cadeia para determinar ∂z/∂s e ∂z/∂t, em que z = x²y³, x = s cos t, y = s sen t.',q:'z = x²y³, x = s cos t, y = s sen t. Ache ∂z/∂s e ∂z/∂t.',
   s:['z<sub>x</sub> = 2xy³ e z<sub>y</sub> = 3x²y².','x<sub>s</sub> = cos t, y<sub>s</sub> = sen t, x<sub>t</sub> = −s sen t, y<sub>t</sub> = s cos t.','∂z/∂s = 2xy³ cos t + 3x²y² sen t.','∂z/∂t = 2xy³(−s sen t) + 3x²y²(s cos t).'],a:'∂z/∂s = 2xy³ cos t + 3x²y² sen t · ∂z/∂t = −2sxy³ sen t + 3sx²y² cos t'},
- {n:'5',m:'regra da cadeia · valores',q:'z = f(x, y), x = g(t), y = h(t), com g(3) = 2, h(3) = 7, g\'(3) = 5, h\'(3) = −4, f<sub>x</sub>(2, 7) = 6, f<sub>y</sub>(2, 7) = −8. Ache dz/dt em t = 3.',
+ {n:'5',m:'regra da cadeia · valores',e:'Se z = f(x, y), onde f é diferenciável, e x = g(t), y = h(t), com g(3) = 2, h(3) = 7, g′(3) = 5, h′(3) = −4, f<sub>x</sub>(2, 7) = 6 e f<sub>y</sub>(2, 7) = −8, determine dz/dt quando t = 3.',q:'z = f(x, y), x = g(t), y = h(t), com g(3) = 2, h(3) = 7, g\'(3) = 5, h\'(3) = −4, f<sub>x</sub>(2, 7) = 6, f<sub>y</sub>(2, 7) = −8. Ache dz/dt em t = 3.',
   s:['Em t = 3 o ponto é (x, y) = (g(3), h(3)) = (2, 7): por isso a questão dá f<sub>x</sub> e f<sub>y</sub> em (2, 7).','dz/dt = f<sub>x</sub>·g\' + f<sub>y</sub>·h\' = 6·5 + (−8)(−4).'],a:'dz/dt = 30 + 32 = 62'},
- {n:'6',m:'regra da cadeia · aplicação',q:'Inseto em x = √(1 + t), y = 2 + t/3 (cm). T<sub>x</sub>(2, 3) = 4 e T<sub>y</sub>(2, 3) = 3. Quão rápido a temperatura sobe em t = 3 s?',
+ {n:'6',m:'regra da cadeia · aplicação',e:'A temperatura em um ponto (x, y) é T(x, y), medida em graus Celsius. Um inseto rasteja de modo que sua posição depois de t segundos seja dada por x = √(1 + t), y = 2 + t/3, onde x e y são medidas em centímetros. A função temperatura satisfaz T<sub>x</sub>(2, 3) = 4 e T<sub>y</sub>(2, 3) = 3. Quão rápido a temperatura aumenta no caminho do inseto depois de três segundos?',q:'Inseto em x = √(1 + t), y = 2 + t/3 (cm). T<sub>x</sub>(2, 3) = 4 e T<sub>y</sub>(2, 3) = 3. Quão rápido a temperatura sobe em t = 3 s?',
   s:['Em t = 3: x = √4 = 2 e y = 2 + 1 = 3 (o ponto (2, 3) do enunciado).','dx/dt = 1/(2√(1 + t)) = 1/4 e dy/dt = 1/3.','dT/dt = T<sub>x</sub>·dx/dt + T<sub>y</sub>·dy/dt = 4·(1/4) + 3·(1/3).'],a:'dT/dt = 1 + 1 = 2 °C/s'},
- {n:'7',m:'regra da cadeia · caixa',q:'Caixa com ℓ = 1, w = h = 2 (m); ℓ e w aumentam 2 m/s e h diminui 3 m/s. Taxas do volume, da área e da diagonal.',
+ {n:'7',m:'regra da cadeia · caixa',e:'O comprimento ℓ, a largura w e a altura h de uma caixa variam com o tempo. Em certo instante, as dimensões da caixa são ℓ = 1 m e w = h = 2 m; ℓ e w aumentam a uma taxa de 2 m/s, ao passo que h diminui à taxa de 3 m/s. Nesse instante, determine as taxas nas quais as seguintes quantidades estão variando: (a) o volume; (b) a área da superfície; (c) o comprimento da diagonal.',q:'Caixa com ℓ = 1, w = h = 2 (m); ℓ e w aumentam 2 m/s e h diminui 3 m/s. Taxas do volume, da área e da diagonal.',
   s:['Volume V = ℓwh: dV/dt = wh·ℓ\' + ℓh·w\' + ℓw·h\' = 4·2 + 2·2 + 2·(−3) = 6.','Área S = 2(ℓw + ℓh + wh): dS/dt = 2[(w + h)ℓ\' + (ℓ + h)w\' + (ℓ + w)h\'] = 2[4·2 + 3·2 + 3·(−3)] = 2·5 = 10.','Diagonal D = √(ℓ² + w² + h²) = 3: dD/dt = (ℓℓ\' + ww\' + hh\')/D = (2 + 4 − 6)/3 = 0.'],a:'dV/dt = 6 m³/s · dS/dt = 10 m²/s · dD/dt = 0 m/s'},
- {n:'8',m:'gradiente · derivada direcional',q:'f(x, y) = 5xy² − 4x³y, P(1, 2), u = ⟨5/13, 12/13⟩. (a) ∇f (b) ∇f(P) (c) taxa na direção u.',
+ {n:'8',m:'gradiente · derivada direcional',e:'Para as questões 8 e 9: (a) determine o gradiente de f; (b) calcule o gradiente no ponto P; (c) determine a taxa de variação de f em P na direção do vetor u. f(x, y) = 5xy² − 4x³y, P(1, 2), u = ⟨5/13, 12/13⟩.',q:'f(x, y) = 5xy² − 4x³y, P(1, 2), u = ⟨5/13, 12/13⟩. (a) ∇f (b) ∇f(P) (c) taxa na direção u.',
   s:['f<sub>x</sub> = 5y² − 12x²y e f<sub>y</sub> = 10xy − 4x³.','∇f(1, 2) = ⟨20 − 24, 20 − 4⟩ = ⟨−4, 16⟩.','u já é unitário: (5/13)² + (12/13)² = 1.','D<sub>u</sub>f = −4·5/13 + 16·12/13 = (−20 + 192)/13.'],a:'(a) ⟨5y² − 12x²y, 10xy − 4x³⟩ · (b) ⟨−4, 16⟩ · (c) 172/13'},
- {n:'9',m:'gradiente · 3 variáveis',q:'f(x, y, z) = x e<sup>2yz</sup>, P(3, 0, 2), u = ⟨2/3, −2/3, 1/3⟩.',
+ {n:'9',m:'gradiente · 3 variáveis',e:'Para as questões 8 e 9: (a) determine o gradiente de f; (b) calcule o gradiente no ponto P; (c) determine a taxa de variação de f em P na direção do vetor u. f(x, y, z) = x e<sup>2yz</sup>, P(3, 0, 2), u = ⟨2/3, −2/3, 1/3⟩.',q:'f(x, y, z) = x e<sup>2yz</sup>, P(3, 0, 2), u = ⟨2/3, −2/3, 1/3⟩.',
   s:['f<sub>x</sub> = e<sup>2yz</sup>, f<sub>y</sub> = 2xz e<sup>2yz</sup>, f<sub>z</sub> = 2xy e<sup>2yz</sup>.','Em P: e⁰ = 1, então ∇f(P) = ⟨1, 2·3·2, 0⟩ = ⟨1, 12, 0⟩.','D<sub>u</sub>f = 1·2/3 + 12·(−2/3) + 0 = (2 − 24)/3.'],a:'(a) ⟨e<sup>2yz</sup>, 2xz e<sup>2yz</sup>, 2xy e<sup>2yz</sup>⟩ · (b) ⟨1, 12, 0⟩ · (c) −22/3'},
- {n:'10',m:'derivada direcional',q:'f(x, y) = 1 + 2x√y em (3, 4), na direção de v = ⟨4, −3⟩.',
+ {n:'10',m:'derivada direcional',e:'Determine a derivada direcional da função no ponto dado na direção do vetor v: f(x, y) = 1 + 2x√y, (3, 4), v = ⟨4, −3⟩.',q:'f(x, y) = 1 + 2x√y em (3, 4), na direção de v = ⟨4, −3⟩.',
   s:['f<sub>x</sub> = 2√y e f<sub>y</sub> = x/√y.','∇f(3, 4) = ⟨4, 3/2⟩.','|v| = 5 → u = ⟨4/5, −3/5⟩.','D<sub>u</sub>f = 4·4/5 − (3/2)·3/5 = 16/5 − 9/10.'],a:'D<sub>u</sub>f = 23/10'},
- {n:'11',m:'derivada direcional · 3 variáveis',q:'f(x, y, z) = x eʸ + y eᶻ + z eˣ em (0, 0, 0), na direção de v = ⟨5, 1, −2⟩.',
+ {n:'11',m:'derivada direcional · 3 variáveis',e:'Determine a derivada direcional da função no ponto dado na direção do vetor v: f(x, y, z) = x eʸ + y eᶻ + z eˣ, (0, 0, 0), v = ⟨5, 1, −2⟩.',q:'f(x, y, z) = x eʸ + y eᶻ + z eˣ em (0, 0, 0), na direção de v = ⟨5, 1, −2⟩.',
   s:['f<sub>x</sub> = eʸ + z eˣ, f<sub>y</sub> = x eʸ + eᶻ, f<sub>z</sub> = y eᶻ + eˣ.','Na origem: ∇f = ⟨1, 1, 1⟩.','|v| = √(25 + 1 + 4) = √30.','D<sub>u</sub>f = (5 + 1 − 2)/√30.'],a:'D<sub>u</sub>f = 4/√30 ≈ 0,73'},
- {n:'12',m:'derivada direcional · ponto a ponto',q:'f(x, y) = √(xy) em P(2, 8), na direção de Q(5, 4).',
+ {n:'12',m:'derivada direcional · ponto a ponto',e:'Determine a derivada direcional de f(x, y) = √(xy) em P(2, 8) na direção de Q(5, 4).',q:'f(x, y) = √(xy) em P(2, 8), na direção de Q(5, 4).',
   s:['f<sub>x</sub> = y/(2√(xy)) e f<sub>y</sub> = x/(2√(xy)). Em P, √(xy) = 4.','∇f(2, 8) = ⟨8/8, 2/8⟩ = ⟨1, 1/4⟩.','v = Q − P = ⟨3, −4⟩, |v| = 5, u = ⟨3/5, −4/5⟩.','D<sub>u</sub>f = 3/5 − (1/4)(4/5) = 3/5 − 1/5.'],a:'D<sub>u</sub>f = 2/5'},
- {n:'13',m:'taxa máxima',q:'f(x, y) = sen(xy) em (1, 0): taxa de variação máxima e direção.',
+ {n:'13',m:'taxa máxima',e:'Determine a taxa de variação máxima de f no ponto dado e a direção em que isso ocorre: f(x, y) = sen(xy), (1, 0).',q:'f(x, y) = sen(xy) em (1, 0): taxa de variação máxima e direção.',
   s:['∇f = ⟨y cos(xy), x cos(xy)⟩.','Em (1, 0): ∇f = ⟨0, 1⟩.','Taxa máxima = |∇f| = 1, na direção do próprio gradiente.'],a:'Taxa máxima 1, na direção ⟨0, 1⟩'},
- {n:'14',m:'gradiente · aplicação',q:'T em uma bola é inversamente proporcional à distância ao centro; T(1, 2, 2) = 120°. Taxa de variação em (1, 2, 2) em direção a (2, 1, 3).',
+ {n:'14',m:'gradiente · aplicação',e:'A temperatura T em uma bola de metal é inversamente proporcional à distância do centro da bola, que tomamos como a origem. A temperatura no ponto (1, 2, 2) é de 120°. (a) Determine a taxa de variação de T em (1, 2, 2) em direção ao ponto (2, 1, 3).',q:'T em uma bola é inversamente proporcional à distância ao centro; T(1, 2, 2) = 120°. Taxa de variação em (1, 2, 2) em direção a (2, 1, 3).',
   s:['T = k/√(x² + y² + z²). Em (1, 2, 2), a distância é 3: 120 = k/3 → k = 360.','∇T = −k⟨x, y, z⟩/(x² + y² + z²)^(3/2). Em (1, 2, 2): −360⟨1, 2, 2⟩/27 = −(40/3)⟨1, 2, 2⟩.','v = (2, 1, 3) − (1, 2, 2) = ⟨1, −1, 1⟩, |v| = √3.','D<sub>u</sub>T = −(40/3)(1 − 2 + 2)/√3 = −40/(3√3).'],a:'D<sub>u</sub>T = −40/(3√3) ≈ −7,7 °/unidade (a temperatura cai)'},
- {n:'15',m:'gradiente · potencial',q:'V = 5x² − 3xy + xyz. Em P(3, 4, 5): (a) taxa na direção v = i + j − k (b) direção de maior variação (c) taxa máxima.',
+ {n:'15',m:'gradiente · potencial',e:'Suponha que em uma certa região do espaço o potencial elétrico V seja dado por V(x, y, z) = 5x² − 3xy + xyz. (a) Determine a taxa de variação do potencial em P(3, 4, 5) na direção do vetor v = i + j − k. (b) Em que direção V varia mais rapidamente em P? (c) Qual a taxa máxima de variação em P?',q:'V = 5x² − 3xy + xyz. Em P(3, 4, 5): (a) taxa na direção v = i + j − k (b) direção de maior variação (c) taxa máxima.',
   s:['∇V = ⟨10x − 3y + yz, −3x + xz, xy⟩.','∇V(3, 4, 5) = ⟨30 − 12 + 20, −9 + 15, 12⟩ = ⟨38, 6, 12⟩.','(a) u = ⟨1, 1, −1⟩/√3: D<sub>u</sub>V = (38 + 6 − 12)/√3 = 32/√3.','(b) a direção de ∇V(P) = ⟨38, 6, 12⟩.','(c) |∇V| = √(1444 + 36 + 144) = √1624 = 2√406.'],a:'(a) 32/√3 · (b) ⟨38, 6, 12⟩ · (c) 2√406 ≈ 40,3'},
- {n:'16a',m:'máximos e mínimos',q:'f(x, y) = 9 − 2x + 4y − x² − 4y². Extremos locais e selas.',
+ {n:'16a',m:'máximos e mínimos',e:'Determine os valores máximos e mínimos locais e pontos de sela da função f(x, y) = 9 − 2x + 4y − x² − 4y². Faça o gráfico em 3D e verifique seus resultados.',q:'f(x, y) = 9 − 2x + 4y − x² − 4y². Extremos locais e selas.',
   s:['f<sub>x</sub> = −2 − 2x = 0 → x = −1. f<sub>y</sub> = 4 − 8y = 0 → y = 1/2.','f<sub>xx</sub> = −2, f<sub>yy</sub> = −8, f<sub>xy</sub> = 0 → D = 16 &gt; 0 e f<sub>xx</sub> &lt; 0: máximo.','f(−1, 1/2) = 9 + 2 + 2 − 1 − 1 = 11.'],a:'Máximo local f(−1, 1/2) = 11'},
- {n:'16b',m:'máximos e mínimos',q:'f(x, y) = x² + y² + x²y + 4.',
+ {n:'16b',m:'máximos e mínimos',e:'Determine os valores máximos e mínimos locais e pontos de sela da função f(x, y) = x² + y² + x²y + 4. Faça o gráfico em 3D e verifique seus resultados.',q:'f(x, y) = x² + y² + x²y + 4.',
   s:['f<sub>x</sub> = 2x + 2xy = 2x(1 + y) = 0 → x = 0 ou y = −1.','f<sub>y</sub> = 2y + x² = 0. Se x = 0: y = 0. Se y = −1: x² = 2, x = ±√2.','Pontos: (0, 0), (√2, −1), (−√2, −1). f<sub>xx</sub> = 2 + 2y, f<sub>yy</sub> = 2, f<sub>xy</sub> = 2x.','(0, 0): D = 2·2 − 0 = 4 &gt; 0, f<sub>xx</sub> = 2 &gt; 0 → mínimo, f = 4.','(±√2, −1): f<sub>xx</sub> = 0, D = 0·2 − (±2√2)² = −8 &lt; 0 → sela.'],a:'Mínimo f(0, 0) = 4 · selas em (±√2, −1)'},
- {n:'16c',m:'máximos e mínimos',q:'f(x, y) = x³ − 12xy + 8y³.',
+ {n:'16c',m:'máximos e mínimos',e:'Determine os valores máximos e mínimos locais e pontos de sela da função f(x, y) = x³ − 12xy + 8y³. Faça o gráfico em 3D e verifique seus resultados.',q:'f(x, y) = x³ − 12xy + 8y³.',
   s:['f<sub>x</sub> = 3x² − 12y = 0 → y = x²/4. f<sub>y</sub> = −12x + 24y² = 0 → x = 2y².','Substitua: y = (2y²)²/4 = y⁴ → y(y³ − 1) = 0 → y = 0 ou y = 1. Pontos (0, 0) e (2, 1).','f<sub>xx</sub> = 6x, f<sub>yy</sub> = 48y, f<sub>xy</sub> = −12.','(0, 0): D = 0 − 144 &lt; 0 → sela. (2, 1): D = 12·48 − 144 = 432 &gt; 0 e f<sub>xx</sub> = 12 &gt; 0 → mínimo, f = 8 − 24 + 8 = −8.'],a:'Mínimo f(2, 1) = −8 · sela em (0, 0)'},
- {n:'17',m:'otimização',q:'Três números positivos com soma 100 e produto máximo.',
+ {n:'17',m:'otimização',e:'Determine três números positivos cuja soma é 100 e cujo produto é máximo.',q:'Três números positivos com soma 100 e produto máximo.',
   s:['z = 100 − x − y, então P = xy(100 − x − y) = 100xy − x²y − xy².','P<sub>x</sub> = y(100 − 2x − y) = 0 e P<sub>y</sub> = x(100 − x − 2y) = 0. Como x, y &gt; 0: 2x + y = 100 e x + 2y = 100.','Resolvendo: x = y = 100/3, e z = 100/3.'],a:'Os três valem 100/3'},
- {n:'18',m:'otimização',q:'Caixa de volume máximo cuja soma das 12 arestas é c.',
+ {n:'18',m:'otimização',e:'Determine as dimensões de uma caixa retangular de volume máximo tal que a soma dos comprimentos de suas 12 arestas seja uma constante c.',q:'Caixa de volume máximo cuja soma das 12 arestas é c.',
   s:['4x + 4y + 4z = c → z = c/4 − x − y. V = xy(c/4 − x − y).','V<sub>x</sub> = y(c/4 − 2x − y) = 0 e V<sub>y</sub> = x(c/4 − x − 2y) = 0.','2x + y = c/4 e x + 2y = c/4 → x = y = c/12 e z = c/12.'],a:'Um cubo de aresta c/12'},
- {n:'19',m:'otimização',q:'Caixa sem tampa com volume 32 000 cm³ e o mínimo de papelão.',
+ {n:'19',m:'otimização',e:'Uma caixa de papelão sem tampa deve ter um volume de 32 000 cm³. Determine as dimensões que minimizem a quantidade de papelão utilizado.',q:'Caixa sem tampa com volume 32 000 cm³ e o mínimo de papelão.',
   s:['Base x por y, altura z = 32 000/(xy). Área S = xy + 2xz + 2yz = xy + 64 000/y + 64 000/x.','S<sub>x</sub> = y − 64 000/x² = 0 e S<sub>y</sub> = x − 64 000/y² = 0.','Por simetria x = y, então x³ = 64 000 → x = 40 e z = 32 000/1 600 = 20.','Teste: S<sub>xx</sub> = 128 000/x³ = 2, S<sub>yy</sub> = 2, S<sub>xy</sub> = 1 → D = 3 &gt; 0, mínimo.'],a:'Base quadrada de 40 cm e altura 20 cm'}
 ];
 
@@ -944,9 +946,9 @@ function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio'
 /* ===== boot ===== */
 load();
 document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'), steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); { const fg=b.querySelector('.aulafig'); if(fg) b.appendChild(fg) } bindEx(b) });
-document.getElementById('probBox').innerHTML=PROBS.map(p=>'<details class="qitem"><summary><span class="qn">'+p.n+'</span><span>'+p.q+'<span class="tagt">'+p.m+'</span></span></summary><div class="body"><div class="part ex" style="border:none;padding:0;margin:14px 0 0">'+exHTML(p.s,p.a)+'</div></div></details>').join('');
+document.getElementById('probBox').innerHTML=PROBS.map(p=>'<details class="qitem"><summary><span class="qn">'+p.n+'</span><span>'+p.q+'<span class="tagt">'+p.m+'</span></span></summary><div class="body">'+(p.e?'<div class="enun"><span class="k">Enunciado</span>'+p.e+'</div>':'')+'<div class="part ex" style="border:none;padding:0;margin:14px 0 0">'+exHTML(p.s,p.a)+'</div></div></details>').join('');
 document.querySelectorAll('#probBox .part').forEach(bindEx);
-window.FDB_QLISTA={sel:'#probBox',itens:PROBS.map(p=>({titulo:'Questão '+p.n,tag:'Lista · '+p.m,enun:p.q,secoes:[{passos:p.s,resp:p.a}]}))};
+window.FDB_QLISTA={sel:'#probBox',itens:PROBS.map(p=>({titulo:'Questão '+p.n,tag:'Lista · '+p.m,enun:p.e||p.q,secoes:[{passos:p.s,resp:p.a}]}))};
 document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('input',()=>runCalc(b)); runCalc(b) });
 document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
 const fn3d=Surf(document.getElementById('fn3d'),{fn:'esfera'});

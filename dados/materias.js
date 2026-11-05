@@ -64,7 +64,8 @@ window.FACULDADE = {
                 { data: "2026-10-29", texto: "Criada: funções de várias variáveis, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos, com a lista resolvida e cartas." },
                 { data: "2026-11-04", texto: "Aula de 04/11: ponto crítico de 9 − x² − y², a sela de x² − y², o teste da 2ª derivada com a Hessiana, os exemplos 1 e 2 resolvidos passo a passo e os dois no simulador 3D. Cada exemplo tem gráfico 3D e mapa de nível próprios." },
                 { data: "2026-11-04", texto: "Aula de 04/11 (fim): Exemplo 4 da montanha no módulo de gradiente, com os itens a–d resolvidos (sul, noroeste, subida e descida mais íngremes), gráfico 3D e mapa com ∇h." },
-                { data: "2026-11-04", texto: "Cola: toque numa caixinha para abrir a explicação de cada termo da fórmula. Lista resolvida: botão Ver resolução no quadro, com a resolução escrita linha por linha." }
+                { data: "2026-11-04", texto: "Cola: toque numa caixinha para abrir a explicação de cada termo da fórmula. Lista resolvida: botão Ver resolução no quadro, com a resolução escrita linha por linha." },
+                { data: "2026-11-04", texto: "Lista resolvida: cada questão agora mostra o enunciado completo da professora (também na janela do quadro)." }
               ],
               descricao: "Funções de várias variáveis do zero, com superfícies 3D, mapas de contorno, gradiente ao vivo, a lista de derivadas parciais e máximos e mínimos resolvida e quiz.",
               data: "2026-10-29",
@@ -106,7 +107,8 @@ window.FACULDADE = {
                 { data: "2026-10-28", texto: "Criada: retas, planos, posições relativas, ângulos e distâncias, com a lista 4 resolvida." },
                 { data: "2026-10-29", texto: "Cartas de revisão (Anki): botão Cartas na oficina, carta surpresa nos módulos de teoria e 29 cartas de GAAL." },
                 { data: "2026-10-30", texto: "Aula de 30/10: plano que contém duas retas (concorrentes: N = v₁ × v₂; paralelas: N = P₂P₁ × v₂), exercício 2 resolvido e calculadora." },
-                { data: "2026-11-04", texto: "Cola: toque numa caixinha para abrir a explicação de cada termo da fórmula. Lista resolvida: botão Ver resolução no quadro, com a resolução escrita linha por linha." }
+                { data: "2026-11-04", texto: "Cola: toque numa caixinha para abrir a explicação de cada termo da fórmula. Lista resolvida: botão Ver resolução no quadro, com a resolução escrita linha por linha." },
+                { data: "2026-11-04", texto: "Lista resolvida: cada questão agora mostra o enunciado completo da professora (também na janela do quadro)." }
               ],
               descricao: "Retas, planos, posições relativas, ângulos e distâncias do zero, com laboratório 3D, calculadoras, a lista 4 resolvida e quiz.",
               data: "2026-10-28",
