@@ -79,7 +79,8 @@ window.FACULDADE = {
                 { data: "2026-11-04", texto: "Aula de 04/11 (fim): Exemplo 4 da montanha no módulo de gradiente, com os itens a–d resolvidos (sul, noroeste, subida e descida mais íngremes), gráfico 3D e mapa com ∇h." },
                 { data: "2026-11-04", texto: "Cola: toque numa caixinha para abrir a explicação de cada termo da fórmula. Lista resolvida: botão Ver resolução no quadro, com a resolução escrita linha por linha." },
                 { data: "2026-11-04", texto: "Lista resolvida: cada questão agora mostra o enunciado completo da professora (também na janela do quadro)." },
-                { data: "2026-11-04", texto: "Exemplos resolvidos dos módulos: novo botão Ver no quadro, com a resolução escrita linha por linha." }
+                { data: "2026-11-04", texto: "Exemplos resolvidos dos módulos: novo botão Ver no quadro, com a resolução escrita linha por linha." },
+                { data: "2026-11-07", texto: "Módulos 1 e 2 completos: a grande ideia de z = f(x, y), peso de chapa, domínio com usinagem e tampo, tanque cilíndrico com simulador, vasilha com água (raio √k e Pitágoras), retas de mesmo custo, resumo, pegadinhas e exercícios E1–E10 com gabarito." }
               ],
               descricao: "Funções de várias variáveis do zero, com superfícies 3D, mapas de contorno, gradiente ao vivo, a lista de derivadas parciais e máximos e mínimos resolvida e quiz.",
               data: "2026-10-29",

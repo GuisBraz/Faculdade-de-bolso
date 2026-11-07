@@ -316,10 +316,33 @@ body{font-size:1rem}
   <h2>Funções de duas (ou três) variáveis</h2>
   <p class="lede">A temperatura de uma chapa depende de onde você mede: do x e do y. Uma função de duas variáveis pega um par (x, y) e devolve um único número f(x, y).</p>
 
+  <h3>A grande ideia: de y = f(x) para z = f(x, y)</h3>
+  <p>No ensino médio, a função tinha uma entrada e uma saída. Agora ela tem duas (ou três) entradas e continua com <b>uma</b> saída.</p>
+  <div class="tbl"><table><tr><th></th><th>Ensino médio</th><th>Agora</th></tr>
+    <tr><td>Função</td><td>y = f(x)</td><td>z = f(x, y)</td></tr>
+    <tr><td>Entradas (você escolhe)</td><td>x</td><td>x e y</td></tr>
+    <tr><td>Saída (a função calcula)</td><td>y</td><td>z</td></tr>
+    <tr><td>Gráfico</td><td>uma curva</td><td>uma superfície (lona em 3D)</td></tr>
+    <tr><td>Caminho de volta (dou a saída, quero a entrada)</td><td>um x (ou poucos)</td><td>infinitos pares: uma curva inteira</td></tr></table></div>
+  <div class="ofi"><span class="k">Nomes: f(x, y), z e k</span><b>f(x, y)</b> e <b>z</b> são a mesma coisa: dois nomes para a saída. Escrever f(x, y) = 2x + y ou z = 2x + y dá na mesma. Já o <b>k</b> é diferente: é um valor de z que você <b>trava</b> (escolhe e não altera). Ele aparece nas curvas de nível, no módulo 2.</div>
+  <div class="cuid"><span class="k">Exemplo prático · por que isso existe?</span>Quase nada no mundo real depende de uma variável só:
+    <ul style="margin:6px 0 0;padding-left:1.2em"><li><b>Temperatura numa chapa durante a solda</b>: T(x, y). Mais quente perto do cordão, mais fria longe. É isso que causa empenamento.</li><li><b>Peso de uma chapa</b>: depende de largura, comprimento e espessura.</li><li><b>Tempo de usinagem</b>: depende de velocidade de corte, avanço, profundidade e comprimento.</li><li><b>Tensão numa viga</b>: σ(x, y) muda ao longo do comprimento e da altura da seção.</li><li><b>Volume de um tanque cilíndrico</b>: V(r, h) = π r² h.</li></ul>
+    <p style="margin:8px 0 0">O Cálculo II depois responde: quanto o resultado muda mexendo numa variável só (<b>derivada parcial</b>), em que direção ele sobe mais rápido (<b>gradiente</b>) e qual combinação dá o melhor resultado (<b>máximos e mínimos</b>).</p></div>
+
   <div class="fx"><span class="tag">Definição 1.1 · função de duas variáveis</span>
     <div class="eq"><i>f</i> : <i>D</i> ⊂ ℝ² → ℝ</div><div class="eq" style="padding-top:0">(<i>x</i>, <i>y</i>) ↦ <i>z</i> = <i>f</i>(<i>x</i>, <i>y</i>)</div>
     <dl class="legend"><dt>D</dt><dd><b>domínio</b>: todos os pares (x, y) em que a fórmula faz sentido</dd><dt>imagem</dt><dd>todos os valores z que a função chega a dar</dd><dt>gráfico</dt><dd>a <b>superfície</b> z = f(x, y) no espaço: cada ponto do chão (x, y) recebe uma altura</dd></dl>
   </div>
+
+  <h3>Calcular a função = trocar as letras por números</h3>
+  <p>É igual ao f(3) do ensino médio, só que agora cada letra recebe o seu número.</p>
+  <div class="ex" data-ex><div class="q">Exemplo prático: peso de uma chapa de aço P(L, C, e) = L · C · e · 7850 · 9,8 (L, C, e em metros; 7850 kg/m³; g = 9,8 m/s²). Calcule para uma chapa de 1 m × 2 m × 10 mm.</div>
+    <ol><li>Converta a espessura para metro: 10 mm = 0,01 m.</li><li>Troque cada letra pelo seu número: P(1; 2; 0,01) = 1 · 2 · 0,01 · 7850 · 9,8.</li><li>Volume 0,02 m³ × 7850 kg/m³ = 157 kg de massa; × 9,8 = 1538,6 N.</li></ol>
+    <div class="ans">P ≈ 1539 N (cerca de 157 kg de massa)</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo da aula: f(x, y) = 2x + y. Calcule f(1, 3), f(0, 0) e f(2, −4).</div>
+    <ol><li>f(1, 3) = 2·1 + 3 = 5.</li><li>f(0, 0) = 0 + 0 = 0.</li><li>f(2, −4) = 4 − 4 = 0.</li></ol>
+    <div class="ans">5 · 0 · 0</div></div>
+  <div class="ofi"><span class="k">Ponte com a GAAL</span>O gráfico de z = 2x + y é um <b>plano</b>. Passando tudo para um lado: 2x + y − z = 0, a equação geral de um plano com normal (2, 1, −1). Toda função do tipo z = ax + by + c tem como gráfico uma chapa plana inclinada.</div>
 
   <h3>Como achar o domínio</h3>
   <p>Procure as três "proibições" do Cálculo I e escreva a condição de cada uma:</p>
@@ -327,6 +350,16 @@ body{font-size:1rem}
     <tr><td>raiz quadrada √(…)</td><td>(…) ≥ 0</td><td>√(x + y): y ≥ −x</td></tr>
     <tr><td>logaritmo ln(…)</td><td>(…) &gt; 0</td><td>ln(9 − x² − 9y²): x²/9 + y² &lt; 1 (interior de uma elipse)</td></tr>
     <tr><td>fração …/(…)</td><td>denominador ≠ 0</td><td>1/(x − 1): x ≠ 1</td></tr></table></div>
+  <p><b>Receita:</b> escreva a condição de cada proibição que aparecer, simplifique e desenhe a região que sobra no plano xy.</p>
+  <div class="ex" data-ex><div class="q">Exemplo prático (divisão): tempo de usinagem t(f, n) = L / (f · n), com L = comprimento usinado, f = avanço (mm/volta) e n = rotação (rpm). Qual é o domínio?</div>
+    <ol><li>Tem divisão: o denominador f · n não pode ser zero.</li><li>Produto é zero quando um dos fatores é zero: então f ≠ 0 e n ≠ 0.</li><li>Na vida real, f = 0 ou n = 0 é a máquina parada: o tempo seria infinito. E, fisicamente, os dois são positivos.</li></ol>
+    <div class="ans">Domínio: f ≠ 0 e n ≠ 0 (fisicamente, f &gt; 0 e n &gt; 0)</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo prático (raiz): a altura de um tampo semiesférico de raio R, em cada ponto (x, y) do chão, é z(x, y) = √(R² − x² − y²). Qual é o domínio?</div>
+    <ol><li>O de dentro da raiz precisa ser ≥ 0: R² − x² − y² ≥ 0.</li><li>Passando para o outro lado: x² + y² ≤ R².</li><li>Isso é um disco de raio R. Faz sentido: o tampo só existe em cima do círculo da base. Fora dele não tem chapa e a fórmula "quebra".</li></ol>
+    <div class="ans">D = {x² + y² ≤ R²}: o disco da base do tampo</div></div>
+  <div class="ex" data-ex><div class="q">Logaritmo: domínio de g(x, y) = ln(x − y).</div>
+    <ol><li>O de dentro do ln precisa ser &gt; 0: x − y &gt; 0.</li><li>Isolando: y &lt; x.</li><li>É a região do plano abaixo da reta y = x, sem a reta (o sinal é &gt;, não ≥).</li></ol>
+    <div class="ans">D = {(x, y) | y &lt; x}: abaixo da reta y = x, sem a reta</div></div>
 
   <div class="ex" data-ex><div class="q">Exemplo 1 da aula: calcule f(3, 2) e o domínio de f(x, y) = √(x + y + 1) / (x − 1).</div>
     <ol><li>f(3, 2) = √(3 + 2 + 1)/(3 − 1) = √6 / 2.</li><li>Raiz: x + y + 1 ≥ 0, ou seja, y ≥ −x − 1 (sobre ou acima da reta).</li><li>Fração: x − 1 ≠ 0, ou seja, x ≠ 1 (tira a reta vertical x = 1).</li></ol>
@@ -344,13 +377,40 @@ body{font-size:1rem}
   <p>Gire com o dedo ou o mouse. Cada cor é uma altura: verde-azulado embaixo, laranja em cima.</p>
   <div class="seg" id="fnSeg"><button class="on" data-f="esfera">√(9 − x² − y²)</button><button data-f="plano">6 − 3x − 2y</button><button data-f="parab">x² + y²</button><button data-f="sela">x² − y²</button></div>
   <div class="cv sim" id="fn3d" style="aspect-ratio:16/10"><canvas></canvas></div>
+  <p>Exemplos da caldeiraria:</p>
+  <ul><li><b>Tampo semiesférico</b>: z = √(R² − x² − y²) é literalmente a chapa do tampo (o primeiro botão acima, com R = 3).</li><li><b>Chapa aquecida</b>: T(x, y) com o ponto de solda no meio vira uma montanha, com o pico no cordão.</li><li><b>Tigela</b>: z = x² + y² tem o formato de uma vasilha (paraboloide), como uma antena parabólica.</li><li><b>Plano</b>: z = ax + by + c é uma chapa plana inclinada.</li></ul>
 
   <h3>Três variáveis</h3>
   <p>f(x, y, z) associa um número a cada ponto do espaço, como a temperatura dentro de uma sala. O gráfico precisaria de 4 dimensões, então a gente olha as <b>superfícies de nível</b> f(x, y, z) = k. Exemplo da aula: as superfícies de nível de x² + y² + z² são esferas.</p>
+  <div class="cuid"><span class="k">Exemplo prático · bloco de aço no forno</span>A temperatura dentro do bloco é T(x, y, z): cada ponto do volume tem uma temperatura, com a superfície mais quente e o núcleo mais frio. Não dá para desenhar o gráfico (3 entradas + 1 saída = 4 dimensões). O truque é olhar as superfícies de nível: todos os pontos com a mesma temperatura formam uma "casca" dentro do bloco.</div>
   <div class="ex" data-ex><div class="q">Exemplo 7: domínio de f(x, y, z) = ln(z − y) + xy sen z.</div>
     <ol><li>Só o logaritmo restringe: z − y &gt; 0.</li><li>Os pontos acima do plano z = y.</li></ol><div class="ans">D = {(x, y, z) | z &gt; y}</div></div>
   <div class="ex" data-ex><div class="q">Praticando 2: f(x, y, z) = e<sup>√(z − x² − y²)</sup>. Calcule f(2, −1, 6), o domínio e a imagem.</div>
     <ol><li>f(2, −1, 6) = e<sup>√(6 − 4 − 1)</sup> = e<sup>1</sup> = e.</li><li>Domínio: z − x² − y² ≥ 0 → z ≥ x² + y² (dentro e acima do paraboloide).</li><li>A raiz vale de 0 a ∞, então e<sup>raiz</sup> vale de e⁰ = 1 a ∞.</li></ol><div class="ans">f = e · D = {z ≥ x² + y²} · imagem = [1, ∞)</div></div>
+
+  <h3>Exemplo guiado: o tanque cilíndrico</h3>
+  <div class="fx"><span class="tag">Volume do cilindro</span><div class="eq"><i>V</i>(<i>r</i>, <i>h</i>) = π · <i>r</i>² · <i>h</i></div>
+    <dl class="legend"><dt>r</dt><dd>raio do costado (m)</dd><dt>h</dt><dd>altura do costado (m)</dd><dt>V</dt><dd>volume (m³)</dd></dl></div>
+  <div class="ex" data-ex><div class="q">(a) Calcular: r = 1 m e h = 3 m.</div>
+    <ol><li>V = π · 1² · 3 = 3π.</li><li>3π ≈ 9,42 m³.</li><li>Cuidado: só o r está ao quadrado. Elevar o h também (3² = 9) dá 28,27, que está errado. A calculadora faz certo o que você digita; o erro é na montagem.</li></ol>
+    <div class="ans">V = 3π ≈ 9,42 m³</div></div>
+  <div class="ex" data-ex><div class="q">(b) Caminho de volta: V = 12π m³ e r = 2 m. Qual o h?</div>
+    <ol><li>12π = π · 2² · h.</li><li>O π corta dos dois lados: 12 = 4h.</li><li>h = 12 / 4 = 3 m.</li></ol>
+    <div class="ans">h = 3 m</div></div>
+  <div class="ex" data-ex><div class="q">(c) Outros pares (r, h) com 12π m³, sem tentativa e erro.</div>
+    <ol><li>Faça o item (b) sem escolher número: deixe uma letra livre e isole a outra.</li><li>12π = π r² h → r² · h = 12.</li><li>h = 12 / r² ou r = √(12 / h).</li><li>Agora escolha qualquer valor e a fórmula entrega o outro. Existem infinitos pares, desde que h &gt; 0 (h = 0 divide por zero; h negativo põe número negativo na raiz). É o domínio aparecendo na prática.</li></ol>
+    <div class="ans">r² · h = 12: infinitos tanques com o mesmo volume</div></div>
+  <div class="calc"><h4>Simulador: tanques com o mesmo volume</h4><p class="hint">Escolha o volume e arraste o raio. A altura sai de h = V / (π r²), e o ponto anda sobre a curva r² · h = constante.</p>
+    <div class="row-ctl"><label class="mono" style="font-size:.82rem">V = <select id="tqV"><option value="12" selected>12π m³</option><option value="18">18π m³</option><option value="8">8π m³</option></select></label>
+      <label class="mono" style="font-size:.82rem;flex:1;min-width:200px">r = <b id="tqRv"></b> m <input type="range" id="tqR" min="0.8" max="4" step="0.05" value="2" style="width:100%"></label></div>
+    <div class="labgrid2"><svg id="tqDes" viewBox="0 0 300 220" style="width:100%;max-width:420px;height:auto;margin:0 auto;display:block" role="img" aria-label="Desenho do tanque"></svg><svg id="tqCurva" viewBox="0 0 300 220" style="width:100%;max-width:420px;height:auto;margin:0 auto;display:block" role="img" aria-label="Curva r²h constante"></svg></div>
+    <div class="out" id="tqOut"></div></div>
+  <div class="ofi"><span class="k">Na prática · o local de instalação é mais baixo</span>Projeto original: h = 3 m → r = √4 = 2 m. O local só comporta 2 m de altura: h = 2 m → r = √6 ≈ 2,45 m. O tanque ficou mais baixo e mais largo com o mesmo volume. A altura caiu 1/3, mas o raio cresceu só uns 22 %, porque o raio entra ao quadrado: um aumento pequeno no raio compensa bastante altura.</div>
+  <div class="cuid"><span class="k">Atenção</span>A fórmula vale para qualquer cilindro (baixo e largo ou alto e fino): muda a proporção, não o tipo de sólido. Esfera: V = (4/3)πr³. Cone: V = (1/3)πr²h. E todos esses tanques têm o mesmo volume mas <b>não gastam a mesma chapa</b>: achar o que gasta menos é assunto do módulo 7 (máximos e mínimos). A curva r² · h = 12 é uma <b>curva de nível</b>, o próximo assunto.</div>
+
+  <h3>Exercícios para treinar</h3>
+  <p>Faça antes de abrir o gabarito. Use a receita: o que a questão quer → do que precisa → monte e confira.</p>
+  <div id="exM1"><details class="qitem"><summary><span class="qn">E1</span><span>Calcule a massa de uma chapa de aço de 1,5 m × 3 m × 12,5 mm, usando m(L, C, e) = L · C · e · 7850 (em kg, com L, C, e em metros).<span class="tagt">calcular</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>1,5 · 3 · 0,0125 = 0,05625 m³ · 7850 ≈ <b>441,6 kg</b>.</div></div></details><details class="qitem"><summary><span class="qn">E2</span><span>Para f(x, y) = x² − 3xy + 2, calcule f(1, 2), f(0, 5) e f(−2, 1).<span class="tagt">calcular</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f(1, 2) = 1 − 6 + 2 = <b>−3</b> · f(0, 5) = <b>2</b> · f(−2, 1) = 4 + 6 + 2 = <b>12</b>.</div></div></details><details class="qitem"><summary><span class="qn">E3</span><span>Determine o domínio de f(x, y) = √(16 − x² − y²) e descreva a região no plano xy.<span class="tagt">domínio · raiz</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>16 − x² − y² ≥ 0 → x² + y² ≤ 16: <b>disco de centro na origem e raio 4</b> (com a borda).</div></div></details><details class="qitem"><summary><span class="qn">E4</span><span>Para o tempo de usinagem t(f, n) = 300 / (f · n), qual é o domínio? E o domínio que faz sentido fisicamente?<span class="tagt">domínio · divisão</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>Matemático: <b>f ≠ 0 e n ≠ 0</b>. Físico: <b>f &gt; 0 e n &gt; 0</b> (avanço e rotação positivos).</div></div></details><details class="qitem"><summary><span class="qn">E5</span><span>Determine o domínio de g(x, y) = ln(x − y) e descreva a região.<span class="tagt">domínio · ln</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>x − y &gt; 0 → y &lt; x: <b>a região abaixo da reta y = x, sem a reta</b>.</div></div></details><details class="qitem"><summary><span class="qn">E6</span><span>Um tanque cilíndrico precisa de V = 18π m³. (a) Se r = 3 m, qual é o h? (b) Escreva h em função de r. (c) Se a altura máxima do local for 0,5 m, qual raio é necessário?<span class="tagt">tanque</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>(a) 18π = π · 9 · h → <b>h = 2 m</b>. (b) <b>h = 18 / r²</b> (com r &gt; 0). (c) 0,5 = 18 / r² → r² = 36 → <b>r = 6 m</b>.</div></div></details></div>
 
   <div class="done-btn" data-done="funcoes"></div>
 </section>
@@ -365,6 +425,14 @@ body{font-size:1rem}
     <div class="eq"><i>f</i>(<i>x</i>, <i>y</i>) = <i>k</i></div>
     <dl class="legend"><dt>k</dt><dd>uma constante da imagem de f (a "altura" da curva)</dd><dt>leitura</dt><dd>andando sobre a curva você nem sobe nem desce, como numa trilha de mapa topográfico</dd><dt>espaçamento</dt><dd>curvas <b>juntas</b> = superfície <b>íngreme</b>; curvas afastadas = superfície plana</dd></dl>
   </div>
+
+  <div class="ofi"><span class="k">O que é o k</span>z é a saída livre: muda conforme o ponto. <b>k é um z travado</b>: você escolhe uma altura e as contas servem para achar quais (x, y) chegam nela. Você não procura o k, você usa ele. Foi o que você fez no tanque do módulo 1: travou V = 12π e procurou os pares (r, h).</div>
+  <p>A ideia é transformar uma superfície 3D num mapa 2D sem perder a altura, como o mapa topográfico de trilha: linhas ligando os pontos com a mesma altitude (800 m, 900 m, 1000 m…).</p>
+  <ol class="recipe">
+    <li><span>Escreva f(x, y) = k.</span></li>
+    <li><span>Escolha alguns valores de k.</span></li>
+    <li><span>Para cada k, simplifique e reconheça a curva (reta, círculo, elipse, parábola…).</span></li>
+  </ol>
 
   <h3>Simulador: o plano z = k cortando a superfície</h3>
   <p>Mexa em k. À esquerda, o plano corta a superfície; à direita, a mesma curva (roxa) no mapa de contorno.</p>
@@ -383,6 +451,67 @@ body{font-size:1rem}
     <ol><li>4x² + y² = k → x²/(k/4) + y²/k = 1: elipses.</li><li>k = 0: só a origem · k = 4: x² + y²/4 = 1 (semieixos 1 e 2) · k = 16: x²/4 + y²/16 = 1 (semieixos 2 e 4).</li></ol>
     <div class="ans">Elipses centradas na origem, mais "altas" que largas</div></div>
   <div class="cuid"><span class="k">Lendo um mapa de contorno</span>No exercício 3 da aula, para estimar f(1, 3) você acha o ponto no mapa e vê entre quais curvas ele está (a resposta da aula foi f(1, 3) ≈ 73). Se cair entre 70 e 80, mais perto da curva de 70, chute um valor um pouco acima de 70.</div>
+
+  <h3>Exemplo prático: a vasilha de cozinha com água</h3>
+  <p>Uma vasilha com formato z = x² + y². Encha de água até 2, 4, 6 e 8 cm. Olhando de cima, a borda da água é um círculo: é a curva de nível daquela altura.</p>
+  <div class="calc"><h4>Simulador: encha a vasilha</h4><p class="hint">À esquerda, a vasilha cortada ao meio com a água na altura k. À direita, o mapa visto de cima: a borda da água é o círculo x² + y² = k.</p>
+    <div class="row-ctl"><label class="mono" style="font-size:.82rem;flex:1;min-width:200px">água até k = <b id="vaKv"></b> cm <input type="range" id="vaK" min="0" max="9" step="0.5" value="4" style="width:100%"></label></div>
+    <div class="labgrid2"><svg id="vaLado" viewBox="0 0 300 220" style="width:100%;max-width:420px;height:auto;margin:0 auto;display:block" role="img" aria-label="Vasilha de lado"></svg><svg id="vaTopo" viewBox="0 0 300 220" style="width:100%;max-width:420px;height:auto;margin:0 auto;display:block" role="img" aria-label="Vasilha vista de cima"></svg></div>
+    <div class="out" id="vaOut"></div></div>
+  <div class="tbl"><table><tr><th>Água até (k)</th><th>Equação da borda</th><th>Raio da borda (√k)</th></tr>
+    <tr><td>2 cm</td><td>x² + y² = 2</td><td>√2 ≈ 1,41</td></tr><tr><td>4 cm</td><td>x² + y² = 4</td><td>2</td></tr><tr><td>6 cm</td><td>x² + y² = 6</td><td>√6 ≈ 2,45</td></tr><tr><td>8 cm</td><td>x² + y² = 8</td><td>√8 ≈ 2,83</td></tr></table></div>
+  <div class="ex" data-ex><div class="q">E se eu quiser pares (x, y) específicos na borda de k = 4? (sem chute)</div>
+    <ol><li>Mesmo truque do tanque: isole uma variável. x² + y² = k → y = ±√(k − x²).</li><li>Com k = 4: x = 0 → y = ±2 · x = 1 → y = ±√3 ≈ ±1,73 · x = 2 → y = 0.</li><li>O ± são os dois lados da borda (em cima e embaixo).</li><li>O x não passa de 2 (o raio): fora da borda, k − x² fica negativo dentro da raiz. Na vasilha é óbvio: fora da borda não tem água.</li></ol>
+    <div class="ans">(0, ±2) · (1, ±1,73) · (2, 0) · (−1, ±1,73) · (−2, 0)</div></div>
+  <div class="ofi"><span class="k">Como ler um mapa de curvas de nível</span>Curvas <b>juntas</b> → a função muda rápido → terreno íngreme. Curvas <b>afastadas</b> → muda devagar → terreno plano. Na vasilha, a parede fica mais inclinada para fora: desenhando as curvas de altura em altura, elas ficam mais juntas nas bordas (veja os círculos claros no simulador).</div>
+
+  <h3>Por que o raio é √k?</h3>
+  <p>Um círculo são todos os pontos a uma mesma distância r do centro (o compasso no traçado de chapa). Do centro até um ponto (x, y) da borda você anda x na horizontal e y na vertical: um triângulo retângulo com catetos x e y e hipotenusa r.</p>
+  <div class="fx"><span class="tag">Pitágoras = equação do círculo</span><div class="eq"><i>x</i>² + <i>y</i>² = <i>r</i>²</div>
+    <dl class="legend"><dt>compare</dt><dd>x² + y² = k e x² + y² = r²: o lado esquerdo é igual, então r² = k → <b>r = √k</b></dd><dt>teste</dt><dd>x² + y² = 9 → r = 3. O ponto (3, 0) dá 9 + 0 = 9 ✓</dd><dt>GAAL</dt><dd>é a mesma conta da norma: √(x² + y²) é a distância até a origem</dd></dl></div>
+  <p>O √k só vale para essa vasilha. Cada formato tem a sua relação; o que sempre vale é o <b>método</b> (f(x, y) = k → simplificar → reconhecer).</p>
+  <div class="tbl"><table><tr><th>Vasilha</th><th>Função</th><th>Água até k → borda</th><th>Raio</th></tr>
+    <tr><td>Tigela (paraboloide)</td><td>z = x² + y²</td><td>x² + y² = k</td><td>√k</td></tr>
+    <tr><td>Tigela mais fechada</td><td>z = 2(x² + y²)</td><td>x² + y² = k/2</td><td>√(k/2)</td></tr>
+    <tr><td>Funil / tremonha cônica</td><td>z = √(x² + y²)</td><td>√(x² + y²) = k</td><td>k (cresce reto)</td></tr>
+    <tr><td>Copo reto (cilindro)</td><td>parede vertical</td><td>sempre o mesmo círculo</td><td>constante</td></tr>
+    <tr><td>Vasilha oval</td><td>z = 4x² + y²</td><td>4x² + y² = k</td><td>elipse, não círculo</td></tr></table></div>
+
+  <h3>Outra aplicação: orçamento de fabricação</h3>
+  <p>Curvas de nível respondem sempre a mesma pergunta: <b>quais combinações dão o mesmo resultado?</b> E nem sempre são círculos.</p>
+  <div class="ex" data-ex><div class="q">Exemplo prático: x = horas de solda (R$ 80/h) e y = horas de pintura (R$ 50/h), então C(x, y) = 80x + 50y. O orçamento aprovado é R$ 4.000. Quais combinações gastam exatamente isso?</div>
+    <ol><li>Trave k = 4000: 80x + 50y = 4000. É uma reta.</li><li>Só solda (y = 0): 80x = 4000 → x = 50 h.</li><li>Só pintura (x = 0): 50y = 4000 → y = 80 h.</li><li>Misto: x = 25 h → 2000 + 50y = 4000 → y = 40 h.</li></ol>
+    <div class="ans">Qualquer ponto da reta 80x + 50y = 4000 gasta exatamente R$ 4.000: é a curva de mesmo custo (isocusto)</div></div>
+  <div class="calc"><h4>Simulador: retas de mesmo custo</h4><p class="hint">Mude o orçamento. Cada valor dá uma reta paralela; abaixo da reta sobra dinheiro, acima estoura.</p>
+    <div class="row-ctl"><label class="mono" style="font-size:.82rem;flex:1;min-width:200px">orçamento k = R$ <b id="ocKv"></b> <input type="range" id="ocK" min="1000" max="6000" step="250" value="4000" style="width:100%"></label>
+      <label class="mono" style="font-size:.82rem;flex:1;min-width:200px">horas de solda x = <b id="ocXv"></b> h <input type="range" id="ocX" min="0" max="75" step="1" value="25" style="width:100%"></label></div>
+    <svg id="ocSvg" viewBox="0 0 320 240" style="width:100%;max-width:560px;height:auto;display:block;margin:0 auto" role="img" aria-label="Retas de isocusto"></svg>
+    <div class="out" id="ocOut"></div></div>
+  <div class="tbl"><table><tr><th>Onde</th><th>Nome</th><th>O que fica igual na curva</th></tr>
+    <tr><td>Previsão do tempo</td><td>isóbaras</td><td>pressão atmosférica</td></tr><tr><td>Chapa soldada</td><td>isotermas</td><td>temperatura</td></tr><tr><td>Mapa de trilha</td><td>curvas de nível</td><td>altitude</td></tr><tr><td>Eletricidade</td><td>equipotenciais</td><td>tensão elétrica (V)</td></tr><tr><td>Análise de tensões no Inventor (FEA)</td><td>faixas de cor</td><td>tensão mecânica</td></tr><tr><td>Produção</td><td>isoquantas</td><td>quantidade produzida</td></tr><tr><td>Tanque cilíndrico</td><td>r² · h = 12</td><td>volume</td></tr></table></div>
+  <p>O formato depende da função: <b>reta</b> quando é do tipo ax + by, <b>círculo</b> quando é x² + y², outras formas para outras funções.</p>
+
+  <h3>Resumo dos módulos 1 e 2</h3>
+  <div class="tbl"><table><tr><th>Conceito</th><th>Em uma frase</th></tr>
+    <tr><td>z = f(x, y)</td><td>duas entradas que você escolhe, uma saída que a função calcula</td></tr>
+    <tr><td>Domínio</td><td>onde a conta existe: denominador ≠ 0 · raiz ≥ 0 · ln &gt; 0</td></tr>
+    <tr><td>Gráfico</td><td>cada (x, y) do chão ganha uma altura z: uma superfície</td></tr>
+    <tr><td>Caminho de volta</td><td>travar a saída dá infinitos pares: uma curva</td></tr>
+    <tr><td>Curva de nível</td><td>f(x, y) = k, todos os pontos com a mesma altura k</td></tr>
+    <tr><td>Pares sem chute</td><td>isole uma variável em função da outra</td></tr>
+    <tr><td>x² + y² = k</td><td>círculo de centro na origem e raio √k</td></tr>
+    <tr><td>Mapa</td><td>curvas juntas = íngreme · afastadas = plano</td></tr></table></div>
+  <div class="cuid"><span class="k">Pegadinhas</span><ul style="margin:4px 0 0;padding-left:1.2em">
+    <li>Eleve ao quadrado só o que tem expoente: em π r² h, o h não é ao quadrado.</li>
+    <li>x² + y² e x² + y são funções diferentes: sem o quadrado no y, a curva vira parábola.</li>
+    <li>O volume do exemplo é 12π m³, não 12 m³: o π só "some" porque corta dos dois lados da equação.</li>
+    <li>Na raiz, lembre do ±: y = ±√(k − x²) dá os dois lados da curva.</li>
+    <li>k negativo em x² + y² = k: não existe curva (soma de quadrados nunca é negativa). k = 0: só o ponto (0, 0).</li></ul></div>
+  <div class="ofi"><span class="k">O que vem depois</span>A lista da professora não tem questão própria dos módulos 1 e 2: eles são a base. O coração da lista é a derivada parcial (questões 1 a 19): <b>módulo 3</b> (questões 1 e 2: quanto o peso da chapa muda se eu aumentar só a espessura?), <b>módulo 5</b> regra da cadeia (3 a 7), <b>módulo 6</b> gradiente (8 a 15: sempre perpendicular às curvas de nível) e <b>módulo 7</b> máximos e mínimos (16 a 19: qual tanque de 12π m³ gasta menos chapa?).</div>
+
+  <h3>Exercícios para treinar</h3>
+  <div id="exM2"><details class="qitem"><summary><span class="qn">E7</span><span>Para f(x, y) = x² + y², descreva as curvas de nível para k = 1, 16 e 25. O que acontece para k = 0 e para k = −4?<span class="tagt">nível · círculo</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>Círculos de centro na origem com raios <b>1, 4 e 5</b>. k = 0: <b>só o ponto (0, 0)</b>. k = −4: <b>não existe curva</b> (x² + y² nunca é negativo).</div></div></details><details class="qitem"><summary><span class="qn">E8</span><span>O custo de um serviço é C(x, y) = 100x + 40y (x = horas de usinagem, y = horas de montagem). Para um orçamento de R$ 2.000: (a) escreva a curva de nível; (b) quantas horas se só houver usinagem? E só montagem? (c) se x = 10 h, qual é o y?<span class="tagt">nível · reta</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>(a) <b>100x + 40y = 2000</b> (uma reta). (b) Só usinagem: <b>x = 20 h</b>. Só montagem: <b>y = 50 h</b>. (c) 1000 + 40y = 2000 → <b>y = 25 h</b>.</div></div></details><details class="qitem"><summary><span class="qn">E9</span><span>Para f(x, y) = y − x², escreva e reconheça as curvas de nível para k = −1, 0 e 1.<span class="tagt">nível · parábola</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>y − x² = k → <b>y = x² + k</b>: parábolas iguais deslocadas na vertical (k = −1 desce 1, k = 0 passa na origem, k = 1 sobe 1).</div></div></details><details class="qitem"><summary><span class="qn">E10</span><span>Uma tremonha cônica tem formato z = √(x² + y²). Com material até a altura k = 3, qual é a curva da borda e o seu raio?<span class="tagt">funil</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>√(x² + y²) = 3 → x² + y² = 9: <b>círculo de raio 3</b>. No funil o raio da borda é igual à altura (cresce reto).</div></div></details></div>
+  <div class="cuid"><span class="k">Errou algum?</span>Volte à parte correspondente e refaça. A maioria dos erros nesses módulos vem de montar a conta antes de entender o papel de cada letra: <b>entrada</b>, <b>saída</b> ou <b>valor travado (k)</b>.</div>
 
   <div class="done-btn" data-done="nivel"></div>
 </section>
@@ -812,6 +941,43 @@ function simGrad(){ const st={fn:'cupula',p:{x:1,y:.5},grad:true,dir:0,tang:true
     m.set({fn:st.fn,p:st.p,dir:st.dir});
     out.innerHTML='<ol><li>P = ('+dec(a)+', '+dec(b)+') · ∇f(P) = ⟨'+dec(gx)+', '+dec(gy)+'⟩</li><li>u = ⟨cos θ, sen θ⟩ = ⟨'+dec(ux)+', '+dec(uy)+'⟩ (já unitário)</li><li>D<sub>u</sub>f = ∇f · u = '+dec(gx)+'·'+dec(ux)+' + '+dec(gy)+'·'+dec(uy)+' = <b>'+dec(D)+'</b></li><li>Maior taxa possível em P: |∇f| = '+dec(gn)+', na direção da seta laranja'+(gn>1e-9?' (θ ≈ '+dec((deg(Math.atan2(gy,gx))+360)%360,0)+'°)':'')+'. Andando pela linha tracejada (a curva de nível), D<sub>u</sub>f = 0.</li></ol>' }
   sel.onchange=draw; draw(); return [m] }
+
+/* ===== módulos 1 e 2: tanque, vasilha e orçamento (SVG) ===== */
+function simM12(){ const $=id=>document.getElementById(id), nf=(v,d=2)=>Number(v).toLocaleString('pt-BR',{maximumFractionDigits:d});
+  const ax=(x0,y0,w,h,lx,ly)=>'<line x1="'+x0+'" y1="'+y0+'" x2="'+(x0+w)+'" y2="'+y0+'" stroke="var(--ink2)"/><line x1="'+x0+'" y1="'+y0+'" x2="'+x0+'" y2="'+(y0-h)+'" stroke="var(--ink2)"/><text x="'+(x0+w)+'" y="'+(y0+16)+'" text-anchor="end" font-size="12" fill="var(--ink2)">'+lx+'</text><text x="'+(x0+6)+'" y="'+(y0-h+4)+'" font-size="12" fill="var(--ink2)">'+ly+'</text>';
+  // tanque
+  const tq=()=>{ const V=+$('tqV').value, r=+$('tqR').value, h=V/(r*r); $('tqRv').textContent=nf(r);
+    const s=24, W=2*r*s, H=Math.min(h,9)*s, cx=150, base=200, ry=Math.max(4,W*.12);
+    $('tqDes').innerHTML='<ellipse cx="'+cx+'" cy="'+base+'" rx="'+W/2+'" ry="'+ry+'" fill="var(--hl2)" stroke="var(--c2)" stroke-width="2"/><rect x="'+(cx-W/2)+'" y="'+(base-H)+'" width="'+W+'" height="'+H+'" fill="var(--hl2)" stroke="none"/><line x1="'+(cx-W/2)+'" y1="'+base+'" x2="'+(cx-W/2)+'" y2="'+(base-H)+'" stroke="var(--c2)" stroke-width="2"/><line x1="'+(cx+W/2)+'" y1="'+base+'" x2="'+(cx+W/2)+'" y2="'+(base-H)+'" stroke="var(--c2)" stroke-width="2"/><ellipse cx="'+cx+'" cy="'+(base-H)+'" rx="'+W/2+'" ry="'+ry+'" fill="var(--sheet)" stroke="var(--c2)" stroke-width="2"/>'+
+      '<line x1="'+cx+'" y1="'+(base-H)+'" x2="'+(cx+W/2)+'" y2="'+(base-H)+'" stroke="var(--c1)" stroke-width="2"/><text x="'+(cx+W/4)+'" y="'+(base-H-ry-6)+'" text-anchor="middle" font-size="13" font-weight="700" fill="var(--c1)">r = '+nf(r)+'</text>'+
+      '<text x="'+(cx+W/2+6)+'" y="'+(base-H/2)+'" font-size="13" font-weight="700" fill="var(--c3)">h = '+nf(h)+(h>9?' (cortado)':'')+'</text>';
+    const X=r0=>40+(r0-.8)/(4-.8)*240, Y=h0=>200-Math.min(h0,30)/30*180; let d=''; for(let q=.8;q<=4.001;q+=.05){ const hh=V/(q*q); d+=(d?'L':'M')+X(q).toFixed(1)+' '+Y(hh).toFixed(1) }
+    $('tqCurva').innerHTML=ax(40,200,250,185,'r (m)','h (m)')+'<path d="'+d+'" fill="none" stroke="var(--c2)" stroke-width="2.5"/><circle cx="'+X(r)+'" cy="'+Y(h)+'" r="6" fill="var(--c1)"/><text x="290" y="40" text-anchor="end" font-size="12" fill="var(--c2)">r² · h = '+V+'</text>';
+    $('tqOut').innerHTML='h = '+V+' / r² = '+V+' / '+nf(r*r,3)+' = <b>'+nf(h)+' m</b> · confira: π · '+nf(r)+'² · '+nf(h)+' = '+nf(Math.PI*r*r*h)+' m³ = '+V+'π m³ ✓' };
+  $('tqR').oninput=$('tqV').onchange=tq; tq();
+  // vasilha z = x² + y²
+  const va=()=>{ const k=+$('vaK').value; $('vaKv').textContent=nf(k,1); const s=22, cx=150, b=205, Xs=x=>cx+x*s, Ys=z=>b-z*20;
+    let par=''; for(let x=-2.9;x<=2.901;x+=.1)par+=(par?'L':'M')+Xs(x).toFixed(1)+' '+Ys(x*x).toFixed(1);
+    const rk=Math.sqrt(k); let agua=''; if(k>0){ agua='M'+Xs(-rk)+' '+Ys(k); for(let x=-rk;x<=rk+1e-9;x+=rk/30)agua+='L'+Xs(x).toFixed(1)+' '+Ys(x*x).toFixed(1); agua+='Z' }
+    $('vaLado').innerHTML=(k>0?'<path d="'+agua+'" fill="rgba(47,140,255,.35)" stroke="none"/><line x1="'+Xs(-rk)+'" y1="'+Ys(k)+'" x2="'+Xs(rk)+'" y2="'+Ys(k)+'" stroke="#2F8CFF" stroke-width="2"/>':'')+'<path d="'+par+'" fill="none" stroke="var(--ink)" stroke-width="3"/>'+
+      '<text x="'+(Xs(rk)+6)+'" y="'+(Ys(k)+4)+'" font-size="12" font-weight="700" fill="#2F8CFF">k = '+nf(k,1)+'</text><text x="150" y="14" text-anchor="middle" font-size="12" fill="var(--ink2)">vasilha cortada ao meio · z = x² + y²</text>';
+    const T=r=>r*30; let g='<line x1="20" y1="110" x2="280" y2="110" stroke="var(--line)"/><line x1="150" y1="10" x2="150" y2="210" stroke="var(--line)"/>';
+    for(let kk=1;kk<=9;kk++)g+='<circle cx="150" cy="110" r="'+T(Math.sqrt(kk))+'" fill="none" stroke="var(--ink2)" stroke-opacity=".3"/>';
+    if(k>0)g+='<circle cx="150" cy="110" r="'+T(rk)+'" fill="rgba(47,140,255,.18)" stroke="#2F8CFF" stroke-width="2.5"/><line x1="150" y1="110" x2="'+(150+T(rk))+'" y2="110" stroke="var(--c1)" stroke-width="2"/><text x="'+(150+T(rk)/2)+'" y="104" text-anchor="middle" font-size="12" font-weight="700" fill="var(--c1)">√k</text>';
+    else g+='<circle cx="150" cy="110" r="4" fill="#2F8CFF"/>';
+    $('vaTopo').innerHTML=g+'<text x="150" y="220" text-anchor="middle" font-size="12" fill="var(--ink2)">vista de cima: círculos de k = 1 a 9</text>';
+    $('vaOut').innerHTML=k>0?'Borda: x² + y² = '+nf(k,1)+' → círculo de raio √'+nf(k,1)+' ≈ <b>'+nf(rk)+' cm</b>':'k = 0: a "borda" é só o ponto (0, 0), o fundo da vasilha.' };
+  $('vaK').oninput=va; va();
+  // orçamento C = 80x + 50y
+  const oc=()=>{ const k=+$('ocK').value, xm=k/80; let x=+$('ocX').value; $('ocX').max=Math.floor(xm); if(x>xm)x=Math.floor(xm), $('ocX').value=x; const y=(k-80*x)/50;
+    $('ocKv').textContent=k.toLocaleString('pt-BR'); $('ocXv').textContent=x; const X=v=>40+v/80*260, Y=v=>210-v/130*190;
+    let g=ax(40,210,270,195,'x = h de solda','y = h de pintura'); for(let kk=1000;kk<=6000;kk+=1000)g+='<line x1="'+X(0)+'" y1="'+Y(kk/50)+'" x2="'+X(kk/80)+'" y2="'+Y(0)+'" stroke="var(--ink2)" stroke-opacity=".28"/>';
+    g+='<polygon points="'+X(0)+','+Y(0)+' '+X(0)+','+Y(k/50)+' '+X(xm)+','+Y(0)+'" fill="var(--hl2)"/><line x1="'+X(0)+'" y1="'+Y(k/50)+'" x2="'+X(xm)+'" y2="'+Y(0)+'" stroke="var(--c2)" stroke-width="3"/>'+
+      '<circle cx="'+X(x)+'" cy="'+Y(y)+'" r="6" fill="var(--c1)"/><text x="'+(X(x)+9)+'" y="'+(Y(y)-8)+'" font-size="12" font-weight="700" fill="var(--c1)">('+x+'; '+nf(y,1)+')</text>'+
+      '<text x="'+(X(0)+6)+'" y="'+(Y(k/50)+4)+'" font-size="11" fill="var(--c2)">'+nf(k/50,1)+' h</text><text x="'+X(xm)+'" y="'+(Y(0)-6)+'" text-anchor="middle" font-size="11" fill="var(--c2)">'+nf(xm,1)+' h</text><text x="'+X(8)+'" y="'+Y(8)+'" font-size="11" fill="var(--c2)">sobra dinheiro</text>';
+    $('ocSvg').innerHTML=g; $('ocOut').innerHTML='80 · '+x+' + 50y = '+k.toLocaleString('pt-BR')+' → y = ('+k.toLocaleString('pt-BR')+' − '+(80*x).toLocaleString('pt-BR')+') / 50 = <b>'+nf(y,1)+' h de pintura</b>. Só solda: '+nf(xm,1)+' h · só pintura: '+nf(k/50,1)+' h.' };
+  $('ocK').oninput=$('ocX').oninput=oc; oc();
+  return [] }
 function simAula(){ const L=[['1','morro',[{x:0,y:0,c:'c1',l:'máximo'}]],['2','sela',[{x:0,y:0,c:'c3',l:'sela'}]],['3','aex1',[{x:1,y:3,c:'c2',l:'mínimo'}]],['4','aex2',[{x:0,y:0,c:'c3',l:'sela'},{x:1,y:1,c:'c2',l:'mínimo'},{x:-1,y:-1,c:'c2',l:'mínimo'}]],['5','montanha',[{x:50,y:80,c:'c1',l:'P (50, 80, 847)'},{x:0,y:0,c:'c2',l:'topo'}],{p:{x:50,y:80},grad:true,dir:3*Math.PI/4,tang:true,pontos:[{x:0,y:0,c:'c2',l:'topo'}]}]];
   const out=[]; L.forEach(([i,fn,P,M])=>{ const a=document.getElementById('au'+i+'3d'), b=document.getElementById('au'+i+'map'); if(!a||!b)return; out.push(Surf(a,{fn,pontos:P,alpha:.9,N:30}), Mapa(b,Object.assign({fn,pontos:P,niveis:16,labels:false},M||{}))) }); return out }
 function simExt(){ const sel=document.getElementById('exFn'), out=document.getElementById('exOut');
@@ -953,7 +1119,7 @@ document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('i
 document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
 const fn3d=Surf(document.getElementById('fn3d'),{fn:'esfera'});
 document.querySelectorAll('#fnSeg button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#fnSeg button').forEach(z=>z.classList.toggle('on',z===b)); fn3d.set({fn:b.dataset.f}) });
-sims=[fn3d,...simHero(),...simNivel(),...simParcial(),...simGrad(),...simAula(),...simExt(),...simLab()];
+sims=[fn3d,...simM12(),...simHero(),...simNivel(),...simParcial(),...simGrad(),...simAula(),...simExt(),...simLab()];
 renderQuiz(); renderProg();
 addEventListener('hashchange',route); route();
 const redraw=()=>sims.forEach(s=>s&&s.draw());
