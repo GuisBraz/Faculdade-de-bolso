@@ -400,6 +400,19 @@ body{font-size:1rem}
 .fgrid>div{border:1px solid var(--line);border-radius:10px;padding:10px 12px}.fgrid h4{margin:0 0 4px}.fgrid p{margin:0}
 .fcur{background:color-mix(in srgb,var(--c1) 8%,transparent);border-color:color-mix(in srgb,var(--c1) 35%,var(--line))!important}
 .comp{display:flex;flex-wrap:wrap;gap:6px}.comp span{border-left:4px solid var(--k);background:var(--paper);padding:3px 8px;border-radius:4px;font-size:.85rem}
+.frm{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin-bottom:10px}.frm>div{border:1px solid var(--line);border-radius:10px;padding:8px 12px;background:var(--paper)}
+.frm span{display:block;font-size:.72rem;text-transform:uppercase;letter-spacing:.06em;color:var(--ink2)}.frm>div b{font-family:var(--f-mono);font-size:1.25rem;overflow-wrap:anywhere}.frm p{grid-column:1/-1;margin:0;font-size:.88rem;color:var(--ink2)}
+.vtab{display:flex;flex-wrap:wrap;gap:6px;margin:6px 0 8px}.vtab button{padding:5px 11px;font-size:.82rem;background:transparent;color:var(--ink);border:1.5px solid var(--line)}.vtab button.on{border-color:var(--c2);background:var(--hl2);font-weight:700}
+.vbox .d2{border:1px solid var(--line);border-radius:12px;background:var(--sheet);padding:10px;display:flex;justify-content:center;overflow-x:auto}
+.m2d{width:100%;height:auto;max-height:420px}.m2d .b2{stroke:var(--ink);stroke-width:1.7;stroke-linecap:round}.m2d .dum{stroke-dasharray:3 3;stroke:var(--ink2)}
+.m2d .lb2{font:600 15px var(--f-mono,monospace);text-anchor:middle;dominant-baseline:central;fill:var(--ink)}.m2d .dumt{font-style:italic;fill:var(--ink2);font-size:13px}.m2d .qq{text-anchor:start;font-size:13px;fill:var(--c1)}
+.m2d .lp{fill:var(--c1)}.m2d .rad{fill:var(--c3)}.m2d .br2{fill:none;stroke:var(--ink2);stroke-width:1.4}
+.vcap{font-size:.9rem;color:var(--ink2);margin:8px 0 0}.geo{margin:6px 0 0;padding-left:18px;font-size:.9rem}
+.ileg{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:center;font-size:.85rem;margin-bottom:4px;color:var(--ink)}.ileg i{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:4px;vertical-align:-1px;box-shadow:inset -2px -2px 3px rgba(0,0,0,.25)}.ileg .pr{font-family:var(--f-mono);font-size:.8rem;color:var(--ink2)}
+.d3{position:relative;border:1px solid var(--line);border-radius:12px;background:radial-gradient(circle at 50% 40%,var(--sheet),var(--paper));overflow:hidden}.d3 canvas{display:block;width:100%;height:320px;cursor:grab}.d3 canvas:active{cursor:grabbing}
+.c3{position:absolute;right:8px;top:8px;display:flex;gap:4px}.c3 button{padding:3px 9px;font-size:.8rem;background:var(--sheet)}.hint3{position:absolute;left:10px;bottom:6px;font-size:.72rem;color:var(--ink2);pointer-events:none}
+.ctr3{margin-top:6px;font-size:.85rem}.chk{display:inline-flex;gap:6px;align-items:center;cursor:pointer}
+@media (max-width:560px){.d3 canvas{height:270px}.frm b{font-size:1.05rem}}
 .iso{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-bottom:10px;font-size:.85rem;padding-right:40px}.iso button{padding:4px 10px;font-size:.8rem;background:transparent;color:var(--ink);border:1.5px solid var(--line)}.iso button.on{border-color:var(--c1);background:var(--hl)}
 .dbar{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:6px 0 4px}.dbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c2),var(--c1));transition:width .6s}
 .dcats{display:flex;gap:6px;overflow-x:auto;padding:6px 0 10px;scrollbar-width:thin}.dcats button{white-space:nowrap;padding:5px 10px;font-size:.8rem;background:transparent;color:var(--ink);border:1.5px solid var(--line)}.dcats button.on{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
@@ -1011,13 +1024,19 @@ function hexA(h,a){ h=h.replace('#',''); if(h.length===3)h=h.split('').map(c=>c+
 function shade(h,p){ h=h.replace('#',''); if(h.length===3)h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); const f=v=>Math.max(0,Math.min(255,Math.round(p<0?v*(1+p):v+(255-v)*p))); return 'rgb('+f(n>>16)+','+f(n>>8&255)+','+f(n&255)+')' }
 function festa(){ if(RM)return; const b=$('dJar'); b.classList.remove('festa'); void b.offsetWidth; b.classList.add('festa') }
 /* ---- ficha ---- */
+let arrP=null;
+function carregaArr(ok,erro){ if(window.FDB_ARR&&window.FDB_EST)return ok();
+  arrP=arrP||Promise.all(['../../dados/quimica-estruturas.js','../../js/quimica-arranjo.js'].map(src=>new Promise((res,rej)=>{ const s=document.createElement('script'); s.src=src; s.onload=res; s.onerror=()=>{ arrP=null; s.remove(); rej() }; document.head.appendChild(s) })));
+  arrP.then(ok,erro) }
 function ficha(L,rolar){ const box=$('dFicha'); box.hidden=false; let k=0;
   const draw=()=>{ const a=L[k]; let M=0; try{ M=MM(a.f) }catch(e){} const comp=Object.entries(a.c).map(([e,n])=>{ const p=n*BY[e].m/M*100; return '<span style="--k:'+corAt(e)+'"><b>'+e+'</b> '+n+' átomo'+(n>1?'s':'')+' · '+nf(p,3)+'%</span>' }).join('');
     box.innerHTML='<button class="x" aria-label="Fechar ficha">✕</button>'+(L.length>1?'<div class="iso">Isômeros com a fórmula '+prettyF(a.f)+': '+L.map((b,j)=>'<button class="'+(j===k?'on':'')+'" data-j="'+j+'">'+b.n+'</button>').join('')+'</div>':'')+
      '<div class="fhd"><div class="fsw" style="--k:'+a.cor+'"><span>'+prettyF(a.f)+'</span></div><div><div class="eyebrow" style="margin:0">'+CATD[a.cat][0]+' '+CATD[a.cat][1]+'</div><h3 style="margin:2px 0">'+a.n+'</h3>'+(a.pop&&a.pop.toLowerCase()!==a.n.toLowerCase()?'<div class="pop">"'+a.pop+'"</div>':'')+'<div class="badges"><span>'+ESTN[a.e]+'</span><span>MM = '+nf(M,6)+' g/mol</span><span>'+a.at+' átomos</span></div></div></div>'+
      '<div class="fgrid"><div><h4>🔬 O que é</h4><p>'+a.o+'</p></div><div><h4>🏭 Onde é usado</h4><p>'+a.u+'</p></div><div class="fcur"><h4>✨ Curiosidade</h4><p>'+a.cur+'</p></div></div>'+
+     '<div id="fArr"><h4 style="margin:16px 0 6px">🧩 Arranjo</h4><p class="vcap">Carregando estrutura…</p></div>'+
      '<h4 style="margin:14px 0 6px">Composição (% em massa)</h4><div class="comp">'+comp+'</div><div class="btns"><button class="ghost" id="fCalc">Ver a conta da massa molar</button></div>';
-    box.querySelector('.x').onclick=()=>{ box.hidden=true };
+    box.querySelector('.x').onclick=()=>{ box.hidden=true; window.FDB_ARR&&FDB_ARR.stop() };
+    carregaArr(()=>{ if(box.contains($('fArr'))&&L[k]===a)FDB_ARR.render($('fArr'),a) },()=>{ $('fArr').innerHTML='<p class="vcap">Não consegui carregar as estruturas (sem internet?). Tente de novo mais tarde.</p>' });
     box.querySelectorAll('.iso button').forEach(b=>b.onclick=()=>{ k=+b.dataset.j; draw() });
     $('fCalc').onclick=()=>{ location.hash='massa'; setTimeout(()=>{ mmTocado=true; $('mmIn').value=unsub(a.f); go(); $('mmW').scrollIntoView({behavior:RM?'auto':'smooth',block:'center'}) },60) } };
   draw(); if(rolar&&!RM)box.scrollIntoView({behavior:'smooth',block:'nearest'}) }

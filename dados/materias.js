@@ -61,7 +61,8 @@ window.FACULDADE = {
               ciclo: "Reações e estequiometria",
               atualizacoes: [
                 { data: "2026-11-06", texto: "Criada com a aula de 06/11: equação química interativa, conservação da massa e balanceador, medidas de massa (u e g/mol), cafeína clicável, calculadora de massa molar, o mol e Avogadro, conversor gramas ↔ mol ↔ partículas, exercícios a–d resolvidos, tabela periódica com os 118 elementos, laboratório, quiz, cola e cartas." },
-                { data: "2026-11-07", texto: "Novo Laboratório de descobertas: junte átomos da tabela periódica e descubra 325 substâncias reais, com animação no pote, rótulo e ficha (o que é, onde é usado e curiosidade), isômeros, álbum e conquistas." }
+                { data: "2026-11-07", texto: "Novo Laboratório de descobertas: junte átomos da tabela periódica e descubra 325 substâncias reais, com animação no pote, rótulo e ficha (o que é, onde é usado e curiosidade), isômeros, álbum e conquistas." },
+                { data: "2026-11-07", texto: "Fichas do laboratório com fórmula molecular e mínima e o arranjo de cada substância: estrutural plana, Lewis com pares isolados, bastão, 3D bola e vareta (com ângulo e comprimento de ligação) e preenchimento; íons e retículos cristalinos 3D para sais, metais (com mar de elétrons) e redes covalentes." }
               ],
               descricao: "Reações químicas e estequiometria do zero: balanceamento, massa molar, mol, conversões, tabela periódica interativa e um laboratório onde você junta átomos e descobre centenas de substâncias."
             }
