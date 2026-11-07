@@ -132,3 +132,7 @@ O site é um PWA: no Chrome do celular ou do PC, use **Instalar app** / **Adicio
 | Cálculo II | [Oficina de Cálculo II](materias/calc2/oficina-de-calculo-2.html): funções de várias variáveis, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos, com superfícies 3D, a lista resolvida e quiz |
 | Usinagem (extra) | [Oficina de Usinagem](materias/usinagem/oficina-de-usinagem.html): grandezas de corte, ferramentas, força e potência, desgaste, as quatro máquinas em 3D, CNC e código G com simulador, tempos e planejamento de processo |
 | Inglês (extra) | [Oficina de Inglês](materias/ingles/oficina-de-ingles.html): do zero ao B1 em 24 unidades com áudio, exercícios, inglês técnico, pronúncia e nivelamento. O conteúdo fica em `dados/ingles.js`; depois de editar, rode `node scripts/gerar-cartas-ingles.js` para atualizar as cartas |
+
+---
+
+Desenvolvido por Guilherme dos Santos Braz — Técnico de processos e estudante de engenharia mecânica · [LinkedIn](https://www.linkedin.com/in/guilherme-santos-66b8162a0)
