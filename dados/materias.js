@@ -53,7 +53,18 @@ window.FACULDADE = {
     {
       numero: 2, ch: 300, atual: true,
       materias: [
-        { id: "qg", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", arquivos: [] },
+        { id: "qg", sigla: "Química", nome: "Química Geral", ch: 60, icone: "quimica", area: "q", arquivos: [
+            {
+              titulo: "Oficina de Química · Reações e Estequiometria",
+              tipo: "site",
+              caminho: "materias/qg/oficina-de-quimica.html",
+              ciclo: "Reações e estequiometria",
+              atualizacoes: [
+                { data: "2026-11-06", texto: "Criada com a aula de 06/11: equação química interativa, conservação da massa e balanceador, medidas de massa (u e g/mol), cafeína clicável, calculadora de massa molar, o mol e Avogadro, conversor gramas ↔ mol ↔ partículas, exercícios a–d resolvidos, tabela periódica com os 118 elementos, laboratório com 24 reações, quiz, cola e cartas." }
+              ],
+              descricao: "Reações químicas e estequiometria do zero: balanceamento, massa molar, mol, conversões, tabela periódica interativa e um laboratório para misturar reagentes e ver a reação."
+            }
+          ] },
         { id: "calc2", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", arquivos: [
             {
               titulo: "Oficina de Cálculo II · Várias Variáveis",

@@ -173,4 +173,44 @@ gaal: {
   t: [['Q(t)', 'ponto genérico da reta (as paramétricas)'], ['PQ⃗(t)', 'Q(t) − P'], ['· v⃗ = 0', 'perpendicular ao diretor: resolva para t']],
   d: 'Com t, você tem Q, a reta perpendicular PQ e a distância ‖PQ⃗‖.', e: 'Lista Q4b: t = −2 → Q = (−1, 4, 0).' }
 }
+
+/* ================= QUÍMICA ================= */
+,qg: {
+ 'equação química': { o: 'A "receita" da reação: o que entra (reagentes, à esquerda), o que sai (produtos, à direita) e em que proporção.',
+  t: [['reagentes', 'substâncias que reagem (antes da seta)'], ['→', 'lê-se "forma" ou "produz"'], ['produtos', 'substâncias formadas (depois da seta)'], ['(g), (l), (s), (aq)', 'estado físico de cada substância']],
+  d: 'Antes de qualquer conta, confira se a equação está balanceada.', e: '2 H₂(g) + O₂(g) → 2 H₂O(g)' },
+ 'coeficiente × índice': { o: 'Os dois números de uma fórmula numa equação têm papéis diferentes.',
+  t: [['coeficiente', 'número da frente: quantas moléculas (ou mols) participam'], ['índice', 'número pequeno embaixo: quantos átomos daquele elemento há em UMA molécula'], ['total de átomos', 'coeficiente × índice: em 2 H₂O há 2 × 2 = 4 H']],
+  d: 'Só o coeficiente pode mudar no balanceamento. Mudar o índice cria outra substância (H₂O → H₂O₂).', e: '3 CO₂: 3 moléculas, 3 C e 6 O.' },
+ 'conservação da massa': { o: 'Lei de Lavoisier: a matéria não pode ser perdida nem criada numa reação química.',
+  t: [['átomos antes', 'soma de cada elemento nos reagentes'], ['átomos depois', 'soma de cada elemento nos produtos'], ['=', 'têm que ser iguais, elemento por elemento']],
+  d: 'Monte a tabela átomo × reagentes × produtos, como no slide do metano.', e: 'CH₄ + 2 O₂ → CO₂ + 2 H₂O: C 1 = 1, H 4 = 4, O 4 = 4.' },
+ 'massa molecular': { o: 'A soma das massas atômicas de todos os átomos da molécula.',
+  t: [['MM', 'massa molecular, em u (ou massa molar, em g/mol: mesmo número)'], ['Σ', 'soma de todos os elementos'], ['nº', 'quantos átomos daquele elemento (o índice; parênteses multiplicam)'], ['massa', 'massa atômica da tabela periódica']],
+  d: 'Use a fórmula molecular, não a mínima.', e: 'H₂O = 2 × 1 + 16 = 18 u.' },
+ 'fórmula mínima': { o: 'A menor proporção inteira entre os átomos da substância.',
+  t: [['índices', 'os números de átomos de cada elemento na fórmula molecular'], ['MDC', 'maior divisor comum de todos os índices'], ['÷', 'divida cada índice pelo MDC']],
+  d: 'Se o MDC for 1, a fórmula mínima é igual à molecular.', e: 'C₈H₁₀N₄O₂ → ÷2 → C₄H₅N₂O · C₆H₁₂O₆ → ÷6 → CH₂O.' },
+ 'mol': { o: 'Um "pacote" de 6,022 × 10²³ unidades, como a dúzia é um pacote de 12.',
+  t: [['1 mol', 'quantidade de matéria'], ['6,022 × 10²³', 'número de Avogadro (N_A), exato desde 2019: 6,022 140 76 × 10²³'], ['unidades', 'vale para átomos, moléculas, íons, elétrons…']],
+  d: 'O mol é contagem, não massa: 1 mol de C pesa 12 g, 1 mol de H₂O pesa 18 g.', e: '2 mol de H₂O = 1,2 × 10²⁴ moléculas.' },
+ 'u e g/mol': { o: 'A massa molar é numericamente igual à massa molecular: muda só a escala.',
+  t: [['u', 'unidade de massa atômica: massa de UMA partícula'], ['g/mol', 'massa de 1 mol (6,022 × 10²³ partículas)'], ['mesmo número', '18 u para uma molécula de H₂O, 18 g para um mol']],
+  d: 'Uma molécula sozinha pesa MM ÷ N_A gramas: H₂O ≈ 3 × 10⁻²³ g.', e: 'Na: 23 u e 23 g/mol.' },
+ 'quantidade de matéria': { o: 'Liga a massa que você pesa ao número de mols.',
+  t: [['n', 'número de mols (mol)'], ['m', 'massa da amostra (g)'], ['MM', 'massa molar da substância (g/mol)']],
+  d: 'Isole a letra que o exercício pede: m = n · MM. Corte as unidades para conferir.', e: '36 g de água: n = 36 / 18 = 2 mol.' },
+ 'número de partículas': { o: 'Quantas moléculas, átomos ou íons existem em n mols.',
+  t: [['N', 'número de partículas (sem unidade)'], ['n', 'número de mols'], ['N_A', '6,022 × 10²³ por mol']],
+  d: 'Se o exercício dá massa, ache n primeiro (n = m / MM).', e: '0,772 mol de HCHO₂ → 0,772 × 6,022 × 10²³ ≈ 4,65 × 10²³ moléculas.' },
+ 'regra de 3': { o: 'O jeito da professora: uma linha base fixa e o dado do exercício embaixo.',
+  t: [['linha base 1', '1 mol —— MM gramas'], ['linha base 2', '1 mol —— 6,022 × 10²³ partículas'], ['x', 'o que o exercício pede, na coluna da unidade dele']],
+  d: 'Multiplique cruzado. Dá o mesmo que a fórmula n = m / MM.', e: '1 mol CaH₂ —— 42 g · 1,73 mol —— x → x = 72,66 g.' },
+ 'íons de um pedaço': { o: 'Quando o exercício pede só uma parte da fórmula (um íon, um elemento).',
+  t: [['n', 'mols da substância inteira'], ['índice', 'quantas vezes o pedaço aparece na fórmula'], ['N_A', '6,022 × 10²³']],
+  d: 'Em Al(NO₃)₃ o NO₃⁻ aparece 3 vezes: multiplique os mols por 3 antes de usar Avogadro.', e: '4,88 × 10⁻³ mol × 3 × 6,022 × 10²³ ≈ 8,82 × 10²¹ íons.' },
+ 'estados físicos': { o: 'A informação entre parênteses depois da fórmula.',
+  t: [['(s)', 'sólido'], ['(l)', 'líquido (puro)'], ['(g)', 'gasoso'], ['(aq)', 'aquoso: dissolvido em água']],
+  d: 'Não entra na conta de massa, mas ajuda a imaginar a reação (bolhas = gás, precipitado = sólido).', e: 'CaCO₃(s) + 2 HCl(aq) → CaCl₂(aq) + H₂O(l) + CO₂(g)' }
+}
 };
