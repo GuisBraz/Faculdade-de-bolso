@@ -78,7 +78,8 @@ function fileRow(a,showMat){
 function matCard(m){
   const n=m.arquivos.length, st=m.status||'';
   if(EDIT) return '<div class="mat edit'+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+stBtns(m)+'</div>';
-  return '<a class="mat'+(n?'':' empty')+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'" href="#m-'+esc(m.id)+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+
+  const AU=(window.FDB_AULAS||{})[m.id];
+  return '<a class="mat'+(n?'':' empty')+(st?' '+st:'')+'" style="--mc:'+esc(m.cor)+'" href="'+(AU?esc(AU.pag):'#m-'+esc(m.id))+'"><span class="ic">'+icon(m.icone)+'</span><span class="sg">'+esc(m.sigla)+'</span><span class="nm">'+(m.nome===m.sigla?'&nbsp;':esc(m.nome))+'</span>'+
     '<span class="n"><span>'+(ST[st]?'<span class="st">'+ST[st]+'</span> ':'')+(m.arquivos.some(isOpen)?'<b>oficina aberta</b>':n?'<b>'+n+'</b> '+(n===1?'material':'materiais'):(ST[st]?'':'sem materiais ainda'))+'</span><span>'+(m.extra?'extra':m.ch?m.ch+' h':m.periodo+'º')+'</span></span></a>';
 }
 function renderHome(){
@@ -280,8 +281,9 @@ const ofUrl=(m,h,ir)=>{ const a=AUL[m.id]; return a?a.pag+(ir?'?ir='+ir:'')+(h?'
 function cardM(m,href,sub,extra){ return '<a class="qcard" style="--mc:'+esc(m.cor)+'" href="'+href+'"><span class="qi">'+icon(m.icone)+'</span><span class="qt"><b>'+esc(m.sigla)+'</b><small>'+sub+'</small>'+(extra||'')+'</span><span class="qa" aria-hidden="true">→</span></a>' }
 function provaDe(m,n){ return (typeof PR!=='undefined'?PR:[]).filter(x=>x.materia===m.id&&x.tipo!=='reserva').find(x=>new RegExp('^'+n+'\\D').test(x.titulo||'')) }
 function renderAulas(id){ const box=document.getElementById('aulas'); const ms=curMats().filter(m=>!AUL[m.id].continua);
-  if(!id){ box.innerHTML='<header class="phead"><div class="eyebrow">Aulas</div><h1>Aulas por matéria</h1><p>Escolha a matéria. As aulas ficam separadas por prova: Módulo 1, 2 e 3, e dentro de cada módulo as aulas na ordem em que entraram no site.</p></header>'+
-      '<div class="qgrid">'+ms.map(m=>{ const n=Object.values(AUL[m.id].modulos||{}).reduce((a,l)=>a+l.length,0); return cardM(m,'#aulas-'+m.id,esc(m.nome),'<span class="qm">'+n+' aula'+(n===1?'':'s')+'</span>') }).join('')+'</div>'+
+  if(id&&AUL[id]){ location.replace(AUL[id].pag); return }
+  if(true){ box.innerHTML='<header class="phead"><div class="eyebrow">Aulas</div><h1>Aulas por matéria</h1><p>Escolha a matéria para entrar nela. Lá dentro as aulas ficam separadas por prova: Módulo 1, 2 e 3, cada um com as suas aulas.</p></header>'+
+      '<div class="qgrid">'+ms.map(m=>{ const n=Object.values(AUL[m.id].modulos||{}).reduce((a,l)=>a+l.length,0); return cardM(m,ofUrl(m),esc(m.nome),'<span class="qm">'+n+' aula'+(n===1?'':'s')+'</span>') }).join('')+'</div>'+
       (curMats().some(m=>AUL[m.id].continua)?'<div class="sech"><h3>Cursos contínuos</h3></div><div class="qgrid">'+curMats().filter(m=>AUL[m.id].continua).map(m=>cardM(m,ofUrl(m),esc(m.nome),'<span class="qm">trilha própria</span>')).join('')+'</div>':''); return }
   const m=MATS.find(x=>x.id===id), a=AUL[id]; if(!m||!a){ location.hash='aulas'; return }
   let k=0; const mods=[1,2,3].map(n=>{ const L=(a.modulos||{})[n]||[]; const pv=provaDe(m,n);
@@ -296,7 +298,7 @@ function renderOficinas(){ const ms=curMats();
 function renderExercicios(){ const ms=curMats();
   const row=(m)=>{ const a=AUL[m.id]; const it=[];
     if(a.lista) it.push('<a class="xi" href="'+ofUrl(m,a.lista)+'"><b>📋 Lista da professora</b><small>resolvida passo a passo</small></a>');
-    if(a.modulos) it.push('<a class="xi" href="#aulas-'+m.id+'"><b>✍️ Treino</b><small>exercícios com gabarito no fim de cada aula</small></a>');
+    if(a.modulos) it.push('<a class="xi" href="'+ofUrl(m,'inicio')+'"><b>✍️ Treino</b><small>exercícios com gabarito no fim de cada aula</small></a>');
     if(a.quiz) it.push('<a class="xi" href="'+ofUrl(m,a.quiz)+'"><b>❓ Quiz</b><small>perguntas com explicação</small></a>');
     it.push('<span class="xi breve"><b>🏭 Casos reais da indústria</b><small>em breve: problemas do dia a dia de engenharia</small></span>');
     return '<section class="xrow" style="--mc:'+esc(m.cor)+'"><div class="xh"><span class="qi">'+icon(m.icone)+'</span><b>'+esc(m.nome)+'</b></div><div class="xis">'+it.join('')+'</div></section>' };
@@ -312,7 +314,7 @@ function renderSobre(){ document.getElementById('sobre').innerHTML='<div class="
   '<div class="autor"><span class="av">GB</span><div><b>Guilherme dos Santos Braz</b><small>Técnico de processos e estudante de engenharia mecânica · IFMG Campus Betim</small><a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn →</a></div></div></div>' }
 function renderQuick(){ const ms=curMats(); const q=document.getElementById('quick'); if(!q) return;
   const rv=window.FDB_ANKI?FDB_ANKI.contarDue(revMats()):0;
-  q.innerHTML=ms.map(m=>{ const a=AUL[m.id]; const n=Object.values(a.modulos||{}).reduce((x,l)=>x+l.length,0); return cardM(m,a.continua?ofUrl(m):'#aulas-'+m.id,esc(m.nome),'<span class="qm">'+(a.continua?'curso contínuo':n+' aulas')+'</span>') }).join('')+
+  q.innerHTML=ms.map(m=>{ const a=AUL[m.id]; const n=Object.values(a.modulos||{}).reduce((x,l)=>x+l.length,0); return cardM(m,ofUrl(m),esc(m.nome),'<span class="qm">'+(a.continua?'curso contínuo':n+' aulas')+'</span>') }).join('')+
     '<a class="qcard rev" href="#revisao"><span class="qi">🔁</span><span class="qt"><b>Revisão</b><small>cartas do dia</small>'+(rv?'<span class="qm hot">'+rv+' para hoje</span>':'<span class="qm">em dia</span>')+'</span><span class="qa" aria-hidden="true">→</span></a>'+
     (VIS?'':'<a class="qcard" href="#horario"><span class="qi">🗓️</span><span class="qt"><b>Horário</b><small>grade da semana</small></span><span class="qa" aria-hidden="true">→</span></a>') }
 function renderHcard(){ const el=document.getElementById('hpCard'); if(!el) return;

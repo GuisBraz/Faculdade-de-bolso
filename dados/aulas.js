@@ -18,6 +18,8 @@ window.FDB_AULAS = {
       ["gradiente", "Gradiente", "Derivada direcional e taxa máxima"],
       ["extremos", "Máximos e mínimos", "Pontos críticos, teste D e otimização"]
     ], 3: [] },
+    temas: { 2: "Funções de várias variáveis e derivadas" },
+    sobre: "Cálculo II leva o Cálculo I para funções de várias variáveis: em vez de uma curva y = f(x), você trabalha com superfícies z = f(x, y). É a matemática por trás da temperatura numa chapa soldada, da tensão numa viga, do volume de um tanque e da otimização de um projeto.",
     lab_nome: "Laboratório 3D de superfícies", lab_desc: "Digite qualquer f(x, y) e veja a superfície, as curvas de nível e o gradiente." },
   fis1: { pag: "materias/fis1/oficina-de-fisica.html", simbolo: "F", lista: "problemas", lab: "lab", quiz: "quiz", cola: "cola",
     modulos: { 1: [], 2: [
@@ -33,6 +35,8 @@ window.FDB_AULAS = {
       ["curva", "Curva de energia potencial", "Retorno, equilíbrio e F = −dU/dx"],
       ["termica", "Energia térmica e potência", "Atrito, ΔEt e P = ΔE/Δt"]
     ], 3: [] },
+    temas: { 2: "Força, movimento e energia" },
+    sobre: "Física I estuda o movimento e as suas causas: forças, as leis de Newton e a energia. É a base de toda a mecânica da engenharia, de estruturas e pontes rolantes a molas, polias, freios e máquinas.",
     lab_nome: "Laboratório de forças", lab_desc: "Plano inclinado ao vivo: mude massa, ângulo e atrito e veja as forças." },
   gaal: { pag: "materias/gaal/oficina-de-gaal.html", simbolo: "⊥", lista: "lista", lab: "lab", quiz: "quiz", cola: "cola",
     modulos: { 1: [], 2: [
@@ -43,14 +47,18 @@ window.FDB_AULAS = {
       ["angulos", "Ângulos", "Entre retas, planos e reta–plano"],
       ["distancias", "Distâncias", "Ponto, reta e plano"]
     ], 3: [] },
+    temas: { 2: "Vetores, retas e planos no espaço" },
+    sobre: "Geometria Analítica e Álgebra Linear descreve pontos, vetores, retas e planos no espaço com equações. É a linguagem do CAD 3D, da robótica, da topografia e de qualquer conta que envolva direção e posição.",
     lab_nome: "Laboratório 3D de retas e planos", lab_desc: "Monte retas e planos no espaço e veja interseções, ângulos e distâncias." },
   qg: { pag: "materias/qg/oficina-de-quimica.html", simbolo: "⚗", lista: null, lab: "lab", quiz: "quiz", cola: "cola",
-    modulos: { 1: [], 2: [
+    modulos: { 1: [], 2: [], 3: [
       ["reacoes", "Reações e equações", "Equação química, conservação da massa e balanceamento"],
       ["massa", "Medidas de massa", "u, g/mol e massa molecular"],
       ["mol", "O mol", "Avogadro e 1 mol de qualquer espécie"],
       ["conv", "Transformações", "gramas ↔ mol ↔ partículas"]
-    ], 3: [] },
+    ] },
+    temas: { 3: "Reações químicas e estequiometria" },
+    sobre: "Química Geral estuda a matéria e as suas transformações: do que as coisas são feitas, como os átomos se combinam e quanto de cada substância reage. Na engenharia ela aparece na corrosão, na soldagem, na combustão, no tratamento de água e na escolha de materiais.",
     lab_nome: "Laboratório de descobertas", lab_desc: "Junte átomos da tabela periódica e descubra 325 substâncias reais.", lab_estrela: true },
   usin: { pag: "materias/usinagem/oficina-de-usinagem.html", simbolo: "⚙", continua: true,
     lab_nome: "Simulador CNC e máquinas 3D", lab_desc: "Furadeira, torno, mandrilhadora e centro de usinagem em 3D, com calculadoras." },

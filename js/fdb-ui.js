@@ -32,8 +32,8 @@ function tocs(){ $$('section.view').forEach(sec=>{ if(sec.id==='v-inicio'||$('.f
     const n=s=>$$(s,sec).length; const f=n('.fx'), d3=n('.cv'), sim=n('.calc')+n('.cv.sim')+n('[type=range]')/2|0, ex=n('.ex'), q=n('.qitem');
     const tt=[f&&'📐 '+f+' fórmula'+(f>1?'s':''), d3&&'🧊 '+d3+' modelo'+(d3>1?'s':'')+' 3D/2D', sim&&'🎛️ interativo', ex&&'🧪 '+ex+' exemplo'+(ex>1?'s':''), q&&'✍️ '+q+' exercício'+(q>1?'s':'')].filter(Boolean);
     hs.forEach(h=>{ if(!h.id) h.id=sec.id.replace('v-','')+'-'+slug(h.textContent) });
-    const box=document.createElement('div'); box.className='fdb-toc'; box.setAttribute('role','navigation'); box.setAttribute('aria-label','Neste módulo');
-    box.innerHTML='<div class="fdb-tt"><b>Neste módulo</b>'+tt.map(t=>'<span>'+t+'</span>').join('')+'</div><div class="fdb-ch">'+hs.map(h=>'<a href="#'+h.id+'" data-toc>'+h.textContent.replace(/^\s*\d+\s*·\s*/,'')+'</a>').join('')+'</div>';
+    const box=document.createElement('div'); box.className='fdb-toc'; box.setAttribute('role','navigation'); box.setAttribute('aria-label','Nesta aula');
+    box.innerHTML='<div class="fdb-tt"><b>Nesta aula</b>'+tt.map(t=>'<span>'+t+'</span>').join('')+'</div><div class="fdb-ch">'+hs.map(h=>'<a href="#'+h.id+'" data-toc>'+h.textContent.replace(/^\s*\d+\s*·\s*/,'')+'</a>').join('')+'</div>';
     const after=$(':scope > .lede',sec)||$(':scope > h2',sec); if(after) after.after(box); else sec.prepend(box);
     box.addEventListener('click',e=>{ const a=e.target.closest('[data-toc]'); if(!a) return; e.preventDefault(); const t=document.getElementById(a.getAttribute('href').slice(1)); t&&t.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'}) }) }) }
 
@@ -58,7 +58,7 @@ function home(){ const ini=$('#v-inicio'), hero=$('#v-inicio > .hero'), M=G('MOD
     '<div class="fdb-feat"><span><i>📘</i>Conteúdo completo</span><span><i>🧊</i>Visualização 3D</span><span><i>✓</i>Exercícios resolvidos</span></div></div>'+
     '<div class="fdb-card"><h3>Como estudar?</h3><ol class="fdb-steps"><li>Leia o módulo na ordem: explicação, fórmula com cada letra explicada e exemplos práticos.</li><li>Mexa nos modelos 3D e nos simuladores até ver o que cada variável faz.</li><li>Resolva os exercícios antes de abrir o gabarito; tire as dúvidas com a professora.</li><li>Marque o módulo como estudado e acompanhe seu progresso aqui no início.</li></ol>'+
     '<svg class="deco" viewBox="0 0 100 140" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><circle cx="50" cy="16" r="9"/><path d="M45 24 18 132M55 24l27 108M30 82h40"/></svg></div>';
-  ini.appendChild(duo) }
+  if(!document.body.classList.contains('fdb-mat')) ini.appendChild(duo) }
 
 /* ---------- rodapé fixo ---------- */
 function foot(){ const f=$('body > footer')||$('main > footer'); if(!f||f.classList.contains('ffix')) return;
@@ -194,6 +194,65 @@ function wallHub(){ if(!$('.fdb-hh')) return; const go=()=>{ const ab=document.b
     wall('hubinicio',['malha','mola','atomo','benzeno','engrenagem','eixos','livro'],['∇f = (∂f/∂x, ∂f/∂y)','F = m · a','2 H₂ + O₂ → 2 H₂O','u × v','Vc = π·D·n / 1000','Hello!']) };
   addEventListener('fdb:aba',go); go() }
 
+
+/* ---------- dentro da matéria: barra lateral, navegação de aulas e início com os 3 módulos ---------- */
+const TOOLIC={lab:'🧪',lista:'📋',problemas:'📋',quiz:'❓',cola:'📄',tabela:'⚛️'};
+function materia(){ const id=matDaPagina(), A=(window.FDB_AULAS||{})[id]; const h=$$('header').find(x=>!x.classList.contains('phead')); const nav=$('header nav#nav');
+  if(!A||!A.modulos||!h||!nav) return false;
+  document.body.classList.add('fdb-mat');
+  const nm=NOMEM[id]||['',''], NOME=nm[0]+(nm[1]?' '+nm[1]:'');
+  const aulas=[]; [1,2,3].forEach(n=>(A.modulos[n]||[]).forEach(([v,t,d],i)=>aulas.push({v,t,d,n,i:i+1})));
+  const links=$$('a[href^="#"]',nav).map(a=>({h:a.getAttribute('href').slice(1),t:a.textContent.replace(/\s+/g,' ').trim()}));
+  const tools=links.filter(l=>l.h&&l.h!=='inicio'&&!aulas.some(a=>a.v===l.h));
+  const done=()=>G('done')||{};
+  /* barra lateral */
+  const side=document.createElement('aside'); side.className='fdb-side'; side.id='fdbSide'; side.setAttribute('aria-label','Menu da matéria'); side.hidden=false;
+  const sc=document.createElement('div'); sc.className='fdb-scrim'; document.body.append(side,sc);
+  const drawSide=()=>{ const d=done(), cur=location.hash.slice(1)||'inicio';
+    side.innerHTML='<div class="sh"><span class="fdb-logo">'+(A.simbolo||'◆')+'</span><div><small>Oficina de</small><b>'+NOME+'</b></div><button type="button" class="sx" aria-label="Fechar menu">×</button></div>'+
+      '<a class="sl hub" href="../../index.html">← Faculdade de Bolso</a>'+
+      '<a class="sl'+(cur==='inicio'?' on':'')+'" href="#inicio">🏠 Início da matéria</a>'+
+      [1,2,3].map(n=>{ const L=A.modulos[n]||[]; const tema=(A.temas||{})[n];
+        return '<div class="sm"><div class="smh">Módulo '+n+' · '+n+'ª prova</div>'+(tema?'<div class="smt">'+tema+'</div>':'')+
+          (L.length?L.map(([v,t],i)=>'<a class="sl au'+(cur===v?' on':'')+'" href="#'+v+'"><span class="sn">'+(d[v]?'✓':i+1)+'</span>'+t+'</a>').join(''):'<div class="sv">em breve</div>')+'</div>' }).join('')+
+      (tools.length?'<div class="sm"><div class="smh">Ferramentas</div>'+tools.map(l=>'<a class="sl'+(cur===l.h?' on':'')+'" href="#'+l.h+'">'+(TOOLIC[l.h]||'🔧')+' '+l.t.replace(/^[^\wÀ-ú]+/,'')+'</a>').join('')+'<div class="scart"></div></div>':'');
+    const ak=$('.ak-navbtn'); if(ak) $('.scart',side).appendChild(ak);
+    $('.sx',side).onclick=()=>abrir(false) };
+  const abrir=v=>{ document.body.classList.toggle('fdb-side-on',v); store.set('fdb-side',v?'1':'0') };
+  sc.onclick=()=>abrir(false); document.addEventListener('keydown',e=>{ if(e.key==='Escape') abrir(false) });
+  side.addEventListener('click',e=>{ if(e.target.closest('a.sl')&&innerWidth<900) abrir(false) });
+  /* topo: ☰ + logo + navegação das aulas */
+  const brand=$('.brand',h); const tg=document.createElement('button'); tg.type='button'; tg.className='fdb-burger'; tg.setAttribute('aria-label','Abrir o menu da matéria'); tg.innerHTML='<span></span><span></span><span></span>';
+  tg.onclick=()=>abrir(!document.body.classList.contains('fdb-side-on')); brand.prepend(tg);
+  const ln=document.createElement('div'); ln.className='fdb-lnav'; brand.insertBefore(ln,$('.prog',brand)||null);
+  const drawTop=()=>{ const cur=location.hash.slice(1)||'inicio', d=done(); const k=aulas.findIndex(a=>a.v===cur);
+    if(k<0){ const t=cur==='inicio'?'Início da matéria':((tools.find(l=>l.h===cur)||{}).t||''); const first=aulas.find(a=>!d[a.v])||aulas[0];
+      ln.innerHTML='<span class="lt">'+t+'</span>'+(cur==='inicio'&&first?'<a class="lgo" href="#'+first.v+'">Estudar: Módulo '+first.n+' · Aula '+first.i+' →</a>':cur!=='inicio'?'<a class="lgo" href="#inicio">← Início da matéria</a>':''); return }
+    const a=aulas[k], mod=aulas.filter(x=>x.n===a.n), pv=aulas[k-1], nx=aulas[k+1];
+    ln.innerHTML='<a class="lp'+(pv?'':' off')+'" href="#'+(pv?pv.v:'inicio')+'" aria-label="Aula anterior">←<span> '+(pv?'Anterior':'Início')+'</span></a>'+
+      '<div class="lc"><span class="lm">Módulo '+a.n+'</span>'+mod.map(x=>'<a class="la'+(x.v===cur?' on':'')+(d[x.v]?' ok':'')+'" href="#'+x.v+'" title="'+x.t+'">Aula '+x.i+'</a>').join('')+'</div>'+
+      '<a class="lp" href="#'+(nx?nx.v:'inicio')+'" aria-label="Próxima aula"><span>'+(nx?'Próxima ':'Concluir ')+'</span>→</a>';
+    const on=$('.la.on',ln); if(on) on.scrollIntoView({block:'nearest',inline:'center'}) };
+  /* início da matéria: o que é, módulos, ferramentas */
+  const ini=$('#v-inicio');
+  if(ini){ const trail=$('#trail'); if(trail){ trail.hidden=true; let p=trail.previousElementSibling; while(p&&(p.tagName==='P'||p.tagName==='H3')){ p.hidden=true; if(p.tagName==='H3') break; p=p.previousElementSibling } }
+    const box=document.createElement('div'); box.className='fdb-matini';
+    const anchor=$('.fdb-top',ini)||$('.hero',ini); (anchor||ini.firstChild).after(box);
+    const drawIni=()=>{ const d=done();
+      box.innerHTML='<div class="fdb-duo" style="margin-top:6px"><div class="fdb-card"><h3>O que é '+NOME+'?</h3><p>'+(A.sobre||'')+'</p></div>'+
+        '<div class="fdb-card"><h3>Como estudar?</h3><ol class="fdb-steps"><li>Escolha o módulo da prova que está chegando.</li><li>Siga as aulas na ordem: explicação, fórmula com cada letra explicada e exemplos práticos.</li><li>Mexa nos modelos 3D e simuladores até ver o que cada variável faz.</li><li>Resolva os exercícios antes de abrir o gabarito e marque a aula como estudada.</li></ol></div></div>'+
+        '<div class="sech"><h3>Módulos</h3><span class="mono" style="font-size:.78rem;color:var(--ink2)">um por prova</span></div><div class="fdb-mods">'+
+        [1,2,3].map(n=>{ const L=A.modulos[n]||[]; const tema=(A.temas||{})[n]; const ok=L.filter(([v])=>d[v]).length;
+          if(!L.length) return '<div class="fdb-mod vazio"><div class="mh"><span class="mn">Módulo '+n+'</span><span class="mp">'+n+'ª prova</span></div><b class="mt">Em breve</b><p>O conteúdo da '+n+'ª prova entra aqui assim que as aulas acontecerem.</p></div>';
+          return '<div class="fdb-mod"><div class="mh"><span class="mn">Módulo '+n+'</span><span class="mp">'+n+'ª prova</span></div><b class="mt">'+(tema||'Conteúdo da '+n+'ª prova')+'</b>'+
+            '<div class="mbar"><i style="width:'+(ok/L.length*100)+'%"></i></div><small class="mc">'+ok+' de '+L.length+' aulas estudadas</small>'+
+            '<ol class="mau">'+L.map(([v,t],i)=>'<li><a href="#'+v+'"><span class="sn'+(d[v]?' ok':'')+'">'+(d[v]?'✓':i+1)+'</span>'+t+'</a></li>').join('')+'</ol>'+
+            '<a class="btnh mgo" href="#'+((L.find(([v])=>!d[v])||L[0])[0])+'">'+(ok?'▶ Continuar o módulo':'▶ Começar o módulo')+'</a></div>' }).join('')+'</div>'+
+        (tools.length?'<div class="sech"><h3>Ferramentas da oficina</h3></div><div class="qgrid">'+tools.map(l=>'<a class="qcard" href="#'+l.h+'"><span class="qi">'+(TOOLIC[l.h]||'🔧')+'</span><span class="qt"><b>'+l.t.replace(/^[^\wÀ-ú]+/,'')+'</b></span><span class="qa" aria-hidden="true">→</span></a>').join('')+'</div>':'') };
+    drawIni(); const pt=$('#progtxt'); if(pt) new MutationObserver(()=>{ drawIni(); drawSide(); drawTop() }).observe(pt,{childList:true,characterData:true,subtree:true}) }
+  drawSide(); drawTop(); addEventListener('hashchange',()=>{ drawSide(); drawTop() });
+  return true }
+
 /* ---------- menu "Aulas": junta os módulos num botão ---------- */
 function aulas(){ const nav=$('header nav#nav'); if(!nav) return; const ms=$$(':scope > a[data-m]',nav); if(ms.length<4) return;
   const wrap=document.createElement('div'); wrap.className='fdb-aulas';
@@ -206,6 +265,6 @@ function aulas(){ const nav=$('header nav#nav'); if(!nav) return; const ms=$$(':
   const sync=()=>{ open(false); const on=ms.some(a=>a.getAttribute('href')===location.hash); bt.classList.toggle('on',on); if(on) setTimeout(()=>{ const sx=scrollX,sy=scrollY; bt.scrollIntoView({block:'nearest',inline:'center'}); scrollTo(sx,sy) },30) };
   addEventListener('hashchange',sync); sync() }
 
-function boot(){ brandOficina(); eyebrows(); aulas(); aulasPorModulo(); header(); tocs(); home(); foot(); hub(); wallOficina(); wallHub(); irPara(); lembrar() }
+function boot(){ brandOficina(); eyebrows(); const mt=materia(); if(!mt){ aulas(); aulasPorModulo() } header(); tocs(); home(); foot(); hub(); wallOficina(); wallHub(); irPara(); lembrar() }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();
