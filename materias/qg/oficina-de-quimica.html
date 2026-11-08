@@ -422,6 +422,93 @@ body{font-size:1rem}
 .alb .sw{position:absolute;right:8px;top:8px;width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 30% 30%,#fff,var(--k) 60%);border:1px solid var(--line)}.alb .sw.q{background:none;display:grid;place-items:center;font-weight:700}
 .alb b{font-family:var(--f-disp);padding-right:24px;line-height:1.2}.alb .f{font-family:var(--f-math)}.alb i{font-style:normal;font-size:.72rem;color:var(--c2);margin-top:auto}
 .conq{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.conq span{font-size:.78rem;border:1px solid var(--line);border-radius:99px;padding:3px 10px;color:var(--ink2)}.conq span.on{border-color:var(--c1);color:var(--ink);background:var(--hl)}
+
+/* ===== Módulo 1 (estrutura atômica) ===== */
+.m1cv{width:100%;display:block;border-radius:14px;background:var(--paper)}
+#m1BoI button.sel,#m1BoF button.sel,#m1RuM button.sel,#m1OrbP button.sel,#m1PrP button.sel,#m1IsoP button.sel,#m1TrT button.sel{background:var(--c1)!important;color:#fff!important;border-color:var(--c1)!important}
+#m1Ru,#m1Orb{max-height:440px}#m1Sp{max-height:230px}#m1Fe{max-height:300px}#m1Iso{max-height:240px}#m1Ie{max-height:260px}#m1At{max-height:340px}#m1Bo{max-height:380px}#m1BoE{max-height:380px}
+.m1-def{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:14px 0}
+.m1-def>div{background:var(--sheet,#fff);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
+.m1-def .em{font-size:1.5rem}.m1-def b{font-family:var(--f-disp)}.m1-def span:last-child{color:var(--ink2);font-size:.92rem;line-height:1.45}
+.m1-pool{display:flex;flex-wrap:wrap;gap:8px;min-height:44px;margin-bottom:12px}
+.m1-it{font:600 .9rem var(--f-body);border:1.5px solid var(--line);border-bottom-width:3px;background:var(--sheet,#fff);color:var(--ink);border-radius:10px;padding:7px 11px;cursor:pointer}
+.m1-it.sel{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 12%,var(--sheet,#fff))}
+.m1-fim{font-weight:700;color:var(--ok,#22884A)}
+.m1-bins{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px}
+.m1-bin{text-align:left;border:2px dashed var(--line);background:var(--paper);border-radius:14px;padding:10px;min-height:90px;cursor:pointer;color:var(--ink);font:inherit;transition:transform .15s,border-color .15s}
+.m1-bin b{font-size:.88rem}.m1-bin ul{margin:6px 0 0;padding-left:18px;font-size:.82rem;color:var(--ink2)}
+.m1-bin.ok{border-color:var(--ok,#22884A);transform:scale(1.03)}.m1-bin.no{border-color:var(--bad,#C73A2C);animation:m1sh .35s}
+@keyframes m1sh{25%,75%{transform:translateX(-5px)}50%{transform:translateX(5px)}}
+.m1-flip{display:grid;grid-template-columns:repeat(auto-fill,minmax(100px,1fr));gap:8px;margin:12px 0}
+.m1-fc{position:relative;height:74px;border:1px solid var(--line);border-radius:12px;background:var(--sheet,#fff);cursor:pointer;color:var(--ink);font:inherit;perspective:400px}
+.m1-fc span{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;backface-visibility:hidden;transition:transform .4s;border-radius:12px}
+.m1-fc .a{font-weight:700}.m1-fc .b{transform:rotateY(180deg);background:var(--navy,#0E1F38);color:#fff}.m1-fc .b b{font:800 1.6rem var(--f-disp)}.m1-fc .b i{font-size:.75rem;opacity:.8}
+.m1-fc.on .a{transform:rotateY(180deg)}.m1-fc.on .b{transform:rotateY(360deg)}
+.m1-tl{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;margin:14px 0 8px;position:relative}
+.m1-tl::before{content:'';position:absolute;left:4%;right:4%;top:36px;height:3px;background:linear-gradient(90deg,var(--c2),var(--c1));border-radius:2px;z-index:0}
+.m1-tl button{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:2px;border:0;background:none;cursor:pointer;color:var(--ink);font:inherit;padding:0}
+.m1-tl svg{width:64px;height:64px;max-width:100%;background:var(--sheet,#fff);border:2px solid var(--line);border-radius:50%;transition:transform .2s}
+.m1-tl button.sel svg{border-color:var(--c1);transform:scale(1.12);box-shadow:0 4px 14px rgba(242,107,29,.3)}
+.m1-tl b{font-size:.8rem}.m1-tl small{font-size:.7rem;color:var(--ink2)}
+@media (max-width:560px){.m1-tl svg{width:46px;height:46px}.m1-tl::before{top:26px}.m1-tl b{font-size:.68rem}}
+.m1-tlo{min-height:96px}
+.m1-build{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
+@media (max-width:640px){.m1-build{grid-template-columns:1fr}}
+.m1-step{display:grid;gap:6px}.m1-step>div{display:flex;align-items:center;gap:8px;font-weight:600}
+.m1-step button,.m1-qn button[data-k]{width:34px;height:34px;border-radius:10px;border:1.5px solid var(--line);background:var(--sheet,#fff);color:var(--ink);font:800 1.1rem var(--f-body);cursor:pointer}
+.m1-step b{min-width:34px;text-align:center;font:800 1.1rem var(--f-disp)}.m1-step>div>span{width:14px}
+.m1-step>div>button:first-of-type{margin-left:auto}
+.m1-nuc{margin:10px 0;text-align:center}
+.m1-nucl{display:inline-flex;align-items:center;font:800 2.4rem var(--f-disp);position:relative;line-height:1}
+.m1-nucl sup,.m1-nucl sub{font-size:.42em;display:inline-block}
+.m1-nucl sup:first-child{position:relative;top:-.7em;margin-right:-1.1em;min-width:1.4em;text-align:right}.m1-nucl sub{position:relative;top:.55em;min-width:1.4em;text-align:right;margin-right:.08em}
+.m1-nucl .q{position:relative;top:-.7em;color:var(--c1)}
+.m1-trq .m1-nucl{font-size:1.4rem}
+.m1lab{display:block;margin:10px 0 2px;font-weight:600;font-size:.92rem}.m1lab input{width:100%}.m1lab b{color:var(--c1)}
+.m1-lines{margin:14px 0;display:grid;gap:8px}
+.m1-sp1,.m1-sp2{position:relative;height:44px;border-radius:10px;overflow:hidden}
+.m1-sp1{background:linear-gradient(90deg,#7F00FF,#2B4DFF 18%,#00C0FF 32%,#00E070 44%,#E8F000 58%,#FF9A00 70%,#FF2A00 85%,#B00000)}
+.m1-sp2{background:#0B0F18}
+.m1-sp1 span,.m1-sp2>span{position:absolute;left:10px;top:6px;font:700 .72rem var(--f-body);color:#fff;text-shadow:0 1px 2px #000}
+.m1-sp2 i{position:absolute;top:0;bottom:0;width:4px;margin-left:-2px;box-shadow:0 0 10px currentColor}
+.m1-sp2 em{position:absolute;bottom:2px;font:600 .62rem var(--f-body);color:#ccc;transform:translateX(-50%);font-style:normal}
+.m1-bohrw{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr) minmax(0,1fr);gap:12px;align-items:start}
+@media (max-width:760px){.m1-bohrw{grid-template-columns:1fr 1fr}.m1-bctl{grid-column:1/-1}}
+.m1-bctl{display:grid;gap:8px}.m1-bctl small{font-weight:700;color:var(--ink2)}.m1-bctl .dinch{margin:4px 0 0}
+.m1-qn{display:flex;flex-wrap:wrap;gap:14px;align-items:flex-end}
+.m1-qn>div{display:flex;align-items:center;gap:6px}.m1-qn small{font-weight:800;margin-right:2px}.m1-qn b{min-width:30px;text-align:center;font:800 1.2rem var(--f-disp)}
+.m1-spin{border:1.5px solid var(--line);background:var(--sheet,#fff);color:var(--ink);border-radius:10px;padding:7px 12px;font:800 1rem var(--f-body);cursor:pointer}
+.m1-pau{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:14px;align-items:center}
+@media (max-width:640px){.m1-pau{grid-template-columns:1fr}}
+#m1Pau{width:100%;max-width:360px}
+.m1-ps rect{fill:var(--sheet,#fff);stroke:var(--line);stroke-width:1.5;transition:fill .2s}.m1-ps text{font:700 13px Inter,sans-serif;fill:var(--ink)}
+.m1-ps.on rect{fill:#F26B1D;stroke:#F26B1D}.m1-ps.on text{fill:#fff}
+.m1-pl{stroke:#F26B1D;stroke-width:1.6;opacity:.55}
+.m1-ord{display:flex;flex-wrap:wrap;gap:5px}.m1-ord span{border:1px solid var(--line);border-radius:8px;padding:4px 7px;font:700 .85rem var(--f-body);transition:background .2s}
+.m1-ord small{font-size:.65rem;color:var(--ink2);margin-left:2px;vertical-align:super}.m1-ord span.on{background:var(--c1);color:#fff;border-color:var(--c1)}.m1-ord span.on small{color:#fff}
+.m1-cfgtop{display:grid;grid-template-columns:minmax(0,2fr) auto;gap:14px;align-items:end}
+@media (max-width:560px){.m1-cfgtop{grid-template-columns:1fr}}
+.m1-boxes{display:flex;flex-wrap:wrap;gap:10px 12px;margin:12px 0;min-height:52px}
+.m1-sub{display:flex;flex-direction:column;align-items:center;gap:3px}.m1-sub small{font:700 .8rem var(--f-body)}
+.m1-bx{display:flex}.m1-bx span{width:26px;height:30px;border:1.5px solid var(--ink2);margin-left:-1.5px;display:flex;align-items:center;justify-content:center;background:var(--sheet,#fff);font-weight:800}
+.m1-bx span:first-child{margin-left:0}.m1-bx i{font-style:normal;animation:m1in .25s}.m1-bx .u{color:#1E62C9}.m1-bx .d{color:#F26B1D}
+@keyframes m1in{from{transform:translateY(-8px);opacity:0}}
+.m1-pt{display:grid;grid-template-columns:repeat(18,minmax(0,1fr));gap:2px;margin:10px 0;overflow-x:auto}
+.m1-pt button{aspect-ratio:1;min-width:0;border:0;border-radius:5px;padding:1px;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#13233A;font:inherit}
+.m1-pt b{font:800 clamp(.5rem,1.6vw,.85rem) var(--f-body)}.m1-pt small{font-size:clamp(.38rem,1.05vw,.6rem);opacity:.8}
+.m1-pt button.sel{outline:3px solid var(--navy,#0E1F38);outline-offset:1px;z-index:1}
+.m1-leg{font-size:.8rem;color:var(--ink2)}
+.m1-trend{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;margin:14px 0}
+.m1-trend>div{background:var(--sheet,#fff);border:1px solid var(--line);border-left:4px solid var(--c1);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:4px}
+.m1-trend span{font-size:.88rem;color:var(--ink2)}.m1-trend i{font-size:.8rem;color:var(--c1)}
+.m1-edi{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:6px;margin:14px 0}
+.m1-edi a{display:flex;gap:10px;align-items:center;text-decoration:none;color:var(--ink);background:var(--sheet,#fff);border:1px solid var(--line);border-radius:12px;padding:8px 10px;font-size:.9rem}
+.m1-edi a:hover{border-color:var(--c1)}.m1-edi span{flex:none;width:28px;height:28px;border-radius:8px;background:var(--navy,#0E1F38);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.m1-pisca{animation:m1pi 1.8s}@keyframes m1pi{0%,60%{box-shadow:0 0 0 4px var(--c1)}}
+.m1-trq{font-size:1.02rem;margin:12px 0;min-height:48px}
+.m1-tri{display:flex;gap:8px}.m1-tri input{flex:1;min-width:0;font:600 1rem var(--f-body);padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--sheet,#fff);color:var(--ink)}
+.m1-trc{display:flex;gap:8px;flex-wrap:wrap}
+.m1-trs{margin-top:10px;font-size:.82rem;color:var(--ink2)}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
 <script src="../../dados/aulas.js"></script>
@@ -437,6 +524,14 @@ body{font-size:1rem}
     </div>
     <nav id="nav">
       <a href="#inicio">Início</a>
+      <a href="#materia" data-m="materia">Matéria</a>
+      <a href="#modelos" data-m="modelos">Modelos atômicos</a>
+      <a href="#luz" data-m="luz">Luz e fótons</a>
+      <a href="#bohr" data-m="bohr">Átomo de Bohr</a>
+      <a href="#quanticos" data-m="quanticos">Números quânticos</a>
+      <a href="#config" data-m="config">Configuração</a>
+      <a href="#periodicas" data-m="periodicas">Propriedades periódicas</a>
+      <a href="#ed1" data-m="ed1">Estudo dirigido 1</a>
       <a href="#reacoes" data-m="reacoes">1 · Reações</a>
       <a href="#massa" data-m="massa">2 · Massa</a>
       <a href="#mol" data-m="mol">3 · Mol</a>
@@ -455,10 +550,10 @@ body{font-size:1rem}
 <section class="view" id="v-inicio">
   <div class="hero">
     <div>
-      <div class="eyebrow">Química Geral · Reações químicas e estequiometria</div>
+      <div class="eyebrow">Química Geral · do átomo à estequiometria</div>
       <h1>Nada se perde, <em>tudo se conta</em>.</h1>
-      <p class="lede">Seu ambiente de estudo de Química: a aula de reações e estequiometria explicada do zero, a tabela periódica interativa, um laboratório onde você junta átomos e descobre centenas de substâncias reais, conversões de massa ↔ mol ↔ partículas e os exercícios da professora resolvidos passo a passo.</p>
-      <div class="btns"><a class="btn" href="#reacoes" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lab'">⚗️ Abrir o laboratório</button><button class="ghost" onclick="location.hash='tabela'">Tabela periódica</button></div>
+      <p class="lede">Seu ambiente de estudo de Química: do átomo (modelos, luz, Bohr, orbitais, configuração e tabela periódica) às reações e à estequiometria, tudo explicado do zero, a tabela periódica interativa, um laboratório onde você junta átomos e descobre centenas de substâncias reais, conversões de massa ↔ mol ↔ partículas e os exercícios da professora resolvidos passo a passo.</p>
+      <div class="btns"><a class="btn" href="#materia" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lab'">⚗️ Abrir o laboratório</button><button class="ghost" onclick="location.hash='tabela'">Tabela periódica</button></div>
     </div>
     <div class="cv heroq" id="heroCv"><canvas></canvas><div class="lbl">H₂O · 18 u · 18 g/mol</div></div>
   </div>
@@ -471,6 +566,405 @@ body{font-size:1rem}
   <h3>A trilha</h3>
   <p class="read">Cada módulo usa o anterior. Marque cada um como estudado no fim da página; a barra lá em cima acompanha.</p>
   <div class="trail" id="trail"></div>
+</section>
+
+
+<!-- ================= MÓDULO 1 · 1ª prova ================= -->
+<!-- ============ M1 · MATÉRIA ============ -->
+<section class="view read" id="v-materia" hidden>
+  <div class="eyebrow">Módulo 1 · 1ª prova (14/09)</div>
+  <h2>Matéria, elementos e substâncias</h2>
+  <p class="lede">Antes de olhar dentro do átomo, as palavras do jogo: o que é matéria, o que é elemento e como separar substância de mistura. São as perguntas 1 e 2 do Estudo Dirigido.</p>
+  <h3>Por que um açúcar e um sal são tão diferentes?</h3>
+  <p>Os dois são pozinhos brancos, mas o açúcar derrete e carameliza a ~186 °C e o sal só funde a 801 °C. Quem decide isso são os <b>átomos</b> e o jeito como os <b>elétrons</b> deles se arrumam. É isso que o Módulo 1 inteiro explica.</p>
+  <div class="m1-def">
+    <div><span class="em">🧱</span><b>Matéria</b><span>Tudo que tem massa e ocupa lugar no espaço: o ar, a água, uma chapa de aço.</span></div>
+    <div><span class="em">⚛️</span><b>Átomo</b><span>A menor partícula que ainda carrega a identidade de um elemento: núcleo (prótons + nêutrons) e eletrosfera (elétrons).</span></div>
+    <div><span class="em">🏷️</span><b>Elemento</b><span>O conjunto de todos os átomos com o mesmo número de prótons (Z). Z = 26 é sempre ferro.</span></div>
+    <div><span class="em">🔵</span><b>Substância simples</b><span>Formada por um só elemento: O₂, O₃, Fe, diamante (C).</span></div>
+    <div><span class="em">🟣</span><b>Substância composta</b><span>Dois ou mais elementos ligados numa proporção fixa: H₂O, NaCl, CO₂.</span></div>
+    <div><span class="em">🥤</span><b>Mistura homogênea</b><span>Duas ou mais substâncias, uma só fase (não dá para ver a separação): ar, água com sal, aço inox.</span></div>
+    <div><span class="em">🥗</span><b>Mistura heterogênea</b><span>Duas ou mais fases visíveis: água e óleo, granito, concreto.</span></div>
+  </div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 1: defina a) matéria; b) substância simples e composta; c) mistura homogênea e heterogênea; d) átomo; e) elemento.</div>
+    <ol><li>a) <b>Matéria</b>: tudo o que tem massa e ocupa espaço.</li><li>b) <b>Substância simples</b>: formada por átomos de um único elemento (O₂, Fe). <b>Composta</b>: dois ou mais elementos combinados em proporção fixa (H₂O, NaCl).</li><li>c) <b>Mistura homogênea</b>: duas ou mais substâncias numa única fase, aspecto uniforme (ar, aço inox). <b>Heterogênea</b>: duas ou mais fases distinguíveis (água e óleo, granito).</li><li>d) <b>Átomo</b>: a menor partícula de um elemento que mantém sua identidade; núcleo com prótons e nêutrons e eletrosfera com elétrons.</li><li>e) <b>Elemento</b>: conjunto de átomos com o mesmo número atômico Z.</li></ol>
+    <div class="ans">Escreva com suas palavras: o que importa é a ideia de cada termo.</div></div>
+  <h3>Jogo: separe nas caixas</h3>
+  <p>Toque num item e depois na caixa certa. Itens de fábrica e do dia a dia.</p>
+  <div class="wid" id="m1Sort">
+    <div class="m1-pool" id="m1Pool"></div>
+    <div class="m1-bins" id="m1Bins"></div>
+    <div class="wout" id="m1SortO"></div>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="ghost" id="m1SortR">↺ Embaralhar de novo</button></div>
+  </div>
+  <div class="ofi"><span class="k">Na fábrica</span>Aço carbono, inox, latão e bronze são <b>misturas homogêneas</b> (ligas): o Cr e o Ni ficam dissolvidos no ferro no nível atômico. Já o concreto e uma solda com escória presa são <b>heterogêneos</b>: dá para ver as fases.</div>
+  <h3>Símbolos químicos</h3>
+  <p>O símbolo vem do nome (às vezes em latim). A primeira letra é sempre maiúscula, a segunda minúscula: <b>Co</b> é cobalto, <b>CO</b> é monóxido de carbono. Toque para virar.</p>
+  <div class="m1-flip" id="m1Sym"></div>
+  <div class="cuid"><span class="k">Pegadinha</span>Os símbolos estranhos vêm do latim: K = <i>kalium</i> (potássio), Na = <i>natrium</i> (sódio), Fe = <i>ferrum</i>, Pb = <i>plumbum</i> (chumbo, daí "encanador" = <i>plumber</i>), Au = <i>aurum</i>, Ag = <i>argentum</i>, Cu = <i>cuprum</i>, Hg = <i>hydrargyrum</i>.</div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 2: símbolo de a) potássio; b) boro; c) cloro; d) neônio; e) magnésio.</div>
+    <ol><li>Potássio vem do latim <i>kalium</i> → <b>K</b>.</li><li>Boro → <b>B</b> (uma letra só).</li><li>Cloro → <b>Cl</b> (C sozinho é carbono).</li><li>Neônio → <b>Ne</b> (N sozinho é nitrogênio).</li><li>Magnésio → <b>Mg</b> (Mn é manganês, cuidado).</li></ol>
+    <div class="ans">K · B · Cl · Ne · Mg</div></div>
+  <div class="done-btn" data-done="materia"></div>
+</section>
+
+<!-- ============ M1 · MODELOS ATÔMICOS ============ -->
+<section class="view read" id="v-modelos" hidden>
+  <div class="eyebrow">Módulo 1 · 1ª prova (14/09)</div>
+  <h2>Os modelos atômicos: 2400 anos de investigação</h2>
+  <p class="lede">Ninguém viu um átomo a olho nu. Cada cientista propôs um modelo para explicar o que o experimento da época mostrava e, quando apareceu algo que o modelo não explicava, veio um novo.</p>
+  <div class="m1-tl" id="m1Tl"></div>
+  <div class="wout m1-tlo" id="m1TlO"></div>
+
+  <h3>Experimento de Rutherford: atire no ouro</h3>
+  <p>Partículas alfa (positivas, pesadas) contra uma folha finíssima de ouro. Troque o modelo e veja a diferença: com o "pudim" de Thomson nada voltaria; com o núcleo de Rutherford, umas poucas voltam.</p>
+  <div class="wid">
+    <div class="dinch" id="m1RuM"><button data-m="t">Átomo de Thomson</button><button data-m="r" class="sel">Átomo de Rutherford</button></div>
+    <canvas id="m1Ru" class="m1cv" style="aspect-ratio:16/9" aria-label="Simulação do experimento de Rutherford"></canvas>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="btn" id="m1RuGo">▶ Disparar 200 partículas</button><button class="ghost" id="m1RuZ">↺ Zerar</button></div>
+    <div class="wout" id="m1RuO"></div>
+  </div>
+  <div class="tbl"><table><tr><th>Observação</th><th>Conclusão</th></tr>
+    <tr><td>A maioria atravessou a folha sem desvio</td><td>O átomo é quase todo <b>espaço vazio</b></td></tr>
+    <tr><td>Algumas desviaram</td><td>Existe uma região <b>positiva</b> que repele a alfa</td></tr>
+    <tr><td>Pouquíssimas voltaram</td><td>A massa e a carga positiva estão num <b>núcleo minúsculo</b></td></tr></table></div>
+  <div class="curio">
+    <div><span class="em">🏟️</span><b>Escala do átomo</b><span>Se o núcleo fosse uma bolinha de gude no centro do Mineirão, os elétrons estariam passeando pelas arquibancadas. O resto é vazio.</span></div>
+    <div><span class="em">💣</span><b>“Bala de canhão no lenço”</b><span>Rutherford disse que ver a alfa voltar foi como disparar uma bala de canhão num lenço de papel e ela voltar e te acertar.</span></div>
+    <div><span class="em">🏅</span><b>Marie Curie</b><span>Primeira mulher a ganhar um Nobel e única pessoa premiada em duas ciências diferentes (Física 1903, Química 1911). Descobriu o rádio e o polônio.</span></div>
+  </div>
+
+  <h3>As partículas do átomo</h3>
+  <div class="tbl"><table><tr><th>Partícula</th><th>Onde</th><th>Carga</th><th>Massa (kg)</th><th>Quem achou</th></tr>
+    <tr><td><b>Elétron</b> e⁻</td><td>eletrosfera</td><td>−1</td><td>9,109 × 10⁻³¹</td><td>Thomson, 1897</td></tr>
+    <tr><td><b>Próton</b> p⁺</td><td>núcleo</td><td>+1</td><td>1,673 × 10⁻²⁷</td><td>Goldstein (raios canais), 1886</td></tr>
+    <tr><td><b>Nêutron</b> n</td><td>núcleo</td><td>0</td><td>1,675 × 10⁻²⁷</td><td>Chadwick, 1932</td></tr></table></div>
+  <p>A carga de 1 próton vale 1,602 × 10⁻¹⁹ C. O próton pesa <b>1836 elétrons</b>; o nêutron é um pouquinho mais pesado que o próton.</p>
+
+  <h3>Representação do átomo</h3>
+  <div class="fx"><span class="tag">Notação do nuclídeo</span><div class="eq"><sup>A</sup><sub>Z</sub>X &nbsp;&nbsp; A = Z + N</div>
+    <dl class="legend"><dt>X</dt><dd>símbolo do elemento</dd><dt>Z</dt><dd>número atômico = nº de prótons (é a "identidade" do elemento)</dd><dt>A</dt><dd>número de massa = prótons + nêutrons</dd><dt>N</dt><dd>número de nêutrons = A − Z</dd><dt>elétrons</dt><dd>átomo neutro: e⁻ = Z · cátion Xⁿ⁺: e⁻ = Z − n · ânion Xⁿ⁻: e⁻ = Z + n</dd></dl></div>
+  <h3>Monte um átomo</h3>
+  <p>Coloque prótons, nêutrons e elétrons. O nome do elemento muda com os <b>prótons</b>; os nêutrons mudam o isótopo; os elétrons decidem se é átomo neutro, cátion ou ânion.</p>
+  <div class="wid m1-build">
+    <canvas id="m1At" class="m1cv" style="aspect-ratio:1" aria-label="Átomo montado"></canvas>
+    <div>
+      <div class="m1-step" id="m1AtSt"></div>
+      <div class="m1-nuc" id="m1AtN"></div>
+      <div class="wout" id="m1AtO"></div>
+      <div class="dinch" id="m1AtEx"></div>
+    </div>
+  </div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 5: complete a tabela (cada coluna é um átomo neutro). Dados: ⁴⁰Ca · p 38, n 50 · n 32, e 27 · e 87, A 223 · p 82, A 207.</div>
+    <ol><li><b>⁴⁰Ca</b>: Z do cálcio = 20 → p = 20, e = 20 (neutro), n = A − Z = 40 − 20 = 20.</li>
+      <li><b>p 38, n 50</b>: Z = 38 é o estrôncio (Sr). A = 38 + 50 = 88, e = 38 → ⁸⁸Sr.</li>
+      <li><b>n 32, e 27</b>: neutro → p = e = 27 → cobalto (Co). A = 27 + 32 = 59 → ⁵⁹Co.</li>
+      <li><b>e 87, A 223</b>: p = 87 → frâncio (Fr). n = 223 − 87 = 136 → ²²³Fr.</li>
+      <li><b>p 82, A 207</b>: chumbo (Pb). n = 207 − 82 = 125, e = 82 → ²⁰⁷Pb.</li></ol>
+    <div class="ans">⁴⁰Ca (20/20/20) · ⁸⁸Sr (38/50/38) · ⁵⁹Co (27/32/27) · ²²³Fr (87/136/87) · ²⁰⁷Pb (82/125/82)</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 4: a) partículas principais; b) carga de cada uma; c) a mais pesada e a mais leve.</div>
+    <ol><li>Próton, nêutron (no núcleo) e elétron (na eletrosfera).</li><li>Em unidades de carga eletrônica: próton +1, nêutron 0, elétron −1.</li><li>Mais pesada: <b>nêutron</b> (1,675 × 10⁻²⁷ kg, um tiquinho acima do próton). Mais leve: <b>elétron</b> (≈ 1/1836 do próton).</li></ol>
+    <div class="ans">p⁺ +1 · n 0 · e⁻ −1 · mais pesada: nêutron · mais leve: elétron</div></div>
+  <div class="ofi"><span class="k">Isótopos na indústria</span>O <b>⁶⁰Co</b> (cobalto com 33 nêutrons) emite raios gama e é usado na <b>gamagrafia</b>: a "radiografia" de soldas em vasos de pressão e tubulações. O <b>¹⁹²Ir</b> faz o mesmo em chapas mais finas. Mesmo elemento, nêutrons diferentes, comportamento nuclear diferente.</div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 3: resuma as evidências de cada modelo.</div>
+    <ol><li><b>Dalton (1803)</b>: leis das reações (conservação da massa, proporções fixas) → átomo maciço, indivisível; átomos iguais do mesmo elemento.</li>
+      <li><b>Thomson (1897/1904)</b>: raios catódicos são desviados por campos elétricos e têm massa → existem partículas negativas (elétrons, q/m = 1,76 × 10⁸ C/g); "pudim de passas".</li>
+      <li><b>Rutherford (1911)</b>: folha de ouro → a maioria das alfas atravessa, poucas voltam → núcleo pequeno, denso e positivo; eletrosfera quase vazia.</li>
+      <li><b>Bohr (1913)</b>: espectro de linhas do hidrogênio → elétron em órbitas de energia quantizada; emite/absorve fótons ao trocar de órbita.</li>
+      <li><b>Schrödinger (1926)</b>: dualidade onda-partícula (de Broglie) e incerteza (Heisenberg) → o elétron vira uma função de onda ψ; ψ² dá a probabilidade de achá-lo (orbitais).</li></ol>
+    <div class="ans">Cada modelo nasceu de um experimento que o anterior não explicava.</div></div>
+  <div class="done-btn" data-done="modelos"></div>
+</section>
+
+<!-- ============ M1 · LUZ ============ -->
+<section class="view read" id="v-luz" hidden>
+  <div class="eyebrow">Módulo 1 · 1ª prova (14/09)</div>
+  <h2>A luz e a energia em pacotes</h2>
+  <p class="lede">Para enxergar dentro do átomo, a química usou a luz que ele emite. Aqui estão as três fórmulas que mais caem: c = λν, E = hν e E = hc/λ.</p>
+  <h3>Radiação eletromagnética</h3>
+  <p>Campos elétrico e magnético oscilando juntos e viajando a 3,00 × 10⁸ m/s. O que muda de uma onda para outra é o comprimento de onda λ (distância entre dois picos) e a frequência ν (picos por segundo).</p>
+  <div class="fx"><span class="tag">Fórmula 1 · Onda</span><div class="eq">c = λ · ν &nbsp;&nbsp;⇒&nbsp;&nbsp; ν = c / λ</div>
+    <dl class="legend"><dt>c</dt><dd>velocidade da luz: 3,00 × 10⁸ m·s⁻¹</dd><dt>λ</dt><dd>comprimento de onda (m) · 1 nm = 10⁻⁹ m</dd><dt>ν</dt><dd>frequência (Hz = s⁻¹)</dd><dt>leitura</dt><dd>λ grande ↔ ν pequena: são inversamente proporcionais</dd></dl></div>
+  <div class="fx"><span class="tag">Fórmula 2 · Planck</span><div class="eq">E = h · ν = h · c / λ</div>
+    <dl class="legend"><dt>E</dt><dd>energia de UM fóton (J)</dd><dt>h</dt><dd>constante de Planck: 6,626 × 10⁻³⁴ J·s</dd><dt>leitura</dt><dd>mais frequência (ou menos λ) = fóton mais energético. Azul tem mais energia que vermelho; UV queima a pele, rádio não.</dd></dl></div>
+  <h3>Passeie pelo espectro</h3>
+  <p>Arraste o comprimento de onda: a onda, a região, a cor e as contas mudam juntas.</p>
+  <div class="wid">
+    <canvas id="m1Sp" class="m1cv" style="aspect-ratio:3/1" aria-label="Onda e espectro eletromagnético"></canvas>
+    <input type="range" id="m1SpR" min="0" max="1000" value="383" aria-label="Comprimento de onda">
+    <div class="wout" id="m1SpO"></div>
+    <div class="dinch" id="m1SpEx"></div>
+  </div>
+  <div class="ex" data-ex><div class="q">Exercício do slide: qual tem maior λ, a luz vermelha (4,3 × 10¹⁴ Hz) ou a azul (6,4 × 10¹⁴ Hz)?</div>
+    <ol><li>λ = c / ν.</li><li>Vermelha: 3,0 × 10⁸ / 4,3 × 10¹⁴ = 7,0 × 10⁻⁷ m = <b>700 nm</b>.</li><li>Azul: 3,0 × 10⁸ / 6,4 × 10¹⁴ = 4,7 × 10⁻⁷ m = <b>470 nm</b>.</li></ol>
+    <div class="ans">A vermelha (700 nm): menor frequência, maior comprimento de onda.</div></div>
+  <h3>Três mistérios do século XX</h3>
+  <p>A física clássica não explicava a radiação do corpo negro, o efeito fotoelétrico nem as linhas do hidrogênio. Planck resolveu o primeiro dizendo que a energia vem em <b>quanta</b> (pacotes). Einstein resolveu o segundo dizendo que a própria luz é feita desses pacotes, os <b>fótons</b>.</p>
+  <h3>Efeito fotoelétrico: tente arrancar elétrons</h3>
+  <p>Luz numa placa de sódio. Aumente o brilho com luz vermelha: nada. Mude para a luz verde: sai elétron na hora, mesmo fraquinha. Quem manda é a <b>frequência</b> (energia de cada fóton), não a quantidade de luz.</p>
+  <div class="wid">
+    <canvas id="m1Fe" class="m1cv" style="aspect-ratio:2/1" aria-label="Simulação do efeito fotoelétrico"></canvas>
+    <label class="m1lab">Comprimento de onda <b id="m1FeLv"></b><input type="range" id="m1FeL" min="200" max="750" value="680"></label>
+    <label class="m1lab">Intensidade (fótons por segundo) <b id="m1FeIv"></b><input type="range" id="m1FeI" min="1" max="10" value="5"></label>
+    <div class="wout" id="m1FeO"></div>
+  </div>
+  <div class="tbl"><table><tr><th>O que o experimento mostra</th><th>O que significa</th></tr>
+    <tr><td>Abaixo de uma frequência mínima (limiar), nenhum elétron sai, por mais forte que seja a luz</td><td>Um fóton sozinho precisa ter energia suficiente: E = hν ≥ função trabalho φ</td></tr>
+    <tr><td>Acima do limiar, sai na hora, mesmo com luz fraca</td><td>É um choque fóton–elétron, não um "aquecimento" lento</td></tr>
+    <tr><td>A energia cinética do elétron cresce em linha reta com ν</td><td>E<sub>c</sub> = hν − φ</td></tr></table></div>
+  <div class="ofi"><span class="k">Onde você usa isso</span>Sensores fotoelétricos de esteira e de cortina de segurança de prensa, células solares, fotômetros. E a <b>dualidade onda-partícula</b>: a luz difrata (onda) e arranca elétrons (partícula).</div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 6: a) o que é energia quantizada? b) energia de um fóton de 526 nm.</div>
+    <ol><li>a) Quantizada = só pode existir em valores discretos (pacotes de tamanho hν), como degraus de uma escada e não uma rampa.</li><li>b) λ = 526 nm = 526 × 10⁻⁹ m = 5,26 × 10⁻⁷ m.</li><li>E = hc/λ = (6,626 × 10⁻³⁴ × 3,00 × 10⁸) / 5,26 × 10⁻⁷.</li><li>Numerador: 1,988 × 10⁻²⁵ J·m. Dividindo: 3,78 × 10⁻¹⁹ J.</li></ol>
+    <div class="ans">E ≈ 3,78 × 10⁻¹⁹ J (luz verde)</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 8: laser de 4,69 × 10¹⁴ s⁻¹. a) energia de um fóton; b) energia de um pulso com 5,0 × 10¹⁷ fótons; c) quantos fótons há num pulso de 1,3 × 10⁻² J?</div>
+    <ol><li>a) E = hν = 6,626 × 10⁻³⁴ × 4,69 × 10¹⁴ = <b>3,11 × 10⁻¹⁹ J</b> por fóton.</li><li>b) E<sub>total</sub> = nº de fótons × E = 5,0 × 10¹⁷ × 3,11 × 10⁻¹⁹ = <b>0,16 J</b>.</li><li>c) nº = E<sub>total</sub> / E = 1,3 × 10⁻² / 3,11 × 10⁻¹⁹ = <b>4,2 × 10¹⁶ fótons</b>.</li></ol>
+    <div class="ans">3,11 × 10⁻¹⁹ J · 0,16 J · 4,2 × 10¹⁶ fótons</div></div>
+  <div class="done-btn" data-done="luz"></div>
+</section>
+
+<!-- ============ M1 · BOHR ============ -->
+<section class="view read" id="v-bohr" hidden>
+  <div class="eyebrow">Módulo 1 · 1ª prova (14/09)</div>
+  <h2>O átomo de Bohr e as linhas do hidrogênio</h2>
+  <p class="lede">Luz branca num prisma dá um arco-íris contínuo. Mas o gás hidrogênio aquecido só emite <b>algumas cores</b>, umas linhas finas. Bohr explicou isso com órbitas de energia fixa.</p>
+  <div class="m1-lines" id="m1Lines" aria-hidden="true"></div>
+  <h3>Os postulados de Bohr</h3>
+  <ol class="recipe"><li><span>O elétron gira em <b>órbitas circulares</b> ao redor do núcleo.</span></li><li><span>Só são permitidas órbitas com <b>energias determinadas</b> (a energia é quantizada): n = 1, 2, 3…</span></li><li><span>Parado numa órbita, o elétron <b>não emite</b> energia. Ele só absorve ou emite um fóton quando <b>pula</b> de uma órbita para outra.</span></li></ol>
+  <div class="fx"><span class="tag">Fórmula 3 · Energia da órbita</span><div class="eq">E<sub>n</sub> = −R<sub>H</sub> · 1/n²</div>
+    <dl class="legend"><dt>R<sub>H</sub></dt><dd>2,18 × 10⁻¹⁸ J (constante de Rydberg em energia)</dd><dt>n</dt><dd>número quântico principal: 1, 2, 3…</dd><dt>sinal −</dt><dd>o elétron está preso: E = 0 é o elétron livre (n → ∞, átomo ionizado)</dd></dl></div>
+  <div class="fx"><span class="tag">Fórmula 4 · Fóton do salto</span><div class="eq">ΔE = E<sub>f</sub> − E<sub>i</sub> = R<sub>H</sub> (1/n<sub>i</sub>² − 1/n<sub>f</sub>²)</div>
+    <dl class="legend"><dt>ΔE &gt; 0</dt><dd>subiu (n<sub>f</sub> &gt; n<sub>i</sub>): <b>absorve</b> um fóton</dd><dt>ΔE &lt; 0</dt><dd>desceu: <b>emite</b> um fóton</dd><dt>λ</dt><dd>do fóton: λ = hc / |ΔE|</dd></dl></div>
+  <h3>Simulador de saltos</h3>
+  <p>Escolha a órbita de saída e a de chegada e aperte <b>Saltar</b>. As descidas para n = 2 (série de Balmer) caem na luz visível.</p>
+  <div class="wid m1-bohrw">
+    <canvas id="m1Bo" class="m1cv" style="aspect-ratio:1" aria-label="Órbitas de Bohr"></canvas>
+    <canvas id="m1BoE" class="m1cv" style="aspect-ratio:3/4" aria-label="Diagrama de níveis de energia"></canvas>
+    <div class="m1-bctl">
+      <div><small>Sai de n =</small><div class="dinch" id="m1BoI"></div></div>
+      <div><small>Vai para n =</small><div class="dinch" id="m1BoF"></div></div>
+      <button class="btn" id="m1BoGo">⚡ Saltar</button>
+      <div class="wout" id="m1BoO"></div>
+    </div>
+  </div>
+  <div class="ex" data-ex><div class="q">Slide: qual transição emite o fóton de MENOR energia? a) 1→6 b) 6→1 c) 6→3 d) 3→6 e) 1→4</div>
+    <ol><li>Emitir = descer. Só b) e c) descem; a), d) e e) absorvem.</li><li>b) 6→1: |ΔE| = R<sub>H</sub>(1 − 1/36) = 0,97 R<sub>H</sub>.</li><li>c) 6→3: |ΔE| = R<sub>H</sub>(1/9 − 1/36) = 0,083 R<sub>H</sub>. Bem menor: os níveis altos são próximos entre si.</li></ol>
+    <div class="ans">c) n = 6 → n = 3</div></div>
+  <div class="ex" data-ex><div class="q">Slide: energia do fóton nas transições 1→2, 1→3 e 3→1.</div>
+    <ol><li>1→2: ΔE = 2,18 × 10⁻¹⁸ (1/1 − 1/4) = 2,18 × 10⁻¹⁸ × 0,75 = <b>+1,64 × 10⁻¹⁸ J</b> (absorvido).</li><li>1→3: 2,18 × 10⁻¹⁸ (1 − 1/9) = 2,18 × 10⁻¹⁸ × 0,889 = <b>+1,94 × 10⁻¹⁸ J</b>.</li><li>3→1: mesmo tamanho, sinal trocado: <b>−1,94 × 10⁻¹⁸ J</b> (emitido).</li></ol>
+    <div class="ans">+1,64 × 10⁻¹⁸ J · +1,94 × 10⁻¹⁸ J · −1,94 × 10⁻¹⁸ J</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 7: a) diagramas 1→3, 2→6, 6→2; b) E para n = 2 e n = 6; c) λ de 6→2, absorvida ou emitida, visível? cor?</div>
+    <ol><li>a) 1→3 e 2→6 são setas para <b>cima</b> (absorção); 6→2 é seta para <b>baixo</b> (emissão). Use o simulador acima para ver cada uma.</li>
+      <li>b) E₂ = −2,18 × 10⁻¹⁸ / 2² = <b>−5,45 × 10⁻¹⁹ J</b> · E₆ = −2,18 × 10⁻¹⁸ / 36 = <b>−6,06 × 10⁻²⁰ J</b>.</li>
+      <li>c) ΔE = E₂ − E₆ = −5,45 × 10⁻¹⁹ − (−6,06 × 10⁻²⁰) = <b>−4,84 × 10⁻¹⁹ J</b> → negativo: <b>emitida</b>.</li>
+      <li>λ = hc / |ΔE| = 1,988 × 10⁻²⁵ / 4,84 × 10⁻¹⁹ = 4,10 × 10⁻⁷ m = <b>410 nm</b>.</li>
+      <li>410 nm está dentro do visível (≈ 380–750 nm), na ponta do <b>violeta</b>.</li></ol>
+    <div class="ans">E₂ = −5,45 × 10⁻¹⁹ J · E₆ = −6,06 × 10⁻²⁰ J · λ = 410 nm, emitida, visível, violeta</div></div>
+  <h3>O limite de Bohr e o salto para a mecânica quântica</h3>
+  <p>O modelo de Bohr só funciona para o hidrogênio (e íons com 1 elétron) e ignora que o elétron também é <b>onda</b>.</p>
+  <div class="fx"><span class="tag">De Broglie · matéria também é onda</span><div class="eq">λ = h / (m · v)</div>
+    <dl class="legend"><dt>m</dt><dd>massa da partícula (kg)</dd><dt>v</dt><dd>velocidade (m/s)</dd><dt>leitura</dt><dd>só objetos muito leves têm λ perceptível: um elétron sim, uma bola de futebol não (λ ≈ 10⁻³⁴ m)</dd></dl></div>
+  <div class="fx"><span class="tag">Heisenberg · princípio da incerteza</span><div class="eq">Δp · Δx ≥ ħ / 2 &nbsp;&nbsp; (ħ = h / 2π)</div>
+    <dl class="legend"><dt>Δx</dt><dd>incerteza na posição</dd><dt>Δp</dt><dd>incerteza no momento (m·v)</dd><dt>leitura</dt><dd>não dá para saber ao mesmo tempo onde o elétron está e para onde vai: adeus órbita exata, olá probabilidade</dd></dl></div>
+  <div class="ofi"><span class="k">Microscopia eletrônica</span>Como o elétron é onda com λ muito menor que a da luz, o microscópio eletrônico (MEV) enxerga detalhes de nanômetros. Na engenharia ele mostra a <b>fratura de uma peça</b> (fadiga, frágil ou dúctil), a microestrutura de uma solda e as camadas de pintura de um carro.</div>
+  <div class="done-btn" data-done="bohr"></div>
+</section>
+
+<!-- ============ M1 · NÚMEROS QUÂNTICOS ============ -->
+<section class="view read" id="v-quanticos" hidden>
+  <div class="eyebrow">Módulo 1 · 1ª prova (14/09)</div>
+  <h2>Orbitais e números quânticos</h2>
+  <p class="lede">Schrödinger trocou a órbita por uma <b>função de onda ψ</b>. ψ² diz onde é provável achar o elétron. Cada região dessas é um <b>orbital</b>, e quatro números dão o "endereço" de cada elétron.</p>
+  <div class="tbl"><table><tr><th>Número</th><th>Símbolo</th><th>Valores</th><th>Diz o quê</th><th>Analogia</th></tr>
+    <tr><td><b>Principal</b></td><td>n</td><td>1, 2, 3… (K, L, M, N…)</td><td>energia e tamanho (camada)</td><td>o andar do prédio</td></tr>
+    <tr><td><b>Secundário</b> (azimutal)</td><td>l</td><td>0 até n − 1 → s, p, d, f</td><td>formato (subnível)</td><td>o tipo de apartamento</td></tr>
+    <tr><td><b>Magnético</b></td><td>m<sub>l</sub></td><td>−l … 0 … +l</td><td>orientação no espaço (qual orbital)</td><td>o número da porta</td></tr>
+    <tr><td><b>Spin</b></td><td>m<sub>s</sub></td><td>+½ ou −½</td><td>giro do elétron (↑ ou ↓)</td><td>qual dos 2 moradores</td></tr></table></div>
+  <h3>Veja os orbitais em 3D</h3>
+  <p>Cada ponto é um lugar onde o elétron "foi visto" (sorteado pela probabilidade ψ²). Arraste para girar. Repare nos <b>nós</b>: superfícies onde a chance é zero.</p>
+  <div class="wid">
+    <div class="dinch" id="m1OrbP"></div>
+    <canvas id="m1Orb" class="m1cv" style="aspect-ratio:16/10;touch-action:none;cursor:grab" aria-label="Nuvem de probabilidade do orbital"></canvas>
+    <div class="wout" id="m1OrbO"></div>
+  </div>
+  <div class="tbl"><table><tr><th>l</th><th>subnível</th><th>m<sub>l</sub></th><th>nº de orbitais (2l + 1)</th><th>máx. de elétrons</th></tr>
+    <tr><td>0</td><td><b>s</b></td><td>0</td><td>1</td><td>2</td></tr><tr><td>1</td><td><b>p</b></td><td>−1, 0, +1</td><td>3</td><td>6</td></tr>
+    <tr><td>2</td><td><b>d</b></td><td>−2 … +2</td><td>5</td><td>10</td></tr><tr><td>3</td><td><b>f</b></td><td>−3 … +3</td><td>7</td><td>14</td></tr></table></div>
+  <div class="fx"><span class="tag">Contas rápidas por camada</span><div class="eq">nº de orbitais = n² &nbsp;·&nbsp; máx. de elétrons = 2n²</div>
+    <dl class="legend"><dt>n = 2</dt><dd>2s + 2p = 1 + 3 = 4 orbitais, 8 elétrons</dd><dt>n = 4</dt><dd>4s, 4p, 4d, 4f = 1 + 3 + 5 + 7 = 16 orbitais, 32 elétrons</dd></dl></div>
+  <h3>Verificador de endereços</h3>
+  <p>Monte um conjunto {n, l, m<sub>l</sub>, m<sub>s</sub>} e veja se ele é permitido. É exatamente a questão 9 do Estudo Dirigido.</p>
+  <div class="wid">
+    <div class="m1-qn" id="m1Qn"></div>
+    <div class="wout" id="m1QnO"></div>
+    <div class="dinch" id="m1QnEx"></div>
+  </div>
+  <div class="cuid"><span class="k">As 3 regras que derrubam um conjunto</span>1) <b>l ≤ n − 1</b> (não existe 2d nem 1p). 2) <b>|m<sub>l</sub>| ≤ l</b> (um orbital s só tem m<sub>l</sub> = 0). 3) <b>m<sub>s</sub> só pode ser ±½</b>.</div>
+  <div class="ofi"><span class="k">Spin e magnetismo</span>Elétrons desemparelhados (↑ sozinho) fazem do átomo um pequeno ímã: <b>paramagnético</b>, atraído por ímãs. Todos emparelhados (↑↓): <b>diamagnético</b>, levemente repelido. O ferro tem 4 elétrons desemparelhados no 3d: por isso o ímã gruda na chapa de aço carbono (mas não no inox austenítico 304, cuja estrutura cristalina anula esse efeito).</div>
+  <div class="ex" data-ex><div class="q">Slide: os 4 números quânticos de um elétron no orbital 5s: a) [5,0,−1,+½] b) [5,0,0,+½] c) [5,1,+1,+½] d) [5,0,+1,+½]</div>
+    <ol><li>5s → n = 5 e s → l = 0.</li><li>l = 0 → m<sub>l</sub> só pode ser 0. Isso elimina a), c) e d).</li></ol>
+    <div class="ans">b) [5, 0, 0, +½]</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 9: quais são proibidos? a) {4, 2, −1, +½} b) {5, 0, −1, +½} c) {4, 4, −1, +½}</div>
+    <ol><li>a) n = 4 → l pode ir até 3; l = 2 ok; m<sub>l</sub> = −1 está entre −2 e +2; spin ok → <b>permitido</b> (é um elétron 4d).</li>
+      <li>b) l = 0 (orbital s) → m<sub>l</sub> só pode ser 0, e veio −1 → <b>proibido</b>.</li>
+      <li>c) n = 4 → l máximo = 3; l = 4 não existe → <b>proibido</b>.</li></ol>
+    <div class="ans">a) permitido · b) proibido (m<sub>l</sub>) · c) proibido (l ≥ n)</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 10: para n = 4, a) quantos subníveis; b) nomes; c) orbitais em cada um.</div>
+    <ol><li>l vai de 0 a n − 1 = 3 → <b>4 subníveis</b>.</li><li>l = 0, 1, 2, 3 → <b>4s, 4p, 4d, 4f</b>.</li><li>2l + 1 → 4s: 1 · 4p: 3 · 4d: 5 · 4f: 7 (total 16 = 4²).</li></ol>
+    <div class="ans">4 subníveis: 4s (1), 4p (3), 4d (5), 4f (7)</div></div>
+  <div class="done-btn" data-done="quanticos"></div>
+</section>
+
+<!-- ============ M1 · CONFIGURAÇÃO ============ -->
+<section class="view read" id="v-config" hidden>
+  <div class="eyebrow">Módulo 1 · 1ª prova (14/09)</div>
+  <h2>Configuração eletrônica</h2>
+  <p class="lede">Distribuir os elétrons é como encher um prédio: primeiro os andares mais baratos (de menor energia), no máximo 2 por apartamento, e cada um prefere ficar sozinho antes de dividir.</p>
+  <h3>As três regras</h3>
+  <div class="m1-def">
+    <div><span class="em">🏗️</span><b>Princípio da construção (Aufbau)</b><span>Preenche em ordem crescente de energia, ou seja, de <b>n + l</b>. Empate? Vai primeiro o de menor n. Por isso 4s (4+0 = 4) vem antes de 3d (3+2 = 5).</span></div>
+    <div><span class="em">🚫</span><b>Exclusão de Pauli</b><span>Dois elétrons do mesmo átomo não podem ter os 4 números quânticos iguais → no máximo <b>2 elétrons por orbital</b>, com spins opostos (↑↓).</span></div>
+    <div><span class="em">🚌</span><b>Regra de Hund</b><span>Num subnível com vários orbitais, os elétrons entram <b>um em cada, com o mesmo spin</b>, e só depois emparelham. Como passageiros escolhendo bancos vazios no ônibus.</span></div>
+  </div>
+  <h3>Diagrama de Linus Pauling</h3>
+  <p>Siga as diagonais de cima para baixo. Toque em <b>Animar</b> para ver a ordem acendendo.</p>
+  <div class="wid m1-pau">
+    <svg id="m1Pau" viewBox="0 0 330 300" role="img" aria-label="Diagrama de Linus Pauling"></svg>
+    <div><div class="m1-ord" id="m1Ord"></div><button class="ghost" id="m1PauGo" style="margin-top:10px">▶ Animar a ordem</button></div>
+  </div>
+  <h3>Monte a configuração de qualquer átomo ou íon</h3>
+  <p>Escolha o elemento e a carga. Veja os elétrons entrando nas caixinhas, a configuração completa, a condensada, a camada de valência e o magnetismo.</p>
+  <div class="wid">
+    <div class="m1-cfgtop"><label class="m1lab">Elemento (Z) <b id="m1CfZv"></b><input type="range" id="m1CfZ" min="1" max="86" value="26"></label>
+      <div><small>Carga do íon</small><div class="m1-step" id="m1CfQ"></div></div></div>
+    <div class="dinch" id="m1CfEx"></div>
+    <div class="m1-boxes" id="m1CfB"></div>
+    <div class="wout" id="m1CfO"></div>
+    <canvas id="m1CfC" class="m1cv" style="aspect-ratio:2/1;max-width:420px;margin:10px auto 0;display:block" aria-label="Camadas eletrônicas"></canvas>
+  </div>
+  <div class="fx"><span class="tag">Condensada (cerne de gás nobre)</span><div class="eq" style="font-size:1.1rem">[gás nobre anterior] + o que sobra</div>
+    <dl class="legend"><dt>Mg</dt><dd>1s² 2s² 2p⁶ 3s² = [Ne] 3s²</dd><dt>Br</dt><dd>[Ar] 4s² 3d¹⁰ 4p⁵</dd><dt>valência</dt><dd>elétrons da última camada (maior n): Mg tem 2, P tem 5 (3s² 3p³)</dd></dl></div>
+  <div class="fx"><span class="tag">Íons</span><div class="eq" style="font-size:1.05rem">cátion: tira do maior n · ânion: põe no próximo vago</div>
+    <dl class="legend"><dt>Fe → Fe³⁺</dt><dd>[Ar] 3d⁶ 4s² → sai primeiro o 4s², depois 1 do 3d → [Ar] 3d⁵</dd><dt>F → F⁻</dt><dd>1s² 2s² 2p⁵ → 1s² 2s² 2p⁶ (igual ao Ne)</dd></dl></div>
+  <div class="cuid"><span class="k">As exceções que caem</span>Subnível d <b>meio cheio (d⁵)</b> ou <b>cheio (d¹⁰)</b> é extra estável, então um elétron do s migra: Cr = [Ar] 3d⁵ 4s¹ (e não 3d⁴ 4s²) · Cu = [Ar] 3d¹⁰ 4s¹ (e não 3d⁹ 4s²). O mesmo vale para Mo, Ag e Au.</div>
+  <div class="ofi"><span class="k">Valência no dia a dia da solda</span>O Cr (3d⁵ 4s¹) do inox perde elétrons e forma Cr₂O₃, uma película fina que protege o aço da ferrugem. Na solda TIG de inox, o gás argônio protege a poça porque o Ar tem camada de valência <b>cheia (3s² 3p⁶)</b> e não reage com nada.</div>
+  <div class="ex" data-ex><div class="q">Exercício do slide: configuração de ₅B, ₁₂Mg, ₁₅P, ₃₅Br e ₃₇Rb.</div>
+    <ol><li>B: 1s² 2s² 2p¹ = [He] 2s² 2p¹.</li><li>Mg: 1s² 2s² 2p⁶ 3s² = [Ne] 3s².</li><li>P: 1s² 2s² 2p⁶ 3s² 3p³ = [Ne] 3s² 3p³.</li><li>Br: 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁵ = [Ar] 4s² 3d¹⁰ 4p⁵.</li><li>Rb: … 4s² 3d¹⁰ 4p⁶ 5s¹ = [Kr] 5s¹.</li></ol>
+    <div class="ans">[He]2s²2p¹ · [Ne]3s² · [Ne]3s²3p³ · [Ar]4s²3d¹⁰4p⁵ · [Kr]5s¹</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 11: fundamental ou excitado? a) C: 1s↑↓ 2s↑↓ 2p ↑↓ _ _ · b) N: 2p ↑ ↓ ↑ · c) Be: 1s↑↓ 2s↑ 2p↑ · d) O: 2p ↑↓ ↑ ↑</div>
+    <ol><li>a) Os 2 elétrons 2p estão emparelhados num orbital com 2 vazios: viola a regra de Hund → <b>excitado</b> (o fundamental é 2p ↑ ↑ _).</li>
+      <li>b) Três elétrons 2p separados, mas um com spin oposto: Hund pede spins paralelos → <b>excitado</b>.</li>
+      <li>c) Um elétron saiu do 2s (mais baixo) e foi para o 2p sem o 2s estar cheio → <b>excitado</b> (fundamental: 1s² 2s²).</li>
+      <li>d) 2p⁴: um par e dois desemparelhados com o mesmo spin → <b>fundamental</b>.</li></ol>
+    <div class="ans">a) excitado · b) excitado · c) excitado · d) fundamental</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 12: completa e condensada de Be, P, I, K, Te, Mg²⁺, P³⁻, Cr³⁺, Cl⁻.</div>
+    <ol><li>Be (4): 1s² 2s² = [He] 2s².</li><li>P (15): 1s² 2s² 2p⁶ 3s² 3p³ = [Ne] 3s² 3p³.</li>
+      <li>I (53): 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁵ = [Kr] 5s² 4d¹⁰ 5p⁵.</li><li>K (19): 1s² 2s² 2p⁶ 3s² 3p⁶ 4s¹ = [Ar] 4s¹.</li>
+      <li>Te (52): 1s² 2s² 2p⁶ 3s² 3p⁶ 4s² 3d¹⁰ 4p⁶ 5s² 4d¹⁰ 5p⁴ = [Kr] 5s² 4d¹⁰ 5p⁴.</li>
+      <li>Mg²⁺ (12 − 2 = 10 e⁻): 1s² 2s² 2p⁶ = [He] 2s² 2p⁶ (isoeletrônico do Ne).</li>
+      <li>P³⁻ (15 + 3 = 18 e⁻): 1s² 2s² 2p⁶ 3s² 3p⁶ = [Ne] 3s² 3p⁶ (igual ao Ar).</li>
+      <li>Cr³⁺: Cr = [Ar] 3d⁵ 4s¹ (exceção!). Tira primeiro o 4s¹, depois 2 do 3d → 1s² 2s² 2p⁶ 3s² 3p⁶ 3d³ = [Ar] 3d³.</li>
+      <li>Cl⁻ (17 + 1 = 18 e⁻): 1s² 2s² 2p⁶ 3s² 3p⁶ = [Ne] 3s² 3p⁶.</li></ol>
+    <div class="ans">Use o montador acima para conferir cada um (dá para escolher a carga).</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 13: que elementos têm a) [Ar]3d¹⁰4s²4p¹ b) [Ne]3s¹ c) [Kr]5s² d) [Kr]4d¹⁰5s²5p⁴ e) [Ar]3d³4s² f) [He]2s²2p²?</div>
+    <ol><li>Some os elétrons ao Z do gás nobre: Ar = 18, Ne = 10, Kr = 36, He = 2.</li><li>a) 18 + 13 = 31 → <b>Ga</b> · b) 10 + 1 = 11 → <b>Na</b> · c) 36 + 2 = 38 → <b>Sr</b>.</li><li>d) 36 + 16 = 52 → <b>Te</b> · e) 18 + 5 = 23 → <b>V</b> · f) 2 + 4 = 6 → <b>C</b>.</li></ol>
+    <div class="ans">Ga · Na · Sr · Te · V · C</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 14: quadrículas da valência e magnetismo de Na, Al, Fe, Sr, S.</div>
+    <ol><li>Na: 3s [↑] → 1 desemparelhado → <b>paramagnético</b>.</li><li>Al: 3s [↑↓] 3p [↑][ ][ ] → 1 desemparelhado → <b>paramagnético</b>.</li>
+      <li>Fe: 4s [↑↓] 3d [↑↓][↑][↑][↑][↑] → 4 desemparelhados → <b>paramagnético</b> (forte).</li><li>Sr: 5s [↑↓] → todos emparelhados → <b>diamagnético</b>.</li>
+      <li>S: 3s [↑↓] 3p [↑↓][↑][↑] → 2 desemparelhados → <b>paramagnético</b>.</li></ol>
+    <div class="ans">Na, Al, Fe e S paramagnéticos · Sr diamagnético</div></div>
+  <div class="done-btn" data-done="config"></div>
+</section>
+
+<!-- ============ M1 · PROPRIEDADES PERIÓDICAS ============ -->
+<section class="view read" id="v-periodicas" hidden>
+  <div class="eyebrow">Módulo 1 · 1ª prova (14/09)</div>
+  <h2>Propriedades periódicas</h2>
+  <p class="lede">Mendeleiev organizou a tabela por propriedades parecidas; hoje sabemos que o motivo é a <b>configuração da camada de valência</b>. Com uma única ideia, a carga nuclear efetiva, dá para prever raio, energia de ionização e afinidade eletrônica.</p>
+  <h3>O mapa da tabela</h3>
+  <div class="m1-def">
+    <div><span class="em">⬇️</span><b>Grupo (família)</b><span>Coluna. Mesma valência, química parecida: alcalinos (1), alcalinoterrosos (2), calcogênios (16), halogênios (17), gases nobres (18).</span></div>
+    <div><span class="em">➡️</span><b>Período</b><span>Linha. O número do período é o n da camada de valência.</span></div>
+    <div><span class="em">🧩</span><b>Blocos</b><span>s (grupos 1–2), p (13–18): representativos · d: transição · f: transição interna (lantanídeos e actinídeos).</span></div>
+  </div>
+  <h3>Carga nuclear efetiva (Z<sub>ef</sub>)</h3>
+  <div class="fx"><span class="tag">Fórmula 5 · Blindagem</span><div class="eq">Z<sub>ef</sub> = Z − S</div>
+    <dl class="legend"><dt>Z</dt><dd>número de prótons</dd><dt>S</dt><dd>blindagem: nº médio de elétrons entre o núcleo e o elétron (os internos "tampam" o núcleo)</dd><dt>no período →</dt><dd>Z sobe e a blindagem quase não muda: Z<sub>ef</sub> <b>aumenta</b> (Li ≈ 1,3 · F ≈ 5,2)</dd><dt>no grupo ↓</dt><dd>varia pouco (sobe levemente)</dd></dl></div>
+  <p>Pense na Lei de Coulomb, F = kQ₁Q₂/d²: mais carga efetiva e menos distância = elétron mais preso.</p>
+  <h3>Mapa de calor das propriedades</h3>
+  <p>Escolha a propriedade. Toque em dois elementos para compará-los: o mapa diz quem tem mais e por quê.</p>
+  <div class="wid">
+    <div class="dinch" id="m1PrP"></div>
+    <div class="m1-pt" id="m1Pt"></div>
+    <div class="m1-leg" id="m1Leg"></div>
+    <div class="wout" id="m1PrO"></div>
+  </div>
+  <div class="m1-trend">
+    <div><b>Raio atômico</b><span>cresce ↓ no grupo (mais camadas) e cresce ← no período (menos Z<sub>ef</sub>)</span><i>↙ maior: Fr · menor: He ↗</i></div>
+    <div><b>Energia de ionização</b><span>energia para arrancar 1 elétron do átomo gasoso. Cresce ↑ e →</span><i>maior: He · menor: Cs/Fr</i></div>
+    <div><b>Afinidade eletrônica</b><span>energia liberada ao ganhar 1 elétron. Mais negativa → em direção aos halogênios</span><i>campeão: Cl (−349 kJ/mol)</i></div>
+    <div><b>Caráter metálico</b><span>facilidade de perder elétrons: cresce ↓ e ←</span><i>oposto da energia de ionização</i></div>
+  </div>
+  <h3>Raio iônico e séries isoeletrônicas</h3>
+  <p>Cátion é <b>menor</b> que o átomo (perdeu elétrons, sobra mais atração por elétron). Ânion é <b>maior</b> (mais repulsão entre elétrons). Numa série isoeletrônica (mesmo nº de elétrons), quem tem mais prótons é menor.</p>
+  <div class="wid"><div class="dinch" id="m1IsoP"></div><canvas id="m1Iso" class="m1cv" style="aspect-ratio:3/1" aria-label="Tamanho dos íons"></canvas><div class="wout" id="m1IsoO"></div></div>
+  <div class="fx"><span class="tag">Energias de ionização sucessivas</span><div class="eq" style="font-size:1.05rem">Na(g) → Na⁺(g) + e⁻ &nbsp; I₁ &nbsp;·&nbsp; Na⁺(g) → Na²⁺(g) + e⁻ &nbsp; I₂</div>
+    <dl class="legend"><dt>sempre</dt><dd>I₁ &lt; I₂ &lt; I₃… (cada vez sobra mais Z<sub>ef</sub> por elétron)</dd><dt>o salto</dt><dd>quando a próxima retirada é de uma camada interna, a energia dispara. No Al ([Ne] 3s² 3p¹) o salto é entre I₃ e I₄: ele perde 3 e vira Al³⁺</dd><dt>irregularidades</dt><dd>B &lt; Be (o 2p é mais fácil de tirar que o 2s) e O &lt; N (no O o 4º elétron p está emparelhado e sofre repulsão)</dd></dl></div>
+  <div class="wid"><h4>Saltos de ionização do alumínio</h4><canvas id="m1Ie" class="m1cv" style="aspect-ratio:2/1" aria-label="Energias de ionização sucessivas do alumínio"></canvas></div>
+  <h3>Metais, ametais e semimetais</h3>
+  <div class="tbl"><table><tr><th></th><th>Metais</th><th>Ametais</th><th>Semimetais</th></tr>
+    <tr><td>Energia de ionização</td><td>baixa → perdem e⁻ (cátions)</td><td>alta, afinidade negativa → ganham e⁻ (ânions)</td><td>intermediária</td></tr>
+    <tr><td>Aspecto</td><td>brilho, dúcteis, maleáveis</td><td>variado, quebradiços</td><td>brilho metálico mas frágeis (Si)</td></tr>
+    <tr><td>Condução</td><td>ótimos condutores</td><td>isolantes (exceto grafite)</td><td><b>semicondutores</b> (chips)</td></tr>
+    <tr><td>Óxido + água</td><td>básico: Na₂O + H₂O → 2 NaOH</td><td>ácido: CO₂ + H₂O → H₂CO₃</td><td>—</td></tr></table></div>
+  <div class="curio">
+    <div><span class="em">🔩</span><b>Por que o inox é mais duro?</b><span>Os átomos de Cr e Ni têm raios diferentes do Fe. Eles deformam a rede cristalina e travam o deslizamento dos planos: o parafuso de inox aguenta mais esforço e desgaste que o de ferro puro.</span></div>
+    <div><span class="em">🔌</span><b>Por que fio é de cobre?</b><span>Cu, Al e Ag têm energia de ionização baixa: o elétron de valência fica solto no metal e conduz corrente e calor. Daí fios, barramentos, dissipadores e motores.</span></div>
+    <div><span class="em">💥</span><b>Flúor, o mais reativo</b><span>Afinidade eletrônica enorme e átomo pequeno: reage até com água, 2F₂ + 2H₂O → 4HF + O₂. Gases nobres, ao contrário, quase não reagem (só em 1962 surgiu o primeiro composto, de xenônio).</span></div>
+  </div>
+  <div class="ex" data-ex><div class="q">Slide: ordem decrescente de tamanho de ₁₅P, ₁₆S, ₃₃As, ₃₄Se.</div>
+    <ol><li>As e Se estão no 4º período (uma camada a mais) → maiores que P e S.</li><li>No mesmo período, quem está mais à esquerda é maior (menos Z<sub>ef</sub>): As &gt; Se e P &gt; S.</li></ol>
+    <div class="ans">As &gt; Se &gt; P &gt; S</div></div>
+  <div class="ex" data-ex><div class="q">Slide: ordem crescente de raio iônico: a) Mg²⁺ e Ca²⁺; b) O²⁻ e F⁻.</div>
+    <ol><li>a) Mesma carga, mesmo grupo: Ca²⁺ tem uma camada a mais → Mg²⁺ &lt; Ca²⁺.</li><li>b) Isoeletrônicos (10 e⁻): o F⁻ tem 9 prótons e o O²⁻ só 8 → F⁻ puxa mais → F⁻ &lt; O²⁻.</li></ol>
+    <div class="ans">Mg²⁺ &lt; Ca²⁺ · F⁻ &lt; O²⁻</div></div>
+  <div class="ex" data-ex><div class="q">Slide: ordem decrescente de energia de ionização: a) S, Cl, Si; b) Co, Ti, Cr; c) Sb, Bi, P.</div>
+    <ol><li>a) Mesmo período, cresce para a direita: <b>Cl &gt; S &gt; Si</b>.</li><li>b) Transição do 4º período, cresce para a direita: pela tendência Co &gt; Cr &gt; Ti. Os valores reais (Co 760, Ti 659, Cr 653 kJ/mol) mostram Ti e Cr quase empatados: nos metais de transição a tendência é fraca.</li><li>c) Mesmo grupo, diminui para baixo: <b>P &gt; Sb &gt; Bi</b>.</li></ol>
+    <div class="ans">Cl &gt; S &gt; Si · Co &gt; Cr ≈ Ti · P &gt; Sb &gt; Bi</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 15: ordem decrescente de energia de ionização: a) Sr, Mg, Ca; b) C, O, F; c) Cr, Zn, Ni.</div>
+    <ol><li>a) Grupo 2: descendo, o elétron fica mais longe e mais blindado → <b>Mg &gt; Ca &gt; Sr</b> (738 &gt; 590 &gt; 549 kJ/mol).</li><li>b) 2º período, Z<sub>ef</sub> cresce para a direita → <b>F &gt; O &gt; C</b> (1681 &gt; 1314 &gt; 1086).</li><li>c) 4º período: Zn tem 3d¹⁰ 4s² completos (muito estável) → <b>Zn &gt; Ni &gt; Cr</b> (906 &gt; 737 &gt; 653).</li></ol>
+    <div class="ans">Mg &gt; Ca &gt; Sr · F &gt; O &gt; C · Zn &gt; Ni &gt; Cr</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 16: explique a) Fe &gt; Fe²⁺ &gt; Fe³⁺; b) Cl⁻ &gt; Cl &gt; Cl⁺; c) Ca²⁺ &gt; Mg²⁺ &gt; Be²⁺.</div>
+    <ol><li>a) Mesmos 26 prótons segurando cada vez menos elétrons: menos repulsão e mais atração por elétron. O Fe²⁺ ainda perde a camada 4s inteira → encolhe bastante.</li><li>b) Mesmos 17 prótons: o Cl⁻ tem 1 elétron a mais (mais repulsão, nuvem expande); o Cl⁺ tem 1 a menos (contrai).</li><li>c) Mesma carga +2, mesmo grupo: descendo há mais camadas ocupadas (Ca²⁺ n = 3, Mg²⁺ n = 2, Be²⁺ n = 1).</li></ol>
+    <div class="ans">a) e b): mesmo Z, menos elétrons = menor · c) mais camadas = maior</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 17: Na, Mg⁺, Al²⁺ e Si³⁺. a) O que é série isoeletrônica? b) menor Z<sub>ef</sub> no elétron externo? c) maior?</div>
+    <ol><li>a) Espécies com o <b>mesmo número de elétrons</b>: todas têm 11 (1s² 2s² 2p⁶ 3s¹).</li><li>Os 10 elétrons internos blindam igual em todas (S ≈ 10). Então Z<sub>ef</sub> ≈ Z − 10: Na 1 · Mg⁺ 2 · Al²⁺ 3 · Si³⁺ 4.</li><li>b) Menor: <b>Na</b> (Z = 11). c) Maior: <b>Si³⁺</b> (Z = 14).</li></ol>
+    <div class="ans">mesmo nº de elétrons · menor Z<sub>ef</sub>: Na · maior: Si³⁺</div></div>
+  <div class="ex" data-ex><div class="q">ED1 · questão 18: maior afinidade eletrônica: a) O ou F; b) P ou S; c) Li ou Na.</div>
+    <ol><li>a) F: mais à direita, falta 1 elétron para o gás nobre (−328 contra −141 kJ/mol).</li><li>b) S: o P tem 3p³ meio cheio, estável, e não "quer" o elétron extra (S −200 contra P −72).</li><li>c) Li: menor, o elétron chega mais perto do núcleo (−60 contra −53).</li></ol>
+    <div class="ans">F · S · Li</div></div>
+  <div class="done-btn" data-done="periodicas"></div>
+</section>
+
+<!-- ============ M1 · ESTUDO DIRIGIDO ============ -->
+<section class="view read" id="v-ed1" hidden>
+  <div class="eyebrow">Módulo 1 · Estudo Dirigido 1 (5 pts, 14/09)</div>
+  <h2>Estudo Dirigido 1 resolvido e treino</h2>
+  <p class="lede">As 18 questões do ED1 estão resolvidas passo a passo dentro das aulas, junto da matéria de cada uma. Aqui está o índice e um treino com questões novas a cada rodada.</p>
+  <div class="m1-edi" id="m1Edi"></div>
+  <h3>Treino: questões sorteadas</h3>
+  <p>Resolva e responda. Aqui eu só digo se está certo ou errado; a dica só aparece se você pedir.</p>
+  <div class="wid" id="m1Tr">
+    <div class="dinch" id="m1TrT"></div>
+    <div class="m1-trq" id="m1TrQ"></div>
+    <div class="m1-tri"><input type="text" id="m1TrIn" autocomplete="off" spellcheck="false" aria-label="Sua resposta"><button class="btn" id="m1TrOk">Responder</button></div>
+    <div class="m1-trc" id="m1TrC"></div>
+    <div class="wout" id="m1TrO"></div>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="ghost" id="m1TrD">💡 Dica</button><button class="ghost" id="m1TrV">Ver resposta</button><button class="ghost" id="m1TrN">Próxima →</button></div>
+    <div class="m1-trs" id="m1TrS"></div>
+  </div>
+  <div class="ofi"><span class="k">Como digitar</span>Configuração: escreva <b>1s2 2s2 2p6</b> ou <b>[Ne]3s2</b> (sem os expoentes, sem espaço obrigatório). Números: use vírgula ou ponto e notação <b>3,78e-19</b> ou <b>3,78 x 10^-19</b>. Aceito erro de até 2 %.</div>
+  <div class="done-btn" data-done="ed1"></div>
 </section>
 
 <!-- ============ 1 REAÇÕES ============ -->
@@ -736,6 +1230,18 @@ body{font-size:1rem}
   <h2>Tudo numa folha</h2>
   <p class="lede read">Toque numa caixinha para ver cada termo explicado.</p>
   <div class="cola" style="margin-top:20px">
+    <div class="fx"><span class="tag">Átomo</span><div class="eq" style="font-size:1.05rem"><sup>A</sup><sub>Z</sub>X · A = Z + N</div><p>Z prótons · e⁻ = Z − carga</p></div>
+    <div class="fx"><span class="tag">Onda</span><div class="eq">c = λ · ν</div><p>c = 3,00 × 10⁸ m/s</p></div>
+    <div class="fx"><span class="tag">Fóton</span><div class="eq">E = hν = hc/λ</div><p>h = 6,626 × 10⁻³⁴ J·s</p></div>
+    <div class="fx"><span class="tag">Bohr (H)</span><div class="eq" style="font-size:1.05rem">Eₙ = −2,18 × 10⁻¹⁸ / n²</div><p>subiu absorve · desceu emite</p></div>
+    <div class="fx"><span class="tag">Fotoelétrico</span><div class="eq">E<sub>c</sub> = hν − φ</div><p>quem manda é a frequência</p></div>
+    <div class="fx"><span class="tag">De Broglie · Heisenberg</span><div class="eq" style="font-size:1rem">λ = h/mv · ΔpΔx ≥ ħ/2</div><p>matéria é onda; sem trajetória</p></div>
+    <div class="fx"><span class="tag">Números quânticos</span><div class="eq" style="font-size:1rem">l ≤ n−1 · |mₗ| ≤ l · mₛ = ±½</div><p>s p d f = 1 3 5 7 orbitais</p></div>
+    <div class="fx"><span class="tag">Por camada</span><div class="eq" style="font-size:1rem">n² orbitais · 2n² e⁻</div><p>n = 4 → 16 orbitais, 32 e⁻</p></div>
+    <div class="fx"><span class="tag">Ordem (Pauling)</span><div class="eq" style="font-size:.9rem">1s 2s 2p 3s 3p 4s 3d 4p 5s 4d 5p 6s 4f 5d 6p</div><p>n + l crescente; empate → menor n</p></div>
+    <div class="fx"><span class="tag">Hund · Pauli</span><div class="eq" style="font-size:1rem">↑ ↑ ↑ antes de ↑↓</div><p>máx. 2 e⁻ por orbital, spins opostos</p></div>
+    <div class="fx"><span class="tag">Exceções</span><div class="eq" style="font-size:1rem">Cr [Ar]3d⁵4s¹ · Cu [Ar]3d¹⁰4s¹</div><p>d⁵ e d¹⁰ são estáveis</p></div>
+    <div class="fx"><span class="tag">Tendências</span><div class="eq" style="font-size:1rem">raio ↙ · EI e AE ↗</div><p>Z<sub>ef</sub> = Z − S cresce →</p></div>
     <div class="fx"><span class="tag">Equação química</span><div class="eq" style="font-size:1.05rem">2 H₂(g) + O₂(g) → 2 H₂O(g)</div><p>reagentes → produtos</p></div>
     <div class="fx"><span class="tag">Coeficiente × índice</span><div class="eq" style="font-size:1.05rem"><b style="color:var(--c1)">2</b> H<b style="color:var(--c3)">₂</b>O</div><p>só o coeficiente muda no balanceamento</p></div>
     <div class="fx"><span class="tag">Conservação da massa</span><div class="eq" style="font-size:1rem">átomos antes = átomos depois</div><p>por isso balancear</p></div>
@@ -1089,7 +1595,7 @@ function renderQuiz(){ const box=$('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<d
 function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; $('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · mandou bem!':ok>=9?' · quase lá':' · revise os módulos'):'') }
 
 /* ========= progresso e rotas ========= */
-const MODS=[['reacoes','Reações e equações','Anatomia da equação, conservação da massa e balanceamento'],['massa','Medidas de massa','u e g/mol, massa molecular, cafeína e calculadora'],['mol','O mol','Avogadro, pacotes e 1 mol de qualquer espécie'],['conv','Transformações','gramas ↔ mol ↔ partículas e os exercícios da aula']];
+const MODS=[['materia','Matéria e elementos','Substâncias, misturas e símbolos'],['modelos','Modelos atômicos','De Dalton a Schrödinger, Rutherford e as partículas'],['luz','Luz e fótons','c = λν, E = hν e o efeito fotoelétrico'],['bohr','Átomo de Bohr','Órbitas, saltos e as linhas do hidrogênio'],['quanticos','Números quânticos','n, l, mₗ, mₛ e os orbitais em 3D'],['config','Configuração eletrônica','Pauling, Hund, Pauli, íons e exceções'],['periodicas','Propriedades periódicas','Raio, ionização, afinidade e Z efetiva'],['ed1','Estudo dirigido 1','Índice das 18 questões e treino'],['reacoes','Reações e equações','Anatomia da equação, conservação da massa e balanceamento'],['massa','Medidas de massa','u e g/mol, massa molecular, cafeína e calculadora'],['mol','O mol','Avogadro, pacotes e 1 mol de qualquer espécie'],['conv','Transformações','gramas ↔ mol ↔ partículas e os exercícios da aula']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('qg-done')||'{}'); qa=JSON.parse(localStorage.getItem('qg-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('qg-done',JSON.stringify(done)); localStorage.setItem('qg-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -1100,7 +1606,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; $('progtxt').t
   document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
     d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#lab">Agora vá para o laboratório de descobertas →</a>');
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
-const VIEWS=['inicio','reacoes','massa','mol','conv','tabela','lab','quiz','cola'];
+const VIEWS=['inicio','materia','modelos','luz','bohr','quanticos','config','periodicas','ed1','reacoes','massa','mol','conv','tabela','lab','quiz','cola'];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>$('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
@@ -1128,6 +1634,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
   if(h&&h!=='inicio'){ location.hash='inicio'; return }
   location.href='../../index.html#m-qg' });
 </script>
+<script src="../../js/quimica-m1.js"></script>
 <script src="../../dados/cartas.js"></script>
 <script src="../../js/anki.js" data-materia="qg"></script>
 <script src="../../js/aviso.js" defer></script>

@@ -60,6 +60,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+            { data: "2026-11-08", texto: "Módulo 1 completo (1ª prova): matéria, modelos atômicos com o experimento de Rutherford, luz e efeito fotoelétrico, átomo de Bohr, orbitais em 3D e números quânticos, configuração eletrônica com montador, propriedades periódicas com mapa de calor, as 18 questões do Estudo Dirigido 1 resolvidas e treino com questões sorteadas." },
                 { data: "2026-11-06", texto: "Criada com a aula de 06/11: equação química interativa, conservação da massa e balanceador, medidas de massa (u e g/mol), cafeína clicável, calculadora de massa molar, o mol e Avogadro, conversor gramas ↔ mol ↔ partículas, exercícios a–d resolvidos, tabela periódica com os 118 elementos, laboratório, quiz, cola e cartas." },
                 { data: "2026-11-07", texto: "Novo Laboratório de descobertas: junte átomos da tabela periódica e descubra 325 substâncias reais, com animação no pote, rótulo e ficha (o que é, onde é usado e curiosidade), isômeros, álbum e conquistas." },
                 { data: "2026-11-07", texto: "Fichas do laboratório com fórmula molecular e mínima e o arranjo de cada substância: estrutural plana, Lewis com pares isolados, bastão, 3D bola e vareta (com ângulo e comprimento de ligação) e preenchimento; íons e retículos cristalinos 3D para sais, metais (com mar de elétrons) e redes covalentes." }

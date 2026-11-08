@@ -398,3 +398,4 @@ body.fdb-side-on .fdb-side{transform:none}
 /* laboratórios-jogo */
 .lcard.jogo .qi{font-size:1.6rem}
 .lcard .lpb{display:block;height:6px;border-radius:3px;background:var(--line);overflow:hidden;margin-top:4px}.lcard .lpb i{display:block;height:100%;background:linear-gradient(90deg,var(--c2),var(--c1))}
+body.fdb-mat .fdb-peek{display:none!important}
