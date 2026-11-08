@@ -383,6 +383,14 @@ h3 .mini{margin-left:8px;vertical-align:middle}
 .ph b{display:block;font:800 1.05rem var(--f-disp);line-height:1.2}.ph small{color:var(--ink2);font-size:.82rem}
 .popc p{margin:0;font-size:.93rem}
 .pu{font:600 .74rem var(--f-mono);color:var(--pc);text-decoration:none}
+.minha{background:var(--sheet);border:1.5px solid var(--line);border-radius:18px;padding:16px;margin:14px 0}
+.mh{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:10px}.mh h3{margin:2px 0}.mh p{margin:0;color:var(--ink2);font-size:.9rem}
+.mprog{display:grid;justify-items:center;background:color-mix(in srgb,#1DB954 14%,var(--sheet));border-radius:14px;padding:8px 14px}.mprog b{font:800 1.3rem var(--f-disp);color:#1A9E48}.mprog span{font-size:.72rem;color:var(--ink2)}
+.t-minha{--pc:#1DB954}.popc.est{opacity:.72}.popc.est .ph b::after{content:" ✓";color:#1A9E48}
+.nv{font:700 .7rem var(--f-mono);border-radius:6px;padding:1px 6px;margin-left:6px;vertical-align:1px}.nv-A1{background:#D9F2DF;color:#1E6B33}.nv-A2{background:#FBEFC8;color:#7A5A00}.nv-B1{background:#F9D7D3;color:#8E2A20}
+.vocm{display:flex;flex-wrap:wrap;gap:6px}.vocm button{font:600 .8rem var(--f-body);background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:999px;padding:4px 10px;cursor:pointer}.vocm button small{color:var(--ink2);font-weight:500;margin-left:4px}
+.estb{font:700 .8rem var(--f-body);background:transparent;color:var(--ink);border:1.5px solid var(--line);border-radius:999px;padding:5px 12px;cursor:pointer}.popc.est .estb{border-color:#1DB954;color:#1A9E48}
+.minhab{font:700 .68rem var(--f-mono);color:#1A9E48;text-transform:uppercase;letter-spacing:.06em}
 .pl{display:flex;gap:6px;flex-wrap:wrap}.pl a{font:700 .82rem var(--f-body);text-decoration:none;color:#fff;background:var(--pc);border-radius:999px;padding:6px 12px}
 /* conquistas */
 .xpbig{height:14px;border-radius:7px;background:var(--line);overflow:hidden;margin:4px 0 18px}.xpbig i{display:block;height:100%;background:linear-gradient(90deg,var(--gold),var(--c1))}
@@ -461,7 +469,16 @@ h3 .mini{margin-left:8px;vertical-align:middle}
 </section>
 
 <section class="view" id="v-playlist" hidden>
-  <div class="banner b-pop"><div><div class="eyebrow">Playlist do curso</div><h2>Músicas, filmes, livros e jogos</h2><p>Cada item mostra a fase em que aquele inglês aparece e o que reparar. As letras ficam no YouTube e no Spotify: os botões abrem a busca.</p></div><span class="big-emoji">🎧</span></div>
+  <div class="banner b-pop"><div><div class="eyebrow">Playlist do curso</div><h2>Músicas, filmes, livros e jogos</h2><p>A sua playlist do Spotify primeiro, com o que reparar em cada música, depois as sugestões do curso. As letras ficam no YouTube e no Spotify: os botões abrem a busca.</p></div><span class="big-emoji">🎧</span></div>
+  <div class="minha">
+    <div class="mh"><div><div class="eyebrow">🎧 Sua playlist no Spotify</div><h3 id="mhTit">Ingles</h3><p id="mhSub"></p></div>
+      <div class="mprog"><b id="mhPct">0 %</b><span>estudadas</span></div></div>
+    <iframe id="spEmbed" title="Player da playlist Ingles no Spotify" loading="lazy" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" style="width:100%;height:352px;border:0;border-radius:14px"></iframe>
+    <ol class="recipe"><li><span><b>1ª vez:</b> só ouça e leia a dica do card. Não pause.</span></li><li><span><b>2ª vez:</b> abra a letra no Spotify ou no YouTube e cace as palavras-chave do card (toque nelas para ouvir a pronúncia).</span></li><li><span><b>3ª vez:</b> cante junto e marque ✓ estudei. A fase indicada no card explica a gramática da música.</span></li></ol>
+    <div class="seg" id="mhSeg"><button class="on" data-n="">Todas</button><button data-n="A1">🟢 Fáceis (A1)</button><button data-n="A2">🟡 Médias (A2)</button><button data-n="B1">🔴 Rápidas (B1)</button><button data-n="fase">📘 Com fase</button><button data-n="nao">⬜ Não estudadas</button></div>
+    <div class="popgrid" id="mhList"></div>
+  </div>
+  <h3 style="margin-top:28px">Sugestões do curso</h3>
   <div class="seg" id="plSeg"><button class="on" data-t="">Tudo</button><button data-t="musica">🎸 Músicas</button><button data-t="filme">🎬 Filmes</button><button data-t="livro">📚 Livros</button><button data-t="jogo">🎮 Jogos</button></div>
   <div class="popgrid" id="plList"></div>
 </section>
@@ -628,9 +645,9 @@ function popCard(p,uid){ const [ic,nm]=TIPO[p.tipo]; const u=uid?U[unitIdx(uid)]
 document.addEventListener('click',e=>{ if(e.target.closest('[data-pop]')){ Q.best.pop=(Q.best.pop||0)+1; save(); checkBadges() } });
 
 /* ===== FASE ===== */
-function unitHTML(u){ const i=unitIdx(u), prev=U[i-1], next=U[i+1], sc=Q.score[u.id], pop=POP[u.id]||[];
+function unitHTML(u){ const i=unitIdx(u), prev=U[i-1], next=U[i+1], sc=Q.score[u.id], pop=POP[u.id]||[], meu=((window.FDB_INGLES_MINHA||{}).musicas||[]).filter(m=>m.u===u.id);
   return '<div class="banner '+LVC[u.nivel]+'"><div><div class="eyebrow">Fase '+(i+1)+' de 24 · '+esc(lvOf(u.nivel).nome)+'</div><h2>'+esc(u.titulo)+'</h2><p>'+esc(u.meta)+'</p><div class="bchips"><a href="#'+u.nivel+'">← mapa do '+u.nivel+'</a>'+(done[u.id]?'<span>✓ concluída</span>':'')+(sc?'<span>exercícios '+sc.ok+'/'+sc.n+'</span>':'')+'</div></div><span class="bnum">'+(i+1)+'</span></div>'+
-    '<div class="tabs2" role="tablist"><button data-tab="aprender" class="on">📖 Aprender</button><button data-tab="praticar">✍️ Praticar</button><button data-tab="jogar">🎮 Jogar</button><button data-tab="pop">🎸 Pop'+(pop.length?' <small>'+pop.length+'</small>':'')+'</button></div>'+
+    '<div class="tabs2" role="tablist"><button data-tab="aprender" class="on">📖 Aprender</button><button data-tab="praticar">✍️ Praticar</button><button data-tab="jogar">🎮 Jogar</button><button data-tab="pop">🎸 Pop'+(pop.length+meu.length?' <small>'+(pop.length+meu.length)+'</small>':'')+'</button></div>'+
     '<div class="tab" data-tab="aprender">'+u.gram.map(g=>'<div class="gram"><h4>'+esc(g.t)+'</h4>'+g.h+'</div>').join('')+
       '<h3>Palavras da fase <button type="button" class="ghost mini" data-all="v">▶ ouvir todas</button></h3><div class="vgrid">'+u.vocab.map(([en,pt])=>'<button type="button" class="vw" data-say="'+esc(en)+'"><b>'+esc(en)+'</b><span>'+esc(pt)+'</span>'+SPK+'</button>').join('')+'</div>'+
       '<h3>Frases <button type="button" class="ghost mini" data-all="f">▶ ouvir todas</button></h3><div class="frases">'+u.frases.map(([en,pt])=>'<div class="fr">'+spk(en)+'<div><b>'+esc(en)+'</b><span class="fpt">'+esc(pt)+'</span></div><button type="button" class="mic2" data-fala="'+esc(en)+'" aria-label="Falar esta frase">'+MIC+'</button></div>').join('')+'</div>'+
@@ -639,7 +656,7 @@ function unitHTML(u){ const i=unitIdx(u), prev=U[i-1], next=U[i+1], sc=Q.score[u
     '<div class="tab read" data-tab="praticar" hidden><div id="exBox">'+u.ex.map((e,k)=>exHTML(e,k)).join('')+'</div>'+
       '<div class="btns"><button type="button" id="exCheck">Corrigir tudo</button><button type="button" class="ghost" id="exReset">Refazer</button></div><div class="simout" id="exRes" hidden></div></div>'+
     '<div class="tab" data-tab="jogar" hidden><p class="lede">Jogue com as palavras e frases desta fase. Cada jogo dá XP.</p><div id="gBox"></div></div>'+
-    '<div class="tab" data-tab="pop" hidden><p class="lede">Onde este inglês aparece de verdade. Ouça ou assista prestando atenção no que a dica pede: é o jeito mais divertido de fixar.</p><div class="popgrid">'+pop.map(p=>popCard(p)).join('')+'</div></div>'+
+    '<div class="tab" data-tab="pop" hidden><p class="lede">Onde este inglês aparece de verdade. Ouça ou assista prestando atenção no que a dica pede: é o jeito mais divertido de fixar.</p><div class="popgrid">'+meu.map(m=>minhaCard(m,true)).join('')+pop.map(p=>popCard(p)).join('')+'</div></div>'+
     '<div class="done-btn"><button type="button" id="uDone" class="'+(done[u.id]?'isdone':'')+'">'+(done[u.id]?'✓ Fase concluída':'Marcar fase como concluída')+'</button>'+(next?'<a href="#'+next.id+'">Próxima fase: '+esc(next.titulo)+' →</a>':'<a href="#nivelamento">Fechou o B1? Refaça o nivelamento →</a>')+(prev?' <a href="#'+prev.id+'" style="margin-left:auto">← '+esc(prev.titulo)+'</a>':'')+'</div>' }
 function exHTML(e,k){ const n='<span class="exn">'+(k+1)+'</span>';
   if(e.t==='mc') return '<div class="exi" data-k="'+k+'">'+n+'<div class="exb"><p>'+esc(e.q)+'</p><div class="opts">'+e.o.map((o,j)=>'<button type="button" data-j="'+j+'">'+esc(o)+'</button>').join('')+'</div><div class="why" hidden></div></div></div>';
@@ -690,7 +707,23 @@ function renderHome(){ const n=U.filter(u=>done[u.id]).length, nx=nextUnit(); co
     (Q.niv?'<p class="mono" style="font-size:.78rem;color:var(--ink2);margin:8px 0 0">Nivelamento: '+Q.niv.ok+'/'+Q.niv.n+' · sugestão: fase '+(unitIdx(Q.niv.u)+1)+'</p>':'') }
 
 /* ===== playlist, técnico, pronúncia ===== */
-let plT=''; function renderPlaylist(){ const it=[]; U.forEach(u=>(POP[u.id]||[]).forEach(p=>{ if(!plT||p.tipo===plT) it.push([p,u.id]) })); $('plList').innerHTML=it.map(([p,u])=>popCard(p,u)).join('') }
+const MINHA=window.FDB_INGLES_MINHA||{musicas:[]};
+let mhN='', mhEst={}; try{ mhEst=JSON.parse(localStorage.getItem('ingl-minha')||'{}') }catch(e){}
+const mhKey=m=>m.titulo+'|'+m.autor;
+function minhaCard(m,curto){ const u=m.u?U[unitIdx(m.u)]:null, e=mhEst[mhKey(m)];
+  return '<div class="popc t-minha'+(e?' est':'')+'"><div class="ph"><span class="pic">🎧</span><div><b>'+esc(m.titulo)+'</b><small>'+esc(m.autor)+' · '+m.ano+'<span class="nv nv-'+m.nv+'">'+m.nv+'</span></small></div></div>'+(curto?'<span class="minhab">da sua playlist</span>':'')+'<p>'+esc(m.foco)+'</p>'+
+    '<div class="vocm">'+m.voc.map(([en,pt])=>'<button type="button" data-say="'+esc(en.split(' / ')[0])+'">'+esc(en)+'<small>'+esc(pt)+'</small></button>').join('')+'</div>'+
+    (u&&!curto?'<a class="pu" href="#'+u.id+'">Fase '+(unitIdx(u)+1)+' · '+esc(u.titulo)+'</a>':'')+
+    '<div class="pl"><a href="'+busca({titulo:m.titulo,autor:m.autor.split(',')[0],tipo:'musica'},'sp')+'" target="_blank" rel="noopener">♫ Spotify</a><a href="'+busca({titulo:m.titulo,autor:m.autor.split(',')[0],tipo:'musica'})+'" target="_blank" rel="noopener">▶ Letra no YouTube</a>'+
+    '<button type="button" class="estb" data-est="'+esc(mhKey(m))+'">'+(e?'✓ estudei':'marcar estudei')+'</button></div></div>' }
+function renderMinha(){ const L=MINHA.musicas; if(!$('mhList'))return;
+  const em=$('spEmbed'); if(em&&!em.src) em.src='https://open.spotify.com/embed/playlist/'+MINHA.spotify+'?utm_source=generator';
+  const n=L.filter(m=>mhEst[mhKey(m)]).length; $('mhPct').textContent=Math.round(n/L.length*100)+' %';
+  $('mhSub').textContent=L.length+' músicas · '+L.filter(m=>m.u).length+' ligadas a uma fase · '+n+' estudadas';
+  $('mhList').innerHTML=L.filter(m=>!mhN||(mhN==='fase'?m.u:mhN==='nao'?!mhEst[mhKey(m)]:m.nv===mhN)).map(m=>minhaCard(m)).join('')||'<p>Nenhuma música nesse filtro.</p>' }
+document.addEventListener('click',e=>{ const b=e.target.closest('[data-est]'); if(!b)return; const k=b.dataset.est; if(mhEst[k]) delete mhEst[k]; else { mhEst[k]=Date.now(); addXP(3,'🎧 Música estudada') }
+  try{ localStorage.setItem('ingl-minha',JSON.stringify(mhEst)) }catch(_){} renderMinha(); const c=b.closest('.popc'); if(c&&!c.closest('#mhList')){ c.classList.toggle('est',!!mhEst[k]); b.textContent=mhEst[k]?'✓ estudei':'marcar estudei' } });
+let plT=''; function renderPlaylist(){ renderMinha(); const it=[]; U.forEach(u=>(POP[u.id]||[]).forEach(p=>{ if(!plT||p.tipo===plT) it.push([p,u.id]) })); $('plList').innerHTML=it.map(([p,u])=>popCard(p,u)).join('') }
 function renderTec(){ const t=norm($('tecQ').value||''); $('tecList').innerHTML=I.tecnico.filter(([en,pt])=>!t||norm(en+' '+pt).includes(t)).map(([en,pt])=>'<button type="button" class="vw" data-say="'+esc(en)+'"><b>'+esc(en)+'</b><span>'+esc(pt)+'</span>'+SPK+'</button>').join('')||'<p>Nada encontrado.</p>' }
 function renderPron(){ $('pronList').innerHTML=I.pronuncia.map(p=>'<div class="gram"><h4>'+esc(p.t)+'</h4><p>'+p.h+'</p><div class="pool">'+p.ex.map(w=>'<span class="pw"><button type="button" data-say="'+esc(w)+'">'+SPK+' '+esc(w)+'</button><button type="button" class="mic2" data-fala="'+esc(w)+'" aria-label="Falar '+esc(w)+'">'+MIC+'</button></span>').join('')+'</div></div>').join('');
   $('pronList').querySelectorAll('[data-fala]').forEach(b=>b.onclick=()=>{ const en=b.dataset.fala; b.classList.add('rec'); ouvir((alts,err)=>{ b.classList.remove('rec'); if(!alts){ toast(err,2600); return } if(alts.some(a=>parecido(a,en)>=.99)){ b.classList.add('okm'); toast('🎙️ Perfeito!'); addXP(2) } else toast('Ouvi: “'+alts[0]+'”',2400) }) }) }
@@ -725,6 +758,7 @@ load(); renderNiv(); renderXP(); ttsInfo(); checkBadges();
 $('slowChk').checked=slow; $('slowChk').onchange=e=>{ slow=e.target.checked; try{ localStorage.setItem('ingl-slow',slow?'1':'0') }catch(_){} };
 $('tecQ').addEventListener('input',renderTec);
 $('tecGame').onclick=()=>{ const b=$('tecGameBox'); b.innerHTML='<div class="gstage"></div>'; JOGO.memoria(b.firstChild,I.tecnico,null,'tec'); b.scrollIntoView({behavior:'smooth'}) };
+document.querySelectorAll('#mhSeg button').forEach(b=>b.onclick=()=>{ mhN=b.dataset.n; document.querySelectorAll('#mhSeg button').forEach(x=>x.classList.toggle('on',x===b)); renderMinha() });
 document.querySelectorAll('#plSeg button').forEach(b=>b.onclick=()=>{ plT=b.dataset.t; document.querySelectorAll('#plSeg button').forEach(x=>x.classList.toggle('on',x===b)); renderPlaylist() });
 $('nivGo').onclick=resultNiv; $('nivReset').onclick=renderNiv;
 addEventListener('hashchange',route); route();
