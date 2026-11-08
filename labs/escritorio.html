@@ -1,0 +1,154 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Escritório internacional · Laboratório de Inglês</title>
+<link rel="icon" type="image/png" href="../icons/logo-favicon-64.png">
+<link rel="stylesheet" href="../css/fdb-v2.css">
+<link rel="stylesheet" href="../css/lab.css">
+<style>
+.cenas{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:8px;margin-bottom:12px}
+.cena{text-align:left;border:1.5px solid var(--line);background:var(--sheet);border-radius:14px;padding:10px 12px;cursor:pointer;color:var(--ink);font:inherit;position:relative}
+.cena.on{border-color:var(--c1);box-shadow:0 0 0 2px color-mix(in srgb,var(--c1) 25%,transparent)}
+.cena b{display:block;font:800 .95rem var(--f-disp)}.cena small{color:var(--ink2);font-size:.78rem}.cena .pg{display:block;margin-top:6px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}.cena .pg i{display:block;height:100%;background:var(--ok)}
+.sala{position:relative;border-radius:18px;overflow:hidden;background:linear-gradient(180deg,#DCE7F5 0 62%,#C9B79A 62% 100%);min-height:200px;border:1.5px solid var(--line)}
+:root[data-theme=dark] .sala{background:linear-gradient(180deg,#1E2A3E 0 62%,#3A3226 62% 100%)}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .sala{background:linear-gradient(180deg,#1E2A3E 0 62%,#3A3226 62% 100%)}}
+.sala .jan{position:absolute;top:16px;right:18px;width:110px;height:70px;border:5px solid #fff;border-radius:6px;background:linear-gradient(#8EC5F2,#CFE6F8);box-shadow:inset 0 -14px 0 #9CC79A}
+.sala .quadro{position:absolute;top:18px;left:18px;background:#fff;border-radius:8px;padding:6px 10px;font:700 .78rem var(--f-body);color:#0E1F38;box-shadow:0 2px 0 rgba(0,0,0,.1);max-width:46%}
+.sala .mesa{position:absolute;left:8%;right:8%;bottom:16px;height:16px;border-radius:6px;background:#7A5634}
+.sala .p{position:absolute;bottom:30px;font-size:56px;line-height:1;transition:transform .3s}
+.sala .p small{display:block;font:700 .7rem var(--f-body);text-align:center;color:var(--ink);background:var(--sheet);border-radius:8px;padding:1px 6px;margin-top:2px}
+.sala .p.fala{transform:translateY(-6px)}
+.sala .obj{position:absolute;bottom:34px;left:46%;font-size:34px}
+.chat{display:flex;flex-direction:column;gap:8px;max-height:340px;overflow:auto;padding:4px 2px}
+.bb{max-width:86%;padding:9px 12px;border-radius:16px;font-size:.95rem;line-height:1.4}
+.bb.npc{background:var(--paper);border-bottom-left-radius:4px;align-self:flex-start}
+.bb.eu{background:var(--navy);color:#fff;border-bottom-right-radius:4px;align-self:flex-end}
+.bb .tr{display:block;font-size:.8rem;color:var(--ink2);margin-top:3px}.bb.eu .tr{color:#C8D3E6}
+.bb button{border:0;background:none;cursor:pointer;font-size:.95rem;padding:0 0 0 6px;color:inherit}
+.tarefa{background:color-mix(in srgb,var(--c1) 10%,var(--sheet));border:1.5px dashed var(--c1);border-radius:14px;padding:10px 12px;font-size:.95rem}
+.tarefa b{font-family:var(--f-disp)}
+.linha{min-height:52px;border-bottom:2px solid var(--line);display:flex;flex-wrap:wrap;gap:6px;padding:8px 0;align-items:center}
+.linha:empty::before{content:'Toque nas palavras para montar a frase';color:var(--ink2);font-size:.85rem}
+.tiles{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tile{font:700 .95rem var(--f-body);border:1.5px solid var(--line);border-bottom-width:3px;background:var(--sheet);color:var(--ink);border-radius:10px;padding:7px 11px;cursor:pointer;transition:transform .12s}
+.tile:active{transform:translateY(2px)}.tile.usada{visibility:hidden}
+.linha .tile{background:color-mix(in srgb,var(--c2) 10%,var(--sheet));border-color:var(--c2)}
+.shake{animation:sh .35s}@keyframes sh{20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}
+@media (prefers-reduced-motion:reduce){.shake{animation:none}}
+.fim{text-align:center;padding:10px}.fim .big{font:800 1.4rem var(--f-disp);display:block}.fim .st{font-size:1.8rem;color:#E3A21A;letter-spacing:4px}
+.vocab{display:flex;flex-wrap:wrap;gap:6px}.vocab span{background:var(--paper);border-radius:999px;padding:4px 10px;font-size:.84rem}
+</style>
+</head>
+<body>
+<header class="lh"><div class="lhin">
+  <a class="lgo" href="../materias/ingles/oficina-de-ingles.html"><span class="s">💼</span><span><small>Laboratório · Inglês</small><b>Escritório internacional</b></span></a>
+  <span class="sp"></span><a href="../index.html#labs">Todos os laboratórios</a><span class="stars" id="stars"></span>
+</div></header>
+<main class="lab">
+  <div class="lab-hero"><div><div class="eb">Laboratório de inglês para o trabalho</div><h1>Seu primeiro dia numa empresa global</h1>
+    <p>Escolha uma situação. Os colegas falam com você em inglês (toque 🔊 para ouvir e 🇧🇷 para ver a tradução). Monte a sua resposta com as peças de palavras e a história avança. Cada expressão nova vai para o seu álbum.</p></div></div>
+  <div class="cenas" id="cenas"></div>
+  <div class="grid2">
+    <div style="display:grid;gap:12px">
+      <div class="sala" id="sala"></div>
+      <div class="card"><div class="chat" id="chat" aria-live="polite"></div></div>
+    </div>
+    <div style="display:grid;gap:12px">
+      <div class="card" id="jogo"></div>
+      <div class="card"><h3>🎯 Conquistas</h3><ul class="mis" id="mis"></ul></div>
+      <div class="card"><h3>📒 Álbum de expressões</h3><div class="album" id="alb"></div></div>
+    </div>
+  </div>
+</main>
+<footer class="ffix"><span>Faculdade de Bolso · IFMG · Campus Betim - Desenvolvido por Guilherme dos Santos Braz</span><a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn</a></footer>
+<script src="../js/lab-kit.js"></script>
+<script>
+'use strict';
+const {$,RM,progresso,toast,confete}=LAB;
+/* cada passo: o colega fala (en, pt), você recebe a tarefa em PT e monta a resposta.
+   r = resposta (palavras separadas por espaço), alt = outras ordens aceitas, x = peças que sobram (distratores), ex = expressão para o álbum */
+const CENAS=[
+ {id:'chegada',n:'Primeiro dia',ic:'👋',sub:'Recepção e apresentações',quadro:'WELCOME, NEW TRAINEE!',gente:[['👩‍💼','Sarah (RH)'],['🧑','Você']],obj:'🪪',passos:[
+  {npc:['Good morning! You must be the new trainee.','Bom dia! Você deve ser o novo estagiário.'],t:'Diga que sim e que seu nome é Gui.',r:'Yes, my name is Gui.',x:['am','I','his'],ex:['My name is…','Meu nome é…']},
+  {npc:['Nice to meet you, Gui. I am Sarah, from HR.','Prazer, Gui. Eu sou a Sarah, do RH.'],t:'Responda: “Prazer em conhecer você também.”',r:'Nice to meet you too.',x:['meet','see','to'],ex:['Nice to meet you too','Prazer em conhecer você também']},
+  {npc:['What do you study?','O que você estuda?'],t:'Diga que estuda engenharia mecânica.',r:'I study mechanical engineering.',x:['studies','machine','an'],ex:['I study…','Eu estudo…']},
+  {npc:['Great! Let me show you around.','Ótimo! Deixa eu te mostrar o lugar.'],t:'Agradeça: “Muito obrigado, eu agradeço.”',r:'Thank you so much, I appreciate it.',x:['thanks','very','appreciated'],ex:['I appreciate it','Eu agradeço (fico grato)']}]},
+ {id:'email',n:'E-mail ao fornecedor',ic:'✉️',sub:'Pedir orçamento de peças',quadro:'TO: sales@bearings.com',gente:[['🧑','Você'],['👨‍💼','Mr. Lee (chefe)']],obj:'💻',passos:[
+  {npc:['We need 200 bearings by Friday. Can you email the supplier?','Precisamos de 200 rolamentos até sexta. Você manda e-mail ao fornecedor?'],t:'Comece o e-mail formal: “Prezado Sr. Smith,”',r:'Dear Mr. Smith,',x:['Hi','Dearest','Mrs.'],ex:['Dear Mr. …,','Prezado Sr. … (abertura formal)']},
+  {npc:['Good. Now explain why you are writing.','Bom. Agora explique por que está escrevendo.'],t:'Escreva: “Estou escrevendo para pedir um orçamento.”',r:'I am writing to request a quote.',x:['writes','ask','an'],ex:['I am writing to…','Escrevo para… (motivo do e-mail)']},
+  {npc:['Mention the quantity and the deadline.','Mencione a quantidade e o prazo.'],t:'“Precisamos de 200 rolamentos até sexta-feira.”',r:'We need 200 bearings by Friday.',x:['until','bearing','need'],ex:['by Friday','até sexta (prazo final)']},
+  {npc:['Perfect. Close it politely.','Perfeito. Feche com educação.'],t:'Feche: “Aguardo seu retorno.”',r:'I look forward to hearing from you.',x:['hear','for','waiting'],ex:['I look forward to hearing from you','Aguardo seu retorno']}]},
+ {id:'catalogo',n:'Catálogo técnico',ic:'📘',sub:'Ler especificações',quadro:'BALL BEARING 6205-2RS · d = 25 mm · D = 52 mm',gente:[['👩‍🔧','Ana (manutenção)'],['🧑','Você']],obj:'⚙️',passos:[
+  {npc:['What is the inner diameter of this bearing?','Qual é o diâmetro interno deste rolamento?'],t:'Olhe o quadro e responda: “O diâmetro interno é 25 milímetros.”',r:'The inner diameter is 25 millimeters.',x:['outer','52','are'],ex:['inner / outer diameter','diâmetro interno / externo']},
+  {npc:['And what does 2RS mean?','E o que significa 2RS?'],t:'“Significa que ele tem duas vedações de borracha.”',r:'It means it has two rubber seals.',x:['mean','seal','have'],ex:['It means…','Significa…']},
+  {npc:['Can we use it at 15,000 rpm?','Podemos usar a 15.000 rpm?'],t:'“Não, excede a velocidade máxima.”',r:'No, it exceeds the maximum speed.',x:['exceed','minimum','velocity'],ex:['maximum speed','velocidade máxima (rotação limite)']},
+  {npc:['Thanks! What should we order then?','Obrigada! O que pedimos então?'],t:'“Devemos pedir um rolamento de alta velocidade.”',r:'We should order a high-speed bearing.',x:['shall','fast','an'],ex:['We should…','Nós deveríamos… (recomendação)']}]},
+ {id:'reuniao',n:'Reunião on-line',ic:'🖥️',sub:'Videochamada com a matriz',quadro:'MEETING · Production Report',gente:[['🧑','Você'],['👩‍💻','Emma (Alemanha)'],['👨‍💼','Mr. Lee']],obj:'📊',passos:[
+  {npc:['Hi everyone, can you hear me?','Oi pessoal, vocês me ouvem?'],t:'“Sim, eu consigo te ouvir claramente.”',r:'Yes, I can hear you clearly.',x:['listen','clear','see'],ex:['Can you hear me?','Você me ouve? (clássico de reunião)']},
+  {npc:['Gui, could you share your screen?','Gui, você pode compartilhar sua tela?'],t:'“Claro, me dê um segundo.”',r:'Sure, give me a second.',x:['gives','minute','to'],ex:['Give me a second','Me dá um segundo']},
+  {npc:['How was production last month?','Como foi a produção no mês passado?'],t:'“A produção aumentou 12 por cento.”',r:'Production increased by 12 percent.',x:['increase','of','raised'],ex:['increased by 12 percent','aumentou 12 por cento']},
+  {npc:['Sorry, the connection dropped. What did you say?','Desculpe, a conexão caiu. O que você disse?'],t:'“Sem problemas, vou repetir.”',r:"No problem, I'll repeat it.",x:['repeated','will','again'],ex:["I'll repeat it",'Vou repetir']}]},
+ {id:'seguranca',n:'Segurança na fábrica',ic:'🦺',sub:'Visita ao chão de fábrica',quadro:'⚠ SAFETY FIRST · PPE REQUIRED',gente:[['👷','Tom (segurança)'],['🧑','Você']],obj:'🦺',passos:[
+  {npc:['Before we enter, what do you need to wear?','Antes de entrar, o que você precisa usar?'],t:'“Eu preciso usar óculos de segurança e protetor auricular.”',r:'I need to wear safety glasses and ear protection.',x:['use','glass','eyes'],ex:['safety glasses / ear protection','óculos de segurança / protetor auricular']},
+  {npc:['Good. What does this red button do?','Bom. O que faz este botão vermelho?'],t:'“Ele para a máquina em uma emergência.”',r:'It stops the machine in an emergency.',x:['stop','a','on'],ex:['emergency stop','botão de emergência']},
+  {npc:['Someone left oil on the floor. What do you do?','Alguém deixou óleo no chão. O que você faz?'],t:'“Eu vou informar o supervisor imediatamente.”',r:'I will report it to the supervisor immediately.',x:['tell','at','now'],ex:['report it to the supervisor','comunicar ao supervisor']},
+  {npc:['Excellent. You are ready for the shop floor!','Excelente. Você está pronto para o chão de fábrica!'],t:'“Obrigado pelo treinamento.”',r:'Thank you for the training.',x:['to','train','thanks'],ex:['shop floor','chão de fábrica']}]}];
+const TOT=CENAS.reduce((a,c)=>a+c.passos.length,0);
+const MIS=[['i1','Termine o primeiro dia','Apresente-se para a Sarah.'],['i2','Mande o e-mail completo','Abertura, motivo, prazo e fechamento.'],['i3','Leia o catálogo técnico','Diâmetros, vedações e rotação.'],['i4','Sobreviva à reunião on-line','Até a conexão cair.'],['i5','Passe no treinamento de segurança','EPIs, botão de emergência, óleo.'],['i6','Frase de primeira 10 vezes','Acerte sem errar nenhuma vez.'],['i7','Escute 15 falas no 🔊','Treinar o ouvido conta.'],['i8','Todas as situações com 3 estrelas','Sem nenhum erro em cada uma.']];
+const PR=progresso('escritorio',MIS.length);
+let est={}; try{ est=JSON.parse(localStorage.getItem('lab-esc-est')||'{}') }catch(e){}
+let cnt={pri:0,ouv:0}; try{ cnt=Object.assign(cnt,JSON.parse(localStorage.getItem('lab-esc-cnt')||'{}')) }catch(e){}
+const salvaCnt=()=>{ try{ localStorage.setItem('lab-esc-cnt',JSON.stringify(cnt)); localStorage.setItem('lab-esc-est',JSON.stringify(est)) }catch(e){} };
+let cena=CENAS[0], k=0, erros=0, errPasso=0, montada=[], pecas=[];
+const tok=s=>s.match(/[A-Za-z0-9'-]+[.,!?]?|[.,!?]/g);
+const norm=s=>s.toLowerCase().replace(/[.,!?]/g,'').replace(/\s+/g,' ').trim();
+function shuf(a){ a=a.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.random()*(i+1)|0; [a[i],a[j]]=[a[j],a[i]] } return a }
+/* voz: só usa se o navegador tiver */
+function fala(t){ try{ const S=speechSynthesis; S.cancel(); const u=new SpeechSynthesisUtterance(t); u.lang='en-US'; u.rate=.92; const v=S.getVoices().find(v=>/^en(-|_)US/i.test(v.lang))||S.getVoices().find(v=>/^en/i.test(v.lang)); if(v) u.voice=v; S.speak(u) }catch(e){}
+  cnt.ouv++; salvaCnt(); if(cnt.ouv>=15) conq('i7') }
+function conq(id){ if(PR.missao(id)){ toast('🎯 Conquista: '+MIS.find(m=>m[0]===id)[1]); confete(); drawMis() } }
+function sala(falando){ const g=cena.gente, n=g.length; $('sala').innerHTML='<div class="jan"></div><div class="quadro">'+cena.quadro+'</div><div class="mesa"></div><div class="obj">'+cena.obj+'</div>'+
+  g.map(([e,nm],i)=>'<div class="p'+(falando===i?' fala':'')+'" style="left:'+(10+i*(70/Math.max(1,n-1)))+'%">'+e+'<small>'+nm+'</small></div>').join('') }
+function bolha(cls,en,pt){ const d=document.createElement('div'); d.className='bb '+cls; d.innerHTML='<span>'+en+'</span><button title="Ouvir" aria-label="Ouvir">🔊</button>'+(pt?'<button title="Tradução" aria-label="Ver tradução">🇧🇷</button><span class="tr" hidden>'+pt+'</span>':'');
+  const bs=d.querySelectorAll('button'); bs[0].onclick=()=>fala(en); if(bs[1]) bs[1].onclick=()=>{ const t=d.querySelector('.tr'); t.hidden=!t.hidden };
+  $('chat').appendChild(d); $('chat').scrollTop=1e6; return d }
+function quemFala(){ return Math.max(0,cena.gente.findIndex(g=>g[1]!=='Você')) }
+function iniciar(c){ cena=c; k=0; erros=0; $('chat').innerHTML=''; drawCenas(); passo() }
+function passo(){ const p=cena.passos[k]; sala(quemFala()); bolha('npc',p.npc[0],p.npc[1]); errPasso=0;
+  montada=[]; pecas=shuf(tok(p.r).concat(p.x)).map((w,i)=>({w,i,u:false})); render() }
+function render(){ const p=cena.passos[k];
+  $('jogo').innerHTML='<h3>🧩 Sua vez · '+(k+1)+' de '+cena.passos.length+'</h3><div class="tarefa">🇧🇷 <b>'+p.t+'</b></div><div class="linha" id="linha"></div><div class="tiles" id="tiles"></div>'+
+   '<div class="row" style="margin-top:12px"><button class="btn or" id="chk">✔ Responder</button><button class="btn gh" id="lim">↺ Limpar</button><button class="btn gh" id="dic">💡 Dica</button></div><div class="msg" id="fb" hidden></div>';
+  $('linha').innerHTML=montada.map(i=>'<button class="tile" data-i="'+i+'">'+pecas[i].w+'</button>').join('');
+  $('tiles').innerHTML=pecas.map((t,i)=>'<button class="tile'+(t.u?' usada':'')+'" data-i="'+i+'">'+t.w+'</button>').join('');
+  $('tiles').querySelectorAll('.tile').forEach(b=>b.onclick=()=>{ const i=+b.dataset.i; if(pecas[i].u) return; pecas[i].u=true; montada.push(i); render() });
+  $('linha').querySelectorAll('.tile').forEach(b=>b.onclick=()=>{ const i=+b.dataset.i; pecas[i].u=false; montada=montada.filter(j=>j!==i); render() });
+  $('lim').onclick=()=>{ pecas.forEach(t=>t.u=false); montada=[]; render() };
+  $('dic').onclick=()=>{ const f=$('fb'); f.hidden=false; f.textContent='💡 Começa com: “'+tok(p.r)[0]+'” · '+tok(p.r).length+' peças.' };
+  $('chk').onclick=checa }
+function checa(){ const p=cena.passos[k], frase=montada.map(i=>pecas[i].w).join(' ');
+  const ok=[p.r].concat(p.alt||[]).some(r=>norm(r)===norm(frase));
+  if(!ok){ erros++; errPasso++; const l=$('linha'); l.classList.remove('shake'); void l.offsetWidth; l.classList.add('shake'); const f=$('fb'); f.hidden=false; f.textContent='✗ Ainda não.'; return }
+  if(!errPasso){ cnt.pri++; salvaCnt(); if(cnt.pri>=10) conq('i6') }
+  const eu=cena.gente.findIndex(g=>g[1]==='Você'); sala(eu); bolha('eu',p.r); fala(p.r);
+  if(PR.album(cena.id+k)){ toast('📒 Nova expressão: '+p.ex[0]); drawAlb() }
+  k++; if(k<cena.passos.length){ $('jogo').innerHTML='<p style="color:var(--ink2)">…</p>'; setTimeout(passo,RM?50:900) } else setTimeout(fim,RM?50:700) }
+function fim(){ const s=erros===0?3:erros<=2?2:1; if(s>(est[cena.id]||0)) est[cena.id]=s; salvaCnt();
+  conq({chegada:'i1',email:'i2',catalogo:'i3',reuniao:'i4',seguranca:'i5'}[cena.id]); if(CENAS.every(c=>est[c.id]===3)) conq('i8');
+  const voc=cena.passos.map(p=>'<span><b>'+p.ex[0]+'</b> · '+p.ex[1]+'</span>').join('');
+  const nx=CENAS[(CENAS.indexOf(cena)+1)%CENAS.length];
+  $('jogo').innerHTML='<div class="fim"><span class="big">Situação concluída!</span><span class="st">'+'★'.repeat(s)+'☆'.repeat(3-s)+'</span><p>'+(erros?erros+' erro(s) no caminho.':'Nenhum erro!')+'</p></div><h3>Expressões desta cena</h3><div class="vocab">'+voc+'</div><div class="row" style="margin-top:12px"><button class="btn or" id="nx">'+nx.ic+' Próxima: '+nx.n+'</button><button class="btn gh" id="rp">↺ Jogar de novo</button></div>';
+  $('nx').onclick=()=>iniciar(nx); $('rp').onclick=()=>iniciar(cena); drawCenas() }
+function drawCenas(){ $('cenas').innerHTML=CENAS.map(c=>{ const s=est[c.id]||0, f=c.passos.filter((_,i)=>PR.P.album[c.id+i]).length; return '<button class="cena'+(c===cena?' on':'')+'" data-c="'+c.id+'"><b>'+c.ic+' '+c.n+'</b><small>'+c.sub+'</small><span style="color:#E3A21A;letter-spacing:2px;font-size:.85rem;display:block">'+'★'.repeat(s)+'☆'.repeat(3-s)+'</span><span class="pg"><i style="width:'+(f/c.passos.length*100)+'%"></i></span></button>' }).join('');
+  document.querySelectorAll('.cena').forEach(b=>b.onclick=()=>iniciar(CENAS.find(c=>c.id===b.dataset.c))) }
+function drawMis(){ $('mis').innerHTML=MIS.map(([id,t,d])=>'<li class="'+(PR.P.mis[id]?'ok':'')+'"><span class="st">'+(PR.P.mis[id]?'✓':'·')+'</span><span>'+t+'<small>'+(PR.P.mis[id]?'cumprida':d)+'</small></span></li>').join('') }
+function drawAlb(){ const it=[]; CENAS.forEach(c=>c.passos.forEach((p,i)=>it.push([c.id+i,c.ic,p.ex])));
+  $('alb').innerHTML='<p style="margin:0 0 8px;color:var(--ink2);font-size:.85rem">'+Object.keys(PR.P.album).length+' de '+TOT+' expressões</p>'+it.map(([k2,e,ex])=>'<div class="it'+(PR.P.album[k2]?' on':'')+'"><span><span class="e">'+e+'</span>'+(PR.P.album[k2]?'<b>'+ex[0]+'</b><br><small>'+ex[1]+'</small>':'???')+'</span></div>').join('') }
+try{ speechSynthesis.getVoices() }catch(e){}
+drawMis(); drawAlb(); iniciar(CENAS[0]);
+</script>
+</body>
+</html>

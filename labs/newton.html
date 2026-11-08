@@ -1,0 +1,191 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oficina de Newton · Laboratório de Física</title>
+<link rel="icon" type="image/png" href="../icons/logo-favicon-64.png">
+<link rel="stylesheet" href="../css/fdb-v2.css">
+<link rel="stylesheet" href="../css/lab.css">
+<style>
+#cv{aspect-ratio:16/10}
+.fbd{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center}
+.fbd canvas{width:150px;height:150px;background:var(--paper);border-radius:12px}
+.leg{display:grid;gap:4px;font-size:.84rem}
+.leg span{display:flex;align-items:center;gap:6px}.leg i{width:14px;height:4px;border-radius:2px;display:inline-block}
+.tg{display:flex;gap:10px;flex-wrap:wrap;font-size:.84rem;color:var(--ink2)}
+.tg label{display:flex;gap:5px;align-items:center;cursor:pointer}
+</style>
+</head>
+<body>
+<header class="lh"><div class="lhin">
+  <a class="lgo" href="../materias/fis1/oficina-de-fisica.html"><span class="s">F</span><span><small>Laboratório · Física I</small><b>Oficina de Newton</b></span></a>
+  <span class="sp"></span><a href="../index.html#labs">Todos os laboratórios</a><span class="stars" id="stars" title="Missões cumpridas"></span>
+</div></header>
+
+<main class="lab">
+  <div class="lab-hero"><div><div class="eb">Laboratório de forças</div><h1>Monte, solte e veja as forças agindo</h1>
+    <p>Escolha uma montagem, mexa nos valores e aperte <b>Soltar</b>. As setas mostram cada força em tamanho proporcional, o diagrama de corpo livre se monta sozinho e as contas aparecem com os seus números. Cumpra as missões e complete o álbum.</p></div></div>
+
+  <div class="tabs" id="cenas" role="tablist" aria-label="Montagens"></div>
+
+  <div class="grid2">
+    <div>
+      <div class="stage"><canvas id="cv" aria-label="Simulação da montagem"></canvas><div class="ov" id="ov"></div></div>
+      <div class="row" style="margin-top:10px">
+        <button class="btn or" id="go">▶ Soltar</button><button class="btn gh" id="rs">↺ Recomeçar</button>
+        <div class="tg"><label><input type="checkbox" id="tgC" checked> componentes do peso</label><label><input type="checkbox" id="tgV" checked> valores nas setas</label><label><input type="checkbox" id="tgS"> câmera lenta</label></div>
+      </div>
+      <div class="card" style="margin-top:12px"><h3>🧮 As contas, com os seus números</h3><div class="eqs" id="eqs"></div></div>
+    </div>
+    <div style="display:grid;gap:12px">
+      <div class="card"><h3>🎛️ Ajuste a montagem</h3><div class="ctl" id="ctl"></div><div class="msg" id="st"></div></div>
+      <div class="card"><h3>📐 Diagrama de corpo livre</h3><div class="fbd"><canvas id="fbd" width="300" height="300" aria-label="Diagrama de corpo livre"></canvas><div class="leg" id="leg"></div></div></div>
+      <div class="card"><h3>🎯 Missões</h3><ul class="mis" id="mis"></ul></div>
+      <div class="card"><h3>📒 Álbum de descobertas</h3><div class="album" id="alb"></div></div>
+    </div>
+  </div>
+</main>
+<footer class="ffix"><span>Faculdade de Bolso · IFMG · Campus Betim - Desenvolvido por Guilherme dos Santos Braz</span><a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn</a></footer>
+
+<script src="../js/lab-kit.js"></script>
+<script>
+'use strict';
+const {$,nf,RM,css,tela,progresso,toast,confete,seta}=LAB;
+const g=9.8, COR={P:'#C73A2C',N:'#1E62C9',T:'#6447BE',fat:'#F26B1D',F:'#22884A',Fel:'#0E8A8C'};
+const ALB=[['parado','🧱','Bloco parado na rampa'],['desliza','🛝','Bloco deslizando'],['atwEq','⚖️','Atwood em equilíbrio'],['atwAc','🏗️','Atwood acelerando'],['mola','🌀','Mola oscilando'],['pend','🕰️','Pêndulo'],['preso','🪢','Puxão que não move'],['arrasta','🚀','Puxão que arrasta']];
+const MIS=[
+ ['m1','rampa','Segure o bloco parado numa rampa de pelo menos 25°','Dica: o atrito estático segura enquanto tg θ ≤ μ.',(p,s)=>s.parado&&p.th>=25],
+ ['m2','rampa','Faça o bloco descer os 4 m em menos de 1,5 s','Rampa mais inclinada e menos atrito.',(p,s)=>s.chegou&&s.t<1.5],
+ ['m3','atw','Equilibre a máquina de Atwood (a = 0)','Massas iguais: as trações se cancelam com os pesos.',(p,s)=>s.rodou&&Math.abs(p.m1-p.m2)<1e-9],
+ ['m4','atw','Atwood com a = g/2 (4,9 m/s²)','a = (m₂ − m₁)g/(m₁ + m₂). Que razão entre as massas dá 1/2?',(p,s)=>s.rodou&&Math.abs(Math.abs(p.m2-p.m1)/(p.m1+p.m2)-.5)<.005],
+ ['m5','mola','Ajuste a mola para oscilar com período de 1 s','T = 2π√(m/k).',(p,s)=>s.rodou&&Math.abs(2*Math.PI*Math.sqrt(p.m/p.k)-1)<.05],
+ ['m6','puxa','Puxe com F ≥ 50 N e o bloco não sair do lugar','Aumente a massa ou o atrito; inclinar a força para baixo também ajuda?',(p,s)=>s.rodou&&s.parado&&p.F>=50],
+ ['m7','pend','Pêndulo com período de 2 s','T ≈ 2π√(L/g): ache o L.',(p,s)=>s.rodou&&Math.abs(2*Math.PI*Math.sqrt(p.L/g)-2)<.04],
+ ['m8','puxa','Deixe a normal quase zero (0 < N < 5 N) puxando','N = P − F·sen α: puxe bem inclinado para cima.',(p,s)=>s.rodou&&s.N>0&&s.N<5]];
+const PR=progresso('newton',MIS.length);
+const CENAS={
+ rampa:{nome:'Plano inclinado',ic:'📐',par:[['m','Massa',1,20,.5,5,'kg'],['th','Inclinação θ',0,60,1,30,'°'],['mu','Atrito μ (estático)',0,1,.01,.3,'']],
+  ini(p,s){ s.x=0; s.v=0; s.t=0; s.chegou=false; s.parado=false },
+  passo(dt,p,s){ const th=p.th*Math.PI/180, mus=p.mu, muk=.8*p.mu;
+    if(s.v===0&&Math.tan(th)<=mus+1e-9){ s.parado=true; return false }
+    const a=g*(Math.sin(th)-muk*Math.cos(th)); s.a=a; if(a<=0&&s.v<=0){ s.parado=true; return false }
+    s.v=Math.max(0,s.v+a*dt); s.x+=s.v*dt; s.t+=dt; if(s.x>=4){ s.x=4; s.chegou=true; return false } return true },
+  forcas(p,s){ const th=p.th*Math.PI/180, P=p.m*g, N=P*Math.cos(th), mus=p.mu, muk=.8*p.mu; const mov=s.v>0||(Math.tan(th)>mus);
+    const fat=mov?muk*N:P*Math.sin(th);
+    return [['P',P,0,1],['N',N,Math.sin(th),-Math.cos(th)],['fat',fat,-Math.cos(th),-Math.sin(th)]] },
+  eqs(p,s){ const th=p.th*Math.PI/180, P=p.m*g, N=P*Math.cos(th), Px=P*Math.sin(th), mus=p.mu, muk=.8*p.mu, desl=Math.tan(th)>mus, a=desl?g*(Math.sin(th)-muk*Math.cos(th)):0;
+    return [['Peso','P = m·g = '+nf(p.m)+' × 9,8 = <b>'+nf(P,1)+' N</b>'],['Componentes do peso','Px = P·sen θ = <b>'+nf(Px,1)+' N</b> (empurra rampa abaixo) · Py = P·cos θ = <b>'+nf(N,1)+' N</b>'],
+      ['Normal','N = Py = <b>'+nf(N,1)+' N</b> (a rampa empurra o bloco de volta)'],['Atrito máximo parado','fe,máx = μ·N = '+nf(mus)+' × '+nf(N,1)+' = <b>'+nf(mus*N,1)+' N</b>'],
+      desl?['Desliza! 2ª lei de Newton','a = g(sen θ − μc·cos θ) = <b>'+nf(a,2)+' m/s²</b> (μc = 0,8·μ = '+nf(muk)+')']:['Fica parado','Px ('+nf(Px,1)+' N) ≤ fe,máx ('+nf(mus*N,1)+' N): o atrito segura. Ângulo crítico: θ = arctg μ = <b>'+nf(Math.atan(mus)*180/Math.PI,1)+'°</b>']] },
+  status(p,s){ return s.chegou?'Chegou embaixo em <b>'+nf(s.t,2)+' s</b> a '+nf(s.v,2)+' m/s.':s.parado?'O atrito segurou: o bloco não se mexe.':s.t>0?'Descendo… '+nf(s.x,2)+' m em '+nf(s.t,2)+' s':'Aperte Soltar.' },
+  album(p,s){ return s.parado?'parado':s.chegou?'desliza':null },
+  draw(x,W,H,p,s,o){ const th=p.th*Math.PI/180, L=4; const sc=Math.min((W-130)/(L*Math.cos(th)+.6),(H-110)/(L*Math.sin(th)+.9)), ox=60, oy=H-55;
+    const top=[ox,oy-L*Math.sin(th)*sc], bot=[ox+L*Math.cos(th)*sc,oy];
+    x.fillStyle=css('--paper'); x.strokeStyle=css('--ink2'); x.lineWidth=2; x.beginPath(); x.moveTo(ox,oy); x.lineTo(...top); x.lineTo(...bot); x.closePath(); x.fill(); x.stroke();
+    x.fillStyle=css('--line'); x.fillRect(0,oy,W,H-oy);
+    x.strokeStyle=css('--c1'); x.beginPath(); x.arc(bot[0],bot[1],34,Math.PI,Math.PI+th); x.stroke(); x.fillStyle=css('--c1'); x.font='700 13px Inter,sans-serif'; x.fillText(Math.round(p.th)+'°',bot[0]-56,bot[1]-8);
+    const d=[Math.cos(th),Math.sin(th)], n=[Math.sin(th),-Math.cos(th)], b=22+Math.cbrt(p.m)*10;
+    const cx=top[0]+d[0]*s.x*sc+n[0]*b/2+d[0]*b/2, cy=top[1]+d[1]*s.x*sc+n[1]*b/2+d[1]*b/2;
+    x.save(); x.translate(cx,cy); x.rotate(th); x.fillStyle='#8A6A4A'; x.fillRect(-b/2,-b/2,b,b); x.strokeStyle='#5A4430'; x.strokeRect(-b/2,-b/2,b,b); x.fillStyle='#fff'; x.font='700 11px Inter,sans-serif'; x.textAlign='center'; x.fillText(nf(p.m)+' kg',0,4); x.restore();
+    desenhaForcas(x,cx,cy,this.forcas(p,s),o,th) } },
+ atw:{nome:'Máquina de Atwood',ic:'⚖️',par:[['m1','Massa 1 (esquerda)',.5,10,.5,2,'kg'],['m2','Massa 2 (direita)',.5,10,.5,3,'kg']],
+  ini(p,s){ s.y=0; s.v=0; s.t=0; s.rodou=false; s.fim=false },
+  passo(dt,p,s){ s.rodou=true; const a=(p.m2-p.m1)*g/(p.m1+p.m2); s.a=a; if(a===0) return false; s.v+=a*dt; s.y+=s.v*dt; s.t+=dt; if(Math.abs(s.y)>=1.4){ s.y=Math.sign(s.y)*1.4; s.fim=true; return false } return true },
+  forcas(p,s){ const T=2*p.m1*p.m2*g/(p.m1+p.m2); const quem=p.m2>=p.m1?2:1, m=quem===2?p.m2:p.m1; return [['P',m*g,0,1],['T',T,0,-1]] },
+  eqs(p,s){ const a=(p.m2-p.m1)*g/(p.m1+p.m2), T=2*p.m1*p.m2*g/(p.m1+p.m2);
+    return [['Pesos','P₁ = '+nf(p.m1*g,1)+' N · P₂ = '+nf(p.m2*g,1)+' N'],['Aceleração (sistema todo)','a = (m₂ − m₁)·g / (m₁ + m₂) = ('+nf(p.m2)+' − '+nf(p.m1)+') × 9,8 / '+nf(p.m1+p.m2)+' = <b>'+nf(a,2)+' m/s²</b>'],
+      ['Tração na corda','T = 2·m₁·m₂·g / (m₁ + m₂) = <b>'+nf(T,1)+' N</b>'],['Confere no bloco '+(p.m2>=p.m1?2:1),(p.m2>=p.m1?'P₂ − T = m₂·a → '+nf(p.m2*g,1)+' − '+nf(T,1)+' = '+nf(p.m2*g-T,1)+' N = '+nf(p.m2)+' × '+nf(a,2):'T − P₁ = m₁·a')]] },
+  status(p,s){ const a=(p.m2-p.m1)*g/(p.m1+p.m2); return !s.rodou?'Aperte Soltar.':a===0?'Equilibrado: as duas massas ficam paradas.':s.fim?'O bloco '+(a>0?'2':'1')+' chegou ao chão em <b>'+nf(s.t,2)+' s</b>.':'Acelerando a '+nf(Math.abs(a),2)+' m/s²…' },
+  album(p,s){ return !s.rodou?null:p.m1===p.m2?'atwEq':s.fim?'atwAc':null },
+  draw(x,W,H,p,s,o){ const cx=W/2, py=60, r=38, sc=(H-160)/3.2; x.strokeStyle=css('--ink2'); x.lineWidth=3; x.beginPath(); x.moveTo(cx-90,24); x.lineTo(cx+90,24); x.stroke();
+    x.beginPath(); x.moveTo(cx,24); x.lineTo(cx,py); x.stroke(); x.fillStyle=css('--paper'); x.beginPath(); x.arc(cx,py,r,0,7); x.fill(); x.stroke(); x.beginPath(); x.arc(cx,py,5,0,7); x.fillStyle=css('--ink2'); x.fill();
+    const y1=py+1.6*sc+s.y*sc, y2=py+1.6*sc-s.y*sc; x.lineWidth=2; x.strokeStyle=css('--ink'); x.beginPath(); x.moveTo(cx-r,py); x.lineTo(cx-r,y1); x.moveTo(cx+r,py); x.lineTo(cx+r,y2); x.stroke();
+    x.fillStyle=css('--line'); x.fillRect(0,H-30,W,30);
+    const box=(bx,by,m,lab)=>{ const b=24+Math.cbrt(m)*12; x.fillStyle=lab==='1'?'#1E62C9':'#C73A2C'; x.fillRect(bx-b/2,by,b,b); x.fillStyle='#fff'; x.font='700 12px Inter,sans-serif'; x.textAlign='center'; x.fillText(nf(m)+' kg',bx,by+b/2+4); return by+b/2 };
+    const c1=box(cx-r,y1,p.m1,'1'), c2=box(cx+r,y2,p.m2,'2'); const T=2*p.m1*p.m2*g/(p.m1+p.m2);
+    desenhaForcas(x,cx-r-46,c1,[['P',p.m1*g,0,1],['T',T,0,-1]],o,0,Math.max(p.m1,p.m2)*g); desenhaForcas(x,cx+r+46,c2,[['P',p.m2*g,0,1],['T',T,0,-1]],o,0,Math.max(p.m1,p.m2)*g) } },
+ mola:{nome:'Massa-mola',ic:'🌀',par:[['m','Massa',.2,5,.1,1,'kg'],['k','Constante da mola k',5,200,1,40,'N/m'],['A','Esticada inicial',.05,.5,.01,.3,'m']],
+  ini(p,s){ s.t=0; s.rodou=false; s.hist=[] },
+  passo(dt,p,s){ s.rodou=true; s.t+=dt; const w=Math.sqrt(p.k/p.m); s.xx=p.A*Math.cos(w*s.t); s.vv=-p.A*w*Math.sin(w*s.t); s.hist.push(s.xx); if(s.hist.length>260) s.hist.shift(); return true },
+  forcas(p,s){ const xx=s.rodou?s.xx:p.A; return [['P',p.m*g,0,1],['N',p.m*g,0,-1],['Fel',p.k*Math.abs(xx),-Math.sign(xx)||0,0]] },
+  eqs(p,s){ const w=Math.sqrt(p.k/p.m), T=2*Math.PI/w, xx=s.rodou?s.xx:p.A, v=s.rodou?s.vv:0;
+    return [['Lei de Hooke','Fel = −k·x = −'+nf(p.k)+' × '+nf(xx,3)+' = <b>'+nf(-p.k*xx,1)+' N</b> (sempre puxando de volta)'],['Período','T = 2π√(m/k) = 2π√('+nf(p.m)+'/'+nf(p.k)+') = <b>'+nf(T,3)+' s</b> · f = '+nf(1/T,2)+' Hz'],
+      ['Energia (conserva!)','U = ½kx² = '+nf(.5*p.k*xx*xx,2)+' J · K = ½mv² = '+nf(.5*p.m*v*v,2)+' J · total = <b>'+nf(.5*p.k*p.A*p.A,2)+' J</b>'],['Velocidade máxima','vmáx = A·ω = '+nf(p.A)+' × '+nf(w,2)+' = <b>'+nf(p.A*w,2)+' m/s</b> (no ponto x = 0)']] },
+  status(p,s){ return s.rodou?'Oscilando: '+nf(s.t/(2*Math.PI*Math.sqrt(p.m/p.k)),1)+' ciclos completos.':'A mola está esticada '+nf(p.A)+' m. Aperte Soltar.' },
+  album(p,s){ return s.rodou&&s.t>1?'mola':null },
+  draw(x,W,H,p,s,o){ const fy=H*.55, sc=(W-260)/1.4, x0=110+.7*sc, xx=s.rodou?s.xx:p.A, bx=x0+xx*sc, b=34+Math.cbrt(p.m)*14;
+    x.fillStyle=css('--line'); x.fillRect(0,fy+b/2,W,10); x.fillStyle=css('--ink2'); x.fillRect(40,fy-b/2-30,18,b+40);
+    x.strokeStyle=css('--ink2'); x.lineWidth=2.5; x.beginPath(); x.moveTo(58,fy); const nn=16, L=bx-b/2-58; for(let i=0;i<=nn;i++){ const px=58+L*i/nn, py=fy+(i===0||i===nn?0:(i%2?-14:14)); x.lineTo(px,py) } x.stroke();
+    x.setLineDash([5,5]); x.strokeStyle=css('--c2'); x.beginPath(); x.moveTo(x0,fy-70); x.lineTo(x0,fy+60); x.stroke(); x.setLineDash([]); x.fillStyle=css('--c2'); x.font='700 12px Inter,sans-serif'; x.textAlign='center'; x.fillText('x = 0',x0,fy+76);
+    x.fillStyle='#8A6A4A'; x.fillRect(bx-b/2,fy-b/2,b,b); x.fillStyle='#fff'; x.fillText(nf(p.m)+' kg',bx,fy+4);
+    desenhaForcas(x,bx,fy,[['Fel',p.k*Math.abs(xx),-Math.sign(xx)||0,0]],o,0,Math.max(p.k*p.A,1));
+    const U=.5*p.k*xx*xx, E=.5*p.k*p.A*p.A, K=Math.max(0,E-U), bw=24, bh=90, gx=W-110, gy=40;
+    [['K',K,'#22884A'],['U',U,'#1E62C9']].forEach(([n,v,c],i)=>{ x.fillStyle=css('--paper'); x.fillRect(gx+i*40,gy,bw,bh); x.fillStyle=c; const h=E?v/E*bh:0; x.fillRect(gx+i*40,gy+bh-h,bw,h); x.fillStyle=css('--ink'); x.fillText(n,gx+i*40+bw/2,gy+bh+16) });
+    if(s.hist&&s.hist.length>1){ x.strokeStyle=css('--c1'); x.lineWidth=2; x.beginPath(); s.hist.forEach((h,i)=>{ const px=40+i*(W-80)/260, py=H-38-h/p.A*22; i?x.lineTo(px,py):x.moveTo(px,py) }); x.stroke(); x.fillStyle=css('--ink2'); x.textAlign='left'; x.fillText('x(t)',40,H-66) } } },
+ puxa:{nome:'Bloco puxado',ic:'🪢',par:[['m','Massa',1,30,.5,10,'kg'],['F','Força F',0,200,1,40,'N'],['al','Ângulo α da força',-30,80,1,20,'°'],['mu','Atrito μ (estático)',0,1,.01,.4,'']],
+  ini(p,s){ s.x=0; s.v=0; s.t=0; s.rodou=false; s.parado=false; s.N=p.m*g-p.F*Math.sin(p.al*Math.PI/180) },
+  passo(dt,p,s){ s.rodou=true; const al=p.al*Math.PI/180, N=p.m*g-p.F*Math.sin(al); s.N=N; if(N<=0){ s.voa=true; return false }
+    const Fx=p.F*Math.cos(al); if(s.v===0&&Fx<=p.mu*N){ s.parado=true; return false } s.parado=false; const a=(Fx-.8*p.mu*N)/p.m; s.a=a; s.v=Math.max(0,s.v+a*dt); s.x+=s.v*dt; s.t+=dt; return s.t<6&&s.v>0 },
+  forcas(p,s){ const al=p.al*Math.PI/180, N=Math.max(0,p.m*g-p.F*Math.sin(al)), Fx=p.F*Math.cos(al), mov=s.v>0||Fx>p.mu*N; return [['P',p.m*g,0,1],['N',N,0,-1],['F',p.F,Math.cos(al),-Math.sin(al)],['fat',mov?.8*p.mu*N:Math.min(Fx,p.mu*N),-1,0]] },
+  eqs(p,s){ const al=p.al*Math.PI/180, P=p.m*g, N=P-p.F*Math.sin(al), Fx=p.F*Math.cos(al), fe=p.mu*N;
+    return [['Componentes de F','Fx = F·cos α = <b>'+nf(Fx,1)+' N</b> · Fy = F·sen α = <b>'+nf(p.F*Math.sin(al),1)+' N</b>'],['Normal (não é sempre o peso!)','N = P − Fy = '+nf(P,1)+' − '+nf(p.F*Math.sin(al),1)+' = <b>'+nf(N,1)+' N</b>'],
+      ['Atrito máximo parado','fe,máx = μ·N = <b>'+nf(Math.max(0,fe),1)+' N</b>'],N<=0?['Decolou!','Fy maior que o peso: o bloco sai do chão.']:Fx>fe?['Anda! 2ª lei','a = (Fx − μc·N)/m = <b>'+nf((Fx-.8*p.mu*N)/p.m,2)+' m/s²</b>']:['Não anda','Fx ('+nf(Fx,1)+' N) ≤ fe,máx: o atrito segura.']] },
+  status(p,s){ return !s.rodou?'Aperte Soltar para puxar.':s.voa?'A força para cima venceu o peso: o bloco decolou.':s.parado?'O bloco não saiu do lugar.':'Andou '+nf(s.x,2)+' m em '+nf(s.t,2)+' s.' },
+  album(p,s){ return !s.rodou?null:s.parado?'preso':s.x>1?'arrasta':null },
+  draw(x,W,H,p,s,o){ const fy=H*.66, sc=60, cam=Math.max(0,s.x*sc-W*.35), bx=140+s.x*sc-cam, b=30+Math.cbrt(p.m)*10;
+    x.fillStyle=css('--line'); x.fillRect(0,fy,W,H-fy); x.strokeStyle=css('--ink2'); x.lineWidth=1; for(let i=-1;i<W/40+2;i++){ const px=i*40-(cam%40); x.beginPath(); x.moveTo(px,fy); x.lineTo(px-12,fy+12); x.stroke() }
+    x.fillStyle=css('--ink2'); x.font='600 11px Inter,sans-serif'; x.textAlign='center'; for(let m=0;m<12;m++){ const px=140+m*sc-cam; if(px>-20&&px<W+20) x.fillText(m+' m',px,fy+26) }
+    const cy=fy-b/2; x.fillStyle='#8A6A4A'; x.fillRect(bx-b/2,fy-b,b,b); x.fillStyle='#fff'; x.fillText(nf(p.m)+' kg',bx,cy+4);
+    desenhaForcas(x,bx,cy,this.forcas(p,s),o,0) } },
+ pend:{nome:'Pêndulo',ic:'🕰️',par:[['L','Comprimento do fio L',.2,3,.01,1,'m'],['th0','Ângulo inicial',5,80,1,30,'°'],['m','Massa',.1,5,.1,1,'kg']],
+  ini(p,s){ s.th=p.th0*Math.PI/180; s.w=0; s.t=0; s.rodou=false; s.cruz=[]; s.prev=s.th },
+  passo(dt,p,s){ s.rodou=true; const n=8, h=dt/n; for(let i=0;i<n;i++){ s.w+=-(g/p.L)*Math.sin(s.th)*h; s.th+=s.w*h; s.t+=h; if(s.prev<0&&s.th>=0) s.cruz.push(s.t); s.prev=s.th } return true },
+  forcas(p,s){ const th=s.th??p.th0*Math.PI/180, v=(s.w||0)*p.L, T=p.m*g*Math.cos(th)+p.m*v*v/p.L; return [['P',p.m*g,0,1],['T',T,-Math.sin(th),-Math.cos(th)]] },
+  eqs(p,s){ const T=2*Math.PI*Math.sqrt(p.L/g), med=s.cruz&&s.cruz.length>1?(s.cruz[s.cruz.length-1]-s.cruz[0])/(s.cruz.length-1):null;
+    return [['Período (ângulos pequenos)','T = 2π√(L/g) = 2π√('+nf(p.L)+'/9,8) = <b>'+nf(T,3)+' s</b>'],['Medido na simulação',med?'<b>'+nf(med,3)+' s</b>'+(p.th0>25?' (um pouco maior: com ângulo grande a fórmula simples já erra)':''):'solte e espere 2 voltas'],
+      ['Não depende da massa','Troque a massa: o período continua igual. Só L e g importam.'],['Tração no fio','T = m·g·cos θ + m·v²/L (máxima no ponto mais baixo)']] },
+  status(p,s){ return s.rodou?'Balançando… '+(s.cruz.length>1?(s.cruz.length-1)+' períodos medidos':'medindo o período'):'Aperte Soltar.' },
+  album(p,s){ return s.rodou&&s.cruz&&s.cruz.length>2?'pend':null },
+  draw(x,W,H,p,s,o){ const px=W/2, py=40, sc=(H-110)/Math.max(1.2,p.L), th=s.th??p.th0*Math.PI/180, bx=px+Math.sin(th)*p.L*sc, by=py+Math.cos(th)*p.L*sc, r=10+Math.cbrt(p.m)*8;
+    x.strokeStyle=css('--ink2'); x.lineWidth=4; x.beginPath(); x.moveTo(px-60,py); x.lineTo(px+60,py); x.stroke();
+    x.setLineDash([4,5]); x.lineWidth=1.5; x.beginPath(); x.moveTo(px,py); x.lineTo(px,py+p.L*sc); x.stroke(); x.setLineDash([]);
+    x.strokeStyle=css('--ink'); x.lineWidth=2; x.beginPath(); x.moveTo(px,py); x.lineTo(bx,by); x.stroke();
+    const gr=x.createRadialGradient(bx-r/3,by-r/3,2,bx,by,r); gr.addColorStop(0,'#fff'); gr.addColorStop(.35,'#9AA7B8'); gr.addColorStop(1,'#46536A'); x.fillStyle=gr; x.beginPath(); x.arc(bx,by,r,0,7); x.fill();
+    desenhaForcas(x,bx,by,this.forcas(p,s),o,0) } }
+};
+/* setas de força no desenho (escala comum: o maior vetor = 90 px) */
+function desenhaForcas(x,cx,cy,F,o,th,ref){ const max=ref||Math.max(...F.map(f=>f[1]),1), k=90/max;
+  F.forEach(([n,v,ux,uy])=>{ if(v<=.01) return; const L=Math.max(14,v*k); seta(x,cx,cy,cx+ux*L,cy+uy*L,COR[n]||'#555',3.2,o.val?n+' '+nf(v,0)+' N':n) });
+  if(o.comp&&F[0]&&F[0][0]==='P'&&th>0){ const P=F[0][1]*k; x.setLineDash([4,4]); seta(x,cx,cy,cx+Math.cos(th)*Math.sin(th)*P,cy+Math.sin(th)*Math.sin(th)*P,'rgba(199,58,44,.6)',2,o.val?'Px':''); seta(x,cx,cy,cx-Math.sin(th)*Math.cos(th)*P,cy+Math.cos(th)*Math.cos(th)*P,'rgba(199,58,44,.6)',2,o.val?'Py':''); x.setLineDash([]) } }
+/* ---- estado e laço ---- */
+let cena='rampa', P={}, S={}, rodando=false, last=0, raf=0; const T=tela($('cv'),16/10), FB=$('fbd').getContext('2d');
+const opt=()=>({comp:$('tgC').checked,val:$('tgV').checked});
+function montaTabs(){ $('cenas').innerHTML=Object.entries(CENAS).map(([k,c])=>'<button role="tab" data-c="'+k+'" class="'+(k===cena?'on':'')+'" aria-selected="'+(k===cena)+'">'+c.ic+' '+c.nome+'</button>').join('');
+  document.querySelectorAll('#cenas button').forEach(b=>b.onclick=()=>{ cena=b.dataset.c; montaTabs(); montaCtl(); reset() }) }
+function montaCtl(){ const c=CENAS[cena]; if(!P[cena]) P[cena]=Object.fromEntries(c.par.map(q=>[q[0],q[5]]));
+  $('ctl').innerHTML=c.par.map(([id,lab,mi,ma,st,v,u])=>'<label>'+lab+' <span class="v" id="v_'+id+'"></span><input type="range" id="p_'+id+'" min="'+mi+'" max="'+ma+'" step="'+st+'" value="'+P[cena][id]+'"></label>').join('');
+  c.par.forEach(([id,,,,,,u])=>{ const i=$('p_'+id); const upd=()=>{ P[cena][id]=+i.value; $('v_'+id).textContent=nf(+i.value)+' '+u }; upd(); i.oninput=()=>{ upd(); reset() } }) }
+function reset(){ cancelAnimationFrame(raf); rodando=false; S={}; CENAS[cena].ini(P[cena],S); $('go').disabled=false; $('go').textContent='▶ Soltar'; draw(); }
+function loop(t){ const dt0=Math.min(.033,(t-last)/1000||0); last=t; const dt=dt0*($('tgS').checked?.25:1); const c=CENAS[cena];
+  let cont=true; for(let i=0;i<4&&cont;i++) cont=c.passo(dt/4,P[cena],S); draw(); checar();
+  if(cont&&rodando) raf=requestAnimationFrame(loop); else { rodando=false; $('go').textContent='▶ Soltar de novo'; $('go').disabled=false } }
+$('go').onclick=()=>{ reset(); rodando=true; $('go').disabled=true; last=performance.now(); raf=requestAnimationFrame(loop) };
+$('rs').onclick=reset; ['tgC','tgV'].forEach(i=>$(i).onchange=draw);
+function draw(){ const {W,H}=T.fit(), x=T.x, c=CENAS[cena]; x.clearRect(0,0,W,H); c.draw(x,W,H,P[cena],S,opt());
+  $('st').innerHTML=c.status(P[cena],S); $('eqs').innerHTML=c.eqs(P[cena],S).map(([k,v])=>'<div><span class="k">'+k+'</span>'+v+'</div>').join('');
+  $('ov').innerHTML='<span class="chip">'+c.ic+' '+c.nome+'</span>'+(S.a!=null?'<span class="chip">a = '+nf(S.a,2)+' m/s²</span>':'')+(S.v!=null&&cena!=='atw'?'<span class="chip">v = '+nf(S.v,2)+' m/s</span>':'');
+  fbd(c.forcas(P[cena],S)) }
+function fbd(F){ const x=FB; x.clearRect(0,0,300,300); x.fillStyle='#8A6A4A'; x.fillRect(125,125,50,50); const max=Math.max(...F.map(f=>f[1]),1);
+  F.forEach(([n,v,ux,uy])=>{ if(v<=.01) return; const L=30+v/max*85; seta(x,150+ux*25,150+uy*25,150+ux*(25+L),150+uy*(25+L),COR[n]||'#555',4,n) });
+  $('leg').innerHTML=F.filter(f=>f[1]>.01).map(([n,v])=>'<span><i style="background:'+(COR[n]||'#555')+'"></i><b>'+n+'</b> '+nf(v,1)+' N</span>').join('')+'<span style="color:var(--ink2);font-size:.78rem">Some as setas: o que sobra (a resultante) é m·a.</span>' }
+function checar(){ const c=CENAS[cena]; const al=c.album(P[cena],S); if(al&&PR.album(al)){ const a=ALB.find(z=>z[0]===al); toast('📒 Nova descoberta: '+a[2]); drawAlb() }
+  MIS.forEach(([id,cn,,,f])=>{ if(cn===cena&&!PR.P.mis[id]&&f(P[cena],S)){ PR.missao(id); toast('🎯 Missão cumprida!'); confete(); drawMis() } }) }
+function drawMis(){ $('mis').innerHTML=MIS.map(([id,cn,t,d])=>'<li class="'+(PR.P.mis[id]?'ok':cn===cena?'cur':'')+'"><span class="st">'+(PR.P.mis[id]?'✓':CENAS[cn].ic)+'</span><span>'+t+'<small>'+(PR.P.mis[id]?'cumprida':d)+'</small></span></li>').join('') }
+function drawAlb(){ $('alb').innerHTML=ALB.map(([k,e,t])=>'<div class="it'+(PR.P.album[k]?' on':'')+'" title="'+t+'"><span><span class="e">'+e+'</span>'+(PR.P.album[k]?t:'???')+'</span></div>').join('') }
+addEventListener('resize',()=>{ if(!rodando) draw() });
+montaTabs(); montaCtl(); reset(); drawMis(); drawAlb();
+const _m=drawMis; document.addEventListener('click',e=>{ if(e.target.closest('#cenas')) _m() });
+</script>
+</body>
+</html>

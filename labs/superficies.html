@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Escultor de superfícies · Laboratório de Cálculo II</title>
+<link rel="icon" type="image/png" href="../icons/logo-favicon-64.png">
+<link rel="stylesheet" href="../css/fdb-v2.css">
+<link rel="stylesheet" href="../css/lab.css">
+<style>
+.views{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;align-items:start}
+@media (max-width:760px){.views{grid-template-columns:1fr}}
+#c3{aspect-ratio:1/1;cursor:grab}#cm{aspect-ratio:1/1;cursor:crosshair}
+.fxl{font:600 1.05rem var(--f-mono);background:var(--paper);border-radius:12px;padding:10px 12px;overflow-x:auto;white-space:nowrap}
+.pecas{display:flex;flex-wrap:wrap;gap:6px}
+.pecas button{font:700 .86rem var(--f-mono);border:1.5px dashed var(--line);background:var(--sheet);color:var(--ink);border-radius:10px;padding:7px 10px;cursor:pointer}
+.pecas button.on{border-style:solid;border-color:var(--c2);background:var(--hl2)}
+.coefs{display:grid;gap:8px;margin-top:10px}
+.coefs label{display:grid;grid-template-columns:120px 1fr 54px;gap:8px;align-items:center;font:600 .84rem var(--f-mono)}
+.coefs button{border:0;background:transparent;color:var(--bad);font-size:1.1rem;cursor:pointer}
+.crit{width:100%;border-collapse:collapse;font-size:.84rem}.crit td,.crit th{padding:5px 6px;border-bottom:1px solid var(--line);text-align:left}
+.crit th{font:700 .68rem var(--f-mono);text-transform:uppercase;color:var(--ink2)}
+.tp{font-weight:800}.tp.max{color:#C73A2C}.tp.min{color:#1E62C9}.tp.sel{color:#6447BE}
+.rec{display:flex;flex-wrap:wrap;gap:6px}.rec button{font:700 .8rem var(--f-body);border:1px solid var(--line);background:var(--paper);color:var(--ink);border-radius:999px;padding:6px 11px;cursor:pointer}
+</style>
+</head>
+<body>
+<header class="lh"><div class="lhin">
+  <a class="lgo" href="../materias/calc2/oficina-de-calculo-2.html"><span class="s">∫</span><span><small>Laboratório · Cálculo II</small><b>Escultor de superfícies</b></span></a>
+  <span class="sp"></span><a href="../index.html#labs">Todos os laboratórios</a><span class="stars" id="stars"></span>
+</div></header>
+<main class="lab">
+  <div class="lab-hero"><div><div class="eb">Laboratório de funções de 2 variáveis</div><h1>Monte a função, esculpa a superfície</h1>
+    <p>Junte peças para montar f(x, y) (as receitas prontas servem para explorar; os desafios valem quando você monta com as peças). A superfície 3D, o mapa de curvas de nível, as setas do gradiente e os pontos de máximo, mínimo e sela aparecem na hora. Toque no mapa para soltar uma bolinha: ela desce na direção de −∇f até parar num vale.</p></div></div>
+  <div class="grid2">
+    <div style="display:grid;gap:12px">
+      <div class="fxl" id="fx" aria-live="polite"></div>
+      <div class="views">
+        <div class="stage"><canvas id="c3" aria-label="Superfície 3D. Arraste para girar."></canvas><div class="ov"><span class="chip">3D · arraste para girar</span></div></div>
+        <div class="stage"><canvas id="cm" aria-label="Mapa de curvas de nível. Toque para soltar a bolinha."></canvas><div class="ov"><span class="chip">mapa · toque para soltar a bolinha</span></div></div>
+      </div>
+      <div class="row"><span style="font:700 .84rem var(--f-body)">Bolinha:</span><button class="btn gh" id="mDesce">⬇ desce (−∇f)</button><button class="btn gh" id="mSobe">⬆ sobe (+∇f)</button><label style="font-size:.84rem;color:var(--ink2);display:flex;gap:5px;align-items:center"><input type="checkbox" id="tgG" checked> setas do gradiente</label></div>
+      <div class="msg" id="msg">Toque no mapa para soltar a bolinha.</div>
+      <div class="card"><h3>📍 Pontos críticos (∇f = 0) e o teste D</h3><div id="crit"></div></div>
+    </div>
+    <div style="display:grid;gap:12px">
+      <div class="card"><h3>🧩 Peças</h3><div class="pecas" id="pecas"></div><div class="coefs" id="coefs"></div></div>
+      <div class="card"><h3>📜 Receitas prontas</h3><div class="rec" id="rec"></div></div>
+      <div class="card"><h3>🎯 Desafios</h3><ul class="mis" id="mis"></ul></div>
+      <div class="card"><h3>📒 Álbum de formas</h3><div class="album" id="alb"></div></div>
+    </div>
+  </div>
+</main>
+<footer class="ffix"><span>Faculdade de Bolso · IFMG · Campus Betim - Desenvolvido por Guilherme dos Santos Braz</span><a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn</a></footer>
+<script src="../js/lab-kit.js"></script>
+<script>
+'use strict';
+const {$,nf,RM,css,tela,progresso,toast,confete,seta}=LAB;
+const E=Math.exp;
+const TERMS=[['x2','x²',(x,y)=>x*x],['y2','y²',(x,y)=>y*y],['xy','x·y',(x,y)=>x*y],['x','x',(x,y)=>x],['y','y',(x,y)=>y],['x4','x⁴',(x,y)=>x**4/4],['sx','sen x',(x,y)=>Math.sin(x)],['cy','cos y',(x,y)=>Math.cos(y)],
+ ['sc','sen x·cos y',(x,y)=>Math.sin(x)*Math.cos(y)],['mo','e^(−(x²+y²))',(x,y)=>E(-(x*x+y*y))],['an','(x²+y²)·e^(−(x²+y²))',(x,y)=>(x*x+y*y)*E(-(x*x+y*y))],['mc','x³ − 3x·y²',(x,y)=>(x**3-3*x*y*y)/3],['k','constante',()=>1]];
+const TT=Object.fromEntries(TERMS.map(t=>[t[0],t]));
+const REC=[['Vale (paraboloide)',{x2:.5,y2:.5}],['Sela',{x2:.5,y2:-.5}],['Morro',{mo:3}],['Caixa de ovos',{sc:1.5}],['Vulcão',{an:4}],['Calha',{x2:.5}],['Rampa (plano)',{x:.6,y:.3}],['Sela de macaco',{mc:.5}],['Dois vales',{x4:1,x2:-1,y2:.5}]];
+const ALB=[['vale','🥣','Vale: 1 mínimo'],['morro','⛰️','Morro: 1 máximo'],['sela','🐴','Sela'],['ovos','🥚','Caixa de ovos'],['plano','📄','Plano sem pontos críticos'],['doisvales','🏞️','Dois vales e uma sela'],['vulcao','🌋','Vulcão: anel de máximos'],['macaco','🐒','Sela de macaco']];
+const MIS=[['d1','Esculpa um vale com um único mínimo','Some x² e y² com coeficientes positivos.',a=>a.min===1&&a.max===0&&a.sel===0],
+ ['d2','Esculpa uma sela','Um sinal + e outro − nos quadrados.',a=>a.sel>=1&&a.min===0&&a.max===0],
+ ['d3','Dois mínimos e uma sela','Use x⁴ com x² negativo.',a=>a.min===2&&a.sel===1],
+ ['d4','Uma superfície com 4 ou mais máximos','Ondas: sen x · cos y.',a=>a.max>=4],
+ ['d5','Um plano inclinado: nenhum ponto crítico','Só termos de 1º grau: o gradiente nunca zera.',a=>a.total===0&&a.plano],
+ ['d6','Solte a bolinha e faça ela parar num mínimo','Toque no mapa com o modo "desce".',a=>a.bolaMin],
+ ['d7','Suba até um máximo com a bolinha','Modo "sobe": ela segue o gradiente.',a=>a.bolaMax],
+ ['d8','Um morro com topo de altura 3 ou mais','f(x, y) no máximo ≥ 3.',a=>a.topo>=3]];
+const PR=progresso('superficies',MIS.length);
+let C={x2:.5,y2:.5}, receita=true; let modo=-1, bola=null, rot={yaw:.7,pitch:.55}, A={}, crits=[];
+const f=(x,y)=>{ let z=0; for(const k in C) z+=C[k]*TT[k][2](x,y); return z };
+const h=1e-4, fx=(x,y)=>(f(x+h,y)-f(x-h,y))/(2*h), fy=(x,y)=>(f(x,y+h)-f(x,y-h))/(2*h);
+const fxx=(x,y)=>(f(x+h,y)-2*f(x,y)+f(x-h,y))/(h*h), fyy=(x,y)=>(f(x,y+h)-2*f(x,y)+f(x,y-h))/(h*h), fxy=(x,y)=>(f(x+h,y+h)-f(x+h,y-h)-f(x-h,y+h)+f(x-h,y-h))/(4*h*h);
+const R=3, N=36;
+/* pontos críticos: Newton em ∇f = 0 a partir de uma grade de sementes */
+function criticos(){ const out=[]; for(let i=0;i<=10;i++)for(let j=0;j<=10;j++){ let x=-R+i*.6, y=-R+j*.6;
+    for(let k=0;k<40;k++){ const gx=fx(x,y), gy=fy(x,y), a=fxx(x,y), b=fxy(x,y), d=fyy(x,y), det=a*d-b*b; if(Math.abs(det)<1e-9) break; const dx=(d*gx-b*gy)/det, dy=(a*gy-b*gx)/det; x-=dx; y-=dy; if(Math.abs(dx)+Math.abs(dy)<1e-8) break; if(Math.abs(x)>R*1.5||Math.abs(y)>R*1.5) break }
+    if(Math.abs(x)<=R&&Math.abs(y)<=R&&Math.hypot(fx(x,y),fy(x,y))<1e-5&&!out.some(p=>Math.hypot(p.x-x,p.y-y)<.12)){ const a=fxx(x,y), d=fyy(x,y), b=fxy(x,y), D=a*d-b*b; out.push({x,y,z:f(x,y),a,b,d,D,t:D>1e-6?(a<0?'max':'min'):D<-1e-6?'sel':'?'}) } }
+  return out.sort((p,q)=>p.x-q.x||p.y-q.y) }
+function formula(){ const ks=Object.keys(C); if(!ks.length) return 'f(x, y) = 0';
+  return 'f(x, y) = '+ks.map((k,i)=>{ const c=C[k], s=c<0?' − ':(i?' + ':''), m=Math.abs(c); const nm=k==='x4'?'x⁴/4':k==='mc'?'(x³ − 3xy²)/3':TT[k][1]; return s+(k==='k'?nf(m):(m===1?'':nf(m)+'·')+(nm.includes(' ')&&k!=='x4'&&k!=='mc'?'('+nm+')':nm)) }).join('') }
+/* ---------- 3D ---------- */
+const T3=tela($('c3'),1), TM=tela($('cm'),1);
+let grid=null, zmin=0, zmax=1;
+function amostra(){ grid=[]; zmin=Infinity; zmax=-Infinity; for(let i=0;i<=N;i++){ grid[i]=[]; for(let j=0;j<=N;j++){ const x=-R+2*R*i/N, y=-R+2*R*j/N, z=f(x,y); grid[i][j]=z; if(z<zmin)zmin=z; if(z>zmax)zmax=z } } if(zmax-zmin<1e-6){ zmax=zmin+1 } }
+const cor=t=>{ t=Math.max(0,Math.min(1,t)); const a=[30,98,201], m=[201,215,236], b=[242,107,29]; const c=t<.5?a.map((v,i)=>v+(m[i]-v)*t*2):m.map((v,i)=>v+(b[i]-v)*(t-.5)*2); return 'rgb('+c.map(Math.round)+')' };
+function proj(x,y,z,W,H){ const zs=(z-(zmin+zmax)/2)/(zmax-zmin)*2.2; const cy=Math.cos(rot.yaw), sy=Math.sin(rot.yaw); let X=x*cy-y*sy, Y=x*sy+y*cy; const cp=Math.cos(rot.pitch), sp=Math.sin(rot.pitch);
+  const Y2=Y*cp-zs*sp*1.4, Z=Y*sp+zs*cp; const s=W/(2*R*1.55); return [W/2+X*s, H/2+Y2*s*.9, Z] }
+function draw3(){ const {W,H}=T3.fit(), x=T3.x; x.clearRect(0,0,W,H); const Q=[];
+  for(let i=0;i<N;i++)for(let j=0;j<N;j++){ const xs=[-R+2*R*i/N,-R+2*R*(i+1)/N], ys=[-R+2*R*j/N,-R+2*R*(j+1)/N]; const z4=[grid[i][j],grid[i+1][j],grid[i+1][j+1],grid[i][j+1]];
+    const p=[proj(xs[0],ys[0],z4[0],W,H),proj(xs[1],ys[0],z4[1],W,H),proj(xs[1],ys[1],z4[2],W,H),proj(xs[0],ys[1],z4[3],W,H)]; Q.push({p,d:(p[0][2]+p[2][2])/2,z:(z4[0]+z4[2])/2}) }
+  Q.sort((a,b)=>b.d-a.d); const ln=css('--navy')||'#0E1F38';
+  for(const q of Q){ x.beginPath(); q.p.forEach((pt,k)=>k?x.lineTo(pt[0],pt[1]):x.moveTo(pt[0],pt[1])); x.closePath(); x.fillStyle=cor((q.z-zmin)/(zmax-zmin)); x.fill(); x.strokeStyle='rgba(14,31,56,.25)'; x.lineWidth=.6; x.stroke() }
+  crits.forEach(c=>{ const p=proj(c.x,c.y,c.z,W,H); x.fillStyle=c.t==='max'?'#C73A2C':c.t==='min'?'#1E62C9':'#6447BE'; x.strokeStyle='#fff'; x.lineWidth=2; x.beginPath(); x.arc(p[0],p[1],6,0,7); x.fill(); x.stroke() });
+  if(bola){ const p=proj(bola.x,bola.y,f(bola.x,bola.y),W,H); x.strokeStyle='#22884A'; x.lineWidth=2.5; x.beginPath(); bola.rastro.forEach((r,k)=>{ const q=proj(r[0],r[1],f(r[0],r[1]),W,H); k?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]) }); x.stroke();
+    x.fillStyle='#22884A'; x.beginPath(); x.arc(p[0],p[1],8,0,7); x.fill(); x.strokeStyle='#fff'; x.stroke() } }
+/* ---------- mapa de contorno ---------- */
+let mapImg=null;
+function drawMap(){ const {W,H}=TM.fit(), x=TM.x; const d=Math.min(2,devicePixelRatio||1);
+  if(mapImg&&(mapImg.width!==Math.round(W*d)||mapImg.height!==Math.round(H*d))) mapImg=null;
+  if(!mapImg){ const w=Math.round(W*d), hh=Math.round(H*d), id=x.createImageData(w,hh), st=2; const niv=12;
+    for(let py=0;py<hh;py+=st)for(let px=0;px<w;px+=st){ const X=-R+2*R*px/w, Y=R-2*R*py/hh, z=f(X,Y), t=(z-zmin)/(zmax-zmin), band=Math.floor(t*niv)/niv; const c=cor(band).match(/\d+/g).map(Number);
+      const lin=Math.abs(t*niv-Math.round(t*niv))<.035; for(let a=0;a<st;a++)for(let b=0;b<st;b++){ const k=((py+a)*w+px+b)*4; if(k>=id.data.length) continue; id.data[k]=lin?40:c[0]*.85+38; id.data[k+1]=lin?50:c[1]*.85+38; id.data[k+2]=lin?70:c[2]*.85+38; id.data[k+3]=255 } }
+    mapImg=document.createElement('canvas'); mapImg.width=w; mapImg.height=hh; mapImg.getContext('2d').putImageData(id,0,0) }
+  x.clearRect(0,0,W,H); x.drawImage(mapImg,0,0,W,H);
+  const S=W/(2*R), tp=(X,Y)=>[(X+R)*S,(R-Y)*S];
+  x.strokeStyle='rgba(255,255,255,.6)'; x.lineWidth=1; x.beginPath(); x.moveTo(W/2,0); x.lineTo(W/2,H); x.moveTo(0,H/2); x.lineTo(W,H/2); x.stroke();
+  if($('tgG').checked){ let gm=0; const pts=[]; for(let i=1;i<10;i++)for(let j=1;j<10;j++){ const X=-R+i*2*R/10, Y=-R+j*2*R/10, gx=fx(X,Y), gy=fy(X,Y); pts.push([X,Y,gx,gy]); gm=Math.max(gm,Math.hypot(gx,gy)) }
+    pts.forEach(([X,Y,gx,gy])=>{ const m=Math.hypot(gx,gy); if(m<1e-6||!gm) return; const L=8+m/gm*16, [a,b]=tp(X,Y); seta(x,a,b,a+gx/m*L,b-gy/m*L,'rgba(14,31,56,.75)',1.6) }) }
+  crits.forEach(c=>{ const [a,b]=tp(c.x,c.y); x.fillStyle=c.t==='max'?'#C73A2C':c.t==='min'?'#1E62C9':'#6447BE'; x.strokeStyle='#fff'; x.lineWidth=2; x.beginPath(); x.arc(a,b,6,0,7); x.fill(); x.stroke() });
+  if(bola){ x.strokeStyle='#22884A'; x.lineWidth=2.5; x.beginPath(); bola.rastro.forEach((r,k)=>{ const [a,b]=tp(r[0],r[1]); k?x.lineTo(a,b):x.moveTo(a,b) }); x.stroke(); const [a,b]=tp(bola.x,bola.y); x.fillStyle='#22884A'; x.beginPath(); x.arc(a,b,7,0,7); x.fill(); x.strokeStyle='#fff'; x.stroke() } }
+function tudo(){ amostra(); crits=criticos(); mapImg=null; draw3(); drawMap(); painel() }
+/* ---------- análise, desafios e álbum ---------- */
+function analise(){ const a={min:0,max:0,sel:0}; crits.forEach(c=>{ if(c.t==='min')a.min++; else if(c.t==='max')a.max++; else if(c.t==='sel')a.sel++ }); a.total=crits.length;
+  a.plano=Object.keys(C).every(k=>['x','y','k'].includes(k))&&Object.keys(C).some(k=>k!=='k'); a.topo=a.max?Math.max(...crits.filter(c=>c.t==='max').map(c=>c.z)):-Infinity; return a }
+function painel(){ const a=analise(); Object.assign(A,a); $('fx').textContent=formula();
+  $('crit').innerHTML=crits.length?'<table class="crit"><tr><th>ponto</th><th>z</th><th>fxx</th><th>D = fxx·fyy − fxy²</th><th>tipo</th></tr>'+crits.slice(0,10).map(c=>'<tr><td>('+nf(c.x,2)+'; '+nf(c.y,2)+')</td><td>'+nf(c.z,2)+'</td><td>'+nf(c.a,2)+'</td><td>'+nf(c.D,2)+'</td><td class="tp '+c.t+'">'+({max:'máximo',min:'mínimo',sel:'sela','?':'D = 0: o teste não decide'}[c.t])+'</td></tr>').join('')+'</table>'+(crits.length>10?'<small>… e mais '+(crits.length-10)+'</small>':'')
+    :'<p class="msg" style="margin:0">Nenhum ponto onde ∇f = 0 nesta janela. '+(a.plano?'Num plano o gradiente é constante e nunca zera.':'')+'</p>';
+  checar() }
+function checar(){ const a=A; const ks=Object.keys(C);
+  const al=a.plano&&a.total===0?'plano':a.min===2&&a.sel===1?'doisvales':ks.length===1&&ks[0]==='mc'?'macaco':ks.length===1&&ks[0]==='an'&&C.an>0?'vulcao':a.max>=4&&a.min>=1?'ovos':a.min===1&&a.total===1?'vale':a.max===1&&a.total===1?'morro':a.sel===1&&a.total===1?'sela':null;
+  if(al&&PR.album(al)){ toast('📒 Nova forma no álbum: '+ALB.find(z=>z[0]===al)[2]); drawAlb() }
+  MIS.forEach(([id,,,fn])=>{ if(!PR.P.mis[id]&&(!receita||id==='d6'||id==='d7')&&fn(a)){ PR.missao(id); toast('🎯 Desafio cumprido!'); confete(); drawMis() } }) }
+function drawMis(){ $('mis').innerHTML=MIS.map(([id,t,d])=>'<li class="'+(PR.P.mis[id]?'ok':'')+'"><span class="st">'+(PR.P.mis[id]?'✓':'·')+'</span><span>'+t+'<small>'+(PR.P.mis[id]?'cumprido':d)+'</small></span></li>').join('') }
+function drawAlb(){ $('alb').innerHTML=ALB.map(([k,e,t])=>'<div class="it'+(PR.P.album[k]?' on':'')+'"><span><span class="e">'+e+'</span>'+(PR.P.album[k]?t:'???')+'</span></div>').join('') }
+/* ---------- peças e receitas ---------- */
+function drawPecas(){ $('pecas').innerHTML=TERMS.map(([k,t])=>'<button data-k="'+k+'" class="'+(k in C?'on':'')+'" aria-pressed="'+(k in C)+'">'+(k in C?'✓ ':'+ ')+(k==='x4'?'x⁴/4':k==='mc'?'(x³−3xy²)/3':t)+'</button>').join('');
+  document.querySelectorAll('#pecas button').forEach(b=>b.onclick=()=>{ const k=b.dataset.k; if(k in C) delete C[k]; else C[k]=1; receita=false; bola=null; drawPecas(); tudo() });
+  $('coefs').innerHTML=Object.keys(C).map(k=>'<label><span>'+(k==='x4'?'x⁴/4':k==='mc'?'(x³−3xy²)/3':TT[k][1])+'</span><input type="range" min="-3" max="3" step=".25" value="'+C[k]+'" data-k="'+k+'"><span><b>'+nf(C[k])+'</b> <button data-x="'+k+'" aria-label="Tirar peça">×</button></span></label>').join('')||'<p class="msg" style="margin:0">Toque numa peça para começar.</p>';
+  document.querySelectorAll('#coefs input').forEach(i=>i.oninput=()=>{ C[i.dataset.k]=+i.value; receita=false; i.parentElement.querySelector('b').textContent=nf(+i.value); bola=null; tudoRapido() });
+  document.querySelectorAll('#coefs [data-x]').forEach(b=>b.onclick=()=>{ delete C[b.dataset.x]; receita=false; bola=null; drawPecas(); tudo() }) }
+let tq=0; function tudoRapido(){ cancelAnimationFrame(tq); tq=requestAnimationFrame(tudo) }
+$('rec').innerHTML=REC.map(([n],i)=>'<button data-i="'+i+'">'+n+'</button>').join('');
+document.querySelectorAll('#rec button').forEach(b=>b.onclick=()=>{ C={...REC[+b.dataset.i][1]}; receita=true; bola=null; drawPecas(); tudo() });
+/* ---------- bolinha ---------- */
+let braf=0;
+$('cm').addEventListener('click',e=>{ const r=$('cm').getBoundingClientRect(); const X=-R+2*R*(e.clientX-r.left)/r.width, Y=R-2*R*(e.clientY-r.top)/r.height; bola={x:X,y:Y,vx:0,vy:0,rastro:[[X,Y]],n:0}; cancelAnimationFrame(braf); rolar() });
+function rolar(){ const b=bola; if(!b) return; const lr=.03;
+  for(let k=0;k<3;k++){ const gx=fx(b.x,b.y), gy=fy(b.x,b.y); b.vx=.85*b.vx+modo*lr*gx; b.vy=.85*b.vy+modo*lr*gy; b.x+=b.vx; b.y+=b.vy; b.n++ }
+  b.rastro.push([b.x,b.y]); const sai=Math.abs(b.x)>R||Math.abs(b.y)>R, parou=Math.hypot(b.vx,b.vy)<1e-4&&b.n>20;
+  draw3(); drawMap();
+  if(sai){ $('msg').innerHTML='A bolinha saiu da janela: '+(modo<0?'a função continua descendo para fora (não há vale ali).':'continua subindo para fora.'); return }
+  if(parou){ const c=crits.find(c=>Math.hypot(c.x-b.x,c.y-b.y)<.15); $('msg').innerHTML='Parou em ('+nf(b.x,2)+'; '+nf(b.y,2)+'), z = '+nf(f(b.x,b.y),2)+(c?': é um <b>'+({min:'mínimo',max:'máximo',sel:'ponto de sela'}[c.t]||'ponto crítico')+'</b>, onde ∇f = 0.':'.');
+    if(c&&c.t==='min'&&modo<0){ A.bolaMin=true; checar() } if(c&&c.t==='max'&&modo>0){ A.bolaMax=true; checar() } return }
+  if(b.n>3000) return; $('msg').textContent=(modo<0?'Descendo':'Subindo')+'… |∇f| = '+nf(Math.hypot(fx(b.x,b.y),fy(b.x,b.y)),3);
+  braf=requestAnimationFrame(rolar) }
+const setModo=m=>{ modo=m; $('mDesce').classList.toggle('or',m<0); $('mSobe').classList.toggle('or',m>0); $('mDesce').classList.toggle('gh',m>0); $('mSobe').classList.toggle('gh',m<0) };
+$('mDesce').onclick=()=>setModo(-1); $('mSobe').onclick=()=>setModo(1); setModo(-1); $('tgG').onchange=drawMap;
+/* ---------- girar o 3D ---------- */
+let dr=null; const c3=$('c3');
+c3.addEventListener('pointerdown',e=>{ dr=[e.clientX,e.clientY]; c3.setPointerCapture(e.pointerId) });
+c3.addEventListener('pointermove',e=>{ if(!dr) return; rot.yaw+=(e.clientX-dr[0])*.01; rot.pitch=Math.max(.1,Math.min(1.45,rot.pitch+(e.clientY-dr[1])*.008)); dr=[e.clientX,e.clientY]; draw3() });
+c3.addEventListener('pointerup',()=>dr=null); c3.addEventListener('pointercancel',()=>dr=null);
+addEventListener('resize',()=>{ mapImg=null; draw3(); drawMap() });
+drawPecas(); drawMis(); drawAlb(); tudo();
+</script>
+</body>
+</html>

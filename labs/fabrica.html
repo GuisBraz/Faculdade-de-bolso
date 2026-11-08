@@ -1,0 +1,177 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Chão de fábrica · Laboratório de Usinagem</title>
+<link rel="icon" type="image/png" href="../icons/logo-favicon-64.png">
+<link rel="stylesheet" href="../css/fdb-v2.css">
+<link rel="stylesheet" href="../css/lab.css">
+<style>
+#cv{aspect-ratio:16/9}
+.jobs{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;margin-bottom:12px}
+.job{text-align:left;border:1.5px solid var(--line);background:var(--sheet);border-radius:14px;padding:10px 12px;cursor:pointer;color:var(--ink);font:inherit}
+.job.on{border-color:var(--c1);box-shadow:0 0 0 2px color-mix(in srgb,var(--c1) 25%,transparent)}
+.job b{display:block;font:800 .95rem var(--f-disp)}.job small{display:block;color:var(--ink2);font-size:.78rem}.job .st{color:#E3A21A;font-size:.9rem;letter-spacing:2px}
+.seg2{display:flex;gap:6px}.seg2 button{flex:1;font:700 .84rem var(--f-body);border:1.5px solid var(--line);background:var(--sheet);color:var(--ink);border-radius:10px;padding:8px;cursor:pointer}
+.seg2 button.on{background:var(--navy);color:#fff;border-color:var(--navy)}
+.kpi{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+@media (max-width:600px){.kpi{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.kpi div{background:var(--paper);border-radius:12px;padding:8px 10px}.kpi small{display:block;font:700 .66rem var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}.kpi b{font:800 1.15rem var(--f-disp)}
+.bar{height:8px;border-radius:4px;background:var(--line);overflow:hidden}.bar i{display:block;height:100%;background:var(--ok);transition:width .2s}
+.bar.w i{background:var(--c1)}.bar.b i{background:var(--bad)}
+.res{font-size:.95rem}.res .big{font:800 1.3rem var(--f-disp);display:block}.res .stars2{font-size:1.6rem;color:#E3A21A;letter-spacing:3px}
+</style>
+</head>
+<body>
+<header class="lh"><div class="lhin">
+  <a class="lgo" href="../materias/usinagem/oficina-de-usinagem.html"><span class="s">⚙</span><span><small>Laboratório · Usinagem</small><b>Chão de fábrica</b></span></a>
+  <span class="sp"></span><a href="../index.html#labs">Todos os laboratórios</a><span class="stars" id="stars"></span>
+</div></header>
+<main class="lab">
+  <div class="lab-hero"><div><div class="eb">Laboratório de parâmetros de corte</div><h1>Receba o pedido, ajuste a máquina, usine</h1>
+    <p>Cada pedido traz o desenho, o material e a exigência de acabamento. Escolha a ferramenta e os parâmetros e aperte <b>Usinar</b>: a máquina calcula rotação, tempo, potência e desgaste, mostra o cavaco saindo e diz se a peça passou. Busque as 3 estrelas: peça boa, no menor custo.</p></div></div>
+  <div class="jobs" id="jobs"></div>
+  <div class="grid2">
+    <div style="display:grid;gap:12px">
+      <div class="stage"><canvas id="cv" aria-label="Animação da usinagem"></canvas><div class="ov" id="ov"></div></div>
+      <div class="kpi" id="kpi"></div>
+      <div class="card res" id="res" aria-live="polite"></div>
+      <div class="card"><h3>🧮 As contas da máquina</h3><div class="eqs" id="eqs"></div></div>
+    </div>
+    <div style="display:grid;gap:12px">
+      <div class="card"><h3>📋 Ordem de produção</h3><div id="op"></div></div>
+      <div class="card"><h3>🔧 Ferramenta e parâmetros</h3>
+        <div class="seg2" id="tool"><button data-t="hss">Aço rápido (HSS)</button><button data-t="md">Metal duro</button></div>
+        <div class="ctl" id="ctl" style="margin-top:10px"></div>
+        <div class="row" style="margin-top:12px"><button class="btn or" id="go">▶ Usinar</button><button class="btn gh" id="dica">💡 Dica do encarregado</button></div>
+        <div class="msg" id="dmsg" hidden></div>
+      </div>
+      <div class="card"><h3>🎯 Missões</h3><ul class="mis" id="mis"></ul></div>
+      <div class="card"><h3>📒 Álbum da fábrica</h3><div class="album" id="alb"></div></div>
+    </div>
+  </div>
+</main>
+<footer class="ffix"><span>Faculdade de Bolso · IFMG · Campus Betim - Desenvolvido por Guilherme dos Santos Braz</span><a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn</a></footer>
+<script src="../js/lab-kit.js"></script>
+<script>
+'use strict';
+const {$,nf,RM,css,tela,progresso,toast,confete,seta}=LAB;
+/* materiais: kc (N/mm²) e Vc recomendada (m/min) por ferramenta */
+const MAT={a1020:{n:'Aço SAE 1020',kc:1800,hss:[25,35],md:[180,260],cor:'#9AA3AD'},a1045:{n:'Aço SAE 1045',kc:2100,hss:[18,28],md:[150,220],cor:'#8A939E'},
+  inox:{n:'Inox 304',kc:2500,hss:[12,20],md:[90,150],cor:'#C9CED6'},alu:{n:'Alumínio 6061',kc:700,hss:[80,140],md:[300,600],cor:'#D8DDE3'},fofo:{n:'Ferro fundido cinzento',kc:1100,hss:[15,25],md:[90,160],cor:'#6E747C'}};
+const MAQ={torno:{n:'Torno mecânico',rpm:2500,kW:7.5},fura:{n:'Furadeira de coluna',rpm:2000,kW:2.2},fresa:{n:'Fresadora',rpm:4000,kW:5.5}};
+const FER={hss:{n:'aço rápido',preco:40,ntay:.125,f:1},md:{n:'metal duro',preco:95,ntay:.25,f:1}};
+const JOBS=[
+ {id:'eixo',n:'Eixo do redutor',ic:'🔩',maq:'torno',mat:'a1045',D0:50,Df:46,L:150,Ra:3.2,q:1,desc:'Tornear Ø50 → Ø46 em 150 mm. Acabamento Ra ≤ 3,2 µm.'},
+ {id:'furo',n:'Furo da flange',ic:'🕳️',maq:'fura',mat:'a1020',D:12,prof:25,Ra:6.3,q:8,desc:'8 furos Ø12 passantes em chapa de 25 mm.'},
+ {id:'bloco',n:'Base de alumínio',ic:'🧱',maq:'fresa',mat:'alu',L:100,ae:60,ap:2,Df:50,z:4,Ra:1.6,q:1,desc:'Facear 100 × 60 mm, 2 mm de profundidade, fresa Ø50 com 4 insertos. Ra ≤ 1,6 µm.'},
+ {id:'pino',n:'Pino de inox',ic:'📌',maq:'torno',mat:'inox',D0:30,Df:28,L:80,Ra:1.6,q:4,desc:'4 pinos: tornear Ø30 → Ø28 em 80 mm. Ra ≤ 1,6 µm.'},
+ {id:'mancal',n:'Furo do mancal',ic:'⚙️',maq:'fura',mat:'fofo',D:20,prof:40,Ra:6.3,q:2,desc:'2 furos Ø20 × 40 mm em ferro fundido.'}];
+const ALB=[['eixo','🔩','Eixo do redutor'],['furo','🕳️','Furo da flange'],['bloco','🧱','Base de alumínio'],['pino','📌','Pino de inox'],['mancal','⚙️','Furo do mancal'],['azul','🔵','Cavaco azul (corte quente)'],['quebra','💥','Ferramenta quebrada'],['trava','🛑','Máquina em sobrecarga']];
+const MIS=[['f1','Entregue o eixo do redutor aprovado','Torno, aço 1045.',r=>r.job==='eixo'&&r.ok],['f2','Entregue os furos da flange','Furadeira: atenção ao avanço da broca.',r=>r.job==='furo'&&r.ok],
+ ['f3','Entregue a base de alumínio com Ra ≤ 1,6','Avanço por dente baixo dá acabamento fino.',r=>r.job==='bloco'&&r.ok],['f4','Vença o inox','O inox encrua e esquenta: Vc baixa e avanço firme.',r=>r.job==='pino'&&r.ok],
+ ['f5','Qualquer peça com 3 estrelas','Peça aprovada perto do menor custo possível.',r=>r.ok&&r.est===3],['f6','Descubra o que é Vc alta demais','Passe bem do recomendado e veja a ferramenta.',r=>r.vida<r.tc&&r.vcAlta],
+ ['f7','Faça a máquina travar por sobrecarga','Muito material de uma vez: potência acima da máquina.',r=>r.trava],['f8','Troque HSS por metal duro e use o ganho','Usine um pedido com HSS e depois o mesmo pedido com metal duro na Vc dele.',r=>r.ok&&r.tool==='md'&&hssJa[r.job]&&r.vc>=MAT[r.matk].md[0]]];
+const PR=progresso('fabrica',MIS.length); const hssJa={};
+let job=JOBS[0], tool='hss', P={}, R=null, anim=null;
+const T=tela($('cv'),16/9);
+function parDef(){ const m=MAT[job.mat], r=m[tool]; const vc=Math.round((r[0]+r[1])/2);
+  if(job.maq==='torno') return {vc,f:.2,ap:1}; if(job.maq==='fura') return {vc,f:.15}; return {vc,fz:.1} }
+function montaCtl(){ P=P[job.id+tool]||parDef(); const m=MAT[job.mat]; const lim=tool==='md'?[20,Math.round(m.md[1]*1.8)]:[5,Math.round(m.hss[1]*2.2)];
+  const it=[['vc','Velocidade de corte Vc',lim[0],lim[1],1,'m/min']];
+  if(job.maq==='torno') it.push(['f','Avanço f',.05,.8,.01,'mm/volta'],['ap','Profundidade por passe ap',.25,4,.25,'mm']);
+  if(job.maq==='fura') it.push(['f','Avanço f',.02,.6,.01,'mm/volta']);
+  if(job.maq==='fresa') it.push(['fz','Avanço por dente fz',.02,.4,.01,'mm/dente']);
+  $('ctl').innerHTML=it.map(([id,l,mi,ma,st,u])=>'<label>'+l+' <span class="v" id="v_'+id+'"></span><input type="range" id="p_'+id+'" min="'+mi+'" max="'+ma+'" step="'+st+'" value="'+P[id]+'"></label>').join('')+'<small style="color:var(--ink2)">Faixa recomendada de Vc para '+FER[tool].n+' em '+m.n+': <b>'+m[tool][0]+' a '+m[tool][1]+' m/min</b></small>';
+  it.forEach(([id,,,,,u])=>{ const i=$('p_'+id); const up=()=>{ P[id]=+i.value; $('v_'+id).textContent=nf(+i.value)+' '+u; calc(false) }; i.oninput=up; $('v_'+id).textContent=nf(+i.value)+' '+u });
+  document.querySelectorAll('#tool button').forEach(b=>b.classList.toggle('on',b.dataset.t===tool)); calc(false) }
+/* modelo de corte */
+function modelo(p){ const m=MAT[job.mat], M=MAQ[job.maq], F=FER[tool], r={job:job.id,tool,vc:p.vc,matk:job.mat,eq:[],avisos:[]}; const pi=Math.PI;
+  let n, tc, Pc, Ra, D;
+  if(job.maq==='torno'){ D=job.D0; const nid=1000*p.vc/(pi*D); n=Math.min(nid,M.rpm); if(nid>M.rpm) r.avisos.push('Rotação limitada a '+M.rpm+' rpm pela máquina: a Vc real ficou menor.');
+    const rad=(job.D0-job.Df)/2, pas=Math.ceil(rad/p.ap-1e-9), apr=rad/pas; const tpas=job.L/(p.f*n); tc=(pas*tpas+pas*.15)*job.q; Pc=p.vc*apr*p.f*m.kc/60000; Ra=p.f*p.f/(8*.8)*1000;
+    r.eq.push(['Rotação','n = 1000·Vc / (π·D) = 1000 × '+nf(p.vc)+' / (π × '+D+') = <b>'+nf(nid,0)+' rpm</b>'+(nid>M.rpm?' → limitada a '+M.rpm:'')],['Passes','sobremetal por lado = ('+job.D0+' − '+job.Df+')/2 = '+nf(rad)+' mm → <b>'+pas+' passe(s)</b> de '+nf(apr,2)+' mm'],
+      ['Tempo de corte','t = L / (f·n) = '+job.L+' / ('+nf(p.f)+' × '+nf(n,0)+') = '+nf(tpas,2)+' min por passe → <b>'+nf(tc,2)+' min</b> no lote (com aproximação)'],
+      ['Potência de corte','Pc = Vc·ap·f·kc / 60 000 = <b>'+nf(Pc,2)+' kW</b> → motor ≈ '+nf(Pc/.8,2)+' kW (η = 80 %)'],['Rugosidade teórica','Ra ≈ f² / (8·rε) = '+nf(p.f)+'² / (8 × 0,8 mm) = <b>'+nf(Ra,2)+' µm</b> (pedido: ≤ '+nf(job.Ra)+')']);
+    r.quebra=p.f>(tool==='md'?.6:.45)||p.ap>(tool==='md'?4:3) }
+  if(job.maq==='fura'){ D=job.D; const nid=1000*p.vc/(pi*D); n=Math.min(nid,M.rpm); if(nid>M.rpm) r.avisos.push('Rotação limitada a '+M.rpm+' rpm.');
+    const vf=p.f*n, Lp=job.prof+.3*D; tc=(Lp/vf+.1)*job.q; Pc=p.vc*D*p.f*m.kc/240000; Ra=p.f*20;
+    r.eq.push(['Rotação','n = 1000·Vc / (π·D) = <b>'+nf(nid,0)+' rpm</b>'+(nid>M.rpm?' → limitada':'')],['Velocidade de avanço','vf = f·n = '+nf(p.f)+' × '+nf(n,0)+' = <b>'+nf(vf,0)+' mm/min</b>'],
+      ['Tempo','t = (prof + 0,3·D) / vf = ('+job.prof+' + '+nf(.3*D,1)+') / '+nf(vf,0)+' = '+nf(Lp/vf,2)+' min por furo → <b>'+nf(tc,2)+' min</b> nos '+job.q+' furos'],['Potência','Pc = Vc·D·f·kc / 240 000 = <b>'+nf(Pc,2)+' kW</b>']);
+    r.quebra=p.f>.025*D+.05 }
+  if(job.maq==='fresa'){ D=job.Df; const nid=1000*p.vc/(pi*D); n=Math.min(nid,M.rpm); if(nid>M.rpm) r.avisos.push('Rotação limitada a '+M.rpm+' rpm.');
+    const vf=p.fz*job.z*n; tc=((job.L+D)/vf+.1)*job.q; Pc=job.ap*job.ae*vf*m.kc/60e6; Ra=p.fz*p.fz/(8*.8)*1000*.6;
+    r.eq.push(['Rotação','n = 1000·Vc / (π·D) = <b>'+nf(nid,0)+' rpm</b>'],['Avanço da mesa','vf = fz · z · n = '+nf(p.fz)+' × '+job.z+' × '+nf(n,0)+' = <b>'+nf(vf,0)+' mm/min</b>'],
+      ['Tempo','t = (L + D) / vf = ('+job.L+' + '+D+') / '+nf(vf,0)+' = <b>'+nf(tc,2)+' min</b>'],['Potência','Pc = ap·ae·vf·kc / 60·10⁶ = <b>'+nf(Pc,2)+' kW</b>'],['Rugosidade','Ra ≈ <b>'+nf(Ra,2)+' µm</b> (pedido: ≤ '+nf(job.Ra)+')']);
+    r.quebra=p.fz>.3 }
+  const vcr=p.vc*(n/(1000*p.vc/(pi*D))), rec=m[tool], vref=(rec[0]+rec[1])/2; r.vida=15*Math.pow(vref/Math.max(vcr,1),1/F.ntay); r.tc=tc; r.vcAlta=vcr>rec[1]*1.25;
+  r.eq.push(['Vida da ferramenta (Taylor)','T = 15 min × (Vc recomendada / Vc)^(1/'+F.ntay+') ≈ <b>'+(r.vida>999?'> 999':nf(r.vida,1))+' min</b> de corte · este lote usa '+nf(tc,2)+' min']);
+  r.trava=Pc/.8>M.kW; r.Ra=Ra; r.n=n; r.Pc=Pc;
+  const usoF=Math.min(3,tc/r.vida); r.custo=tc/60*150+usoF*F.preco+(r.vida<tc?F.preco*Math.ceil(tc/r.vida-1):0);
+  r.ok=!r.trava&&!r.quebra&&Ra<=job.Ra+1e-9&&r.vida>=tc*.999&&vcr>=rec[0]*.6;
+  if(vcr<rec[0]*.6) r.avisos.push('Vc muito baixa: forma aresta postiça e o acabamento rasga.');
+  return r }
+function otimo(){ let best=Infinity; const M=MAQ[job.maq], m=MAT[job.mat][tool]; for(let vc=m[0]*.6;vc<=m[1]*1.8;vc+=(m[1]-m[0])/20){
+    const fs=job.maq==='fresa'?[...Array(19)].map((_,i)=>.02+i*.02):[...Array(30)].map((_,i)=>.03+i*.02);
+    for(const f of fs){ for(const ap of (job.maq==='torno'?[.5,1,1.5,2,2.5,3,3.5,4]:[1])){ const p=job.maq==='fresa'?{vc,fz:f}:{vc,f,ap}; const r=modelo(p); if(r.ok&&r.custo<best) best=r.custo } } } return best }
+function calc(final){ R=modelo(P); const ob=otimo(); R.est=R.ok?(R.custo<=ob*1.2?3:R.custo<=ob*1.6?2:1):0; R.otimo=ob;
+  $('eqs').innerHTML=R.eq.map(([k,v])=>'<div><span class="k">'+k+'</span>'+v+'</div>').join('');
+  const pw=Math.min(100,R.Pc/.8/MAQ[job.maq].kW*100), vw=Math.min(100,R.tc/R.vida*100);
+  $('kpi').innerHTML='<div><small>Rotação</small><b>'+nf(R.n,0)+' rpm</b></div><div><small>Tempo do lote</small><b>'+nf(R.tc,1)+' min</b></div><div><small>Potência do motor</small><b>'+nf(R.Pc/.8,2)+' kW</b><div class="bar '+(pw>=100?'b':pw>80?'w':'')+'"><i style="width:'+pw+'%"></i></div></div><div><small>Desgaste no lote</small><b>'+nf(vw,0)+'%</b><div class="bar '+(vw>=100?'b':vw>70?'w':'')+'"><i style="width:'+vw+'%"></i></div></div>';
+  if(!final){ $('res').innerHTML='<span class="big">Pronto para usinar</span>Custo estimado: R$ '+nf(R.custo,2)+(R.avisos.length?'<div class="msg">⚠ '+R.avisos.join('<br>⚠ ')+'</div>':''); return } }
+function resultado(){ const r=R; let t, cls='';
+  if(r.trava){ t='🛑 A máquina travou: sobrecarga'; cls='bad' } else if(r.quebra){ t='💥 A ferramenta quebrou'; cls='bad' } else if(r.vida<r.tc){ t='🔥 A ferramenta gastou antes de terminar'; cls='bad' } else if(r.Ra>job.Ra){ t='📏 Acabamento reprovado'; cls='bad' } else if(!r.ok){ t='⚠ Peça com defeito'; cls='bad' } else t='✅ Peça aprovada!';
+  const why=r.trava?'O motor precisaria de '+nf(r.Pc/.8,2)+' kW e a máquina só tem '+MAQ[job.maq].kW+' kW. Diminua ap ou o avanço.':r.quebra?'Avanço (ou profundidade) acima do que a ferramenta aguenta.':r.vida<r.tc?'Com essa Vc a aresta dura só '+nf(r.vida,1)+' min e o lote pede '+nf(r.tc,1)+' min. Baixe a Vc ou troque de ferramenta.':r.Ra>job.Ra?'Ra = '+nf(r.Ra,2)+' µm, o pedido exige ≤ '+nf(job.Ra)+'. Diminua o avanço.':!r.ok?'Vc baixa demais: rasgou o acabamento.':'Custo R$ '+nf(r.custo,2)+' (o melhor possível seria R$ '+nf(r.otimo,2)+').';
+  $('res').innerHTML='<span class="big">'+t+'</span>'+(r.ok?'<span class="stars2">'+'★'.repeat(r.est)+'☆'.repeat(3-r.est)+'</span><br>':'')+why+(r.avisos.length?'<div class="msg">⚠ '+r.avisos.join('<br>⚠ ')+'</div>':'');
+  if(r.ok){ const k='lab-fab-best-'+job.id; let b=0; try{ b=+localStorage.getItem(k)||0 }catch(e){} if(r.est>b){ try{ localStorage.setItem(k,r.est) }catch(e){} } if(PR.album(job.id)){ toast('📒 Nova peça no álbum: '+job.n); drawAlb() } }
+  if(r.vcAlta&&MAT[job.mat].kc>=1800&&tool==='md'&&!r.trava) if(PR.album('azul')){ toast('📒 Cavaco azul: o aço esquentou acima de 300 °C'); drawAlb() }
+  if(r.quebra&&PR.album('quebra')){ toast('📒 Álbum: ferramenta quebrada'); drawAlb() } if(r.trava&&PR.album('trava')){ toast('📒 Álbum: máquina em sobrecarga'); drawAlb() }
+  if(tool==='hss') hssJa[job.id]=1;
+  MIS.forEach(([id,,,f])=>{ if(!PR.P.mis[id]&&f(r)){ PR.missao(id); toast('🎯 Missão cumprida!'); confete(); drawMis() } }); drawJobs() }
+/* animação */
+function chipCor(){ const r=R, m=MAT[job.mat]; if(job.mat==='alu') return '#D8DDE3'; if(job.mat==='fofo') return '#555'; const q=r.vc/m[tool][1]; return tool==='md'&&q>1.05?'#3A5BD0':tool==='md'&&q>.75?'#C8A040':'#9AA3AD' }
+function desenha(prog,t){ const {W,H}=T.fit(), x=T.x, m=MAT[job.mat]; x.clearRect(0,0,W,H); x.fillStyle=css('--paper'); x.fillRect(0,0,W,H);
+  x.fillStyle='#2B3A52'; x.fillRect(0,H-26,W,26);
+  if(job.maq==='torno'){ const cy=H*.48, x0=W*.18, Lp=W*.62, r0=Math.min(H*.2,job.D0*2.2), rf=r0*job.Df/job.D0;
+    x.fillStyle='#3B4A63'; x.fillRect(x0-80,cy-r0-34,80,(r0+34)*2); x.fillStyle='#55657E'; [-1,1].forEach(s=>x.fillRect(x0-20,cy+s*(r0+4)-(s>0?0:16),26,16));
+    const cut=x0+Lp*(1-prog), cil=(r)=>{ const g=x.createLinearGradient(0,cy-r,0,cy+r); g.addColorStop(0,'#5E6670'); g.addColorStop(.35,m.cor); g.addColorStop(.5,'#F4F6F8'); g.addColorStop(.75,m.cor); g.addColorStop(1,'#4A515A'); return g };
+    x.fillStyle=cil(r0); x.fillRect(x0,cy-r0,cut-x0,r0*2); x.fillStyle=cil(rf); x.fillRect(cut,cy-rf,x0+Lp-cut,rf*2);
+    x.fillStyle='#55657E'; x.beginPath(); x.moveTo(x0+Lp,cy); x.lineTo(x0+Lp+26,cy-14); x.lineTo(x0+Lp+26,cy+14); x.fill(); x.fillStyle='#3B4A63'; x.fillRect(x0+Lp+26,cy-34,60,68);
+    x.font='700 12px Inter,sans-serif'; x.fillStyle=css('--ink2'); x.textAlign='left'; x.fillText('Ø'+job.D0,x0+6,cy-r0-8); if(prog>0) x.fillText('Ø'+job.Df,x0+Lp-40,cy-rf-8);
+    x.strokeStyle='rgba(0,0,0,.18)'; for(let i=0;i<14;i++){ const yy=cy-rf+((i*9+t*40*(R?R.n/1000:1))%(rf*2)); x.beginPath(); x.moveTo(x0,yy); x.lineTo(x0+Lp,yy); x.stroke() }
+    x.fillStyle='#E3A21A'; x.beginPath(); x.moveTo(cut,cy-r0-2); x.lineTo(cut+30,cy-r0-34); x.lineTo(cut+56,cy-r0-34); x.lineTo(cut+10,cy-r0+4); x.fill(); x.fillStyle='#55657E'; x.fillRect(cut+30,cy-r0-60,70,26);
+    return {cx:cut+4,cy:cy-r0} }
+  if(job.maq==='fura'){ const cx=W*.5, top=H*.35, esp=H*.42, Dp=Math.max(14,job.D*2.2), dep=prog*esp;
+    x.fillStyle=m.cor; x.fillRect(W*.15,top,W*.7,esp); x.fillStyle=css('--paper'); x.fillRect(cx-Dp/2,top,Dp,dep);
+    x.fillStyle='#55657E'; x.fillRect(cx-30,20,60,top-50); x.save(); x.beginPath(); x.rect(cx-Dp/2-2,0,Dp+4,top+dep+Dp*.3); x.clip(); x.fillStyle='#C9CED6'; x.fillRect(cx-Dp/2,top-40,Dp,40+dep);
+    x.strokeStyle='#7E8796'; x.lineWidth=2; for(let k=0;k<8;k++){ const yy=(top-40+((k*18+t*120)%(40+dep+30))); x.beginPath(); x.moveTo(cx-Dp/2,yy); x.lineTo(cx+Dp/2,yy+10); x.stroke() } x.restore();
+    x.fillStyle='#C9CED6'; x.beginPath(); x.moveTo(cx-Dp/2,top+dep); x.lineTo(cx,top+dep+Dp*.3); x.lineTo(cx+Dp/2,top+dep); x.fill(); return {cx:cx,cy:top} }
+  const top=H*.45, w=W*.6, x0=W*.2, Dm=Math.min(110,job.Df*1.6), mx=x0-Dm/2+(w+Dm)*prog;
+  x.fillStyle=m.cor; x.fillRect(x0,top,w,H*.3); x.fillStyle='rgba(255,255,255,.35)'; x.fillRect(x0,top,Math.max(0,mx-x0),6);
+  x.fillStyle='#55657E'; x.fillRect(mx-Dm/2,top-48,Dm,40); x.fillRect(mx-18,20,36,top-68); x.fillStyle='#E3A21A'; for(let k=0;k<job.z;k++){ const a=t*10+k*2*Math.PI/job.z; x.fillRect(mx+Math.cos(a)*Dm*.42-5,top-14,10,10) }
+  return {cx:mx,cy:top} }
+let chips=[];
+function usinar(){ calc(true); cancelAnimationFrame(anim); const t0=performance.now(), dur=RM?50:3200; chips=[]; $('go').disabled=true;
+  const falha=R.trava?.18:R.quebra?.35:R.vida<R.tc?Math.max(.15,R.vida/R.tc):1;
+  const loop=now=>{ const k=Math.min(1,(now-t0)/dur), prog=Math.min(k,falha), t=(now-t0)/1000; const tip=desenha(prog,t);
+    if(k<falha){ for(let i=0;i<3;i++) chips.push({x:tip.cx,y:tip.cy,vx:(Math.random()*3+1)*(job.maq==='torno'?1:Math.random()<.5?-1:1),vy:-Math.random()*4-1,l:40}) }
+    const x=T.x; chips=chips.filter(c=>c.l-->0); chips.forEach(c=>{ c.vy+=.25; c.x+=c.vx; c.y+=c.vy; x.strokeStyle=chipCor(); x.lineWidth=2; x.beginPath(); x.arc(c.x,c.y,3,0,4); x.stroke() });
+    if(k>=falha&&falha<1){ x.fillStyle='rgba(199,58,44,.18)'; x.fillRect(0,0,T.W,T.H); x.font='800 28px Inter,sans-serif'; x.fillStyle='#C73A2C'; x.textAlign='center'; x.fillText(R.trava?'SOBRECARGA':R.quebra?'QUEBROU!':'FERRAMENTA GASTA',T.W/2,50) }
+    $('ov').innerHTML='<span class="chip">'+MAQ[job.maq].n+'</span><span class="chip">'+nf(R.n,0)+' rpm</span><span class="chip">'+nf(prog*R.tc,1)+' / '+nf(R.tc,1)+' min</span>';
+    if(k<1) anim=requestAnimationFrame(loop); else { $('go').disabled=false; resultado() } };
+  anim=requestAnimationFrame(loop) }
+/* interface */
+function drawJobs(){ $('jobs').innerHTML=JOBS.map(j=>{ let b=0; try{ b=+localStorage.getItem('lab-fab-best-'+j.id)||0 }catch(e){} return '<button class="job'+(j===job?' on':'')+'" data-j="'+j.id+'"><b>'+j.ic+' '+j.n+'</b><small>'+MAT[j.mat].n+' · '+MAQ[j.maq].n+'</small><span class="st">'+'★'.repeat(b)+'☆'.repeat(3-b)+'</span></button>' }).join('');
+  document.querySelectorAll('.job').forEach(b=>b.onclick=()=>{ job=JOBS.find(j=>j.id===b.dataset.j); P={}; drawJobs(); op(); montaCtl(); desenha(0,0) }) }
+function op(){ const m=MAT[job.mat], M=MAQ[job.maq]; $('op').innerHTML='<div class="eqs"><div><span class="k">Pedido</span>'+job.desc+'</div><div><span class="k">Material</span>'+m.n+' · kc = '+m.kc+' N/mm²</div><div><span class="k">Máquina</span>'+M.n+' · até '+M.rpm+' rpm · '+M.kW+' kW</div><div><span class="k">Custos</span>hora-máquina R$ 150 · aresta de '+FER.hss.n+' R$ '+FER.hss.preco+' · de '+FER.md.n+' R$ '+FER.md.preco+'</div></div>' }
+document.querySelectorAll('#tool button').forEach(b=>b.onclick=()=>{ tool=b.dataset.t; P={}; montaCtl() });
+$('go').onclick=usinar;
+$('dica').onclick=()=>{ const m=MAT[job.mat][tool], d=$('dmsg'); d.hidden=false; d.innerHTML='💡 '+(job.maq==='torno'?'Desbaste com ap grande e avanço médio; o acabamento manda no avanço: Ra ≈ f²/(8·rε). ':job.maq==='fura'?'Broca: avanço ≈ 1 a 2 % do diâmetro por volta. ':'Fresa: o acabamento depende do avanço por dente; potência depende de ap × ae × vf. ')+'Comece no meio da faixa de Vc ('+m[0]+'–'+m[1]+' m/min) e veja a vida da ferramenta.' };
+function drawMis(){ $('mis').innerHTML=MIS.map(([id,t,d])=>'<li class="'+(PR.P.mis[id]?'ok':'')+'"><span class="st">'+(PR.P.mis[id]?'✓':'·')+'</span><span>'+t+'<small>'+(PR.P.mis[id]?'cumprida':d)+'</small></span></li>').join('') }
+function drawAlb(){ $('alb').innerHTML=ALB.map(([k,e,t])=>'<div class="it'+(PR.P.album[k]?' on':'')+'"><span><span class="e">'+e+'</span>'+(PR.P.album[k]?t:'???')+'</span></div>').join('') }
+addEventListener('resize',()=>desenha(0,0));
+drawJobs(); op(); montaCtl(); drawMis(); drawAlb(); desenha(0,0);
+</script>
+</body>
+</html>

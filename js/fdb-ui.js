@@ -88,6 +88,10 @@ function hub(){ const top=$('header.top'); if(!top||$('.fdb-hsurf')) return; con
 /* ---------- qual matéria é esta página ---------- */
 const PASTA={calc2:'calc2',fis1:'fis1',gaal:'gaal',qg:'qg',usinagem:'usin',ingles:'ingl'};
 const NOMEM={calc2:['Cálculo','II'],fis1:['Física','I'],gaal:['GAAL',''],qg:['Química',''],usin:['Usinagem',''],ingl:['Inglês','']};
+function labJogo(id){ return (window.FDB_LABS||[]).find(l=>l.mat===id)||null }
+/* oficinas sem módulos: põe o laboratório-jogo no menu do topo */
+function labNoMenu(){ const id=matDaPagina(), L=labJogo(id), nav=$('header nav#nav'); if(!L||!nav||document.body.classList.contains('fdb-mat')||$('a.fdb-lj',nav)) return;
+  const a=document.createElement('a'); a.className='fdb-lj'; a.href='../../'+L.url; a.textContent=L.ic+' '+L.nome; nav.appendChild(a) }
 function matDaPagina(){ const m=location.pathname.match(/materias\/([a-z0-9]+)\//); return m?PASTA[m[1]]:null }
 const TEMA=id=>!id?'geral':/^calc/.test(id)?'calc':/^(fis|labf)/.test(id)?'fis':/^(qg|labq)/.test(id)?'qg':id==='gaal'?'gaal':/^(usin|usi|labu|pf)/.test(id)?'usin':id==='ingl'?'ingl':/^(dt|desenho)/.test(id)?'desenho':'geral';
 
@@ -204,7 +208,7 @@ function materia(){ const id=matDaPagina(), A=(window.FDB_AULAS||{})[id]; const 
   const aulas=[]; [1,2,3].forEach(n=>(A.modulos[n]||[]).forEach(([v,t,d],i)=>aulas.push({v,t,d,n,i:i+1})));
   const links=$$('a[href^="#"]',nav).map(a=>({h:a.getAttribute('href').slice(1),t:a.textContent.replace(/\s+/g,' ').trim()}));
   const tools=links.filter(l=>l.h&&l.h!=='inicio'&&!aulas.some(a=>a.v===l.h));
-  const done=()=>G('done')||{};
+  const done=()=>G('done')||{}, LJ=labJogo(id);
   /* barra lateral */
   const side=document.createElement('aside'); side.className='fdb-side'; side.id='fdbSide'; side.setAttribute('aria-label','Menu da matéria'); side.hidden=false;
   const sc=document.createElement('div'); sc.className='fdb-scrim'; document.body.append(side,sc);
@@ -215,7 +219,8 @@ function materia(){ const id=matDaPagina(), A=(window.FDB_AULAS||{})[id]; const 
       [1,2,3].map(n=>{ const L=A.modulos[n]||[]; const tema=(A.temas||{})[n];
         return '<div class="sm"><div class="smh">Módulo '+n+' · '+n+'ª prova</div>'+(tema?'<div class="smt">'+tema+'</div>':'')+
           (L.length?L.map(([v,t],i)=>'<a class="sl au'+(cur===v?' on':'')+'" href="#'+v+'"><span class="sn">'+(d[v]?'✓':i+1)+'</span>'+t+'</a>').join(''):'<div class="sv">em breve</div>')+'</div>' }).join('')+
-      (tools.length?'<div class="sm"><div class="smh">Ferramentas</div>'+tools.map(l=>'<a class="sl'+(cur===l.h?' on':'')+'" href="#'+l.h+'">'+(TOOLIC[l.h]||'🔧')+' '+l.t.replace(/^[^\wÀ-ú]+/,'')+'</a>').join('')+'<div class="scart"></div></div>':'');
+      (tools.length?'<div class="sm"><div class="smh">Ferramentas</div>'+tools.map(l=>'<a class="sl'+(cur===l.h?' on':'')+'" href="#'+l.h+'">'+(TOOLIC[l.h]||'🔧')+' '+l.t.replace(/^[^\wÀ-ú]+/,'')+'</a>').join('')+'<div class="scart"></div></div>':'')+
+      (LJ?'<div class="sm"><div class="smh">Laboratório-jogo</div><a class="sl" href="../../'+LJ.url+'">'+LJ.ic+' '+LJ.nome+'</a></div>':'');
     const ak=$('.ak-navbtn'); if(ak) $('.scart',side).appendChild(ak);
     $('.sx',side).onclick=()=>abrir(false) };
   const abrir=v=>{ document.body.classList.toggle('fdb-side-on',v); store.set('fdb-side',v?'1':'0') };
@@ -248,7 +253,7 @@ function materia(){ const id=matDaPagina(), A=(window.FDB_AULAS||{})[id]; const 
             '<div class="mbar"><i style="width:'+(ok/L.length*100)+'%"></i></div><small class="mc">'+ok+' de '+L.length+' aulas estudadas</small>'+
             '<ol class="mau">'+L.map(([v,t],i)=>'<li><a href="#'+v+'"><span class="sn'+(d[v]?' ok':'')+'">'+(d[v]?'✓':i+1)+'</span>'+t+'</a></li>').join('')+'</ol>'+
             '<a class="btnh mgo" href="#'+((L.find(([v])=>!d[v])||L[0])[0])+'">'+(ok?'▶ Continuar o módulo':'▶ Começar o módulo')+'</a></div>' }).join('')+'</div>'+
-        (tools.length?'<div class="sech"><h3>Ferramentas da oficina</h3></div><div class="qgrid">'+tools.map(l=>'<a class="qcard" href="#'+l.h+'"><span class="qi">'+(TOOLIC[l.h]||'🔧')+'</span><span class="qt"><b>'+l.t.replace(/^[^\wÀ-ú]+/,'')+'</b></span><span class="qa" aria-hidden="true">→</span></a>').join('')+'</div>':'') };
+        (tools.length?'<div class="sech"><h3>Ferramentas da oficina</h3></div><div class="qgrid">'+tools.map(l=>'<a class="qcard" href="#'+l.h+'"><span class="qi">'+(TOOLIC[l.h]||'🔧')+'</span><span class="qt"><b>'+l.t.replace(/^[^\wÀ-ú]+/,'')+'</b></span><span class="qa" aria-hidden="true">→</span></a>').join('')+(LJ?'<a class="qcard" href="../../'+LJ.url+'"><span class="qi">'+LJ.ic+'</span><span class="qt"><b>'+LJ.nome+'</b><small>laboratório-jogo</small></span><span class="qa" aria-hidden="true">→</span></a>':'')+'</div>':'') };
     drawIni(); const pt=$('#progtxt'); if(pt) new MutationObserver(()=>{ drawIni(); drawSide(); drawTop() }).observe(pt,{childList:true,characterData:true,subtree:true}) }
   drawSide(); drawTop(); addEventListener('hashchange',()=>{ drawSide(); drawTop() });
   return true }
@@ -265,6 +270,6 @@ function aulas(){ const nav=$('header nav#nav'); if(!nav) return; const ms=$$(':
   const sync=()=>{ open(false); const on=ms.some(a=>a.getAttribute('href')===location.hash); bt.classList.toggle('on',on); if(on) setTimeout(()=>{ const sx=scrollX,sy=scrollY; bt.scrollIntoView({block:'nearest',inline:'center'}); scrollTo(sx,sy) },30) };
   addEventListener('hashchange',sync); sync() }
 
-function boot(){ brandOficina(); eyebrows(); const mt=materia(); if(!mt){ aulas(); aulasPorModulo() } header(); tocs(); home(); foot(); hub(); wallOficina(); wallHub(); irPara(); lembrar() }
+function boot(){ brandOficina(); eyebrows(); const mt=materia(); if(!mt){ aulas(); aulasPorModulo(); labNoMenu() } header(); tocs(); home(); foot(); hub(); wallOficina(); wallHub(); irPara(); lembrar() }
 if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',boot); else boot();
 })();

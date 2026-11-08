@@ -74,6 +74,7 @@ window.FACULDADE = {
               caminho: "materias/calc2/oficina-de-calculo-2.html",
               ciclo: "2ª Prova", ate: "2026-11-12",
               atualizacoes: [
+            { data: "2026-11-08", texto: "Novo laboratório-jogo Escultor de superfícies: monte f(x, y) com peças, veja a superfície 3D e as curvas de nível, classifique pontos críticos e role a bolinha do gradiente." },
                 { data: "2026-10-29", texto: "Criada: funções de várias variáveis, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos, com a lista resolvida e cartas." },
                 { data: "2026-11-04", texto: "Aula de 04/11: ponto crítico de 9 − x² − y², a sela de x² − y², o teste da 2ª derivada com a Hessiana, os exemplos 1 e 2 resolvidos passo a passo e os dois no simulador 3D. Cada exemplo tem gráfico 3D e mapa de nível próprios." },
                 { data: "2026-11-04", texto: "Aula de 04/11 (fim): Exemplo 4 da montanha no módulo de gradiente, com os itens a–d resolvidos (sul, noroeste, subida e descida mais íngremes), gráfico 3D e mapa com ∇h." },
@@ -95,6 +96,7 @@ window.FACULDADE = {
               caminho: "materias/fis1/oficina-de-fisica.html",
               ciclo: "2ª Prova", ate: "2026-11-04",
               atualizacoes: [
+            { data: "2026-11-08", texto: "Novo laboratório-jogo Oficina de Newton: rampa, máquina de Atwood, mola, puxão e pêndulo com diagrama de corpo livre ao vivo, missões e álbum." },
                 { data: "2026-10-28", texto: "Criada com os capítulos 5 e 6 (Força e Movimento I e II)." },
                 { data: "2026-10-28", texto: "Incluído o capítulo 8 (Energia Potencial e Conservação da Energia)." },
                 { data: "2026-10-28", texto: "Aula de 28/10: conservação geral da energia (formas de energia) e o exemplo de queda com 30 J (K + U)." },
@@ -121,6 +123,7 @@ window.FACULDADE = {
               caminho: "materias/gaal/oficina-de-gaal.html",
               ciclo: "2ª Prova", ate: "2026-11-06",
               atualizacoes: [
+            { data: "2026-11-08", texto: "Novo laboratório-jogo Hangar 3D: retas e planos no espaço com posição relativa, ângulos, distâncias e o desafio dos anéis." },
                 { data: "2026-10-28", texto: "Criada: retas, planos, posições relativas, ângulos e distâncias, com a lista 4 resolvida." },
                 { data: "2026-10-29", texto: "Cartas de revisão (Anki): botão Cartas na oficina, carta surpresa nos módulos de teoria e 29 cartas de GAAL." },
                 { data: "2026-10-30", texto: "Aula de 30/10: plano que contém duas retas (concorrentes: N = v₁ × v₂; paralelas: N = P₂P₁ × v₂), exercício 2 resolvido e calculadora." },
@@ -240,6 +243,7 @@ window.FACULDADE = {
           caminho: "materias/usinagem/oficina-de-usinagem.html",
           ciclo: "Contínua",
           atualizacoes: [
+            { data: "2026-11-08", texto: "Novo laboratório-jogo Chão de fábrica: 5 pedidos reais (torno, furadeira e fresadora) com Vc, avanço, potência, Taylor, rugosidade e custo." },
             { data: "2026-10-29", texto: "Entrou no Faculdade de Bolso: visual das oficinas, cartas de revisão e simulador CNC mais leve (só redesenha quando algo muda)." }
           ],
           descricao: "Furadeira, torno, mandrilhadora e centro de usinagem em 3D, grandezas de corte, força e potência, desgaste, tolerâncias, CNC e código G com simulador, tempos e planejamento de processo.",
@@ -254,6 +258,7 @@ window.FACULDADE = {
           caminho: "materias/ingles/oficina-de-ingles.html",
           ciclo: "Contínua",
           atualizacoes: [
+            { data: "2026-11-08", texto: "Novo laboratório-jogo Escritório internacional: 5 situações de trabalho em inglês com peças de palavras, áudio e álbum de 20 expressões." },
             { data: "2026-11-01", texto: "Criada: 24 unidades (A1, A2 e B1) com gramática em português, vocabulário com áudio, frases, exercícios, inglês técnico, pronúncia e nivelamento." },
             { data: "2026-11-01", texto: "Versão 2: visual novo, fases em abas, XP e conquistas, 5 jogos (memória, corrida, forca, fala e ditado), Arcade e a Playlist com músicas, filmes, livros e jogos de cada fase." },
             { data: "2026-11-08", texto: "Sua playlist Ingles do Spotify dentro da oficina: player, as 52 músicas com o que reparar, palavras-chave com áudio, nível de escuta, ligação com a fase da gramática, filtros e marcação de estudadas (+XP). As músicas também aparecem na aba Pop de cada fase." }

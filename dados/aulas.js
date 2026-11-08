@@ -65,11 +65,12 @@ window.FDB_AULAS = {
   ingl: { pag: "materias/ingles/oficina-de-ingles.html", simbolo: "Aa", continua: true,
     lab_nome: "Arcade de inglês", lab_desc: "Jogos de memória, corrida, forca, fala e ditado com as palavras das fases.", lab_hash: "arcade" }
 };
-/* laboratórios planejados (ainda não construídos) */
-window.FDB_LABS_FUTUROS = [
-  { mat: "fis1", nome: "Oficina de Newton", desc: "Monte blocos, rampas, molas e polias numa bancada, aperte Soltar e veja as forças agindo. Cada montagem clássica vai para o álbum." },
-  { mat: "calc2", nome: "Escultor de superfícies", desc: "Monte funções com peças e esculpa superfícies 3D; colecione paraboloides, selas e vulcões e vença desafios de gradiente." },
-  { mat: "gaal", nome: "Hangar 3D", desc: "Lance retas e planos no espaço e descubra paralelas, reversas e interseções; acerte alvos com a reta certa." },
-  { mat: "usin", nome: "Chão de fábrica", desc: "Receba uma peça, escolha máquina, ferramenta e parâmetros e veja a usinagem acontecer, com tempo, custo e desgaste." },
-  { mat: "ingl", nome: "Escritório internacional", desc: "Situações reais de trabalho em inglês: e-mail a fornecedor, catálogo, reunião. Monte as frases e avance na história." }
+/* laboratórios-jogo (páginas próprias em labs/) · total = nº de missões, para mostrar o progresso */
+window.FDB_LABS = [
+  { mat: "fis1", nome: "Oficina de Newton", url: "labs/newton.html", chave: "newton", total: 8, ic: "🍎", desc: "Rampas, polias, molas, puxões e pêndulos: mexa nos controles, aperte Soltar e veja as forças e o diagrama de corpo livre ao vivo." },
+  { mat: "calc2", nome: "Escultor de superfícies", url: "labs/superficies.html", chave: "superficies", total: 8, ic: "⛰️", desc: "Monte f(x, y) com peças, esculpa a superfície 3D, ache máximos, mínimos e selas e role a bolinha do gradiente." },
+  { mat: "gaal", nome: "Hangar 3D", url: "labs/hangar.html", chave: "hangar", total: 8, ic: "✈️", desc: "Lance retas e planos no espaço, descubra paralelas, reversas e interseções e passe o voo pelos anéis." },
+  { mat: "usin", nome: "Chão de fábrica", url: "labs/fabrica.html", chave: "fabrica", total: 8, ic: "🏭", desc: "Receba o pedido, escolha ferramenta, Vc, avanço e profundidade e veja a peça sair: tempo, custo, desgaste e acabamento." },
+  { mat: "ingl", nome: "Escritório internacional", url: "labs/escritorio.html", chave: "escritorio", total: 8, ic: "💼", desc: "Primeiro dia, e-mail ao fornecedor, catálogo, reunião e segurança: monte as frases em inglês e avance na história." }
 ];
+window.FDB_LABS_FUTUROS = [];

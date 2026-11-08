@@ -274,7 +274,8 @@ renderHome(); renderAlerts(); renderToday(); revBadge(); setInterval(renderToday
 
 
 /* ===== v2: aulas, oficinas, exercícios, laboratórios, sobre, menu do usuário ===== */
-const AUL=window.FDB_AULAS||{}, LABF=window.FDB_LABS_FUTUROS||[];
+const AUL=window.FDB_AULAS||{}, LABF=window.FDB_LABS_FUTUROS||[], LABJ=window.FDB_LABS||[];
+function labProg(l){ let n=0; try{ n=Object.keys((JSON.parse(localStorage.getItem('lab-'+l.chave)||'{}').mis)||{}).length }catch(e){} return n }
 const PROVA=['','1ª prova','2ª prova','3ª prova'];
 const curMats=()=>{ const cn=(D.periodos.find(p=>p.atual)||{}).numero; return MATS.filter(m=>(m.periodo===cn||m.extra)&&AUL[m.id]) };
 const ofUrl=(m,h,ir)=>{ const a=AUL[m.id]; return a?a.pag+(ir?'?ir='+ir:'')+(h?'#'+h:''):'#m-'+m.id };
@@ -305,6 +306,7 @@ function renderExercicios(){ const ms=curMats();
   document.getElementById('exercicios').innerHTML='<header class="phead"><div class="eyebrow">Exercícios</div><h1>Exercícios</h1><p>Três tipos: as listas dos professores resolvidas, exercícios extras para treinar e casos reais que um engenheiro encontra no dia a dia da indústria.</p></header>'+ms.filter(m=>!AUL[m.id].continua).map(row).join('') }
 function renderLabs(){ const ms=curMats();
   document.getElementById('labs').innerHTML='<header class="phead"><div class="eyebrow">Laboratórios</div><h1>Laboratórios</h1><p>Lugares para mexer, testar e descobrir: você monta, o sistema reage e o que você descobre vira coleção.</p></header>'+
+    (LABJ.length?'<div class="sech"><h3>🎮 Laboratórios-jogo</h3></div><div class="lgrid">'+LABJ.filter(l=>ms.some(m=>m.id===l.mat)||!ms.length).map(l=>{ const m=MATS.find(x=>x.id===l.mat)||{cor:'#888',sigla:l.mat}; const n=labProg(l); return '<a class="lcard jogo" style="--mc:'+esc(m.cor)+'" href="'+esc(l.url)+'"><span class="qi">'+l.ic+'</span><small>'+esc(m.sigla)+' · ★ '+n+' / '+l.total+'</small><b>'+esc(l.nome)+'</b><p>'+esc(l.desc)+'</p><span class="lpb"><i style="width:'+Math.round(n/l.total*100)+'%"></i></span><span class="lgo">'+(n?'Continuar →':'Jogar →')+'</span></a>' }).join('')+'</div><div class="sech"><h3>Dentro das oficinas</h3></div>':'')+
     '<div class="lgrid">'+ms.filter(m=>AUL[m.id].lab_nome).map(m=>{ const a=AUL[m.id]; return '<a class="lcard'+(a.lab_estrela?' star':'')+'" style="--mc:'+esc(m.cor)+'" href="'+ofUrl(m,a.lab_hash||a.lab)+'"><span class="qi">'+icon(m.icone)+'</span><small>'+esc(m.sigla)+(a.lab_estrela?' · ⭐ destaque':'')+'</small><b>'+esc(a.lab_nome)+'</b><p>'+esc(a.lab_desc)+'</p><span class="lgo">Abrir →</span></a>' }).join('')+'</div>'+
     (LABF.length?'<div class="sech"><h3>Em construção</h3></div><div class="lgrid">'+LABF.map(l=>{ const m=MATS.find(x=>x.id===l.mat)||{cor:'#888',icone:'livro',sigla:l.mat}; return '<div class="lcard breve" style="--mc:'+esc(m.cor)+'"><span class="qi">'+icon(m.icone)+'</span><small>'+esc(m.sigla)+' · em breve</small><b>'+esc(l.nome)+'</b><p>'+esc(l.desc)+'</p></div>' }).join('')+'</div>':'') }
 function renderSobre(){ document.getElementById('sobre').innerHTML='<div class="sobre"><div class="eyebrow">Sobre</div><h1>Sobre a Faculdade de <span>Bolso</span></h1>'+

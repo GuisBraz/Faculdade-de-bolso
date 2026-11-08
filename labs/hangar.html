@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hangar 3D · Laboratório de GAAL</title>
+<link rel="icon" type="image/png" href="../icons/logo-favicon-64.png">
+<link rel="stylesheet" href="../css/fdb-v2.css">
+<link rel="stylesheet" href="../css/lab.css">
+<style>
+#cv{aspect-ratio:4/3;cursor:grab}
+.obj{display:grid;gap:8px}
+.obj h4{font-size:.92rem;display:flex;align-items:center;gap:8px;margin:4px 0 0}
+.obj h4 i{width:14px;height:14px;border-radius:4px;display:inline-block}
+.vec{display:grid;grid-template-columns:62px repeat(3,minmax(0,1fr));gap:6px;align-items:center;font:600 .82rem var(--f-mono)}
+.st3{display:grid;grid-template-columns:24px 1fr 24px;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--paper)}
+.st3 button{border:0;background:transparent;color:var(--ink);font:800 .9rem var(--f-body);cursor:pointer;padding:4px 0}
+.st3 button:hover{background:var(--line)}
+.st3 span{text-align:center;font:700 .9rem var(--f-mono);padding:4px 0}
+.eqn{font:600 .84rem var(--f-mono);color:var(--ink2);background:var(--paper);border-radius:8px;padding:6px 8px}
+.res{font-size:1.05rem}.res b.big{display:block;font:800 1.35rem var(--f-disp);margin-bottom:4px}
+</style>
+</head>
+<body>
+<header class="lh"><div class="lhin">
+  <a class="lgo" href="../materias/gaal/oficina-de-gaal.html"><span class="s">⊥</span><span><small>Laboratório · GAAL</small><b>Hangar 3D</b></span></a>
+  <span class="sp"></span><a href="../index.html#labs">Todos os laboratórios</a><span class="stars" id="stars"></span>
+</div></header>
+<main class="lab">
+  <div class="lab-hero"><div><div class="eb">Laboratório de retas e planos</div><h1>Lance retas e planos no espaço</h1>
+    <p>Monte cada objeto com um ponto e um vetor (reta) ou um ponto e uma normal (plano). O hangar descobre sozinho a posição relativa, calcula ângulo, distância e o ponto de encontro, e desenha tudo em 3D. Gire com o dedo e cumpra as missões.</p></div></div>
+  <div class="tabs" id="modos" role="tablist"></div>
+  <div class="grid2">
+    <div style="display:grid;gap:12px">
+      <div class="stage"><canvas id="cv" aria-label="Cena 3D. Arraste para girar."></canvas><div class="ov" id="ov"></div></div>
+      <div class="card res" id="res" aria-live="polite"></div>
+      <div class="card"><h3>🧮 Como o hangar decidiu</h3><div class="eqs" id="eqs"></div></div>
+    </div>
+    <div style="display:grid;gap:12px">
+      <div class="card"><h3>🛠️ Monte os objetos</h3><div class="obj" id="obj"></div></div>
+      <div class="card"><h3>🎯 Missões</h3><ul class="mis" id="mis"></ul></div>
+      <div class="card"><h3>📒 Álbum de posições</h3><div class="album" id="alb"></div></div>
+    </div>
+  </div>
+</main>
+<footer class="ffix"><span>Faculdade de Bolso · IFMG · Campus Betim - Desenvolvido por Guilherme dos Santos Braz</span><a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn</a></footer>
+<script src="../js/lab-kit.js"></script>
+<script>
+'use strict';
+const {$,nf,RM,css,tela,progresso,toast,confete,seta}=LAB;
+/* vetores */
+const sub=(a,b)=>a.map((v,i)=>v-b[i]), add=(a,b)=>a.map((v,i)=>v+b[i]), mul=(a,k)=>a.map(v=>v*k), dot=(a,b)=>a[0]*b[0]+a[1]*b[1]+a[2]*b[2];
+const crs=(a,b)=>[a[1]*b[2]-a[2]*b[1],a[2]*b[0]-a[0]*b[2],a[0]*b[1]-a[1]*b[0]], len=a=>Math.hypot(...a), zero=a=>len(a)<1e-9;
+const vf=a=>'('+a.map(v=>nf(v,2)).join('; ')+')';
+const COR={r:'#1E62C9',s:'#C73A2C',p:'#F26B1D',q:'#22884A'};
+const MODOS={rr:['📏 Reta × reta',['r','s']],rp:['📐 Reta × plano',['r','p']],pp:['🧱 Plano × plano',['p','q']],alvo:['🎯 Acerte os anéis',['r']]};
+const ANEIS=[[-2,1,3],[2,3,-1]];
+let modo='rr', O={r:{P:[0,0,0],v:[1,1,0]},s:{P:[0,2,1],v:[1,0,1]},p:{P:[0,0,0],v:[0,0,1]},q:{P:[0,0,0],v:[1,0,0]}};
+const ALB=[['par','🛤️','Retas paralelas'],['coi','🧵','Retas coincidentes'],['con','✖️','Retas concorrentes'],['rev','🛫','Retas reversas'],['rpar','➖','Reta paralela ao plano'],['rcon','🧷','Reta contida no plano'],['rfura','🎯','Reta fura o plano'],['ppar','📚','Planos paralelos'],['pcor','📖','Planos que se cortam'],['perp','⟂','Algo perpendicular']];
+const MIS=[['h1','rr','Monte duas retas reversas','Nem paralelas nem se encontram: mude a altura (z) de uma delas.',a=>a.tipo==='rev'],
+ ['h2','rr','Duas retas concorrentes','Faça as duas passarem pelo mesmo ponto.',a=>a.tipo==='con'],
+ ['h3','rr','Duas retas paralelas distintas','Mesmo vetor diretor (ou múltiplo), pontos fora uma da outra.',a=>a.tipo==='par'],
+ ['h4','rp','Fure o plano exatamente no ponto (1; 2; 0)','Plano z = 0 e uma reta que passe por (1; 2; 0).',a=>a.tipo==='rfura'&&a.pt&&len(sub(a.pt,[1,2,0]))<1e-6],
+ ['h5','rp','Reta paralela ao plano, sem tocar nele','v · n = 0 e o ponto da reta fora do plano.',a=>a.tipo==='rpar'],
+ ['h6','pp','Dois planos perpendiculares','n₁ · n₂ = 0.',a=>a.tipo==='pcor'&&Math.abs(a.cos)<1e-9],
+ ['h7','rp','Reta perpendicular ao plano','Vetor da reta paralelo à normal.',a=>a.tipo==='rfura'&&Math.abs(a.sen-1)<1e-9],
+ ['h8','alvo','Passe a reta pelos dois anéis','Use A = um anel e v = (outro anel − A).',a=>a.alvo]];
+const PR=progresso('hangar',MIS.length);
+/* ---------- análise ---------- */
+function analisar(){ const r=O.r, s=O.s, p=O.p, q=O.q, a={eq:[]};
+  if(modo==='rr'){ const w=sub(s.P,r.P), c=crs(r.v,s.v); a.cos=Math.abs(dot(r.v,s.v))/(len(r.v)*len(s.v));
+    a.eq.push(['Vetores diretores','u = '+vf(r.v)+' · v = '+vf(s.v)],['Produto vetorial','u × v = '+vf(c)+(zero(c)?' → <b>zero: são paralelos</b>':' → não é zero: não são paralelas')]);
+    if(zero(c)){ const d=len(crs(w,r.v))/len(r.v); if(d<1e-9){ a.tipo='coi'; a.eq.push(['Ponto de s em r?','B − A = '+vf(w)+' é paralelo a u → <b>coincidentes</b> (a mesma reta)']) } else { a.tipo='par'; a.dist=d; a.eq.push(['Distância entre as paralelas','d = |(B − A) × u| / |u| = <b>'+nf(d,3)+'</b>']) } }
+    else { const m=dot(w,c); a.eq.push(['Teste do produto misto','(B − A) · (u × v) = '+nf(m,3)+(Math.abs(m)<1e-9?' = 0 → <b>coplanares</b>':' ≠ 0 → <b>não estão no mesmo plano</b>')]);
+      if(Math.abs(m)<1e-9){ a.tipo='con'; const t=dot(crs(w,s.v),c)/dot(c,c); a.pt=add(r.P,mul(r.v,t)); a.eq.push(['Ponto de encontro','I = A + t·u com t = '+nf(t,3)+' → <b>'+vf(a.pt)+'</b>']) }
+      else { a.tipo='rev'; a.dist=Math.abs(m)/len(c); const t=dot(crs(w,s.v),c)/dot(c,c), u2=dot(crs(w,r.v),c)/dot(c,c); a.p1=add(r.P,mul(r.v,t)); a.p2=add(s.P,mul(s.v,u2)); a.eq.push(['Distância entre reversas','d = |(B − A)·(u × v)| / |u × v| = <b>'+nf(a.dist,3)+'</b>']) } }
+    a.eq.push(['Ângulo entre as retas','cos θ = |u·v| / (|u||v|) = '+nf(a.cos,3)+' → θ = <b>'+nf(Math.acos(Math.min(1,a.cos))*180/Math.PI,1)+'°</b>']) }
+  if(modo==='rp'){ const n=p.v, un=dot(r.v,n); a.sen=Math.abs(un)/(len(r.v)*len(n)); const d0=dot(sub(r.P,p.P),n);
+    a.eq.push(['Plano','π: '+planoEq(p)],['Teste v · n','v · n = '+nf(un,3)+(Math.abs(un)<1e-9?' = 0 → a reta é <b>paralela</b> ao plano (ou está dentro dele)':' ≠ 0 → a reta <b>fura</b> o plano')]);
+    if(Math.abs(un)<1e-9){ if(Math.abs(d0)<1e-9){ a.tipo='rcon'; a.eq.push(['O ponto A está no plano?','n · (A − P₀) = 0 → <b>reta contida no plano</b>']) } else { a.tipo='rpar'; a.dist=Math.abs(d0)/len(n); a.eq.push(['Distância reta–plano','d = |n · (A − P₀)| / |n| = <b>'+nf(a.dist,3)+'</b>']) } }
+    else { a.tipo='rfura'; const t=-d0/un; a.pt=add(r.P,mul(r.v,t)); a.eq.push(['Ponto de interseção','substitua A + t·v na equação: t = '+nf(t,3)+' → <b>'+vf(a.pt)+'</b>'],['Ângulo reta–plano','sen θ = |v·n| / (|v||n|) = '+nf(a.sen,3)+' → θ = <b>'+nf(Math.asin(Math.min(1,a.sen))*180/Math.PI,1)+'°</b>']) } }
+  if(modo==='pp'){ const c=crs(p.v,q.v); a.cos=Math.abs(dot(p.v,q.v))/(len(p.v)*len(q.v)); a.eq.push(['Planos','π₁: '+planoEq(p)+' · π₂: '+planoEq(q)],['n₁ × n₂',vf(c)+(zero(c)?' → normais paralelas: <b>planos paralelos</b>':' → os planos <b>se cortam numa reta</b>')]);
+    if(zero(c)){ const d=Math.abs(dot(sub(q.P,p.P),p.v))/len(p.v); a.tipo=d<1e-9?'pcoi':'ppar'; a.dist=d; a.eq.push(['Distância entre eles',d<1e-9?'0 → é o mesmo plano':'d = <b>'+nf(d,3)+'</b>']) }
+    else { a.tipo='pcor'; a.dir=c; const n1=p.v,n2=q.v,d1=dot(n1,p.P),d2=dot(n2,q.P); a.pt=add(mul(crs(n2,c),d1/dot(c,c)),mul(crs(c,n1),d2/dot(c,c))); a.eq.push(['Reta de interseção','X = '+vf(a.pt)+' + t·'+vf(c)],['Ângulo entre os planos','cos θ = |n₁·n₂| / (|n₁||n₂|) → θ = <b>'+nf(Math.acos(Math.min(1,a.cos))*180/Math.PI,1)+'°</b>']) } }
+  if(modo==='alvo'){ const ok=ANEIS.map(Q=>zero(crs(sub(Q,r.P),r.v))); a.alvo=ok.every(Boolean); a.tipo=a.alvo?'alvo':'mira';
+    a.eq.push(['Anéis','R₁ = '+vf(ANEIS[0])+' · R₂ = '+vf(ANEIS[1])],...ANEIS.map((Q,i)=>['R'+(i+1)+' está na reta?','(R'+(i+1)+' − A) × v = '+vf(crs(sub(Q,r.P),r.v))+(ok[i]?' = 0 → <b>sim!</b>':' ≠ 0 → ainda não')])) }
+  return a }
+function planoEq(o){ const n=o.v, d=-dot(n,o.P); const t=(c,s,first)=>c===0?'':(c<0?' − ':(first?'':' + '))+(Math.abs(c)===1?'':nf(Math.abs(c)))+s;
+  let e=t(n[0],'x',1); e+=t(n[1],'y',!e); e+=t(n[2],'z',!e); return (e||'0')+(d?(d<0?' − ':' + ')+nf(Math.abs(d)):'')+' = 0' }
+const TXT={par:['Paralelas','Mesma direção, sem se tocar.'],coi:['Coincidentes','São a mesma reta.'],con:['Concorrentes','Se cruzam num único ponto.'],rev:['Reversas','Não são paralelas e não se encontram: estão em planos diferentes.'],
+ rpar:['Reta paralela ao plano','Corre ao lado do plano sem tocar.'],rcon:['Reta contida no plano','Está deitada dentro do plano.'],rfura:['A reta fura o plano','Entra por um único ponto.'],ppar:['Planos paralelos','Nunca se encontram.'],pcoi:['Planos coincidentes','São o mesmo plano.'],pcor:['Planos que se cortam','O encontro é uma reta.'],
+ alvo:['🎯 Acertou os dois anéis!','A reta passa pelos dois pontos.'],mira:['Mire nos anéis','Ajuste A e v até a reta atravessar os dois anéis dourados.']};
+/* ---------- 3D ---------- */
+const T=tela($('cv'),4/3); let yaw=-.6, pitch=.42, zoom=1;
+function pr(v,W,H){ const [x,y,z]=v; const cy=Math.cos(yaw),sy=Math.sin(yaw); let X=x*cy-y*sy, Y=x*sy+y*cy; const cp=Math.cos(pitch), sp=Math.sin(pitch); const Z=z*cp-Y*sp, D=Y*cp+z*sp; const s=W/15*zoom, k=22/(22+D); return [W/2+X*s*k, H/2-Z*s*k, D] }
+function linha(x,a,b,W,H,cor,w,dash){ const A=pr(a,W,H),B=pr(b,W,H); x.strokeStyle=cor; x.lineWidth=w; x.setLineDash(dash||[]); x.beginPath(); x.moveTo(A[0],A[1]); x.lineTo(B[0],B[1]); x.stroke(); x.setLineDash([]) }
+function ponto(x,v,W,H,cor,r,lab){ const p=pr(v,W,H); x.fillStyle=cor; x.strokeStyle='#fff'; x.lineWidth=2; x.beginPath(); x.arc(p[0],p[1],r,0,7); x.fill(); x.stroke(); if(lab){ x.fillStyle=cor; x.font='700 12px Inter,sans-serif'; x.fillText(lab,p[0]+9,p[1]-8) } }
+function plano(x,o,W,H,cor){ const n=o.v; if(zero(n)) return; const nn=mul(n,1/len(n)); const a=Math.abs(nn[0])<.9?[1,0,0]:[0,1,0]; const e1=crs(nn,a), e2=crs(nn,e1); const u=mul(e1,1/len(e1)), w=mul(e2,1/len(e2));
+  const c=sub(o.P,mul(nn,dot(o.P,nn))); const S=4.6; const cs=[[-1,-1],[1,-1],[1,1],[-1,1]].map(([i,j])=>pr(add(c,add(mul(u,i*S),mul(w,j*S))),W,H));
+  x.fillStyle=cor+'33'; x.strokeStyle=cor; x.lineWidth=1.5; x.beginPath(); cs.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1])); x.closePath(); x.fill(); x.stroke();
+  x.globalAlpha=.35; for(let k=-3;k<=3;k++){ linha(x,add(c,add(mul(u,k*S/4),mul(w,-S))),add(c,add(mul(u,k*S/4),mul(w,S))),W,H,cor,.8); linha(x,add(c,add(mul(w,k*S/4),mul(u,-S))),add(c,add(mul(w,k*S/4),mul(u,S))),W,H,cor,.8) } x.globalAlpha=1;
+  const pP=o.P; seta(x,...pr(pP,W,H).slice(0,2),...pr(add(pP,mul(nn,2)),W,H).slice(0,2),cor,2.5,'n') }
+let pulso=0, raf=0, mexeu=false;
+function draw(a){ const {W,H}=T.fit(), x=T.x; x.clearRect(0,0,W,H);
+  x.globalAlpha=.5; for(let i=-5;i<=5;i++){ linha(x,[i,-5,0],[i,5,0],W,H,css('--line'),1); linha(x,[-5,i,0],[5,i,0],W,H,css('--line'),1) } x.globalAlpha=1;
+  [[[6,0,0],'x','#C73A2C'],[[0,6,0],'y','#22884A'],[[0,0,6],'z','#1E62C9']].forEach(([v,l,c])=>{ const o=pr([0,0,0],W,H), p=pr(v,W,H); seta(x,o[0],o[1],p[0],p[1],c,1.8,l) });
+  const objs=MODOS[modo][1];
+  objs.filter(k=>k==='p'||k==='q').forEach(k=>plano(x,O[k],W,H,COR[k]));
+  if(a.tipo==='pcor'){ linha(x,add(a.pt,mul(a.dir,-6/len(a.dir))),add(a.pt,mul(a.dir,6/len(a.dir))),W,H,'#6447BE',4) }
+  objs.filter(k=>k==='r'||k==='s').forEach(k=>{ const o=O[k]; if(zero(o.v)) return; const u=mul(o.v,1/len(o.v)); linha(x,add(o.P,mul(u,-9)),add(o.P,mul(u,9)),W,H,COR[k],3.2); ponto(x,o.P,W,H,COR[k],5,k==='r'?'A':'B');
+    const p0=pr(o.P,W,H), p1=pr(add(o.P,mul(u,1.8)),W,H); seta(x,p0[0],p0[1],p1[0],p1[1],COR[k],2.4,k==='r'?'u':'v') });
+  if(modo==='alvo') ANEIS.forEach((Q,i)=>{ const p=pr(Q,W,H), ok=zero(crs(sub(Q,O.r.P),O.r.v)); x.strokeStyle=ok?'#22884A':'#E3A21A'; x.lineWidth=4; x.beginPath(); x.ellipse(p[0],p[1],14,9,0,0,7); x.stroke(); x.fillStyle=x.strokeStyle; x.font='700 12px Inter,sans-serif'; x.fillText('R'+(i+1),p[0]+16,p[1]-8) });
+  if(a.pt&&(a.tipo==='con'||a.tipo==='rfura')){ const p=pr(a.pt,W,H), r=6+3*Math.sin(pulso); x.fillStyle='#6447BE'; x.beginPath(); x.arc(p[0],p[1],r+4,0,7); x.globalAlpha=.25; x.fill(); x.globalAlpha=1; ponto(x,a.pt,W,H,'#6447BE',6,'I '+vf(a.pt)) }
+  if(a.tipo==='rev'){ linha(x,a.p1,a.p2,W,H,'#6447BE',2.5,[6,5]); const m=pr(mul(add(a.p1,a.p2),.5),W,H); x.fillStyle='#6447BE'; x.font='700 12px Inter,sans-serif'; x.fillText('d = '+nf(a.dist,2),m[0]+8,m[1]) }
+  $('ov').innerHTML='<span class="chip">'+MODOS[modo][0]+'</span><span class="chip">arraste para girar · roda/pinça = zoom</span>' }
+/* ---------- controles ---------- */
+const NOMES={r:['Reta r','A (ponto)','u (vetor)'],s:['Reta s','B (ponto)','v (vetor)'],p:['Plano π₁','P₀ (ponto)','n (normal)'],q:['Plano π₂','Q₀ (ponto)','n₂ (normal)']};
+function montaObj(){ $('obj').innerHTML=MODOS[modo][1].map(k=>{ const [t,a,b]=NOMES[k]; const lin=(campo,lab)=>'<div class="vec"><span>'+lab+'</span>'+[0,1,2].map(i=>'<div class="st3"><button data-k="'+k+'" data-c="'+campo+'" data-i="'+i+'" data-d="-1" aria-label="diminuir">−</button><span id="'+k+campo+i+'">'+O[k][campo][i]+'</span><button data-k="'+k+'" data-c="'+campo+'" data-i="'+i+'" data-d="1" aria-label="aumentar">+</button></div>').join('')+'</div>';
+    return '<h4><i style="background:'+COR[k]+'"></i>'+t+'</h4>'+lin('P',a)+lin('v',(k==='r'&&modo==='rp')?'v (vetor)':b)+'<div class="eqn" id="eq_'+k+'"></div>' }).join('');
+  document.querySelectorAll('#obj button').forEach(b=>b.onclick=()=>{ const o=O[b.dataset.k][b.dataset.c], i=+b.dataset.i; o[i]=Math.max(-5,Math.min(5,o[i]+(+b.dataset.d))); $(b.dataset.k+b.dataset.c+i).textContent=o[i]; mexeu=true; tudo() }) }
+function tudo(){ ['r','s','p','q'].forEach(k=>{ const e=$('eq_'+k); if(!e) return; const o=O[k]; e.textContent=(k==='p'||k==='q')?planoEq(o):'X = '+vf(o.P)+' + t·'+vf(o.v)+(zero(o.v)?'  ⚠ vetor nulo não define reta':'') });
+  const bad=MODOS[modo][1].some(k=>zero(O[k].v)); const a=bad?{tipo:null,eq:[['Atenção','O vetor (0; 0; 0) não tem direção. Mude algum componente.']]}:analisar();
+  const tx=TXT[a.tipo]||['…',''];
+  $('res').innerHTML='<b class="big">'+tx[0]+'</b>'+tx[1]+(a.dist!=null&&a.tipo!=='pcoi'&&a.tipo!=='coi'?' Distância: <b>'+nf(a.dist,3)+'</b>.':'')+(a.pt&&a.tipo!=='pcor'?' Ponto: <b>'+vf(a.pt)+'</b>.':'');
+  $('eqs').innerHTML=a.eq.map(([k,v])=>'<div><span class="k">'+k+'</span>'+v+'</div>').join('');
+  window._A=a; draw(a); checar(a) }
+function checar(a){ if(!mexeu) return; const map={par:'par',coi:'coi',con:'con',rev:'rev',rpar:'rpar',rcon:'rcon',rfura:'rfura',ppar:'ppar',pcor:'pcor'}; const k=map[a.tipo];
+  if(k&&PR.album(k)){ toast('📒 Nova posição no álbum: '+ALB.find(z=>z[0]===k)[2]); drawAlb() }
+  if((a.tipo==='pcor'&&a.cos<1e-9)||(a.tipo==='rfura'&&Math.abs(a.sen-1)<1e-9)||(a.tipo==='con'&&a.cos<1e-9)){ if(PR.album('perp')){ toast('📒 Nova posição no álbum: Algo perpendicular'); drawAlb() } }
+  MIS.forEach(([id,m,,,f])=>{ if(m===modo&&!PR.P.mis[id]&&f(a)){ PR.missao(id); toast('🎯 Missão cumprida!'); confete(); drawMis() } }) }
+function drawMis(){ $('mis').innerHTML=MIS.map(([id,m,t,d])=>'<li class="'+(PR.P.mis[id]?'ok':m===modo?'cur':'')+'"><span class="st">'+(PR.P.mis[id]?'✓':MODOS[m][0].split(' ')[0])+'</span><span>'+t+'<small>'+(PR.P.mis[id]?'cumprida':d)+'</small></span></li>').join('') }
+function drawAlb(){ $('alb').innerHTML=ALB.map(([k,e,t])=>'<div class="it'+(PR.P.album[k]?' on':'')+'"><span><span class="e">'+e+'</span>'+(PR.P.album[k]?t:'???')+'</span></div>').join('') }
+function montaModos(){ $('modos').innerHTML=Object.entries(MODOS).map(([k,[t]])=>'<button role="tab" data-m="'+k+'" class="'+(k===modo?'on':'')+'" aria-selected="'+(k===modo)+'">'+t+'</button>').join('');
+  document.querySelectorAll('#modos button').forEach(b=>b.onclick=()=>{ modo=b.dataset.m; mexeu=false; if(modo==='alvo'){ O.r={P:[0,0,0],v:[1,0,0]} } montaModos(); montaObj(); drawMis(); tudo() }) }
+/* girar e zoom */
+let dr=null; const cv=$('cv'), pts=new Map();
+cv.addEventListener('pointerdown',e=>{ pts.set(e.pointerId,[e.clientX,e.clientY]); dr=[e.clientX,e.clientY]; cv.setPointerCapture(e.pointerId) });
+cv.addEventListener('pointermove',e=>{ if(!pts.has(e.pointerId)) return; const prev=pts.get(e.pointerId); pts.set(e.pointerId,[e.clientX,e.clientY]);
+  if(pts.size===2){ const [a,b]=[...pts.values()]; const d=Math.hypot(a[0]-b[0],a[1]-b[1]); if(cv._d) zoom=Math.max(.5,Math.min(2.5,zoom*d/cv._d)); cv._d=d; draw(window._A); return }
+  yaw+=(e.clientX-prev[0])*.01; pitch=Math.max(-1.4,Math.min(1.4,pitch+(e.clientY-prev[1])*.008)); draw(window._A) });
+const up=e=>{ pts.delete(e.pointerId); cv._d=0 }; cv.addEventListener('pointerup',up); cv.addEventListener('pointercancel',up);
+cv.addEventListener('wheel',e=>{ e.preventDefault(); zoom=Math.max(.5,Math.min(2.5,zoom*(e.deltaY>0?.92:1.08))); draw(window._A) },{passive:false});
+function anima(){ pulso+=.12; const a=window._A; if(a&&a.pt&&(a.tipo==='con'||a.tipo==='rfura')) draw(a); raf=RM?0:setTimeout(()=>requestAnimationFrame(anima),60) }
+addEventListener('resize',()=>draw(window._A));
+montaModos(); montaObj(); drawMis(); drawAlb(); tudo(); if(!RM) anima();
+</script>
+</body>
+</html>
