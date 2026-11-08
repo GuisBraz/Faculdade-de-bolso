@@ -324,7 +324,7 @@ body.vis #prog,body.vis #alerts,body.vis #tabProv,body.vis #tabHor,body.vis #tod
 <script src="js/fdb-ui.js" defer></script>
 </head>
 <body>
-<div class="topbar"><div class="wrap tbin"><span class="tbc" id="curso">Engenharia Mecânica</span><span class="tbr"><a class="mini" id="prog" href="#" aria-label="Progresso do curso"></a><span class="conta" id="conta" hidden></span></span></div></div>
+<div class="topbar fdb-hh" id="hh"><div class="wrap hhin"><a class="hlogo" href="#" aria-label="Faculdade de Bolso · início"><span class="lg">FB</span><span class="lt">Faculdade de<br><b>Bolso</b></span></a><nav class="hnav" id="hnav" aria-label="Seções"><a href="#" id="tabMat"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 3l9 8"/><path d="M5 10v10h5v-6h4v6h5V10"/></svg><span>Início</span></a><a href="#aulas" id="tabAul"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4v16l13-8z"/></svg><span>Aulas</span></a><a href="#oficinas" id="tabOfi"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 5c3-1.5 6-1.5 9 0v15c-3-1.5-6-1.5-9 0zM21 5c-3-1.5-6-1.5-9 0v15c3-1.5 6-1.5 9 0z"/></svg><span>Oficinas</span></a><a href="#exercicios" id="tabExe"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20l4-1 11-11-3-3L5 16z"/><path d="M14 6l3 3"/></svg><span>Exercícios</span></a><a href="#labs" id="tabLab"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6l-5.5 9.5A2 2 0 0 0 6.2 21h11.6a2 2 0 0 0 1.7-2.5L14 9V3"/><path d="M7.5 15h9"/></svg><span>Laboratórios</span></a><a href="#sobre" id="tabSob"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/></svg><span>Sobre</span></a></nav><div class="hright"><a class="mini" id="prog" href="#" aria-label="Progresso do curso"></a><span class="tbc" id="curso" hidden>Engenharia Mecânica</span><div class="umenu"><button type="button" class="uav" id="uav" aria-haspopup="true" aria-expanded="false" aria-label="Meu semestre"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="9" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg><span class="ub" id="uBadge" hidden></span></button><div class="upan" id="upan" hidden><div class="uh">Meu semestre</div><a href="#horario" id="tabHor">🗓️ Horário</a><a href="#provas" id="tabProv">📝 Provas<span class="tb" id="tabBadge" hidden></span></a><a href="#revisao" id="tabRev">🔁 Revisão<span class="tb" id="revBadge" hidden></span></a><div class="uc"><span class="conta" id="conta" hidden></span></div></div></div></div></div></div>
 <section class="auth" id="auth" hidden>
   <div class="authbox">
     <div class="eyebrow">Faculdade de Bolso</div>
@@ -340,18 +340,15 @@ body.vis #prog,body.vis #alerts,body.vis #tabProv,body.vis #tabHor,body.vis #tod
   </div>
 </section>
 <main class="wrap" id="app">
-<header class="top">
-  <div class="tt">
-    <h1><a href="#">Faculdade de <span>Bolso</span></a></h1>
-    <p>Todas as matérias do curso, organizadas por período, com os materiais de estudo de cada uma.</p>
-  </div>
-  <div class="alerts" id="alerts" aria-label="Provas chegando"></div>
-</header>
-<nav class="tabs" aria-label="Seções"><a href="#" id="tabMat">Matérias</a><a href="#provas" id="tabProv">Provas<span class="tb" id="tabBadge" hidden></span></a><a href="#horario" id="tabHor">Horário</a><a href="#revisao" id="tabRev">Revisão<span class="tb" id="revBadge" hidden></span></a></nav>
+<header class="top hhero"><div class="tt"><div class="eyebrow">Bem-vindo à sua</div><h1><a href="#">Faculdade de <span>Bolso</span></a></h1><p>Estude as matérias do curso de forma prática, organizada e no seu ritmo.</p><div class="hcta"><a class="btnh" id="ctaGo" href="#aulas">▶ Começar pelas aulas <span aria-hidden="true">→</span></a></div></div><div class="hcards"><div class="hcard" id="hpCard"></div><div class="hcard hprov" id="hprov"><h4>📝 Próximas provas</h4><div class="alerts" id="alerts" aria-label="Provas chegando"></div></div></div></header>
+
 
 <section id="home">
 
   <a class="today" id="today" href="#horario" hidden></a>
+  <div class="sech"><h3>Acesso rápido</h3><a href="#aulas">Ver todas as aulas →</a></div>
+  <div class="qgrid" id="quick"></div>
+  <div class="sech"><h3>Todas as matérias</h3></div>
 
   <div class="search">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="M15.5 15.5 21 21"/></svg>
@@ -375,6 +372,11 @@ body.vis #prog,body.vis #alerts,body.vis #tabProv,body.vis #tabHor,body.vis #tod
 </section>
 
 <section id="materia" hidden></section>
+<section id="aulas" hidden></section>
+<section id="oficinas" hidden></section>
+<section id="exercicios" hidden></section>
+<section id="labs" hidden></section>
+<section id="sobre" hidden></section>
 
 <section id="revisao" hidden>
   <header class="phead">
@@ -418,10 +420,11 @@ body.vis #prog,body.vis #alerts,body.vis #tabProv,body.vis #tabHor,body.vis #tod
   </details>
 </section>
 
-<footer>Faculdade de Bolso · <span id="foot"></span><span class="credits" style="display:block;margin-top:6px">Desenvolvido por Guilherme dos Santos Braz — Técnico de processos e estudante de engenharia mecânica · <a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener" style="color:var(--c1,#E2591B);font-weight:600">LinkedIn</a></span></footer>
+<footer class="ffix"><span>Faculdade de Bolso · IFMG · Campus Betim - Desenvolvido por Guilherme dos Santos Braz</span><a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn</a><span id="foot" hidden></span></footer>
 </main>
 
 <script src="dados/materias.js"></script>
+<script src="dados/aulas.js"></script>
 <script src="dados/cartas.js"></script>
 <script src="js/anki.js"></script>
 <script src="js/aviso.js" defer></script>

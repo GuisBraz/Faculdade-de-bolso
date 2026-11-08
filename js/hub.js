@@ -4,7 +4,7 @@ const D = window.FACULDADE || {periodos:[]};
 const MODE=window.FDB_MODE||'local', VIS=MODE==='visitante';
 if(VIS){ const cur=D.periodos.find(p=>p.atual)||D.periodos[0];
   D.periodos=cur?[{...cur,materias:(cur.materias||[]).filter(m=>(m.arquivos||[]).length).map(({status,professor,codigo,...m})=>m)}]:[]; D.aluno='';
-  document.body.classList.add('vis'); const tp=document.querySelector('.top p'); if(tp) tp.textContent='Oficinas de estudo do semestre em andamento, com cartas de revisão.' }
+  document.body.classList.add('vis'); const tp=document.querySelector('.top p'); if(tp) tp.textContent='Estude as matérias do semestre de forma prática, organizada e no seu ritmo.' }
 const ICONS = {
   vetor:'<path d="M4 20 18 6"/><path d="M12 6h6v6"/>',
   calculo:'<path d="M15 3c-2 0-2.6 2-3 5l-1.8 9c-.5 3-1.2 4-3.2 4"/>',
@@ -138,10 +138,22 @@ function renderMat(id){
 function route(){
   const h=location.hash.slice(1);
   const isMat=h.startsWith('m-'), isProv=!VIS&&h==='provas', isHor=!VIS&&h==='horario', isRev=h==='revisao';
-  document.getElementById('home').hidden=isMat||isProv||isHor||isRev; document.getElementById('revisao').hidden=!isRev; document.getElementById('tabRev').classList.toggle('on',isRev); document.getElementById('materia').hidden=!isMat; document.getElementById('provas').hidden=!isProv; document.getElementById('horario').hidden=!isHor;
-  document.getElementById('tabMat').classList.toggle('on',!isProv&&!isHor&&!isRev); document.getElementById('tabProv').classList.toggle('on',isProv); document.getElementById('tabHor').classList.toggle('on',isHor);
-  if(isMat) renderMat(h.slice(2)); else if(isHor){ renderHorario(); document.title='Horário · Faculdade de Bolso' } else if(isProv){ renderProvas(); document.title='Provas · Faculdade de Bolso' } else if(isRev){ renderRev(); document.title='Revisão · Faculdade de Bolso' } else document.title='Faculdade de Bolso';
-  window.scrollTo(0,0);
+  const isAul=h==='aulas'||h.startsWith('aulas-'), isOfi=h==='oficinas', isExe=h==='exercicios', isLab=h==='labs', isSob=h==='sobre';
+  const other=isMat||isProv||isHor||isRev||isAul||isOfi||isExe||isLab||isSob;
+  const show={home:!other,revisao:isRev,materia:isMat,provas:isProv,horario:isHor,aulas:isAul,oficinas:isOfi,exercicios:isExe,labs:isLab,sobre:isSob};
+  Object.entries(show).forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.hidden=!v });
+  document.querySelector('header.top').hidden=other;
+  const tab={tabMat:!other||isMat,tabAul:isAul,tabOfi:isOfi,tabExe:isExe,tabLab:isLab,tabSob:isSob,tabProv:isProv,tabHor:isHor,tabRev:isRev};
+  Object.entries(tab).forEach(([id,v])=>{ const el=document.getElementById(id); if(el) el.classList.toggle('on',v) });
+  closeUser();
+  const T=t=>document.title=t+' · Faculdade de Bolso';
+  if(isMat) renderMat(h.slice(2)); else if(isHor){ renderHorario(); T('Horário') } else if(isProv){ renderProvas(); T('Provas') } else if(isRev){ renderRev(); T('Revisão') }
+  else if(isAul){ renderAulas(h.slice(6)); T('Aulas') } else if(isOfi){ renderOficinas(); T('Oficinas') } else if(isExe){ renderExercicios(); T('Exercícios') } else if(isLab){ renderLabs(); T('Laboratórios') } else if(isSob){ renderSobre(); T('Sobre') }
+  else document.title='Faculdade de Bolso';
+  document.body.dataset.aba=isMat?'materia':isAul?'aulas':isOfi?'oficinas':isExe?'exercicios':isLab?'labs':isSob?'sobre':isProv?'provas':isHor?'horario':isRev?'revisao':'inicio';
+  document.body.dataset.mat=isMat?h.slice(2):(h.startsWith('aulas-')?h.slice(6):'');
+  window.dispatchEvent(new Event('fdb:aba'));
+  window.scrollTo(0,0); setTimeout(()=>window.scrollTo(0,0),0);
 }
 
 /* ===== revisão (cartas tipo Anki) ===== */
@@ -256,4 +268,64 @@ document.getElementById('pForm').addEventListener('submit',e=>{ e.preventDefault
   const v=g('pfVal').replace(',','.'); MAN.push({mid:Date.now().toString(36),materia:g('pfMat'),titulo:g('pfTit'),data:g('pfData'),...(v&&isFinite(+v)?{valor:+v}:{}),...(g('pfCont')?{conteudo:g('pfCont')}:{})});
   saveMan(); ['pfTit','pfData','pfVal','pfCont'].forEach(i=>document.getElementById(i).value=''); document.getElementById('pfMsg').textContent='Prova incluída.' });
 document.addEventListener('click',e=>{ const b=e.target.closest('.rm'); if(!b)return; MAN=MAN.filter(x=>x.mid!==b.dataset.mid); saveMan(); if(location.hash.startsWith('#m-'))renderMat(location.hash.slice(3)) });
-renderHome(); renderAlerts(); renderToday(); revBadge(); setInterval(renderToday,60000); addEventListener('hashchange',route); route();
+renderHome(); renderAlerts(); renderToday(); revBadge(); setInterval(renderToday,60000); addEventListener('hashchange',route);
+
+
+/* ===== v2: aulas, oficinas, exercícios, laboratórios, sobre, menu do usuário ===== */
+const AUL=window.FDB_AULAS||{}, LABF=window.FDB_LABS_FUTUROS||[];
+const PROVA=['','1ª prova','2ª prova','3ª prova'];
+const curMats=()=>{ const cn=(D.periodos.find(p=>p.atual)||{}).numero; return MATS.filter(m=>(m.periodo===cn||m.extra)&&AUL[m.id]) };
+const ofUrl=(m,h,ir)=>{ const a=AUL[m.id]; return a?a.pag+(ir?'?ir='+ir:'')+(h?'#'+h:''):'#m-'+m.id };
+function cardM(m,href,sub,extra){ return '<a class="qcard" style="--mc:'+esc(m.cor)+'" href="'+href+'"><span class="qi">'+icon(m.icone)+'</span><span class="qt"><b>'+esc(m.sigla)+'</b><small>'+sub+'</small>'+(extra||'')+'</span><span class="qa" aria-hidden="true">→</span></a>' }
+function provaDe(m,n){ return (typeof PR!=='undefined'?PR:[]).filter(x=>x.materia===m.id&&x.tipo!=='reserva').find(x=>new RegExp('^'+n+'\\D').test(x.titulo||'')) }
+function renderAulas(id){ const box=document.getElementById('aulas'); const ms=curMats().filter(m=>!AUL[m.id].continua);
+  if(!id){ box.innerHTML='<header class="phead"><div class="eyebrow">Aulas</div><h1>Aulas por matéria</h1><p>Escolha a matéria. As aulas ficam separadas por prova: Módulo 1, 2 e 3, e dentro de cada módulo as aulas na ordem em que entraram no site.</p></header>'+
+      '<div class="qgrid">'+ms.map(m=>{ const n=Object.values(AUL[m.id].modulos||{}).reduce((a,l)=>a+l.length,0); return cardM(m,'#aulas-'+m.id,esc(m.nome),'<span class="qm">'+n+' aula'+(n===1?'':'s')+'</span>') }).join('')+'</div>'+
+      (curMats().some(m=>AUL[m.id].continua)?'<div class="sech"><h3>Cursos contínuos</h3></div><div class="qgrid">'+curMats().filter(m=>AUL[m.id].continua).map(m=>cardM(m,ofUrl(m),esc(m.nome),'<span class="qm">trilha própria</span>')).join('')+'</div>':''); return }
+  const m=MATS.find(x=>x.id===id), a=AUL[id]; if(!m||!a){ location.hash='aulas'; return }
+  let k=0; const mods=[1,2,3].map(n=>{ const L=(a.modulos||{})[n]||[]; const pv=provaDe(m,n);
+    const head='<div class="modh"><span class="mn">Módulo '+n+'</span><span class="mp">'+PROVA[n]+(pv?' · '+fdate(pv.data)+(daysTo(pv.data)>=0?' · '+cdTxt(daysTo(pv.data)):''):'')+'</span></div>';
+    if(!L.length) return '<section class="modb vazio">'+head+'<p class="hint">'+(n===1?'Conteúdo da 1ª prova ainda não entrou no site.':'As aulas aparecem aqui conforme forem acontecendo.')+'</p></section>';
+    return '<section class="modb">'+head+'<ol class="aulist">'+L.map(([h,t,d])=>{ k++; return '<li><div class="an">Aula '+k+'</div><div class="at"><b>'+esc(t)+'</b><small>'+esc(d)+'</small></div>'+
+      '<div class="ab"><a class="abtn" href="'+ofUrl(m,h)+'">📖 Aula</a><a class="abtn o" href="'+ofUrl(m,h,'pratica')+'">🧪 Oficina</a><a class="abtn e" href="'+ofUrl(m,h,'exercicios')+'">✍️ Exercícios</a></div></li>' }).join('')+'</ol></section>' }).join('');
+  box.innerHTML='<a class="back" href="#aulas">← Todas as matérias</a><div class="mhead" style="--mc:'+esc(m.cor)+'"><span class="ic">'+icon(m.icone)+'</span><div><div class="eyebrow">Aulas · '+esc(m.sigla)+'</div><h1>'+esc(m.nome)+'</h1><p>Cada aula tem a explicação, o atalho para a parte prática na oficina e os exercícios.</p></div></div>'+mods }
+function renderOficinas(){ const ms=curMats();
+  document.getElementById('oficinas').innerHTML='<header class="phead"><div class="eyebrow">Oficinas</div><h1>Oficinas por matéria</h1><p>A parte prática de cada matéria: modelos 2D e 3D, simuladores, fórmulas explicadas letra por letra, cola e quiz.</p></header>'+
+    '<div class="qgrid">'+ms.map(m=>{ const a=AUL[m.id]; return cardM(m,ofUrl(m),esc(m.nome),'<span class="qm">'+(a.continua?'curso contínuo':'oficina aberta')+'</span>') }).join('')+'</div>' }
+function renderExercicios(){ const ms=curMats();
+  const row=(m)=>{ const a=AUL[m.id]; const it=[];
+    if(a.lista) it.push('<a class="xi" href="'+ofUrl(m,a.lista)+'"><b>📋 Lista da professora</b><small>resolvida passo a passo</small></a>');
+    if(a.modulos) it.push('<a class="xi" href="#aulas-'+m.id+'"><b>✍️ Treino</b><small>exercícios com gabarito no fim de cada aula</small></a>');
+    if(a.quiz) it.push('<a class="xi" href="'+ofUrl(m,a.quiz)+'"><b>❓ Quiz</b><small>perguntas com explicação</small></a>');
+    it.push('<span class="xi breve"><b>🏭 Casos reais da indústria</b><small>em breve: problemas do dia a dia de engenharia</small></span>');
+    return '<section class="xrow" style="--mc:'+esc(m.cor)+'"><div class="xh"><span class="qi">'+icon(m.icone)+'</span><b>'+esc(m.nome)+'</b></div><div class="xis">'+it.join('')+'</div></section>' };
+  document.getElementById('exercicios').innerHTML='<header class="phead"><div class="eyebrow">Exercícios</div><h1>Exercícios</h1><p>Três tipos: as listas dos professores resolvidas, exercícios extras para treinar e casos reais que um engenheiro encontra no dia a dia da indústria.</p></header>'+ms.filter(m=>!AUL[m.id].continua).map(row).join('') }
+function renderLabs(){ const ms=curMats();
+  document.getElementById('labs').innerHTML='<header class="phead"><div class="eyebrow">Laboratórios</div><h1>Laboratórios</h1><p>Lugares para mexer, testar e descobrir: você monta, o sistema reage e o que você descobre vira coleção.</p></header>'+
+    '<div class="lgrid">'+ms.filter(m=>AUL[m.id].lab_nome).map(m=>{ const a=AUL[m.id]; return '<a class="lcard'+(a.lab_estrela?' star':'')+'" style="--mc:'+esc(m.cor)+'" href="'+ofUrl(m,a.lab_hash||a.lab)+'"><span class="qi">'+icon(m.icone)+'</span><small>'+esc(m.sigla)+(a.lab_estrela?' · ⭐ destaque':'')+'</small><b>'+esc(a.lab_nome)+'</b><p>'+esc(a.lab_desc)+'</p><span class="lgo">Abrir →</span></a>' }).join('')+'</div>'+
+    (LABF.length?'<div class="sech"><h3>Em construção</h3></div><div class="lgrid">'+LABF.map(l=>{ const m=MATS.find(x=>x.id===l.mat)||{cor:'#888',icone:'livro',sigla:l.mat}; return '<div class="lcard breve" style="--mc:'+esc(m.cor)+'"><span class="qi">'+icon(m.icone)+'</span><small>'+esc(m.sigla)+' · em breve</small><b>'+esc(l.nome)+'</b><p>'+esc(l.desc)+'</p></div>' }).join('')+'</div>':'') }
+function renderSobre(){ document.getElementById('sobre').innerHTML='<div class="sobre"><div class="eyebrow">Sobre</div><h1>Sobre a Faculdade de <span>Bolso</span></h1>'+
+  '<p>A Faculdade de Bolso é uma iniciativa para ajudar o aluno a se organizar nos estudos, revisar o conteúdo das provas e tirar dúvidas das matérias do curso, tudo num só lugar e na palma da mão.</p>'+
+  '<p>Cada matéria tem as <b>aulas</b> explicadas de forma simples, <b>oficinas</b> com modelos 2D e 3D para ver a teoria funcionando, <b>exercícios</b> resolvidos passo a passo, casos reais da indústria e <b>laboratórios</b> para aprender mexendo.</p>'+
+  '<p>O conteúdo cresce junto com o semestre: a cada aula, uma parte nova entra no site.</p>'+
+  '<div class="autor"><span class="av">GB</span><div><b>Guilherme dos Santos Braz</b><small>Técnico de processos e estudante de engenharia mecânica · IFMG Campus Betim</small><a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn →</a></div></div></div>' }
+function renderQuick(){ const ms=curMats(); const q=document.getElementById('quick'); if(!q) return;
+  const rv=window.FDB_ANKI?FDB_ANKI.contarDue(revMats()):0;
+  q.innerHTML=ms.map(m=>{ const a=AUL[m.id]; const n=Object.values(a.modulos||{}).reduce((x,l)=>x+l.length,0); return cardM(m,a.continua?ofUrl(m):'#aulas-'+m.id,esc(m.nome),'<span class="qm">'+(a.continua?'curso contínuo':n+' aulas')+'</span>') }).join('')+
+    '<a class="qcard rev" href="#revisao"><span class="qi">🔁</span><span class="qt"><b>Revisão</b><small>cartas do dia</small>'+(rv?'<span class="qm hot">'+rv+' para hoje</span>':'<span class="qm">em dia</span>')+'</span><span class="qa" aria-hidden="true">→</span></a>'+
+    (VIS?'':'<a class="qcard" href="#horario"><span class="qi">🗓️</span><span class="qt"><b>Horário</b><small>grade da semana</small></span><span class="qa" aria-hidden="true">→</span></a>') }
+function renderHcard(){ const el=document.getElementById('hpCard'); if(!el) return;
+  const ms=MATS.filter(m=>!m.extra), ok=ms.filter(m=>m.status==='aprovada'); const T=ms.reduce((a,m)=>a+(m.ch||0),0), Dn=ok.reduce((a,m)=>a+(m.ch||0),0); const p=T?Math.round(Dn/T*100):0, C=2*Math.PI*46;
+  let last=null; try{ last=JSON.parse(localStorage.getItem('fdb-last')||'null') }catch(e){}
+  el.innerHTML='<h4>📊 Progresso no curso</h4><div class="row"><div class="ring"><svg viewBox="0 0 110 110"><circle cx="55" cy="55" r="46" fill="none" stroke="var(--line)" stroke-width="11"/><circle cx="55" cy="55" r="46" fill="none" stroke="var(--c1)" stroke-width="11" stroke-linecap="round" stroke-dasharray="'+(C*p/100).toFixed(1)+' '+C.toFixed(1)+'"/></svg><b>'+p+'%</b></div><div class="md"><span>Matérias aprovadas</span><strong>'+ok.length+' de '+ms.length+'</strong></div></div>'+
+    (last?'<a class="nx" href="'+esc(last.u)+'"><div><small>Último estudo</small><span>'+esc(last.t)+'</span></div><i aria-hidden="true">›</i></a>':'<a class="nx" href="#aulas"><div><small>Comece por aqui</small><span>Aulas do semestre</span></div><i aria-hidden="true">›</i></a>');
+  const cta=document.getElementById('ctaGo'); if(cta&&last){ cta.href=last.u; cta.innerHTML='▶ Continuar de onde parou <span aria-hidden="true">→</span>'; cta.title=last.t }
+  const hp=document.getElementById('hprov'); if(hp) hp.hidden=VIS||!upcoming(30).length }
+function closeUser(){ const p=document.getElementById('upan'), b=document.getElementById('uav'); if(p){ p.hidden=true; b.setAttribute('aria-expanded','false') } }
+(function(){ const b=document.getElementById('uav'), p=document.getElementById('upan'); if(!b) return;
+  b.onclick=e=>{ e.stopPropagation(); p.hidden=!p.hidden; b.setAttribute('aria-expanded',!p.hidden) };
+  document.addEventListener('click',e=>{ if(!e.target.closest('.umenu')) closeUser() });
+  const ub=document.getElementById('uBadge'); const n=(VIS?0:upcoming(7).length)+(window.FDB_ANKI?FDB_ANKI.contarDue(revMats()):0); ub.hidden=!n; ub.textContent=n })();
+renderQuick(); renderHcard();
+route();
+if('scrollRestoration' in history) history.scrollRestoration='manual'; addEventListener('load',()=>{ if(location.hash.length>1) setTimeout(()=>scrollTo(0,0),0) });
