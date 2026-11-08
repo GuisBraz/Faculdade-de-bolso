@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Oficina de Cálculo II</title>
-<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,500;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=STIX+Two+Text:ital,wght@0,500;1,500&amp;display=swap">
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
 <style>
 /* Layout: prancheta técnica — folha milimetrada, carimbos de desenho técnico nas fórmulas, uma coluna de leitura com laboratório 3D */
 :root{
@@ -946,7 +946,7 @@ function pair(id){ const v=document.getElementById(id).value.replace(/−/g,'-')
 
 /* ===== canvas base ===== */
 class Cv{ constructor(box,draw){ this.box=box; this.c=box.querySelector('canvas'); this.x=this.c.getContext('2d'); this.drawFn=draw; new ResizeObserver(()=>this.resize()).observe(box); this.resize() }
-  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const d=devicePixelRatio||1; this.w=r.width; this.h=r.height; this.c.width=this.w*d; this.c.height=this.h*d; this.x.setTransform(d,0,0,d,0,0); this.draw() }
+  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const d=Math.min(2,devicePixelRatio||1); this.w=r.width; this.h=r.height; this.c.width=this.w*d; this.c.height=this.h*d; this.x.setTransform(d,0,0,d,0,0); this.draw() }
   draw(){ if(this.w) { this.x.clearRect(0,0,this.w,this.h); this.drawFn(this.x,this.w,this.h) } } }
 function arrow(x,x0,y0,dx,dy,col,lbl,wd=2.6){ const L=Math.hypot(dx,dy); if(L<2)return; x.strokeStyle=col; x.fillStyle=col; x.lineWidth=wd; x.beginPath(); x.moveTo(x0,y0); x.lineTo(x0+dx,y0+dy); x.stroke();
   const a=Math.atan2(dy,dx), hx=x0+dx, hy=y0+dy, s=Math.min(11,L*.5); x.beginPath(); x.moveTo(hx,hy); x.lineTo(hx-s*Math.cos(a-.42),hy-s*Math.sin(a-.42)); x.lineTo(hx-s*Math.cos(a+.42),hy-s*Math.sin(a+.42)); x.closePath(); x.fill();
@@ -1009,7 +1009,7 @@ function Surf(box,op){ let yaw=op.yaw??-0.75, pit=op.pit??0.62, drag=null; const
         const e=t=>eixo==='x'?P(a+t,b,zn(z0+s*t)):P(a,b+t,zn(z0+s*t)); const p1=e(-L), p2=e(L); x.strokeStyle=tok('c1'); x.lineWidth=2.6; x.beginPath(); x.moveTo(p1.x,p1.y); x.lineTo(p2.x,p2.y); x.stroke();
         x.fillStyle=tok('c1'); x.beginPath(); x.arc(p0.x,p0.y,5.5,0,7); x.fill() } }
     /* pontos marcados */
-    (st.pontos||[]).map(q=>({...q,x:q.x-ox,y:q.y-oy})).forEach(pt=>{ const z=f(pt.x,pt.y); if(!isFinite(z))return; const p=P(pt.x,pt.y,zn(z)); x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(p.x,p.y,6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px "Atkinson Hyperlegible", sans-serif'; x.fillText(pt.l,p.x+8,p.y-8) } });
+    (st.pontos||[]).map(q=>({...q,x:q.x-ox,y:q.y-oy})).forEach(pt=>{ const z=f(pt.x,pt.y); if(!isFinite(z))return; const p=P(pt.x,pt.y,zn(z)); x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(p.x,p.y,6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px Inter, sans-serif'; x.fillText(pt.l,p.x+8,p.y-8) } });
     x.fillStyle=tok('ink2'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('z = '+F.l,10,18); x.fillText('arraste para girar',10,h-10) });
   const c=box.querySelector('canvas'); c.style.cursor='grab';
   c.addEventListener('pointerdown',e=>{ drag={x:e.clientX,y:e.clientY,yaw,pit}; c.setPointerCapture(e.pointerId); c.style.cursor='grabbing' });
@@ -1026,7 +1026,7 @@ function segs(f,R,k,N=60){ const out=[], h=2*R/N, v=[]; for(let i=0;i<=N;i++){ v
   return out }
 function Mapa(box,op){ const st={...op};
   const cv=new Cv(box,(x,w,h)=>{ const F=FN[st.fn], [ox,oy]=F.o||[0,0], f=(u,v)=>F.f(u+ox,v+oy), R=F.R, s=Math.min(w,h)/(2*R)*.92, cx=w/2, cy=h/2, X=u=>cx+u*s, Y=v=>cy-v*s;
-    const [lo,hi]=faixa(f,R); const img=x.createImageData(Math.ceil(w),Math.ceil(h)); const step=3; const d=devicePixelRatio||1;
+    const [lo,hi]=faixa(f,R); const img=x.createImageData(Math.ceil(w),Math.ceil(h)); const step=3; const d=Math.min(2,devicePixelRatio||1);
     /* fundo colorido por altura (baixa resolução) */
     for(let py=0;py<h;py+=step)for(let px=0;px<w;px+=step){ const u=(px-cx)/s, v=(cy-py)/s; if(Math.abs(u)>R||Math.abs(v)>R)continue; const z=f(u,v); if(!isFinite(z))continue; const [r,g,b]=rampa((z-lo)/(hi-lo)); x.fillStyle='rgba('+r+','+g+','+b+',.30)'; x.fillRect(px,py,step,step) }
     x.strokeStyle=tok('line'); x.lineWidth=1; x.beginPath(); x.moveTo(X(-R),Y(0)); x.lineTo(X(R),Y(0)); x.moveTo(X(0),Y(-R)); x.lineTo(X(0),Y(R)); x.stroke();
@@ -1040,7 +1040,7 @@ function Mapa(box,op){ const st={...op};
       if(st.dir!=null){ const L=R*.55*s; arrow(x,X(px),Y(py),Math.cos(st.dir)*L,-Math.sin(st.dir)*L,tok('c3'),'u',2.6) }
       if(st.tang&&gn>1e-9){ x.strokeStyle=tok('ink'); x.setLineDash([5,4]); x.lineWidth=1.4; const L=R*.5*s; x.beginPath(); x.moveTo(X(px)-(-gy/gn)*L,Y(py)+(gx/gn)*L); x.lineTo(X(px)+(-gy/gn)*L,Y(py)-(gx/gn)*L); x.stroke(); x.setLineDash([]) }
       x.fillStyle=tok('ink'); x.beginPath(); x.arc(X(px),Y(py),5.5,0,7); x.fill() }
-    (st.pontos||[]).map(q=>({...q,x:q.x-ox,y:q.y-oy})).forEach(pt=>{ x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(X(pt.x),Y(pt.y),6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px "Atkinson Hyperlegible", sans-serif'; x.fillText(pt.l,X(pt.x)+8,Y(pt.y)-8) } });
+    (st.pontos||[]).map(q=>({...q,x:q.x-ox,y:q.y-oy})).forEach(pt=>{ x.fillStyle=tok(pt.c||'ink'); x.beginPath(); x.arc(X(pt.x),Y(pt.y),6,0,7); x.fill(); x.strokeStyle=tok('sheet'); x.lineWidth=2; x.stroke(); if(pt.l){ x.fillStyle=tok('ink'); x.font='700 12px Inter, sans-serif'; x.fillText(pt.l,X(pt.x)+8,Y(pt.y)-8) } });
     if(st.caminho){ x.strokeStyle=tok('ink'); x.lineWidth=2.2; x.beginPath(); st.caminho.forEach(([u,v],k)=>k?x.lineTo(X(u),Y(v)):x.moveTo(X(u),Y(v))); x.stroke() }
     cv.toWorld=(px,py)=>({x:(px-cx)/s,y:(cy-py)/s}) });
   if(st.click){ const c=box.querySelector('canvas'); c.style.cursor='crosshair'; const go=e=>{ const r=c.getBoundingClientRect(); const p=cv.toWorld(e.clientX-r.left,e.clientY-r.top); const R=FN[st.fn].R; if(Math.abs(p.x)>R||Math.abs(p.y)>R)return; st.click(p) };
@@ -1138,7 +1138,7 @@ function simExt(){ const sel=document.getElementById('exFn'), out=document.getEl
 function simLab(){ const sel=document.getElementById('labFn'); const s3=Surf(document.getElementById('lab3d'),{fn:sel.value}), m=Mapa(document.getElementById('labMap'),{fn:sel.value,niveis:11});
   sel.onchange=()=>{ s3.set({fn:sel.value}); m.set({fn:sel.value}) }; return [s3,m] }
 function simHero(){ const s=Surf(document.getElementById('heroSim'),{fn:'ondas',alpha:.95,N:30}); let t=0, last=0;
-  const step=tt=>{ if(document.getElementById('v-inicio').hidden||matchMedia('(prefers-reduced-motion: reduce)').matches){ requestAnimationFrame(step); return } if(tt-last>60){ last=tt; t+=.02; s.set({level:Math.sin(t)*.9}) } requestAnimationFrame(step) }; requestAnimationFrame(step); return [s] }
+  const step=tt=>{ if(document.hidden||document.getElementById('v-inicio').hidden||matchMedia('(prefers-reduced-motion: reduce)').matches){ setTimeout(()=>requestAnimationFrame(step),500); return } if(tt-last>60){ last=tt; t+=.02; s.set({level:Math.sin(t)*.9}) } requestAnimationFrame(step) }; requestAnimationFrame(step); return [s] }
 
 /* ===== calculadoras ===== */
 function out(el,steps,res,err){ el.innerHTML=err?'<p class="err">'+err+'</p>':'<ol>'+steps.map(s=>'<li>'+s+'</li>').join('')+'</ol>'+(res?'<div class="res">'+res+'</div>':'') }

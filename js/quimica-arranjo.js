@@ -77,7 +77,7 @@ function svg2D(A,B,P,mode){ P=P.slice();
 function viewer(cv,M,opt){ const x=cv.getContext('2d'); let yaw=opt.yaw??.5, pitch=opt.pitch??-.25, zoom=1, auto=!RM&&opt.auto!==false, raf=0, dead=false, drag=null, t0=performance.now();
   let R=.5; M.at.forEach(a=>{ R=Math.max(R,Math.hypot(a.x,a.y,a.z)+(a.r||0)) });
   const rot=(p)=>{ const cy=Math.cos(yaw),sy=Math.sin(yaw),cp=Math.cos(pitch),sp=Math.sin(pitch); let X=p.x*cy+p.z*sy, Z=-p.x*sy+p.z*cy; let Y=p.y*cp-Z*sp; Z=p.y*sp+Z*cp; return {x:X,y:Y,z:Z} };
-  const draw=(now)=>{ if(dead)return; const r=cv.getBoundingClientRect(), d=devicePixelRatio||1; if(!r.width){ raf=requestAnimationFrame(draw); return }
+  const draw=(now)=>{ if(dead)return; const r=cv.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1); if(!r.width||document.hidden){ raf=setTimeout(()=>{ raf=requestAnimationFrame(draw) },500); return }
     if(cv.width!==Math.round(r.width*d)||cv.height!==Math.round(r.height*d)){ cv.width=Math.round(r.width*d); cv.height=Math.round(r.height*d) }
     x.setTransform(d,0,0,d,0,0); const W=r.width,H=r.height; x.clearRect(0,0,W,H);
     if(M.tick)M.tick((now-t0)/1000);

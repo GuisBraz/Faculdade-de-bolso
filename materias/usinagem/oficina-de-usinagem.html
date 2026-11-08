@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Escola de Usinagem: guia interativo de furadeira, torno, mandrilhadora e centro de usinagem, com modelos 3D, calculadoras e simulador CNC.">
 <title>Oficina de Usinagem</title>
-<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@500;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=STIX+Two+Text:ital,wght@0,400;0,600;1,400&amp;display=swap">
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
+<meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Layout: sidebar retrátil (rail de ícones / gaveta no celular) + conteúdo com cabeçalho por módulo. Identidade do portfólio (Calculadora de Peso / Guia Técnico): fundo claro, navy, laranja queimado, IBM Plex, cantos retos. */
 :root{
@@ -2183,7 +2183,7 @@ const Viewer = (() => {
     if(!window.THREE) return false;
     M = makeMats();
     R = new THREE.WebGLRenderer({antialias:true, alpha:true, powerPreference:'high-performance'});
-    R.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+    R.setPixelRatio(Math.min(2,devicePixelRatio||1));
     R.outputEncoding = THREE.sRGBEncoding; R.toneMapping = THREE.ACESFilmicToneMapping; R.toneMappingExposure = 1.0;
     R.shadowMap.enabled = true; R.shadowMap.type = THREE.PCFSoftShadowMap;
     camera = new THREE.PerspectiveCamera(38, 1.6, 0.05, 60);
@@ -3141,7 +3141,7 @@ const GSim = (() => {
     const add = (x, y) => { x0 = Math.min(x0, x); x1 = Math.max(x1, x); y0 = Math.min(y0, y); y1 = Math.max(y1, y); };
     R.moves.forEach(m => { if(drawable(m) && Math.min(m.a.z, m.b.z) < 60){ add(m.a.x, m.a.y); add(m.b.x, m.b.y); } });
     add(-R.stock.x / 2, -R.stock.y / 2); add(R.stock.x / 2, R.stock.y / 2);
-    const pad = 46 * (devicePixelRatio || 1), sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1), (H - 2 * pad) / Math.max(y1 - y0, 1)) * v2.z;
+    const pad = 46 * Math.min(2,devicePixelRatio||1), sc = Math.min((W - 2 * pad) / Math.max(x1 - x0, 1), (H - 2 * pad) / Math.max(y1 - y0, 1)) * v2.z;
     map2 = {sc, ox:W / 2 - (x0 + x1) / 2 * sc + v2.x, oy:H / 2 + (y0 + y1) / 2 * sc + v2.y, x0, x1, y0, y1};
   }
   const X2 = x => map2.ox + x * map2.sc, Y2 = y => map2.oy - y * map2.sc;
@@ -3157,7 +3157,7 @@ const GSim = (() => {
     g.putImageData(id, 0, 0); needImg = false;
   }
   function draw2D(){
-    const cv = $('gCan'); if(!cv || !R || !map2) return; const g = cv.getContext('2d'), W = cv.width, H = cv.height, dp = devicePixelRatio || 1;
+    const cv = $('gCan'); if(!cv || !R || !map2) return; const g = cv.getContext('2d'), W = cv.width, H = cv.height, dp = Math.min(2,devicePixelRatio||1);
     g.setTransform(1, 0, 0, 1, 0, 0); g.fillStyle = '#FFFFFF'; g.fillRect(0, 0, W, H);
     const span = (W / map2.sc), step0 = span / 8, mag = Math.pow(10, Math.floor(Math.log10(step0))), r = step0 / mag, step = (r < 1.5 ? 1 : r < 3 ? 2 : r < 7 ? 5 : 10) * mag;
     g.lineWidth = 1; g.strokeStyle = '#EDF0F4'; g.beginPath();
@@ -3204,7 +3204,7 @@ const GSim = (() => {
   /* ---------------- gráfico Z × tempo ---------------- */
   function drawZt(){
     const cv = $('sZt'); if(!cv || !R || !N()) return;
-    const dp = devicePixelRatio || 1, cw = cv.clientWidth || 300, ch = cv.clientHeight || 170;
+    const dp = Math.min(2,devicePixelRatio||1), cw = cv.clientWidth || 300, ch = cv.clientHeight || 170;
     if(cv.width !== Math.round(cw * dp) || cv.height !== Math.round(ch * dp)){ cv.width = Math.round(cw * dp); cv.height = Math.round(ch * dp); }
     const g = cv.getContext('2d'); g.setTransform(dp, 0, 0, dp, 0, 0); g.clearRect(0, 0, cw, ch);
     const b = blkOf(cur.i), tot = R.stats.total; let w0, w1;
@@ -3240,7 +3240,7 @@ const GSim = (() => {
     if(T3) return true; if(!window.THREE || !THREE.OrbitControls) return false;
     const L = c => new THREE.Color(c).convertSRGBToLinear();
     const r = new THREE.WebGLRenderer({antialias:true, alpha:true});
-    r.setPixelRatio(Math.min(devicePixelRatio || 1, 1.5)); r.outputEncoding = THREE.sRGBEncoding; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 0.92;
+    r.setPixelRatio(Math.min(1.5,devicePixelRatio||1)); r.outputEncoding = THREE.sRGBEncoding; r.toneMapping = THREE.ACESFilmicToneMapping; r.toneMappingExposure = 0.92;
     r.shadowMap.enabled = true; r.shadowMap.type = THREE.PCFShadowMap; r.domElement.className = 's3d';
     const st = $('sStage'); st.insertBefore(r.domElement, st.firstChild);
     const sc = new THREE.Scene();
@@ -3427,7 +3427,7 @@ const GSim = (() => {
     document.querySelectorAll('#sCam [data-c]').forEach(b => b.classList.toggle('on', b.dataset.c === kind)); need3d = true;
   }
   function resize(){
-    const st = $('sStage'); if(!st) return; const w = st.clientWidth, h = st.clientHeight, dp = devicePixelRatio || 1;
+    const st = $('sStage'); if(!st) return; const w = st.clientWidth, h = st.clientHeight, dp = Math.min(2,devicePixelRatio||1);
     if(T3){ T3.r.setSize(w, h, false); T3.pc.aspect = w / h; T3.pc.updateProjectionMatrix(); fitOrtho(); need3d = true; }
     const cv = $('gCan'); if(cv && (cv.width !== Math.round(w * dp) || cv.height !== Math.round(h * dp))){ cv.width = Math.round(w * dp); cv.height = Math.round(h * dp); fit2(); need2d = true; }
     drawZt();
@@ -3513,7 +3513,7 @@ const GSim = (() => {
   function hideTip(){ const t = $('sTip'); if(t) t.hidden = true; }
   function inspect(e){
     if(!R || !N()) return null;
-    const st = $('sStage'), rc = st.getBoundingClientRect(), x = e.clientX - rc.left, y = e.clientY - rc.top, dp = devicePixelRatio || 1;
+    const st = $('sStage'), rc = st.getBoundingClientRect(), x = e.clientX - rc.left, y = e.clientY - rc.top, dp = Math.min(2,devicePixelRatio||1);
     if(view === '2d'){
       const sx = x * dp, sy = y * dp, k = pickSeg(sx, sy, q => [X2(q.x), Y2(q.y)], 9 * dp);
       hov = {mode:'2d', sx, sy, wx:(sx - map2.ox) / map2.sc, wy:(map2.oy - sy) / map2.sc, k};
@@ -3581,7 +3581,7 @@ const GSim = (() => {
     // inspeção e navegação 2D
     const st = $('sStage'); let down = null;
     st.addEventListener('pointermove', e => {
-      if(view === '2d' && drag2){ const dp = devicePixelRatio || 1; v2.x += (e.clientX - drag2.x) * dp; v2.y += (e.clientY - drag2.y) * dp; drag2.x = e.clientX; drag2.y = e.clientY; drag2.moved = true; fit2(); need2d = true; return; }
+      if(view === '2d' && drag2){ const dp = Math.min(2,devicePixelRatio||1); v2.x += (e.clientX - drag2.x) * dp; v2.y += (e.clientY - drag2.y) * dp; drag2.x = e.clientX; drag2.y = e.clientY; drag2.moved = true; fit2(); need2d = true; return; }
       if(down && Math.hypot(e.clientX - down.x, e.clientY - down.y) > 4){ hideTip(); return; }
       if(e.pointerType === 'mouse') inspect(e);
     });
@@ -3592,7 +3592,7 @@ const GSim = (() => {
       if(moved) return;
       const h = inspect(e); if(h && h.k != null){ jump({i:h.k, u:1}); if(e.pointerType === 'mouse') setTimeout(() => inspect(e), 0); }
     });
-    st.addEventListener('wheel', e => { if(view !== '2d') return; e.preventDefault(); const rc = st.getBoundingClientRect(), dp = devicePixelRatio || 1, mx = (e.clientX - rc.left) * dp, my = (e.clientY - rc.top) * dp; const f = Math.exp(-e.deltaY * 0.0015), wx = (mx - map2.ox) / map2.sc, wy = (map2.oy - my) / map2.sc; v2.z = Math.max(0.5, Math.min(40, v2.z * f)); fit2(); v2.x += mx - X2(wx); v2.y += my - Y2(wy); fit2(); need2d = true; }, {passive:false});
+    st.addEventListener('wheel', e => { if(view !== '2d') return; e.preventDefault(); const rc = st.getBoundingClientRect(), dp = Math.min(2,devicePixelRatio||1), mx = (e.clientX - rc.left) * dp, my = (e.clientY - rc.top) * dp; const f = Math.exp(-e.deltaY * 0.0015), wx = (mx - map2.ox) / map2.sc, wy = (map2.oy - my) / map2.sc; v2.z = Math.max(0.5, Math.min(40, v2.z * f)); fit2(); v2.x += mx - X2(wx); v2.y += my - Y2(wy); fit2(); need2d = true; }, {passive:false});
     st.addEventListener('dblclick', () => { if(view === '2d'){ fit2(true); need2d = true; } });
     io = new IntersectionObserver(es => { vis = es[0].isIntersecting; }); io.observe($('sim'));
     if(!ro){ ro = new ResizeObserver(resize); ro.observe(st); }
@@ -3643,7 +3643,7 @@ const GCmp = (() => {
   }
   function draw(tNow){
     const cv = $('cmpCv'); if(!cv || !res || !res.a) return;
-    const dp = devicePixelRatio || 1, cw = cv.clientWidth || 600, ch = cv.clientHeight || 220;
+    const dp = Math.min(2,devicePixelRatio||1), cw = cv.clientWidth || 600, ch = cv.clientHeight || 220;
     if(cv.width !== Math.round(cw * dp)){ cv.width = Math.round(cw * dp); cv.height = Math.round(ch * dp); }
     const g = cv.getContext('2d'); g.setTransform(dp, 0, 0, dp, 0, 0); g.clearRect(0, 0, cw, ch);
     const {a, b, v} = res, Tm = Math.max(a.T, b.T), z0 = v.Z - 0.5, z1 = v.R + 10.5;

@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Oficina de GAAL</title>
-<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,500;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=STIX+Two+Text:ital,wght@0,500;1,500&amp;display=swap">
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
+<meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Layout: prancheta técnica — folha milimetrada, carimbos de desenho técnico nas fórmulas, uma coluna de leitura com laboratório 3D */
 :root{
@@ -939,9 +939,9 @@ class Viewer{
     if(o.controls!==false){ const d=document.createElement('div'); d.className='ctl'; d.innerHTML='<button aria-label="Aproximar">+</button><button aria-label="Afastar">−</button><button aria-label="Vista inicial">⟲</button>'; box.appendChild(d);
       const [p,m,r]=d.querySelectorAll('button'); p.onclick=()=>{this.zoom*=1.25;this.draw()}; m.onclick=()=>{this.zoom/=1.25;this.draw()}; r.onclick=()=>{this.zoom=1;this.yaw=-2.25;this.pitch=0.42;this.draw()} }
     new ResizeObserver(()=>this.resize()).observe(box); this.resize();
-    if(this.auto && !matchMedia('(prefers-reduced-motion: reduce)').matches){ const loop=()=>{ if(this.auto){this.yaw+=0.004;this.draw()} requestAnimationFrame(loop) }; requestAnimationFrame(loop) }
+    if(this.auto && !matchMedia('(prefers-reduced-motion: reduce)').matches){ const loop=()=>{ const vis=box.offsetParent!==null&&!document.hidden; if(this.auto&&vis){this.yaw+=0.004;this.draw()} if(vis&&this.auto) requestAnimationFrame(loop); else setTimeout(()=>requestAnimationFrame(loop),500) }; requestAnimationFrame(loop) }
   }
-  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const dpr=window.devicePixelRatio||1; this.w=r.width; this.h=r.height||r.width*0.6; this.cv.width=this.w*dpr; this.cv.height=this.h*dpr; this.ctx.setTransform(dpr,0,0,dpr,0,0); this.draw() }
+  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const dpr=Math.min(2,devicePixelRatio||1); this.w=r.width; this.h=r.height||r.width*0.6; this.cv.width=this.w*dpr; this.cv.height=this.h*dpr; this.ctx.setTransform(dpr,0,0,dpr,0,0); this.draw() }
   set(o){ this.objs=o; this.draw() }
   P(p){ const cy=Math.cos(this.yaw),sy=Math.sin(this.yaw),cp=Math.cos(this.pitch),sp=Math.sin(this.pitch); const X=p[0]*cy-p[1]*sy, D=p[0]*sy+p[1]*cy, Y=p[2]*cp+D*sp;
     const s=Math.min(this.w,this.h)/(2*this.range)*0.92*this.zoom; return [this.w/2+X*s,this.h/2-Y*s] }

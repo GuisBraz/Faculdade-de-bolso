@@ -69,13 +69,15 @@ function foot(){ const f=$('body > footer')||$('main > footer'); if(!f||f.classL
 function surface(cv){ const x=cv.getContext('2d'); let t=0, raf=0;
   const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
   const mix=(a,b,k)=>{ const p=h=>[1,3,5].map(i=>parseInt(h.slice(i,i+2),16)); const A=p(a),B=p(b); return 'rgb('+A.map((v,i)=>Math.round(v+(B[i]-v)*k)).join(',')+')' };
-  const draw=()=>{ const r=cv.getBoundingClientRect(), d=devicePixelRatio||1; if(!r.width){ raf=requestAnimationFrame(draw); return }
-    cv.width=r.width*d; cv.height=r.height*d; x.setTransform(d,0,0,d,0,0); const W=r.width,H=r.height; x.clearRect(0,0,W,H);
+  let vis=true, cor=null; if('IntersectionObserver' in window) new IntersectionObserver(es=>{ vis=es[0].isIntersecting; if(vis&&!raf&&!RM) raf=requestAnimationFrame(draw) }).observe(cv);
+  addEventListener('fdb:aba',()=>{ cor=null }); new MutationObserver(()=>{ cor=null }).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme','class']}); matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',()=>{ cor=null });
+  const draw=()=>{ raf=0; if(!vis||document.hidden){ if(document.hidden) raf=setTimeout(()=>{ raf=0; draw() },700); return } const r=cv.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1); if(!r.width){ raf=setTimeout(()=>{ raf=0; draw() },500); return }
+    const cw=Math.round(r.width*d), ch=Math.round(r.height*d); if(cv.width!==cw||cv.height!==ch){ cv.width=cw; cv.height=ch } x.setTransform(d,0,0,d,0,0); const W=r.width,H=r.height; x.clearRect(0,0,W,H);
     const N=26, S=Math.min(W,H)*.36, a=.75+t*.15, c=Math.cos(a), s=Math.sin(a), el=.55, ce=Math.cos(el), se=Math.sin(el);
     const f=(u,v)=>Math.sin(u*1.25+t)*Math.cos(v*1.1)*.9+Math.sin(u*.6-v*.8)*.35;
     const P=(u,v)=>{ const z=f(u,v); const X=u*c-v*s, Y=u*s+v*c; return [W/2+X*S/3, H/2+ (Y*se - z*ce)*S/3*1.05, Y, z] };
     const L=-3, st=6/N, q=[]; for(let i=0;i<N;i++)for(let j=0;j<N;j++){ const u=L+i*st, v=L+j*st; const p=[P(u,v),P(u+st,v),P(u+st,v+st),P(u,v+st)]; q.push({p,d:(p[0][2]+p[2][2])/2,z:(p[0][3]+p[2][3])/2}) }
-    q.sort((A,B)=>A.d-B.d); const c1=css('--c2')||'#1E62C9', c2=css('--c1')||'#F26B1D';
+    q.sort((A,B)=>A.d-B.d); if(!cor) cor=[css('--c2')||'#1E62C9',css('--c1')||'#F26B1D']; const c1=cor[0], c2=cor[1];
     for(const k of q){ const z=(k.z+1.25)/2.5; x.beginPath(); k.p.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1])); x.closePath();
       x.fillStyle=mix(c1.length===7?c1:'#1E62C9',c2.length===7?c2:'#F26B1D',Math.max(0,Math.min(1,z))); x.globalAlpha=.92; x.fill(); x.globalAlpha=.35; x.strokeStyle='#0E1F38'; x.lineWidth=.6; x.stroke(); x.globalAlpha=1 }
     if(!RM){ t+=.006; raf=requestAnimationFrame(draw) } };

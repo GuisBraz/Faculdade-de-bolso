@@ -4,15 +4,15 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Faculdade de Bolso</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;display=swap">
 <link rel="manifest" href="manifest.webmanifest">
 <meta name="theme-color" content="#13233A">
 <link rel="icon" type="image/png" href="icons/logo-favicon-64.png">
 <link rel="apple-touch-icon" href="icons/logo-apple-180.png">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="description" content="Hub de estudos de Engenharia Mecânica: matérias por período com os materiais interativos de cada uma.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:wght@400;700&family=JetBrains+Mono:wght@400;600&display=swap">
 <style>
 /* Layout: caderneta de engenharia — folha milimetrada, cada período é uma "régua" com as matérias como fichas de arquivo */
 :root{
@@ -43,7 +43,6 @@ a{color:inherit}
 
 /* topo */
 .topbar{background:var(--ink);color:var(--sheet)}
-.tbin{display:flex;align-items:center;justify-content:space-between;gap:16px;padding-block:9px;flex-wrap:wrap}
 .tbc{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600}
 .mini{display:flex;align-items:center;gap:10px;text-decoration:none;color:inherit;font-family:var(--f-mono);font-size:.74rem}
 .mini b{font-size:.9rem;font-variant-numeric:tabular-nums}
@@ -58,13 +57,7 @@ a{color:inherit}
 .top h1{font-size:clamp(2.3rem,6.5vw,4.2rem);font-weight:800;letter-spacing:-.03em}
 .top h1 span{color:var(--accent)}
 .top p{color:var(--ink2);max-width:52ch;margin:.4rem 0 0;font-size:1rem}
-.stamp{border:1.5px solid var(--ink);background:var(--sheet);font-family:var(--f-mono);font-size:.78rem;min-width:220px}
-.stamp div{display:grid;grid-template-columns:auto 1fr;gap:12px;padding:6px 12px;border-top:1px solid var(--line)}
-.stamp div:first-child{border-top:0}
-.stamp b{font-variant-numeric:tabular-nums;text-align:right;font-weight:600}
-.stamp span{color:var(--ink2);text-transform:uppercase;letter-spacing:.06em;font-size:.68rem;align-self:center}
-@media (max-width:640px){.top{grid-template-columns:1fr}.stamp{min-width:0;display:grid;grid-template-columns:1fr 1fr}.stamp div{border-top:1px solid var(--line);border-left:1px solid var(--line);margin-left:-1px}.stamp div:nth-child(-n+2){border-top:0}.stamp div:last-child{grid-column:1/-1}}
-
+@media (max-width:640px){.top{grid-template-columns:1fr}}
 .search{position:relative;margin-bottom:30px}
 .search input{width:100%;font:500 1rem var(--f-body);padding:13px 16px 13px 44px;border:1.5px solid var(--line);border-radius:10px;background:var(--sheet);color:var(--ink)}
 .search input:focus{outline:none;border-color:var(--accent2)}
@@ -77,9 +70,6 @@ a{color:inherit}
 .upd{list-style:none;margin:-4px 0 6px;padding:8px 16px 10px 16px;border:1px dashed var(--line);border-top:0;border-radius:0 0 10px 10px;font-size:.86rem;color:var(--ink2);display:grid;gap:3px}
 .upd li{display:grid;grid-template-columns:44px 1fr;gap:6px}
 .upd li span{font:600 .72rem var(--f-mono);color:var(--ink)}
-.pshow{display:flex;flex-wrap:wrap;gap:8px;margin:-6px 0 10px}
-.pshow button{font:600 .8rem var(--f-mono);padding:8px 14px;border-radius:8px;border:1.5px dashed var(--line);background:transparent;color:var(--ink2);cursor:pointer}
-.pshow button:hover{border-color:var(--ink2);color:var(--ink)}
 .today{display:flex;flex-wrap:wrap;align-items:center;gap:8px;text-decoration:none;color:var(--ink);margin:14px 0 14px;font-size:.88rem}
 .today .tk{font:600 .72rem var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-right:4px}
 .today .tc{--mc:var(--accent);border:1.5px solid var(--line);background:var(--sheet);border-radius:999px;padding:4px 12px}
@@ -282,7 +272,6 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
 
 
 /* conta, login e modo visitante */
-.tbr{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
 .conta{display:flex;align-items:center;gap:8px;font-family:var(--f-mono);font-size:.72rem}
 .conta .sy{opacity:.75}
 .conta button{font:600 .72rem var(--f-mono);background:transparent;color:inherit;border:1px solid color-mix(in srgb,var(--sheet) 40%,transparent);border-radius:6px;padding:3px 8px;cursor:pointer}
@@ -298,13 +287,13 @@ footer{padding-block:40px 40px;color:var(--ink2);font-family:var(--f-mono);font-
 .alink{background:none;border:0;padding:0;font:600 .8rem var(--f-mono);color:var(--ink2);text-decoration:underline;cursor:pointer;justify-self:start}
 .amsg{min-height:1.2em;font-size:.8rem;margin:0}
 .amsg.err{color:var(--bad)}.amsg.ok{color:var(--ok)}
-body.vis #prog,body.vis #alerts,body.vis #tabProv,body.vis #tabHor,body.vis #today,body.vis .jumpbar,body.vis #editPanel,body.vis #pshow,body.vis .stbox,body.vis .mprov{display:none!important}
+body.vis #prog,body.vis #alerts,body.vis #tabProv,body.vis #tabHor,body.vis #today,body.vis .jumpbar,body.vis #editPanel,body.vis .stbox,body.vis .mprov{display:none!important}
 
 /* telas largas */
 @media (min-width:1200px){
   #home:not([hidden]){display:grid;grid-template-columns:minmax(0,1fr) clamp(300px,24vw,400px);grid-template-rows:repeat(6,auto) 1fr;column-gap:clamp(24px,2.5vw,44px)}
   #home>*{grid-column:1}
-  #home>#today{grid-row:1}#home>.search{grid-row:2}#home>.jumpbar{grid-row:3}#home>#editPanel{grid-row:4}#home>#periodos{grid-row:5}#home>#pshow{grid-row:6}
+  #home>#today{grid-row:1}#home>.search{grid-row:2}#home>.jumpbar{grid-row:3}#home>#editPanel{grid-row:4}#home>#periodos{grid-row:5}
   #home>#recentWrap{grid-column:2;grid-row:1/-1;align-self:start;position:sticky;top:16px;padding-top:14px}
   #recentWrap .recent{grid-template-columns:1fr;margin-bottom:0}
   .grid{grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:14px}
@@ -368,7 +357,6 @@ body.vis #prog,body.vis #alerts,body.vis #tabProv,body.vis #tabHor,body.vis #tod
     <p class="mono" id="bkMsg" aria-live="polite"></p>
   </div>
   <div id="periodos"></div>
-  <div class="pshow" id="pshow"></div>
 </section>
 
 <section id="materia" hidden></section>

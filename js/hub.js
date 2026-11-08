@@ -57,7 +57,7 @@ const MATS = [...D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.
 const onde=m=>m.extra?'projeto complementar':m.periodo+'º período';
 let OV={}; try{ OV=JSON.parse(localStorage.getItem('fdb-status')||'{}')||{} }catch(e){}
 MATS.forEach(m=>{ m._base=m.status||''; if(m.id in OV) m.status=OV[m.id]||'' });
-let EDIT=false; const SHOWP={past:false,fut:false}; let SELP=null;
+let EDIT=false; let SELP=null;
 function setSt(id,st){ const m=MATS.find(x=>x.id===id); if(!m)return; m.status=st; if(st===m._base) delete OV[id]; else OV[id]=st;
   try{ localStorage.setItem('fdb-status',JSON.stringify(OV)) }catch(e){} renderHome(); if(location.hash==='#m-'+id) renderMat(id) }
 const OPTS=[['','não cursada'],['cursando','cursando'],['aprovada','aprovada'],['reprovada','reprovada']];
@@ -85,9 +85,10 @@ function matCard(m){
 function renderHome(){
   document.getElementById('curso').textContent=[D.curso,D.instituicao].filter(Boolean).join(' · ');
   document.getElementById('foot').textContent=[D.aluno,D.instituicao].filter(Boolean).join(' · ');
-  const rec=[...FILES].sort((a,b)=>String(b.data).localeCompare(String(a.data))).slice(0,3);
+  const ult=a=>[a.data||''].concat((a.atualizacoes||[]).map(u=>u.data||'')).sort().pop()||'';
+  const rec=[...FILES].sort((a,b)=>ult(b).localeCompare(ult(a))).slice(0,3);
   document.getElementById('recentWrap').hidden=!rec.length;
-  document.getElementById('recent').innerHTML=rec.map(a=>'<a class="rc" style="--mc:'+esc(a.mat.cor)+'" href="'+esc(a.caminho)+'" title="'+esc(a.descricao||'')+'"><span class="ic">'+icon(a.mat.icone)+'</span><span class="rt"><b>'+esc(a.titulo)+'</b><small>'+esc(a.mat.sigla)+' · '+fdate(a.data)+'</small></span><span class="go">→</span></a>').join('');
+  document.getElementById('recent').innerHTML=rec.map(a=>'<a class="rc" style="--mc:'+esc(a.mat.cor)+'" href="'+esc(a.caminho)+'" title="'+esc(a.descricao||'')+'"><span class="ic">'+icon(a.mat.icone)+'</span><span class="rt"><b>'+esc(a.titulo)+'</b><small>'+esc(a.mat.sigla)+(ult(a)?' · '+fdate(ult(a)):'')+'</small></span><span class="go">→</span></a>').join('');
   const pst=p=>{ const ms=MATS.filter(m=>m.periodo===p.numero); const ok=ms.filter(m=>m.status==='aprovada'), rp=ms.filter(m=>m.status==='reprovada');
     const tot=ms.reduce((a,m)=>a+(m.ch||0),0), done=ok.reduce((a,m)=>a+(m.ch||0),0);
     return {ms,ok,rp,tot,done,closed:ms.length>0&&ms.every(m=>m.status==='aprovada'||m.status==='reprovada'),full:ms.length>0&&ok.length===ms.length} };
@@ -103,14 +104,7 @@ function renderHome(){
   document.querySelectorAll('#jump button[data-p]').forEach(b=>b.onclick=()=>{ SELP=+b.dataset.p; renderHome() });
   const eb=document.getElementById('editBtn'); eb.textContent=EDIT?'✓ Concluir':'Dar baixa nas matérias'; eb.classList.toggle('on',EDIT); eb.setAttribute('aria-pressed',EDIT);
   document.getElementById('editPanel').hidden=!EDIT;
-  const curN=(D.periodos.find(p=>p.atual)||{}).numero||1;
   const vis=x=>EDIT||x.p.numero===SELP;
-  const hidPast=P.filter(x=>x.p.numero<curN&&!vis(x)), hidFut=P.filter(x=>x.p.numero>curN&&!vis(x));
-  const rng=a=>a.length?(a.length===1?a[0].p.numero+'º':a[0].p.numero+'º ao '+a[a.length-1].p.numero+'º'):'';
-  document.getElementById('pshow').innerHTML=(true?'':
-    (hidPast.length||SHOWP.past&&P.some(x=>x.p.numero<curN)?'<button type="button" data-g="past">'+(SHOWP.past?'Ocultar períodos anteriores':'Mostrar períodos anteriores · '+rng(hidPast))+'</button>':'')+
-    (hidFut.length||SHOWP.fut&&P.some(x=>x.p.numero>curN)?'<button type="button" data-g="fut">'+(SHOWP.fut?'Ocultar próximos períodos':'Mostrar próximos períodos · '+rng(hidFut))+'</button>':''));
-  document.querySelectorAll('#pshow button').forEach(b=>b.onclick=()=>{ SHOWP[b.dataset.g]=!SHOWP[b.dataset.g]; renderHome() });
   document.getElementById('periodos').innerHTML=P.filter(vis).map(x=>{
     const p=x.p, ms=x.ms, nf=ms.reduce((s,m)=>s+(m.arquivos||[]).length,0);
     const info=ms.length+' matérias'+(p.ch?' · '+p.ch+' h':'')+(nf?' · '+nf+(nf===1?' material':' materiais'):'');

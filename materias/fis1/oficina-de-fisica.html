@@ -4,10 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Oficina de Física</title>
-<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,500;1,500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=STIX+Two+Text:ital,wght@0,500;1,500&amp;display=swap">
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
 <style>
 /* Layout: prancheta técnica — folha milimetrada, carimbos de desenho técnico nas fórmulas, uma coluna de leitura com laboratório 3D */
 :root{
@@ -939,6 +939,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 <footer>Oficina de Física · material de apoio aos capítulos 5, 6 e 8 de Halliday, Fundamentos de Física vol. 1 (10ª ed.)<span class="credits" style="display:block;margin-top:6px">Desenvolvido por Guilherme dos Santos Braz — Técnico de processos e estudante de engenharia mecânica · <a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener" style="color:var(--c1,#E2591B);font-weight:600">LinkedIn</a></span></footer>
 
 <script>
+const proxQuadro=(f,el)=>el&&el.offsetParent!==null&&!document.hidden?requestAnimationFrame(f):setTimeout(()=>requestAnimationFrame(f),500);
 const G=9.8;
 const tok=n=>getComputedStyle(document.documentElement).getPropertyValue('--'+n).trim();
 const M='−';
@@ -949,7 +950,7 @@ function pair(id){ const v=document.getElementById(id).value.replace(/−/g,'-')
 
 /* ===== canvas base ===== */
 class Cv{ constructor(box,draw){ this.box=box; this.c=box.querySelector('canvas'); this.x=this.c.getContext('2d'); this.drawFn=draw; new ResizeObserver(()=>this.resize()).observe(box); this.resize() }
-  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const d=devicePixelRatio||1; this.w=r.width; this.h=r.height; this.c.width=this.w*d; this.c.height=this.h*d; this.x.setTransform(d,0,0,d,0,0); this.draw() }
+  resize(){ const r=this.box.getBoundingClientRect(); if(!r.width)return; const d=Math.min(2,devicePixelRatio||1); this.w=r.width; this.h=r.height; this.c.width=this.w*d; this.c.height=this.h*d; this.x.setTransform(d,0,0,d,0,0); this.draw() }
   draw(){ if(this.w) { this.x.clearRect(0,0,this.w,this.h); this.drawFn(this.x,this.w,this.h) } } }
 function arrow(x,x0,y0,dx,dy,col,lbl,wd=2.6){ const L=Math.hypot(dx,dy); if(L<2)return; x.strokeStyle=col; x.fillStyle=col; x.lineWidth=wd; x.beginPath(); x.moveTo(x0,y0); x.lineTo(x0+dx,y0+dy); x.stroke();
   const a=Math.atan2(dy,dx), hx=x0+dx, hy=y0+dy, s=Math.min(11,L*.5); x.beginPath(); x.moveTo(hx,hy); x.lineTo(hx-s*Math.cos(a-.42),hy-s*Math.sin(a-.42)); x.lineTo(hx-s*Math.cos(a+.42),hy-s*Math.sin(a+.42)); x.closePath(); x.fill();
@@ -979,7 +980,7 @@ function InclineSim(box,ctlEl,outEl,lblEl,init={},compact=false){
     if(Math.abs(ph.f)>1e-6) arrow(x,px,py,ux*ph.f*k,uy*ph.f*k,tok('bad'),ph.state==='parado'?'fs':'fk');
     if(Math.abs(v.F)>1e-6) arrow(x,cx+ux*bs*.5*Math.sign(v.F),cy+uy*bs*.5*Math.sign(v.F),ux*v.F*k,uy*v.F*k,tok('c3'),'F');
   });
-  const step=t=>{ const dt=Math.min(.05,(t-last)/1000||0); last=t; if(ph&&ph.state!=='parado'&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&box.offsetParent){ vel+=ph.a*dt; s+=vel*dt*0.06; if(s<.12||s>.9){ s=.5; vel=0 } cv.draw() } requestAnimationFrame(step) }; requestAnimationFrame(step);
+  const step=t=>{ const dt=Math.min(.05,(t-last)/1000||0); last=t; if(ph&&ph.state!=='parado'&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&box.offsetParent){ vel+=ph.a*dt; s+=vel*dt*0.06; if(s<.12||s>.9){ s=.5; vel=0 } cv.draw() } proxQuadro(step,box) }; requestAnimationFrame(step);
   const render=()=>{ s=.5; vel=0; ph=inclinePhys(v); cv.draw(); const p=ph; if(lblEl) lblEl.textContent=p.state==='parado'?'parado':'desliza: '+(p.state==='sobe'?'rampa acima':'rampa abaixo');
     if(outEl) outEl.innerHTML='<ol><li>Peso: P = mg = '+dec(v.m,1)+' · 9,8 = '+dec(p.P)+' N</li><li>Normal: N = mg cos θ = '+dec(p.N)+' N</li><li>Peso ao longo da rampa: mg sen θ = '+dec(p.Ppar)+' N (rampa abaixo)</li><li>Força que tenta mover: F − mg sen θ = '+dec(v.F,0)+' − '+dec(p.Ppar)+' = '+dec(p.drive)+' N</li><li>Atrito estático máximo: μs·N = '+dec(v.us)+' · '+dec(p.N)+' = '+dec(p.fsmax)+' N</li>'+
       (p.state==='parado'?'<li>|'+dec(p.drive)+'| ≤ '+dec(p.fsmax)+' → <b>fica parado</b>; o atrito estático vale '+dec(Math.abs(p.f))+' N</li>':'<li>|'+dec(p.drive)+'| &gt; '+dec(p.fsmax)+' → <b>desliza</b>. Atrito cinético: μk·N = '+dec(Math.abs(p.f))+' N, contra o movimento</li><li>a = (força que move − fk)/m = '+dec(Math.abs(p.a))+' m/s² '+(p.state==='sobe'?'rampa acima':'rampa abaixo')+'</li>')+'</ol>' };
@@ -1164,7 +1165,7 @@ function EnergySim(box,ctlEl,goBtn,resetBtn){ const trk=x=>2.5+2.3*Math.cos(.75*
         const dx=st.dir*v*ds*h; let nx=st.x+dx; if(nx<0){ nx=0; st.dir=1 } if(nx>X1){ nx=X1; st.dir=-1 }
         const dist=Math.abs(nx-st.x)*Math.sqrt(1+sl*sl), loss=p.mu*p.m*G*ds*dist; if(p.mu>0){ st.E-=loss; st.Et+=loss }
         const yn=trk(nx); if(st.E-p.m*G*yn<0){ st.dir*=-1; } else st.x=nx; if(p.mu>0&&st.E-p.m*G*trk(st.x)<.5&&Math.abs(dtrk(st.x))<.08){ run=false; goBtn.textContent='Parou' } }
-      cv.draw() } requestAnimationFrame(step) }; requestAnimationFrame(step);
+      cv.draw() } proxQuadro(step,box) }; requestAnimationFrame(step);
   goBtn.onclick=()=>{ if(goBtn.textContent==='Parou')reset(); run=!run; goBtn.textContent=run?'Pausar':'Continuar' }; resetBtn.onclick=reset;
   controls(ctlEl,[{k:'x0',l:'ponto de partida',min:0,max:3,st:.1,v:p.x0,d:1,u:' m'},{k:'m',l:'massa',min:10,max:100,st:5,v:p.m,d:0,u:' kg'},{k:'mu',l:'atrito (μk)',min:0,max:.15,st:.01,v:p.mu}],val=>{ p={...p,...val}; reset() });
   return cv }
@@ -1251,7 +1252,7 @@ function SpringSim(box,ctlEl,goBtn,outEl,jumpBtns){
     /* barras de energia */
     const items=[['K',s.K,'c2'],['U',s.U,'c3'],['E',s.E,'ink']], barW=Math.min(small?w-60:260,w*.45), Emax=.5*1000*AMAX*AMAX;
     items.forEach((it,i)=>{ const y=10+i*16; x.fillStyle=tok('ink2'); x.fillText(it[0],8,y+9); x.fillStyle=tok('line'); x.fillRect(24,y,barW,10); x.fillStyle=tok(it[2]); x.fillRect(24,y,barW*Math.min(1,s.E>0?it[1]/s.E:0),10); x.fillStyle=tok('ink'); x.fillText(dec(it[1],2)+' J',30+barW,y+9) });
-    const ph=phase(s); x.fillStyle=tok(ph[1]); x.font='700 '+(small?11:13)+'px "Atkinson Hyperlegible", sans-serif'; x.fillText(ph[0],8,small?72:68);
+    const ph=phase(s); x.fillStyle=tok(ph[1]); x.font='700 '+(small?11:13)+'px Inter, sans-serif'; x.fillText(ph[0],8,small?72:68);
     /* piso e parede */
     x.strokeStyle=tok('ink2'); x.lineWidth=1.5; x.beginPath(); x.moveTo(wallX,floorY); x.lineTo(w-6,floorY); x.stroke();
     x.fillStyle=tok('line'); x.fillRect(0,floorY-bh-40,wallX,bh+40); x.strokeStyle=tok('ink'); x.beginPath(); x.moveTo(wallX,floorY-bh-40); x.lineTo(wallX,floorY); x.stroke();
@@ -1273,7 +1274,7 @@ function SpringSim(box,ctlEl,goBtn,outEl,jumpBtns){
     arrow(x,bx,floorY-bh*.3,Fl,0,tok('bad'),Math.abs(Fl)>14?'F':'');
     arrow(x,bx,floorY-bh-12,vl,0,tok('c2'),Math.abs(vl)>14?'v':'') });
   const out=()=>{ const s=st(); if(outEl) outEl.innerHTML='<ol><li>x = '+dec(s.x*100,1)+' cm · v = '+dec(s.v,2)+' m/s · F = −kx = '+dec(s.F,1)+' N</li><li>K = '+dec(s.K,2)+' J · U = ½kx² = '+dec(s.U,2)+' J · K + U = '+dec(s.K+s.U,2)+' J</li><li>ω = √(k/m) = '+dec(s.w,2)+' rad/s · período T = 2π√(m/k) = '+dec(s.T,2)+' s · v máx = x<sub>m</sub>√(k/m) = '+dec(s.vmax,2)+' m/s</li></ol>' };
-  const step=tt=>{ const dt=Math.min(.05,(tt-last)/1000||0); last=tt; if(run&&box.offsetParent){ t+=dt*p.sp; cv.draw(); out() } requestAnimationFrame(step) }; requestAnimationFrame(step);
+  const step=tt=>{ const dt=Math.min(.05,(tt-last)/1000||0); last=tt; if(run&&box.offsetParent){ t+=dt*p.sp; cv.draw(); out() } proxQuadro(step,box) }; requestAnimationFrame(step);
   goBtn.onclick=()=>{ run=!run; goBtn.textContent=run?'Pausar':'Continuar' };
   jumpBtns.forEach(b=>b.onclick=()=>{ run=false; goBtn.textContent='Continuar'; t=(+b.dataset.sp)*st().T/4; cv.draw(); out() });
   controls(ctlEl,[{k:'k',l:'constante k',min:50,max:1000,st:10,v:p.k,d:0,u:' N/m'},{k:'m',l:'massa m',min:.5,max:5,st:.1,v:p.m,d:1,u:' kg'},{k:'A',l:'amplitude xm',min:.04,max:.2,st:.01,v:p.A,d:2,u:' m'},{k:'sp',l:'velocidade da animação',min:.05,max:1,st:.05,v:p.sp,d:2,u:'×'}],val=>{ const keepT=t; p={...p,...val}; t=keepT; cv.draw(); out() });
@@ -1294,7 +1295,7 @@ function UTrackSim(box,goBtn,muEl){ const H0=1, yf=x=>x*x, X1=1.15; let s, run=f
         if(K<=1e-6||v<.03){ st=-Math.sign(sl)||1; s.dir=st; v=.03 }
         const nx=s.x+s.dir*v*ds*hh; if(muEl.checked){ const loss=.05*G*ds*Math.abs(nx-s.x)*Math.sqrt(1+sl*sl)*1.2; s.E=Math.max(0,s.E-loss) }
         if(s.E-G*yf(nx)<0) s.dir*=-1; else s.x=nx; if(s.E<.004){ run=false; goBtn.textContent='Parou' } }
-      cv.draw() } requestAnimationFrame(step) }; let st=1; requestAnimationFrame(step);
+      cv.draw() } proxQuadro(step,box) }; let st=1; requestAnimationFrame(step);
   goBtn.onclick=()=>{ if(goBtn.textContent==='Parou'){ reset(); cv.draw(); return } run=!run; goBtn.textContent=run?'Pausar':'Continuar' };
   muEl.onchange=()=>{ reset(); cv.draw() };
   reset(); return cv }

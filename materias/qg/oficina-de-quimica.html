@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Oficina de Química</title>
-<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
-<meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=STIX+Two+Text:ital,wght@0,500;1,500&family=Kalam:wght@400;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=Kalam:wght@400;700&amp;family=STIX+Two+Text:ital,wght@0,500;1,500&amp;display=swap">
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
+<meta name="claude:viewport-fit-sides" content="cover">
 <style>
 /* Layout: prancheta técnica — folha milimetrada, carimbos de desenho técnico nas fórmulas, uma coluna de leitura com laboratório 3D */
 :root{
@@ -847,7 +847,7 @@ function balW(){ let E=EQS[0], k=[];
 
 /* ========= 2 · zoom ========= */
 function zoomW(){ const c=$('zoomCv'), R=$('zoomR'), O=$('zoomO'); const ctx=c.getContext('2d');
-  const draw=()=>{ const w=c.clientWidth||600, h=260, d=devicePixelRatio||1; c.width=w*d; c.height=h*d; ctx.setTransform(d,0,0,d,0,0); ctx.clearRect(0,0,w,h);
+  const draw=()=>{ const w=c.clientWidth||600, h=260, d=Math.min(2,devicePixelRatio||1); c.width=w*d; c.height=h*d; ctx.setTransform(d,0,0,d,0,0); ctx.clearRect(0,0,w,h);
     const t=+R.value/100; const n=Math.round(1+Math.pow(t,1.6)*420); const s=Math.max(.06,1-Math.pow(t,.5)*.94);
     const cup=Math.max(0,(t-.55)/.45); const cx=w/2, cy=h/2;
     // copo
@@ -936,15 +936,15 @@ function card(z){ const e=EL[z-1], C=$('ptCard'); ptSel=z; document.querySelecto
   C.hidden=false; C.innerHTML='<button class="x" aria-label="Fechar ficha">✕</button><div class="ptcg"><div><div class="big" style="--k:'+CATS[e.cat][1]+'"><i>'+z+'</i><b>'+e.sym+'</b><span>'+e.nome+'</span></div><canvas id="bohr" width="220" height="220" aria-label="Modelo do átomo de '+e.nome+'"></canvas></div><div><h3 style="margin:0 0 6px">'+e.nome+' ('+e.sym+')</h3><dl class="fic">'+
    '<dt>Número atômico</dt><dd>'+z+' (prótons e, no átomo neutro, elétrons)</dd><dt>Massa atômica</dt><dd>'+nf(e.m,6)+' u</dd><dt>Massa molar</dt><dd>'+nf(e.m,6)+' g/mol</dd><dt>Categoria</dt><dd>'+CATS[e.cat][0]+'</dd><dt>Grupo · período</dt><dd>'+grupo+' · '+periodo+'</dd><dt>Estado a 25 °C</dt><dd>'+estado(e)+'</dd><dt>Eletronegatividade</dt><dd>'+(e.en!=null?String(e.en).replace('.',','):'—')+'</dd><dt>Distribuição</dt><dd class="mono">'+confStr(z)+'</dd><dt>Elétrons por camada</dt><dd class="mono">'+cm.join(' · ')+'</dd></dl>'+
    '<div class="btns"><button id="useEl">➕ Usar na conta (massa molar)</button></div></div></div>';
-  C.querySelector('.x').onclick=()=>{ C.hidden=true; cancelAnimationFrame(bohrRAF); document.querySelectorAll('.ptc.sel').forEach(b=>b.classList.remove('sel')) };
+  C.querySelector('.x').onclick=()=>{ C.hidden=true; cancelAnimationFrame(bohrRAF); clearTimeout(window.bohrTO); document.querySelectorAll('.ptc.sel').forEach(b=>b.classList.remove('sel')) };
   $('useEl').onclick=()=>{ location.hash='massa'; setTimeout(()=>{ if(!mmTocado)$('mmIn').value=''; mmTocado=true; addEl(e.sym); $('mmW').scrollIntoView({behavior:RM?'auto':'smooth',block:'center'}) },60) };
   C.scrollIntoView({behavior:RM?'auto':'smooth',block:'nearest'}); bohr(cm,CATS[e.cat][1]) }
-function bohr(cm,col){ cancelAnimationFrame(bohrRAF); const c=$('bohr'), d=devicePixelRatio||1; c.width=220*d; c.height=220*d; const x=c.getContext('2d'); x.setTransform(d,0,0,d,0,0); let t0=performance.now();
+function bohr(cm,col){ cancelAnimationFrame(bohrRAF); clearTimeout(window.bohrTO); const c=$('bohr'), d=Math.min(2,devicePixelRatio||1); c.width=220*d; c.height=220*d; const x=c.getContext('2d'); x.setTransform(d,0,0,d,0,0); let t0=performance.now();
   const fr=t=>{ const a=(t-t0)/1000; x.clearRect(0,0,220,220); const R0=22, step=(96-R0)/Math.max(1,cm.length);
     x.fillStyle=col; x.beginPath(); x.arc(110,110,14,0,7); x.fill();
     cm.forEach((n,i)=>{ const r=R0+step*(i+1)-4; x.strokeStyle=tok('line'); x.lineWidth=1; x.beginPath(); x.arc(110,110,r,0,7); x.stroke();
       for(let k=0;k<n;k++){ const an=k/n*Math.PI*2+(RM?0:a*(1.2/(i+1))); x.fillStyle=tok('c2'); x.beginPath(); x.arc(110+r*Math.cos(an),110+r*Math.sin(an),n>18?2.2:3,0,7); x.fill() } });
-    if(!RM)bohrRAF=requestAnimationFrame(fr) }; fr(t0) }
+    if(!RM){ if(c.offsetParent!==null&&!document.hidden) bohrRAF=requestAnimationFrame(fr); else window.bohrTO=setTimeout(()=>{ bohrRAF=requestAnimationFrame(fr) },500) } }; fr(t0) }
 
 /* ========= laboratório de descobertas ========= */
 const CATD={simples:['⚛️','Substâncias simples'],gases:['💨','Água e gases'],oxidos:['🟥','Óxidos'],acidos:['🍋','Ácidos'],bases:['🧼','Bases'],sais:['🧂','Sais'],minerais:['💎','Minerais'],materiais:['🔩','Materiais de engenharia'],comb:['🔥','Combustíveis'],organicos:['🧪','Orgânicos'],polimeros:['🧵','Polímeros'],alim:['🍎','Alimentos e corpo'],remedios:['💊','Remédios e hormônios']};
@@ -1000,7 +1000,7 @@ function dica(){ const pend=AC.filter(a=>!desc[a.n]&&a.at>=2&&a.at<=8&&a.an!=='g
 /* ---- animações do pote ---- */
 let aRAF=0;
 function limpaPote(){ cancelAnimationFrame(aRAF); const c=$('dCv'); c.getContext('2d').clearRect(0,0,c.width,c.height); $('dLbl').hidden=true; $('dJar').style.setProperty('--fill','0%') }
-function anima(a){ cancelAnimationFrame(aRAF); const jar=$('dJar'), c=$('dCv'), d=devicePixelRatio||1, W=jar.clientWidth, H=jar.clientHeight; c.width=W*d; c.height=H*d; const x=c.getContext('2d'); x.setTransform(d,0,0,d,0,0);
+function anima(a){ cancelAnimationFrame(aRAF); const jar=$('dJar'), c=$('dCv'), d=Math.min(2,devicePixelRatio||1), W=jar.clientWidth, H=jar.clientHeight; c.width=W*d; c.height=H*d; const x=c.getContext('2d'); x.setTransform(d,0,0,d,0,0);
   const lbl=$('dLbl'); lbl.hidden=false; lbl.innerHTML='<b>'+(a.pop&&a.pop.length<26?cap(a.pop):a.n)+'</b><span>'+prettyF(a.f)+'</span>'; lbl.classList.remove('in'); void lbl.offsetWidth; lbl.classList.add('in');
   const col=a.cor, ps=[], pile=new Array(Math.ceil(W/6)).fill(0); let t=0, nivel=0;
   const bot=H-6, maxT=RM?1:260;
@@ -1058,12 +1058,12 @@ function conquistas(){ const n=nDesc(); const C=[];
 
 /* ========= hero ========= */
 function hero(){ const c=$('heroCv').querySelector('canvas'); const x=c.getContext('2d'); let a=0;
-  const fr=()=>{ const r=c.parentNode.getBoundingClientRect(); const d=devicePixelRatio||1; if(c.width!==Math.round(r.width*d)){ c.width=r.width*d; c.height=r.height*d } x.setTransform(d,0,0,d,0,0); const W=r.width,H=r.height; x.clearRect(0,0,W,H);
+  const fr=()=>{ const r=c.parentNode.getBoundingClientRect(); const d=Math.min(2,devicePixelRatio||1); if(c.width!==Math.round(r.width*d)){ c.width=r.width*d; c.height=r.height*d } x.setTransform(d,0,0,d,0,0); const W=r.width,H=r.height; x.clearRect(0,0,W,H);
     const cx=W/2, cy=H/2, R=Math.min(W,H)*.2; const at=[[0,0,0,'#D9412F',R],[-.95,.75,0,'#E6E6E6',R*.62],[.95,.75,0,'#E6E6E6',R*.62]];
     const P=at.map(([px,py,pz,col,rr])=>{ const X=px*Math.cos(a)-pz*Math.sin(a), Z=px*Math.sin(a)+pz*Math.cos(a); return [cx+X*R*1.25,cy+py*R*1.25-R*.3,Z,col,rr] }).sort((p,q)=>p[2]-q[2]);
     x.strokeStyle=tok('ink2'); x.lineWidth=6; x.beginPath(); x.moveTo(P.find(p=>p[3]==='#D9412F')[0],P.find(p=>p[3]==='#D9412F')[1]); P.filter(p=>p[3]!=='#D9412F').forEach(p=>{ x.moveTo(P.find(q=>q[3]==='#D9412F')[0],P.find(q=>q[3]==='#D9412F')[1]); x.lineTo(p[0],p[1]) }); x.stroke();
     P.forEach(([px,py,pz,col,rr])=>{ const g=x.createRadialGradient(px-rr*.3,py-rr*.3,rr*.1,px,py,rr); g.addColorStop(0,'#fff'); g.addColorStop(.25,col); g.addColorStop(1,col==='#E6E6E6'?'#9aa':'#7a1f15'); x.fillStyle=g; x.beginPath(); x.arc(px,py,rr,0,7); x.fill() });
-    if(!RM){ a+=.01; requestAnimationFrame(fr) } }; fr() }
+    if(!RM){ a+=.01; if(c.offsetParent!==null&&!document.hidden) requestAnimationFrame(fr); else setTimeout(()=>requestAnimationFrame(fr),500) } }; fr() }
 
 /* ========= quiz ========= */
 const QUIZ=[

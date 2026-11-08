@@ -2,7 +2,6 @@
    Azul-marinho + laranja, superfícies azul→laranja, cartões claros com sombra suave,
    barra laranja nos títulos de seção e cabeçalho marinho retrátil.
    Carregado DEPOIS do <style> de cada página: só redefine tokens e componentes. */
-@import url("https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Caveat:wght@500;700&display=swap");
 
 :root{
   --paper:#F2F5F9; --sheet:#FFFFFF; --ink:#0E1F38; --ink2:#55667D; --line:#DCE3EC; --grid:rgba(14,31,56,.035);
@@ -146,9 +145,6 @@ footer{max-width:1180px!important}
 .fdb-card .deco{position:absolute;right:-10px;bottom:-14px;width:150px;opacity:.13;pointer-events:none;color:var(--ink)}
 
 /* ===== rodapé ===== */
-.fdb-foot{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:14px;border-top:1px solid var(--line);padding-top:16px;position:relative}
-.fdb-foot .tl{font:800 italic 1.15rem var(--f-disp);color:var(--ink);text-align:right;line-height:1.15}
-.fdb-foot .tl::before{content:"/";color:var(--c1);margin-right:4px}
 
 /* ===== hub ===== */
 .topbar{background:var(--navy)!important;color:#fff!important;--sheet:#fff}
@@ -194,7 +190,7 @@ body{padding-bottom:58px}
   background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-top:1px solid var(--line);
   font:500 .74rem/1.35 var(--f-body)!important;color:var(--ink2)!important;text-align:center}
 .ffix a{font-weight:700;color:var(--c2)!important;text-decoration:underline}
-.ffix .fdb-foot,.ffix .credits{display:contents}
+.ffix .credits{display:contents}
 
 /* cabeçalho do hub */
 .fdb-hh{position:sticky;top:0;z-index:30;box-shadow:0 6px 20px rgba(7,16,31,.18);transition:transform .28s ease}
@@ -326,7 +322,6 @@ header.top.hhero .tt p{font-size:1.08rem;margin:.5rem 0 0}
 .fdb-wall::after{right:-110px;bottom:20px;background:linear-gradient(135deg,transparent 40%,var(--orange) 40% 46%,transparent 46%),linear-gradient(135deg,transparent 52%,var(--navy) 52% 64%,transparent 64%);opacity:.9}
 @media (max-width:700px){.fdb-wall::before,.fdb-wall::after{display:none}}
 body.fdb-has-wall{background-image:radial-gradient(1100px 520px at 88% -140px,color-mix(in srgb,var(--c2) 10%,transparent),transparent 70%),radial-gradient(900px 480px at -10% 110%,color-mix(in srgb,var(--c1) 8%,transparent),transparent 70%)!important;background-size:auto!important}
-.fdb-hub main.wrap{position:relative}
 .fdb-amh{font:800 .68rem var(--f-body);letter-spacing:.14em;text-transform:uppercase;color:var(--orange);padding:10px 12px 4px}
 .fdb-amh:first-child{padding-top:4px}
 .fdb-am a small{font:700 .66rem var(--f-mono);color:#fff;background:rgba(255,255,255,.12);border-radius:999px;padding:1px 7px;margin-right:6px}
