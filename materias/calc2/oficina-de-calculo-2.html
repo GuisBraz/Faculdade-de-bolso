@@ -258,6 +258,8 @@ body{font-size:1rem}
 .qitem .enun{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c2);border-radius:6px;padding:10px 14px;margin:12px 0 4px;line-height:1.55}
 .qitem .enun .k{display:block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:4px}
 </style>
+<link rel="stylesheet" href="../../css/fdb-v2.css">
+<script src="../../js/fdb-ui.js" defer></script>
 </head>
 <body>
 <header>
@@ -976,7 +978,7 @@ const dfx=(f,x,y)=>(f(x+H,y)-f(x-H,y))/(2*H), dfy=(f,x,y)=>(f(x,y+H)-f(x,y-H))/(
 const dxx=(f,x,y)=>(f(x+1e-3,y)-2*f(x,y)+f(x-1e-3,y))/1e-6, dyy=(f,x,y)=>(f(x,y+1e-3)-2*f(x,y)+f(x,y-1e-3))/1e-6;
 const dxy=(f,x,y)=>(f(x+1e-3,y+1e-3)-f(x+1e-3,y-1e-3)-f(x-1e-3,y+1e-3)+f(x-1e-3,y-1e-3))/4e-6;
 function hexRgb(h){ h=h.replace('#',''); if(h.length===3)h=h.split('').map(c=>c+c).join(''); const n=parseInt(h,16); return [n>>16&255,n>>8&255,n&255] }
-function rampa(t){ const a=hexRgb(tok('c2')||'#0C8587'), b=hexRgb('#E8D27A'), c=hexRgb(tok('c1')||'#D9531A'); t=Math.max(0,Math.min(1,t));
+function rampa(t){ const a=hexRgb(tok('c2')||'#0C8587'), b=hexRgb('#C9D7EC'), c=hexRgb(tok('c1')||'#D9531A'); t=Math.max(0,Math.min(1,t));
   const [p,q,u]=t<.5?[a,b,t*2]:[b,c,(t-.5)*2]; return [0,1,2].map(i=>Math.round(p[i]+(q[i]-p[i])*u)) }
 function faixa(f,R,N=40){ let lo=Infinity,hi=-Infinity; for(let i=0;i<=N;i++)for(let j=0;j<=N;j++){ const v=f(-R+2*R*i/N,-R+2*R*j/N); if(isFinite(v)){ if(v<lo)lo=v; if(v>hi)hi=v } } if(hi-lo<1e-9){ hi=lo+1 } return [lo,hi] }
 
