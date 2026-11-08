@@ -522,12 +522,56 @@ body{font-size:1rem}
   <h2>Derivadas parciais: derive em uma, congele as outras</h2>
   <p class="lede">Para ver como a temperatura muda andando só na horizontal, você trava o y e deriva em x. Essa é a derivada parcial f<sub>x</sub>.</p>
 
+  <div class="ofi"><span class="k">Os módulos 3 e 4 em 3 frases</span>1. Derivada mede <b>quão rápido</b> uma coisa muda. 2. Derivada parcial (1ª ordem): com duas variáveis, você <b>mexe em uma só e congela a outra</b>. 3. Derivada de 2ª ordem: derivar de novo, para saber se a mudança está acelerando ou freando, ou seja, a <b>forma</b> (morro ou vale).</div>
+
+  <h3>Relembrando: o que é derivada?</h3>
+  <p>Derivada é a <b>taxa de variação</b>: quanto uma coisa muda quando outra muda um pouquinho. Você já usa isso todo dia sem chamar de derivada.</p>
+  <div class="cuid"><span class="k">Exemplo prático · o velocímetro do carro</span>O hodômetro mostra a posição (quantos km você já andou). O velocímetro mostra quão rápido a posição muda: 80 km/h quer dizer "se continuar assim, em 1 hora a posição muda 80 km". <b>O velocímetro é a derivada da posição.</b></div>
+  <div class="tbl"><table><tr><th></th><th>Pergunta que responde</th><th>No carro</th><th>Notação (Cálculo I)</th></tr>
+    <tr><td>Função</td><td>onde estou?</td><td>posição</td><td>f(x)</td></tr>
+    <tr><td>1ª derivada</td><td>quão rápido muda?</td><td>velocidade</td><td>f′(x)</td></tr>
+    <tr><td>2ª derivada</td><td>a mudança está acelerando ou freando?</td><td>aceleração</td><td>f″(x)</td></tr></table></div>
+  <p>Na física você já viu isso: v é a derivada da posição e a é a derivada da velocidade. Guarde essa escada, porque ela é o módulo 3 e o 4 inteiros.</p>
+
+  <h3>As regras do Cálculo I que você vai usar</h3>
+  <p>Derivada parcial não tem regra nova. Você usa as mesmas regras de sempre, só tomando cuidado com quem está congelado.</p>
+  <div class="tbl"><table><tr><th>Regra</th><th>Como fica</th><th>Exemplo</th></tr>
+    <tr><td>Constante sozinha</td><td>vira 0</td><td>(7)′ = 0</td></tr>
+    <tr><td>Potência</td><td>o expoente desce e diminui 1</td><td>(x⁴)′ = 4x³</td></tr>
+    <tr><td>Constante multiplicando</td><td>fica parada esperando</td><td>(5x³)′ = 5 · 3x² = 15x²</td></tr>
+    <tr><td>Soma</td><td>deriva cada parte</td><td>(x² + 3x)′ = 2x + 3</td></tr>
+    <tr><td>Exponencial</td><td>e<sup>u</sup> → e<sup>u</sup> · u′</td><td>(e<sup>3x</sup>)′ = 3e<sup>3x</sup></td></tr>
+    <tr><td>Logaritmo</td><td>ln u → u′ / u</td><td>(ln(x² + 1))′ = 2x / (x² + 1)</td></tr>
+    <tr><td>Raiz</td><td>√u → u′ / (2√u)</td><td>(√(x² + 9))′ = x / √(x² + 9)</td></tr>
+    <tr><td>Cadeia (potência de um pacote)</td><td>uⁿ → n · uⁿ⁻¹ · u′</td><td>((2x + 1)⁵)′ = 5(2x + 1)⁴ · 2</td></tr>
+    <tr><td>Produto</td><td>(u · v)′ = u′v + uv′</td><td>(x² · eˣ)′ = 2x·eˣ + x²·eˣ</td></tr>
+    <tr><td>Quociente</td><td>(u / v)′ = (u′v − uv′) / v²</td><td>(1 / x)′ = (0·x − 1·1) / x² = −1 / x²</td></tr></table></div>
+  <div class="ofi"><span class="k">A regra da cadeia em uma frase</span>Quando tem uma função dentro de outra: derive a de fora <b>mantendo a de dentro intacta</b> e multiplique pela <b>derivada da de dentro</b>. A de dentro nunca é trocada pela derivada dela; a derivada entra multiplicando no final.</div>
+  <div class="cuid"><span class="k">Cuidado</span>Multiplica pela <b>derivada</b> do de dentro, não pelo de dentro: (e<sup>5y</sup>)′ = 5e<sup>5y</sup>, e não 5y·e<sup>5y</sup>. Teste: com e<sup>y</sup>, a regra dá e<sup>y</sup> · 1 = e<sup>y</sup>, que é o que você já sabe.</div>
+
+  <h3>A ideia de congelar</h3>
+  <div class="cuid"><span class="k">Exemplo prático · o chuveiro com duas torneiras</span>A temperatura da água depende de quanto você abre a torneira quente (x) e a fria (y): T(x, y). Para entender cada torneira, você faz o que qualquer pessoa faz no banho: mexe numa só e deixa a outra parada.
+    <ul style="margin:6px 0 0;padding-left:1.2em"><li>Abrir só um pouco mais a quente: quanto a água esquenta? → <b>∂T/∂x</b></li><li>Abrir só um pouco mais a fria: quanto a água esfria? → <b>∂T/∂y</b></li></ul>
+    <p style="margin:8px 0 0">Isso é derivada parcial: uma taxa de variação para cada variável, mexendo numa de cada vez. O ∂ ("d curvo") só avisa que a função tem outras variáveis e que elas estão congeladas.</p></div>
+
   <div class="fx"><span class="tag">Definição 3.1 · derivadas parciais</span>
     <div class="eq"><i>f<sub>x</sub></i>(<i>x</i>, <i>y</i>) = lim<sub><i>h</i>→0</sub> [<i>f</i>(<i>x</i>+<i>h</i>, <i>y</i>) − <i>f</i>(<i>x</i>, <i>y</i>)] / <i>h</i></div>
     <div class="eq" style="padding-top:0"><i>f<sub>y</sub></i>(<i>x</i>, <i>y</i>) = lim<sub><i>h</i>→0</sub> [<i>f</i>(<i>x</i>, <i>y</i>+<i>h</i>) − <i>f</i>(<i>x</i>, <i>y</i>)] / <i>h</i></div>
     <dl class="legend"><dt>notação</dt><dd>f<sub>x</sub> = ∂f/∂x = ∂z/∂x = D<sub>x</sub>f (todas significam a mesma coisa)</dd><dt>f<sub>x</sub></dt><dd>taxa de variação de z em relação a x, <b>com y fixo</b></dd><dt>f<sub>y</sub></dt><dd>taxa de variação de z em relação a y, <b>com x fixo</b></dd></dl>
   </div>
-  <div class="ofi"><span class="k">Regra prática</span>Para f<sub>x</sub>: trate y como se fosse um número (tipo 5) e derive em x com as regras do Cálculo I. Para f<sub>y</sub>: o contrário.</div>
+  <h3>Como calcular: a receita</h3>
+  <ol class="recipe">
+    <li><span>Escolha em qual variável vai derivar.</span></li>
+    <li><span>Trate a outra como se fosse um número (pense nela como 5).</span></li>
+    <li><span>Derive com as regras do Cálculo I (a tabela acima).</span></li>
+  </ol>
+  <div class="ofi"><span class="k">A regra de ouro</span>Constante <b>sozinha some</b>; constante <b>multiplicando fica</b>. Com y congelado, o y é um número e se comporta assim (derivando em x):</div>
+  <div class="tbl"><table><tr><th>Termo</th><th>Pense no y como 5</th><th>Resultado</th><th>Por quê</th></tr>
+    <tr><td>y + x</td><td>5 + x</td><td>1</td><td>o y está sozinho: some</td></tr>
+    <tr><td>y · x</td><td>5 · x</td><td>y</td><td>o y multiplica o x: fica</td></tr>
+    <tr><td>y²</td><td>25</td><td>0</td><td>não tem x: é constante</td></tr>
+    <tr><td>x² · y³</td><td>x² · 125</td><td>2x · y³</td><td>y³ multiplica: fica esperando</td></tr>
+    <tr><td>e<sup>3y</sup> · x</td><td>número · x</td><td>e<sup>3y</sup></td><td>o pedaço inteiro sem x é constante</td></tr></table></div>
 
   <h3>Simulador: a inclinação no corte</h3>
   <p>O plano vertical y = b corta a superfície numa curva (preta). A reta laranja é tangente a essa curva: sua inclinação é f<sub>x</sub>(a, b). Troque para "andar em y" para ver f<sub>y</sub>.</p>
@@ -536,6 +580,25 @@ body{font-size:1rem}
   <div class="labgrid2"><div class="cv sim" id="pc3d" style="aspect-ratio:1/1"><canvas></canvas></div><div class="cv sim" id="pc2d" style="aspect-ratio:1/1"><canvas></canvas></div></div>
   <div class="simctl" id="pcCtl"></div>
   <div class="simout" id="pcOut"></div>
+
+  <div class="ofi"><span class="k">Analogia da montanha</span>f<sub>x</sub> é a inclinação que você sente andando só na direção leste-oeste; f<sub>y</sub>, andando só norte-sul. Congelar o y é cortar a superfície com uma "faca" no y fixo: o corte é uma curva comum do Cálculo I, e f<sub>x</sub> é a inclinação dela. Positiva: subida. Negativa: descida. Zero: plano naquela direção.</div>
+
+  <h3>Exemplos resolvidos passo a passo</h3>
+  <div class="ex" data-ex><div class="q">Exemplo A: f(x, y) = 3x − 2y⁴.</div>
+    <ol><li>f<sub>x</sub> (y congelado): 3x → 3. O −2y⁴ é constante sozinha → 0.</li><li>f<sub>y</sub> (x congelado): 3x é constante → 0. −2y⁴ → −2 · 4y³.</li><li>Atenção ao sinal: o −2 multiplica o 4y³. É a questão 1a da lista, em que o gabarito da professora esqueceu o sinal.</li></ol>
+    <div class="ans">f<sub>x</sub> = 3 · f<sub>y</sub> = −8y³</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo B: z = x · e<sup>3y</sup>.</div>
+    <ol><li>z<sub>x</sub>: e<sup>3y</sup> é um número multiplicando x → fica. (x)′ = 1.</li><li>z<sub>y</sub>: x é número multiplicando → fica. (e<sup>3y</sup>)′ = e<sup>3y</sup> · 3 (cadeia).</li></ol>
+    <div class="ans">z<sub>x</sub> = e<sup>3y</sup> · z<sub>y</sub> = 3x·e<sup>3y</sup></div></div>
+  <div class="ex" data-ex><div class="q">Exemplo C (cadeia): z = (2x + 3y)¹⁰.</div>
+    <ol><li>z<sub>x</sub>: a potência desce: 10(2x + 3y)⁹ · derivada de dentro em x, que é 2.</li><li>z<sub>y</sub>: 10(2x + 3y)⁹ · derivada de dentro em y, que é 3.</li><li>Repare: a parte de fora é igual nas duas. Só muda a derivada de dentro.</li></ol>
+    <div class="ans">z<sub>x</sub> = 20(2x + 3y)⁹ · z<sub>y</sub> = 30(2x + 3y)⁹</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo D: f(x, y) = x²y + 3y.</div>
+    <ol><li>f<sub>x</sub>: x²y → 2x · y (o y multiplica, fica). 3y → 0 (sozinho).</li><li>f<sub>y</sub>: x²y → x² (o x² multiplica o y). 3y → 3.</li></ol>
+    <div class="ans">f<sub>x</sub> = 2xy · f<sub>y</sub> = x² + 3</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo E (num ponto): f(x, y) = ln(x² + y²) em (1, 2).</div>
+    <ol><li>Cadeia do ln: (de dentro)′ ÷ de dentro.</li><li>f<sub>x</sub> = 2x / (x² + y²) e f<sub>y</sub> = 2y / (x² + y²).</li><li>Só agora troque os números: f<sub>x</sub>(1, 2) = 2/5 e f<sub>y</sub>(1, 2) = 4/5. Sempre derive primeiro com letras e substitua o ponto no final.</li></ol>
+    <div class="ans">f<sub>x</sub>(1, 2) = 0,4 · f<sub>y</sub>(1, 2) = 0,8</div></div>
 
   <h3>Exemplos da aula</h3>
   <div class="ex" data-ex><div class="q">Exemplo 1: f(x, y) = x³ + x²y³ − 2y². Ache f<sub>x</sub>(2, 1) e f<sub>y</sub>(2, 1).</div>
@@ -550,7 +613,41 @@ body{font-size:1rem}
   <div class="ex" data-ex><div class="q">Exemplo 7 (aplicação): T(x, y) = 100 − 2x² − y² numa placa. Taxas de variação em (2, 1)?</div>
     <ol><li>∂T/∂x = −4x e ∂T/∂y = −2y.</li><li>No ponto (2, 1): T<sub>x</sub> = −8 e T<sub>y</sub> = −2.</li></ol>
     <div class="ans">Andando em x a temperatura cai 8 °C por unidade; em y, cai 2 °C por unidade</div></div>
-  <div class="cuid"><span class="k">Pegadinha</span>Na derivada parcial, um termo que só tem a outra variável é <b>constante</b> e some: em f<sub>x</sub> de −2y⁴, a derivada é 0. Já um termo misto como x²y³ não some: o y³ fica multiplicando.</div>
+  <h3>Exemplos práticos da oficina</h3>
+  <p>A derivada parcial responde: <b>"se eu mexer só nesta variável, quanto o resultado muda por unidade?"</b></p>
+  <div class="ex" data-ex><div class="q">Custo do serviço: C(x, y) = 80x + 50y, com x = horas de solda (R$ 80/h) e y = horas de pintura (R$ 50/h).</div>
+    <ol><li>∂C/∂x = 80: cada hora a mais de solda custa R$ 80.</li><li>∂C/∂y = 50: cada hora a mais de pintura custa R$ 50.</li><li>Aqui a derivada é o preço de cada recurso, e é fixa porque a função é uma reta: não importa quantas horas você já tem.</li></ol>
+    <div class="ans">∂C/∂x = R$ 80/h · ∂C/∂y = R$ 50/h</div></div>
+  <div class="ex" data-ex><div class="q">Massa da chapa: m(L, C, e) = 7850 · L · C · e. Quanto pesa cada mm a mais de espessura numa chapa de 1 m × 2 m?</div>
+    <ol><li>∂m/∂e = 7850 · L · C (L e C congelados multiplicam, ficam).</li><li>Com 1 m × 2 m: 15.700 kg por metro de espessura.</li><li>Por milímetro: 15.700 / 1000 = 15,7 kg. Trocar uma chapa de 10 mm por uma de 12,5 mm: +2,5 mm ≈ +39 kg.</li></ol>
+    <div class="ans">≈ 15,7 kg a cada 1 mm de espessura</div></div>
+  <div class="calc"><h4>Simulador: o que rende mais no tanque, o raio ou a altura?</h4><p class="hint">Volume V = πr²h e chapa do costado A = 2πr·h. Mexa em r e h: as barras mostram as quatro derivadas parciais no ponto.</p>
+    <div class="row-ctl"><label class="mono" style="font-size:.82rem;flex:1;min-width:180px">r = <b id="dpRv"></b> m <input type="range" id="dpR" min="0.5" max="4" step="0.1" value="2" style="width:100%"></label>
+      <label class="mono" style="font-size:.82rem;flex:1;min-width:180px">h = <b id="dpHv"></b> m <input type="range" id="dpH" min="0.5" max="6" step="0.1" value="3" style="width:100%"></label></div>
+    <div id="dpBars"></div><div class="out" id="dpOut"></div></div>
+  <div class="ex" data-ex><div class="q">Chapa do costado: A(r, h) = 2πr · h. O que significam ∂A/∂h e ∂A/∂r com r = 2 m e h = 3 m?</div>
+    <ol><li>∂A/∂h = 2πr = o perímetro: cada metro a mais de altura acrescenta uma faixa de chapa do tamanho da volta do tanque.</li><li>∂A/∂r = 2πh.</li><li>Com r = 2 e h = 3: ∂A/∂h = 4π ≈ 12,6 m² por metro de altura · ∂A/∂r = 6π ≈ 18,8 m² por metro de raio.</li><li>Diferente do custo, aqui a resposta depende do ponto: num tanque mais largo, cada metro de altura gasta mais chapa.</li></ol>
+    <div class="ans">∂A/∂h ≈ 12,6 m²/m · ∂A/∂r ≈ 18,8 m²/m</div></div>
+  <div class="ex" data-ex><div class="q">Volume do tanque: V(r, h) = π r² h, com r = 2 m e h = 3 m.</div>
+    <ol><li>∂V/∂h = πr² (a área da base).</li><li>∂V/∂r = 2πrh.</li><li>No ponto: ∂V/∂h = 4π ≈ 12,6 m³/m · ∂V/∂r = 12π ≈ 37,7 m³/m.</li><li>Mexer no raio rende 3 vezes mais volume que mexer na altura, porque o raio entra ao quadrado. A derivada parcial mede isso.</li></ol>
+    <div class="ans">∂V/∂h ≈ 12,6 m³/m · ∂V/∂r ≈ 37,7 m³/m</div></div>
+
+  <div class="cuid"><span class="k">Pegadinhas</span><ul style="margin:4px 0 0;padding-left:1.2em">
+    <li>Reescrever o congelado em vez de derivá-lo: em 3x − 2y⁴, a f<sub>x</sub> é 3, não 3 − 2y⁴.</li>
+    <li>Achar que a constante sempre some: só some <b>sozinha</b>. Multiplicando, fica (x·e<sup>3y</sup> → z<sub>x</sub> = e<sup>3y</sup>).</li>
+    <li>Cadeia pela metade: esquecer de multiplicar pela derivada de dentro.</li>
+    <li>Multiplicar pelo de dentro em vez da derivada dele: (e<sup>5y</sup>)′ = 5e<sup>5y</sup>, não 5y·e<sup>5y</sup>.</li>
+    <li>Trocar o de dentro pela derivada: em (2x + 3y)¹⁰, o (2x + 3y) continua lá; o 2 entra multiplicando.</li>
+    <li>Derivar o expoente fixo: o 10 de (…)¹⁰ não vira 0; ele desce pela regra da potência.</li>
+    <li>Esquecer o x congelado multiplicando: z<sub>y</sub> de x·e<sup>3y</sup> é 3x·e<sup>3y</sup>, com o x.</li>
+    <li>Sinais: −2 · 4y³ = −8y³.</li>
+    <li>Substituir o ponto antes de derivar: derive com letras, troque os números no final.</li>
+    <li>Produto × quociente: produto é u′v + uv′; quociente é (u′v − uv′) / v².</li></ul></div>
+
+  <h3>Exercícios para treinar</h3>
+  <p>Para cada um: qual variável congela e que regra usa.</p>
+  <div><details class="qitem"><summary><span class="qn">E1</span><span>f(x, y) = 5x³ + 2y. Calcule f<sub>x</sub> e f<sub>y</sub>.<span class="tagt">potência</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = <b>15x²</b> · f<sub>y</sub> = <b>2</b></div></div></details><details class="qitem"><summary><span class="qn">E2</span><span>f(x, y) = x²y³. Calcule f<sub>x</sub> e f<sub>y</sub>.<span class="tagt">constante multiplicando</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = <b>2xy³</b> · f<sub>y</sub> = <b>3x²y²</b></div></div></details><details class="qitem"><summary><span class="qn">E3</span><span>f(x, y) = 4xy − y² + 7. Calcule f<sub>x</sub> e f<sub>y</sub>.<span class="tagt">1ª ordem</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = <b>4y</b> · f<sub>y</sub> = <b>4x − 2y</b> (o 7 some nas duas)</div></div></details><details class="qitem"><summary><span class="qn">E4</span><span>z = e<sup>2x + y</sup>. Calcule z<sub>x</sub> e z<sub>y</sub>.<span class="tagt">exponencial</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>z<sub>x</sub> = <b>2e<sup>2x + y</sup></b> · z<sub>y</sub> = <b>e<sup>2x + y</sup></b></div></div></details><details class="qitem"><summary><span class="qn">E5</span><span>z = (x² + y)⁵. Calcule z<sub>x</sub> e z<sub>y</sub>.<span class="tagt">cadeia</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>z<sub>x</sub> = 5(x² + y)⁴ · 2x = <b>10x(x² + y)⁴</b> · z<sub>y</sub> = 5(x² + y)⁴ · 1 = <b>5(x² + y)⁴</b></div></div></details><details class="qitem"><summary><span class="qn">E6</span><span>f(x, y) = ln(x² + 3y). Calcule f<sub>x</sub> e f<sub>y</sub>, e depois f<sub>x</sub>(1, 1).<span class="tagt">ln e ponto</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = <b>2x / (x² + 3y)</b> · f<sub>y</sub> = <b>3 / (x² + 3y)</b> · f<sub>x</sub>(1, 1) = 2/4 = <b>0,5</b></div></div></details><details class="qitem"><summary><span class="qn">E7</span><span>Para m = 7850 · L · C · e, com uma chapa de 1,5 m × 3 m, quanto a massa aumenta a cada 1 mm de espessura?<span class="tagt">prática · chapa</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>∂m/∂e = 7850 · 1,5 · 3 = 35.325 kg/m → <b>≈ 35,3 kg a cada 1 mm</b></div></div></details><details class="qitem"><summary><span class="qn">E8</span><span>T(x, y) = 80 − 2x² − y². No ponto (2, 1), calcule T<sub>x</sub> e T<sub>y</sub>. Em que direção a temperatura cai mais rápido?<span class="tagt">prática · temperatura</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>T<sub>x</sub> = −4x → <b>−8 °C/m</b> · T<sub>y</sub> = −2y → <b>−2 °C/m</b>. Cai mais rápido na <b>direção x</b> (4 vezes mais).</div></div></details></div>
+  <div class="cuid"><span class="k">Errou algum?</span>Identifique qual regra falhou (a tabela do Cálculo I) ou qual pegadinha caiu e refaça. A maioria dos erros é de congelar errado: confira se a constante estava sozinha ou multiplicando.</div>
 
   <div class="done-btn" data-done="parciais"></div>
 </section>
@@ -565,6 +662,15 @@ body{font-size:1rem}
     <div class="eq"><i>f<sub>xx</sub></i> = ∂²<i>f</i>/∂<i>x</i>² &nbsp;&nbsp; <i>f<sub>xy</sub></i> = ∂²<i>f</i>/∂<i>y</i>∂<i>x</i> &nbsp;&nbsp; <i>f<sub>yx</sub></i> = ∂²<i>f</i>/∂<i>x</i>∂<i>y</i> &nbsp;&nbsp; <i>f<sub>yy</sub></i></div>
     <dl class="legend"><dt>f<sub>xy</sub></dt><dd>derive <b>primeiro em x, depois em y</b> (lê da esquerda para a direita no índice)</dd><dt>∂²f/∂y∂x</dt><dd>na fração, a ordem é ao contrário: o que está mais perto do f é o primeiro</dd></dl>
   </div>
+  <p>É só pegar a derivada que você encontrou e <b>derivar de novo</b>. Como cada uma pode ser derivada em x ou em y, saem quatro:</p>
+  <div class="tbl"><table><tr><th>Começo de</th><th>Derivo de novo em</th><th>Nome</th><th>Tipo</th></tr>
+    <tr><td>f<sub>x</sub></td><td>x</td><td>f<sub>xx</sub></td><td>pura</td></tr>
+    <tr><td>f<sub>x</sub></td><td>y</td><td>f<sub>xy</sub></td><td>mista</td></tr>
+    <tr><td>f<sub>y</sub></td><td>y</td><td>f<sub>yy</sub></td><td>pura</td></tr>
+    <tr><td>f<sub>y</sub></td><td>x</td><td>f<sub>yx</sub></td><td>mista</td></tr></table></div>
+  <div class="ex" data-ex><div class="q">Exemplo completo: as quatro derivadas segundas de z = x · e<sup>3y</sup>.</div>
+    <ol><li>1ª ordem (módulo 3): z<sub>x</sub> = e<sup>3y</sup> e z<sub>y</sub> = 3x·e<sup>3y</sup>.</li><li>z<sub>xx</sub> = 0 (z<sub>x</sub> não tem x).</li><li>z<sub>xy</sub> = 3e<sup>3y</sup> (cadeia em y).</li><li>z<sub>yy</sub> = 9x·e<sup>3y</sup> (o 3 sai de novo).</li><li>z<sub>yx</sub> = 3e<sup>3y</sup> (o 3e<sup>3y</sup> multiplica o x, fica).</li><li>Conferência: as mistas deram iguais, como manda Clairaut (abaixo).</li></ol>
+    <div class="ans">z<sub>xx</sub> = 0 · z<sub>xy</sub> = z<sub>yx</sub> = 3e<sup>3y</sup> · z<sub>yy</sub> = 9x·e<sup>3y</sup></div></div>
   <div class="fx"><span class="tag">Teorema 4.2 · Clairaut</span>
     <div class="eq"><i>f<sub>xy</sub></i>(<i>a</i>, <i>b</i>) = <i>f<sub>yx</sub></i>(<i>a</i>, <i>b</i>)</div>
     <dl class="legend"><dt>vale quando</dt><dd>f<sub>xy</sub> e f<sub>yx</sub> são contínuas perto de (a, b), o que acontece com praticamente toda função da prova</dd><dt>uso</dt><dd>confira as contas: se as mistas deram diferentes, tem erro</dd></dl>
@@ -575,11 +681,39 @@ body{font-size:1rem}
   <div class="ex" data-ex><div class="q">Exemplo 6: f<sub>xyyz</sub> se f(x, y, z) = 1 − 2xy²z + x²y.</div>
     <ol><li>f<sub>x</sub> = −2y²z + 2xy.</li><li>f<sub>xy</sub> = −4yz + 2x.</li><li>f<sub>xyy</sub> = −4z.</li><li>f<sub>xyyz</sub> = −4.</li></ol><div class="ans">f<sub>xyyz</sub> = −4</div></div>
 
+  <h3>Para que serve a 2ª ordem: morro, vale e sela</h3>
+  <p>A 1ª derivada diz se sobe ou desce. A 2ª diz <b>como a curva dobra</b>, e isso revela a forma. Com duas variáveis, no ponto em que a 1ª ordem zera, aparecem três formas:</p>
+  <div class="labgrid2" style="grid-template-columns:repeat(auto-fit,minmax(150px,1fr))">
+    <figure style="margin:0;text-align:center"><svg viewBox="0 0 160 100" style="width:100%;max-width:220px"><path d="M10 85 Q80 -25 150 85" fill="none" stroke="var(--c1)" stroke-width="3"/><circle cx="80" cy="30" r="5" fill="var(--c1)"/><line x1="55" y1="30" x2="105" y2="30" stroke="var(--ink2)" stroke-dasharray="4 3"/></svg><figcaption><b>Morro (máximo)</b><br><small>2ª derivada &lt; 0: a curva dobra para baixo</small></figcaption></figure>
+    <figure style="margin:0;text-align:center"><svg viewBox="0 0 160 100" style="width:100%;max-width:220px"><path d="M10 15 Q80 125 150 15" fill="none" stroke="var(--c2)" stroke-width="3"/><circle cx="80" cy="70" r="5" fill="var(--c2)"/><line x1="55" y1="70" x2="105" y2="70" stroke="var(--ink2)" stroke-dasharray="4 3"/></svg><figcaption><b>Vale (mínimo)</b><br><small>2ª derivada &gt; 0: a curva dobra para cima</small></figcaption></figure>
+    <figure style="margin:0;text-align:center"><svg viewBox="0 0 160 100" style="width:100%;max-width:220px"><path d="M10 90 Q80 10 150 90" fill="none" stroke="var(--c3)" stroke-width="3"/><path d="M45 10 Q80 90 115 10" fill="none" stroke="var(--c3)" stroke-width="3" stroke-dasharray="6 4"/><circle cx="80" cy="50" r="5" fill="var(--c3)"/></svg><figcaption><b>Sela</b><br><small>numa direção é morro, na outra é vale</small></figcaption></figure></div>
+  <div class="fx"><span class="tag">O teste completo · módulo 7</span><div class="eq"><i>D</i> = <i>f<sub>xx</sub></i> · <i>f<sub>yy</sub></i> − (<i>f<sub>xy</sub></i>)²</div>
+    <dl class="legend"><dt>onde</dt><dd>no ponto em que f<sub>x</sub> = 0 e f<sub>y</sub> = 0</dd><dt>D &gt; 0 e f<sub>xx</sub> &lt; 0</dt><dd>máximo (morro)</dd><dt>D &gt; 0 e f<sub>xx</sub> &gt; 0</dt><dd>mínimo (vale)</dd><dt>D &lt; 0</dt><dd>ponto de sela</dd><dt>D = 0</dt><dd>o teste não decide</dd></dl></div>
+
+  <h3>Exemplo completo: a chapa depois da solda</h3>
+  <div class="fx"><span class="tag">Temperatura da chapa</span><div class="eq"><i>T</i>(<i>x</i>, <i>y</i>) = 100 − <i>x</i>² − 2<i>y</i>²</div>
+    <dl class="legend"><dt>T</dt><dd>temperatura em °C</dd><dt>x, y</dt><dd>posição em metros a partir do ponto de solda, que deixou o centro a 100 °C</dd></dl></div>
+  <div class="ex" data-ex><div class="q">1ª ordem: para onde e quão rápido a temperatura muda?</div>
+    <ol><li>T<sub>x</sub> = −2x e T<sub>y</sub> = −4y.</li><li>No ponto (1, 1): T<sub>x</sub> = −2 °C/m e T<sub>y</sub> = −4 °C/m.</li><li>Em y a temperatura cai duas vezes mais rápido: o calor flui mais forte nessa direção (Lei de Fourier), e é ali que a chapa tem mais tendência a empenar.</li><li>No ponto (0, 0): T<sub>x</sub> = 0 e T<sub>y</sub> = 0. A temperatura "estaciona": é topo ou fundo de alguma coisa, e a 1ª ordem não sabe dizer qual.</li></ol>
+    <div class="ans">(1, 1): −2 °C/m em x e −4 °C/m em y · (0, 0) é candidato</div></div>
+  <div class="ex" data-ex><div class="q">2ª ordem: o (0, 0) é máximo, mínimo ou sela?</div>
+    <ol><li>T<sub>xx</sub> = −2 · T<sub>yy</sub> = −4 · T<sub>xy</sub> = 0.</li><li>D = (−2)(−4) − 0² = 8 &gt; 0.</li><li>T<sub>xx</sub> &lt; 0 → morro.</li><li>Se a chapa tivesse um ponto frio no centro (T = 20 + x² + y²), as segundas dariam positivas: vale, mínimo.</li></ol>
+    <div class="ans">Máximo: o (0, 0) é o ponto mais quente da chapa, o próprio ponto de solda</div></div>
+  <div class="tbl"><table><tr><th>Pergunta</th><th>Quem responde</th></tr>
+    <tr><td>Em que direção esquenta ou esfria, e quão rápido?</td><td>1ª ordem</td></tr>
+    <tr><td>Onde a temperatura estaciona (candidatos)?</td><td>1ª ordem = 0</td></tr>
+    <tr><td>Esse ponto é máximo, mínimo ou sela?</td><td>2ª ordem (teste do D)</td></tr></table></div>
+  <p>O mesmo roteiro serve no projeto do tanque: a 1ª derivada igual a zero encontra o tamanho candidato a gastar menos chapa, e a 2ª confirma que é mesmo um mínimo (módulo 7).</p>
+
   <h3>Onde isso aparece na engenharia</h3>
   <div class="branch"><div class="leaf a"><b>Equação de Laplace</b>T<sub>xx</sub> + T<sub>yy</sub> = 0: temperatura em regime estacionário numa placa sem fonte de calor (dissipadores, componentes mecânicos).</div><div class="leaf b"><b>Equação da onda</b>u<sub>tt</sub> = c² u<sub>xx</sub>: vibração de uma corda, com c = √(F/μ) (tensão sobre massa por comprimento).</div></div>
   <div class="ex" data-ex><div class="q">Exercício de aplicação da aula: u(x, t) = cos(2x + 2ct) satisfaz a equação da onda?</div>
     <ol><li>u<sub>x</sub> = −2 sen(2x + 2ct) → u<sub>xx</sub> = −4 cos(2x + 2ct).</li><li>u<sub>t</sub> = −2c sen(2x + 2ct) → u<sub>tt</sub> = −4c² cos(2x + 2ct).</li><li>c²·u<sub>xx</sub> = −4c² cos(2x + 2ct) = u<sub>tt</sub>.</li></ol>
     <div class="ans">Sim: u<sub>tt</sub> = c² u<sub>xx</sub></div></div>
+
+  <h3>Exercícios para treinar</h3>
+  <p>Na 2ª ordem, confira com Clairaut: as mistas têm que dar iguais.</p>
+  <div><details class="qitem"><summary><span class="qn">E9</span><span>f(x, y) = x³y². Calcule as quatro derivadas de 2ª ordem e confira Clairaut.<span class="tagt">2ª ordem</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = 3x²y², f<sub>y</sub> = 2x³y · f<sub>xx</sub> = <b>6xy²</b> · f<sub>yy</sub> = <b>2x³</b> · f<sub>xy</sub> = <b>6x²y</b> · f<sub>yx</sub> = <b>6x²y</b> ✓ iguais</div></div></details><details class="qitem"><summary><span class="qn">E10</span><span>f(x, y) = x² + y² − 4x. Ache o ponto onde f<sub>x</sub> = 0 e f<sub>y</sub> = 0 e diga se é máximo, mínimo ou sela.<span class="tagt">classificar</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = 2x − 4 = 0 → x = 2 · f<sub>y</sub> = 2y = 0 → y = 0 · ponto <b>(2, 0)</b>. f<sub>xx</sub> = 2, f<sub>yy</sub> = 2, f<sub>xy</sub> = 0 → D = 4 &gt; 0 e f<sub>xx</sub> &gt; 0 → <b>mínimo (vale)</b>.</div></div></details></div>
 
   <div class="done-btn" data-done="ordem"></div>
 </section>
@@ -978,6 +1112,16 @@ function simM12(){ const $=id=>document.getElementById(id), nf=(v,d=2)=>Number(v
     $('ocSvg').innerHTML=g; $('ocOut').innerHTML='80 · '+x+' + 50y = '+k.toLocaleString('pt-BR')+' → y = ('+k.toLocaleString('pt-BR')+' − '+(80*x).toLocaleString('pt-BR')+') / 50 = <b>'+nf(y,1)+' h de pintura</b>. Só solda: '+nf(xm,1)+' h · só pintura: '+nf(k/50,1)+' h.' };
   $('ocK').oninput=$('ocX').oninput=oc; oc();
   return [] }
+
+/* ===== módulo 3: derivadas parciais do tanque ===== */
+function simDP(){ const $=id=>document.getElementById(id), nf=(v,d=1)=>Number(v).toLocaleString('pt-BR',{maximumFractionDigits:d,minimumFractionDigits:d});
+  const go=()=>{ const r=+$('dpR').value, h=+$('dpH').value; $('dpRv').textContent=nf(r); $('dpHv').textContent=nf(h);
+    const L=[['∂V/∂r = 2πrh','m³ por m de raio',2*Math.PI*r*h,'var(--c1)'],['∂V/∂h = πr²','m³ por m de altura',Math.PI*r*r,'var(--c2)'],['∂A/∂r = 2πh','m² de chapa por m de raio',2*Math.PI*h,'var(--c3)'],['∂A/∂h = 2πr','m² de chapa por m de altura',2*Math.PI*r,'var(--ok)']];
+    const mx=Math.max(...L.map(l=>l[2]));
+    $('dpBars').innerHTML=L.map(([t,u,v,c])=>'<div style="margin:8px 0"><div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:2px 10px;font-size:.84rem"><span class="mono">'+t+'</span><b style="color:'+c+'">'+nf(v)+' '+u+'</b></div><div style="background:var(--paper);border-radius:6px;height:12px;margin-top:3px;overflow:hidden"><div style="width:'+(v/mx*100).toFixed(1)+'%;height:100%;background:'+c+'"></div></div></div>').join('');
+    const k=(2*Math.PI*r*h)/(Math.PI*r*r);
+    $('dpOut').innerHTML='Volume: π · '+nf(r)+'² · '+nf(h)+' = <b>'+nf(Math.PI*r*r*h)+' m³</b>. Agora, mexer no raio rende <b>'+nf(k)+' ×</b> o volume de mexer na altura ('+(k>1?'o raio ganha porque entra ao quadrado':'tanque largo e baixo: a altura passa a render mais')+').' };
+  $('dpR').oninput=$('dpH').oninput=go; go(); return [] }
 function simAula(){ const L=[['1','morro',[{x:0,y:0,c:'c1',l:'máximo'}]],['2','sela',[{x:0,y:0,c:'c3',l:'sela'}]],['3','aex1',[{x:1,y:3,c:'c2',l:'mínimo'}]],['4','aex2',[{x:0,y:0,c:'c3',l:'sela'},{x:1,y:1,c:'c2',l:'mínimo'},{x:-1,y:-1,c:'c2',l:'mínimo'}]],['5','montanha',[{x:50,y:80,c:'c1',l:'P (50, 80, 847)'},{x:0,y:0,c:'c2',l:'topo'}],{p:{x:50,y:80},grad:true,dir:3*Math.PI/4,tang:true,pontos:[{x:0,y:0,c:'c2',l:'topo'}]}]];
   const out=[]; L.forEach(([i,fn,P,M])=>{ const a=document.getElementById('au'+i+'3d'), b=document.getElementById('au'+i+'map'); if(!a||!b)return; out.push(Surf(a,{fn,pontos:P,alpha:.9,N:30}), Mapa(b,Object.assign({fn,pontos:P,niveis:16,labels:false},M||{}))) }); return out }
 function simExt(){ const sel=document.getElementById('exFn'), out=document.getElementById('exOut');
@@ -1119,7 +1263,7 @@ document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('i
 document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
 const fn3d=Surf(document.getElementById('fn3d'),{fn:'esfera'});
 document.querySelectorAll('#fnSeg button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#fnSeg button').forEach(z=>z.classList.toggle('on',z===b)); fn3d.set({fn:b.dataset.f}) });
-sims=[fn3d,...simM12(),...simHero(),...simNivel(),...simParcial(),...simGrad(),...simAula(),...simExt(),...simLab()];
+sims=[fn3d,...simM12(),...simDP(),...simHero(),...simNivel(),...simParcial(),...simGrad(),...simAula(),...simExt(),...simLab()];
 renderQuiz(); renderProg();
 addEventListener('hashchange',route); route();
 const redraw=()=>sims.forEach(s=>s&&s.draw());
