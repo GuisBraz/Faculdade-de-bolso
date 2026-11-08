@@ -57,7 +57,7 @@ const MATS = [...D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.
 const onde=m=>m.extra?'projeto complementar':m.periodo+'º período';
 let OV={}; try{ OV=JSON.parse(localStorage.getItem('fdb-status')||'{}')||{} }catch(e){}
 MATS.forEach(m=>{ m._base=m.status||''; if(m.id in OV) m.status=OV[m.id]||'' });
-let EDIT=false; const SHOWP={past:false,fut:false};
+let EDIT=false; const SHOWP={past:false,fut:false}; let SELP=null;
 function setSt(id,st){ const m=MATS.find(x=>x.id===id); if(!m)return; m.status=st; if(st===m._base) delete OV[id]; else OV[id]=st;
   try{ localStorage.setItem('fdb-status',JSON.stringify(OV)) }catch(e){} renderHome(); if(location.hash==='#m-'+id) renderMat(id) }
 const OPTS=[['','não cursada'],['cursando','cursando'],['aprovada','aprovada'],['reprovada','reprovada']];
@@ -96,16 +96,17 @@ function renderHome(){
   const pctT=(pct<10&&pct>0?pct.toFixed(1).replace('.',','):Math.floor(pct))+'%';
   const pg=document.getElementById('prog'); pg.title=Dn.toLocaleString('pt-BR')+' de '+T.toLocaleString('pt-BR')+' h · '+nOk+' de '+MATS.filter(m=>!m.extra).length+' matérias aprovadas · '+nClosed+' de '+P.length+' períodos concluídos'+(nCur?' · '+nCur+' cursando':'')+(nRp?' · '+nRp+' reprovada(s) a refazer':'');
   pg.innerHTML='<span>Progresso</span><span class="mbar">'+P.map(x=>'<i class="'+(x.p.atual?'cur':'')+'" style="flex:'+x.tot+'"><em style="width:'+(x.tot?x.done/x.tot*100:0)+'%"></em></i>').join('')+'</span><b>'+pctT+'</b>'+(nRp?'<span class="rp">· '+nRp+' a refazer</span>':'');
-  document.getElementById('jump').innerHTML=P.map(x=>'<button data-p="'+x.p.numero+'" class="'+(x.p.atual?'on ':'')+(x.full?'done':'')+'">'+(x.full?'✓ ':'')+x.p.numero+'º</button>').join('')+(MATS.some(m=>m.extra)?'<button data-x="1">Extras</button>':'');
-  document.querySelectorAll('#jump button[data-x]').forEach(b=>b.onclick=()=>{ const el=document.getElementById('pX'); if(el) el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
-  document.querySelectorAll('#jump button[data-p]').forEach(b=>b.onclick=()=>{ const cn=(D.periodos.find(p=>p.atual)||{}).numero||1, n=+b.dataset.p; if(!document.getElementById('p'+n)){ if(n<cn)SHOWP.past=true; else SHOWP.fut=true; renderHome() } const el=document.getElementById('p'+n); if(el.tagName==='DETAILS')el.open=true; el.scrollIntoView({behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'}) });
+  const curN0=(D.periodos.find(p=>p.atual)||{}).numero||1; if(SELP==null) SELP=curN0;
+  document.getElementById('jump').innerHTML=P.map(x=>'<button data-p="'+x.p.numero+'" aria-pressed="'+(SELP===x.p.numero)+'" class="'+(SELP===x.p.numero?'on ':'')+(x.full?'done':'')+'">'+(x.full?'✓ ':'')+x.p.numero+'º</button>').join('')+(MATS.some(m=>m.extra)?'<button data-x="1" aria-pressed="'+(SELP==='X')+'" class="'+(SELP==='X'?'on':'')+'">Extras</button>':'');
+  document.querySelectorAll('#jump button[data-x]').forEach(b=>b.onclick=()=>{ SELP='X'; renderHome() });
+  document.querySelectorAll('#jump button[data-p]').forEach(b=>b.onclick=()=>{ SELP=+b.dataset.p; renderHome() });
   const eb=document.getElementById('editBtn'); eb.textContent=EDIT?'✓ Concluir':'Dar baixa nas matérias'; eb.classList.toggle('on',EDIT); eb.setAttribute('aria-pressed',EDIT);
   document.getElementById('editPanel').hidden=!EDIT;
   const curN=(D.periodos.find(p=>p.atual)||{}).numero||1;
-  const vis=x=>EDIT||x.p.numero===curN||x.ms.some(m=>m.status==='cursando')||(x.p.numero<curN?SHOWP.past:SHOWP.fut);
+  const vis=x=>EDIT||x.p.numero===SELP;
   const hidPast=P.filter(x=>x.p.numero<curN&&!vis(x)), hidFut=P.filter(x=>x.p.numero>curN&&!vis(x));
   const rng=a=>a.length?(a.length===1?a[0].p.numero+'º':a[0].p.numero+'º ao '+a[a.length-1].p.numero+'º'):'';
-  document.getElementById('pshow').innerHTML=(EDIT?'':
+  document.getElementById('pshow').innerHTML=(true?'':
     (hidPast.length||SHOWP.past&&P.some(x=>x.p.numero<curN)?'<button type="button" data-g="past">'+(SHOWP.past?'Ocultar períodos anteriores':'Mostrar períodos anteriores · '+rng(hidPast))+'</button>':'')+
     (hidFut.length||SHOWP.fut&&P.some(x=>x.p.numero>curN)?'<button type="button" data-g="fut">'+(SHOWP.fut?'Ocultar próximos períodos':'Mostrar próximos períodos · '+rng(hidFut))+'</button>':''));
   document.querySelectorAll('#pshow button').forEach(b=>b.onclick=()=>{ SHOWP[b.dataset.g]=!SHOWP[b.dataset.g]; renderHome() });
@@ -116,7 +117,7 @@ function renderHome(){
     if(x.closed&&!EDIT){
       const tag=x.full?'<span class="pill ok">concluído · 100%</span>':'<span class="pill bad">'+x.rp.length+' '+(x.rp.length===1?'reprovada':'reprovadas')+'</span>';
       return '<details class="periodo" id="p'+p.numero+'"><summary><div class="ruler"><h2>'+p.numero+'º período</h2>'+tag+'<span class="ticks"></span><span class="tg">'+info+'</span></div></summary>'+grid+'</details>' }
-    return '<section class="periodo'+(p.atual?' now':'')+'" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2>'+(p.atual?'<span class="pill">cursando</span>':'')+'<span class="ticks"></span><span class="ct">'+info+(x.done?' · '+Math.round(x.done/x.tot*100)+'%':'')+'</span></div>'+grid+'</section>' }).join('')+extrasHTML();
+    return '<section class="periodo'+(p.atual?' now':'')+'" id="p'+p.numero+'"><div class="ruler"><h2>'+p.numero+'º período</h2>'+(p.atual?'<span class="pill">cursando</span>':'')+'<span class="ticks"></span><span class="ct">'+info+(x.done?' · '+Math.round(x.done/x.tot*100)+'%':'')+'</span></div>'+grid+'</section>' }).join('')+(EDIT||SELP==='X'?extrasHTML(true):'');
 }
 function extrasHTML(){ const ex=MATS.filter(m=>m.extra); if(!ex.length||EDIT) return '';
   return '<section class="periodo extras" id="pX"><div class="ruler"><h2>Projetos complementares</h2><span class="pill gh">extra</span><span class="ticks"></span><span class="ct">'+ex.length+(ex.length===1?' matéria':' matérias')+' fora dos semestres · não entram no progresso</span></div><div class="grid">'+ex.map(matCard).join('')+'</div></section>' }
