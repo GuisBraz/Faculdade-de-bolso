@@ -207,25 +207,9 @@ const MAO=[
 const METC=['ak','ae','tr','pt','la','ac'];
 const fr=v=>{ if(typeof v==='number') return v; const [a,b]=String(v).split('/').map(Number); return a/(b||1) };
 const sub=f=>String(f).replace(/\d+/g,d=>d.split('').map(c=>'₀₁₂₃₄₅₆₇₈₉'[c]).join(''));
-function maoW(){ const B=g('m3Mao'); if(!B) return; let E=MAO[0], k=0, tm=0;
-  const P=g('m3MaoP'); P.innerHTML=MAO.map((e,i)=>'<button data-i="'+i+'">'+e.n+'</button>').join('');
-  const ordem=els=>{ const rank=e=>{ const c=(typeof BY!=='undefined'&&BY[e])?BY[e].cat:''; return METC.includes(c)?0:e==='C'?2:e==='H'?3:e==='O'?4:1 }; return els.sort((a,b)=>rank(a)-rank(b)) };
-  const draw=(anim)=>{ P.querySelectorAll('button').forEach(b=>b.classList.toggle('sel',MAO[+b.dataset.i]===E)); const [co,foco,nota,mud]=E.s[k], sp=[...E.r,...E.p], nr=E.r.length, F=sp.map(f=>parseF(f));
-    const els=ordem([...new Set(F.flatMap(c=>Object.keys(c)))]);
-    const conta=(i0,i1,e)=>{ let t=0, partes=[]; for(let i=i0;i<i1;i++){ const q=F[i][e]; if(!q) continue; const c=fr(co[i]); t+=c*q; partes.push((String(co[i])==='1'?'':co[i]+' × ')+q) } return {t,partes} };
-    const eqh=sp.map((f,i)=>(i===nr?'<span class="op">→</span>':i?'<span class="op">+</span>':'')+'<span class="spc">'+(String(co[i])!=='1'||mud.includes(i)?'<span class="cf'+(mud.includes(i)?' novo':'')+'">'+co[i]+'</span>':'')+sub(f)+'</span>').join('');
-    const col=(i0,i1)=>els.map(e=>{ const a=conta(i0,i1,e), o=i0===0?conta(nr,sp.length,e):conta(0,nr,e), ok=Math.abs(a.t-o.t)<1e-9; const n=Number.isInteger(a.t)?a.t:a.t.toLocaleString('pt-BR');
-      return '<li class="'+(foco===e||foco==='*'?'foco ':'')+(ok?'ok':'no')+'"><b>'+n+' '+e+'</b> <i>'+(ok?'✓':'✗')+'</i>'+(foco===e&&a.partes.length>1||foco===e&&a.partes.some(x=>x.includes('×'))?'<small>'+a.partes.join(' + ')+'</small>':'')+'</li>' }).join('');
-    const tudo=els.every(e=>Math.abs(conta(0,nr,e).t-conta(nr,sp.length,e).t)<1e-9);
-    B.innerHTML='<div class="bq-top"><span>Passo '+(k)+' de '+(E.s.length-1)+'</span><span class="dots">'+E.s.map((_,i)=>'<i class="'+(i<=k?'on':'')+'"></i>').join('')+'</span></div>'+
-      '<div class="bq-eq'+(anim?' esc':'')+'">'+eqh+'</div><div class="bq-cols"><div><small>reagentes</small><ul>'+col(0,nr)+'</ul></div><div><small>produtos</small><ul>'+col(nr,sp.length)+'</ul></div></div>'+
-      '<div class="bq-nota'+(foco==='*'&&tudo?' fim':'')+'">'+(foco&&foco!=='*'?'<span class="tag">'+foco+'</span>':'')+nota+'</div>';
-    g('m3MaoN').textContent=k+' / '+(E.s.length-1); g('m3MaoV').disabled=k===0; g('m3MaoA').textContent=k<E.s.length-1?'Próximo passo ▶':'Outra equação ▶' };
-  g('m3MaoA').onclick=()=>{ if(k<E.s.length-1){ k++; draw(true) } else { E=MAO[(MAO.indexOf(E)+1)%MAO.length]; k=0; draw(true) } };
-  g('m3MaoV').onclick=()=>{ if(k>0){ k--; draw(false) } }; g('m3MaoT').onclick=()=>{ k=0; draw(true) };
-  P.querySelectorAll('button').forEach(b=>b.onclick=()=>{ E=MAO[+b.dataset.i]; k=0; draw(true) }); draw(false) }
+/* (os quadros são gerados a partir de MAO e escritos direto no HTML da aula) */
 
-maoW(); limW(); noxW(); rxW(); idxW();
+limW(); noxW(); rxW(); idxW();
 const DRAW={solucoes:[solW(),dilW()],pilhas:[pilhaW()]};
 const show=()=>{ const h=location.hash.slice(1); (DRAW[h]||[]).forEach(f=>{ try{ f&&f() }catch(e){ console.error(e) } }) };
 addEventListener('hashchange',()=>requestAnimationFrame(show)); let rz=0; addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(show,150) }); requestAnimationFrame(show);
