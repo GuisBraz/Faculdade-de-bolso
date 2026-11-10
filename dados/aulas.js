@@ -50,7 +50,7 @@ window.FDB_AULAS = {
     temas: { 2: "Vetores, retas e planos no espaço" },
     sobre: "Geometria Analítica e Álgebra Linear descreve pontos, vetores, retas e planos no espaço com equações. É a linguagem do CAD 3D, da robótica, da topografia e de qualquer conta que envolva direção e posição.",
     lab_nome: "Laboratório 3D de retas e planos", lab_desc: "Monte retas e planos no espaço e veja interseções, ângulos e distâncias." },
-  qg: { pag: "materias/qg/oficina-de-quimica.html", simbolo: "⚗", lista: null, lab: "lab", quiz: "quiz", cola: "cola",
+  qg: { pag: "materias/qg/oficina-de-quimica.html", simbolo: "⚗", lista: "ed3", lab: "lab", quiz: "quiz", cola: "cola",
     modulos: { 1: [
       ["materia", "Matéria e elementos", "Substâncias, misturas e símbolos"],
       ["modelos", "Modelos atômicos", "De Dalton a Schrödinger, Rutherford e as partículas"],
@@ -64,9 +64,14 @@ window.FDB_AULAS = {
       ["reacoes", "Reações e equações", "Equação química, conservação da massa e balanceamento"],
       ["massa", "Medidas de massa", "u, g/mol e massa molecular"],
       ["mol", "O mol", "Avogadro e 1 mol de qualquer espécie"],
-      ["conv", "Transformações", "gramas ↔ mol ↔ partículas"]
+      ["conv", "Transformações", "gramas ↔ mol ↔ partículas"],
+      ["esteq", "Estequiometria", "Limitante, excesso, pureza e rendimento"],
+      ["solucoes", "Soluções", "Concentração em mol/L e diluição"],
+      ["redox", "Oxirredução", "Nox, quem oxida e quem reduz"],
+      ["pilhas", "Pilhas e baterias", "Ânodo, cátodo, fem e chumbo-ácido"],
+      ["ed3", "Estudo dirigido 3", "As 12 questões da lista resolvidas"]
     ] },
-    temas: { 1: "Estrutura atômica e tabela periódica", 3: "Reações químicas e estequiometria" },
+    temas: { 1: "Estrutura atômica e tabela periódica", 3: "Reações, estequiometria, soluções e eletroquímica" },
     sobre: "Química Geral estuda a matéria e as suas transformações: do que as coisas são feitas, como os átomos se combinam e quanto de cada substância reage. Na engenharia ela aparece na corrosão, na soldagem, na combustão, no tratamento de água e na escolha de materiais.",
     lab_nome: "Laboratório de descobertas", lab_desc: "Junte átomos da tabela periódica e descubra 325 substâncias reais.", lab_estrela: true },
   usin: { pag: "materias/usinagem/oficina-de-usinagem.html", simbolo: "⚙", continua: true,

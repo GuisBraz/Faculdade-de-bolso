@@ -509,6 +509,34 @@ body{font-size:1rem}
 .m1-tri{display:flex;gap:8px}.m1-tri input{flex:1;min-width:0;font:600 1rem var(--f-body);padding:9px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--sheet,#fff);color:var(--ink)}
 .m1-trc{display:flex;gap:8px;flex-wrap:wrap}
 .m1-trs{margin-top:10px;font-size:.82rem;color:var(--ink2)}
+
+/* ===== Módulo 3 · parte 2 (estequiometria, soluções, redox, pilhas, ED3) ===== */
+#m3LimP button.sel,#m3LimI button.sel,#m3RxP button.sel,#m3PiA button.sel,#m3PiB button.sel{background:var(--c1)!important;color:#fff!important;border-color:var(--c1)!important}
+.m3-eq{font:700 1.08rem var(--f-disp);text-align:center;padding:10px;background:var(--paper);border-radius:12px;margin:10px 0;line-height:1.5}
+.m3-eq b{color:var(--c1)}
+.m3-in{display:flex;flex-wrap:wrap;gap:10px;align-items:flex-end;margin:8px 0}
+.m3-in label{display:flex;flex-direction:column;gap:4px;font-weight:700;font-size:.9rem}
+.m3-in input,.m3-nox input{font:700 1rem var(--f-body);padding:8px 10px;border-radius:10px;border:1.5px solid var(--line);background:var(--sheet,#fff);color:var(--ink);width:120px}
+.m3-in .dinch{margin:0}
+.m3-bars{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:10px;margin:12px 0}
+.m3-barg{background:var(--paper);border-radius:12px;padding:10px 12px;display:grid;gap:5px}.m3-barg>b{font-size:.92rem}
+.m3-bar{display:grid;grid-template-columns:56px minmax(0,1fr);gap:2px 8px;align-items:center;font-size:.8rem}
+.m3-bar>div{height:12px;border-radius:6px;background:var(--line);overflow:hidden}.m3-bar i{display:block;height:100%;border-radius:6px;transition:width .3s}
+.m3-bar i.a{background:#8D99A8}.m3-bar i.b{background:#1E62C9}.m3-bar i.c{background:repeating-linear-gradient(45deg,#F26B1D 0 5px,#F7A77A 5px 10px)}.m3-bar i.d{background:#22884A}
+.m3-bar small{grid-column:2;color:var(--ink2)}
+.m3-nox{display:flex;flex-wrap:wrap;gap:14px;align-items:center;margin-bottom:8px}.m3-nox input{width:170px;font-size:1.1rem}
+.m3-noxr{display:flex;flex-wrap:wrap;gap:8px;align-items:flex-end;margin:12px 0;min-height:70px}
+.m3-noxr>div{display:flex;flex-direction:column;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:6px 14px;background:var(--sheet,#fff)}
+.m3-noxr small{font:800 1.05rem var(--f-body);color:var(--ink2)}.m3-noxr b{font:800 1.6rem var(--f-disp)}.m3-noxr sub{font-size:.55em}
+.m3-noxr .pos small{color:#C73A2C}.m3-noxr .neg small{color:#1E62C9}.m3-noxr .q{font-weight:700;color:var(--ink2);align-self:center}
+.m3-rx{display:grid;gap:8px}.m3-rg{background:var(--paper);border-radius:12px;padding:8px 12px;color:var(--ink)}.m3-rg svg{width:100%;max-width:420px;display:block}
+.m3-pick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:10px}.m3-pick small{font-weight:700;color:var(--ink2)}.m3-pick .dinch{margin:4px 0 0}
+@media (max-width:560px){.m3-pick{grid-template-columns:1fr}}
+.m3-idx{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:6px;margin:14px 0}
+.m3-idx button{display:flex;gap:10px;align-items:center;text-align:left;color:var(--ink);background:var(--sheet,#fff);border:1px solid var(--line);border-radius:12px;padding:8px 10px;font:inherit;font-size:.9rem;cursor:pointer}
+.m3-idx button:hover{border-color:var(--c1)}.m3-idx span{flex:none;width:28px;height:28px;border-radius:8px;background:var(--navy,#0E1F38);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
+.m3-flux{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin:14px 0}.m3-flux b{padding:10px 14px;border-radius:12px;color:#fff;font:800 .92rem var(--f-disp)}.m3-flux .a{background:#E3A21A}.m3-flux .b{background:#22884A}.m3-flux .c{background:#3B4652}.m3-flux span{font:600 .78rem var(--f-mono,monospace);color:var(--ink2)}
+.m3-irp{margin:-6px 0 10px}.m3-ir{font:700 .82rem var(--f-body);color:var(--c1);text-decoration:none}.m3-ir:hover{text-decoration:underline}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
 <script src="../../dados/aulas.js"></script>
@@ -536,6 +564,11 @@ body{font-size:1rem}
       <a href="#massa" data-m="massa">2 · Massa</a>
       <a href="#mol" data-m="mol">3 · Mol</a>
       <a href="#conv" data-m="conv">4 · Conversões</a>
+      <a href="#esteq" data-m="esteq">5 · Estequiometria</a>
+      <a href="#solucoes" data-m="solucoes">6 · Soluções</a>
+      <a href="#redox" data-m="redox">7 · Oxirredução</a>
+      <a href="#pilhas" data-m="pilhas">8 · Pilhas</a>
+      <a href="#ed3" data-m="ed3">Estudo dirigido 3</a>
       <a href="#tabela">Tabela periódica</a>
       <a href="#lab">⚗️ Lab</a>
       <a href="#quiz">Quiz</a>
@@ -1175,6 +1208,333 @@ body{font-size:1rem}
   <div class="done-btn" data-done="conv"></div>
 </section>
 
+
+<!-- ============ M3 · ESTEQUIOMETRIA DAS REAÇÕES ============ -->
+<section class="view read" id="v-esteq" hidden>
+  <div class="eyebrow">Módulo 3 · 3ª prova</div>
+  <h2>Estequiometria: limitante, pureza e rendimento</h2>
+  <p class="lede">A equação balanceada é uma receita. Os coeficientes dizem a proporção <b>em mol</b> entre tudo o que entra e tudo o que sai. Com ela você calcula quanto produto sai, qual reagente acaba primeiro e quanto sobra do outro.</p>
+  <h3>A receita do sanduíche</h3>
+  <p>2 fatias de pão + 1 fatia de queijo → 1 sanduíche. Com 10 pães e 3 queijos saem só <b>3</b> sanduíches: o queijo acaba primeiro (é o <b>limitante</b>) e sobram 4 pães (o <b>excesso</b>). Reação química é igual, só que a contagem é em mol.</p>
+  <div class="fx"><span class="tag">Fórmula 1 · Razão molar</span><div class="eq">n(B) = n(A) × <span class="fr"><span>coef. de B</span><span>coef. de A</span></span></div>
+    <dl class="legend"><dt>n(A)</dt><dd>mol da substância que você conhece</dd><dt>coef.</dt><dd>os números da frente na equação <b>balanceada</b></dd><dt>cuidado</dt><dd>a proporção vale para mol, nunca direto para gramas</dd></dl></div>
+  <h3>O roteiro de 4 passos</h3>
+  <ol class="recipe"><li><span><b>Balanceie</b> a equação.</span></li><li><span>Passe o dado para <b>mol</b> (n = m / MM, ou n = C · V se for solução).</span></li><li><span>Use a <b>razão molar</b> dos coeficientes para chegar na substância pedida.</span></li><li><span>Volte para a unidade pedida (m = n · MM).</span></li></ol>
+  <div class="m3-flux"><b class="a">gramas de A</b><span>÷ MM(A) →</span><b class="b">mol de A</b><span>× coef B / coef A →</span><b class="b">mol de B</b><span>× MM(B) →</span><b class="c">gramas de B</b></div>
+  <h3>Reagente limitante</h3>
+  <div class="fx"><span class="tag">Fórmula 2 · Teste do limitante</span><div class="eq">compare &nbsp; n / coeficiente &nbsp; de cada reagente</div>
+    <dl class="legend"><dt>menor valor</dt><dd>é o <b>limitante</b>: acaba primeiro e decide quanto produto se forma</dd><dt>o outro</dt><dd>está em <b>excesso</b>: sobra = o que tinha − o que reagiu</dd><dt>sempre</dt><dd>calcule o produto a partir do limitante</dd></dl></div>
+  <h3>Simulador: quem acaba primeiro?</h3>
+  <p>Escolha a reação, digite quanto tem de cada reagente e ajuste a pureza e o rendimento. As barras mostram o que reage, o que sobra e o que se forma.</p>
+  <div class="wid" id="m3Lim">
+    <div class="dinch" id="m3LimP"></div>
+    <div class="m3-eq" id="m3LimE"></div>
+    <div class="m3-in" id="m3LimI"></div>
+    <label class="m1lab">Pureza do 1º reagente <b id="m3LimPv"></b><input type="range" id="m3LimPu" min="40" max="100" value="100"></label>
+    <label class="m1lab">Rendimento da reação <b id="m3LimRv"></b><input type="range" id="m3LimRe" min="30" max="100" value="100"></label>
+    <div class="m3-bars" id="m3LimB"></div>
+    <div class="wout" id="m3LimO"></div>
+  </div>
+  <h3>Pureza e rendimento</h3>
+  <div class="fxgrid">
+    <div class="fx"><span class="tag">Fórmula 3 · Pureza</span><div class="eq">m<sub>pura</sub> = m<sub>amostra</sub> × <span class="fr"><span>p %</span><span>100</span></span></div><p>Só a parte pura reage. Para <b>ter</b> uma massa pura, pese mais: m<sub>amostra</sub> = m<sub>pura</sub> ÷ (p/100).</p></div>
+    <div class="fx"><span class="tag">Fórmula 4 · Rendimento</span><div class="eq">η = <span class="fr"><span>massa real</span><span>massa teórica</span></span> × 100 %</div><p>Teórica: o que a conta prevê. Real: o que saiu de verdade (sempre menor ou igual).</p></div>
+  </div>
+  <div class="ex" data-ex><div class="q">Exemplo: 28,0 g de N₂ reagem com 9,00 g de H₂ (N₂ + 3 H₂ → 2 NH₃). Qual é o limitante, quanto NH₃ se forma e quanto sobra?</div>
+    <ol><li>Mol: n(N₂) = 28,0 ÷ 28,02 = 1,00 mol · n(H₂) = 9,00 ÷ 2,016 = 4,46 mol.</li><li>Teste: N₂ → 1,00 ÷ 1 = 1,00 · H₂ → 4,46 ÷ 3 = 1,49. O menor é o do N₂: <b>N₂ é o limitante</b>.</li><li>Produto: n(NH₃) = 1,00 × 2/1 = 2,00 mol → m = 2,00 × 17,03 = <b>34,1 g</b>.</li><li>H₂ que reagiu: 1,00 × 3 = 3,00 mol. Sobra 4,46 − 3,00 = 1,46 mol = <b>2,95 g de H₂</b>.</li></ol>
+    <div class="ans">Limitante: N₂ · forma 34,1 g de NH₃ · sobram 2,95 g de H₂</div></div>
+  <div class="ex" data-ex><div class="q">Na siderurgia: quanto ferro sai de 1,00 t de hematita com 80 % de Fe₂O₃? (Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂)</div>
+    <ol><li>Pureza: só 80 % é Fe₂O₃ → 800 kg = 8,00 × 10⁵ g.</li><li>MM(Fe₂O₃) = 2 × 55,85 + 3 × 16,00 = 159,7 g/mol → n = 8,00 × 10⁵ ÷ 159,7 = 5,01 × 10³ mol.</li><li>Razão 1 : 2 → n(Fe) = 1,00 × 10⁴ mol.</li><li>m(Fe) = 1,00 × 10⁴ × 55,85 = 5,60 × 10⁵ g.</li></ol>
+    <div class="ans">≈ 560 kg de ferro (rendimento de 100 %)</div></div>
+  <div class="ofi"><span class="k">Na fábrica</span>No oxicorte e na solda oxiacetilênica, o maçarico regula a proporção O₂ : C₂H₂. Chama com acetileno em excesso (carburante) deposita carbono na peça; com oxigênio em excesso (oxidante) queima o metal. A chama neutra é a estequiometria certa. E quando um produto químico vem "85 % m/m", é a pureza: você pesa mais para compensar.</div>
+  <div class="cuid"><span class="k">Erros clássicos</span>1) Fazer a proporção em gramas em vez de mol. 2) Esquecer de balancear antes. 3) Calcular o produto pelo reagente em excesso. 4) Multiplicar pela pureza quando devia dividir (para <b>ter</b> x g puros, pese x ÷ pureza).</div>
+  <div class="done-btn" data-done="esteq"></div>
+</section>
+
+<!-- ============ M3 · SOLUÇÕES ============ -->
+<section class="view read" id="v-solucoes" hidden>
+  <div class="eyebrow">Módulo 3 · 3ª prova</div>
+  <h2>Soluções: concentração e diluição</h2>
+  <p class="lede">Quase toda reação de laboratório acontece em água. Em vez de pesar, você mede um volume, e a <b>concentração</b> diz quantos mols vieram junto.</p>
+  <div class="m1-def">
+    <div><span class="em">🧂</span><b>Soluto</b><span>O que é dissolvido (em menor quantidade): o sal, o NaOH, o ácido.</span></div>
+    <div><span class="em">💧</span><b>Solvente</b><span>O que dissolve (em maior quantidade). Se for água, a solução é <b>aquosa (aq)</b>.</span></div>
+    <div><span class="em">🧪</span><b>Solução</b><span>Mistura homogênea de soluto + solvente. O volume que entra na conta é o da <b>solução pronta</b>.</span></div>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 5 · Concentração em quantidade de matéria</span><div class="eq">C = <span class="fr"><span>n</span><span>V</span></span> &nbsp;&nbsp;⇒&nbsp;&nbsp; n = C · V &nbsp;·&nbsp; V = n / C</div>
+    <dl class="legend"><dt>C</dt><dd>concentração em mol/L (também escrita M, "molar")</dd><dt>n</dt><dd>mol de soluto (n = m / MM)</dd><dt>V</dt><dd>volume da solução em <b>litros</b> (mL ÷ 1000)</dd></dl></div>
+  <h3>Prepare uma solução</h3>
+  <p>Mexa na quantidade de soluto e no volume. Mais soluto no mesmo volume: mais concentrada (cor mais forte). Mais água: mais diluída.</p>
+  <div class="wid">
+    <canvas id="m3Sol" class="m1cv" style="aspect-ratio:2/1;max-height:300px" aria-label="Béquer com solução"></canvas>
+    <label class="m1lab">Soluto <b id="m3SolNv"></b><input type="range" id="m3SolN" min="1" max="200" value="35"></label>
+    <label class="m1lab">Volume da solução <b id="m3SolVv"></b><input type="range" id="m3SolV" min="50" max="1000" step="10" value="400"></label>
+    <div class="wout" id="m3SolO"></div>
+  </div>
+  <h3>Diluição</h3>
+  <p>Diluir é acrescentar solvente. O soluto <b>não some</b>: os mesmos mols ficam espalhados num volume maior.</p>
+  <div class="fx"><span class="tag">Fórmula 6 · Diluição</span><div class="eq">C₁ · V₁ = C₂ · V₂</div>
+    <dl class="legend"><dt>C₁, V₁</dt><dd>concentração e volume da alíquota tirada da solução estoque (concentrada)</dd><dt>C₂, V₂</dt><dd>concentração e volume <b>final</b> da solução diluída</dd><dt>por quê</dt><dd>n antes = n depois, e n = C · V</dd><dt>unidades</dt><dd>V₁ e V₂ na mesma unidade (os dois em mL ou os dois em L)</dd></dl></div>
+  <div class="wid">
+    <canvas id="m3Dil" class="m1cv" style="aspect-ratio:2/1;max-height:300px" aria-label="Diluição de uma solução estoque"></canvas>
+    <label class="m1lab">Concentração do estoque C₁ <b id="m3DilCv"></b><input type="range" id="m3DilC" min="0.5" max="18" step="0.1" value="14.8"></label>
+    <label class="m1lab">Alíquota V₁ <b id="m3DilAv"></b><input type="range" id="m3DilA" min="1" max="100" step="0.5" value="10"></label>
+    <label class="m1lab">Volume final V₂ <b id="m3DilFv"></b><input type="range" id="m3DilF" min="50" max="1000" step="10" value="250"></label>
+    <div class="wout" id="m3DilO"></div>
+  </div>
+  <div class="ex" data-ex><div class="q">Exemplo: que massa de NaCl é preciso para preparar 500 mL de solução 0,154 mol/L (o soro fisiológico)?</div>
+    <ol><li>V = 500 mL = 0,500 L.</li><li>n = C · V = 0,154 × 0,500 = 0,0770 mol.</li><li>MM(NaCl) = 22,99 + 35,45 = 58,44 g/mol → m = 0,0770 × 58,44.</li></ol>
+    <div class="ans">m ≈ 4,50 g de NaCl (por isso o soro é "0,9 %": 0,9 g a cada 100 mL)</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo de titulação: quantos mL de NaOH 0,125 mol/L neutralizam 25,0 mL de HCl 0,100 mol/L? (HCl + NaOH → NaCl + H₂O)</div>
+    <ol><li>n(HCl) = C · V = 0,100 × 0,0250 = 2,50 × 10⁻³ mol.</li><li>Razão 1 : 1 → n(NaOH) = 2,50 × 10⁻³ mol.</li><li>V = n / C = 2,50 × 10⁻³ ÷ 0,125 = 0,0200 L.</li></ol>
+    <div class="ans">V = 20,0 mL de NaOH</div></div>
+  <div class="curio">
+    <div><span class="em">🔋</span><b>Ácido de bateria</b><span>A solução de H₂SO₄ de uma bateria de carro carregada tem cerca de 4 a 5 mol/L. Conforme descarrega, o ácido é consumido e a solução fica menos densa: o densímetro mede a carga.</span></div>
+    <div><span class="em">🛢️</span><b>Fluido de corte</b><span>O óleo solúvel da usinagem é vendido concentrado e diluído na máquina (por exemplo 1 parte para 19 de água = 5 %). É a mesma lógica do C₁V₁ = C₂V₂.</span></div>
+    <div><span class="em">⚗️</span><b>Balão volumétrico</b><span>Para preparar: dissolva o soluto em pouca água, passe para o balão e complete até o traço. O volume final é o da solução, não o da água adicionada.</span></div>
+  </div>
+  <div class="cuid"><span class="k">Segurança e pegadinhas</span>Sempre <b>ácido na água</b>, devagar, nunca água no ácido (a diluição libera muito calor e pode espirrar). Nas contas: converta mL para L antes de usar C = n/V, e não some volumes de soluto e solvente.</div>
+  <div class="done-btn" data-done="solucoes"></div>
+</section>
+
+<!-- ============ M3 · OXIRREDUÇÃO ============ -->
+<section class="view read" id="v-redox" hidden>
+  <div class="eyebrow">Módulo 3 · 3ª prova</div>
+  <h2>Oxirredução e número de oxidação</h2>
+  <p class="lede">Ferrugem, pilha, alto-forno e oxicorte são a mesma coisa: <b>elétrons passando de um átomo para outro</b>. O número de oxidação (Nox) é a contabilidade que mostra quem perdeu e quem ganhou.</p>
+  <div class="m1-def">
+    <div><span class="em">📈</span><b>Oxidação</b><span><b>Perde</b> elétrons: o Nox <b>aumenta</b>. Fe → Fe³⁺ + 3 e⁻.</span></div>
+    <div><span class="em">📉</span><b>Redução</b><span><b>Ganha</b> elétrons: o Nox <b>diminui</b> (reduz). Cu²⁺ + 2 e⁻ → Cu.</span></div>
+    <div><span class="em">🤝</span><b>Sempre juntas</b><span>Os elétrons que um perde, o outro ganha. Por isso "oxirredução" (redox).</span></div>
+    <div><span class="em">🎯</span><b>Agente redutor</b><span>A espécie que <b>se oxida</b> (ela causa a redução da outra).</span></div>
+    <div><span class="em">🔥</span><b>Agente oxidante</b><span>A espécie que <b>se reduz</b> (ela causa a oxidação da outra). O O₂ é o clássico.</span></div>
+  </div>
+  <h3>Regras para achar o Nox</h3>
+  <div class="tbl"><table><tr><th>#</th><th>Regra</th><th>Exemplo</th></tr>
+    <tr><td>1</td><td>Substância simples: Nox = <b>0</b></td><td>Fe, O₂, I₂, S₈, Hg</td></tr>
+    <tr><td>2</td><td>Íon monoatômico: Nox = a <b>carga</b></td><td>Hg²⁺ → +2 · Cl⁻ → −1</td></tr>
+    <tr><td>3</td><td>Metais alcalinos (grupo 1) = <b>+1</b> · alcalinoterrosos (grupo 2) = <b>+2</b> · Al = +3</td><td>Na em NaCl, Ba em Ba(OH)₂</td></tr>
+    <tr><td>4</td><td>Flúor sempre <b>−1</b></td><td>HF, OF₂</td></tr>
+    <tr><td>5</td><td>Hidrogênio = <b>+1</b> (−1 só nos hidretos metálicos)</td><td>H₂O, N₂H₄ · NaH (−1)</td></tr>
+    <tr><td>6</td><td>Oxigênio = <b>−2</b> (−1 nos peróxidos)</td><td>CO₂ · H₂O₂ (−1)</td></tr>
+    <tr><td>7</td><td>A soma dos Nox = <b>0</b> num composto neutro e = <b>carga</b> num íon</td><td>NO₃⁻: N + 3(−2) = −1 → N = +5</td></tr></table></div>
+  <h3>Calculadora de Nox</h3>
+  <p>Digite a fórmula e ajuste a carga do íon. A calculadora aplica as regras na ordem e mostra a conta.</p>
+  <div class="wid">
+    <div class="m3-nox"><input type="text" id="m3NoxF" value="I2O5" autocomplete="off" spellcheck="false" aria-label="Fórmula"><div class="m1-step"><div><small style="font-weight:700">carga</small><button id="m3NoxM" aria-label="menos">−</button><b id="m3NoxQ"></b><button id="m3NoxP" aria-label="mais">+</button></div></div></div>
+    <div class="dinch" id="m3NoxEx"></div>
+    <div class="m3-noxr" id="m3NoxR"></div>
+    <div class="wout" id="m3NoxO"></div>
+  </div>
+  <h3>Como analisar uma reação redox</h3>
+  <ol class="recipe"><li><span>Escreva o Nox de <b>cada elemento</b>, dos dois lados.</span></li><li><span>Ache quem <b>mudou</b>. Quem subiu oxidou; quem desceu reduziu.</span></li><li><span>A variação é Nox final − Nox inicial, por átomo.</span></li><li><span>Quem oxidou é o agente redutor; quem reduziu é o agente oxidante.</span></li></ol>
+  <div class="wid">
+    <h4>Veja os elétrons trocando de dono</h4>
+    <div class="dinch" id="m3RxP"></div>
+    <div class="m3-rx" id="m3Rx"></div>
+    <div class="wout" id="m3RxO"></div>
+  </div>
+  <div class="ex" data-ex><div class="q">Exemplo: no alto-forno, Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂. Quem oxida e quem reduz?</div>
+    <ol><li>Fe₂O₃: O = −2 → 2 Fe + 3(−2) = 0 → Fe = <b>+3</b>. No produto, Fe metálico = <b>0</b>.</li><li>CO: C = <b>+2</b>. CO₂: C = <b>+4</b>. O oxigênio fica −2 dos dois lados.</li><li>Fe: +3 → 0 (variação −3): <b>reduziu</b>. C: +2 → +4 (variação +2): <b>oxidou</b>.</li><li>Conferindo os elétrons: 2 Fe × 3 = 6 ganhos · 3 C × 2 = 6 perdidos ✓</li></ol>
+    <div class="ans">Fe₂O₃ é o agente oxidante · CO é o agente redutor</div></div>
+  <div class="ofi"><span class="k">Redox no chão de fábrica</span><b>Corrosão</b>: 4 Fe + 3 O₂ → 2 Fe₂O₃ (o ferro oxida de 0 a +3). <b>Oxicorte</b>: o jato de O₂ puro oxida o aço aquecido (3 Fe + 2 O₂ → Fe₃O₄) e o calor dessa reação é que corta a chapa. <b>Solda aluminotérmica</b> de trilhos: 2 Al + Fe₂O₃ → Al₂O₃ + 2 Fe, o alumínio rouba o oxigênio do ferro. <b>Decapagem</b> e <b>galvanização</b> também são controle de oxirredução.</div>
+  <div class="cuid"><span class="k">Não confunda</span>Nem toda reação é redox. Neutralização (H₂SO₄ + 2 KOH) e precipitação não mudam nenhum Nox. E atenção aos casos especiais: O em H₂O₂ é −1; N em N₂H₄ é −2; Cl em ClO₂ é +4.</div>
+  <div class="done-btn" data-done="redox"></div>
+</section>
+
+<!-- ============ M3 · PILHAS ============ -->
+<section class="view read" id="v-pilhas" hidden>
+  <div class="eyebrow">Módulo 3 · 3ª prova</div>
+  <h2>Eletroquímica: pilhas e baterias</h2>
+  <p class="lede">Se a oxidação e a redução acontecem em lugares separados, os elétrons são obrigados a passar por um fio. Isso é corrente elétrica: uma <b>célula voltaica</b> (pilha).</p>
+  <div class="m1-def">
+    <div><span class="em">➖</span><b>Ânodo</b><span>Onde ocorre a <b>oxidação</b>. O metal vira íon e solta elétrons. Na pilha é o polo <b>negativo</b>. O eletrodo é corroído.</span></div>
+    <div><span class="em">➕</span><b>Cátodo</b><span>Onde ocorre a <b>redução</b>. Os íons da solução recebem elétrons e viram metal. Na pilha é o polo <b>positivo</b>. O eletrodo ganha massa.</span></div>
+    <div><span class="em">🌉</span><b>Ponte salina</b><span>Fecha o circuito e mantém as soluções neutras: <b>ânions</b> vão para o <b>ânodo</b>, <b>cátions</b> vão para o <b>cátodo</b>.</span></div>
+    <div><span class="em">⚡</span><b>Elétrons</b><span>Passam pelo fio externo, sempre do <b>ânodo para o cátodo</b>.</span></div>
+  </div>
+  <div class="ofi"><span class="k">Para decorar</span>Vogal com vogal, consoante com consoante: <b>Â</b>nodo = <b>O</b>xidação · <b>C</b>átodo = <b>R</b>edução. E os íons seguem o nome: <b>ân</b>ions → <b>ân</b>odo, <b>cát</b>ions → <b>cát</b>odo.</div>
+  <h3>Potencial padrão e fem</h3>
+  <p>Cada semirreação tem um potencial padrão de <b>redução</b> (E°<sub>red</sub>): quanto mais positivo, mais aquela espécie "quer" ganhar elétrons. Numa pilha, quem tem o maior E°<sub>red</sub> reduz (cátodo) e o outro é forçado a oxidar (ânodo).</p>
+  <div class="fx"><span class="tag">Fórmula 7 · Força eletromotriz</span><div class="eq">E°<sub>cel</sub> = E°<sub>red</sub>(cátodo) − E°<sub>red</sub>(ânodo)</div>
+    <dl class="legend"><dt>E°<sub>cel</sub> &gt; 0</dt><dd>reação espontânea: a pilha funciona</dd><dt>cátodo</dt><dd>a semirreação de maior E°<sub>red</sub></dd><dt>atenção</dt><dd>use os dois potenciais <b>de redução</b> como estão na tabela e <b>não multiplique</b> E° pelos coeficientes ao balancear os elétrons</dd></dl></div>
+  <h3>Monte a sua pilha</h3>
+  <p>Escolha os dois metais. A simulação decide quem é ânodo e cátodo, mostra os elétrons no fio, os íons na ponte salina e calcula a fem.</p>
+  <div class="wid">
+    <div class="m3-pick"><div><small>Eletrodo da esquerda</small><div class="dinch" id="m3PiA"></div></div><div><small>Eletrodo da direita</small><div class="dinch" id="m3PiB"></div></div></div>
+    <canvas id="m3Pi" class="m1cv" style="aspect-ratio:16/9;max-height:420px" aria-label="Célula voltaica animada"></canvas>
+    <div class="wout" id="m3PiO"></div>
+  </div>
+  <div class="tbl"><table><tr><th>Semirreação de redução</th><th>E°<sub>red</sub> (V)</th><th></th></tr>
+    <tr><td>Au³⁺ + 3 e⁻ → Au</td><td>+1,50</td><td rowspan="3">reduzem com facilidade (metais nobres)</td></tr>
+    <tr><td>Ag⁺ + e⁻ → Ag</td><td>+0,799</td></tr><tr><td>Cu²⁺ + 2 e⁻ → Cu</td><td>+0,337</td></tr>
+    <tr><td>2 H⁺ + 2 e⁻ → H₂</td><td>0,000</td><td>referência</td></tr>
+    <tr><td>Pb²⁺ + 2 e⁻ → Pb</td><td>−0,126</td><td rowspan="7">oxidam com facilidade (metais ativos)</td></tr>
+    <tr><td>Ni²⁺ + 2 e⁻ → Ni</td><td>−0,28</td></tr><tr><td>Fe²⁺ + 2 e⁻ → Fe</td><td>−0,440</td></tr><tr><td>Cr³⁺ + 3 e⁻ → Cr</td><td>−0,74</td></tr>
+    <tr><td>Zn²⁺ + 2 e⁻ → Zn</td><td>−0,763</td></tr><tr><td>Al³⁺ + 3 e⁻ → Al</td><td>−1,66</td></tr><tr><td>Mg²⁺ + 2 e⁻ → Mg</td><td>−2,37</td></tr></table></div>
+  <div class="ex" data-ex><div class="q">Exemplo: pilha de Daniell, zinco e cobre. Qual a fem e a reação global?</div>
+    <ol><li>E°<sub>red</sub>: Cu²⁺/Cu = +0,337 V · Zn²⁺/Zn = −0,763 V. O cobre tem o maior: é o <b>cátodo</b>.</li><li>Cátodo: Cu²⁺ + 2 e⁻ → Cu · Ânodo: Zn → Zn²⁺ + 2 e⁻.</li><li>E°<sub>cel</sub> = 0,337 − (−0,763) = <b>1,10 V</b>.</li><li>Elétrons já iguais (2 e 2): soma direto.</li></ol>
+    <div class="ans">Zn(s) + Cu²⁺(aq) → Zn²⁺(aq) + Cu(s) · E° = 1,10 V</div></div>
+  <h3>Bateria de chumbo-ácido (a do carro)</h3>
+  <div class="tbl"><table><tr><th></th><th>Semirreação na descarga</th></tr>
+    <tr><td><b>Ânodo (−)</b></td><td>Pb(s) + SO₄²⁻(aq) → PbSO₄(s) + 2 e⁻</td></tr>
+    <tr><td><b>Cátodo (+)</b></td><td>PbO₂(s) + 4 H⁺(aq) + SO₄²⁻(aq) + 2 e⁻ → PbSO₄(s) + 2 H₂O(l)</td></tr>
+    <tr><td><b>Global</b></td><td>Pb(s) + PbO₂(s) + 2 H₂SO₄(aq) → 2 PbSO₄(s) + 2 H₂O(l)</td></tr></table></div>
+  <p>Cada célula dá cerca de 2 V; seis em série dão os 12 V. Repare na proporção <b>1 Pb : 1 PbO₂</b> e que o ácido é consumido na descarga. Recarregar é forçar a reação no sentido contrário com uma fonte externa.</p>
+  <div class="curio">
+    <div><span class="em">🔩</span><b>Corrosão galvânica</b><span>Dois metais diferentes em contato, com umidade, formam uma pilha. O de menor E°<sub>red</sub> vira ânodo e é corroído: parafuso de aço carbono em chapa de inox ou de cobre enferruja muito mais rápido.</span></div>
+    <div><span class="em">🛡️</span><b>Ânodo de sacrifício</b><span>Zinco (−0,76 V) oxida antes do ferro (−0,44 V). É por isso que a <b>galvanização</b> protege o aço mesmo riscada, e que cascos de navio e tubulações enterradas levam blocos de Zn ou Mg.</span></div>
+    <div><span class="em">✨</span><b>Eletrólise: o caminho inverso</b><span>Cromagem, zincagem eletrolítica e anodização usam uma fonte externa para forçar uma reação não espontânea. Ali os sinais se invertem: o ânodo é o polo positivo.</span></div>
+  </div>
+  <div class="done-btn" data-done="pilhas"></div>
+</section>
+
+<!-- ============ M3 · ESTUDO DIRIGIDO 3 ============ -->
+<section class="view read" id="v-ed3" hidden>
+  <div class="eyebrow">Módulo 3 · Lista da professora</div>
+  <h2>Estudo Dirigido 3 resolvido</h2>
+  <p class="lede">As 12 questões do 3º Estudo Dirigido, passo a passo. Cada bloco tem um atalho para a aula daquele assunto. Tente antes de abrir os passos.</p>
+  <div class="ofi"><span class="k">Massas atômicas usadas</span>H 1,008 · C 12,01 · N 14,01 · O 16,00 · Na 22,99 · Mg 24,31 · P 30,97 · S 32,07 · Cl 35,45 · K 39,10 · Ca 40,08 · Pb 207,2 (g/mol). Se a professora mandar arredondar (H = 1, Mg = 24,3…), a última casa pode mudar um pouco.</div>
+
+  <h3 data-q="1">Questão 1 · Balanceamento: os conceitos</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#reacoes">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">a) Qual lei é usada no balanceamento? b) Por que os índices não podem ser modificados? c) Símbolos de gás, líquido, sólido e solução aquosa.</div>
+    <ol><li>a) A <b>lei da conservação da massa</b> (Lavoisier): numa reação os átomos não são criados nem destruídos, só rearranjados. Por isso o número de átomos de cada elemento tem de ser igual nos dois lados.</li><li>b) O índice faz parte da <b>identidade</b> da substância. Mudar o índice troca a substância: H₂O é água, H₂O₂ é água oxigenada. Para balancear só se mexe nos <b>coeficientes</b>, que mudam a quantidade e não a substância.</li><li>c) Gás <b>(g)</b> · líquido <b>(l)</b> · sólido <b>(s)</b> · solução aquosa <b>(aq)</b>.</li></ol>
+    <div class="ans">Conservação da massa · índice define a substância · (g), (l), (s), (aq)</div></div>
+
+  <h3 data-q="2">Questão 2 · Balanceie as reações</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#reacoes">praticar no balanceador →</a></p>
+  <div class="tbl"><table><tr><th></th><th>Equação balanceada</th><th>Como pensar</th></tr>
+    <tr><td>a</td><td><b>2</b> SO₂ + O₂ → <b>2</b> SO₃</td><td>O: 2 + 2 ≠ 3. Dobre SO₂ e SO₃: 4 + 2 = 6 ✓</td></tr>
+    <tr><td>b</td><td>P₂O₅ + <b>3</b> H₂O → <b>2</b> H₃PO₄</td><td>P: 2 → 2 H₃PO₄. H: 6 → 3 H₂O. O: 5 + 3 = 8 ✓</td></tr>
+    <tr><td>c</td><td>CH₄ + <b>4</b> Cl₂ → CCl₄ + <b>4</b> HCl</td><td>H: 4 → 4 HCl. Cl: 4 + 4 = 8 → 4 Cl₂</td></tr>
+    <tr><td>d</td><td>Al₄C₃ + <b>12</b> H₂O → <b>4</b> Al(OH)₃ + <b>3</b> CH₄</td><td>Al: 4. C: 3. O: 12 → 12 H₂O. H: 24 = 12 + 12 ✓</td></tr>
+    <tr><td>e</td><td>C₄H₁₀O + <b>6</b> O₂ → <b>4</b> CO₂ + <b>5</b> H₂O</td><td>C: 4. H: 10 → 5 H₂O. O à direita: 13; à esquerda já tem 1 → faltam 12 = 6 O₂</td></tr>
+    <tr><td>f</td><td><b>2</b> Fe(OH)₃ + <b>3</b> H₂SO₄ → Fe₂(SO₄)₃ + <b>6</b> H₂O</td><td>Fe: 2. SO₄: 3. H: 6 + 6 = 12 → 6 H₂O</td></tr>
+    <tr><td>g</td><td>Mg₃N₂ + <b>4</b> H₂SO₄ → <b>3</b> MgSO₄ + (NH₄)₂SO₄</td><td>Mg: 3. N: 2 → 1 (NH₄)₂SO₄. S: 3 + 1 = 4. H: 8 = 8 ✓</td></tr>
+    <tr><td>h</td><td><b>2</b> Al + <b>3</b> Cl₂ → <b>2</b> AlCl₃</td><td>Cl: 2 e 3 → mínimo múltiplo 6</td></tr>
+    <tr><td>i</td><td>C₂H₄ + <b>3</b> O₂ → <b>2</b> CO₂ + <b>2</b> H₂O</td><td>C: 2. H: 4 → 2 H₂O. O: 4 + 2 = 6 → 3 O₂</td></tr>
+    <tr><td>j</td><td><b>6</b> Li + N₂ → <b>2</b> Li₃N</td><td>N: 2 → 2 Li₃N. Li: 6</td></tr>
+    <tr><td>k</td><td>PbCO₃ → PbO + CO₂</td><td>Já está balanceada (tudo 1)</td></tr>
+    <tr><td>l</td><td>C₇H₈O₂ + <b>8</b> O₂ → <b>7</b> CO₂ + <b>4</b> H₂O</td><td>C: 7. H: 8 → 4 H₂O. O à direita: 18; à esquerda já tem 2 → faltam 16 = 8 O₂</td></tr></table></div>
+  <div class="ex" data-ex><div class="q">Passo a passo da mais trabalhosa: d) Al₄C₃ + H₂O → Al(OH)₃ + CH₄</div>
+    <ol><li>Comece pelo composto mais complicado, Al₄C₃ (coeficiente 1). Ele traz 4 Al e 3 C.</li><li>Al: 4 → <b>4</b> Al(OH)₃. C: 3 → <b>3</b> CH₄.</li><li>O: os 4 Al(OH)₃ têm 12 O, e o único reagente com O é a água → <b>12</b> H₂O.</li><li>Confira o H: esquerda 12 × 2 = 24 · direita 4 × 3 + 3 × 4 = 24 ✓</li></ol>
+    <div class="ans">Al₄C₃ + 12 H₂O → 4 Al(OH)₃ + 3 CH₄</div></div>
+  <div class="cuid"><span class="k">Dica para combustões (e, i, l)</span>Ordem C → H → O. Se o combustível já tem oxigênio (C₄H₁₀O, C₇H₈O₂), desconte esses átomos antes de calcular o O₂.</div>
+
+  <h3 data-q="3">Questão 3 · Massas molares</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#massa">ver a aula →</a></p>
+  <div class="tbl"><table><tr><th></th><th>Substância</th><th>Conta</th><th>MM (g/mol)</th></tr>
+    <tr><td>a</td><td>N₂</td><td>2 × 14,01</td><td><b>28,02</b></td></tr>
+    <tr><td>b</td><td>K</td><td>direto da tabela</td><td><b>39,10</b></td></tr>
+    <tr><td>c</td><td>CO₂</td><td>12,01 + 2 × 16,00</td><td><b>44,01</b></td></tr>
+    <tr><td>d</td><td>H₂CO₃</td><td>2 × 1,008 + 12,01 + 3 × 16,00</td><td><b>62,03</b></td></tr>
+    <tr><td>e</td><td>HCl</td><td>1,008 + 35,45</td><td><b>36,46</b></td></tr>
+    <tr><td>f</td><td>Na₃PO₄</td><td>3 × 22,99 + 30,97 + 4 × 16,00</td><td><b>163,94</b></td></tr>
+    <tr><td>g</td><td>Mg(OH)₂</td><td>24,31 + 2 × (16,00 + 1,008)</td><td><b>58,33</b></td></tr>
+    <tr><td>h</td><td>(NH₄)₂CO₃</td><td>2 × 14,01 + 8 × 1,008 + 12,01 + 3 × 16,00</td><td><b>96,09</b></td></tr>
+    <tr><td>i</td><td>Mg(C₂H₃O₂)₂</td><td>24,31 + 4 × 12,01 + 6 × 1,008 + 4 × 16,00</td><td><b>142,40</b></td></tr>
+    <tr><td>j</td><td>butano · C₄H₁₀</td><td>4 × 12,01 + 10 × 1,008</td><td><b>58,12</b></td></tr>
+    <tr><td>k</td><td>C₅H₈O</td><td>5 × 12,01 + 8 × 1,008 + 16,00</td><td><b>84,11</b></td></tr>
+    <tr><td>l</td><td>acetofenona · C₈H₈O</td><td>8 × 12,01 + 8 × 1,008 + 16,00</td><td><b>120,14</b></td></tr>
+    <tr><td>m</td><td>sertralina · C₁₇H₁₇Cl₂N</td><td>17 × 12,01 + 17 × 1,008 + 2 × 35,45 + 14,01</td><td><b>306,22</b></td></tr></table></div>
+  <div class="ex" data-ex><div class="q">Como tirar a fórmula molecular das estruturas desenhadas (j, k, l, m)</div>
+    <ol><li><b>j)</b> H₃C–CH₂–CH₂–CH₃: conte direto. 4 C e 3 + 2 + 2 + 3 = 10 H → <b>C₄H₁₀</b>.</li>
+      <li><b>k)</b> H₃C–C(=O)–C(=CH₂)–CH₃: carbonos: CH₃, C=O, C, CH₂, CH₃ = 5 C. Hidrogênios: 3 + 0 + 0 + 2 + 3 = 8. Um O → <b>C₅H₈O</b>.</li>
+      <li><b>l)</b> Em estrutura de linhas, cada vértice é um carbono e os H não aparecem: complete cada C até 4 ligações. Anel benzênico: 6 C, 5 H (um vértice está ligado ao grupo). Grupo C(=O)–CH₃: 2 C, 3 H, 1 O → <b>C₈H₈O</b>.</li>
+      <li><b>m)</b> Anel aromático fundido: 6 C, 4 H. Anel saturado: mais 4 C (CH com N, CH₂, CH₂, CH com o outro anel) = 6 H. Anel diclorofenil: 6 C, 3 H, 2 Cl. Grupo NH–CH₃: 1 N, 1 C, 4 H. Total: 17 C, 17 H, 2 Cl, 1 N → <b>C₁₇H₁₇Cl₂N</b>.</li></ol>
+    <div class="ans">C₄H₁₀ · C₅H₈O · C₈H₈O · C₁₇H₁₇Cl₂N</div></div>
+
+  <h3 data-q="4">Questão 4 · Mol, massa e partículas</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#conv">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">a) Massa de 1,73 mol de CaH₂.</div>
+    <ol><li>MM(CaH₂) = 40,08 + 2 × 1,008 = 42,10 g/mol.</li><li>m = n · MM = 1,73 × 42,10.</li></ol><div class="ans">m ≈ 72,8 g (72,7 g com Ca = 40 e H = 1, como na aula)</div></div>
+  <div class="ex" data-ex><div class="q">b) Quantidade de matéria de Mg(NO₃)₂ em 3,25 g.</div>
+    <ol><li>MM = 24,31 + 2 × 14,01 + 6 × 16,00 = 148,33 g/mol.</li><li>n = m / MM = 3,25 ÷ 148,33.</li></ol><div class="ans">n ≈ 0,0219 mol</div></div>
+  <div class="ex" data-ex><div class="q">c) Número de moléculas em 0,772 mol de HCHO₂.</div>
+    <ol><li>N = n · N<sub>A</sub> = 0,772 × 6,022 × 10²³.</li></ol><div class="ans">N ≈ 4,65 × 10²³ moléculas</div></div>
+  <div class="ex" data-ex><div class="q">d) Número de íons NO₃⁻ em 4,88 × 10⁻³ mol de Al(NO₃)₃.</div>
+    <ol><li>Cada Al(NO₃)₃ tem 3 NO₃⁻ → n(NO₃⁻) = 3 × 4,88 × 10⁻³ = 1,464 × 10⁻² mol.</li><li>N = 1,464 × 10⁻² × 6,022 × 10²³.</li></ol><div class="ans">N ≈ 8,82 × 10²¹ íons</div></div>
+  <div class="ex" data-ex><div class="q">e) Massa de 2,50 × 10⁻² mol de MgCl₂.</div>
+    <ol><li>MM(MgCl₂) = 24,31 + 2 × 35,45 = 95,21 g/mol.</li><li>m = 2,50 × 10⁻² × 95,21.</li></ol><div class="ans">m ≈ 2,38 g</div></div>
+  <div class="ex" data-ex><div class="q">f) Quantidade de matéria de NH₄Cl em 76,5 g.</div>
+    <ol><li>MM(NH₄Cl) = 14,01 + 4 × 1,008 + 35,45 = 53,49 g/mol.</li><li>n = 76,5 ÷ 53,49.</li></ol><div class="ans">n ≈ 1,43 mol</div></div>
+
+  <h3 data-q="5">Questão 5 · Reagente limitante</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#esteq">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">2 NaOH(s) + CO₂(g) → Na₂CO₃(s) + H₂O(l), com 1,70 mol de NaOH e 1,00 mol de CO₂. a) limitante; b) mol de Na₂CO₃; c) sobra do excesso.</div>
+    <ol><li>a) Teste n / coeficiente: NaOH → 1,70 ÷ 2 = 0,850 · CO₂ → 1,00 ÷ 1 = 1,00. O menor é o do NaOH → <b>NaOH é o limitante</b>.</li><li>b) Pela razão 2 NaOH : 1 Na₂CO₃ → n(Na₂CO₃) = 1,70 × 1/2 = <b>0,850 mol</b>.</li><li>c) CO₂ que reagiu: 1,70 × 1/2 = 0,850 mol. Sobra 1,00 − 0,850 = <b>0,15 mol de CO₂</b>.</li></ol>
+    <div class="ans">NaOH · 0,850 mol de Na₂CO₃ · sobram 0,15 mol de CO₂</div></div>
+
+  <h3 data-q="6">Questão 6 · Neutralização, pureza e rendimento</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#esteq">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">a) Equação balanceada da neutralização do ácido sulfúrico com hidróxido de potássio.</div>
+    <ol><li>Ácido + base → sal + água. O H₂SO₄ tem 2 H ionizáveis e o KOH tem 1 OH⁻: são precisos 2 KOH.</li></ol>
+    <div class="ans">H₂SO₄(aq) + 2 KOH(aq) → K₂SO₄(aq) + 2 H₂O(l)</div></div>
+  <div class="ex" data-ex><div class="q">b) Massa mínima de KOH puro para reagir com 0,294 g de H₂SO₄.</div>
+    <ol><li>MM(H₂SO₄) = 2 × 1,008 + 32,07 + 4 × 16,00 = 98,09 g/mol → n = 0,294 ÷ 98,09 = 3,00 × 10⁻³ mol.</li><li>Razão 1 : 2 → n(KOH) = 6,00 × 10⁻³ mol.</li><li>MM(KOH) = 39,10 + 16,00 + 1,008 = 56,11 g/mol → m = 6,00 × 10⁻³ × 56,11.</li></ol>
+    <div class="ans">m ≈ 0,336 g de KOH</div></div>
+  <div class="ex" data-ex><div class="q">c) E se o KOH comercial for 85 % m/m?</div>
+    <ol><li>Só 85 % do que você pesa é KOH. Para ter 0,336 g puros é preciso pesar <b>mais</b>.</li><li>m<sub>amostra</sub> = m<sub>pura</sub> ÷ 0,85 = 0,336 ÷ 0,85.</li></ol>
+    <div class="ans">m ≈ 0,396 g de KOH comercial</div></div>
+  <div class="ex" data-ex><div class="q">d) No item b foram obtidos 0,415 g de K₂SO₄. Qual o rendimento?</div>
+    <ol><li>Razão 1 H₂SO₄ : 1 K₂SO₄ → n teórico = 3,00 × 10⁻³ mol.</li><li>MM(K₂SO₄) = 2 × 39,10 + 32,07 + 4 × 16,00 = 174,27 g/mol → massa teórica = 3,00 × 10⁻³ × 174,27 = 0,522 g.</li><li>η = real / teórica × 100 = 0,415 ÷ 0,522 × 100.</li></ol>
+    <div class="ans">Rendimento ≈ 79,4 %</div></div>
+  <div class="ex" data-ex><div class="q">e) 10,0 g de H₂SO₄ com 15 g de KOH: quem está em excesso e quanto sobra?</div>
+    <ol><li>n(H₂SO₄) = 10,0 ÷ 98,09 = 0,102 mol · n(KOH) = 15 ÷ 56,11 = 0,267 mol.</li><li>Teste: H₂SO₄ → 0,102 ÷ 1 = 0,102 · KOH → 0,267 ÷ 2 = 0,134. O menor é o do ácido → H₂SO₄ é o limitante e o <b>KOH está em excesso</b>.</li><li>KOH que reage: 0,102 × 2 = 0,204 mol = 0,204 × 56,11 = 11,4 g.</li><li>Sobra: 15 − 11,4.</li></ol>
+    <div class="ans">KOH em excesso · sobram ≈ 3,6 g</div></div>
+
+  <h3 data-q="7">Questão 7 · Variação do Nox</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#redox">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">a) I₂O₅(s) + 5 CO(g) → I₂(s) + 5 CO₂(g)</div>
+    <ol><li>I₂O₅: 2 I + 5(−2) = 0 → I = +5. No I₂ (substância simples) = 0.</li><li>CO: C = +2. CO₂: C = +4. O continua −2.</li></ol>
+    <div class="ans">I: +5 → 0 (variação −5, reduz) · C: +2 → +4 (variação +2, oxida)</div></div>
+  <div class="ex" data-ex><div class="q">b) 2 Hg²⁺(aq) + N₂H₄(aq) → 2 Hg(l) + N₂(g) + 4 H⁺(aq)</div>
+    <ol><li>Hg²⁺ = +2 (íon monoatômico). Hg líquido = 0.</li><li>N₂H₄: 2 N + 4(+1) = 0 → N = −2. No N₂ = 0. O H é +1 dos dois lados.</li></ol>
+    <div class="ans">Hg: +2 → 0 (variação −2, reduz) · N: −2 → 0 (variação +2, oxida)</div></div>
+  <div class="ex" data-ex><div class="q">c) 3 H₂S(aq) + 2 H⁺(aq) + 2 NO₃⁻(aq) → 3 S(s) + 2 NO(g) + 4 H₂O(l)</div>
+    <ol><li>H₂S: 2(+1) + S = 0 → S = −2. No S sólido = 0.</li><li>NO₃⁻: N + 3(−2) = −1 → N = +5. NO: N = +2.</li></ol>
+    <div class="ans">S: −2 → 0 (variação +2, oxida) · N: +5 → +2 (variação −3, reduz)</div></div>
+  <div class="ex" data-ex><div class="q">d) Ba²⁺(aq) + 2 OH⁻(aq) + H₂O₂(aq) + 2 ClO₂(aq) → Ba(ClO₂)₂(s) + 2 H₂O(l) + O₂(g)</div>
+    <ol><li>ClO₂ (molécula neutra): Cl + 2(−2) = 0 → Cl = +4. No íon ClO₂⁻ do Ba(ClO₂)₂: Cl + 2(−2) = −1 → Cl = +3.</li><li>H₂O₂ é peróxido: O = −1. No O₂ = 0.</li><li>Ba (+2), H (+1) e o O dos OH⁻ e ClO₂ (−2) não mudam.</li></ol>
+    <div class="ans">Cl: +4 → +3 (variação −1, reduz) · O do H₂O₂: −1 → 0 (variação +1, oxida)</div></div>
+
+  <h3 data-q="8">Questão 8 · Concentração</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#solucoes">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">a) Concentração de 0,0345 mol de NH₄Cl em 400 mL de solução.</div>
+    <ol><li>V = 400 mL = 0,400 L.</li><li>C = n / V = 0,0345 ÷ 0,400.</li></ol><div class="ans">C = 0,0863 mol/L</div></div>
+  <div class="ex" data-ex><div class="q">b) Mol de HNO₃ em 35,0 mL de solução 2,20 mol/L.</div>
+    <ol><li>V = 0,0350 L.</li><li>n = C · V = 2,20 × 0,0350.</li></ol><div class="ans">n = 0,0770 mol</div></div>
+  <div class="ex" data-ex><div class="q">c) Volume de KOH 1,50 mol/L que fornece 0,125 mol.</div>
+    <ol><li>V = n / C = 0,125 ÷ 1,50 = 0,0833 L.</li></ol><div class="ans">V = 83,3 mL</div></div>
+
+  <h3 data-q="9">Questão 9 · Diluição</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#solucoes">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">Estoque de NaOH 14,8 mol/L. a) Volume para preparar 100,0 mL de solução 0,250 mol/L.</div>
+    <ol><li>C₁V₁ = C₂V₂ → V₁ = C₂V₂ / C₁.</li><li>V₁ = 0,250 × 100,0 ÷ 14,8.</li></ol><div class="ans">V₁ ≈ 1,69 mL do estoque (e completa até 100,0 mL)</div></div>
+  <div class="ex" data-ex><div class="q">b) 10,0 mL do estoque diluídos para 0,250 L. Concentração final?</div>
+    <ol><li>V₂ = 0,250 L = 250 mL (mesma unidade de V₁).</li><li>C₂ = C₁V₁ / V₂ = 14,8 × 10,0 ÷ 250.</li></ol><div class="ans">C₂ = 0,592 mol/L</div></div>
+
+  <h3 data-q="10">Questão 10 · Célula voltaica Fe / Ag</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#pilhas">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">Fe(s) + 2 Ag⁺(aq) → Fe²⁺(aq) + 2 Ag(s). a) semirreações; b) ânodo e cátodo; c) sinais; d) sentido dos elétrons; e) migração dos íons.</div>
+    <ol><li>a) Oxidação: <b>Fe(s) → Fe²⁺(aq) + 2 e⁻</b> · Redução: <b>Ag⁺(aq) + e⁻ → Ag(s)</b> (acontece 2 vezes para cada Fe).</li><li>b) O ferro oxida → eletrodo de <b>ferro é o ânodo</b>. A prata reduz → eletrodo de <b>prata é o cátodo</b>.</li><li>c) Ânodo (Fe) <b>negativo</b> · cátodo (Ag) <b>positivo</b>.</li><li>d) Os elétrons saem do <b>ferro</b> e vão pelo fio para a <b>prata</b>.</li><li>e) <b>Cátions</b> migram para o cátodo (compartimento da prata, onde o Ag⁺ está sendo consumido). <b>Ânions</b> migram para o ânodo (compartimento do ferro, onde está surgindo Fe²⁺).</li></ol>
+    <div class="ans">Fe: ânodo (−), oxida · Ag: cátodo (+), reduz · e⁻ do Fe para a Ag</div></div>
+
+  <h3 data-q="11">Questão 11 · Maior e menor fem</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#pilhas">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">Ag⁺/Ag +0,799 V · Cu²⁺/Cu +0,337 V · Ni²⁺/Ni −0,28 V · Cr³⁺/Cr −0,74 V. a) maior fem positiva; b) menor fem positiva.</div>
+    <ol><li>E°<sub>cel</sub> = E°<sub>red</sub>(cátodo) − E°<sub>red</sub>(ânodo). A maior fem junta os dois extremos; a menor junta dois vizinhos.</li><li>a) Cátodo Ag (+0,799) e ânodo Cr (−0,74): E° = 0,799 − (−0,74) = <b>1,54 V</b>. Global: 3 Ag⁺ + Cr → 3 Ag + Cr³⁺.</li><li>b) Diferenças entre vizinhos: Ag/Cu = 0,799 − 0,337 = 0,462 V · Cu/Ni = 0,337 − (−0,28) = 0,617 V · Ni/Cr = −0,28 − (−0,74) = 0,46 V.</li><li>A menor é Ni (cátodo) com Cr (ânodo): <b>0,46 V</b>. Global: 3 Ni²⁺ + 2 Cr → 3 Ni + 2 Cr³⁺.</li></ol>
+    <div class="ans">a) Ag⁺/Cr: 1,54 V · b) Ni²⁺/Cr: 0,46 V (Ag⁺/Cu fica praticamente empatada, 0,462 V)</div></div>
+
+  <h3 data-q="12">Questão 12 · Bateria de chumbo e ácido</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#pilhas">ver a aula →</a></p>
+  <div class="ex" data-ex><div class="q">382 g de Pb do ânodo viram PbSO₄. Que massa de PbO₂ é reduzida no cátodo?</div>
+    <ol><li>Global da descarga: Pb + PbO₂ + 2 H₂SO₄ → 2 PbSO₄ + 2 H₂O. Cada Pb que oxida solta 2 e⁻ e cada PbO₂ que reduz recebe 2 e⁻ → proporção <b>1 : 1</b>.</li><li>n(Pb) = 382 ÷ 207,2 = 1,84 mol → n(PbO₂) = 1,84 mol.</li><li>MM(PbO₂) = 207,2 + 2 × 16,00 = 239,2 g/mol → m = 1,84 × 239,2.</li></ol>
+    <div class="ans">m ≈ 441 g de PbO₂</div></div>
+  <div class="done-btn" data-done="ed3"></div>
+</section>
+
 <!-- ============ TABELA PERIÓDICA ============ -->
 <section class="view" id="v-tabela" hidden>
   <div class="eyebrow">Tabela periódica interativa</div>
@@ -1242,6 +1602,13 @@ body{font-size:1rem}
     <div class="fx"><span class="tag">Hund · Pauli</span><div class="eq" style="font-size:1rem">↑ ↑ ↑ antes de ↑↓</div><p>máx. 2 e⁻ por orbital, spins opostos</p></div>
     <div class="fx"><span class="tag">Exceções</span><div class="eq" style="font-size:1rem">Cr [Ar]3d⁵4s¹ · Cu [Ar]3d¹⁰4s¹</div><p>d⁵ e d¹⁰ são estáveis</p></div>
     <div class="fx"><span class="tag">Tendências</span><div class="eq" style="font-size:1rem">raio ↙ · EI e AE ↗</div><p>Z<sub>ef</sub> = Z − S cresce →</p></div>
+    <div class="fx"><span class="tag">Razão molar</span><div class="eq" style="font-size:1rem">n(B) = n(A) × coef B / coef A</div><p>sempre em mol, equação balanceada</p></div>
+    <div class="fx"><span class="tag">Limitante</span><div class="eq" style="font-size:1rem">menor n ÷ coeficiente</div><p>sobra = tinha − reagiu</p></div>
+    <div class="fx"><span class="tag">Pureza · rendimento</span><div class="eq" style="font-size:1rem">m pura = m × p% · η = real/teórico</div><p>para ter x g puros, pese x ÷ p</p></div>
+    <div class="fx"><span class="tag">Concentração</span><div class="eq">C = n / V</div><p>V em litros · n = C · V</p></div>
+    <div class="fx"><span class="tag">Diluição</span><div class="eq">C₁V₁ = C₂V₂</div><p>os mols de soluto não mudam</p></div>
+    <div class="fx"><span class="tag">Nox</span><div class="eq" style="font-size:1rem">O −2 · H +1 · soma = carga</div><p>oxida: Nox sobe · reduz: Nox desce</p></div>
+    <div class="fx"><span class="tag">Pilha</span><div class="eq" style="font-size:1rem">E° = E°red(cát) − E°red(ân)</div><p>ânodo (−) oxida · cátodo (+) reduz</p></div>
     <div class="fx"><span class="tag">Equação química</span><div class="eq" style="font-size:1.05rem">2 H₂(g) + O₂(g) → 2 H₂O(g)</div><p>reagentes → produtos</p></div>
     <div class="fx"><span class="tag">Coeficiente × índice</span><div class="eq" style="font-size:1.05rem"><b style="color:var(--c1)">2</b> H<b style="color:var(--c3)">₂</b>O</div><p>só o coeficiente muda no balanceamento</p></div>
     <div class="fx"><span class="tag">Conservação da massa</span><div class="eq" style="font-size:1rem">átomos antes = átomos depois</div><p>por isso balancear</p></div>
@@ -1333,7 +1700,11 @@ const EQS=[
  {n:'Alumínio + oxigênio',r:['Al','O2'],p:['Al2O3'],c:[4,3,2]},
  {n:'Sódio na água',r:['Na','H2O'],p:['NaOH','H2'],c:[2,2,2,1]},
  {n:'Fotossíntese',r:['CO2','H2O'],p:['C6H12O6','O2'],c:[6,6,1,6]},
- {n:'Etanol queimando',r:['C2H6O','O2'],p:['CO2','H2O'],c:[1,3,2,3]}];
+ {n:'Etanol queimando',r:['C2H6O','O2'],p:['CO2','H2O'],c:[1,3,2,3]},
+ {n:'ED3 2a',r:['SO2','O2'],p:['SO3'],c:[2,1,2]},{n:'ED3 2b',r:['P2O5','H2O'],p:['H3PO4'],c:[1,3,2]},{n:'ED3 2c',r:['CH4','Cl2'],p:['CCl4','HCl'],c:[1,4,1,4]},
+ {n:'ED3 2d',r:['Al4C3','H2O'],p:['Al(OH)3','CH4'],c:[1,12,4,3]},{n:'ED3 2e',r:['C4H10O','O2'],p:['CO2','H2O'],c:[1,6,4,5]},{n:'ED3 2f',r:['Fe(OH)3','H2SO4'],p:['Fe2(SO4)3','H2O'],c:[2,3,1,6]},
+ {n:'ED3 2g',r:['Mg3N2','H2SO4'],p:['MgSO4','(NH4)2SO4'],c:[1,4,3,1]},{n:'ED3 2h',r:['Al','Cl2'],p:['AlCl3'],c:[2,3,2]},{n:'ED3 2i',r:['C2H4','O2'],p:['CO2','H2O'],c:[1,3,2,2]},
+ {n:'ED3 2j',r:['Li','N2'],p:['Li3N'],c:[6,1,2]},{n:'ED3 2k',r:['PbCO3'],p:['PbO','CO2'],c:[1,1,1]},{n:'ED3 2l',r:['C7H8O2','O2'],p:['CO2','H2O'],c:[1,8,7,4]}];
 function balW(){ let E=EQS[0], k=[];
   const pick=$('balPick'); pick.innerHTML=EQS.map((e,i)=>'<button class="'+(i?'ghost':'')+'" data-i="'+i+'">'+e.n+'</button>').join('');
   pick.querySelectorAll('button').forEach(b=>b.onclick=()=>{ pick.querySelectorAll('button').forEach(x=>x.className='ghost'); b.className=''; E=EQS[+b.dataset.i]; k=E.c.map(()=>1); draw() });
@@ -1595,7 +1966,7 @@ function renderQuiz(){ const box=$('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<d
 function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; $('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · mandou bem!':ok>=9?' · quase lá':' · revise os módulos'):'') }
 
 /* ========= progresso e rotas ========= */
-const MODS=[['materia','Matéria e elementos','Substâncias, misturas e símbolos'],['modelos','Modelos atômicos','De Dalton a Schrödinger, Rutherford e as partículas'],['luz','Luz e fótons','c = λν, E = hν e o efeito fotoelétrico'],['bohr','Átomo de Bohr','Órbitas, saltos e as linhas do hidrogênio'],['quanticos','Números quânticos','n, l, mₗ, mₛ e os orbitais em 3D'],['config','Configuração eletrônica','Pauling, Hund, Pauli, íons e exceções'],['periodicas','Propriedades periódicas','Raio, ionização, afinidade e Z efetiva'],['ed1','Estudo dirigido 1','Índice das 18 questões e treino'],['reacoes','Reações e equações','Anatomia da equação, conservação da massa e balanceamento'],['massa','Medidas de massa','u e g/mol, massa molecular, cafeína e calculadora'],['mol','O mol','Avogadro, pacotes e 1 mol de qualquer espécie'],['conv','Transformações','gramas ↔ mol ↔ partículas e os exercícios da aula']];
+const MODS=[['materia','Matéria e elementos','Substâncias, misturas e símbolos'],['modelos','Modelos atômicos','De Dalton a Schrödinger, Rutherford e as partículas'],['luz','Luz e fótons','c = λν, E = hν e o efeito fotoelétrico'],['bohr','Átomo de Bohr','Órbitas, saltos e as linhas do hidrogênio'],['quanticos','Números quânticos','n, l, mₗ, mₛ e os orbitais em 3D'],['config','Configuração eletrônica','Pauling, Hund, Pauli, íons e exceções'],['periodicas','Propriedades periódicas','Raio, ionização, afinidade e Z efetiva'],['ed1','Estudo dirigido 1','Índice das 18 questões e treino'],['reacoes','Reações e equações','Anatomia da equação, conservação da massa e balanceamento'],['massa','Medidas de massa','u e g/mol, massa molecular, cafeína e calculadora'],['mol','O mol','Avogadro, pacotes e 1 mol de qualquer espécie'],['conv','Transformações','gramas ↔ mol ↔ partículas e os exercícios da aula'],['esteq','Estequiometria','Limitante, excesso, pureza e rendimento'],['solucoes','Soluções','Concentração em mol/L e diluição'],['redox','Oxirredução','Nox, quem oxida e quem reduz'],['pilhas','Pilhas e baterias','Ânodo, cátodo, fem e chumbo-ácido'],['ed3','Estudo dirigido 3','As 12 questões da lista resolvidas']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('qg-done')||'{}'); qa=JSON.parse(localStorage.getItem('qg-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('qg-done',JSON.stringify(done)); localStorage.setItem('qg-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -1606,7 +1977,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; $('progtxt').t
   document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
     d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#lab">Agora vá para o laboratório de descobertas →</a>');
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
-const VIEWS=['inicio','materia','modelos','luz','bohr','quanticos','config','periodicas','ed1','reacoes','massa','mol','conv','tabela','lab','quiz','cola'];
+const VIEWS=['inicio','materia','modelos','luz','bohr','quanticos','config','periodicas','ed1','reacoes','massa','mol','conv','esteq','solucoes','redox','pilhas','ed3','tabela','lab','quiz','cola'];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>$('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
@@ -1635,6 +2006,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
   location.href='../../index.html#m-qg' });
 </script>
 <script src="../../js/quimica-m1.js"></script>
+<script src="../../js/quimica-m3.js"></script>
 <script src="../../dados/cartas.js"></script>
 <script src="../../js/anki.js" data-materia="qg"></script>
 <script src="../../js/aviso.js" defer></script>

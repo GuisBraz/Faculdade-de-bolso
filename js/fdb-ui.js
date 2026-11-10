@@ -104,14 +104,14 @@ function brandOficina(){ const id=matDaPagina(); if(!id) return; const a=$('head
   a.style.display='flex'; a.style.alignItems='center'; a.style.gap='10px' }
 
 /* ---------- aulas agrupadas por módulo (prova) no menu ---------- */
-function eyebrows(){ const id=matDaPagina(), A=(window.FDB_AULAS||{})[id]; if(!A||!A.modulos) return; let k=0;
-  [1,2,3].forEach(n=>(A.modulos[n]||[]).forEach(([v])=>{ k++; const sec=document.getElementById('v-'+v); const e=sec&&sec.querySelector(':scope > .eyebrow'); if(!e) return;
+function eyebrows(){ const id=matDaPagina(), A=(window.FDB_AULAS||{})[id]; if(!A||!A.modulos) return;
+  [1,2,3].forEach(n=>(A.modulos[n]||[]).forEach(([v],i)=>{ const k=i+1; const sec=document.getElementById('v-'+v); const e=sec&&sec.querySelector(':scope > .eyebrow'); if(!e) return;
     const resto=e.textContent.replace(/^\s*Módulo\s*\d+\s*·?\s*/i,'').replace(/^Aula de /i,'aula de ');
     e.textContent='Módulo '+n+' · Aula '+k+(resto?' · '+resto:'') })) }
 function aulasPorModulo(){ const id=matDaPagina(), A=(window.FDB_AULAS||{})[id]; const pan=$('.fdb-am'); if(!A||!A.modulos||!pan) return;
-  const links=$$('a[data-m]',pan); const byId=Object.fromEntries(links.map(a=>[a.dataset.m,a])); let k=0; pan.innerHTML='';
+  const links=$$('a[data-m]',pan); const byId=Object.fromEntries(links.map(a=>[a.dataset.m,a])); pan.innerHTML='';
   [1,2,3].forEach(n=>{ const L=A.modulos[n]||[]; const h=document.createElement('div'); h.className='fdb-amh'; h.textContent='Módulo '+n+' · '+n+'ª prova'+(L.length?'':' · em breve'); pan.appendChild(h);
-    L.forEach(([v,t])=>{ k++; const a=byId[v]; if(!a) return; delete byId[v]; a.innerHTML='<small>Aula '+k+'</small> '+t; pan.appendChild(a) }) });
+    L.forEach(([v,t],i)=>{ const k=i+1, a=byId[v]; if(!a) return; delete byId[v]; a.innerHTML='<small>Aula '+k+'</small> '+t; pan.appendChild(a) }) });
   Object.values(byId).forEach(a=>pan.appendChild(a));
   const b=$('.fdb-ab'); if(b) b.firstChild.textContent='▶ Aulas ' }
 
