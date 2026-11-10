@@ -60,6 +60,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+            { data: "2026-11-09", texto: "Módulo 3 reorganizado e mais enxuto: 8 aulas (Massa e Mol viraram uma só), exercícios dentro da explicação e no máximo uma ferramenta por aula." },
             { data: "2026-11-09", texto: "Módulo 3 ampliado com 4 aulas novas (estequiometria com reagente limitante, pureza e rendimento; soluções e diluição; oxirredução com calculadora de Nox; pilhas e baterias com simulador de célula voltaica) e a aba Estudo Dirigido 3 com as 12 questões da lista resolvidas passo a passo." },
             { data: "2026-11-08", texto: "Módulo 1 completo (1ª prova): matéria, modelos atômicos com o experimento de Rutherford, luz e efeito fotoelétrico, átomo de Bohr, orbitais em 3D e números quânticos, configuração eletrônica com montador, propriedades periódicas com mapa de calor, as 18 questões do Estudo Dirigido 1 resolvidas e treino com questões sorteadas." },
                 { data: "2026-11-06", texto: "Criada com a aula de 06/11: equação química interativa, conservação da massa e balanceador, medidas de massa (u e g/mol), cafeína clicável, calculadora de massa molar, o mol e Avogadro, conversor gramas ↔ mol ↔ partículas, exercícios a–d resolvidos, tabela periódica com os 118 elementos, laboratório, quiz, cola e cartas." },

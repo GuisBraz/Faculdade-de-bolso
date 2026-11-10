@@ -62,8 +62,7 @@ window.FDB_AULAS = {
       ["ed1", "Estudo dirigido 1", "As 18 questões resolvidas e treino"]
     ], 2: [], 3: [
       ["reacoes", "Reações e equações", "Equação química, conservação da massa e balanceamento"],
-      ["massa", "Medidas de massa", "u, g/mol e massa molecular"],
-      ["mol", "O mol", "Avogadro e 1 mol de qualquer espécie"],
+      ["massa", "Massa molar e mol", "u, g/mol, Avogadro e massa molecular"],
       ["conv", "Transformações", "gramas ↔ mol ↔ partículas"],
       ["esteq", "Estequiometria", "Limitante, excesso, pureza e rendimento"],
       ["solucoes", "Soluções", "Concentração em mol/L e diluição"],

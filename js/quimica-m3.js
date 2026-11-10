@@ -222,6 +222,7 @@ function boloW(){ const N=g('m3BoloN'); if(!N) return; const nn=v=>v.toLocaleStr
   const tab=()=>{ const k=+N.value; g('m3BoloNv').textContent=nn(k)+(k===1?' receita':' receitas');
     g('m3BoloT').innerHTML='<tr><th></th>'+BOLO.map(b=>'<th>'+b[3]+' '+b[0]+'</th>').join('')+'<th>🎂 Bolo</th></tr><tr><td>1 receita</td>'+BOLO.map(b=>'<td>'+b[2]+' '+b[1]+'</td>').join('')+'<td>1 un</td></tr><tr><td><b>'+nn(k)+' receita'+(k===1?'':'s')+'</b></td>'+BOLO.map(b=>'<td class="v">'+nn(b[2]*k)+' '+b[1]+'</td>').join('')+'<td class="v">'+nn(k)+' un</td></tr>' };
   N.oninput=tab; tab();
+  if(!g('m3Desp')) return;
   const D=[1000,500,3,500]; g('m3Desp').innerHTML=BOLO.map((b,i)=>'<label>'+b[3]+' '+b[0]+' ('+b[1]+')<input type="text" inputmode="decimal" id="m3D'+i+'" value="'+D[i]+'"></label>').join('');
   const calc=()=>{ const v=BOLO.map((_,i)=>num(g('m3D'+i).value)); if(v.some(isNaN)){ g('m3DespO').textContent='Preencha tudo.'; return }
     const bolos=BOLO.map((b,i)=>v[i]/b[2]), mn=Math.min(...bolos), li=bolos.indexOf(mn), inteiros=Math.floor(mn+1e-9), mx=Math.max(...bolos,1e-9);
