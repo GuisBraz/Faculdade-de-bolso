@@ -567,6 +567,7 @@ body{font-size:1rem}
 .m3-rec{background:#FFF7EC;border:1px solid #F1D7B5;border-radius:14px;padding:12px 14px;color:#5A3A12;font-family:'Kalam',cursive}.m3-rec b{font-family:var(--f-disp);color:#B35A12}.m3-rec ul{margin:6px 0;padding-left:18px;line-height:1.5}.m3-rec span{font-weight:700;color:#B35A12}
 #m3OctU button.sel{background:var(--c1)!important;color:#fff!important;border-color:var(--c1)!important}
 #m3BoloT td.v{font-weight:800;color:var(--c1)}
+.m3-lb .lb{font-size:clamp(1.05rem,3.2vw,1.45rem);font-weight:700;margin:6px 0;line-height:1.5}.m3-lb sup,.m3-lb sub{font-size:.65em}
 .m3-irp{margin:-6px 0 10px}.m3-ir{font:700 .82rem var(--f-body);color:var(--c1);text-decoration:none}.m3-ir:hover{text-decoration:underline}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
@@ -1319,8 +1320,15 @@ body{font-size:1rem}
     <tr><td><b>Moléculas</b></td><td>1</td><td>12,5</td><td>8</td><td>9</td></tr>
     <tr><td><b>× N<sub>A</sub></b></td><td>6,022 × 10²³</td><td>12,5 × (6,022 × 10²³)</td><td>8 × (6,022 × 10²³)</td><td>9 × (6,022 × 10²³)</td></tr>
     <tr><td><b>Mol</b></td><td>1 mol</td><td>12,5 mol</td><td>8 mol</td><td>9 mol</td></tr></table></div>
-  <div class="fx"><span class="tag">A leitura da equação</span><div class="eq" style="font-size:1.15rem">1 mol C₈H₁₈ ≡ 12,5 mol O₂ ≡ 8 mol CO₂ ≡ 9 mol H₂O</div>
+  <div class="fx"><span class="tag">A leitura da equação</span><div class="eq" style="font-size:clamp(.95rem,3.4vw,1.15rem);white-space:normal;line-height:1.6">1 mol C₈H₁₈ ≡ 12,5 mol O₂ ≡ 8 mol CO₂ ≡ 9 mol H₂O</div>
     <dl class="legend"><dt>≡</dt><dd>"equivale a": são quantidades que se correspondem na reação (não são iguais em massa!)</dd><dt>por quê</dt><dd>multiplicar todos os coeficientes por N<sub>A</sub> não muda a proporção; então os coeficientes valem tanto para moléculas quanto para mol</dd></dl></div>
+  <div class="m3-board m3-lb"><div class="bq-n">No quadro: a linha base</div>
+    <div class="lb">C₈H₁₈ + <sup>25</sup>/<sub>2</sub> O₂ → 8 CO₂ + 9 H₂O</div>
+    <div class="lb">1 mol C₈H₁₈ —— <sup>25</sup>/<sub>2</sub> mol O₂ —— 8 mol CO₂ —— 9 mol H₂O</div>
+    <div class="bq-nota">Os coeficientes viram a <b>linha base da regra de 3</b>. Embaixo, na coluna certa, você escreve o dado do exercício e o x.</div></div>
+  <div class="ex" data-ex><div class="q">Usando a linha base: quantos mol de CO₂ saem da queima de 3 mol de octano? E quanto O₂ é preciso?</div>
+    <ol><li>Linha base: 1 mol C₈H₁₈ —— 8 mol CO₂.</li><li>Embaixo: 3 mol C₈H₁₈ —— x.</li><li>Multiplica cruzado: x = 3 × 8 ÷ 1 = <b>24 mol de CO₂</b>.</li><li>Para o O₂: 1 mol C₈H₁₈ —— 25/2 mol O₂ · 3 mol —— y → y = 3 × 12,5 = <b>37,5 mol de O₂</b>.</li></ol>
+    <div class="ans">24 mol de CO₂ · 37,5 mol de O₂</div></div>
   <div class="ex" data-ex><div class="q">Como chegar no 25/2: balanceie C₈H₁₈ + O₂ → CO₂ + H₂O (MACHO)</div>
     <ol><li><b>C</b>: 8 à esquerda → <b>8</b> CO₂.</li><li><b>H</b>: 18 à esquerda → <b>9</b> H₂O (9 × 2 = 18).</li><li><b>O</b>: à direita 8 × 2 + 9 × 1 = 16 + 9 = 25. Com O₂ (2 por molécula): 25 ÷ 2 = <b>25/2</b> = 12,5.</li><li>Inteiros, se preferir: multiplique tudo por 2 → 2 C₈H₁₈ + 25 O₂ → 16 CO₂ + 18 H₂O.</li></ol>
     <div class="ans">C₈H₁₈ + 25/2 O₂ → 8 CO₂ + 9 H₂O</div></div>
