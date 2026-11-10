@@ -117,7 +117,17 @@ window.FACULDADE = {
               tags: ["newton", "atrito", "arrasto", "movimento circular", "energia", "conservação", "halliday"]
             }
           ] },
-        { id: "cm2", sigla: "Materiais II", nome: "Ciência dos Materiais II", ch: 30, icone: "materiais", area: "m", arquivos: [] },
+        { id: "cm2", sigla: "Materiais II", nome: "Ciência dos Materiais II", ch: 30, icone: "materiais", area: "m", arquivos: [
+            {
+              titulo: "Oficina de Materiais · Cerâmicos e compósitos",
+              tipo: "site",
+              caminho: "materias/materiais/oficina-de-materiais.html",
+              data: "2026-11-10",
+              atualizacoes: [
+                { data: "2026-11-10", texto: "Oficina criada com a aula de 10/11: materiais cerâmicos (classificação pela aplicação) e compósitos (classificação, fatores de geometria e regra das misturas), com quiz e cola." }
+              ]
+            }
+          ] },
         { id: "dt2", sigla: "Desenho II", nome: "Desenho Técnico II – DAC", ch: 30, icone: "desenho", area: "d", arquivos: [] },
         { id: "gaal", sigla: "GAAL", nome: "Geometria Analítica e Álgebra Linear", ch: 60, icone: "vetor", area: "a", arquivos: [
             {

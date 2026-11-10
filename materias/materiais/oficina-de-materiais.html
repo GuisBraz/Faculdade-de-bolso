@@ -1,0 +1,537 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oficina de Materiais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=STIX+Two+Text:ital,wght@0,500;1,500&amp;display=swap">
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Oficina de Materiais (Ciência dos Materiais II): mesma base visual das oficinas */
+:root{
+  --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
+  --c1:#D9531A; --c2:#0C8587; --c3:#6447BE; --ok:#2A7F3E; --bad:#BF3328; --hl:rgba(217,83,26,.10); --hl2:rgba(12,133,135,.10);
+  --f-disp:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif, "Cambria Math", "STIX Two Text";
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif, "Cambria Math", "STIX Two Text", "Segoe UI Symbol";
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace, "Cambria Math", "STIX Two Text";
+  --f-math:"STIX Two Text", "Cambria Math", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+img{max-width:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+h1,h2,h3{font-family:var(--f-disp);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,5vw,2.4rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700;margin-top:2.2rem}
+p{margin:.6rem 0}
+a{color:var(--c2)}
+i.m,.m{font-family:var(--f-math);font-style:italic}
+:focus-visible{outline:2.5px solid var(--c1);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sheet);border-bottom:1px solid var(--line)}
+.hwrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 0}
+.brand{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.brand a{font-family:var(--f-disp);font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo{width:26px;height:26px}
+.prog{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.bar{width:90px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c2);width:0;transition:width .4s}
+nav{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;font-size:.86rem;font-weight:700;text-decoration:none;color:var(--ink2);padding:6px 11px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--ink);border-color:var(--line)}
+nav a.on{background:var(--ink);color:var(--sheet)}
+nav a .dn{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-left:5px;vertical-align:middle}
+
+main{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 80px}
+.view{display:block}
+.read{max-width:700px}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.lede{font-size:1.12rem;color:var(--ink2);max-width:62ch}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;margin-bottom:36px}
+.hero h1{font-size:clamp(2.2rem,7vw,3.9rem);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--c1)}
+.hero .cv{aspect-ratio:1/1;max-width:100%}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+
+/* trilha */
+.trail{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:18px}
+.stop{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;padding:14px 16px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
+.stop:hover{transform:translateY(-2px);border-color:var(--c2)}
+.stop .n{grid-row:span 2;font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ink2);color:var(--ink2)}
+.stop.done .n{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.stop b{font-family:var(--f-disp);font-size:1.05rem}
+.stop span{font-size:.88rem;color:var(--ink2);line-height:1.4}
+
+/* blocos */
+.fx{position:relative;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;margin:20px 0;padding:30px 18px 16px;overflow-x:auto}
+.fx .tag{position:absolute;top:0;left:0;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--sheet);padding:3px 9px;border-bottom-right-radius:4px}
+.fx .eq{font-family:var(--f-math);font-size:1.45rem;text-align:center;padding:6px 0 10px;white-space:nowrap}
+.fx .eq i{font-style:italic}
+.legend{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.93rem;border-top:1px dashed var(--line);padding-top:10px;margin:0}
+.legend dt{font-family:var(--f-math);font-style:italic;font-size:1.05rem;color:var(--c1);white-space:nowrap}
+.legend dd{margin:0;color:var(--ink2)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .25em .05em}
+.fr>span:last-child{padding:.05em .25em 0}
+.rt{white-space:nowrap}.rt::before{content:"√"}.rt>span{border-top:1.5px solid currentColor;padding:0 .1em}
+.v{position:relative}
+.ofi{background:var(--hl2);border-radius:8px;padding:12px 16px;margin:18px 0}
+.ofi .k,.cuid .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--c2);display:block;margin-bottom:2px}
+.cuid{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:12px 16px 12px;margin:18px 0;position:relative;overflow:hidden}
+.cuid::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:repeating-linear-gradient(-45deg,#E8B511 0 8px,#1b1b1b 8px 16px)}
+.cuid .k{color:var(--c1);margin-top:4px}
+ol.recipe{counter-reset:s;list-style:none;padding:0;margin:14px 0;display:grid;gap:8px}
+ol.recipe>li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+ol.recipe>li::before{content:counter(s);font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:26px;height:26px;border-radius:50%;background:var(--c1);color:var(--sheet);display:grid;place-items:center;margin-top:1px}
+code,.mono{font-family:var(--f-mono);font-size:.9em}
+.tbl{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--sheet)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+
+/* exemplo passo a passo */
+.ex{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:18px 0}
+.ex .q{font-weight:700}
+.ex ol{margin:10px 0 0;padding-left:1.3em;display:grid;gap:8px}
+.ex ol li{padding-left:4px}
+.ex ol li.hid{display:none}
+.ex .ans{display:none;margin-top:10px;padding:8px 12px;background:var(--hl);border-radius:6px;font-weight:700}
+.ex.all .ans{display:block}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button,.btn{font:700 .88rem var(--f-body);border-radius:8px;padding:8px 14px;cursor:pointer;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet)}
+button.ghost{background:transparent;color:var(--ink)}
+button:disabled{opacity:.4;cursor:default}
+button:hover:not(:disabled){filter:brightness(1.1)}
+
+/* calculadoras */
+.calc{background:var(--sheet);border:1.5px solid var(--c2);border-radius:10px;padding:16px;margin:24px 0}
+.calc h4{margin:0 0 4px;font-family:var(--f-disp);font-size:1.1rem;color:var(--c2)}
+.calc .hint{font-size:.85rem;color:var(--ink2);margin:0 0 10px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.fields label{display:grid;gap:3px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+input[type=text],select{font:500 1rem var(--f-mono);padding:8px 10px;border-radius:6px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%;min-width:0}
+input[type=text]:focus{border-color:var(--c2);outline:none}
+.out{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;font-size:.95rem}
+.out ol{margin:0;padding-left:1.3em;display:grid;gap:5px}
+.out .res{margin-top:8px;font-weight:700;padding:8px 12px;border-radius:6px;background:var(--hl2)}
+.out .err{color:var(--bad);font-weight:700}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.seg button{background:transparent;color:var(--ink2);border-color:var(--line);font-size:.82rem;padding:6px 11px}
+.seg button.on{background:var(--c2);border-color:var(--c2);color:var(--sheet)}
+.done-btn{margin-top:36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--line)}
+.done-btn button.isdone{background:var(--ok);border-color:var(--ok)}
+
+/* 3D */
+.cv{position:relative;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--sheet);overflow:hidden;touch-action:none}
+.cv canvas{display:block;width:100%;height:100%;cursor:grab}
+.cv .ctl{position:absolute;right:8px;bottom:8px;display:flex;gap:6px}
+.cv .ctl button{padding:4px 10px;font-size:.85rem;background:var(--sheet);color:var(--ink);border-color:var(--line)}
+.cv .lbl{position:absolute;left:10px;top:8px;font-family:var(--f-mono);font-size:.7rem;color:var(--ink2)}
+.labgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start}
+.labgrid .cv{aspect-ratio:4/3.4}
+@media (max-width:760px){.labgrid{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{font-size:.8rem;padding:6px 10px;background:transparent;color:var(--ink);border-color:var(--line)}
+.objlist{list-style:none;padding:0;margin:10px 0;display:grid;gap:6px;font-size:.88rem}
+.objlist li{display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:6px;padding:6px 8px}
+.objlist li .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.objlist li span{flex:1;min-width:0;font-family:var(--f-mono);font-size:.8rem;overflow-wrap:anywhere}
+.objlist li button{padding:2px 8px;font-size:.75rem;background:transparent;color:var(--bad);border-color:var(--line)}
+.inline-cv{aspect-ratio:16/10;margin:16px 0}
+
+/* fluxograma */
+.flow{display:grid;gap:10px;margin:16px 0}
+.node{background:var(--sheet);border:1.5px solid var(--ink);border-radius:8px;padding:10px 14px}
+.node b{font-family:var(--f-disp)}
+.branch{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.leaf{border-radius:8px;padding:10px 12px;font-size:.92rem;border:1.5px solid var(--line);background:var(--sheet)}
+.leaf b{display:block;font-family:var(--f-disp);font-size:1rem}
+.leaf.a b{color:var(--c1)}.leaf.b b{color:var(--c2)}.leaf.c b{color:var(--c3)}
+.arrow{text-align:center;font-family:var(--f-mono);color:var(--ink2);font-size:.8rem}
+@media (max-width:520px){.branch{grid-template-columns:1fr}}
+
+/* lista */
+.qitem{background:var(--sheet);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.qitem summary{cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;list-style:none}
+.qitem summary::-webkit-details-marker{display:none}
+.qitem summary .qn{font-family:var(--f-mono);font-weight:600;font-size:.8rem;background:var(--ink);color:var(--sheet);border-radius:5px;padding:2px 8px;margin-top:2px}
+.qitem[open] summary{border-bottom:1px dashed var(--line)}
+.qitem .body{padding:6px 16px 16px}
+.qitem .tagt{font-family:var(--f-mono);font-size:.72rem;color:var(--c2);margin-top:4px;display:block}
+.part{margin-top:14px}
+.part h5{margin:0;font-family:var(--f-disp);font-size:1rem}
+
+/* quiz */
+.qz{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+.qz .opts{display:grid;gap:8px;margin-top:10px}
+.qz .opts button{text-align:left;background:var(--paper);color:var(--ink);border:1.5px solid var(--line);font-weight:400}
+.qz .opts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--sheet))}
+.qz .opts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--sheet))}
+.qz .why{margin-top:10px;font-size:.93rem;color:var(--ink2)}
+.score{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--ink);color:var(--sheet);border-radius:10px;padding:10px 16px;font-family:var(--f-mono);font-size:.9rem}
+.score button{background:var(--sheet);color:var(--ink);border-color:var(--sheet);padding:4px 10px;font-size:.8rem}
+
+/* cola */
+.cola{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.cola .fx{margin:0}
+.cola .fx .eq{font-size:1.2rem}
+.cola p{font-size:.85rem;color:var(--ink2);margin:6px 0 0}
+
+/* demo escalar */
+.dot2d{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin:18px 0}
+.dot2d canvas{width:200px;height:200px;max-width:100%}
+.dot2d input[type=range]{width:100%;accent-color:var(--c1)}
+.verdict{font-family:var(--f-disp);font-size:1.2rem;font-weight:700}
+@media (max-width:520px){.dot2d{grid-template-columns:1fr;justify-items:center}}
+/* ===== widgets: produtos e retas ===== */
+.wid{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;margin:18px 0}
+.wid h4{margin:0 0 4px;font-family:var(--f-disp)}
+.wid .sub{margin:0 0 12px;color:var(--ink2);font-size:.92rem}
+.wgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.wgrid .cv{aspect-ratio:4/3.2}
+@media (max-width:760px){.wgrid{grid-template-columns:1fr}}
+.wctl label{display:block;font-family:var(--f-mono);font-size:.78rem;color:var(--ink2);margin:8px 0 2px}
+.wctl input[type=range]{width:100%;accent-color:var(--c1)}
+.wctl .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.wout{font-family:var(--f-mono);font-size:.88rem;line-height:1.7;background:var(--paper,transparent);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px}
+.wout b{font-family:var(--f-body)}
+.wout .big{font-family:var(--f-disp);font-size:1.15rem;font-weight:700}
+.chip3{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:.78rem}
+.mesa{border-collapse:separate;border-spacing:4px;margin:6px 0;font-family:var(--f-mono);font-size:1rem}
+.mesa td{min-width:44px;text-align:center;padding:6px 4px;border-radius:6px;background:color-mix(in srgb,var(--line) 45%,transparent);transition:background .2s,color .2s,opacity .2s}
+.mesa td.h{background:none;color:var(--ink2);font-size:.75rem;min-width:26px}
+.mesa td.on1{background:var(--c1);color:#fff}
+.mesa td.on2{background:var(--c3);color:#fff}
+.mesa td.off{opacity:.28}
+.mesa td.p{background:color-mix(in srgb,var(--c2) 18%,transparent);color:var(--ink);font-weight:700}
+.fields3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 12px}
+.fields3 label{font-family:var(--f-mono);font-size:.78rem;color:var(--ink2)}
+.fields3 input{width:100%}
+.analog{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px;margin:14px 0}
+.analog button{all:unset;cursor:pointer;display:block;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--sheet);transition:border-color .15s,transform .15s}
+.analog button:hover{transform:translateY(-2px)}
+.analog button[aria-pressed=true]{border-color:var(--c1);box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 18%,transparent)}
+.analog .em{font-size:1.6rem;line-height:1}
+.analog b{display:block;margin:4px 0 2px;font-family:var(--f-disp)}
+.analog span{font-size:.86rem;color:var(--ink2)}
+.cheque{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:.92rem;margin-top:8px}
+.cheque i{font-style:normal}
+.jogo .opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.jogo .fb{margin-top:10px;font-size:.93rem}
+.dinch{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.dinch button{font-size:.82rem;padding:6px 10px}
+.mesa td.q{background:transparent;border:1.5px dashed var(--line);color:var(--ink2)}
+.din .enun{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c2);border-radius:6px;padding:8px 12px;line-height:1.5}
+.din .enun .k{display:block;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:2px}
+.wout .big{font-size:1.1rem}
+footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+
+/* escala fluida: acompanha a resolução de cada tela e usa a largura toda */
+html{font-size:clamp(15px,calc(9.5px + .48vw),19px)}
+body{font-size:1rem}
+:root{--gut:clamp(16px,3vw,64px)}
+.hwrap,main,footer{max-width:1760px!important;padding-left:max(var(--gut),env(safe-area-inset-left,0px))!important;padding-right:max(var(--gut),env(safe-area-inset-right,0px))!important}
+.view.read{max-width:none}
+.view.read>p,.view.read>ul,.view.read>ol,.view.read>h2,.view.read>h3,p.read,ol.read{max-width:82ch}
+.lede{max-width:72ch}
+.cv.sim{max-height:82vh}
+.hero .cv{max-height:72vh;justify-self:center}
+@media (min-width:1200px){nav{flex-wrap:wrap;overflow:visible}}
+.aula{background:var(--sheet);border:1.5px solid var(--c1);border-radius:10px;padding:14px 16px;margin:22px 0;position:relative}
+.aula .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sheet);background:var(--c1);padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.casos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:12px 0}
+.casos figure{margin:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--paper)}
+.casos svg{width:100%;height:auto;max-height:230px;display:block;margin:0 auto}
+.casos figcaption{font-size:.88rem;color:var(--ink2);margin-top:6px}
+.qitem .enun{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c2);border-radius:6px;padding:10px 14px;margin:12px 0 4px;line-height:1.55}
+.qitem .enun .k{display:block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:4px}
+.qitem h5.item{font-weight:600;line-height:1.45;max-width:90ch}
+/* ===== árvores de classificação (como no quadro) ===== */
+.arv{overflow-x:auto;padding:6px 0 10px;margin:14px 0}
+.arv .ul{display:flex;justify-content:center;padding-top:18px;position:relative}
+.arv>.ul{padding-top:0;width:max-content;min-width:100%;margin:0 auto}
+.arv .li{display:flex;flex-direction:column;align-items:center;position:relative;padding:18px 5px 0}
+.arv .li::before,.arv .li::after{content:"";position:absolute;top:0;width:50%;height:18px;border-top:2px solid var(--ink2)}
+.arv .li::before{right:50%}.arv .li::after{left:50%;border-left:2px solid var(--ink2)}
+.arv .li:only-child::before{display:none}.arv .li:only-child::after{border-top:0}
+.arv .li:first-child::before,.arv .li:last-child::after{border-top:0}.arv .li:last-child::after{border-left:0}.arv .li:last-child::before{border-right:2px solid var(--ink2);border-radius:0 6px 0 0}.arv .li:first-child::after{border-radius:6px 0 0 0}
+.arv .ul .ul::before{content:"";position:absolute;top:0;left:50%;height:18px;border-left:2px solid var(--ink2)}
+.arv>.ul>.li{padding-top:0}.arv>.ul>.li::before,.arv>.ul>.li::after{display:none}
+.arv .nd{display:inline-block;max-width:140px;padding:7px 10px;border-radius:10px;background:var(--sheet);border:1.5px solid var(--line);font-weight:700;font-size:.86rem;text-align:center;line-height:1.25;cursor:pointer;color:var(--ink);font-family:inherit}
+.arv .nd.raiz{background:var(--ink);color:var(--sheet);border-color:var(--ink);font-size:1rem;max-width:none}
+.arv .nd.on{border-color:var(--c1);box-shadow:0 0 0 3px var(--hl)}
+.arv-o{min-height:64px}
+@media (max-width:700px){.arv{overflow:visible}.arv>.ul{width:auto}
+  .arv .ul{display:block;padding:0 0 0 16px;margin:0 0 0 12px;border-left:2px solid var(--ink2)}.arv>.ul{border:0;margin:0;padding:0}.arv .ul .ul::before{display:none}
+  .arv .li{display:block;padding:5px 0 0 0}.arv .li::after{display:none}
+  .arv .li::before{display:block!important;content:"";position:absolute;left:-16px;top:22px;width:14px;height:0;border:0!important;border-top:2px solid var(--ink2)!important;border-radius:0!important}
+  .arv>.ul>.li::before{display:none!important}.arv .nd{text-align:left;max-width:none}}
+.cartoes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:14px 0}
+.cartoes>div{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cartoes .em{font-size:1.5rem}.cartoes b{display:block;font-family:var(--f-disp);margin:2px 0}.cartoes span{color:var(--ink2);font-size:.92rem;line-height:1.45}
+.prop{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:14px 0}
+.prop div{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.prop b{display:block;font-size:1.4rem}.prop span{font-size:.85rem;color:var(--ink2)}
+.rm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}@media (max-width:640px){.rm{grid-template-columns:1fr}}
+.rm label{display:block;font-weight:700;font-size:.9rem;margin:8px 0 2px}.rm label b{color:var(--c1)}.rm input[type=range]{width:100%}
+#rmCv{width:100%;aspect-ratio:4/3;max-height:320px;display:block;background:var(--paper);border-radius:10px}
+</style>
+<link rel="stylesheet" href="../../css/fdb-v2.css">
+<script src="../../dados/aulas.js"></script>
+<script src="../../js/fdb-ui.js" defer></script>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0"><a href="../../index.html#m-cm2" style="font-size:.8rem;font-weight:700;color:var(--ink2);text-decoration:none;margin-right:6px" aria-label="Voltar para a Faculdade de Bolso">← Hub</a><a href="#inicio"><svg class="logo" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 5l7 4v8l-7 4-7-4V9z" fill="none" stroke="var(--c1)" stroke-width="2.2" stroke-linejoin="round"/></svg>Oficina de Materiais</a></div>
+      <div class="prog"><span id="progtxt">0/2</span><div class="bar"><i id="progbar"></i></div></div>
+    </div>
+    <nav id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#ceramicos" data-m="ceramicos">1 · Cerâmicos</a>
+      <a href="#compositos" data-m="compositos">2 · Compósitos</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#cola">Cola</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ INÍCIO ============ -->
+<section class="view" id="v-inicio">
+<div class="hero" style="display:block">
+  <div class="eyebrow">Ciência dos Materiais II</div>
+  <h1 style="font-family:var(--f-disp);font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin:6px 0 10px">Cerâmicos e compósitos</h1>
+  <p class="lede">Os materiais além dos metais: as cerâmicas, que aguentam calor e desgaste mas quebram sem avisar, e os compósitos, que juntam dois materiais para ganhar o melhor de cada um. Montado a partir dos quadros da aula de 10/11.</p>
+  </div>
+  <h3>A trilha</h3>
+  <div class="trail" id="trail"></div>
+</section>
+
+<!-- ============ 1 CERÂMICOS ============ -->
+<section class="view read" id="v-ceramicos" hidden>
+  <div class="eyebrow">Aula de 10/11</div>
+  <h2>Materiais cerâmicos</h2>
+  <p class="lede">Cerâmica é um composto entre um <b>metal</b> e um <b>não metal</b> (óxidos, carbetos, nitretos), unido por ligações <b>iônicas e covalentes</b>. Essas ligações fortes explicam tudo: são duras, aguentam calor, não conduzem eletricidade e quebram sem deformar.</p>
+  <div class="prop">
+    <div><b>💎</b><span>muito duras e resistentes ao desgaste</span></div>
+    <div><b>🔥</b><span>alto ponto de fusão (refratárias)</span></div>
+    <div><b>⚡</b><span>isolantes elétricos e térmicos</span></div>
+    <div><b>🧪</b><span>quimicamente estáveis (não enferrujam)</span></div>
+    <div><b>💥</b><span>frágeis: fratura sem deformação plástica</span></div>
+  </div>
+  <div class="ofi"><span class="k">Por que quebra e não entorta?</span>No metal, os elétrons livres deixam os planos de átomos escorregarem (deformação plástica). Na cerâmica, deslizar um plano encosta íons de mesma carga e o cristal se repele: em vez de amassar, a trinca corre. Por isso cerâmica aguenta bem <b>compressão</b> e mal <b>tração</b>.</div>
+
+  <h3>Classificação com base na aplicação</h3>
+  <p>O mapa do quadro. Toque em cada caixa para ver o que é e onde aparece.</p>
+  <div class="arv" id="arvCer"></div>
+  <div class="wout arv-o" id="arvCerO">Toque numa caixa.</div>
+
+  <h3>Os seis grupos, um por um</h3>
+  <div class="cartoes">
+    <div><span class="em">🪟</span><b>Vidros</b><span>Silicatos <b>amorfos</b> (sem cristal), como o vidro sodocálcico SiO₂ + Na₂O + CaO. Os <b>vitrocerâmicos</b> são vidros cristalizados de propósito por tratamento térmico: aguentam choque térmico (cooktop, travessa que vai do freezer ao forno).</span></div>
+    <div><span class="em">🧱</span><b>Produtos argilosos</b><span>Feitos de argila (aluminossilicatos hidratados): molda com água, seca e queima. <b>Estruturais</b>: tijolo, telha, tubo de esgoto. <b>Louças brancas</b>: porcelana, louça sanitária, isolador elétrico de porcelana.</span></div>
+    <div><span class="em">🔥</span><b>Refratários</b><span>Aguentam altíssima temperatura sem fundir nem reagir. Revestem fornos, alto-forno, panela de aço, caldeira. Tipos: <b>argila refratária</b> (sílica + alumina), <b>sílica</b>, <b>básicos</b> (ricos em MgO, a magnesita) e <b>especiais</b> (alumina pura, SiC, zircônia).</span></div>
+    <div><span class="em">⚙️</span><b>Abrasivos</b><span>Duros o bastante para desgastar outros materiais: <b>SiC</b> (carbeto de silício), <b>alumina</b> (Al₂O₃), <b>diamante</b> e <b>CBN</b>. Viram rebolo, disco de corte, lixa e pasta de polimento.</span></div>
+    <div><span class="em">🏗️</span><b>Cimentos</b><span>Pó que, com água, <b>endurece por reação química</b> (hidratação), não por secagem. O cimento Portland é clínquer moído (silicatos de cálcio) + gesso. Com areia e brita vira o concreto.</span></div>
+    <div><span class="em">🚀</span><b>Cerâmicas avançadas</b><span>Pós sintéticos de altíssima pureza: nitreto de silício (rolamentos e insertos), zircônia (próteses, sensores de O₂), piezoelétricos (sensores e ultrassom), placas de blindagem e escudo térmico.</span></div>
+  </div>
+  <div class="ofi"><span class="k">No chão de fábrica</span>Siderurgia e mineração são as maiores consumidoras de <b>refratários</b>: o alto-forno e a panela de aço são forrados com tijolos de alumina e magnésia-carbono, trocados nas paradas de manutenção. O <b>disco de corte</b> e o <b>rebolo</b> da caldeiraria são abrasivos (alumina ou SiC) presos numa resina. E o <b>inserto cerâmico</b> da usinagem corta ferro fundido em velocidades que o metal duro não aguenta.</div>
+  <div class="cuid"><span class="k">Pegadinha</span><b>Vidro não é cristal.</b> Ele é amorfo: os átomos estão desordenados como num líquido "congelado". O "copo de cristal" na verdade é vidro com chumbo. Já o <b>vitrocerâmico</b> é o caso em que o vidro foi cristalizado de propósito.</div>
+
+  <h3>Classifique (como na prova)</h3>
+  <div class="ex" data-ex><div class="q">Em qual grupo da classificação por aplicação entra cada item? a) tijolo do forno de uma siderúrgica; b) disco de corte da esmerilhadeira; c) telha; d) cooktop de vidro; e) pia de banheiro; f) o pó que vira concreto.</div>
+    <ol><li>a) Tijolo de forno → precisa aguentar temperatura: <b>refratário</b> (não é o tijolo comum!).</li><li>b) Disco de corte → desgasta o aço: <b>abrasivo</b>.</li><li>c) Telha → <b>produto argiloso estrutural</b>.</li><li>d) Cooktop → vidro cristalizado para aguentar choque térmico: <b>vitrocerâmico</b> (ramo do vidro).</li><li>e) Pia de banheiro → <b>louça branca</b> (produto argiloso).</li><li>f) → <b>cimento</b>.</li></ol>
+    <div class="ans">refratário · abrasivo · argiloso estrutural · vitrocerâmico · louça branca · cimento</div></div>
+  <div class="ex" data-ex><div class="q">Um tijolo comum de construção e um tijolo refratário são feitos de argila. Por que só o refratário pode revestir um forno?</div>
+    <ol><li>O tijolo comum tem impurezas (ferro, álcalis) que baixam o ponto de amolecimento: ele deforma e trinca acima de ~1000 °C.</li><li>O refratário usa argila mais pura e rica em <b>alumina</b> (ou sílica/MgO), que só amolece bem acima de 1500 °C.</li><li>Além disso, ele tem porosidade controlada para aguentar o choque térmico de aquecer e esfriar.</li></ol>
+    <div class="ans">Composição (alumina, menos impurezas) e microestrutura controladas: alto ponto de amolecimento e resistência ao choque térmico.</div></div>
+  <div class="done-btn" data-done="ceramicos"></div>
+</section>
+
+<!-- ============ 2 COMPÓSITOS ============ -->
+<section class="view read" id="v-compositos" hidden>
+  <div class="eyebrow">Aula de 10/11</div>
+  <h2>Materiais compósitos</h2>
+  <p class="lede">Um compósito junta dois (ou mais) materiais diferentes para conseguir uma combinação de propriedades que nenhum deles tem sozinho. É o <b>princípio da ação combinada</b>.</p>
+  <div class="fx"><span class="tag">Princípio da ação combinada</span><div class="eq" style="font-family:var(--f-disp);font-size:1.3rem">compósito = matriz + fase dispersa</div>
+    <dl class="legend"><dt>matriz</dt><dd>a fase <b>contínua</b>, que envolve tudo: segura o reforço no lugar, distribui a carga e protege do ambiente (resina, metal ou cerâmica)</dd><dt>fase dispersa</dt><dd>o <b>reforço</b> espalhado dentro da matriz: partículas, fibras ou camadas</dd></dl></div>
+  <div class="cartoes">
+    <div><span class="em">🏗️</span><b>Concreto armado</b><span>O concreto aguenta compressão, o aço aguenta tração. Juntos, a viga aguenta as duas.</span></div>
+    <div><span class="em">🎣</span><b>Fibra de vidro</b><span>Fibras finas e rígidas de vidro numa resina leve: barcos, caixas d'água, pás eólicas.</span></div>
+    <div><span class="em">🪵</span><b>Madeira</b><span>Compósito natural: fibras de celulose numa matriz de lignina.</span></div>
+  </div>
+
+  <h3>Classificação</h3>
+  <p>O mapa do quadro. Toque em cada caixa.</p>
+  <div class="arv" id="arvCmp"></div>
+  <div class="wout arv-o" id="arvCmpO">Toque numa caixa.</div>
+  <div class="tbl"><table><tr><th>Grupo</th><th>Como é o reforço</th><th>Exemplos</th></tr>
+    <tr><td><b>Reforçado com partículas</b></td><td>grãos aproximadamente do mesmo tamanho em todas as direções</td><td><b>Partículas grandes</b>: concreto, metal duro (WC + Co), pneu (borracha + negro de fumo) · <b>Por dispersão</b>: partículas finíssimas (10–100 nm) que travam discordâncias, como o níquel com ThO₂ (TD-níquel)</td></tr>
+    <tr><td><b>Reforçado com fibras</b></td><td>fios muito mais compridos que grossos; o mais eficiente em resistência por peso</td><td><b>Contínuo (alinhado)</b>: fibra de carbono em asa de avião · <b>Descontínuo (curto)</b>: alinhado ou orientado aleatoriamente, como o plástico com fibra de vidro picada de para-choques</td></tr>
+    <tr><td><b>Estrutural</b></td><td>depende da geometria das camadas, não só do material</td><td><b>Laminados</b>: compensado, lâminas de fibra cruzadas · <b>Painéis em sanduíche</b>: duas faces rígidas e um núcleo leve (colmeia/honeycomb, espuma), como em portas, pisos de avião e baús de caminhão</td></tr></table></div>
+
+  <h3>Do que dependem as propriedades</h3>
+  <div class="fx"><span class="tag">Propriedades = f( … )</span><div class="eq" style="font-family:var(--f-disp);font-size:1.15rem">propriedades do compósito = f(fases, quantidades, geometria)</div>
+    <dl class="legend"><dt>1</dt><dd>propriedades das <b>fases constituintes</b> (a fibra é rígida? a matriz é tenaz?)</dd><dt>2</dt><dd><b>quantidades relativas</b> de cada fase (fração em volume)</dd><dt>3</dt><dd><b>geometria da fase dispersa</b>: forma, tamanho, distribuição e orientação das partículas ou fibras</dd></dl></div>
+  <div class="ofi"><span class="k">Geometria na prática</span><b>Forma</b>: fibra reforça muito mais que grão. <b>Tamanho</b>: partícula menor e mais fina distribui melhor a carga. <b>Distribuição</b>: reforço aglomerado vira ponto fraco. <b>Orientação</b>: fibras alinhadas são fortíssimas na direção delas e fracas na transversal; fibras aleatórias dão propriedades iguais em todas as direções.</div>
+
+  <h3>Regra das misturas</h3>
+  <p>A conta que liga "quantidade relativa" à propriedade. Para fibras contínuas e alinhadas, puxando na direção das fibras, a matriz e a fibra esticam juntas e cada uma contribui na proporção do volume que ocupa.</p>
+  <div class="fx"><span class="tag">Regra das misturas</span><div class="eq">E<sub>c</sub> = E<sub>m</sub>·V<sub>m</sub> + E<sub>f</sub>·V<sub>f</sub></div>
+    <dl class="legend"><dt>E<sub>c</sub></dt><dd>módulo de elasticidade do compósito na direção das fibras (longitudinal)</dd><dt>E<sub>m</sub>, E<sub>f</sub></dt><dd>módulos da matriz e da fibra</dd><dt>V<sub>m</sub>, V<sub>f</sub></dt><dd>frações em volume (V<sub>m</sub> + V<sub>f</sub> = 1)</dd><dt>transversal</dt><dd>puxando de lado, é bem menor: 1/E<sub>ct</sub> = V<sub>m</sub>/E<sub>m</sub> + V<sub>f</sub>/E<sub>f</sub></dd></dl></div>
+  <div class="ex" data-ex><div class="q">Exemplo: fibra de vidro contínua e alinhada (E<sub>f</sub> = 69 GPa) numa resina epóxi (E<sub>m</sub> = 3,4 GPa), com 40 % de fibra em volume. Qual o módulo na direção das fibras e na transversal?</div>
+    <ol><li>V<sub>f</sub> = 0,40 → V<sub>m</sub> = 0,60.</li><li>Longitudinal: E<sub>c</sub> = 3,4 × 0,60 + 69 × 0,40 = 2,04 + 27,6 = <b>29,6 GPa</b>.</li><li>Transversal: 1/E<sub>ct</sub> = 0,60/3,4 + 0,40/69 = 0,1765 + 0,0058 = 0,1823 → E<sub>ct</sub> = <b>5,5 GPa</b>.</li><li>Mesmo material, 5 vezes mais rígido na direção das fibras: é a "orientação" da geometria da fase dispersa.</li></ol>
+    <div class="ans">≈ 30 GPa na direção das fibras · ≈ 5,5 GPa na transversal</div></div>
+  <div class="wid">
+    <h4>Ferramenta: regra das misturas</h4>
+    <div class="rm"><div>
+      <label>Fibra <select id="rmF"><option value="69">vidro E (69 GPa)</option><option value="230">carbono (230 GPa)</option><option value="131">aramida/Kevlar (131 GPa)</option></select></label>
+      <label>Fração de fibra V<sub>f</sub> <b id="rmVv"></b><input type="range" id="rmV" min="0" max="0.7" step="0.05" value="0.4"></label>
+      <div class="wout" id="rmO"></div></div>
+      <canvas id="rmCv" aria-label="Gráfico do módulo em função da fração de fibra"></canvas></div>
+  </div>
+  <div class="ex" data-ex><div class="q">Classifique: a) pastilha de metal duro (WC + Co) de uma fresa; b) para-choque de plástico com fibra de vidro picada; c) asa de avião em fibra de carbono; d) porta com núcleo de colmeia de papelão.</div>
+    <ol><li>a) Grãos duros de WC numa matriz de cobalto → <b>reforçado com partículas grandes</b>.</li><li>b) Fibras curtas espalhadas em todas as direções → <b>fibra descontínua, orientada aleatoriamente</b>.</li><li>c) Fibras longas na direção do esforço → <b>fibra contínua (alinhada)</b>.</li><li>d) Duas chapas com núcleo leve → <b>estrutural, painel sanduíche</b>.</li></ol>
+    <div class="ans">partículas grandes · fibra curta aleatória · fibra contínua · painel sanduíche</div></div>
+  <div class="cuid"><span class="k">Não confunda</span><b>Liga metálica não é compósito</b>: no aço inox o Cr e o Ni estão dissolvidos no ferro, formando uma única fase. No compósito, as fases continuam <b>separadas e distinguíveis</b> (dá para ver a fibra dentro da resina).</div>
+  <div class="done-btn" data-done="compositos"></div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="view read" id="v-quiz" hidden>
+  <div class="eyebrow">Quiz relâmpago</div>
+  <h2>Você está pronto?</h2>
+  <p class="lede">Perguntas rápidas sobre as duas classificações. Cada resposta traz a explicação.</p>
+  <div class="score"><span id="scoreTxt">0 de 0 respondidas</span><button id="quizReset">Recomeçar</button></div>
+  <div id="quizBox"></div>
+</section>
+
+<!-- ============ COLA ============ -->
+<section class="view" id="v-cola" hidden>
+  <div class="eyebrow">Revisão de véspera</div>
+  <h2>Tudo numa folha</h2>
+  <div class="cola" style="margin-top:20px">
+    <div class="fx"><span class="tag">Cerâmica</span><div class="eq" style="font-size:1.05rem">metal + não metal · iônica/covalente</div><p>dura, refratária, isolante, frágil (boa em compressão)</p></div>
+    <div class="fx"><span class="tag">Cerâmicos por aplicação</span><div class="eq" style="font-size:.95rem">vidros · argilosos · refratários · abrasivos · cimentos · avançadas</div><p>6 grupos do quadro</p></div>
+    <div class="fx"><span class="tag">Vidro</span><div class="eq" style="font-size:1rem">vidros · vitrocerâmicos</div><p>vidro é amorfo; vitrocerâmico é vidro cristalizado</p></div>
+    <div class="fx"><span class="tag">Argilosos</span><div class="eq" style="font-size:1rem">estruturais · louças brancas</div><p>tijolo, telha · porcelana, louça sanitária</p></div>
+    <div class="fx"><span class="tag">Refratários</span><div class="eq" style="font-size:1rem">argila refratária · sílica · básico · especial</div><p>básico = MgO · especial = alumina, SiC, zircônia</p></div>
+    <div class="fx"><span class="tag">Compósito</span><div class="eq" style="font-size:1.05rem">matriz (contínua) + fase dispersa</div><p>princípio da ação combinada</p></div>
+    <div class="fx"><span class="tag">Compósitos</span><div class="eq" style="font-size:.95rem">partículas · fibras · estrutural</div><p>grandes/dispersão · contínua/descontínua · laminado/sanduíche</p></div>
+    <div class="fx"><span class="tag">Propriedades = f</span><div class="eq" style="font-size:.95rem">fases · quantidades · geometria</div><p>geometria: forma, tamanho, distribuição, orientação</p></div>
+    <div class="fx"><span class="tag">Regra das misturas</span><div class="eq">E<sub>c</sub> = E<sub>m</sub>V<sub>m</sub> + E<sub>f</sub>V<sub>f</sub></div><p>transversal: 1/E = V<sub>m</sub>/E<sub>m</sub> + V<sub>f</sub>/E<sub>f</sub></p></div>
+  </div>
+</section>
+
+</main>
+<footer>Oficina de Materiais · material de apoio baseado nas aulas de Ciência dos Materiais II (IFMG Campus Betim)<span class="credits" style="display:block;margin-top:6px">Desenvolvido por Guilherme dos Santos Braz — Técnico de processos e estudante de engenharia mecânica · <a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn</a></span></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+/* ========= árvores ========= */
+const CER=['Materiais cerâmicos','classificação pela aplicação',[
+  ['Vidro','',[['Vidros','silicatos amorfos: janelas, garrafas, para-brisa, lã de vidro'],['Vitrocerâmico','vidro cristalizado por tratamento térmico: cooktop, travessas, aguenta choque térmico']],'silicatos não cristalinos, transparentes e fáceis de moldar a quente'],
+  ['Produtos argilosos','',[['Produtos argilosos estruturais','tijolos, telhas, blocos, tubos de esgoto: integridade estrutural é o que importa'],['Louças brancas','porcelana, louça sanitária, azulejo, isolador elétrico: queimadas a alta temperatura, ficam brancas e densas']],'argila + água: molda, seca e queima (cozimento)'],
+  ['Refratários','',[['Argila refratária','sílica + alumina (25–45 % Al₂O₃): o refratário mais comum e barato, tijolos de forno'],['Sílica','>95 % SiO₂: resistente sob carga em alta temperatura, abóbadas de fornos de vidro e aço'],['Básico','ricos em MgO (periclásio/magnesita): resistem a escórias básicas, revestem conversores e panelas de aço'],['Especial','alumina de alta pureza, SiC, zircônia, carbono: condições extremas']],'aguentam temperatura altíssima sem fundir, sem reagir e isolando o calor'],
+  ['Abrasivos','',null,'duros para desgastar, cortar e polir: SiC, alumina, diamante, CBN · rebolos, discos de corte, lixas'],
+  ['Cimentos','',null,'endurecem por reação com água (hidratação): cimento Portland, base do concreto e da argamassa'],
+  ['Cerâmicas avançadas','',null,'alta pureza para usos especiais: rolamentos de Si₃N₄, insertos de usinagem, piezoelétricos, sensores, blindagem']]];
+const CMP=['Compósitos','princípio da ação combinada',[
+  ['Reforçado com partículas','',[['Partículas grandes','a partícula carrega parte da carga e restringe a matriz: concreto, metal duro WC-Co, pneu'],['Reforçado por dispersão','partículas finíssimas (10–100 nm) bloqueiam o movimento de discordâncias: TD-níquel, alumínio com Al₂O₃']],'grãos com dimensões parecidas em todas as direções'],
+  ['Reforçado com fibras','',[['Contínuo (alinhado)','fibras longas, todas na mesma direção: máxima rigidez e resistência nessa direção'],['Descontínuo (curto)','',[['Alinhado','fibras curtas na mesma direção: quase tão bom quanto contínuo, mais fácil de moldar'],['Orientado aleatoriamente','fibras curtas em todas as direções: propriedades iguais em qualquer direção (isotrópico)']],'fibras picadas, mais curtas']],'o reforço mais eficiente: muita resistência por pouco peso'],
+  ['Estrutural','',[['Laminados','camadas empilhadas com fibras em direções diferentes: compensado, laminado de carbono'],['Painéis em sanduíche','duas faces finas e rígidas + núcleo leve (colmeia, espuma): portas, pisos de avião']],'a geometria das camadas define as propriedades']]];
+function arvore(id,dados){ const box=$(id), o=$(id+'O'); const info={}; let k=0;
+  const nd=(t,d,kids,raiz)=>{ const i=k++; info[i]=[t,d]; return '<div class="li"><button class="nd'+(raiz?' raiz':'')+'" data-i="'+i+'">'+t+'</button>'+(kids&&kids.length?'<div class="ul">'+kids.map(c=>nd(c[0],c[3]||c[1],c[2])).join('')+'</div>':'')+'</div>' };
+  box.innerHTML='<div class="ul">'+nd(dados[0],dados[1],dados[2],true)+'</div>';
+  box.querySelectorAll('.nd').forEach(b=>b.onclick=()=>{ box.querySelectorAll('.nd').forEach(x=>x.classList.toggle('on',x===b)); const [t,d]=info[b.dataset.i]; o.innerHTML='<b>'+t+'</b><br>'+d }) }
+/* ========= regra das misturas ========= */
+function rmW(){ const F=$('rmF'), V=$('rmV'), cv=$('rmCv'), x=cv.getContext('2d'), Em=3.4;
+  const draw=()=>{ const Ef=+F.value, vf=+V.value, El=Em*(1-vf)+Ef*vf, Et=1/((1-vf)/Em+vf/Ef); $('rmVv').textContent=Math.round(vf*100)+' %';
+    $('rmO').innerHTML='Matriz epóxi: E<sub>m</sub> = 3,4 GPa<br>Longitudinal: '+Em+' × '+(1-vf).toFixed(2).replace('.',',')+' + '+Ef+' × '+vf.toFixed(2).replace('.',',')+' = <b>'+El.toFixed(1).replace('.',',')+' GPa</b><br>Transversal: <b>'+Et.toFixed(1).replace('.',',')+' GPa</b>';
+    const r=cv.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1), W=r.width, H=r.height; if(!W) return; cv.width=W*d; cv.height=H*d; x.setTransform(d,0,0,d,0,0); x.clearRect(0,0,W,H);
+    const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim(), L=40, B=H-26, T=12, R=W-12, mx=Ef*0.75, X=v=>L+(R-L)*v/0.75, Y=e=>B-(B-T)*e/mx;
+    x.strokeStyle=css('--line'); x.beginPath(); x.moveTo(L,T); x.lineTo(L,B); x.lineTo(R,B); x.stroke(); x.fillStyle=css('--ink2'); x.font='11px sans-serif'; x.fillText('E (GPa)',4,T+8); x.fillText('Vf',R-16,B-6);
+    [0,.25,.5,.75].forEach(v=>x.fillText(Math.round(v*100)+'%',X(v)-8,B+14));
+    const curva=(f,c)=>{ x.strokeStyle=c; x.lineWidth=2.5; x.beginPath(); for(let v=0;v<=0.75;v+=0.01){ const e=f(v); v?x.lineTo(X(v),Y(e)):x.moveTo(X(v),Y(e)) } x.stroke() };
+    curva(v=>Em*(1-v)+Ef*v,css('--c1')); curva(v=>1/((1-v)/Em+v/Ef),css('--c2'));
+    [[El,css('--c1')],[Et,css('--c2')]].forEach(([e,c])=>{ x.fillStyle=c; x.beginPath(); x.arc(X(vf),Y(e),5,0,7); x.fill() });
+    x.fillStyle=css('--c1'); x.fillText('na direção das fibras',X(.3),Y(Em*.7+Ef*.3)-8); x.fillStyle=css('--c2'); x.fillText('transversal',X(.5),Y(1/(.5/Em+.5/Ef))-8) };
+  F.onchange=V.oninput=draw; addEventListener('resize',draw); return draw }
+/* ========= exercícios ========= */
+function exHTML(steps,ans){ return '<ol>'+steps.map((s,i)=>'<li class="'+(i?'hid':'')+'">'+s+'</li>').join('')+'</ol><div class="ans">'+ans+'</div><div class="btns"><button class="nx">Próximo passo</button><button class="ghost al">Ver resolução toda</button></div>' }
+function bindEx(box){ const lis=[...box.querySelectorAll('ol>li')]; const nx=box.querySelector('.nx'),al=box.querySelector('.al');
+  const upd=()=>{ const left=lis.filter(l=>l.classList.contains('hid')).length; nx.textContent=left?'Próximo passo ('+left+')':'Ver resposta'; if(box.classList.contains('all'))nx.disabled=al.disabled=true };
+  nx.onclick=()=>{ const h=lis.find(l=>l.classList.contains('hid')); if(h)h.classList.remove('hid'); else box.classList.add('all'); upd() };
+  al.onclick=()=>{ lis.forEach(l=>l.classList.remove('hid')); box.classList.add('all'); upd() }; upd() }
+function initEx(){ document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'); const steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); bindEx(b) }) }
+/* ========= quiz ========= */
+const QUIZ=[
+ ['O que forma uma cerâmica?',['Só átomos de metal','Metal + não metal (óxidos, carbetos, nitretos) com ligações iônicas/covalentes','Cadeias de carbono','Qualquer material duro'],1,'Cerâmica = composto metal + não metal, como Al₂O₃, SiC, MgO. As ligações fortes explicam dureza e fragilidade.'],
+ ['Por que a cerâmica quebra sem amassar?',['Porque é amorfa','Porque deslizar planos de íons aproxima cargas iguais, e o cristal se repele','Porque tem elétrons livres','Porque é leve'],1,'Sem deformação plástica, a energia vai toda para a trinca. Por isso aguenta compressão e falha em tração.'],
+ ['Tijolo que reveste um alto-forno é:',['Produto argiloso estrutural','Refratário','Abrasivo','Cimento'],1,'Precisa aguentar temperatura sem amolecer: refratário (argila refratária, sílica, básico ou especial).'],
+ ['O refratário "básico" é rico em:',['SiO₂','MgO','Al₂O₃ puro','Carbono'],1,'Básicos = óxido de magnésio (magnesita/periclásio), resistentes às escórias básicas da siderurgia.'],
+ ['O cooktop de vidro é um exemplo de:',['Vidro comum','Vitrocerâmico','Louça branca','Cerâmica avançada'],1,'Vidro cristalizado por tratamento térmico: baixa dilatação, aguenta choque térmico.'],
+ ['O cimento endurece porque:',['A água evapora','Reage com a água (hidratação)','Esfria','Cristaliza ao sol'],1,'É uma reação química: mesmo debaixo d\'água o cimento endurece.'],
+ ['No compósito, a matriz é:',['A fase dispersa','A fase contínua que envolve e segura o reforço','Sempre um metal','A fibra'],1,'Matriz = contínua; reforço = fase dispersa. Princípio da ação combinada.'],
+ ['Metal duro (WC + Co) de uma pastilha de fresa é:',['Reforçado com fibras','Reforçado com partículas grandes','Laminado','Reforçado por dispersão'],1,'Grãos duros de carbeto de tungstênio numa matriz tenaz de cobalto.'],
+ ['Fibras curtas espalhadas em todas as direções dão:',['Propriedades iguais em todas as direções','Máxima rigidez numa direção só','Um painel sanduíche','Um material amorfo'],0,'Orientação aleatória → comportamento isotrópico, mas menos rígido que fibra alinhada na direção dela.'],
+ ['Qual NÃO é fator da geometria da fase dispersa?',['Forma','Tamanho','Cor','Orientação'],2,'Do quadro: forma, tamanho, distribuição e orientação.'],
+ ['Vf = 0,5, Ef = 70 GPa, Em = 3 GPa. Módulo longitudinal (regra das misturas)?',['36,5 GPa','73 GPa','5,7 GPa','35 GPa'],0,'Ec = 3 × 0,5 + 70 × 0,5 = 1,5 + 35 = 36,5 GPa.'],
+ ['Aço inox é um compósito?',['Sim, Fe + Cr','Não: Cr e Ni estão dissolvidos numa fase só (liga)','Sim, reforçado por dispersão','Só se tiver fibra'],1,'Compósito exige fases separadas e distinguíveis.']];
+let qa={};
+function renderQuiz(){ const box=$('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<div class="qz" data-i="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="opts">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="why" hidden></div></div>').join('');
+  box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i]; const bs=c.querySelectorAll('button');
+    const show=j=>{ bs.forEach((b,k)=>{b.disabled=true; if(k===q[2])b.classList.add('right'); else if(k===j)b.classList.add('wrong')}); const w=c.querySelector('.why'); w.hidden=false; w.innerHTML=(j===q[2]?'<b style="color:var(--ok)">Certo!</b> ':'<b style="color:var(--bad)">Errado.</b> ')+q[3] };
+    bs.forEach(b=>b.onclick=()=>{ const j=+b.dataset.j; qa[i]=j; show(j); score(); save() }); if(qa[i]!==undefined)show(qa[i]) }); score() }
+function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; $('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas' }
+$('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
+/* ========= progresso ========= */
+const MODS=[['ceramicos','Materiais cerâmicos','Propriedades e classificação pela aplicação'],['compositos','Materiais compósitos','Matriz + fase dispersa, classificação e regra das misturas']];
+let done={};
+function load(){ try{ done=JSON.parse(localStorage.getItem('cm2-done')||'{}'); qa=JSON.parse(localStorage.getItem('cm2-quiz')||'{}') }catch(e){} }
+function save(){ try{ localStorage.setItem('cm2-done',JSON.stringify(done)); localStorage.setItem('cm2-quiz',JSON.stringify(qa)) }catch(e){} }
+function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; $('progtxt').textContent=n+'/'+MODS.length+' aulas'; $('progbar').style.width=(n/MODS.length*100)+'%';
+  $('trail').innerHTML=MODS.map((m,i)=>'<a class="stop'+(done[m[0]]?' done':'')+'" href="#'+m[0]+'"><span class="n">'+(done[m[0]]?'✓':i+1)+'</span><b>'+m[1]+'</b><span>'+m[2]+'</span></a>').join('')+'<a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
+  document.querySelectorAll('#nav a[data-m]').forEach(a=>{ a.querySelector('.dn')?.remove(); if(done[a.dataset.m])a.insertAdjacentHTML('beforeend','<i class="dn"></i>') });
+  document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
+    d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#quiz">Agora faça o quiz →</a>');
+    d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
+/* ========= rotas ========= */
+const VIEWS=['inicio','ceramicos','compositos','quiz','cola'];
+let rmDraw;
+function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
+  VIEWS.forEach(v=>$('v-'+v).hidden=v!==h);
+  document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
+  window.scrollTo(0,0); if(h==='compositos') requestAnimationFrame(rmDraw) }
+load(); initEx(); renderQuiz(); renderProg(); arvore('arvCer',CER); arvore('arvCmp',CMP); rmDraw=rmW();
+addEventListener('hashchange',route); route();
+addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return; const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){ a.blur(); return }
+  const h=location.hash.slice(1); if(h&&h!=='inicio'){ location.hash='inicio'; return } location.href='../../index.html#m-cm2' });
+</script>
+<script src="../../js/aviso.js" defer></script>
+</body>
+</html>

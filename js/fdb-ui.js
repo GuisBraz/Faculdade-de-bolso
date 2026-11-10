@@ -88,8 +88,8 @@ function hub(){ const top=$('header.top'); if(!top||$('.fdb-hsurf')) return; con
 
 
 /* ---------- qual matéria é esta página ---------- */
-const PASTA={calc2:'calc2',fis1:'fis1',gaal:'gaal',qg:'qg',usinagem:'usin',ingles:'ingl'};
-const NOMEM={calc2:['Cálculo','II'],fis1:['Física','I'],gaal:['GAAL',''],qg:['Química',''],usin:['Usinagem',''],ingl:['Inglês','']};
+const PASTA={calc2:'calc2',fis1:'fis1',gaal:'gaal',qg:'qg',usinagem:'usin',ingles:'ingl',materiais:'cm2'};
+const NOMEM={calc2:['Cálculo','II'],fis1:['Física','I'],gaal:['GAAL',''],qg:['Química',''],usin:['Usinagem',''],ingl:['Inglês',''],cm2:['Materiais','II']};
 function labJogo(id){ return (window.FDB_LABS||[]).find(l=>l.mat===id)||null }
 /* oficinas sem módulos: põe o laboratório-jogo no menu do topo */
 function labNoMenu(){ const id=matDaPagina(), L=labJogo(id), nav=$('header nav#nav'); if(!L||!nav||document.body.classList.contains('fdb-mat')||$('a.fdb-lj',nav)) return;
