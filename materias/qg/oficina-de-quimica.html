@@ -563,6 +563,9 @@ body{font-size:1rem}
 .bq-n{font-family:var(--f-body);font:800 .72rem var(--f-body);letter-spacing:.1em;text-transform:uppercase;color:#7A8899}
 .bq-step .bq-eq{margin:4px 0}.bq-step .bq-cols{margin:4px auto;border-top:0;padding-top:0}.bq-step .bq-cols ul{font-size:1.15rem;line-height:1.4}
 .bq-step .bq-nota{margin-top:6px;font-size:1.05rem}
+.m3-bolo{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:16px;align-items:start;margin:12px 0}@media (max-width:640px){.m3-bolo{grid-template-columns:1fr}}
+.m3-rec{background:#FFF7EC;border:1px solid #F1D7B5;border-radius:14px;padding:12px 14px;color:#5A3A12;font-family:'Kalam',cursive}.m3-rec b{font-family:var(--f-disp);color:#B35A12}.m3-rec ul{margin:6px 0;padding-left:18px;line-height:1.5}.m3-rec span{font-weight:700;color:#B35A12}
+#m3BoloT td.v{font-weight:800;color:var(--c1)}
 .m3-irp{margin:-6px 0 10px}.m3-ir{font:700 .82rem var(--f-body);color:var(--c1);text-decoration:none}.m3-ir:hover{text-decoration:underline}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
@@ -1282,8 +1285,29 @@ body{font-size:1rem}
   <div class="eyebrow">Módulo 3 · 3ª prova</div>
   <h2>Estequiometria: limitante, pureza e rendimento</h2>
   <p class="lede">A equação balanceada é uma receita. Os coeficientes dizem a proporção <b>em mol</b> entre tudo o que entra e tudo o que sai. Com ela você calcula quanto produto sai, qual reagente acaba primeiro e quanto sobra do outro.</p>
-  <h3>A receita do sanduíche</h3>
-  <p>2 fatias de pão + 1 fatia de queijo → 1 sanduíche. Com 10 pães e 3 queijos saem só <b>3</b> sanduíches: o queijo acaba primeiro (é o <b>limitante</b>) e sobram 4 pães (o <b>excesso</b>). Reação química é igual, só que a contagem é em mol.</p>
+  <h3>Estequiometria é como uma receita (aula de 09/11)</h3>
+  <div class="m3-bolo">
+    <div class="m3-rec"><b>🎂 Receita de bolo</b><ul><li>500 g de farinha de trigo</li><li>200 g de açúcar</li><li>2 ovos</li><li>100 mL de leite</li><li>1 colher de chá de fermento</li></ul><span>→ 1 bolo</span></div>
+    <div>
+      <label class="m1lab">Quantas receitas? <b id="m3BoloNv"></b><input type="range" id="m3BoloN" min="0.5" max="6" step="0.5" value="1"></label>
+      <div class="tbl"><table id="m3BoloT"></table></div>
+      <p style="margin:6px 0 0">As proporções entre os ingredientes <b>não mudam</b>. Dobrou a receita, dobra tudo. Numa reação, os <b>coeficientes</b> fazem esse papel.</p>
+    </div>
+  </div>
+  <div class="wid">
+    <h4>Qual ingrediente acaba primeiro?</h4>
+    <p style="margin:0 0 8px">Diga o que tem na despensa. Quem dá menos bolos é o <b>limitante</b>; o resto sobra (<b>excesso</b>).</p>
+    <div class="m3-in" id="m3Desp"></div>
+    <div class="m3-bars" id="m3DespB"></div>
+    <div class="wout" id="m3DespO"></div>
+  </div>
+  <div class="tbl"><table><tr><th>No bolo</th><th>Na reação 2 H₂ + O₂ → 2 H₂O</th></tr>
+    <tr><td>a receita (500 g : 200 g : 2 ovos…)</td><td>os coeficientes (2 : 1 : 2, em mol)</td></tr>
+    <tr><td>dobrar a receita</td><td>4 mol H₂ + 2 mol O₂ → 4 mol H₂O</td></tr>
+    <tr><td>o ingrediente que acaba primeiro</td><td>o <b>reagente limitante</b></td></tr>
+    <tr><td>a farinha que sobra no pacote</td><td>o <b>reagente em excesso</b></td></tr>
+    <tr><td>bolo que solou e saiu menor</td><td><b>rendimento</b> abaixo de 100 %</td></tr></table></div>
+  <div class="cuid"><span class="k">Onde a analogia para</span>Na receita você mistura gramas, unidades e mL. Na química a proporção dos coeficientes vale para <b>mol</b> (ou moléculas). Por isso o primeiro passo de toda conta é passar para mol.</div>
   <div class="fx"><span class="tag">Fórmula 1 · Razão molar</span><div class="eq">n(B) = n(A) × <span class="fr"><span>coef. de B</span><span>coef. de A</span></span></div>
     <dl class="legend"><dt>n(A)</dt><dd>mol da substância que você conhece</dd><dt>coef.</dt><dd>os números da frente na equação <b>balanceada</b></dd><dt>cuidado</dt><dd>a proporção vale para mol, nunca direto para gramas</dd></dl></div>
   <h3>O roteiro de 4 passos</h3>
@@ -2075,7 +2099,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
   location.href='../../index.html#m-qg' });
 </script>
 <script src="../../js/quimica-m1.js?v=3"></script>
-<script src="../../js/quimica-m3.js?v=3"></script>
+<script src="../../js/quimica-m3.js?v=4"></script>
 <script src="../../dados/cartas.js"></script>
 <script src="../../js/anki.js" data-materia="qg"></script>
 <script src="../../js/aviso.js" defer></script>

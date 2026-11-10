@@ -209,7 +209,20 @@ const fr=v=>{ if(typeof v==='number') return v; const [a,b]=String(v).split('/')
 const sub=f=>String(f).replace(/\d+/g,d=>d.split('').map(c=>'₀₁₂₃₄₅₆₇₈₉'[c]).join(''));
 /* (os quadros são gerados a partir de MAO e escritos direto no HTML da aula) */
 
-limW(); noxW(); rxW(); idxW();
+/* ===================== RECEITA DE BOLO ===================== */
+const BOLO=[['Farinha','g',500,'🌾'],['Açúcar','g',200,'🍚'],['Ovo','un',2,'🥚'],['Leite','mL',100,'🥛']];
+function boloW(){ const N=g('m3BoloN'); if(!N) return; const nn=v=>v.toLocaleString('pt-BR',{maximumFractionDigits:1});
+  const tab=()=>{ const k=+N.value; g('m3BoloNv').textContent=nn(k)+(k===1?' receita':' receitas');
+    g('m3BoloT').innerHTML='<tr><th></th>'+BOLO.map(b=>'<th>'+b[3]+' '+b[0]+'</th>').join('')+'<th>🎂 Bolo</th></tr><tr><td>1 receita</td>'+BOLO.map(b=>'<td>'+b[2]+' '+b[1]+'</td>').join('')+'<td>1 un</td></tr><tr><td><b>'+nn(k)+' receita'+(k===1?'':'s')+'</b></td>'+BOLO.map(b=>'<td class="v">'+nn(b[2]*k)+' '+b[1]+'</td>').join('')+'<td class="v">'+nn(k)+' un</td></tr>' };
+  N.oninput=tab; tab();
+  const D=[1000,500,3,500]; g('m3Desp').innerHTML=BOLO.map((b,i)=>'<label>'+b[3]+' '+b[0]+' ('+b[1]+')<input type="text" inputmode="decimal" id="m3D'+i+'" value="'+D[i]+'"></label>').join('');
+  const calc=()=>{ const v=BOLO.map((_,i)=>num(g('m3D'+i).value)); if(v.some(isNaN)){ g('m3DespO').textContent='Preencha tudo.'; return }
+    const bolos=BOLO.map((b,i)=>v[i]/b[2]), mn=Math.min(...bolos), li=bolos.indexOf(mn), inteiros=Math.floor(mn+1e-9), mx=Math.max(...bolos,1e-9);
+    g('m3DespB').innerHTML=BOLO.map((b,i)=>'<div class="m3-barg"><b>'+b[3]+' '+b[0]+(i===li?' · limitante':'')+'</b><div class="m3-bar"><span>dá para</span><div><i class="'+(i===li?'c':'a')+'" style="width:'+(bolos[i]/mx*100)+'%"></i></div><small>'+nn(bolos[i])+' bolo(s) · '+nn(v[i])+' ÷ '+b[2]+'</small></div><div class="m3-bar"><span>sobra</span><div><i class="d" style="width:'+((v[i]-b[2]*inteiros)/Math.max(v[i],1e-9)*100)+'%"></i></div><small>'+nn(v[i]-b[2]*inteiros)+' '+b[1]+'</small></div></div>').join('');
+    g('m3DespO').innerHTML='Cada ingrediente ÷ o que a receita pede = quantos bolos ele aguenta. O menor manda: <b>'+BOLO[li][3]+' '+BOLO[li][0]+' é o limitante</b> → saem <b>'+inteiros+' bolo(s)</b>.<br>É exatamente o teste <b>n ÷ coeficiente</b> do reagente limitante.' };
+  BOLO.forEach((_,i)=>g('m3D'+i).oninput=calc); calc() }
+
+boloW(); limW(); noxW(); rxW(); idxW();
 const DRAW={solucoes:[solW(),dilW()],pilhas:[pilhaW()]};
 const show=()=>{ const h=location.hash.slice(1); (DRAW[h]||[]).forEach(f=>{ try{ f&&f() }catch(e){ console.error(e) } }) };
 addEventListener('hashchange',()=>requestAnimationFrame(show)); let rz=0; addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(show,150) }); requestAnimationFrame(show);
