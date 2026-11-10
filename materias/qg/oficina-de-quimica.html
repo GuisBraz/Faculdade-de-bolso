@@ -536,6 +536,7 @@ body{font-size:1rem}
 .m3-idx button{display:flex;gap:10px;align-items:center;text-align:left;color:var(--ink);background:var(--sheet,#fff);border:1px solid var(--line);border-radius:12px;padding:8px 10px;font:inherit;font-size:.9rem;cursor:pointer}
 .m3-idx button:hover{border-color:var(--c1)}.m3-idx span{flex:none;width:28px;height:28px;border-radius:8px;background:var(--navy,#0E1F38);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
 .m3-flux{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin:14px 0}.m3-flux b{padding:10px 14px;border-radius:12px;color:#fff;font:800 .92rem var(--f-disp)}.m3-flux .a{background:#E3A21A}.m3-flux .b{background:#22884A}.m3-flux .c{background:#3B4652}.m3-flux span{font:600 .78rem var(--f-mono,monospace);color:var(--ink2)}
+.m3-macho{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:14px 0}.m3-macho div{background:var(--sheet,#fff);border:1px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center}.m3-macho b{display:block;font:800 2rem var(--f-disp);color:var(--c1)}.m3-macho span{font-size:.78rem;color:var(--ink2)}
 .m3-irp{margin:-6px 0 10px}.m3-ir{font:700 .82rem var(--f-body);color:var(--c1);text-decoration:none}.m3-ir:hover{text-decoration:underline}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
@@ -1048,7 +1049,25 @@ body{font-size:1rem}
       <li>O: à direita agora há 2 (do CO₂) + 2 (das 2 H₂O) = 4. Para ter 4 à esquerda, coloque <b>2</b> na frente do O₂.</li>
       <li>Confira: C 1 = 1 · H 4 = 4 · O 4 = 4 ✓</li></ol>
     <div class="ans">CH₄ + 2 O₂ → CO₂ + 2 H₂O</div></div>
-  <div class="ofi"><span class="k">Ordem que quase sempre funciona</span>1) metais · 2) não metais (C, N, S…) · 3) H · 4) O por último. O oxigênio aparece em quase tudo, então deixá-lo para o fim evita desbalancear o que você já acertou.</div>
+  <h3>Dois métodos de balanceamento (aula de 09/11)</h3>
+  <div class="m1-def">
+    <div><span class="em">🎯</span><b>Tentativa e erro</b><span>Ajusta os coeficientes um elemento por vez, seguindo a ordem <b>MACHO</b>. Resolve a maioria das equações da prova.</span></div>
+    <div><span class="em">⚡</span><b>Oxirredução</b><span>Usa a <b>variação do número de oxidação</b> para achar os coeficientes. Ideal quando a tentativa vira um quebra-cabeça. <a href="#redox">Ver a aula de oxirredução →</a></span></div>
+  </div>
+  <div class="m3-macho" aria-label="Ordem MACHO">
+    <div><b>M</b><span>Metal</span></div><div><b>A</b><span>Ametal</span></div><div><b>C</b><span>Carbono</span></div><div><b>H</b><span>Hidrogênio</span></div><div><b>O</b><span>Oxigênio</span></div>
+  </div>
+  <div class="ofi"><span class="k">Por que nessa ordem</span>H e O aparecem em quase todas as substâncias; se você mexe neles por último, não desfaz o que já acertou nos metais, ametais e carbono. Para lembrar: <b>MACHO</b>.</div>
+  <div class="ex" data-ex><div class="q">Exemplo do quadro: Al(s) + Cl₂(g) → AlCl₃(s)</div>
+    <ol><li><b>M (metal), Al</b>: 1 de cada lado, por enquanto ok.</li><li><b>A (ametal), Cl</b>: 2 à esquerda e 3 à direita. O menor múltiplo comum de 2 e 3 é <b>6</b>: 3 Cl₂ (3 × 2 = 6) e 2 AlCl₃ (2 × 3 = 6).</li><li>Volte ao metal: agora há 2 Al à direita → <b>2</b> Al à esquerda.</li><li>Confira como a professora fez no quadro: reagentes 2 Al ✓ 6 Cl ✓ · produtos 2 Al ✓ 6 Cl ✓</li></ol>
+    <div class="ans">2 Al(s) + 3 Cl₂(g) → 2 AlCl₃(s)</div></div>
+  <div class="ex" data-ex><div class="q">Passo a passo do slide: combustão do propeno, C₃H₆(g) + O₂(g) → CO₂(g) + H₂O(g)</div>
+    <ol><li><b>0. Início</b>: C 3 → 1 · H 6 → 2 · O 2 → 3. Nada bate.</li><li><b>1. Carbono</b>: 3 C à esquerda → <b>3</b> CO₂.</li><li><b>2. Hidrogênio</b>: 6 H à esquerda → <b>3</b> H₂O (3 × 2 = 6).</li><li><b>3. Oxigênio</b>: à direita 3 × 2 + 3 × 1 = 9 O. Para ter 9 com O₂, o coeficiente é <b>9/2</b>: C₃H₆ + 9/2 O₂ → 3 CO₂ + 3 H₂O.</li><li>Coeficiente fracionário é aceito (pense em mol: 4,5 mol de O₂). Se quiser inteiros, multiplique tudo por 2.</li></ol>
+    <div class="ans">C₃H₆ + 9/2 O₂ → 3 CO₂ + 3 H₂O &nbsp;ou&nbsp; 2 C₃H₆ + 9 O₂ → 6 CO₂ + 6 H₂O</div></div>
+  <div class="ex" data-ex><div class="q">Exemplo do slide: NH₄NO₃(s) → N₂O(g) + H₂O(g) (decomposição do nitrato de amônio)</div>
+    <ol><li><b>A (ametal), N</b>: 2 N no NH₄NO₃ (um no NH₄⁺ e um no NO₃⁻) e 2 no N₂O. Já bate.</li><li><b>H</b>: 4 à esquerda → <b>2</b> H₂O (2 × 2 = 4).</li><li><b>O</b>: esquerda 3 · direita 1 (N₂O) + 2 (2 H₂O) = 3 ✓</li><li>Pelo método de oxirredução dá o mesmo: o N do NH₄⁺ vai de −3 a +1 (perde 4 e⁻) e o N do NO₃⁻ vai de +5 a +1 (ganha 4 e⁻); 1 de cada.</li></ol>
+    <div class="ans">NH₄NO₃(s) → N₂O(g) + 2 H₂O(g)</div></div>
+  <div class="curio"><div><span class="em">💥</span><b>Nitrato de amônio na indústria</b><span>É fertilizante e também base de explosivos de mineração (o ANFO, nitrato de amônio + óleo diesel). Aquecido sem controle ele se decompõe de forma violenta: foi a causa da explosão do porto de Beirute, em 2020.</span></div></div>
   <div class="done-btn" data-done="reacoes"></div>
 </section>
 
@@ -1420,7 +1439,7 @@ body{font-size:1rem}
   <div class="ex" data-ex><div class="q">Passo a passo da mais trabalhosa: d) Al₄C₃ + H₂O → Al(OH)₃ + CH₄</div>
     <ol><li>Comece pelo composto mais complicado, Al₄C₃ (coeficiente 1). Ele traz 4 Al e 3 C.</li><li>Al: 4 → <b>4</b> Al(OH)₃. C: 3 → <b>3</b> CH₄.</li><li>O: os 4 Al(OH)₃ têm 12 O, e o único reagente com O é a água → <b>12</b> H₂O.</li><li>Confira o H: esquerda 12 × 2 = 24 · direita 4 × 3 + 3 × 4 = 24 ✓</li></ol>
     <div class="ans">Al₄C₃ + 12 H₂O → 4 Al(OH)₃ + 3 CH₄</div></div>
-  <div class="cuid"><span class="k">Dica para combustões (e, i, l)</span>Ordem C → H → O. Se o combustível já tem oxigênio (C₄H₁₀O, C₇H₈O₂), desconte esses átomos antes de calcular o O₂.</div>
+  <div class="cuid"><span class="k">Dica para combustões (e, i, l)</span>Ordem MACHO (aqui só C → H → O, como no propeno do slide). Se o combustível já tem oxigênio (C₄H₁₀O, C₇H₈O₂), desconte esses átomos antes de calcular o O₂.</div>
 
   <h3 data-q="3">Questão 3 · Massas molares</h3>
   <p class="m3-irp"><a class="m3-ir" href="#massa">ver a aula →</a></p>
@@ -1701,6 +1720,7 @@ const EQS=[
  {n:'Sódio na água',r:['Na','H2O'],p:['NaOH','H2'],c:[2,2,2,1]},
  {n:'Fotossíntese',r:['CO2','H2O'],p:['C6H12O6','O2'],c:[6,6,1,6]},
  {n:'Etanol queimando',r:['C2H6O','O2'],p:['CO2','H2O'],c:[1,3,2,3]},
+ {n:'Propeno (slide)',r:['C3H6','O2'],p:['CO2','H2O'],c:[2,9,6,6]},{n:'Al + Cl₂ (quadro)',r:['Al','Cl2'],p:['AlCl3'],c:[2,3,2]},{n:'NH₄NO₃ (slide)',r:['NH4NO3'],p:['N2O','H2O'],c:[1,1,2]},
  {n:'ED3 2a',r:['SO2','O2'],p:['SO3'],c:[2,1,2]},{n:'ED3 2b',r:['P2O5','H2O'],p:['H3PO4'],c:[1,3,2]},{n:'ED3 2c',r:['CH4','Cl2'],p:['CCl4','HCl'],c:[1,4,1,4]},
  {n:'ED3 2d',r:['Al4C3','H2O'],p:['Al(OH)3','CH4'],c:[1,12,4,3]},{n:'ED3 2e',r:['C4H10O','O2'],p:['CO2','H2O'],c:[1,6,4,5]},{n:'ED3 2f',r:['Fe(OH)3','H2SO4'],p:['Fe2(SO4)3','H2O'],c:[2,3,1,6]},
  {n:'ED3 2g',r:['Mg3N2','H2SO4'],p:['MgSO4','(NH4)2SO4'],c:[1,4,3,1]},{n:'ED3 2h',r:['Al','Cl2'],p:['AlCl3'],c:[2,3,2]},{n:'ED3 2i',r:['C2H4','O2'],p:['CO2','H2O'],c:[1,3,2,2]},
