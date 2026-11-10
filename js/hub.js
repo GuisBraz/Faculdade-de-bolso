@@ -281,8 +281,8 @@ function renderAulas(id){ const box=document.getElementById('aulas'); const ms=c
       '<div class="qgrid">'+ms.map(m=>{ const n=Object.values(AUL[m.id].modulos||{}).reduce((a,l)=>a+l.length,0); return cardM(m,ofUrl(m),esc(m.nome),'<span class="qm">'+n+' aula'+(n===1?'':'s')+'</span>') }).join('')+'</div>'+
       (curMats().some(m=>AUL[m.id].continua)?'<div class="sech"><h3>Cursos contínuos</h3></div><div class="qgrid">'+curMats().filter(m=>AUL[m.id].continua).map(m=>cardM(m,ofUrl(m),esc(m.nome),'<span class="qm">trilha própria</span>')).join('')+'</div>':''); return }
   const m=MATS.find(x=>x.id===id), a=AUL[id]; if(!m||!a){ location.hash='aulas'; return }
-  let k=0; const mods=[1,2,3].map(n=>{ const L=(a.modulos||{})[n]||[]; const pv=provaDe(m,n);
-    const head='<div class="modh"><span class="mn">Módulo '+n+'</span><span class="mp">'+PROVA[n]+(pv?' · '+fdate(pv.data)+(daysTo(pv.data)>=0?' · '+cdTxt(daysTo(pv.data)):''):'')+'</span></div>';
+  let k=0; const mods=(a.unico?[1,2,3].filter(n=>((a.modulos||{})[n]||[]).length):[1,2,3]).map(n=>{ const L=(a.modulos||{})[n]||[]; const pv=a.unico?null:provaDe(m,n);
+    const head='<div class="modh"><span class="mn">'+(a.unico?'Módulo único':'Módulo '+n)+'</span><span class="mp">'+(a.unico?'todas as aulas':PROVA[n])+(pv?' · '+fdate(pv.data)+(daysTo(pv.data)>=0?' · '+cdTxt(daysTo(pv.data)):''):'')+'</span></div>';
     if(!L.length) return '<section class="modb vazio">'+head+'<p class="hint">'+(n===1?'Conteúdo da 1ª prova ainda não entrou no site.':'As aulas aparecem aqui conforme forem acontecendo.')+'</p></section>';
     return '<section class="modb">'+head+'<ol class="aulist">'+L.map(([h,t,d])=>{ k++; return '<li><div class="an">Aula '+k+'</div><div class="at"><b>'+esc(t)+'</b><small>'+esc(d)+'</small></div>'+
       '<div class="ab"><a class="abtn" href="'+ofUrl(m,h)+'">📖 Aula</a><a class="abtn o" href="'+ofUrl(m,h,'pratica')+'">🧪 Oficina</a><a class="abtn e" href="'+ofUrl(m,h,'exercicios')+'">✍️ Exercícios</a></div></li>' }).join('')+'</ol></section>' }).join('');

@@ -124,7 +124,8 @@ window.FACULDADE = {
               caminho: "materias/materiais/oficina-de-materiais.html",
               data: "2026-11-10",
               atualizacoes: [
-                { data: "2026-11-10", texto: "Oficina criada com a aula de 10/11: materiais cerâmicos (classificação pela aplicação) e compósitos (classificação, fatores de geometria e regra das misturas), com quiz e cola." }
+                { data: "2026-11-10", texto: "Oficina criada com a aula de 10/11: materiais cerâmicos (classificação pela aplicação) e compósitos (classificação, fatores de geometria e regra das misturas), com quiz e cola." },
+                { data: "2026-11-10", texto: "Matéria de módulo único: as aulas ficam todas num módulo só, sem divisão por prova." }
               ]
             }
           ] },

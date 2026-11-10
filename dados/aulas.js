@@ -73,12 +73,12 @@ window.FDB_AULAS = {
     temas: { 1: "Estrutura atômica e tabela periódica", 3: "Reações, estequiometria, soluções e eletroquímica" },
     sobre: "Química Geral estuda a matéria e as suas transformações: do que as coisas são feitas, como os átomos se combinam e quanto de cada substância reage. Na engenharia ela aparece na corrosão, na soldagem, na combustão, no tratamento de água e na escolha de materiais.",
     lab_nome: "Laboratório de descobertas", lab_desc: "Junte átomos da tabela periódica e descubra 325 substâncias reais.", lab_estrela: true },
-  cm2: { pag: "materias/materiais/oficina-de-materiais.html", simbolo: "◈", lista: null, lab: null, quiz: "quiz", cola: "cola",
-    modulos: { 1: [], 2: [], 3: [
+  cm2: { pag: "materias/materiais/oficina-de-materiais.html", simbolo: "◈", lista: null, lab: null, quiz: "quiz", cola: "cola", unico: true,
+    modulos: { 1: [
       ["ceramicos", "Materiais cerâmicos", "Propriedades e classificação pela aplicação"],
       ["compositos", "Materiais compósitos", "Matriz + fase dispersa, classificação e regra das misturas"]
     ] },
-    temas: { 3: "Cerâmicos e compósitos" },
+    temas: { 1: "Cerâmicos e compósitos" },
     sobre: "Ciência dos Materiais estuda por que cada material se comporta como se comporta: da ligação entre os átomos até a peça pronta. Na engenharia mecânica é ela que justifica a escolha entre aço, cerâmica, polímero ou compósito em cada aplicação." },
   usin: { pag: "materias/usinagem/oficina-de-usinagem.html", simbolo: "⚙", continua: true,
     lab_nome: "Simulador CNC e máquinas 3D", lab_desc: "Furadeira, torno, mandrilhadora e centro de usinagem em 3D, com calculadoras." },
