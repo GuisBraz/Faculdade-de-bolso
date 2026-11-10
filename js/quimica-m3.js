@@ -178,6 +178,13 @@ const MAO=[
   [[1,'9/2',3,3],'O','3. Oxigênio: direita 3 × 2 + 3 × 1 = 9. Com O₂ (2 por molécula) precisa de 9/2.',[1]],
   [[2,9,6,6],'O','Não quer fração? Multiplique TODOS os coeficientes por 2.',[0,1,2,3]],
   [[2,9,6,6],'*','Confira: C 6 = 6, H 12 = 12, O 18 = 18.',[]]]},
+ {n:'Octano (gasolina)',r:['C8H18','O2'],p:['CO2','H2O'],s:[
+  [[1,1,1,1],null,'Monte a tabelinha. Só tem C, H e O: siga C → H → O.',[]],
+  [[1,1,8,1],'C','C: 8 na esquerda → 8 CO₂.',[2]],
+  [[1,1,8,9],'H','H: 18 na esquerda → 9 H₂O (9 × 2 = 18).',[3]],
+  [[1,'25/2',8,9],'O','O: direita 8 × 2 + 9 × 1 = 25. Com O₂: 25 ÷ 2 = 25/2 (como no quadro).',[1]],
+  [[2,25,16,18],'O','Sem fração: multiplique tudo por 2.',[0,1,2,3]],
+  [[2,25,16,18],'*','Confira: C 16 = 16, H 36 = 36, O 50 = 50.',[]]]},
  {n:'Ferrugem',r:['Fe','O2'],p:['Fe2O3'],s:[
   [[1,1,1],null,'Monte a tabelinha: Fe e O não batem.',[]],
   [[2,1,1],'Fe','M (metal): Fe 1 × 2 → 2 Fe.',[0]],
@@ -222,7 +229,21 @@ function boloW(){ const N=g('m3BoloN'); if(!N) return; const nn=v=>v.toLocaleStr
     g('m3DespO').innerHTML='Cada ingrediente ÷ o que a receita pede = quantos bolos ele aguenta. O menor manda: <b>'+BOLO[li][3]+' '+BOLO[li][0]+' é o limitante</b> → saem <b>'+inteiros+' bolo(s)</b>.<br>É exatamente o teste <b>n ÷ coeficiente</b> do reagente limitante.' };
   BOLO.forEach((_,i)=>g('m3D'+i).oninput=calc); calc() }
 
-boloW(); limW(); noxW(); rxW(); idxW();
+/* ===================== OCTANO ===================== */
+function octW(){ const V=g('m3OctV'); if(!V) return; let u='mol'; const NA=6.022e23;
+  const SP=[['C8H18',1,'1'],['O2',12.5,'25/2'],['CO2',8,'8'],['H2O',9,'9']];
+  const calc=()=>{ g('m3OctU').querySelectorAll('button').forEach(b=>b.classList.toggle('sel',b.dataset.u===u)); const v=num(V.value); if(isNaN(v)){ g('m3OctO').textContent='Digite um número.'; return }
+    const mmO=mm('C8H18'), n=u==='mol'?v:u==='g'?v/mmO:v*700/mmO;
+    g('m3OctT').innerHTML='<tr><th></th>'+SP.map(s=>'<th>'+s[2]+' '+pf(s[0])+'</th>').join('')+'</tr>'+
+      '<tr><td><b>Mol</b></td>'+SP.map(s=>'<td>'+nf(n*s[1])+' mol</td>').join('')+'</tr>'+
+      '<tr><td><b>Moléculas</b></td>'+SP.map(s=>'<td>'+nf(n*s[1]*NA)+'</td>').join('')+'</tr>'+
+      '<tr><td><b>Massa</b></td>'+SP.map(s=>'<td>'+(n*s[1]*mm(s[0])>=1000?nf(n*s[1]*mm(s[0])/1000)+' kg':nf(n*s[1]*mm(s[0]))+' g')+'</td>').join('')+'</tr>';
+    const mR=n*mmO+n*12.5*mm('O2'), mP=n*8*mm('CO2')+n*9*mm('H2O');
+    g('m3OctO').innerHTML=(u==='L'?'1 L de gasolina ≈ 700 g (tratando tudo como octano, MM = '+nf(mmO,4)+' g/mol) → <b>'+nf(n)+' mol</b> de C₈H₁₈.<br>':u==='g'?'n = m / MM = '+nf(v)+' ÷ '+nf(mmO,4)+' = <b>'+nf(n)+' mol</b>.<br>':'')+
+      'Proporção 1 : 12,5 : 8 : 9 multiplicada por '+nf(n)+'.<br>Conservação da massa: reagentes '+nf(mR)+' g = produtos '+nf(mP)+' g ✓'+(u==='L'?'<br>Ou seja: cada litro de gasolina vira cerca de <b>'+nf(n*8*mm('CO2')/1000)+' kg de CO₂</b>, mais pesado que a própria gasolina, porque o O₂ do ar entra na conta.':'') };
+  g('m3OctU').querySelectorAll('button').forEach(b=>b.onclick=()=>{ u=b.dataset.u; if(u==='L'&&V.value==='1') V.value='1'; calc() }); V.oninput=calc; calc() }
+
+octW(); boloW(); limW(); noxW(); rxW(); idxW();
 const DRAW={solucoes:[solW(),dilW()],pilhas:[pilhaW()]};
 const show=()=>{ const h=location.hash.slice(1); (DRAW[h]||[]).forEach(f=>{ try{ f&&f() }catch(e){ console.error(e) } }) };
 addEventListener('hashchange',()=>requestAnimationFrame(show)); let rz=0; addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(show,150) }); requestAnimationFrame(show);
