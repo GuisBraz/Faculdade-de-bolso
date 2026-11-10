@@ -537,6 +537,27 @@ body{font-size:1rem}
 .m3-idx button:hover{border-color:var(--c1)}.m3-idx span{flex:none;width:28px;height:28px;border-radius:8px;background:var(--navy,#0E1F38);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
 .m3-flux{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center;margin:14px 0}.m3-flux b{padding:10px 14px;border-radius:12px;color:#fff;font:800 .92rem var(--f-disp)}.m3-flux .a{background:#E3A21A}.m3-flux .b{background:#22884A}.m3-flux .c{background:#3B4652}.m3-flux span{font:600 .78rem var(--f-mono,monospace);color:var(--ink2)}
 .m3-macho{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:14px 0}.m3-macho div{background:var(--sheet,#fff);border:1px solid var(--line);border-radius:14px;padding:10px 4px;text-align:center}.m3-macho b{display:block;font:800 2rem var(--f-disp);color:var(--c1)}.m3-macho span{font-size:.78rem;color:var(--ink2)}
+.m3-board{position:relative;background:#FBFCFD;border:10px solid #C9D0D8;border-radius:10px;box-shadow:inset 0 0 30px rgba(0,0,0,.05),0 2px 0 #A9B1BA;padding:16px 18px 18px;color:#1B2B44;font-family:'Kalam','Caveat',cursive;margin:12px 0}
+:root[data-theme=dark] .m3-board{background:#F3F5F7}
+@media (prefers-color-scheme:dark){:root:not([data-theme=light]) .m3-board{background:#F3F5F7}}
+.m3-receita ol{margin:0;padding-left:26px;font-size:1.08rem;line-height:1.55}.m3-receita li{margin:4px 0}.m3-receita b{color:#1E50B4}.m3-receita u{text-decoration-color:#D93A2B;text-decoration-thickness:2px}
+.bq-top{display:flex;justify-content:space-between;align-items:center;font-size:.9rem;color:#5A6A80}.bq-top .dots{display:flex;gap:4px}.bq-top i{width:9px;height:9px;border-radius:50%;background:#D5DCE4}.bq-top i.on{background:#1E50B4}
+.bq-eq{font-size:clamp(1.25rem,3.6vw,1.9rem);font-weight:700;text-align:center;margin:10px 0 6px;line-height:1.4;display:flex;flex-wrap:wrap;justify-content:center;gap:.25em .35em;align-items:baseline}
+.bq-eq .op{color:#5A6A80;margin:0 .1em}.bq-eq .cf{color:#1B2B44;margin-right:.12em}.bq-eq .cf.novo{color:#1E50B4;display:inline-block;border-bottom:3px solid #1E50B4;animation:bqpop .5s}
+@keyframes bqpop{0%{transform:scale(1.8);opacity:0}60%{transform:scale(1.15)}}
+.bq-eq.esc{animation:bqesc .35s}@keyframes bqesc{from{opacity:.4}}
+.bq-cols{display:grid;grid-template-columns:1fr 1fr;gap:10px 30px;max-width:520px;margin:10px auto 6px;border-top:2px dashed #C3CCD6;padding-top:8px}
+.bq-cols small{font-family:var(--f-body);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;color:#7A8899}
+.bq-cols ul{list-style:none;margin:4px 0 0;padding:0;font-size:1.3rem;line-height:1.5}
+.bq-cols li{padding:0 8px;border-radius:6px;transition:background .3s}.bq-cols li i{font-style:normal;font-size:1.1rem;margin-left:4px}
+.bq-cols li.ok i{color:#1F8A46}.bq-cols li.no{color:#B83224}.bq-cols li.no i{color:#D93A2B}
+.bq-cols li.foco b{background:linear-gradient(transparent 40%,#FFE97A 40%,#FFE97A 90%,transparent 90%);padding:0 4px}
+.bq-cols li small{display:block;font-size:.95rem;color:#5A6A80;margin-top:-4px}
+.bq-nota{margin-top:10px;font-size:1.15rem;color:#B83224;line-height:1.45;border-left:4px solid #D93A2B;padding:2px 0 2px 12px}
+.bq-nota .tag{display:inline-block;font-family:var(--f-body);font-weight:800;font-size:.8rem;background:#D93A2B;color:#fff;border-radius:6px;padding:1px 7px;margin-right:6px;vertical-align:2px}
+.bq-nota.fim{color:#1F8A46;border-color:#1F8A46}
+.m3-maoctl{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:center}.m3-maoctl span{font:700 .9rem var(--f-body);color:var(--ink2);min-width:50px;text-align:center}
+#m3MaoP button.sel{background:var(--c1)!important;color:#fff!important;border-color:var(--c1)!important}
 .m3-irp{margin:-6px 0 10px}.m3-ir{font:700 .82rem var(--f-body);color:var(--c1);text-decoration:none}.m3-ir:hover{text-decoration:underline}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
@@ -1033,23 +1054,7 @@ body{font-size:1rem}
   <div class="fx"><span class="tag">A regra que manda em tudo</span><div class="eq" style="font-size:1.25rem">A matéria não pode ser perdida em nenhuma reação química.</div>
     <dl class="legend"><dt>átomos</dt><dd>o número de átomos de cada elemento precisa ser o mesmo antes e depois</dd><dt>então</dt><dd>a equação precisa estar <b>balanceada</b></dd><dt>estequiometria</dt><dd>a relação entre as quantidades de reagentes e produtos</dd></dl></div>
 
-  <h3>Balanceador: conte os átomos</h3>
-  <p>Mexa nos coeficientes. A tabela compara os átomos de cada lado e fica verde quando bate, exatamente como no slide do metano.</p>
-  <div class="wid" id="balW">
-    <div class="dinch" id="balPick"></div>
-    <div class="baleq" id="balEq"></div>
-    <div style="overflow-x:auto"><table class="mesa baltab" id="balT"></table></div>
-    <div class="wout" id="balO"></div>
-    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="ghost" id="balDica">💡 Dica</button><button class="ghost" id="balZero">↺ Zerar (tudo 1)</button><button class="ghost" id="balVer">Ver resposta</button></div>
-  </div>
-  <div class="ex" data-ex><div class="q">Exemplo do slide: balanceie CH₄ + O₂ → CO₂ + H₂O.</div>
-    <ol><li>Conte os átomos antes: reagentes C 1, H 4, O 2 · produtos C 1, H 2, O 3. Só o C bate.</li>
-      <li>Comece pelo elemento que aparece em menos lugares e não é O nem H "soltos": o C já está 1 = 1.</li>
-      <li>H: são 4 à esquerda; para ter 4 à direita, coloque <b>2</b> na frente da H₂O (2 × 2 = 4).</li>
-      <li>O: à direita agora há 2 (do CO₂) + 2 (das 2 H₂O) = 4. Para ter 4 à esquerda, coloque <b>2</b> na frente do O₂.</li>
-      <li>Confira: C 1 = 1 · H 4 = 4 · O 4 = 4 ✓</li></ol>
-    <div class="ans">CH₄ + 2 O₂ → CO₂ + 2 H₂O</div></div>
-  <h3>Dois métodos de balanceamento (aula de 09/11)</h3>
+  <h3>Como balancear: o método MACHO (aula de 09/11)</h3>
   <div class="m1-def">
     <div><span class="em">🎯</span><b>Tentativa e erro</b><span>Ajusta os coeficientes um elemento por vez, seguindo a ordem <b>MACHO</b>. Resolve a maioria das equações da prova.</span></div>
     <div><span class="em">⚡</span><b>Oxirredução</b><span>Usa a <b>variação do número de oxidação</b> para achar os coeficientes. Ideal quando a tentativa vira um quebra-cabeça. <a href="#redox">Ver a aula de oxirredução →</a></span></div>
@@ -1058,6 +1063,33 @@ body{font-size:1rem}
     <div><b>M</b><span>Metal</span></div><div><b>A</b><span>Ametal</span></div><div><b>C</b><span>Carbono</span></div><div><b>H</b><span>Hidrogênio</span></div><div><b>O</b><span>Oxigênio</span></div>
   </div>
   <div class="ofi"><span class="k">Por que nessa ordem</span>H e O aparecem em quase todas as substâncias; se você mexe neles por último, não desfaz o que já acertou nos metais, ametais e carbono. Para lembrar: <b>MACHO</b>.</div>
+  <h3>Passo a passo à mão</h3>
+  <p>É assim que se faz no caderno ou na prova: escreva a equação, monte a <b>tabelinha de átomos</b> embaixo de cada lado (como a professora fez no quadro) e vá ajustando um elemento por vez.</p>
+  <div class="m3-board m3-receita">
+    <ol>
+      <li><b>Copie a equação</b> e, embaixo de cada lado, liste os átomos na ordem M A C H O.</li>
+      <li><b>Conte</b>: átomos = coeficiente × índice. Se o elemento aparece em mais de uma substância, <u>some</u>.</li>
+      <li><b>Pegue o 1º elemento que não bate</b> (na ordem MACHO).</li>
+      <li>Para igualar, ache o <b>MMC</b> dos dois números e mexa <b>só no coeficiente</b> (o número grande da frente). Nunca no índice!</li>
+      <li><b>Mexeu? Reconte tudo daquela substância</b>: o coeficiente multiplica todos os átomos dela.</li>
+      <li>Se o oxigênio pedir número ímpar no O₂, use <b>fração</b> (9/2) e depois <b>multiplique tudo por 2</b>.</li>
+      <li><b>Confira</b>: todos os átomos com ✓ dos dois lados.</li>
+    </ol>
+  </div>
+  <div class="wid m3-maow">
+    <div class="dinch" id="m3MaoP"></div>
+    <div class="m3-board" id="m3Mao" aria-live="polite"></div>
+    <div class="m3-maoctl"><button class="ghost" id="m3MaoV">◀ Voltar</button><span id="m3MaoN"></span><button class="btn" id="m3MaoA">Próximo passo ▶</button><button class="ghost" id="m3MaoT">⟲ Do início</button></div>
+  </div>
+  <div class="cuid"><span class="k">Os 3 erros que mais derrubam</span>1) Mudar o índice (transformar H₂O em H₂O₂ para "fechar" o O). 2) Esquecer de somar o elemento que aparece em duas substâncias (o O do CO₂ <u>e</u> o da H₂O). 3) Mudar um coeficiente e não recontar os outros átomos daquela substância.</div>
+  <h3>Exemplos resolvidos</h3>
+  <div class="ex" data-ex><div class="q">Exemplo do slide: balanceie CH₄ + O₂ → CO₂ + H₂O.</div>
+    <ol><li>Conte os átomos antes: reagentes C 1, H 4, O 2 · produtos C 1, H 2, O 3. Só o C bate.</li>
+      <li>Comece pelo elemento que aparece em menos lugares e não é O nem H "soltos": o C já está 1 = 1.</li>
+      <li>H: são 4 à esquerda; para ter 4 à direita, coloque <b>2</b> na frente da H₂O (2 × 2 = 4).</li>
+      <li>O: à direita agora há 2 (do CO₂) + 2 (das 2 H₂O) = 4. Para ter 4 à esquerda, coloque <b>2</b> na frente do O₂.</li>
+      <li>Confira: C 1 = 1 · H 4 = 4 · O 4 = 4 ✓</li></ol>
+    <div class="ans">CH₄ + 2 O₂ → CO₂ + 2 H₂O</div></div>
   <div class="ex" data-ex><div class="q">Exemplo do quadro: Al(s) + Cl₂(g) → AlCl₃(s)</div>
     <ol><li><b>M (metal), Al</b>: 1 de cada lado, por enquanto ok.</li><li><b>A (ametal), Cl</b>: 2 à esquerda e 3 à direita. O menor múltiplo comum de 2 e 3 é <b>6</b>: 3 Cl₂ (3 × 2 = 6) e 2 AlCl₃ (2 × 3 = 6).</li><li>Volte ao metal: agora há 2 Al à direita → <b>2</b> Al à esquerda.</li><li>Confira como a professora fez no quadro: reagentes 2 Al ✓ 6 Cl ✓ · produtos 2 Al ✓ 6 Cl ✓</li></ol>
     <div class="ans">2 Al(s) + 3 Cl₂(g) → 2 AlCl₃(s)</div></div>
@@ -1067,6 +1099,15 @@ body{font-size:1rem}
   <div class="ex" data-ex><div class="q">Exemplo do slide: NH₄NO₃(s) → N₂O(g) + H₂O(g) (decomposição do nitrato de amônio)</div>
     <ol><li><b>A (ametal), N</b>: 2 N no NH₄NO₃ (um no NH₄⁺ e um no NO₃⁻) e 2 no N₂O. Já bate.</li><li><b>H</b>: 4 à esquerda → <b>2</b> H₂O (2 × 2 = 4).</li><li><b>O</b>: esquerda 3 · direita 1 (N₂O) + 2 (2 H₂O) = 3 ✓</li><li>Pelo método de oxirredução dá o mesmo: o N do NH₄⁺ vai de −3 a +1 (perde 4 e⁻) e o N do NO₃⁻ vai de +5 a +1 (ganha 4 e⁻); 1 de cada.</li></ol>
     <div class="ans">NH₄NO₃(s) → N₂O(g) + 2 H₂O(g)</div></div>
+  <h3>Agora é sua vez: balanceador</h3>
+  <p>Mexa nos coeficientes. A tabela compara os átomos de cada lado e fica verde quando bate. Tem as equações dos slides, do quadro e as 12 do Estudo Dirigido 3.</p>
+  <div class="wid" id="balW">
+    <div class="dinch" id="balPick"></div>
+    <div class="baleq" id="balEq"></div>
+    <div style="overflow-x:auto"><table class="mesa baltab" id="balT"></table></div>
+    <div class="wout" id="balO"></div>
+    <div class="row" style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px"><button class="ghost" id="balDica">💡 Dica</button><button class="ghost" id="balZero">↺ Zerar (tudo 1)</button><button class="ghost" id="balVer">Ver resposta</button></div>
+  </div>
   <div class="curio"><div><span class="em">💥</span><b>Nitrato de amônio na indústria</b><span>É fertilizante e também base de explosivos de mineração (o ANFO, nitrato de amônio + óleo diesel). Aquecido sem controle ele se decompõe de forma violenta: foi a causa da explosão do porto de Beirute, em 2020.</span></div></div>
   <div class="done-btn" data-done="reacoes"></div>
 </section>

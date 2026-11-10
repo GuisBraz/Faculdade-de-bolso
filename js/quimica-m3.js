@@ -155,7 +155,77 @@ function idxW(){ const b=g('m3Idx'); if(!b) return; const hs=[...document.queryS
   b.innerHTML=hs.map(h=>'<button data-q="'+h.dataset.q+'"><span>'+h.dataset.q+'</span>'+h.textContent.replace(/^Questão \d+ · /,'')+'</button>').join('');
   b.querySelectorAll('button').forEach(o=>o.onclick=()=>{ const h=hs.find(k=>k.dataset.q===o.dataset.q); if(h) h.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'}) }) }
 
-limW(); noxW(); rxW(); idxW();
+
+/* ===================== BALANCEAMENTO À MÃO (quadro branco) ===================== */
+/* cada passo: [coeficientes, elemento em foco, nota, índices que mudaram] */
+const MAO=[
+ {n:'Metano',r:['CH4','O2'],p:['CO2','H2O'],s:[
+  [[1,1,1,1],null,'Escreva a equação e monte a tabelinha embaixo de cada lado. Contando: só o C bate.',[]],
+  [[1,1,1,1],'C','M: não tem metal. A: não tem ametal além de C, H, O. C: 1 = 1 ✓, não mexe.',[]],
+  [[1,1,1,2],'H','H: 4 de um lado, 2 do outro. Coloque 2 na frente da H₂O: 2 × 2 = 4 ✓',[3]],
+  [[1,2,1,2],'O','O: à direita 2 (CO₂) + 2 (2 H₂O) = 4. Para ter 4 à esquerda, 2 O₂ (2 × 2 = 4) ✓',[1]],
+  [[1,2,1,2],'*','Confira tudo: C 1 = 1, H 4 = 4, O 4 = 4. Balanceada!',[]]]},
+ {n:'Al + Cl₂ (quadro)',r:['Al','Cl2'],p:['AlCl3'],s:[
+  [[1,1,1],null,'Monte a tabelinha. O Al bate, o Cl não.',[]],
+  [[1,1,1],'Al','M (metal): Al 1 = 1 por enquanto. Segue para o ametal.',[]],
+  [[1,3,2],'Cl','A (ametal): Cl 2 × 3. MMC de 2 e 3 = 6 → 3 Cl₂ (3 × 2 = 6) e 2 AlCl₃ (2 × 3 = 6).',[1,2]],
+  [[2,3,2],'Al','Mexi no AlCl₃: o Al da direita virou 2! Volte ao metal: 2 Al na esquerda.',[0]],
+  [[2,3,2],'*','Confira como no quadro: 2 Al ✓ 6 Cl ✓ dos dois lados.',[]]]},
+ {n:'Propeno (slide)',r:['C3H6','O2'],p:['CO2','H2O'],s:[
+  [[1,1,1,1],null,'0. Início: nada bate.',[]],
+  [[1,1,3,1],'C','1. Carbono: 3 C na esquerda → 3 CO₂.',[2]],
+  [[1,1,3,3],'H','2. Hidrogênio: 6 H na esquerda → 3 H₂O (3 × 2 = 6).',[3]],
+  [[1,'9/2',3,3],'O','3. Oxigênio: direita 3 × 2 + 3 × 1 = 9. Com O₂ (2 por molécula) precisa de 9/2.',[1]],
+  [[2,9,6,6],'O','Não quer fração? Multiplique TODOS os coeficientes por 2.',[0,1,2,3]],
+  [[2,9,6,6],'*','Confira: C 6 = 6, H 12 = 12, O 18 = 18.',[]]]},
+ {n:'Ferrugem',r:['Fe','O2'],p:['Fe2O3'],s:[
+  [[1,1,1],null,'Monte a tabelinha: Fe e O não batem.',[]],
+  [[2,1,1],'Fe','M (metal): Fe 1 × 2 → 2 Fe.',[0]],
+  [[2,3,2],'O','O: 2 × 3. MMC = 6 → 3 O₂ e 2 Fe₂O₃.',[1,2]],
+  [[4,3,2],'Fe','Mexi no Fe₂O₃: agora são 4 Fe na direita. Volte: 4 Fe.',[0]],
+  [[4,3,2],'*','Confira: Fe 4 = 4, O 6 = 6.',[]]]},
+ {n:'Fe(OH)₃ + H₂SO₄ (ED3 2f)',r:['Fe(OH)3','H2SO4'],p:['Fe2(SO4)3','H2O'],s:[
+  [[1,1,1,1],null,'Tabelinha montada. Dica: o grupo SO₄ não se desmancha, dá para contar como bloco.',[]],
+  [[2,1,1,1],'Fe','M (metal): Fe 1 × 2 → 2 Fe(OH)₃.',[0]],
+  [[2,3,1,1],'S','A (ametal): S 1 × 3 → 3 H₂SO₄.',[1]],
+  [[2,3,1,6],'H','H: esquerda 2 × 3 + 3 × 2 = 12. Direita só a água: 6 H₂O (6 × 2 = 12).',[3]],
+  [[2,3,1,6],'O','O: esquerda 2 × 3 + 3 × 4 = 18 · direita 3 × 4 + 6 × 1 = 18 ✓ Já fechou.',[]],
+  [[2,3,1,6],'*','Todos ✓. Balanceada!',[]]]},
+ {n:'NH₄NO₃ (slide)',r:['NH4NO3'],p:['N2O','H2O'],s:[
+  [[1,1,1],null,'Monte a tabelinha. Atenção: o N aparece duas vezes no NH₄NO₃ (some!).',[]],
+  [[1,1,1],'N','A (ametal): N 2 = 2 ✓.',[]],
+  [[1,1,2],'H','H: 4 × 2 → 2 H₂O.',[2]],
+  [[1,1,2],'O','O: esquerda 3 · direita 1 + 2 = 3 ✓',[]],
+  [[1,1,2],'*','Confira: N 2, H 4, O 3 dos dois lados.',[]]]},
+ {n:'Al₄C₃ + H₂O (ED3 2d)',r:['Al4C3','H2O'],p:['Al(OH)3','CH4'],s:[
+  [[1,1,1,1],null,'Tabelinha montada. Comece pela substância mais "cheia": Al₄C₃.',[]],
+  [[1,1,4,1],'Al','M (metal): Al 4 × 1 → 4 Al(OH)₃.',[2]],
+  [[1,1,4,3],'C','C: 3 × 1 → 3 CH₄.',[3]],
+  [[1,12,4,3],'O','H aparece em dois produtos e O só em um: resolva o O primeiro. Direita 4 × 3 = 12 → 12 H₂O.',[1]],
+  [[1,12,4,3],'H','H: esquerda 12 × 2 = 24 · direita 4 × 3 + 3 × 4 = 24 ✓',[]],
+  [[1,12,4,3],'*','Todos ✓. Balanceada!',[]]]}];
+const METC=['ak','ae','tr','pt','la','ac'];
+const fr=v=>{ if(typeof v==='number') return v; const [a,b]=String(v).split('/').map(Number); return a/(b||1) };
+const sub=f=>String(f).replace(/\d+/g,d=>d.split('').map(c=>'₀₁₂₃₄₅₆₇₈₉'[c]).join(''));
+function maoW(){ const B=g('m3Mao'); if(!B) return; let E=MAO[0], k=0, tm=0;
+  const P=g('m3MaoP'); P.innerHTML=MAO.map((e,i)=>'<button data-i="'+i+'">'+e.n+'</button>').join('');
+  const ordem=els=>{ const rank=e=>{ const c=(typeof BY!=='undefined'&&BY[e])?BY[e].cat:''; return METC.includes(c)?0:e==='C'?2:e==='H'?3:e==='O'?4:1 }; return els.sort((a,b)=>rank(a)-rank(b)) };
+  const draw=(anim)=>{ P.querySelectorAll('button').forEach(b=>b.classList.toggle('sel',MAO[+b.dataset.i]===E)); const [co,foco,nota,mud]=E.s[k], sp=[...E.r,...E.p], nr=E.r.length, F=sp.map(f=>parseF(f));
+    const els=ordem([...new Set(F.flatMap(c=>Object.keys(c)))]);
+    const conta=(i0,i1,e)=>{ let t=0, partes=[]; for(let i=i0;i<i1;i++){ const q=F[i][e]; if(!q) continue; const c=fr(co[i]); t+=c*q; partes.push((String(co[i])==='1'?'':co[i]+' × ')+q) } return {t,partes} };
+    const eqh=sp.map((f,i)=>(i===nr?'<span class="op">→</span>':i?'<span class="op">+</span>':'')+'<span class="spc">'+(String(co[i])!=='1'||mud.includes(i)?'<span class="cf'+(mud.includes(i)?' novo':'')+'">'+co[i]+'</span>':'')+sub(f)+'</span>').join('');
+    const col=(i0,i1)=>els.map(e=>{ const a=conta(i0,i1,e), o=i0===0?conta(nr,sp.length,e):conta(0,nr,e), ok=Math.abs(a.t-o.t)<1e-9; const n=Number.isInteger(a.t)?a.t:a.t.toLocaleString('pt-BR');
+      return '<li class="'+(foco===e||foco==='*'?'foco ':'')+(ok?'ok':'no')+'"><b>'+n+' '+e+'</b> <i>'+(ok?'✓':'✗')+'</i>'+(foco===e&&a.partes.length>1||foco===e&&a.partes.some(x=>x.includes('×'))?'<small>'+a.partes.join(' + ')+'</small>':'')+'</li>' }).join('');
+    const tudo=els.every(e=>Math.abs(conta(0,nr,e).t-conta(nr,sp.length,e).t)<1e-9);
+    B.innerHTML='<div class="bq-top"><span>Passo '+(k)+' de '+(E.s.length-1)+'</span><span class="dots">'+E.s.map((_,i)=>'<i class="'+(i<=k?'on':'')+'"></i>').join('')+'</span></div>'+
+      '<div class="bq-eq'+(anim?' esc':'')+'">'+eqh+'</div><div class="bq-cols"><div><small>reagentes</small><ul>'+col(0,nr)+'</ul></div><div><small>produtos</small><ul>'+col(nr,sp.length)+'</ul></div></div>'+
+      '<div class="bq-nota'+(foco==='*'&&tudo?' fim':'')+'">'+(foco&&foco!=='*'?'<span class="tag">'+foco+'</span>':'')+nota+'</div>';
+    g('m3MaoN').textContent=k+' / '+(E.s.length-1); g('m3MaoV').disabled=k===0; g('m3MaoA').textContent=k<E.s.length-1?'Próximo passo ▶':'Outra equação ▶' };
+  g('m3MaoA').onclick=()=>{ if(k<E.s.length-1){ k++; draw(true) } else { E=MAO[(MAO.indexOf(E)+1)%MAO.length]; k=0; draw(true) } };
+  g('m3MaoV').onclick=()=>{ if(k>0){ k--; draw(false) } }; g('m3MaoT').onclick=()=>{ k=0; draw(true) };
+  P.querySelectorAll('button').forEach(b=>b.onclick=()=>{ E=MAO[+b.dataset.i]; k=0; draw(true) }); draw(false) }
+
+maoW(); limW(); noxW(); rxW(); idxW();
 const DRAW={solucoes:[solW(),dilW()],pilhas:[pilhaW()]};
 const show=()=>{ const h=location.hash.slice(1); (DRAW[h]||[]).forEach(f=>{ try{ f&&f() }catch(e){ console.error(e) } }) };
 addEventListener('hashchange',()=>requestAnimationFrame(show)); let rz=0; addEventListener('resize',()=>{ clearTimeout(rz); rz=setTimeout(show,150) }); requestAnimationFrame(show);
