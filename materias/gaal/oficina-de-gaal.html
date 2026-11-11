@@ -829,7 +829,7 @@ body{font-size:1rem}
   <h3>4 · Os dois espaços de uma matriz</h3>
   <p>Toda matriz A (m × n) é uma máquina: entra X ∈ ℝⁿ, sai AX ∈ ℝᵐ. Dois subespaços contam tudo sobre ela.</p>
   <div class="duas">
-    <div><b>Espaço nulo · o que A apaga</b><p class="r">N(A) = { X ∈ ℝⁿ : AX = <b>0</b> }</p><p>As soluções do sistema homogêneo. Mora nas <b>entradas</b> (ℝⁿ). É subespaço: A<b>0</b> = <b>0</b>; se AX = <b>0</b> e AY = <b>0</b>, então A(X + Y) = <b>0</b> e A(αX) = αAX = <b>0</b>.</p></div>
+    <div><b>Espaço nulo · o que A apaga</b><p class="r">N(A) = { X ∈ ℝⁿ : AX = <b>0</b> }</p><p><b>Teorema 4:</b> o conjunto solução do sistema homogêneo AX = <b>0</b> é um subespaço de ℝⁿ, chamado <b>espaço nulo</b> (ou núcleo) de A. Mora nas <b>entradas</b>.</p><p><b>Demonstração:</b> A<b>0</b> = <b>0</b>, logo N(A) ≠ ∅. Se AX = <b>0</b> e AY = <b>0</b>: A(X + Y) = AX + AY = <b>0</b> e A(αX) = αAX = <b>0</b>. ∎</p><p>N(A) é tudo o que a matriz <b>não enxerga</b>: os vetores que A leva em <b>0</b>.</p></div>
     <div><b>Espaço coluna · o que A produz</b><p class="r">C(A) = [ A₁, …, Aₙ ] ⊆ ℝᵐ</p><p>Gerado pelas colunas. Mora nas <b>saídas</b> (ℝᵐ). Lendo o produto por colunas, AX = x₁A₁ + ⋯ + xₙAₙ: toda saída é uma combinação das colunas.</p></div>
   </div>
   <div class="fx"><span class="tag">Proposição 6 · a chave de tudo</span><div class="eq"><i>AX</i> = <i>b</i> tem solução &nbsp;⇔&nbsp; <i>b</i> ∈ C(<i>A</i>)</div></div>
