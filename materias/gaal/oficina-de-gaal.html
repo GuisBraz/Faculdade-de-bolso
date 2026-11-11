@@ -274,6 +274,15 @@ body{font-size:1rem}
 .mx span{padding:0 2px;white-space:nowrap}.mx .ag{border-left:1.5px dashed var(--ink2);padding-left:10px}
 .mx .pv{color:var(--c1);font-weight:700}
 .mxl .op{font-family:var(--f-mono);font-size:.78rem;color:var(--ink2);white-space:nowrap}
+.mapa{display:flex;flex-wrap:wrap;gap:6px 8px;padding:0;margin:14px 0;list-style:none;counter-reset:mp}
+.mapa li{counter-increment:mp;background:var(--sheet);border:1px solid var(--line);border-radius:999px;padding:5px 12px 5px 6px;font-size:.88rem}
+.mapa li::before{content:counter(mp);display:inline-grid;place-items:center;width:20px;height:20px;border-radius:50%;background:var(--c1);color:#fff;font:700 .72rem var(--f-mono);margin-right:6px}
+.cen{text-align:center;font-family:var(--f-math);font-size:1.12rem}
+.f3{margin:16px 0}.f3 .seg{margin-bottom:8px}.f3 figcaption{font-size:.9rem;color:var(--ink2);margin-top:6px;min-height:2.6em}
+.f3 .inline-cv{margin:0}
+.tabela{overflow-x:auto;margin:12px 0}.tabela table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--sheet)}
+.tabela th,.tabela td{border:1px solid var(--line);padding:7px 10px;text-align:left}.tabela th{background:var(--paper);font-size:.8rem;text-transform:uppercase;letter-spacing:.04em;color:var(--ink2)}
+.res5{margin:0;padding-left:1.2em;display:grid;gap:6px;font-size:.95rem}
 .nogrid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr);gap:18px;align-items:center;margin:14px 0}
 @media (max-width:700px){.nogrid{grid-template-columns:1fr}}
 .nofig,#noSvg{width:100%;max-width:380px;display:block;margin:0 auto;background:var(--sheet);border:1px solid var(--line);border-radius:10px}
@@ -743,9 +752,10 @@ body{font-size:1rem}
 <section class="view read" id="v-subespacos" hidden>
   <div class="eyebrow">Módulo 7 · Subespaços</div>
   <h2>Subespaços, combinações lineares e espaço gerado</h2>
-  <p class="lede">A pergunta desta aula é de engenharia: <b>que cargas uma estrutura consegue segurar?</b> A resposta vem de três ideias: subespaço, espaço gerado e os dois espaços de uma matriz, o que ela <b>produz</b> e o que ela <b>apaga</b>.</p>
+  <p class="lede">A pergunta desta aula é de engenharia: <b>que cargas uma estrutura consegue segurar?</b> Para responder, a aula monta quatro ideias, uma em cima da outra: <b>subespaço</b>, <b>espaço gerado</b>, <b>espaço nulo</b> (o que uma matriz apaga) e <b>espaço coluna</b> (o que ela produz).</p>
+  <ol class="mapa"><li><b>O problema</b> do nó</li><li><b>Subespaço</b>: o que é e como testar</li><li><b>Espaço gerado</b>: combinações lineares</li><li><b>N(A) e C(A)</b>: um escalonamento, duas respostas</li><li><b>De volta ao nó</b></li></ol>
 
-  <h3>O problema: um nó pendurado por duas barras</h3>
+  <h3>1 · O problema: um nó pendurado por duas barras</h3>
   <div class="nogrid"><svg class="nofig" viewBox="0 0 300 200" role="img" aria-label="Nó suspenso por duas barras, vista frontal">
  <line x1="30" y1="22" x2="270" y2="22" stroke="var(--ink)" stroke-width="3"/>
  <g stroke="var(--ink2)" stroke-width="1.4"><line x1="34" y1="22" x2="44" y2="12"/><line x1="48" y1="22" x2="58" y2="12"/><line x1="62" y1="22" x2="72" y2="12"/><line x1="76" y1="22" x2="86" y2="12"/><line x1="90" y1="22" x2="100" y2="12"/><line x1="104" y1="22" x2="114" y2="12"/><line x1="118" y1="22" x2="128" y2="12"/><line x1="132" y1="22" x2="142" y2="12"/><line x1="146" y1="22" x2="156" y2="12"/><line x1="160" y1="22" x2="170" y2="12"/><line x1="174" y1="22" x2="184" y2="12"/><line x1="188" y1="22" x2="198" y2="12"/><line x1="202" y1="22" x2="212" y2="12"/><line x1="216" y1="22" x2="226" y2="12"/><line x1="230" y1="22" x2="240" y2="12"/><line x1="244" y1="22" x2="254" y2="12"/><line x1="258" y1="22" x2="268" y2="12"/></g>
@@ -761,108 +771,97 @@ body{font-size:1rem}
  <g font-family="var(--f-mono)" font-size="12" fill="var(--ink2)"><line x1="30" y1="185" x2="30" y2="160" stroke="currentColor"/><line x1="30" y1="185" x2="55" y2="185" stroke="currentColor"/><text x="25" y="155">z</text><text x="58" y="189">x</text><text x="16" y="196">y⊙</text></g>
 </svg>
     <div><p>Vista frontal (plano xz); o eixo y sai da tela. As barras apontam do nó para os apoios:</p>
-    <p style="text-align:center;font-family:var(--f-math);font-size:1.15rem"><i>u</i>₁ = (1, 0, 1) &nbsp;&nbsp; <i>u</i>₂ = (−1, 0, 1)</p>
+    <p class="cen"><i>u</i>₁ = (1, 0, 1) &nbsp;&nbsp; <i>u</i>₂ = (−1, 0, 1)</p>
     <p>Cada barra faz uma força <i>t<sub>i</sub> u<sub>i</sub></i> no nó (<i>t<sub>i</sub></i> &gt; 0: tração; <i>t<sub>i</sub></i> &lt; 0: compressão). Equilíbrio com a carga <i>F</i>:</p>
-    <p style="text-align:center;font-family:var(--f-math);font-size:1.15rem"><i>t</i>₁<i>u</i>₁ + <i>t</i>₂<i>u</i>₂ + <i>F</i> = <b>0</b> &nbsp;⇔&nbsp; <i>t</i>₁<i>u</i>₁ + <i>t</i>₂<i>u</i>₂ = −<i>F</i></p></div></div>
-  <div class="cuid"><span class="k">Guarde estas perguntas</span>O nó segura o peso <i>F</i> = (0, 0, −10) kN? E uma carga lateral <i>F</i> = (0, 3, 0) kN? Que conjunto de cargas ele consegue equilibrar? A resposta está no fim da aula.</div>
+    <p class="cen"><i>t</i>₁<i>u</i>₁ + <i>t</i>₂<i>u</i>₂ = −<i>F</i></p></div></div>
+  <div class="cuid"><span class="k">Guarde estas perguntas</span>O nó segura o peso <i>F</i> = (0, 0, −10) kN? E uma carga lateral <i>F</i> = (0, 3, 0) kN? Que conjunto de cargas ele consegue equilibrar? A resposta está na parte 5.</div>
 
-  <h3>O espaço ℝⁿ</h3>
-  <p>ℝⁿ são as listas de <i>n</i> números x = (x₁, …, xₙ), com soma e multiplicação por escalar feitas coordenada a coordenada, com as mesmas propriedades de ℝ² e ℝ³. Na engenharia, <i>n</i> costuma ser grande: o estado de um sistema (posições, velocidades, correntes, temperaturas), os deslocamentos dos nós de uma malha de elementos finitos, as leituras de vários sensores num mesmo instante.</p>
-
-  <h3>Subespaço</h3>
+  <h3>2 · Subespaço</h3>
+  <p><b>O palco: ℝⁿ.</b> São as listas de <i>n</i> números x = (x₁, …, xₙ), com soma e multiplicação por escalar coordenada a coordenada, e as mesmas propriedades de ℝ² e ℝ³. Na engenharia, <i>n</i> costuma ser grande: o estado de um sistema (posições, velocidades, correntes, temperaturas), os deslocamentos dos nós de uma malha de elementos finitos, as leituras de vários sensores num mesmo instante.</p>
   <div class="fx"><span class="tag">Definição 1 · subespaço</span>
     <div class="eq" style="font-size:1.15rem;white-space:normal">W ⊆ ℝⁿ, não vazio, é subespaço se<br>(i) <i>u</i>, <i>v</i> ∈ W ⇒ <i>u</i> + <i>v</i> ∈ W &nbsp;&nbsp;&nbsp; (ii) α ∈ ℝ, <i>u</i> ∈ W ⇒ α<i>u</i> ∈ W</div>
     <dl class="legend"><dt>(i)</dt><dd>fechado para a soma: somou dois vetores de W, continua em W</dd><dt>(ii)</dt><dd>fechado para escalar: esticou, encolheu ou inverteu, continua em W</dd></dl></div>
-  <div class="cuid"><span class="k">Teste rápido</span>Todo subespaço contém o <b>0</b> (é só tomar α = 0 em (ii)). Então, se <b>0</b> ∉ W, <b>não é subespaço</b>. Mas conter o <b>0</b> não basta: ainda é preciso testar a soma e o escalar.</div>
-  <p><b>Quem são os subespaços.</b> Os triviais {<b>0</b>} e o próprio ℝⁿ sempre são. No ℝ² sobram as <b>retas pela origem</b>; no ℝ³, as <b>retas e os planos pela origem</b>. Por isso "subespaço" é, na prática, "reta ou plano que passa pela origem".</p>
-  <p><b>Contraexemplos</b>, cada um falhando num ponto diferente:</p>
-  <ul>
-    <li>O plano x + y − z = 1 não é subespaço: o <b>0</b> não está nele (0 + 0 − 0 ≠ 1). <a href="https://www.geogebra.org/3d/y29qxzzy" target="_blank" rel="noopener">ver no GeoGebra</a></li>
-    <li>O 1º quadrante U = {(x, y) : x ≥ 0, y ≥ 0} é fechado para a soma, mas <b>não para escalares</b>: (1, 1) ∈ U, mas (−1)(1, 1) = (−1, −1) ∉ U.</li>
-    <li>A união dos eixos E = {(x, y) : xy = 0} é fechada para escalares, mas <b>não para a soma</b>: (1, 0) + (0, 1) = (1, 1) ∉ E. <a href="https://www.geogebra.org/graphing/jwazy6yx" target="_blank" rel="noopener">ver no GeoGebra</a></li>
-  </ul>
-  <p>Os dois últimos mostram que as condições (i) e (ii) são independentes: uma pode valer sem a outra.</p>
+  <p><b>Como testar, na ordem:</b></p>
+  <ol class="recipe">
+    <li><span><b>O <b>0</b> está em W?</b> Todo subespaço contém o vetor nulo (é só tomar α = 0 em (ii)). Se não está, acabou: <b>não é</b>.</span></li>
+    <li><span><b>Soma:</b> pegue dois vetores genéricos de W e veja se a soma cumpre a regra de W.</span></li>
+    <li><span><b>Escalar:</b> pegue um vetor genérico de W e um α qualquer e veja se α<i>u</i> cumpre a regra. Para mostrar que <b>não é</b>, basta um contraexemplo com números.</span></li>
+  </ol>
+  <p><b>Quem são os subespaços.</b> {<b>0</b>} e o próprio ℝⁿ sempre são. No ℝ² sobram as <b>retas pela origem</b>; no ℝ³, as <b>retas e os planos pela origem</b>. Na prática, "subespaço" é "reta ou plano que passa pela origem". Gire as figuras:</p>
+  <figure class="f3"><div class="seg" id="f3a-b"></div><div class="cv inline-cv" id="f3a"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3a-c"></figcaption></figure>
+  <p>Por que (i) e (ii) são duas condições, e não uma? Porque uma pode valer sem a outra. Os dois contraexemplos clássicos ficam no plano xy:</p>
+  <figure class="f3"><div class="seg" id="f3b-b"></div><div class="cv inline-cv" id="f3b"><canvas></canvas><div class="lbl">plano xy visto em 3D</div></div><figcaption id="f3b-c"></figcaption></figure>
   <div class="ex" data-ex><div class="q">Exemplo 2: decida se é subespaço de ℝ³. a) W₁: x − 2y + z = 0 &nbsp; b) W₂: x + y = 1 &nbsp; c) W₃: z = x² &nbsp; d) W₄ = {(t, 2t, −t) : t ∈ ℝ}</div>
-    <ol><li>a) Plano com d = 0, ou seja, passa pela origem: <b>sim</b>.</li><li>b) Testa o <b>0</b>: 0 + 0 = 0 ≠ 1, logo <b>0</b> ∉ W₂: <b>não</b>.</li><li>c) Contém o <b>0</b>, então testa o escalar: (1, 0, 1) ∈ W₃ (1 = 1²), mas 2(1, 0, 1) = (2, 0, 2) ∉ W₃, pois 2 ≠ 2²: <b>não</b>.</li><li>d) São todos os múltiplos de (1, 2, −1): é [ (1, 2, −1) ], uma reta pela origem: <b>sim</b>.</li></ol>
-    <div class="ans">Sim, não, não, sim.</div></div>
+    <ol><li>a) Teste completo. <b>0</b>: 0 − 0 + 0 = 0 ✓. Soma: se x₁ − 2y₁ + z₁ = 0 e x₂ − 2y₂ + z₂ = 0, somando dá (x₁+x₂) − 2(y₁+y₂) + (z₁+z₂) = 0 ✓. Escalar: αx − 2αy + αz = α·0 = 0 ✓. <b>Sim</b>: é um plano pela origem.</li><li>b) <b>0</b>: 0 + 0 = 0 ≠ 1, logo <b>0</b> ∉ W₂: <b>não</b> (plano deslocado).</li><li>c) Contém o <b>0</b>, então testa o escalar com números: (1, 0, 1) ∈ W₃ (1 = 1²), mas 2(1, 0, 1) = (2, 0, 2) ∉ W₃, pois 2 ≠ 2²: <b>não</b>. O x² estraga a linearidade.</li><li>d) São todos os múltiplos de (1, 2, −1): <b>sim</b>, a reta pela origem [ (1, 2, −1) ].</li></ol>
+    <div class="ans">Sim, não, não, sim. Regra de bolso: equações lineares com lado direito 0 dão subespaço.</div></div>
 
-  <h3>Combinação linear</h3>
+  <h3>3 · Combinação linear e espaço gerado</h3>
   <div class="fx"><span class="tag">Definição 2 · combinação linear</span>
     <div class="eq"><i>v</i> = α₁<i>v</i>₁ + α₂<i>v</i>₂ + ⋯ + α<sub>k</sub><i>v</i><sub>k</sub></div>
     <dl class="legend"><dt>v</dt><dd>é combinação linear de v₁, …, vₖ se existirem números α₁, …, αₖ que façam a conta fechar</dd><dt>na prática</dt><dd>é um sistema linear: as colunas são v₁, …, vₖ e o lado direito é v. Tem solução? Então é combinação linear.</dd></dl></div>
-  <p>Com v₁ = (1, 0, 1) e v₂ = (0, 1, 1): (2, 3, 5) <b>é</b> combinação linear (sistema possível) e (1, 1, 1) <b>não é</b> (sistema impossível). A seguir, um jeito de decidir isso para qualquer vetor de uma vez.</p>
-
-  <h3>Espaço gerado</h3>
   <div class="fx"><span class="tag">Definição 3 · espaço gerado</span>
     <div class="eq" style="white-space:normal">[ <i>v</i>₁, …, <i>v</i><sub>k</sub> ] = { α₁<i>v</i>₁ + ⋯ + α<sub>k</sub><i>v</i><sub>k</sub> : α<sub>i</sub> ∈ ℝ }</div>
     <dl class="legend"><dt>[ … ]</dt><dd>todas as combinações lineares possíveis (outra notação: span{v₁, …, vₖ})</dd><dt>é subespaço</dt><dd>soma de combinações é combinação (somam-se os coeficientes), múltiplo também. É o <b>menor</b> subespaço que contém v₁, …, vₖ.</dd></dl></div>
-  <p><b>Como descobrir quem está em [ v₁, v₂ ]</b>, com v₁ = (1, 0, 1) e v₂ = (0, 1, 1):</p>
+  <p><b>Como fica no ℝ³</b>, ligando com o produto misto do Módulo 1:</p>
+  <div class="tabela"><table><tr><th>geradores</th><th>espaço gerado</th></tr>
+    <tr><td>1 vetor v ≠ <b>0</b></td><td>a reta pela origem com direção v</td></tr>
+    <tr><td>2 vetores não paralelos</td><td>o plano pela origem que contém os dois (normal = v₁ × v₂)</td></tr>
+    <tr><td>2 vetores paralelos</td><td>só uma reta: o segundo não acrescenta direção</td></tr>
+    <tr><td>3 vetores com misto ≠ 0</td><td>todo o ℝ³</td></tr>
+    <tr><td>3 vetores coplanares (misto = 0)</td><td>só um plano (ou reta)</td></tr></table></div>
+  <figure class="f3"><div class="seg" id="f3c-b"></div><div class="cv inline-cv" id="f3c"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3c-c"></figcaption></figure>
+  <p><b>Como achar a equação do espaço gerado</b>, com v₁ = (1, 0, 1) e v₂ = (0, 1, 1):</p>
   <ol class="recipe">
     <li><span><b>Iguale a combinação genérica a (x, y, z):</b> α₁v₁ + α₂v₂ = (x, y, z), ou seja, α₁ = x, α₂ = y e α₁ + α₂ = z.</span></li>
     <li><span><b>Escalone a matriz aumentada</b> (L₃ − L₁ − L₂): <span class="mxl"><span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>0</span><span class="ag">x</span><span>0</span><span>1</span><span class="ag">y</span><span>1</span><span>1</span><span class="ag">z</span></span> <span class="op">∼</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>0</span><span class="ag">x</span><span>0</span><span>1</span><span class="ag">y</span><span>0</span><span>0</span><span class="ag">z − x − y</span></span></span></span></li>
-    <li><span><b>Exija que o sistema tenha solução</b> (nenhuma linha "0 = algo ≠ 0"): z − x − y = 0, ou seja, <b>x + y − z = 0</b>. O espaço gerado é esse plano pela origem.</span></li>
+    <li><span><b>Exija que o sistema tenha solução</b> (nenhuma linha "0 = algo ≠ 0"): z − x − y = 0, ou seja, <b>x + y − z = 0</b>.</span></li>
   </ol>
-  <p>Agora testar é só substituir: (2, 3, 5) dá 2 + 3 − 5 = 0, <b>é</b> combinação (de fato, 2(1, 0, 1) + 3(0, 1, 1) = (2, 3, 5)); (1, 1, 1) dá 1 + 1 − 1 = 1 ≠ 0, <b>não é</b>. <a href="https://www.geogebra.org/3d/qynqd6vx" target="_blank" rel="noopener">ver o plano no GeoGebra</a></p>
-  <div class="ex" data-ex><div class="q">Pergunta rápida: quais pertencem a [ v₁, v₂ ] (plano x + y − z = 0)? &nbsp; (0, 0, 0) &nbsp; (−1, 4, 3) &nbsp; (1, 2, 4) &nbsp; (5, 5, 10)</div>
-    <ol><li>(0, 0, 0): 0 + 0 − 0 = 0 → pertence (todo subespaço tem o <b>0</b>).</li><li>(−1, 4, 3): −1 + 4 − 3 = 0 → pertence.</li><li>(1, 2, 4): 1 + 2 − 4 = −1 ≠ 0 → não pertence.</li><li>(5, 5, 10): 5 + 5 − 10 = 0 → pertence.</li></ol>
-    <div class="ans">Pertencem (0, 0, 0), (−1, 4, 3) e (5, 5, 10).</div></div>
+  <p>Confere com o atalho geométrico: v₁ × v₂ = (−1, −1, 1), a normal do plano x + y − z = 0. Agora testar um vetor é só substituir na equação, como na figura abaixo: (2, 3, 5) dá 2 + 3 − 5 = 0 e <b>está</b> (é 2v₁ + 3v₂); (1, 1, 1) dá 1 ≠ 0 e <b>não está</b>.</p>
+  <figure class="f3"><div class="seg" id="f3d-b"></div><div class="cv inline-cv" id="f3d"><canvas></canvas><div class="lbl">plano gerado por v₁ e v₂</div></div><figcaption id="f3d-c"></figcaption></figure>
   <div class="ex" data-ex><div class="q">Exemplo 4: v₁ = (1, 1, 1) e v₂ = (1, −1, 1). a) (3, 1, 3) é combinação linear? b) E (3, 1, 4)? c) Descreva [ v₁, v₂ ] por uma equação.</div>
-    <ol><li>Combinação genérica: α₁(1, 1, 1) + α₂(1, −1, 1) = (α₁ + α₂, α₁ − α₂, α₁ + α₂). A 1ª e a 3ª coordenadas são <b>sempre iguais</b>.</li><li>c) Logo [ v₁, v₂ ] = {(x, y, z) : x = z}, o plano x − z = 0.</li><li>a) (3, 1, 3): x = z ✓. α₁ + α₂ = 3 e α₁ − α₂ = 1 dão α₁ = 2, α₂ = 1: (3, 1, 3) = 2v₁ + v₂.</li><li>b) (3, 1, 4): 3 ≠ 4, fora do plano. Não é.</li></ol>
+    <ol><li>Combinação genérica: α₁(1, 1, 1) + α₂(1, −1, 1) = (α₁ + α₂, α₁ − α₂, α₁ + α₂). A 1ª e a 3ª coordenadas são <b>sempre iguais</b>.</li><li>c) [ v₁, v₂ ] = {(x, y, z) : x = z}, o plano x − z = 0 (confira: v₁ × v₂ = (2, 0, −2)).</li><li>a) (3, 1, 3): x = z ✓. α₁ + α₂ = 3 e α₁ − α₂ = 1 dão α₁ = 2, α₂ = 1: (3, 1, 3) = 2v₁ + v₂.</li><li>b) (3, 1, 4): 3 ≠ 4, fora do plano. Não é.</li></ol>
     <div class="ans">a) Sim, 2v₁ + v₂ · b) Não · c) x = z</div></div>
 
-  <h3>Espaço nulo: o que a matriz apaga</h3>
-  <div class="fx"><span class="tag">Teorema 4 · espaço nulo (núcleo)</span>
-    <div class="eq">N(<i>A</i>) = { <i>X</i> ∈ ℝⁿ : <i>AX</i> = <b>0</b> }</div>
-    <dl class="legend"><dt>A</dt><dd>matriz m × n; N(A) são as soluções do sistema homogêneo e é subespaço de ℝⁿ</dd><dt>prova</dt><dd>A<b>0</b> = <b>0</b>, então não é vazio. Se AX = <b>0</b> e AY = <b>0</b>: A(X + Y) = AX + AY = <b>0</b> e A(αX) = αAX = <b>0</b>.</dd><dt>leitura</dt><dd>N(A) é tudo o que a matriz "não enxerga": os vetores que A leva no <b>0</b></dd></dl></div>
-  <p>E se o lado direito for b ≠ <b>0</b>? Aí as soluções de AX = b <b>não</b> formam subespaço (não contêm o <b>0</b>), mas têm uma estrutura que você vai reencontrar muito:</p>
+  <h3>4 · Os dois espaços de uma matriz</h3>
+  <p>Toda matriz A (m × n) é uma máquina: entra X ∈ ℝⁿ, sai AX ∈ ℝᵐ. Dois subespaços contam tudo sobre ela.</p>
+  <div class="duas">
+    <div><b>Espaço nulo · o que A apaga</b><p class="r">N(A) = { X ∈ ℝⁿ : AX = <b>0</b> }</p><p>As soluções do sistema homogêneo. Mora nas <b>entradas</b> (ℝⁿ). É subespaço: A<b>0</b> = <b>0</b>; se AX = <b>0</b> e AY = <b>0</b>, então A(X + Y) = <b>0</b> e A(αX) = αAX = <b>0</b>.</p></div>
+    <div><b>Espaço coluna · o que A produz</b><p class="r">C(A) = [ A₁, …, Aₙ ] ⊆ ℝᵐ</p><p>Gerado pelas colunas. Mora nas <b>saídas</b> (ℝᵐ). Lendo o produto por colunas, AX = x₁A₁ + ⋯ + xₙAₙ: toda saída é uma combinação das colunas.</p></div>
+  </div>
+  <div class="fx"><span class="tag">Proposição 6 · a chave de tudo</span><div class="eq"><i>AX</i> = <i>b</i> tem solução &nbsp;⇔&nbsp; <i>b</i> ∈ C(<i>A</i>)</div></div>
+  <p><b>Um escalonamento, duas respostas.</b> Escalone A uma vez e separe as colunas:</p>
+  <ul><li><b>Colunas sem pivô</b> (variáveis livres) → N(A). Escreva as presas em função das livres e separe: <b>cada variável livre gera um vetor</b>.</li><li><b>Colunas com pivô</b> → C(A), pegando essas colunas na matriz <b>original</b>.</li></ul>
+  <p>Com a matriz do Exemplo 6: <span class="mxl">A = <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span>2</span><span>2</span><span>−2</span><span>4</span></span> <span class="op">L₂ − 2L₁</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span class="pv">1</span><span>−1</span><span>2</span><span>0</span><span>0</span><span>0</span></span></span></p>
+  <div class="duas">
+    <div><b>Colunas 2 e 3 sem pivô → N(A)</b><p>Sobra x − y + 2z = 0; y, z livres: x = y − 2z, então (x, y, z) = y(1, 1, 0) + z(−2, 0, 1).</p><p class="r">N(A) = [ (1, 1, 0), (−2, 0, 1) ]</p><p>Um plano em ℝ³. Teste: A·(1, 1, 0) = (1 − 1 + 0, 2 − 2 + 0) = (0, 0) ✓</p></div>
+    <div><b>Coluna 1 com pivô → C(A)</b><p>Coluna 1 da A original: (1, 2).</p><p class="r">C(A) = [ (1, 2) ]</p><p>Uma reta em ℝ²: toda saída é AX = (x₁ − x₂ + 2x₃)(1, 2). Com X = (1, 2, 3): 5(1, 2) = (5, 10).</p></div>
+  </div>
+  <div class="cuid"><span class="k">Cuidado: colunas de A, não da escalonada</span>O escalonamento só mostra <b>quais</b> colunas usar. As operações de linha preservam as relações entre as colunas (as soluções de AX = <b>0</b> não mudam), mas mudam as colunas em si: a escalonada daria (1, 0), que está errado.</div>
+  <p>Repare na contagem: 2 colunas livres + 1 coluna com pivô = 3 colunas. Toda coluna cai em um dos dois grupos.</p>
+
+  <p><b>E quando o lado direito não é zero?</b> As soluções de AX = b (b ≠ <b>0</b>) não formam subespaço, porque não contêm o <b>0</b>. Mas têm a estrutura que mais vai aparecer no curso:</p>
   <div class="fx"><span class="tag">Solução geral</span>
     <div class="eq"><i>X</i> = <i>X<sub>p</sub></i> + <i>X<sub>h</sub></i>, &nbsp; <i>X<sub>h</sub></i> ∈ N(<i>A</i>)</div>
     <dl class="legend"><dt>Xₚ</dt><dd>uma solução particular qualquer de AX = b</dd><dt>Xₕ</dt><dd>qualquer solução do homogêneo</dd><dt>vai voltar</dt><dd>nas equações diferenciais lineares: solução geral = particular + homogênea. É a base dos modelos de vibração (Mecânica) e de sistemas de controle.</dd></dl></div>
-  <p><b>Regra prática para achar geradores de N(A):</b> escalone, escreva as variáveis presas em função das livres e separe. <b>Cada variável livre gera um vetor.</b></p>
-  <div class="ex" data-ex><div class="q">Exemplo 5: geradores do espaço nulo de A = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span>2</span><span>4</span><span>0</span><span>6</span></span></span></div>
-    <ol><li>Escalone: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(5,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span class="ag">0</span><span>2</span><span>4</span><span>0</span><span>6</span><span class="ag">0</span></span> <span class="op">L₂ − 2L₁</span> <span class="mx" style="grid-template-columns:repeat(5,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span class="ag">0</span><span>0</span><span>0</span><span>2</span><span>4</span><span class="ag">0</span></span> <span class="op">L₂/2</span> <span class="mx" style="grid-template-columns:repeat(5,auto)"><span class="pv">1</span><span>2</span><span>−1</span><span>1</span><span class="ag">0</span><span>0</span><span>0</span><span class="pv">1</span><span>2</span><span class="ag">0</span></span></span></li><li>Pivôs nas colunas 1 e 3. Livres: x₂ e x₄. Da 2ª linha, x₃ = −2x₄; da 1ª, x₁ = −2x₂ + x₃ − x₄ = −2x₂ − 3x₄.</li><li>Separe por variável livre: (x₁, x₂, x₃, x₄) = (−2x₂ − 3x₄, x₂, −2x₄, x₄) = x₂(−2, 1, 0, 0) + x₄(−3, 0, −2, 1).</li><li>4 variáveis presas por 2 restrições independentes deixam 2 graus de liberdade: 2 geradores.</li></ol>
-    <div class="ans">N(A) = [ (−2, 1, 0, 0), (−3, 0, −2, 1) ]</div></div>
-  <div class="ex" data-ex><div class="q">Exemplo 6: geradores do espaço nulo de A = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span>2</span><span>2</span><span>−2</span><span>4</span></span></span></div>
-    <ol><li>L₂ − 2L₁ zera a 2ª linha: sobra só x − y + 2z = 0.</li><li>y e z livres: x = y − 2z, então (x, y, z) = y(1, 1, 0) + z(−2, 0, 1).</li></ol>
-    <div class="ans">N(A) = [ (1, 1, 0), (−2, 0, 1) ], um plano em ℝ³</div></div>
-
-  <h3>Espaço coluna: o que a matriz produz</h3>
-  <div class="fx"><span class="tag">Definição 5 · espaço coluna</span>
-    <div class="eq">C(<i>A</i>) = [ <i>A</i>₁, …, <i>A</i><sub>n</sub> ] ⊆ ℝ<sup>m</sup></div>
-    <dl class="legend"><dt>A₁, …, Aₙ</dt><dd>as colunas de A (m × n)</dd><dt>por colunas</dt><dd>AX = x₁A₁ + x₂A₂ + ⋯ + xₙAₙ: multiplicar A por X é fazer uma combinação das colunas</dd><dt>leitura</dt><dd>C(A) é a coleção de todos os resultados AX possíveis: tudo o que a matriz consegue produzir</dd></dl></div>
-  <div class="fx"><span class="tag">Proposição 6</span><div class="eq"><i>AX</i> = <i>b</i> tem solução &nbsp;⇔&nbsp; <i>b</i> ∈ C(<i>A</i>)</div></div>
-  <p><b>Exemplo 7</b> (mesma A do Exemplo 6): no escalonamento, o pivô fica só na coluna 1. Então C(A) = [ (1, 2) ], uma reta em ℝ².</p>
-  <div class="cuid"><span class="k">Cuidado: colunas de A, não da escalonada</span>O escalonamento só mostra <b>quais</b> colunas usar. Pegue essas colunas na matriz <b>original</b>: as operações de linha preservam as relações entre as colunas (as soluções de AX = <b>0</b> não mudam), mas mudam as colunas em si. A escalonada daria (1, 0), que está errado.</div>
-
-  <h3>Um escalonamento, duas respostas</h3>
-  <p style="text-align:center"><span class="mxl">A = <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span>2</span><span>2</span><span>−2</span><span>4</span></span> <span class="op">∼</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span class="pv">1</span><span>−1</span><span>2</span><span>0</span><span>0</span><span>0</span></span></span> &nbsp; X ∈ ℝ³ (entrada, 3 colunas) ↦ AX ∈ ℝ² (saída, 2 linhas)</p>
-  <div class="duas">
-    <div><b>Colunas sem pivô → espaço nulo</b><p>y, z livres: x = y − 2z</p><p class="r">N(A) = [ (1, 1, 0), (−2, 0, 1) ]</p><p>o que A apaga: um plano em ℝ³ (entradas). Teste com (1, 1, 0): 1·1 + (−1)·1 + 2·0 = 0 e 2·1 + (−2)·1 + 4·0 = 0 → sai o <b>0</b>.</p></div>
-    <div><b>Coluna com pivô → espaço coluna</b><p>coluna 1 da A original</p><p class="r">C(A) = [ (1, 2) ]</p><p>o que A produz: uma reta em ℝ² (saídas). Qualquer entrada sai múltipla de (1, 2): AX = (x₁ − x₂ + 2x₃)(1, 2). Com X = (1, 2, 3): (1 − 2 + 6)(1, 2) = 5(1, 2) = (5, 10).</p></div>
-  </div>
-  <p>Cada coluna cai em um dos dois grupos: 2 colunas livres + 1 coluna com pivô = 3 colunas.</p>
-  <div class="ex" data-ex><div class="q">Resolva AX = b com a mesma A e b = (3, 6). Depois: e com b = (1, 0)?</div>
-    <ol><li>[A | b]: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>−1</span><span>2</span><span class="ag">3</span><span>2</span><span>−2</span><span>4</span><span class="ag">6</span></span> <span class="op">L₂ − 2L₁</span> <span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>−1</span><span>2</span><span class="ag">3</span><span>0</span><span>0</span><span>0</span><span class="ag">0</span></span></span> Sobra x₁ − x₂ + 2x₃ = 3.</li><li>x₂ e x₃ livres, x₁ = 3 + x₂ − 2x₃. Infinitas soluções: (x₂, x₃) = (0, 0) dá (3, 0, 0); (1, 0) dá (4, 1, 0); (0, 1) dá (1, 0, 1).</li><li>Separe: X = (3, 0, 0) + x₂(1, 1, 0) + x₃(−2, 0, 1). A parte sem variável livre é Xₚ = (3, 0, 0); a parte com livres é Xₕ, com os mesmos geradores de N(A) do Exemplo 6.</li><li>b = (1, 0): a 2ª linha vira 0 = 0 − 2·1 = −2 ≠ 0. Impossível, porque (1, 0) não é múltiplo de (1, 2): b ∉ C(A).</li></ol>
-    <div class="ans">b = (3, 6): X = (3, 0, 0) + Xₕ, Xₕ ∈ N(A) · b = (1, 0): sem solução</div></div>
+  <p>Com a mesma A e b = (3, 6): <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>−1</span><span>2</span><span class="ag">3</span><span>2</span><span>−2</span><span>4</span><span class="ag">6</span></span> <span class="op">L₂ − 2L₁</span> <span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>−1</span><span>2</span><span class="ag">3</span><span>0</span><span>0</span><span>0</span><span class="ag">0</span></span></span> sobra x₁ − x₂ + 2x₃ = 3, ou seja, x₁ = 3 + x₂ − 2x₃. Separando:</p>
+  <p class="cen">X = (3, 0, 0) + x₂(1, 1, 0) + x₃(−2, 0, 1) &nbsp;=&nbsp; X<sub>p</sub> + X<sub>h</sub></p>
+  <p>A parte sem variável livre é Xₚ = (3, 0, 0); a parte com livres é exatamente N(A). Geometricamente, as soluções formam o plano x − y + 2z = 3: o plano N(A) <b>empurrado</b> até Xₚ. Já com b = (1, 0) a 2ª linha vira 0 = −2: impossível, porque (1, 0) não é múltiplo de (1, 2), ou seja, b ∉ C(A).</p>
+  <figure class="f3"><div class="seg" id="f3e-b"></div><div class="cv inline-cv" id="f3e"><canvas></canvas><div class="lbl">N(A) e o conjunto solução de AX = b</div></div><figcaption id="f3e-c"></figcaption></figure>
   <div class="fx"><span class="tag">Resumo · existência e unicidade</span>
     <div class="eq" style="font-size:1.15rem;white-space:normal">existe solução ⇔ <i>b</i> ∈ C(<i>A</i>) &nbsp;&nbsp;·&nbsp;&nbsp; havendo, é única ⇔ N(<i>A</i>) = {<b>0</b>}</div>
-    <dl class="legend"><dt>N(A) = {<b>0</b>}</dt><dd>no máximo uma solução</dd><dt>N(A) ≠ {<b>0</b>}</dt><dd>nenhuma ou infinitas</dd></dl></div>
+    <dl class="legend"><dt>pivô em toda linha</dt><dd>C(A) = ℝᵐ: tem solução para qualquer b</dd><dt>pivô em toda coluna</dt><dd>N(A) = {0}: no máximo uma solução</dd><dt>coluna livre</dt><dd>N(A) ≠ {0}: nenhuma ou infinitas</dd></dl></div>
+  <div class="ex" data-ex><div class="q">Exemplo 5: geradores do espaço nulo de A = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span>2</span><span>4</span><span>0</span><span>6</span></span></span></div>
+    <ol><li>Escalone: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span>2</span><span>4</span><span>0</span><span>6</span></span> <span class="op">L₂ − 2L₁</span> <span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span>0</span><span>0</span><span>2</span><span>4</span></span> <span class="op">L₂/2</span> <span class="mx" style="grid-template-columns:repeat(4,auto)"><span class="pv">1</span><span>2</span><span>−1</span><span>1</span><span>0</span><span>0</span><span class="pv">1</span><span>2</span></span></span></li><li>Pivôs nas colunas 1 e 3. Livres: x₂ e x₄. Da 2ª linha, x₃ = −2x₄; da 1ª, x₁ = −2x₂ + x₃ − x₄ = −2x₂ − 3x₄.</li><li>Separe por variável livre: (x₁, x₂, x₃, x₄) = x₂(−2, 1, 0, 0) + x₄(−3, 0, −2, 1).</li><li>Bônus: C(A) = [ (1, 2), (−1, 0) ] (colunas 1 e 3 da original) = ℝ², porque há pivô em toda linha. Então AX = b tem solução para todo b, e infinitas, porque sobram 2 livres.</li></ol>
+    <div class="ans">N(A) = [ (−2, 1, 0, 0), (−3, 0, −2, 1) ] · 4 incógnitas − 2 pivôs = 2 graus de liberdade</div></div>
 
-  <h3>De volta ao nó</h3>
-  <p>As forças possíveis das barras são as combinações t₁u₁ + t₂u₂, que é o produto A t com t = (t₁, t₂) e <span class="mxl">A = [ u₁ u₂ ] = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>−1</span><span>0</span><span>0</span><span>1</span><span>1</span></span></span>. Equilíbrio: A t + F = <b>0</b> ⇒ A t = −F. Então:</p>
+  <h3>5 · De volta ao nó</h3>
+  <p>As forças das barras são t₁u₁ + t₂u₂ = A t, com t = (t₁, t₂) e <span class="mxl">A = [ u₁ u₂ ] = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>−1</span><span>0</span><span>0</span><span>1</span><span>1</span></span></span>. Equilíbrio é A t = −F, e pela Proposição 6:</p>
   <div class="fx"><span class="tag">Conclusão</span><div class="eq">o nó equilibra <i>F</i> &nbsp;⇔&nbsp; −<i>F</i> ∈ C(<i>A</i>)</div></div>
   <p>Escalonando [A | b] com b = −F = (b₁, b₂, b₃) genérico:</p>
-  <p style="text-align:center"><span class="mxl"><span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span class="ag">b₁</span><span>0</span><span>0</span><span class="ag">b₂</span><span>1</span><span>1</span><span class="ag">b₃</span></span> <span class="op">L₃ − L₁</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span class="ag">b₁</span><span>0</span><span>0</span><span class="ag">b₂</span><span>0</span><span>2</span><span class="ag">b₃ − b₁</span></span> <span class="op">L₂ ↔ L₃</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span class="pv">1</span><span>−1</span><span class="ag">b₁</span><span>0</span><span class="pv">2</span><span class="ag">b₃ − b₁</span><span>0</span><span>0</span><span class="ag">b₂</span></span></span></p>
-  <div class="duas">
-    <div><b>Colunas com pivô → espaço coluna</b><p>colunas 1 e 2 da A original</p><p class="r">C(A) = [ (1, 0, 1), (−1, 0, 1) ]</p><p>A linha nula exige b₂ = 0: é o <b>plano xz</b>. O nó só segura cargas sem componente y.</p></div>
-    <div><b>Nenhuma coluna livre → espaço nulo</b><p>nenhuma variável livre</p><p class="r">N(A) = {<b>0</b>}</p><p>Havendo equilíbrio, as forças nas barras são <b>únicas</b>.</p></div>
-  </div>
-  <div class="ex" data-ex><div class="q">Responda as perguntas do início: o nó segura o peso F = (0, 0, −10) kN? E a carga lateral F = (0, 3, 0) kN?</div>
-    <ol><li>Peso: b = −F = (0, 0, 10). b₂ = 0 ✓. Escalonada: t₁ − t₂ = 0 e 2t₂ = 10 − 0, logo t₁ = t₂ = 5.</li><li>Força em cada barra: 5‖uᵢ‖ = 5√2 ≈ 7,07 kN, de tração (t &gt; 0).</li><li>Lateral: b = −F = (0, −3, 0). A última linha fica 0 = b₂ = −3. Sem solução: b ∉ C(A).</li><li>Sem equilíbrio lateral, o nó gira para fora do plano: nessa direção a estrutura é um <b>mecanismo</b>.</li></ol>
-    <div class="ans">Peso: sim, t₁ = t₂ = 5 (≈ 7,07 kN de tração por barra) · Lateral: não</div></div>
-  <p><b>E com uma terceira barra</b> na direção u₃ = (0, 1, 1)? Escalonando A′ = [ u₁ u₂ u₃ ]:</p>
-  <p style="text-align:center"><span class="mxl"><span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span>0</span><span>0</span><span>0</span><span>1</span><span>1</span><span>1</span><span>1</span></span> <span class="op">L₃ − L₁</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span><span>2</span><span>1</span></span> <span class="op">L₂ ↔ L₃</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span class="pv">1</span><span>−1</span><span>0</span><span>0</span><span class="pv">2</span><span>1</span><span>0</span><span>0</span><span class="pv">1</span></span></span></p>
-  <p><b>Pivô em toda linha:</b> nenhuma linha nula, nenhuma condição sobre b, então C(A′) = ℝ³ e o nó segura <b>qualquer</b> carga. <b>Pivô em toda coluna:</b> nenhuma variável livre, N(A′) = {<b>0</b>} e as forças são únicas.</p>
+  <p class="cen"><span class="mxl"><span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span class="ag">b₁</span><span>0</span><span>0</span><span class="ag">b₂</span><span>1</span><span>1</span><span class="ag">b₃</span></span> <span class="op">L₃ − L₁</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span class="ag">b₁</span><span>0</span><span>0</span><span class="ag">b₂</span><span>0</span><span>2</span><span class="ag">b₃ − b₁</span></span> <span class="op">L₂ ↔ L₃</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span class="pv">1</span><span>−1</span><span class="ag">b₁</span><span>0</span><span class="pv">2</span><span class="ag">b₃ − b₁</span><span>0</span><span>0</span><span class="ag">b₂</span></span></span></p>
+  <ul><li><b>Colunas 1 e 2 com pivô:</b> C(A) = [ (1, 0, 1), (−1, 0, 1) ]. A linha nula exige b₂ = 0: é o <b>plano xz</b>.</li><li><b>Nenhuma coluna livre:</b> N(A) = {<b>0</b>}. Havendo equilíbrio, as forças nas barras são <b>únicas</b>.</li></ul>
+  <p><b>Respondendo as perguntas do início.</b> Peso: b = (0, 0, 10) tem b₂ = 0 ✓; a escalonada dá t₁ − t₂ = 0 e 2t₂ = 10, então t₁ = t₂ = 5, o que dá 5‖uᵢ‖ = 5√2 ≈ 7,07 kN de tração em cada barra. Lateral: b = (0, −3, 0) dá a última linha 0 = −3, sem solução: b ∉ C(A), o nó gira para fora do plano e a estrutura é um <b>mecanismo</b> nessa direção. Com uma terceira barra u₃ = (0, 1, 1), A′ = [ u₁ u₂ u₃ ] escalona com pivô em toda linha e em toda coluna: C(A′) = ℝ³ (segura qualquer carga) e N(A′) = {<b>0</b>} (forças únicas).</p>
+  <figure class="f3"><div class="seg" id="f3f-b"></div><div class="cv inline-cv" id="f3f"><canvas></canvas><div class="lbl">C(A): as cargas que o nó equilibra</div></div><figcaption id="f3f-c"></figcaption></figure>
 
   <div class="calc" id="noCalc"><h4>Simulador do nó</h4>
     <p class="hint">Escolha 2 ou 3 barras e digite a carga F (kN). O simulador escalona [A | −F], diz se −F está em C(A) e calcula as forças.</p>
@@ -873,9 +872,15 @@ body{font-size:1rem}
     <div class="out" id="noOut"></div></div>
 
   <div class="ex" data-ex><div class="q">Exercício: um nó é suspenso por u₁ = (1, 0, 1), u₂ = (0, 1, 1) e u₃ = (−1, −1, 1). a) Mostre que ele equilibra qualquer carga F ∈ ℝ³. b) Repita com u₃ = (1, 1, 2). O que acontece? c) Que relação há entre esse novo u₃ e u₁, u₂?</div>
-    <ol><li>a) det[ u₁ u₂ u₃ ] = 1·(1·1 − (−1)·1) − 0 + (−1)·(0·1 − 1·1) = 2 + 1 = 3 ≠ 0. A matriz é inversível: A t = −F tem solução para todo F.</li><li>b) Com u₃ = (1, 1, 2) o determinante dá 0: o espaço gerado vira só um plano, e há cargas que o nó não equilibra.</li><li>c) u₃ = u₁ + u₂: a terceira barra não acrescenta nenhuma direção nova, porque u₃ ∈ [ u₁, u₂ ].</li></ol>
+    <ol><li>a) det[ u₁ u₂ u₃ ] = 1·(1·1 − (−1)·1) − 0 + (−1)·(0·1 − 1·1) = 2 + 1 = 3 ≠ 0. É o produto misto ≠ 0 da tabela da parte 3: os três geram ℝ³, e A t = −F tem solução para todo F.</li><li>b) Com u₃ = (1, 1, 2) o determinante dá 0: o espaço gerado vira só um plano, e há cargas que o nó não equilibra.</li><li>c) u₃ = u₁ + u₂: a terceira barra não acrescenta nenhuma direção nova, porque u₃ ∈ [ u₁, u₂ ].</li></ol>
     <div class="ans">a) det = 3 ≠ 0 · b) só um plano de cargas · c) u₃ = u₁ + u₂</div></div>
 
+  <div class="fx"><span class="tag">Resumo da aula</span><ul class="res5">
+    <li><b>Subespaço:</b> fechado para soma e escalar; sempre contém o <b>0</b>. No ℝ³: {<b>0</b>}, retas e planos pela origem, ℝ³.</li>
+    <li><b>[ v₁, …, vₖ ]:</b> todas as combinações lineares; o menor subespaço que contém os vᵢ. Equação: escalone [v₁ … vₖ | (x, y, z)] e zere a linha que sobra.</li>
+    <li><b>N(A) = {X : AX = <b>0</b>}:</b> sai das variáveis livres; as soluções de AX = b são Xₚ + Xₕ.</li>
+    <li><b>C(A):</b> colunas com pivô da A original; AX = b tem solução ⇔ b ∈ C(A).</li>
+    <li><b>Nó:</b> as cargas equilibráveis formam o espaço gerado pelas direções das barras.</li></ul></div>
   <div class="cuid"><span class="k">Gancho para a próxima aula</span>No exercício, a terceira barra "não serviu para nada": u₃ ∈ [ u₁, u₂ ]. Quando um conjunto de geradores tem vetores sobrando? Quantos vetores, no mínimo, geram um subespaço? Isso é <b>dependência linear, base e dimensão</b>.</div>
 
   <div class="done-btn" data-done="subespacos"></div>
@@ -1217,6 +1222,40 @@ function noCalc(){ const box=document.getElementById('noCalc'); if(!box) return;
   box.querySelectorAll('[data-f]').forEach(bt=>bt.onclick=()=>{ inp.value=bt.dataset.f; run() });
   inp.oninput=run; run() }
 
+
+/* ========= figuras 3D da aula de subespaços ========= */
+let SUBV=[];
+function subFigs(){ const ok='ok',bad='bad';
+ const F={
+  f3a:{r:6,y:-0.7,sc:[
+   {b:'Reta e plano pela origem',t:'W₄ = [ (1, 2, −1) ] (reta, laranja) e W₁: x − 2y + z = 0 (plano, azul). Os dois passam pela origem: são subespaços.',o:[{t:'plane',n:[1,-2,1],d:0,c:'c2',l:'W₁'},{t:'line',p:[0,0,0],v:[1,2,-1],c:'c1',l:'W₄'},{t:'pt',p:[0,0,0],c:'ink',l:'0'}]},
+   {b:'Plano deslocado',t:'x + y − z = 1 (vermelho) é paralelo a x + y − z = 0 (azul), mas não passa pela origem: não é subespaço. Somar dois pontos dele, ou multiplicar por 2, cai fora do plano.',o:[{t:'plane',n:[1,1,-1],d:0,c:'c2',l:'x+y−z=0'},{t:'plane',n:[1,1,-1],d:-1,c:'bad',l:'x+y−z=1'},{t:'pt',p:[0,0,0],c:'ink',l:'0'}]}]},
+  f3b:{r:2.2,p:1.05,sc:[
+   {b:'1º quadrante',t:'U = {x ≥ 0, y ≥ 0}: (1, 1) está em U, mas (−1)·(1, 1) = (−1, −1) não está. Fechado para a soma, não para escalar.',o:[{t:'poly',pts:[[0,0,0],[2.6,0,0],[2.6,2.6,0],[0,2.6,0]],c:'c2',al:.22,edge:1},{t:'vec',a:[0,0,0],v:[1,1,0],c:ok,l:'u'},{t:'vec',a:[0,0,0],v:[-1,-1,0],c:bad,l:'−u'}]},
+   {b:'União dos eixos',t:'E = {xy = 0}: (1, 0) e (0, 1) estão em E, mas a soma (1, 1) não está. Fechado para escalar, não para a soma.',o:[{t:'line',p:[0,0,0],v:[1,0,0],c:'c2',l:'eixo x'},{t:'line',p:[0,0,0],v:[0,1,0],c:'c2',l:'eixo y'},{t:'vec',a:[0,0,0],v:[1,0,0],c:ok,l:'e₁'},{t:'vec',a:[0,0,0],v:[0,1,0],c:ok,l:'e₂'},{t:'seg',a:[1,0,0],b:[1,1,0],c:bad},{t:'seg',a:[0,1,0],b:[1,1,0],c:bad},{t:'pt',p:[1,1,0],c:bad,l:'(1,1) ∉ E'}]}]},
+  f3c:{r:4,sc:[
+   {b:'1 vetor',t:'[ v ] é a reta pela origem na direção de v.',o:[{t:'line',p:[0,0,0],v:[1,1,1],c:'c2',l:'[v]'},{t:'vec',a:[0,0,0],v:[1,1,1],c:'c1',l:'v'}]},
+   {b:'2 não paralelos',t:'[ v₁, v₂ ] é o plano pela origem que contém os dois.',o:[{t:'plane',n:[-1,-1,1],d:0,c:'c2',l:'[v₁,v₂]'},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'v₂'}]},
+   {b:'2 paralelos',t:'v₂ = 2v₁: não acrescenta direção. O espaço gerado continua sendo uma reta.',o:[{t:'line',p:[0,0,0],v:[1,0,1],c:'c2',l:'[v₁,v₂]'},{t:'vec',a:[0,0,0],v:[2,0,2],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c1',l:'v₁'}]},
+   {b:'3 fora do plano',t:'v₃ sai do plano de v₁ e v₂ (misto ≠ 0): os três geram todo o ℝ³.',o:[{t:'plane',n:[-1,-1,1],d:0,c:'c2',l:' '},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[-1,-1,1],c:bad,l:'v₃'}]},
+   {b:'3 coplanares',t:'v₃ = v₁ + v₂ fica no mesmo plano (misto = 0): continua gerando só o plano.',o:[{t:'plane',n:[-1,-1,1],d:0,c:'c2',l:' '},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[1,1,2],c:ok,l:'v₃'}]}]},
+  f3d:{r:6,sc:[
+   {b:'(2, 3, 5) = 2v₁ + 3v₂',t:'Ande 2v₁ e depois 3v₂: você chega em (2, 3, 5) sem sair do plano x + y − z = 0.',o:[{t:'plane',n:[1,1,-1],d:0,c:'c2',l:'x+y−z=0'},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'v₂'},{t:'seg',a:[0,0,0],b:[2,0,2],c:'c1'},{t:'seg',a:[2,0,2],b:[2,3,5],c:'c3'},{t:'pt',p:[2,3,5],c:ok,l:'(2,3,5)'}]},
+   {b:'Quais pertencem?',t:'Verde: 0 + 0 − 0 = 0 e −1 + 4 − 3 = 0, estão no plano. Vermelho: 1 + 1 − 1 = 1 e 1 + 2 − 4 = −1, ficam fora.',o:[{t:'plane',n:[1,1,-1],d:0,c:'c2',l:' '},{t:'pt',p:[0,0,0],c:ok,l:'(0,0,0)'},{t:'pt',p:[-1,4,3],c:ok,l:'(−1,4,3)'},{t:'pt',p:[1,1,1],c:bad,l:'(1,1,1)'},{t:'pt',p:[1,2,4],c:bad,l:'(1,2,4)'},{t:'seg',a:[1,1,1],b:[2/3,2/3,4/3],c:bad},{t:'seg',a:[1,2,4],b:[4/3,7/3,11/3],c:bad}]}]},
+  f3e:{r:6,sc:[
+   {b:'N(A)',t:'N(A): o plano x − y + 2z = 0, gerado por w₁ = (1, 1, 0) e w₂ = (−2, 0, 1). Tudo nele A transforma em (0, 0).',o:[{t:'plane',n:[1,-1,2],d:0,c:'c2',l:'N(A)'},{t:'vec',a:[0,0,0],v:[1,1,0],c:'c1',l:'w₁'},{t:'vec',a:[0,0,0],v:[-2,0,1],c:'c3',l:'w₂'}]},
+   {b:'AX = (3, 6)',t:'As soluções de AX = (3, 6) formam o plano x − y + 2z = 3: o N(A) transladado por Xₚ = (3, 0, 0). Não passa pela origem, por isso não é subespaço.',o:[{t:'plane',n:[1,-1,2],d:0,c:'c2',l:'N(A)'},{t:'plane',n:[1,-1,2],d:-3,c:'c1',l:'Xₚ + N(A)'},{t:'vec',a:[0,0,0],v:[3,0,0],c:'ink',l:'Xₚ'},{t:'vec',a:[3,0,0],v:[1,1,0],c:'c3',l:'Xₕ'},{t:'pt',p:[4,1,0],c:ok,l:'(4,1,0)'}]}]},
+  f3g:null,
+  f3f:{r:11,sc:[
+   {b:'Peso',t:'C(A) é o plano xz. b = −F = (0, 0, 10) está nele: 5u₁ + 5u₂ = (5, 0, 5) + (−5, 0, 5) = (0, 0, 10).',o:[{t:'plane',n:[0,1,0],d:0,c:'c2',l:'C(A)'},{t:'vec',a:[0,0,0],v:[5,0,5],c:'c1',l:'5u₁'},{t:'vec',a:[5,0,5],v:[-5,0,5],c:'c3',l:'5u₂'},{t:'vec',a:[0,0,0],v:[0,0,10],c:ok,l:'b'}]},
+   {b:'Carga lateral',t:'b = (0, −3, 0) aponta para fora do plano xz: nenhuma combinação de u₁ e u₂ chega nele.',o:[{t:'plane',n:[0,1,0],d:0,c:'c2',l:'C(A)'},{t:'vec',a:[0,0,0],v:[3,0,3],c:'c1',l:'u₁'},{t:'vec',a:[0,0,0],v:[-3,0,3],c:'c3',l:'u₂'},{t:'vec',a:[0,0,0],v:[0,-6,0],c:bad,l:'b'}]},
+   {b:'3ª barra',t:'u₃ = (0, 1, 1) sai do plano xz: com as três barras, C(A′) = ℝ³ e qualquer carga é equilibrada.',o:[{t:'plane',n:[0,1,0],d:0,c:'c2',l:' '},{t:'vec',a:[0,0,0],v:[3,0,3],c:'c1',l:'u₁'},{t:'vec',a:[0,0,0],v:[-3,0,3],c:'c3',l:'u₂'},{t:'vec',a:[0,0,0],v:[0,4,4],c:ok,l:'u₃'}]}]}
+ };
+ Object.entries(F).forEach(([id,f])=>{ if(!f) return; const box=document.getElementById(id); if(!box) return; const v=new Viewer(box,{range:f.r,yaw:f.y,pitch:f.p}); SUBV.push(v);
+  const bb=document.getElementById(id+'-b'), cap=document.getElementById(id+'-c');
+  const go=k=>{ v.set(f.sc[k].o); cap.textContent=f.sc[k].t; bb.querySelectorAll('button').forEach((b,j)=>b.classList.toggle('on',j===k)) };
+  bb.innerHTML=f.sc.map((x,k)=>'<button>'+x.b+'</button>').join(''); bb.querySelectorAll('button').forEach((b,k)=>b.onclick=()=>go(k)); go(0) }) }
+
 /* ========= quiz ========= */
 const QUIZ=[
  ['Qual destes é subespaço de ℝ³?',['x + y − z = 1','x − 2y + z = 0','z = x²','x ≥ 0'],1,'Plano com d = 0 passa pela origem. O 1º não passa pela origem, o 3º falha no escalar e o 4º falha no escalar −1.'],
@@ -1265,7 +1304,7 @@ const VIEWS=['inicio','kit','retas','planos','posicoes','angulos','distancias','
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
-  window.scrollTo(0,0); requestAnimationFrame(()=>[hero,retaV,planoV,lab].forEach(v=>v&&v.resize())) }
+  window.scrollTo(0,0); requestAnimationFrame(()=>[hero,retaV,planoV,lab,...SUBV].forEach(v=>v&&v.resize())) }
 
 /* ========= demo escalar 2D ========= */
 function dotDemo(){ const c=document.getElementById('dotCv'),x=c.getContext('2d'),s=document.getElementById('dotAng');
@@ -1412,6 +1451,7 @@ planoV.set([{t:'plane',n:[2,-3,2],d:11,c:'c2',l:'π'},{t:'pt',p:[1,3,-2],c:'c1',
 lab=new Viewer(document.getElementById('labCv'),{range:8});
 initLab(); loadScene(SCENES[0].o,SCENES[0].t,8,SCENES[0].n);
 dinW(); vxW(); mxW(); retW(); retJogo();
+subFigs();
 addEventListener('hashchange',route); route();
 matchMedia('(prefers-color-scheme: dark)').addEventListener('change',()=>[hero,retaV,planoV,lab].forEach(v=>v.draw()));
 new MutationObserver(()=>[hero,retaV,planoV,lab].forEach(v=>v.draw())).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
