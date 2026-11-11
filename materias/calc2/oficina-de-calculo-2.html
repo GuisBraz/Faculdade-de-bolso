@@ -1204,7 +1204,7 @@ const PROBS=[
  {n:'17',m:'otimização',e:'Determine três números positivos cuja soma é 100 e cujo produto é máximo.',q:'Três números positivos com soma 100 e produto máximo.',
   s:['z = 100 − x − y, então P = xy(100 − x − y) = 100xy − x²y − xy².','P<sub>x</sub> = y(100 − 2x − y) = 0 e P<sub>y</sub> = x(100 − x − 2y) = 0. Como x, y &gt; 0: 2x + y = 100 e x + 2y = 100.','Resolvendo: x = y = 100/3, e z = 100/3.'],a:'Os três valem 100/3'},
  {n:'18',m:'otimização',e:'Determine as dimensões de uma caixa retangular de volume máximo tal que a soma dos comprimentos de suas 12 arestas seja uma constante c.',q:'Caixa de volume máximo cuja soma das 12 arestas é c.',
-  s:['4x + 4y + 4z = c → z = c/4 − x − y. V = xy(c/4 − x − y).','V<sub>x</sub> = y(c/4 − 2x − y) = 0 e V<sub>y</sub> = x(c/4 − x − 2y) = 0.','2x + y = c/4 e x + 2y = c/4 → x = y = c/12 e z = c/12.'],a:'Um cubo de aresta c/12'},
+  s:['Desenhe a caixa com arestas x, y e z. São 4 arestas de cada: 4x + 4y + 4z = c → 4(x + y + z) = c → x + y + z = c/4 → z = c/4 − x − y.','Volume V = xyz. Troque o z: V(x, y) = xy·(c/4 − x − y) = xy·c/4 − x²y − xy².','Derive: V<sub>x</sub> = y·c/4 − 2xy − y² e V<sub>y</sub> = x·c/4 − x² − 2xy. Pontos críticos: V<sub>x</sub> = 0 e V<sub>y</sub> = 0.','(I) y·c/4 − 2xy − y² = 0 → y(c/4 − 2x − y) = 0 → y = 0 (não serve: caixa sem lado) ou y = c/4 − 2x.','(II) x·c/4 − x² − 2xy = 0 → x(c/4 − x − 2y) = 0 → como x ≠ 0: c/4 − x − 2y = 0.','Substitua y na (II): c/4 − x − 2(c/4 − 2x) = 0 → c/4 − x − c/2 + 4x = 0 → 3x − c/4 = 0 → x = c/12.','y = c/4 − 2·c/12 = c/4 − c/6 = (3c − 2c)/12 = c/12.','Substitua x e y em z: z = c/4 − c/12 − c/12 = c/12.'],a:'x = y = z = c/12: um cubo de aresta c/12'},
  {n:'19',m:'otimização',e:'Uma caixa de papelão sem tampa deve ter um volume de 32 000 cm³. Determine as dimensões que minimizem a quantidade de papelão utilizado.',q:'Caixa sem tampa com volume 32 000 cm³ e o mínimo de papelão.',
   s:['Base x por y, altura z = 32 000/(xy). Área S = xy + 2xz + 2yz = xy + 64 000/y + 64 000/x.','S<sub>x</sub> = y − 64 000/x² = 0 e S<sub>y</sub> = x − 64 000/y² = 0.','Por simetria x = y, então x³ = 64 000 → x = 40 e z = 32 000/1 600 = 20.','Teste: S<sub>xx</sub> = 128 000/x³ = 2, S<sub>yy</sub> = 2, S<sub>xy</sub> = 1 → D = 3 &gt; 0, mínimo.'],a:'Base quadrada de 40 cm e altura 20 cm'}
 ];
@@ -1285,7 +1285,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="calc2"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-calc2.js?v=7"></script>
+<script src="../../dados/quadros-calc2.js?v=8"></script>
 <script src="../../js/quadro.js?v=5" data-materia="calc2"></script>
 </body>
 </html>
