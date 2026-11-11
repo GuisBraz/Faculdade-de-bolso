@@ -4,7 +4,8 @@
            {c:[[...],[...]]} caixas lado a lado (linha "*..." = título da caixa) · {s:[...], a:"..."} sistema com chave
    Realces: «o|laranja» «g|verde» «r|vermelho» «b|azul» */
 (function () {
-  const M = rows => '<span class="mx" style="grid-template-columns:repeat(' + rows[0].length + ',auto)">' + rows.map(r => r.map(c => '<span>' + c + '</span>').join('')).join('') + '</span>';
+  const M = (rows, ag) => '<span class="mx" style="grid-template-columns:repeat(' + rows[0].length + ',auto)">' + rows.map(r => r.map((c, j) => '<span' + (j === ag ? ' class="ag"' : '') + '>' + c + '</span>').join('')).join('') + '</span>';
+  const OP = t => ' <span class="cb">' + t + '</span> ';
   const Q = window.FDB_QUADROS = window.FDB_QUADROS || {};
   Q.gaal = {
   /* ---------- Módulo 1 · vetores ---------- */
@@ -147,6 +148,17 @@
       '(1, 1, 1) = (α₁ , α₂ , α₁ + α₂)',
       { s: ['α₁ = 1', 'α₂ = 1', 'α₁ + α₂ = 1'], a: '→ 1 + 1 = 2 ≠ 1 → «r|sistema impossível»' },
       '=(2, 3, 5) = 2v₁ + 3v₂ é combinação · (1, 1, 1) não é'] },
+  'sub-ger': { t: 'Espaço gerado por v₁ = (1, 0, 1) e v₂ = (0, 1, 1)', r: 'Receita: iguala a combinação genérica a (x, y, z) → escalona → a linha de zeros dá a equação',
+    b: ['#Iguala a (x, y, z)',
+      'α₁v₁ + α₂v₂ = (x, y, z)',
+      { s: ['α₁ = x', 'α₂ = y', 'α₁ + α₂ = z'], a: '' },
+      '#Escalona | uma operação por vez',
+      M([[1, 0, 'x'], [0, 1, 'y'], [1, 1, 'z']], 2) + OP('L₃ − L₁') + M([['«o|1»', 0, 'x'], [0, '«o|1»', 'y'], [0, 1, 'z − x']], 2) + OP('L₃ − L₂') + M([['«o|1»', 0, 'x'], [0, '«o|1»', 'y'], [0, 0, '«o|z − x − y»']], 2),
+      '~ pivôs nas colunas 1 e 2 · a linha 3 zerou do lado esquerdo',
+      '#Exige solução',
+      'linha 3: 0 = z − x − y',
+      '→ «o|z − x − y = 0» ou «o|x + y − z = 0»',
+      '=[ v₁, v₂ ] = {(x, y, z) : x + y − z = 0}'] },
   'sub-ex4': { t: 'Exemplo 4 · v₁ = (1, 1, 1) e v₂ = (1, −1, 1)', r: 'Receita: combinação genérica → enxerga a regra das coordenadas → testa',
     b: ['#Combinação genérica',
       'α₁(1, 1, 1) + α₂(1, −1, 1) = («o|α₁ + α₂» , α₁ − α₂ , «o|α₁ + α₂»)',
