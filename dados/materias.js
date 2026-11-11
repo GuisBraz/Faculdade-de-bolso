@@ -77,6 +77,7 @@ window.FACULDADE = {
               caminho: "materias/calc2/oficina-de-calculo-2.html",
               ciclo: "2ª Prova", ate: "2026-11-12",
               atualizacoes: [
+                { data: "2026-11-11", texto: "Nova aba Exercícios para treinar: 26 exercícios parecidos com a lista (outros números), com conferência de certo/errado e resolução só quando você pedir. Cada aula termina com o botão que leva para o grupo dela." },
                 { data: "2026-11-11", texto: "As 7 aulas reescritas e aprofundadas: menos exemplos, receita no topo, cada variável das fórmulas explicada, roteiro começar → desenvolver → finalizar, modelos 3D giráveis, esboços centralizados e quadro de erros que mais caem." },
                 { data: "2026-11-11", texto: "Ver no quadro reescrito em todos os 49 exemplos e nas 24 questões da lista, no jeito de quadro (receita, etapas numeradas, contas curtas, caixas lado a lado), com desenhos: domínios sombreados, curvas de nível, superfícies 3D com máximo, mínimo e sela, árvores da regra da cadeia, vetores gradiente, tanque, cone e caixas. O quadro agora abre em tela cheia." },
             { data: "2026-11-08", texto: "Novo laboratório-jogo Escultor de superfícies: monte f(x, y) com peças, veja a superfície 3D e as curvas de nível, classifique pontos críticos e role a bolinha do gradiente." },

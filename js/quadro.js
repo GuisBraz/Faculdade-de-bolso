@@ -28,6 +28,8 @@
 .fdbq-hd .sp{flex:1}
 .fdbq-hd button{font:700 .82rem var(--f-body,system-ui);border-radius:8px;padding:7px 11px;cursor:pointer;border:1.5px solid var(--line,#CFD9E2);background:transparent;color:var(--ink,#13233A)}
 .fdbq-hd button.x{border:0;font-size:1.1rem;padding:6px 10px}
+.fdbq-hd .tu kbd{font:600 .66rem var(--f-mono,monospace);border:1px solid var(--line,#CFD9E2);border-bottom-width:2px;border-radius:4px;padding:1px 5px;margin-left:4px;opacity:.75}
+@media (hover:none),(max-width:560px){.fdbq-hd .tu kbd{display:none}}
 .fdbq-bd{overflow:auto;padding:18px 22px 26px;overscroll-behavior:contain}
 /* quadro */
 .fdbq-board{--ink:#0E1F38;--ink2:#55667D;--line:#C3CDD9;--sheet:#E8EDF2;--paper:#E8EDF2;--c1:#E0601A;--c2:#1E62C9;--c3:#6447BE;--ok:#22884A;--bad:#C73A2C;--f-math:'FDB Kalam',Kalam,cursive;
@@ -112,6 +114,8 @@
   }
   /* Esc fecha a janela antes de a oficina usar o Esc para voltar */
   addEventListener('keydown', e => { if (e.key === 'Escape' && aberto) { e.preventDefault(); e.stopImmediatePropagation(); fechar() } }, true);
+  /* Enter corta a animação do quadro e mostra tudo de uma vez */
+  addEventListener('keydown', e => { if (e.key === 'Enter' && aberto && !e.repeat) { const t = aberto.querySelector('.tu'); if (t) { e.preventDefault(); e.stopImmediatePropagation(); t.click() } } }, true);
 
   /* ---------- 1) cola ---------- */
   const sub = h => String(h || '').replace(/([A-Za-zμσΔ])_([A-Za-z0-9áíú,]+)/g, '$1<sub>$2</sub>');
@@ -191,7 +195,7 @@
     b.innerHTML = vec(h); mostrar(q, b);
   }
   function mostrar(q, b) {
-    const bg = janela(q.tag || 'Resolução', b, '<button class="re" type="button">↻ De novo</button><button class="tu" type="button">Mostrar tudo</button>');
+    const bg = janela(q.tag || 'Resolução', b, '<button class="re" type="button">↻ De novo</button><button class="tu" type="button" title="Atalho: Enter">Mostrar tudo <kbd>Enter</kbd></button>');
     bg.querySelector('.re').onclick = () => { bg.querySelector('.fdbq-bd').scrollTop = 0; escrever(b) };
     bg.querySelector('.tu').onclick = () => escrever(b, true);
     requestAnimationFrame(() => escrever(b));

@@ -287,8 +287,31 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
 .rot .n{position:absolute;top:-11px;left:10px;width:22px;height:22px;border-radius:50%;background:var(--c1);color:#fff;display:grid;place-items:center;font-size:.75rem;font-weight:700}
 .esb svg{width:100%;max-width:380px;height:auto;display:block;margin:0 auto}
 .f3c .cv3{max-width:620px}
+
+/* treino */
+.tlink{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:28px 0 8px;padding:16px 18px;border:1.5px dashed var(--c1);border-radius:12px;background:color-mix(in srgb,var(--c1) 6%,transparent)}
+.tlink span{color:var(--ink2);font-size:.88rem}
+a.btreino{display:inline-flex;align-items:center;gap:8px;background:var(--c1);color:#fff;font-weight:700;text-decoration:none;padding:10px 16px;border-radius:10px}
+a.btreino:hover{filter:brightness(1.08)}
+.tgrp{scroll-margin-top:90px;margin-top:26px}.tgrp h3{margin-bottom:2px}.tsub{color:var(--ink2);font-size:.85rem;margin:0 0 10px}
+.tprog{display:inline-block;margin-left:6px;font-family:var(--f-mono,monospace);font-size:.78rem;background:var(--sheet);border:1px solid var(--line);border-radius:6px;padding:2px 8px;color:var(--c2)}
+.tex{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+.tex .tq{display:flex;gap:10px;align-items:flex-start;line-height:1.5}
+.tex .tq .tagt{display:block;font-family:var(--f-mono,monospace);font-size:.72rem;color:var(--c2);margin-top:2px}
+.tps{display:flex;flex-wrap:wrap;gap:10px 18px;margin:12px 0 6px}
+.tp{display:flex;align-items:center;gap:8px;font-size:.92rem}
+.tp input,.tp select{font:inherit;width:120px;padding:6px 9px;border-radius:8px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
+.tp select{width:auto}
+.tr{font-style:normal;font-weight:800;width:14px}.tr.ok{color:var(--ok)}.tr.no{color:var(--bad)}
+.tbt{display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.tck{font:700 .85rem var(--f-body);background:var(--ink);color:var(--sheet);border:0;border-radius:8px;padding:8px 14px;cursor:pointer}
+.tres{font-weight:800}.tres.ok{color:var(--ok)}.tres.no{color:var(--bad)}
+.tsol{flex-basis:100%;font-size:.9rem}.tsol summary{cursor:pointer;color:var(--ink2);font-size:.82rem;width:max-content}
+.tsol ol{margin:8px 0 0;padding-left:22px;line-height:1.7}
+@media (max-width:560px){.tp{flex-basis:100%;justify-content:space-between}.tp input{width:130px}}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
+<script src="../../js/tema.js?v=1"></script>
 <script src="../../dados/aulas.js"></script>
 <script src="../../js/fdb-ui.js" defer></script>
 </head>
@@ -310,6 +333,7 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
       <a href="#extremos" data-m="extremos">7 · Máximos e mínimos</a>
       <a href="#lab">Laboratório</a>
       <a href="#lista">Lista resolvida</a>
+      <a href="#treino">Exercícios para treinar</a>
       <a href="#quiz">Quiz</a>
       <a href="#cola">Cola</a>
     </nav>
@@ -391,10 +415,8 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
 <div class="labgrid2"><svg aria-label="Desenho do tanque" id="tqDes" role="img" style="width:100%;max-width:420px;height:auto;margin:0 auto;display:block" viewbox="0 0 300 220"></svg><svg aria-label="Curva r²h constante" id="tqCurva" role="img" style="width:100%;max-width:420px;height:auto;margin:0 auto;display:block" viewbox="0 0 300 220"></svg></div>
 <div class="out" id="tqOut"></div></div>
 <div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> elevar o h ao quadrado também <span class="ar">→</span> 3² = 9 dá 28,27 (errado)</div><div class="ln"><span class="er">✗</span> esquecer de converter mm <span class="ar">→</span> m antes de multiplicar</div><div class="ln"><span class="er">✗</span> usar ≥ no ln: ln(0) não existe, o sinal é &gt;</div><div class="ln"><span class="ok2">✓</span> sempre trocar a letra com parênteses e dizer a unidade no fim</div></div>
-<h3>Exercícios para treinar</h3>
-  <p>Faça antes de abrir o gabarito. Use a receita: o que a questão quer → do que precisa → monte e confira.</p>
-  <div id="exM1"><details class="qitem"><summary><span class="qn">E1</span><span>Calcule a massa de uma chapa de aço de 1,5 m × 3 m × 12,5 mm, usando m(L, C, e) = L · C · e · 7850 (em kg, com L, C, e em metros).<span class="tagt">calcular</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>1,5 · 3 · 0,0125 = 0,05625 m³ · 7850 ≈ <b>441,6 kg</b>.</div></div></details><details class="qitem"><summary><span class="qn">E2</span><span>Para f(x, y) = x² − 3xy + 2, calcule f(1, 2), f(0, 5) e f(−2, 1).<span class="tagt">calcular</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f(1, 2) = 1 − 6 + 2 = <b>−3</b> · f(0, 5) = <b>2</b> · f(−2, 1) = 4 + 6 + 2 = <b>12</b>.</div></div></details><details class="qitem"><summary><span class="qn">E3</span><span>Determine o domínio de f(x, y) = √(16 − x² − y²) e descreva a região no plano xy.<span class="tagt">domínio · raiz</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>16 − x² − y² ≥ 0 → x² + y² ≤ 16: <b>disco de centro na origem e raio 4</b> (com a borda).</div></div></details><details class="qitem"><summary><span class="qn">E4</span><span>Para o tempo de usinagem t(f, n) = 300 / (f · n), qual é o domínio? E o domínio que faz sentido fisicamente?<span class="tagt">domínio · divisão</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>Matemático: <b>f ≠ 0 e n ≠ 0</b>. Físico: <b>f &gt; 0 e n &gt; 0</b> (avanço e rotação positivos).</div></div></details><details class="qitem"><summary><span class="qn">E5</span><span>Determine o domínio de g(x, y) = ln(x − y) e descreva a região.<span class="tagt">domínio · ln</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>x − y &gt; 0 → y &lt; x: <b>a região abaixo da reta y = x, sem a reta</b>.</div></div></details><details class="qitem"><summary><span class="qn">E6</span><span>Um tanque cilíndrico precisa de V = 18π m³. (a) Se r = 3 m, qual é o h? (b) Escreva h em função de r. (c) Se a altura máxima do local for 0,5 m, qual raio é necessário?<span class="tagt">tanque</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>(a) 18π = π · 9 · h → <b>h = 2 m</b>. (b) <b>h = 18 / r²</b> (com r &gt; 0). (c) 0,5 = 18 / r² → r² = 36 → <b>r = 6 m</b>.</div></div></details></div>
 
+    <div class="tlink"><a class="btreino" href="#treino" data-g="g0">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>parecidos com a lista, com conferência de resposta</span></div>
     <div class="done-btn" data-done="funcoes"></div>
 </section>
 
@@ -428,10 +450,8 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
 <svg aria-label="Retas de isocusto" id="ocSvg" role="img" style="width:100%;max-width:560px;height:auto;display:block;margin:0 auto" viewbox="0 0 320 240"></svg>
 <div class="out" id="ocOut"></div></div>
 <div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> esquecer o "±" ao isolar y: y = ±√(k − x²) tem os dois lados</div><div class="ln"><span class="er">✗</span> usar k fora da imagem <span class="ar">→</span> não existe curva (ou é só um ponto)</div><div class="ln"><span class="ok2">✓</span> curvas juntas = íngreme; afastadas = plano</div></div>
-<h3>Exercícios para treinar</h3>
-  <div id="exM2"><details class="qitem"><summary><span class="qn">E7</span><span>Para f(x, y) = x² + y², descreva as curvas de nível para k = 1, 16 e 25. O que acontece para k = 0 e para k = −4?<span class="tagt">nível · círculo</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>Círculos de centro na origem com raios <b>1, 4 e 5</b>. k = 0: <b>só o ponto (0, 0)</b>. k = −4: <b>não existe curva</b> (x² + y² nunca é negativo).</div></div></details><details class="qitem"><summary><span class="qn">E8</span><span>O custo de um serviço é C(x, y) = 100x + 40y (x = horas de usinagem, y = horas de montagem). Para um orçamento de R$ 2.000: (a) escreva a curva de nível; (b) quantas horas se só houver usinagem? E só montagem? (c) se x = 10 h, qual é o y?<span class="tagt">nível · reta</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>(a) <b>100x + 40y = 2000</b> (uma reta). (b) Só usinagem: <b>x = 20 h</b>. Só montagem: <b>y = 50 h</b>. (c) 1000 + 40y = 2000 → <b>y = 25 h</b>.</div></div></details><details class="qitem"><summary><span class="qn">E9</span><span>Para f(x, y) = y − x², escreva e reconheça as curvas de nível para k = −1, 0 e 1.<span class="tagt">nível · parábola</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>y − x² = k → <b>y = x² + k</b>: parábolas iguais deslocadas na vertical (k = −1 desce 1, k = 0 passa na origem, k = 1 sobe 1).</div></div></details><details class="qitem"><summary><span class="qn">E10</span><span>Uma tremonha cônica tem formato z = √(x² + y²). Com material até a altura k = 3, qual é a curva da borda e o seu raio?<span class="tagt">funil</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>√(x² + y²) = 3 → x² + y² = 9: <b>círculo de raio 3</b>. No funil o raio da borda é igual à altura (cresce reto).</div></div></details></div>
-  <div class="cuid"><span class="k">Errou algum?</span>Volte à parte correspondente e refaça. A maioria dos erros nesses módulos vem de montar a conta antes de entender o papel de cada letra: <b>entrada</b>, <b>saída</b> ou <b>valor travado (k)</b>.</div>
 
+    <div class="tlink"><a class="btreino" href="#treino" data-g="g0">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>parecidos com a lista, com conferência de resposta</span></div>
     <div class="done-btn" data-done="nivel"></div>
 </section>
 
@@ -471,11 +491,8 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
 <div class="row-ctl"><label class="mono" style="font-size:.82rem;flex:1;min-width:180px">r = <b id="dpRv"></b> m <input id="dpR" max="4" min="0.5" step="0.1" style="width:100%" type="range" value="2"/></label>
 <label class="mono" style="font-size:.82rem;flex:1;min-width:180px">h = <b id="dpHv"></b> m <input id="dpH" max="6" min="0.5" step="0.1" style="width:100%" type="range" value="3"/></label></div>
 <div id="dpBars"></div><div class="out" id="dpOut"></div></div>
-<h3>Exercícios para treinar</h3>
-  <p>Para cada um: qual variável congela e que regra usa.</p>
-  <div><details class="qitem"><summary><span class="qn">E1</span><span>f(x, y) = 5x³ + 2y. Calcule f<sub>x</sub> e f<sub>y</sub>.<span class="tagt">potência</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = <b>15x²</b> · f<sub>y</sub> = <b>2</b></div></div></details><details class="qitem"><summary><span class="qn">E2</span><span>f(x, y) = x²y³. Calcule f<sub>x</sub> e f<sub>y</sub>.<span class="tagt">constante multiplicando</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = <b>2xy³</b> · f<sub>y</sub> = <b>3x²y²</b></div></div></details><details class="qitem"><summary><span class="qn">E3</span><span>f(x, y) = 4xy − y² + 7. Calcule f<sub>x</sub> e f<sub>y</sub>.<span class="tagt">1ª ordem</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = <b>4y</b> · f<sub>y</sub> = <b>4x − 2y</b> (o 7 some nas duas)</div></div></details><details class="qitem"><summary><span class="qn">E4</span><span>z = e<sup>2x + y</sup>. Calcule z<sub>x</sub> e z<sub>y</sub>.<span class="tagt">exponencial</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>z<sub>x</sub> = <b>2e<sup>2x + y</sup></b> · z<sub>y</sub> = <b>e<sup>2x + y</sup></b></div></div></details><details class="qitem"><summary><span class="qn">E5</span><span>z = (x² + y)⁵. Calcule z<sub>x</sub> e z<sub>y</sub>.<span class="tagt">cadeia</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>z<sub>x</sub> = 5(x² + y)⁴ · 2x = <b>10x(x² + y)⁴</b> · z<sub>y</sub> = 5(x² + y)⁴ · 1 = <b>5(x² + y)⁴</b></div></div></details><details class="qitem"><summary><span class="qn">E6</span><span>f(x, y) = ln(x² + 3y). Calcule f<sub>x</sub> e f<sub>y</sub>, e depois f<sub>x</sub>(1, 1).<span class="tagt">ln e ponto</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = <b>2x / (x² + 3y)</b> · f<sub>y</sub> = <b>3 / (x² + 3y)</b> · f<sub>x</sub>(1, 1) = 2/4 = <b>0,5</b></div></div></details><details class="qitem"><summary><span class="qn">E7</span><span>Para m = 7850 · L · C · e, com uma chapa de 1,5 m × 3 m, quanto a massa aumenta a cada 1 mm de espessura?<span class="tagt">prática · chapa</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>∂m/∂e = 7850 · 1,5 · 3 = 35.325 kg/m → <b>≈ 35,3 kg a cada 1 mm</b></div></div></details><details class="qitem"><summary><span class="qn">E8</span><span>T(x, y) = 80 − 2x² − y². No ponto (2, 1), calcule T<sub>x</sub> e T<sub>y</sub>. Em que direção a temperatura cai mais rápido?<span class="tagt">prática · temperatura</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>T<sub>x</sub> = −4x → <b>−8 °C/m</b> · T<sub>y</sub> = −2y → <b>−2 °C/m</b>. Cai mais rápido na <b>direção x</b> (4 vezes mais).</div></div></details></div>
-  <div class="cuid"><span class="k">Errou algum?</span>Identifique qual regra falhou (a tabela do Cálculo I) ou qual pegadinha caiu e refaça. A maioria dos erros é de congelar errado: confira se a constante estava sozinha ou multiplicando.</div>
 
+    <div class="tlink"><a class="btreino" href="#treino" data-g="g1">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>parecidos com a lista, com conferência de resposta</span></div>
     <div class="done-btn" data-done="parciais"></div>
 </section>
 
@@ -503,10 +520,8 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
 <ol><li>u<sub>x</sub> = −2 sen(2x + 2ct) → u<sub>xx</sub> = −4 cos(2x + 2ct).</li><li>u<sub>t</sub> = −2c sen(2x + 2ct) → u<sub>tt</sub> = −4c² cos(2x + 2ct).</li><li>c²·u<sub>xx</sub> = −4c² cos(2x + 2ct) = u<sub>tt</sub>.</li></ol>
 <div class="ans">Sim: u<sub>tt</sub> = c² u<sub>xx</sub></div></div>
 <div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> confundir a ordem: f<sub>xy</sub> é x primeiro; ∂²f/∂y∂x também é x primeiro (lê da direita)</div><div class="ln"><span class="er">✗</span> trocar o ponto antes de derivar a 2ª vez</div><div class="ln"><span class="ok2">✓</span> mistas diferentes <span class="ar">→</span> erro de conta (Clairaut)</div></div>
-<h3>Exercícios para treinar</h3>
-  <p>Na 2ª ordem, confira com Clairaut: as mistas têm que dar iguais.</p>
-  <div><details class="qitem"><summary><span class="qn">E9</span><span>f(x, y) = x³y². Calcule as quatro derivadas de 2ª ordem e confira Clairaut.<span class="tagt">2ª ordem</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = 3x²y², f<sub>y</sub> = 2x³y · f<sub>xx</sub> = <b>6xy²</b> · f<sub>yy</sub> = <b>2x³</b> · f<sub>xy</sub> = <b>6x²y</b> · f<sub>yx</sub> = <b>6x²y</b> ✓ iguais</div></div></details><details class="qitem"><summary><span class="qn">E10</span><span>f(x, y) = x² + y² − 4x. Ache o ponto onde f<sub>x</sub> = 0 e f<sub>y</sub> = 0 e diga se é máximo, mínimo ou sela.<span class="tagt">classificar</span></span></summary><div class="body"><div class="enun"><span class="k">Gabarito · abra só depois de tentar</span>f<sub>x</sub> = 2x − 4 = 0 → x = 2 · f<sub>y</sub> = 2y = 0 → y = 0 · ponto <b>(2, 0)</b>. f<sub>xx</sub> = 2, f<sub>yy</sub> = 2, f<sub>xy</sub> = 0 → D = 4 &gt; 0 e f<sub>xx</sub> &gt; 0 → <b>mínimo (vale)</b>.</div></div></details></div>
 
+    <div class="tlink"><a class="btreino" href="#treino" data-g="g1">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>parecidos com a lista, com conferência de resposta</span></div>
     <div class="done-btn" data-done="ordem"></div>
 </section>
 
@@ -528,7 +543,8 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
 <ol><li>V = πr²h/3 → ∂V/∂r = 2πrh/3 e ∂V/∂h = πr²/3.</li><li>dV/dt = (2π·120·150/3)(1,8) + (π·120²/3)(−2,5).</li><li>= π(12 000·1,8 − 4 800·2,5) = π(21 600 − 12 000).</li></ol>
 <div class="ans">dV/dt = 9 600π ≈ 30 159 cm³/s (o volume aumenta)</div></div>
 <div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> esquecer um caminho da árvore (cada ramo é um termo)</div><div class="ln"><span class="er">✗</span> trocar o instante antes de derivar</div><div class="ln"><span class="er">✗</span> perder o sinal de uma taxa que diminui (h diminui <span class="ar">→</span> dh/dt negativo)</div><div class="ln"><span class="ok2">✓</span> no fim, a resposta pode ficar em x e y (como a professora deixa) ou tudo em t</div></div>
-  <div class="done-btn" data-done="cadeia"></div>
+  <div class="tlink"><a class="btreino" href="#treino" data-g="g2">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>parecidos com a lista, com conferência de resposta</span></div>
+    <div class="done-btn" data-done="cadeia"></div>
 </section>
 
 <!-- ============ 6 GRADIENTE ============ -->
@@ -551,7 +567,8 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
 <div class="ans">Vai <b>descer</b>, com taxa de 1,56 m/m.</div></div><div class="ex" data-ex="" data-q="x45"><div class="q">Exemplo 4c: em que direção a pessoa deve seguir para fazer a <b>subida mais íngreme</b>? Qual a taxa nessa direção?</div>
 <ol><li>A subida mais íngreme é sempre na direção do vetor gradiente.</li><li>∇h(50, 80) = (−1, −3,2), ou seja, −1 î − 3,2 ĵ (um pouco para o oeste e bastante para o sul: montanha acima).</li><li>A taxa máxima é a norma do gradiente: ‖∇h(50, 80)‖ = √((−1)² + (−3,2)²) = √(1 + 10,24) = √11,24.</li></ol>
 <div class="ans">Direção −1 î − 3,2 ĵ · taxa máxima ≈ 3,35 m/m.</div></div><p class="ln">E a descida mais íngreme? É o contrário do gradiente: −∇h = (1, 3,2), com taxa −‖∇h‖ ≈ −3,35 m/m.</p>
-  <div class="done-btn" data-done="gradiente"></div>
+  <div class="tlink"><a class="btreino" href="#treino" data-g="g3">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>parecidos com a lista, com conferência de resposta</span></div>
+    <div class="done-btn" data-done="gradiente"></div>
 </section>
 
 <!-- ============ 7 EXTREMOS ============ -->
@@ -578,6 +595,7 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
   </ol>
   <div class="cuid"><span class="k">Pegadinha</span>Na hora de resolver f<sub>x</sub> = 0 e f<sub>y</sub> = 0, não divida por uma variável que pode ser zero: fatore. Em 2x(1 + y) = 0, são dois casos (x = 0 ou y = −1), e cada um gera pontos críticos diferentes.</div>
 
+    <div class="tlink"><a class="btreino" href="#treino" data-g="g4">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>parecidos com a lista, com conferência de resposta</span></div>
     <div class="done-btn" data-done="extremos"></div>
 </section>
 
@@ -591,6 +609,14 @@ h3[data-n]::before{content:attr(data-n);display:inline-grid;place-items:center;w
 </section>
 
 <!-- ============ LISTA ============ -->
+<section class="view read" id="v-treino" hidden>
+  <div class="eyebrow">Treino · parecidos com a lista</div>
+  <h2>Exercícios para treinar</h2>
+  <p class="lede">Mesmo tipo das questões da lista, com outros números. Resolva no papel, digite o resultado e clique em <b>Conferir</b> (ou Enter): aparece só se está certo ou errado. A resolução fica fechada até você pedir. <span class="tprog" id="treinoProg"></span></p>
+  <p class="nt" style="font-size:.85rem">Aceita decimal com vírgula, frações (52/5), π e raiz (√5, 51π).</p>
+  <div id="treinoBox"></div>
+</section>
+
 <section class="view read" id="v-lista" hidden>
   <div class="eyebrow">Lista · Derivadas Parciais, Máximos e Mínimos</div>
   <h2>A lista da professora, resolvida</h2>
@@ -937,19 +963,19 @@ function load(){ try{ done=JSON.parse(localStorage.getItem('calc2-done')||'{}');
 function save(){ try{ localStorage.setItem('calc2-done',JSON.stringify(done)); localStorage.setItem('calc2-quiz',JSON.stringify(qa)) }catch(e){} }
 function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getElementById('progtxt').textContent=n+'/'+MODS.length+' módulos'; document.getElementById('progbar').style.width=(n/MODS.length*100)+'%';
   document.getElementById('trail').innerHTML=MODS.map((m,i)=>'<a class="stop'+(done[m[0]]?' done':'')+'" href="#'+m[0]+'"><span class="n">'+(done[m[0]]?'✓':i+1)+'</span><b>'+m[1]+'</b><span>'+m[2]+'</span></a>').join('')+
-    '<a class="stop" href="#lista"><span class="n">L</span><b>Lista resolvida</b><span>'+PROBS.length+' itens, um passo de cada vez</span></a><a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
+    '<a class="stop" href="#lista"><span class="n">L</span><b>Lista resolvida</b><span>'+PROBS.length+' itens, um passo de cada vez</span></a><a class="stop" href="#treino"><span class="n">T</span><b>Exercícios para treinar</b><span>parecidos com a lista, com conferência</span></a><a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
   document.querySelectorAll('#nav a[data-m]').forEach(a=>{ a.querySelector('.dn')?.remove(); if(done[a.dataset.m])a.insertAdjacentHTML('beforeend','<i class="dn"></i>') });
   document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
     d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#lista">Agora encare a lista →</a>');
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ===== rotas ===== */
-const VIEWS=['inicio','funcoes','nivel','parciais','ordem','cadeia','gradiente','extremos','lab','lista','quiz','cola'];
+const VIEWS=['inicio','funcoes','nivel','parciais','ordem','cadeia','gradiente','extremos','lab','lista','treino','quiz','cola'];
 let sims=[];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
-  window.scrollTo(0,0); requestAnimationFrame(()=>sims.forEach(s=>s&&s.resize())) }
+  window.scrollTo(0,0); requestAnimationFrame(()=>sims.forEach(s=>s&&s.resize())); if(h==='treino'&&window.treinoGo) treinoGo() }
 
 /* ===== boot ===== */
 load();
@@ -1010,7 +1036,94 @@ function vista(box,F){const cv=box.querySelector('canvas'),g=cv.getContext('2d')
 document.querySelectorAll('[data-f3]').forEach(b=>{const F=FIG[b.dataset.f3];if(F)vista(b,F)});
 })();
 </script>
+<script>
+/* ===== exercícios para treinar (parecidos com a lista) ===== */
+const TGRUPOS=[
+ ['g0','Funções e curvas de nível','aulas 1 e 2'],
+ ['g1','Derivadas parciais','aulas 3 e 4 · parecidos com as questões 1 e 2'],
+ ['g2','Regra da cadeia','aula 5 · parecidos com as questões 3 a 7'],
+ ['g3','Gradiente e derivada direcional','aula 6 · parecidos com as questões 8 a 15'],
+ ['g4','Máximos, mínimos e otimização','aula 7 · parecidos com as questões 16 a 19']];
+const SEL=['mínimo','máximo','sela'];
+const TREINO=[
+ {g:'g0',q:'Para f(x, y) = x² − 3xy + 2, calcule f(1, 2) e f(−2, 1).',p:[['f(1, 2)',-3],['f(−2, 1)',12]],
+  s:['Troca x e y pelos números, um de cada vez.','f(1, 2) = 1 − 3·1·2 + 2 = 1 − 6 + 2 = −3','f(−2, 1) = 4 − 3·(−2)·1 + 2 = 4 + 6 + 2 = 12']},
+ {g:'g0',q:'A curva de nível k = 9 de f(x, y) = x² + y² é uma circunferência. Qual o raio dela?',p:[['raio',3]],
+  s:['Iguala f a k: x² + y² = 9.','É a circunferência centrada na origem com r² = 9.','r = 3']},
+ {g:'g0',q:'f(x, y) = √(16 − x² − y²). Qual o maior valor que f atinge (o topo da imagem)?',p:[['valor máximo',4]],
+  s:['A raiz é maior quando o de dentro é maior.','16 − x² − y² é máximo em (0, 0): vale 16.','f(0, 0) = √16 = 4 → imagem [0, 4]']},
+ {g:'g1',like:'1a',q:'f(x, y) = 4x³ − 5y² + 2xy. Calcule f<sub>x</sub>(1, 2) e f<sub>y</sub>(1, 2).',p:[['f<sub>x</sub>(1, 2)',16],['f<sub>y</sub>(1, 2)',-18]],
+  s:['f<sub>x</sub>: y congelado → 12x² + 2y','f<sub>y</sub>: x congelado → −10y + 2x','No ponto: f<sub>x</sub> = 12 + 4 = 16 · f<sub>y</sub> = −20 + 2 = −18']},
+ {g:'g1',like:'1b',q:'z = y e<sup>2x</sup>. Calcule ∂z/∂x e ∂z/∂y no ponto (0, 3).',p:[['∂z/∂x',6],['∂z/∂y',1]],
+  s:['∂z/∂x: y é número → y · e<sup>2x</sup> · 2 = 2y e<sup>2x</sup>','∂z/∂y: e<sup>2x</sup> é número → e<sup>2x</sup>','Em (0, 3): e⁰ = 1 → ∂z/∂x = 6 · ∂z/∂y = 1']},
+ {g:'g1',like:'1c',q:'z = (3x − y)⁵. Calcule ∂z/∂x e ∂z/∂y no ponto (1, 1).',p:[['∂z/∂x',240],['∂z/∂y',-80]],
+  s:['Cadeia do Cálculo I: 5(3x − y)⁴ vezes a derivada de dentro.','∂z/∂x = 5(3x − y)⁴ · 3 · ∂z/∂y = 5(3x − y)⁴ · (−1)','Em (1, 1): 3x − y = 2 → 2⁴ = 16 → 240 e −80']},
+ {g:'g1',like:'1d',q:'f(x, y) = ln(x² + y²). Calcule f<sub>x</sub>(1, 2).',p:[['f<sub>x</sub>(1, 2)',0.4]],
+  s:['ln u → u′/u, com u = x² + y².','f<sub>x</sub> = 2x/(x² + y²)','Em (1, 2): 2/5 = 0,4']},
+ {g:'g1',like:'2',q:'A temperatura numa chapa é T(x, y) = 80/(1 + x² + 2y²) (°C, metros). Calcule as taxas de variação em (1, 1) em x e em y.',p:[['T<sub>x</sub>(1, 1)',-10],['T<sub>y</sub>(1, 1)',-20]],
+  s:['Escreve T = 80(1 + x² + 2y²)<sup>−1</sup>.','T<sub>x</sub> = −80(…)<sup>−2</sup> · 2x · T<sub>y</sub> = −80(…)<sup>−2</sup> · 4y','Em (1, 1): (…) = 4 → (…)² = 16 → T<sub>x</sub> = −160/16 = −10 · T<sub>y</sub> = −320/16 = −20']},
+ {g:'g1',q:'f(x, y) = x³y². Calcule f<sub>xx</sub>, f<sub>xy</sub> e f<sub>yy</sub> em (1, 1).',p:[['f<sub>xx</sub>',6],['f<sub>xy</sub>',6],['f<sub>yy</sub>',2]],
+  s:['f<sub>x</sub> = 3x²y² · f<sub>y</sub> = 2x³y','f<sub>xx</sub> = 6xy² · f<sub>xy</sub> = 6x²y · f<sub>yy</sub> = 2x³','Em (1, 1): 6, 6 e 2 (Clairaut: f<sub>xy</sub> = f<sub>yx</sub> = 6)']},
+ {g:'g2',like:'3',q:'z = x²y, com x = t² e y = 3t. Calcule dz/dt em t = 1.',p:[['dz/dt',15]],
+  s:['Árvore: z → x, y → t. dz/dt = ∂z/∂x · dx/dt + ∂z/∂y · dy/dt','∂z/∂x = 2xy · dx/dt = 2t · ∂z/∂y = x² · dy/dt = 3','Em t = 1: x = 1, y = 3 → 6·2 + 1·3 = 15']},
+ {g:'g2',like:'4',q:'z = x² + xy, com x = s + t e y = st. Calcule ∂z/∂s e ∂z/∂t em (s, t) = (1, 2).',p:[['∂z/∂s',14],['∂z/∂t',11]],
+  s:['Árvore: z → x, y → s, t.','∂z/∂x = 2x + y · ∂z/∂y = x · ∂x/∂s = ∂x/∂t = 1 · ∂y/∂s = t · ∂y/∂t = s','Em (1, 2): x = 3, y = 2 → ∂z/∂x = 8 · ∂z/∂y = 3','∂z/∂s = 8·1 + 3·2 = 14 · ∂z/∂t = 8·1 + 3·1 = 11']},
+ {g:'g2',like:'5',q:'z = f(x, y), x = g(t), y = h(t), com g(2) = 1, h(2) = 4, g′(2) = 3, h′(2) = −2, f<sub>x</sub>(1, 4) = 5 e f<sub>y</sub>(1, 4) = 2. Calcule dz/dt em t = 2.',p:[['dz/dt',11]],
+  s:['Em t = 2 o ponto é (g(2), h(2)) = (1, 4).','dz/dt = f<sub>x</sub> · g′ + f<sub>y</sub> · h′','= 5·3 + 2·(−2) = 15 − 4 = 11']},
+ {g:'g2',like:'6',q:'O raio de um cilindro mede 3 cm e aumenta 2 cm/s; a altura mede 5 cm e diminui 1 cm/s. Com que taxa o volume V = πr²h varia? (pode responder com π, ex.: 10π)',p:[['dV/dt (cm³/s)',51*Math.PI]],
+  s:['Árvore: V → r, h → t. dV/dt = ∂V/∂r · dr/dt + ∂V/∂h · dh/dt','∂V/∂r = 2πrh · ∂V/∂h = πr²','= 2π·3·5·2 + π·9·(−1) = 60π − 9π = 51π ≈ 160,2']},
+ {g:'g2',like:'7',q:'Uma caixa tem ℓ = 2 m, w = 1 m e h = 3 m. ℓ aumenta 1 m/s, w aumenta 2 m/s e h diminui 1 m/s. Calcule as taxas do volume, da área da superfície e da diagonal.',p:[['dV/dt',13],['dA/dt',22],['dD/dt',1/Math.sqrt(14)]],
+  s:['V = ℓwh → dV/dt = wh·1 + ℓh·2 + ℓw·(−1) = 3 + 12 − 2 = 13 m³/s','A = 2wℓ + 2hw + 2ℓh → ∂A/∂w = 2ℓ + 2h = 10, ∂A/∂ℓ = 2w + 2h = 8, ∂A/∂h = 2w + 2ℓ = 6 → 10·2 + 8·1 + 6·(−1) = 22 m²/s','D = √(ℓ² + w² + h²) = √14 → dD/dt = (ℓℓ′ + ww′ + hh′)/D = (2 + 2 − 3)/√14 = 1/√14 ≈ 0,27 m/s']},
+ {g:'g3',like:'8',q:'f(x, y) = x²y + 3y², P(2, 1), u = ⟨3/5, 4/5⟩. Calcule ∇f(P) e a taxa de variação de f em P na direção u.',p:[['f<sub>x</sub>(P)',4],['f<sub>y</sub>(P)',10],['D<sub>u</sub>f',10.4]],
+  s:['∇f = ⟨2xy, x² + 6y⟩ → em P: ⟨4, 10⟩','u já é unitário: 9/25 + 16/25 = 1','D<sub>u</sub>f = 4·3/5 + 10·4/5 = 12/5 + 40/5 = 52/5 = 10,4']},
+ {g:'g3',like:'9',q:'f(x, y, z) = xy e<sup>z</sup>, P(2, 1, 0), u = ⟨1/3, 2/3, 2/3⟩. Calcule a taxa de variação de f em P na direção u.',p:[['D<sub>u</sub>f',3]],
+  s:['∇f = ⟨y e<sup>z</sup>, x e<sup>z</sup>, xy e<sup>z</sup>⟩ → em P (e⁰ = 1): ⟨1, 2, 2⟩','D<sub>u</sub>f = 1·1/3 + 2·2/3 + 2·2/3 = 9/3 = 3']},
+ {g:'g3',like:'10',q:'f(x, y) = x√y + y². Derivada direcional em (2, 4) na direção de v = ⟨3, 4⟩.',p:[['D<sub>u</sub>f',8]],
+  s:['f<sub>x</sub> = √y = 2 · f<sub>y</sub> = x/(2√y) + 2y = 1/2 + 8 = 17/2','|v| = 5 → u = ⟨3/5, 4/5⟩','D<sub>u</sub>f = 2·3/5 + (17/2)·4/5 = 6/5 + 34/5 = 8']},
+ {g:'g3',like:'12',q:'f(x, y) = xy². Derivada direcional em P(1, 2) na direção de Q(4, 6).',p:[['D<sub>u</sub>f',5.6]],
+  s:['∇f = ⟨y², 2xy⟩ → em P: ⟨4, 4⟩','v = Q − P = ⟨3, 4⟩, |v| = 5 → u = ⟨3/5, 4/5⟩','D<sub>u</sub>f = 12/5 + 16/5 = 28/5 = 5,6']},
+ {g:'g3',like:'13',q:'f(x, y) = x e<sup>y</sup>. Qual a taxa de variação máxima de f em (2, 0)? (pode responder com raiz, ex.: √5)',p:[['taxa máxima',Math.sqrt(5)]],
+  s:['∇f = ⟨e<sup>y</sup>, x e<sup>y</sup>⟩ → em (2, 0): ⟨1, 2⟩','Taxa máxima = ‖∇f‖ = √(1 + 4) = √5 ≈ 2,24, na direção ⟨1, 2⟩']},
+ {g:'g3',like:'15',q:'f(x, y, z) = x² + yz, P(1, 2, 3). (a) taxa na direção de v = ⟨1, −2, 2⟩ (b) taxa máxima em P.',p:[['(a) D<sub>u</sub>f',0],['(b) taxa máxima',Math.sqrt(17)]],
+  s:['∇f = ⟨2x, z, y⟩ → em P: ⟨2, 3, 2⟩','|v| = √(1 + 4 + 4) = 3 → D<sub>u</sub>f = (2 − 6 + 4)/3 = 0','‖∇f‖ = √(4 + 9 + 4) = √17 ≈ 4,12']},
+ {g:'g4',like:'16a',q:'f(x, y) = x² + y² − 4x + 6y + 2. Ache o ponto crítico, classifique e dê o valor de f nele.',p:[['x',2],['y',-3],['tipo','mínimo',SEL],['f no ponto',-11]],
+  s:['f<sub>x</sub> = 2x − 4 = 0 → x = 2 · f<sub>y</sub> = 2y + 6 = 0 → y = −3','f<sub>xx</sub> = 2, f<sub>yy</sub> = 2, f<sub>xy</sub> = 0 → D = 4 > 0 e f<sub>xx</sub> > 0 → mínimo','f(2, −3) = 4 + 9 − 8 − 18 + 2 = −11']},
+ {g:'g4',like:'16b',q:'f(x, y) = x² − y² + 2x + 4y. Ache o ponto crítico e classifique.',p:[['x',-1],['y',2],['tipo','sela',SEL]],
+  s:['f<sub>x</sub> = 2x + 2 = 0 → x = −1 · f<sub>y</sub> = −2y + 4 = 0 → y = 2','D = 2·(−2) − 0² = −4 < 0 → sela']},
+ {g:'g4',like:'16c',q:'f(x, y) = x³ − 3x + y² − 2y tem dois pontos críticos. Qual deles é mínimo local e quanto vale f nele?',p:[['x do mínimo',1],['y do mínimo',1],['f no mínimo',-3]],
+  s:['f<sub>x</sub> = 3x² − 3 = 0 → x = ±1 · f<sub>y</sub> = 2y − 2 = 0 → y = 1','D = 6x · 2 = 12x','(1, 1): D = 12 > 0, f<sub>xx</sub> = 6 > 0 → mínimo · (−1, 1): D = −12 → sela','f(1, 1) = 1 − 3 + 1 − 2 = −3']},
+ {g:'g4',like:'17',q:'Três números positivos somam 60. Qual o maior produto possível?',p:[['produto máximo',8000]],
+  s:['z = 60 − x − y → P = xy(60 − x − y)','P<sub>x</sub> = y(60 − 2x − y) = 0 · P<sub>y</sub> = x(60 − x − 2y) = 0','Sistema: 2x + y = 60 e x + 2y = 60 → x = y = 20 → z = 20','P = 20·20·20 = 8000']},
+ {g:'g4',like:'18',q:'A soma das 12 arestas de uma caixa retangular é 48 cm. Qual o volume máximo?',p:[['volume máximo (cm³)',64]],
+  s:['4x + 4y + 4z = 48 → z = 12 − x − y → V = xy(12 − x − y)','V<sub>x</sub> = 0 e V<sub>y</sub> = 0 → 2x + y = 12 e x + 2y = 12 → x = y = 4, z = 4','Cubo de aresta 4: V = 64 cm³']},
+ {g:'g4',like:'19',q:'Uma caixa sem tampa deve ter 4000 cm³. Qual a menor área de papelão possível?',p:[['área mínima (cm²)',1200]],
+  s:['xyz = 4000 → z = 4000/(xy) → A = xy + 2xz + 2yz = xy + 8000/y + 8000/x','A<sub>x</sub> = y − 8000/x² = 0 · A<sub>y</sub> = x − 8000/y² = 0 → x = y = 20','z = 4000/400 = 10 → A = 400 + 400 + 400 = 1200 cm²']}
+];
+function tEval(v){ v=String(v).trim().toLowerCase().replace(/−/g,'-').replace(/,/g,'.').replace(/·|×/g,'*').replace(/\s+/g,'').replace(/π|pi/g,'(P)').replace(/√\(/g,'R(').replace(/√([0-9.]+)/g,'R($1)').replace(/sqrt/g,'R').replace(/\^/g,'**').replace(/([0-9.)P])(?=[(PR])/g,'$1*').replace(/\)(?=[0-9])/g,')*');
+  if(!v||/[^0-9.+\-*/()PR]/.test(v)) return NaN; try{ const r=Function('P','R','return ('+v+')')(Math.PI,Math.sqrt); return typeof r==='number'?r:NaN }catch(e){ return NaN } }
+let tst={}; try{ tst=JSON.parse(localStorage.getItem('calc2-treino')||'{}') }catch(e){}
+function tSave(){ try{ localStorage.setItem('calc2-treino',JSON.stringify(tst)) }catch(e){} }
+function renderTreino(){ let n=0;
+  document.getElementById('treinoBox').innerHTML=TGRUPOS.map(([g,t,sub])=>'<div class="tgrp" id="t-'+g+'"><h3>'+t+'</h3><p class="tsub">'+sub+'</p>'+TREINO.filter(e=>e.g===g).map(e=>{ const i=TREINO.indexOf(e); n++;
+    return '<div class="tex" data-i="'+i+'"><div class="tq"><span class="qn">T'+n+'</span><span>'+e.q+(e.like?'<span class="tagt">como a questão '+e.like+'</span>':'')+'</span></div><div class="tps">'+e.p.map((p,j)=>'<label class="tp"><span>'+p[0]+'</span>'+(p[2]?'<select data-j="'+j+'"><option value="">escolha</option>'+p[2].map(o=>'<option>'+o+'</option>').join('')+'</select>':'<input data-j="'+j+'" inputmode="decimal" autocomplete="off" placeholder="resposta">')+'<i class="tr"></i></label>').join('')+'</div><div class="tbt"><button type="button" class="tck">Conferir</button><span class="tres"></span><details class="tsol"><summary>Ver resolução</summary><ol>'+e.s.map(x=>'<li>'+x+'</li>').join('')+'</ol></details></div></div>' }).join('')+'</div>').join('');
+  document.querySelectorAll('#treinoBox .tex').forEach(b=>{ const e=TREINO[+b.dataset.i], ck=()=>{ let ok=0, vaz=0;
+      b.querySelectorAll('[data-j]').forEach(f=>{ const p=e.p[+f.dataset.j], m=f.parentNode.querySelector('.tr'); let r;
+        if(!f.value.trim()){ vaz++; m.textContent=''; m.className='tr'; return }
+        if(p[2]) r=f.value===p[1]; else { const v=tEval(f.value); r=isFinite(v)&&Math.abs(v-p[1])<=Math.max(0.006,0.005*Math.abs(p[1])) }
+        if(r) ok++; m.textContent=r?'✓':'✗'; m.className='tr '+(r?'ok':'no') });
+      const tot=e.p.length, res=b.querySelector('.tres');
+      if(vaz===tot){ res.textContent=''; res.className='tres'; return }
+      const all=ok===tot; res.textContent=all?'✓ Certo':'✗ Errado'; res.className='tres '+(all?'ok':'no');
+      tst[b.dataset.i]=all?1:0; tSave(); tProg() };
+    b.querySelector('.tck').onclick=ck;
+    b.querySelectorAll('[data-j]').forEach(f=>f.addEventListener('keydown',ev=>{ if(ev.key==='Enter'){ ev.preventDefault(); ck() } })) });
+  tProg() }
+function tProg(){ const c=Object.values(tst).filter(x=>x===1).length, el=document.getElementById('treinoProg'); if(el) el.textContent=c+' de '+TREINO.length+' certos' }
+document.addEventListener('click',ev=>{ const a=ev.target.closest('a.btreino'); if(!a) return; try{ sessionStorage.setItem('calc2-tgo',a.dataset.g) }catch(e){} });
+window.treinoGo=function(){ let g=null; try{ g=sessionStorage.getItem('calc2-tgo'); sessionStorage.removeItem('calc2-tgo') }catch(e){} if(g){ const el=document.getElementById('t-'+g); if(el) requestAnimationFrame(()=>el.scrollIntoView({block:'start'})) } }
+renderTreino();
+</script>
 <script src="../../dados/quadros-calc2.js?v=9"></script>
-<script src="../../js/quadro.js?v=5" data-materia="calc2"></script>
+<script src="../../js/quadro.js?v=6" data-materia="calc2"></script>
 </body>
 </html>
