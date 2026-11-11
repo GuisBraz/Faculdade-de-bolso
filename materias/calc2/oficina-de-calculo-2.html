@@ -1172,7 +1172,7 @@ const PROBS=[
  {n:'3',m:'regra da cadeia · caso I',e:'Use a Regra da Cadeia para determinar dz/dt: z = sen x cos y, x = πt, y = √t.',q:'z = sen x cos y, x = πt, y = √t. Ache dz/dt.',
   s:['z<sub>x</sub> = cos x cos y e z<sub>y</sub> = −sen x sen y.','dx/dt = π e dy/dt = 1/(2√t).','dz/dt = z<sub>x</sub>·dx/dt + z<sub>y</sub>·dy/dt.'],a:'dz/dt = π cos x cos y − (sen x sen y)/(2√t)'},
  {n:'4',m:'regra da cadeia · caso II',e:'Utilize a Regra da Cadeia para determinar ∂z/∂s e ∂z/∂t, em que z = x²y³, x = s cos t, y = s sen t.',q:'z = x²y³, x = s cos t, y = s sen t. Ache ∂z/∂s e ∂z/∂t.',
-  s:['z<sub>x</sub> = 2xy³ e z<sub>y</sub> = 3x²y².','x<sub>s</sub> = cos t, y<sub>s</sub> = sen t, x<sub>t</sub> = −s sen t, y<sub>t</sub> = s cos t.','∂z/∂s = 2xy³ cos t + 3x²y² sen t.','∂z/∂t = 2xy³(−s sen t) + 3x²y²(s cos t).'],a:'∂z/∂s = 2xy³ cos t + 3x²y² sen t · ∂z/∂t = −2sxy³ sen t + 3sx²y² cos t'},
+  s:['Monte a árvore: z depende de x e y; x e y dependem de s e t. Em cada galho escreva a derivada (∂z/∂x, ∂z/∂y, ∂x/∂s, ∂y/∂s, …).','Para ∂z/∂s, siga os dois caminhos que chegam em s e some: ∂z/∂s = ∂z/∂x·∂x/∂s + ∂z/∂y·∂y/∂s.','Calcule cada pedaço: ∂z/∂x = 2xy³, ∂z/∂y = 3x²y², ∂x/∂s = cos t, ∂y/∂s = sen t. Então ∂z/∂s = 2xy³·cos t + 3x²y²·sen t.','Para ∂z/∂t, os caminhos que chegam em t: ∂z/∂t = ∂z/∂x·∂x/∂t + ∂z/∂y·∂y/∂t, com ∂x/∂t = −s sen t e ∂y/∂t = s cos t.','∂z/∂t = 2xy³·(−s sen t) + 3x²y²·s cos t.'],a:'∂z/∂s = 2xy³ cos t + 3x²y² sen t · ∂z/∂t = −2sxy³ sen t + 3sx²y² cos t'},
  {n:'5',m:'regra da cadeia · valores',e:'Se z = f(x, y), onde f é diferenciável, e x = g(t), y = h(t), com g(3) = 2, h(3) = 7, g′(3) = 5, h′(3) = −4, f<sub>x</sub>(2, 7) = 6 e f<sub>y</sub>(2, 7) = −8, determine dz/dt quando t = 3.',q:'z = f(x, y), x = g(t), y = h(t), com g(3) = 2, h(3) = 7, g\'(3) = 5, h\'(3) = −4, f<sub>x</sub>(2, 7) = 6, f<sub>y</sub>(2, 7) = −8. Ache dz/dt em t = 3.',
   s:['Em t = 3 o ponto é (x, y) = (g(3), h(3)) = (2, 7): por isso a questão dá f<sub>x</sub> e f<sub>y</sub> em (2, 7).','dz/dt = f<sub>x</sub>·g\' + f<sub>y</sub>·h\' = 6·5 + (−8)(−4).'],a:'dz/dt = 30 + 32 = 62'},
  {n:'6',m:'regra da cadeia · aplicação',e:'A temperatura em um ponto (x, y) é T(x, y), medida em graus Celsius. Um inseto rasteja de modo que sua posição depois de t segundos seja dada por x = √(1 + t), y = 2 + t/3, onde x e y são medidas em centímetros. A função temperatura satisfaz T<sub>x</sub>(2, 3) = 4 e T<sub>y</sub>(2, 3) = 3. Quão rápido a temperatura aumenta no caminho do inseto depois de três segundos?',q:'Inseto em x = √(1 + t), y = 2 + t/3 (cm). T<sub>x</sub>(2, 3) = 4 e T<sub>y</sub>(2, 3) = 3. Quão rápido a temperatura sobe em t = 3 s?',
@@ -1285,7 +1285,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="calc2"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-calc2.js?v=5"></script>
+<script src="../../dados/quadros-calc2.js?v=7"></script>
 <script src="../../js/quadro.js?v=5" data-materia="calc2"></script>
 </body>
 </html>

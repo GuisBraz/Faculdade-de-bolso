@@ -100,6 +100,19 @@
     return svg(W, H, g);
   }
 
+  /* árvore com a derivada escrita em cada galho e os caminhos até a variável destacados */
+  function ARV2(alvo) {
+    const W = 340, H = 210; let g = '';
+    const no = (x, y, t, c) => '<circle cx="' + x + '" cy="' + y + '" r="15" fill="#fff" stroke="' + c + '" stroke-width="2"/>' + txt(x, y + 5, t, c, 15, 'middle');
+    const ed = (x1, y1, x2, y2, lab, on, dx, dy) => '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="' + (on ? K.o : K.m) + '" stroke-width="' + (on ? 3 : 1.4) + '"' + (on ? '' : ' stroke-dasharray="5 4"') + '/>' + txt((x1 + x2) / 2 + dx, (y1 + y2) / 2 + dy, lab, on ? K.o : K.m, 12, 'middle');
+    g += ed(170, 34, 90, 92, '∂z/∂x', 1, -30, 0) + ed(170, 34, 250, 92, '∂z/∂y', 1, 30, 0);
+    g += ed(90, 108, 40, 172, '∂x/∂s', alvo === 's', -28, 0) + ed(90, 108, 140, 172, '∂x/∂t', alvo === 't', 26, 0);
+    g += ed(250, 108, 200, 172, '∂y/∂s', alvo === 's', -26, 0) + ed(250, 108, 300, 172, '∂y/∂t', alvo === 't', 28, 0);
+    g += no(170, 22, 'z', K.ink) + no(90, 100, 'x', K.ink) + no(250, 100, 'y', K.ink);
+    [[40, 's'], [140, 't'], [200, 's'], [300, 't']].forEach(([x, l]) => { g += no(x, 184, l, l === alvo ? K.o : K.b) });
+    return svg(W, H, g);
+  }
+
   /* ---------- esboços ---------- */
   const CHAPA = (L, C, e) => svg(320, 170, '<path d="M40,110 L180,140 L290,95 L150,68 Z" fill="rgba(30,98,201,.12)" stroke="' + K.ink + '" stroke-width="2"/><path d="M40,110 L40,124 L180,154 L180,140 M180,154 L290,109 L290,95" fill="none" stroke="' + K.ink + '" stroke-width="2"/>'
     + txt(100, 145, L, K.o, 14, 'middle') + txt(248, 138, C, K.o, 14, 'middle') + txt(26, 124, e, K.b, 13, 'end'));
@@ -420,12 +433,19 @@
       { c: [['*parciais', 'z<sub>x</sub> = cos x · cos y', 'z<sub>y</sub> = −sen x · sen y'], ['*derivadas em t', 'x′ = π', 'y′ = ' + F('1', '2√t')]] },
       'dz/dt = z<sub>x</sub>·x′ + z<sub>y</sub>·y′',
       '=dz/dt = π cos x cos y − ' + F('sen x sen y', '2√t')] };
-  q.Q4 = { t: '4) z = x²y³, x = s cos t, y = s sen t', r: 'Receita: árvore com s e t → cada caminho é um termo',
-    b: [ARV('z', ['x', 'y'], ['s', 't']),
-      { c: [['*parciais de z', 'z<sub>x</sub> = 2xy³', 'z<sub>y</sub> = 3x²y²'], ['*x = s cos t', 'x<sub>s</sub> = cos t', 'x<sub>t</sub> = −s sen t'], ['*y = s sen t', 'y<sub>s</sub> = sen t', 'y<sub>t</sub> = s cos t']] },
-      '#∂z/∂s', ' = 2xy³ · «b|cos t» + 3x²y² · «b|sen t»',
-      '~ trocando x e y: 2s⁴cos²t sen³t + 3s⁴cos²t sen³t = «o|5s⁴cos²t sen³t»',
-      '#∂z/∂t', ' = 2xy³ · «b|(−s sen t)» + 3x²y² · «b|(s cos t)»',
+  q.Q4 = { t: '4) z = x²y³, x = s cos t, y = s sen t', r: 'Receita: árvore com a derivada em cada galho → segue os caminhos até a variável → multiplica no caminho e soma os caminhos',
+    b: ['∂z/∂s = ? e ∂z/∂t = ?',
+      '#∂z/∂s | caminhos que chegam em s',
+      lado(ARV2('s'), '<div>' + 'ramo do x: ∂z/∂x · ∂x/∂s<br>ramo do y: ∂z/∂y · ∂y/∂s' + '</div>'),
+      '∂z/∂s = ' + F('∂z', '∂x') + '·' + F('∂x', '∂s') + ' + ' + F('∂z', '∂y') + '·' + F('∂y', '∂s'),
+      { c: [['*derivadas de z', '∂z/∂x = «o|2xy³»', '∂z/∂y = «o|3x²y²»'], ['*derivadas em s', '∂x/∂s = «b|cos t»', '∂y/∂s = «b|sen t»']] },
+      '∂z/∂s = «o|2xy³»·«b|cos t» + «o|3x²y²»·«b|sen t»',
+      '#∂z/∂t | caminhos que chegam em t',
+      lado(ARV2('t'), '<div>' + 'ramo do x: ∂z/∂x · ∂x/∂t<br>ramo do y: ∂z/∂y · ∂y/∂t' + '</div>'),
+      '∂z/∂t = ' + F('∂z', '∂x') + '·' + F('∂x', '∂t') + ' + ' + F('∂z', '∂y') + '·' + F('∂y', '∂t'),
+      '~ x = s cos t → ∂x/∂t = −s sen t · y = s sen t → ∂y/∂t = s cos t',
+      '∂z/∂t = «o|2xy³»·«b|(−s·sen t)» + «o|3x²y²»·«b|s·cos t»',
+      '~ se quiser tudo em s e t: troca x = s cos t e y = s sen t (∂z/∂s vira 5s⁴cos²t sen³t)',
       '=∂z/∂s = 2xy³ cos t + 3x²y² sen t · ∂z/∂t = −2sxy³ sen t + 3sx²y² cos t'] };
   q.Q5 = { t: '5) dz/dt em t = 3 com valores dados', r: 'Receita: acha o ponto (x, y) em t = 3 → fórmula da cadeia com números',
     b: [ARV('z', ['x', 'y'], ['t']),
