@@ -137,6 +137,7 @@ window.FACULDADE = {
               caminho: "materias/gaal/oficina-de-gaal.html",
               ciclo: "2ª Prova", ate: "2026-11-06",
               atualizacoes: [
+                { data: "2026-11-10", texto: "Módulo 3 aberto com a aula de Subespaços: combinação linear, espaço gerado, espaço nulo N(A), espaço coluna C(A), solução Xp + Xh e o nó suspenso por barras, com simulador de equilíbrio e 6 perguntas novas no quiz." },
             { data: "2026-11-08", texto: "Novo laboratório-jogo Hangar 3D: retas e planos no espaço com posição relativa, ângulos, distâncias e o desafio dos anéis." },
                 { data: "2026-10-28", texto: "Criada: retas, planos, posições relativas, ângulos e distâncias, com a lista 4 resolvida." },
                 { data: "2026-10-29", texto: "Cartas de revisão (Anki): botão Cartas na oficina, carta surpresa nos módulos de teoria e 29 cartas de GAAL." },
