@@ -115,10 +115,10 @@
 
   /* árvore de 3 galhos, cada um com uma só variável t embaixo (questão 7, método da professora) */
   function ARV3(top, mid) {
-    const W = 360, H = 220, mx = [70, 180, 290]; let g = '';
+    const W = 360, H = 220, mx = mid.length === 2 ? [110, 250] : [70, 180, 290]; let g = '';
     const no = (x, y, t, c) => '<circle cx="' + x + '" cy="' + y + '" r="15" fill="#fff" stroke="' + c + '" stroke-width="2"/>' + txt(x, y + 5, t, c, 15, 'middle');
     mid.forEach((m, i) => {
-      g += '<line x1="180" y1="36" x2="' + mx[i] + '" y2="88" stroke="' + K.o + '" stroke-width="2"/>' + (i === 1 ? txt(188, 66, '∂' + top + '/∂' + m, K.o, 12) : txt((180 + mx[i]) / 2 + (i - 1) * 34, 60, '∂' + top + '/∂' + m, K.o, 12, 'middle'));
+      g += '<line x1="180" y1="36" x2="' + mx[i] + '" y2="88" stroke="' + K.o + '" stroke-width="2"/>' + (mx[i] === 180 ? txt(188, 66, '∂' + top + '/∂' + m, K.o, 12) : txt((180 + mx[i]) / 2 + Math.sign(mx[i] - 180) * 34, 60, '∂' + top + '/∂' + m, K.o, 12, 'middle'));
       g += '<line x1="' + mx[i] + '" y1="118" x2="' + mx[i] + '" y2="172" stroke="' + K.b + '" stroke-width="2"/>' + txt(mx[i] + 8, 150, 'd' + m + '/dt', K.b, 12);
       g += no(mx[i], 103, m, K.ink) + no(mx[i], 187, 't', K.b);
     });
@@ -426,13 +426,17 @@
   q.Q1a = Object.assign({}, q.x18, { t: '1a) f(x, y) = 3x − 2y⁴' });
   q.Q1b = Object.assign({}, q.x19, { t: '1b) z = x e<sup>3y</sup>' });
   q.Q1c = Object.assign({}, q.x20, { t: '1c) z = (2x + 3y)<sup>10</sup>' });
-  q.Q1d = { t: '1d) f(x, y) = ln(x + √(x² + y²)) · f<sub>x</sub>(3, 4)', r: 'Receita: ln → (dentro)′ ÷ dentro → simplifica → troca o ponto',
-    b: ['#ln | (dentro)′ ÷ dentro', 'u = x + √(x² + y²)',
-      'u<sub>x</sub> = 1 + ' + F('x', '√(x² + y²)') + ' = ' + F('√(x² + y²) + x', '√(x² + y²)'),
-      'f<sub>x</sub> = ' + F('u<sub>x</sub>', 'u') + ' = ' + F('√(x² + y²) + x', '√(x² + y²) · (x + √(x² + y²))') + ' = «o|' + F('1', '√(x² + y²)') + '»',
-      '~ o de cima é igual ao u: cancela',
-      'f<sub>y</sub> = ' + F('y', '√(x² + y²) · (x + √(x² + y²))'),
-      '#No ponto (3, 4)', '√(9 + 16) = 5 → f<sub>x</sub>(3, 4) = «o|1/5»',
+  q.Q1d = { t: '1d) f(x, y) = ln(x + √(x² + y²)) · f<sub>x</sub>(3, 4)', r: 'Receita: troca a raiz por expoente ½ → ln u: (1/u) · u′ → deriva o de dentro (cadeia na raiz) → troca o ponto no fim',
+    b: ['f(x, y) = ln(x + «b|(x² + y²)<sup>1/2</sup>»)',
+      '~ raiz vira expoente ½: fica mais fácil derivar',
+      '#Regra do ln | (ln u)′ = (1/u) · u′',
+      '~ u = x + (x² + y²)<sup>1/2</sup> → a fração é sempre a mesma; o que muda é o parêntese',
+      { c: [['*f<sub>x</sub> → y congelado', 'f<sub>x</sub> = ' + F('1', 'x + √(x² + y²)') + '·(«o|1» + ' + F('1', '2') + '(x² + y²)<sup>−1/2</sup>·«b|2x»)', '~ derivada de x = 1 · da raiz: ½(…)<sup>−1/2</sup> · (de dentro) 2x'], ['*f<sub>y</sub> → x congelado', 'f<sub>y</sub> = ' + F('1', 'x + √(x² + y²)') + '·(«o|0» + ' + F('1', '2') + '(x² + y²)<sup>−1/2</sup>·«b|2y»)', '~ x é número → derivada 0 · de dentro: 2y']] },
+      '#No ponto (3, 4) | f<sub>x</sub>(3, 4)',
+      '√(9 + 16) = √25 = «b|5» → (x² + y²)<sup>−1/2</sup> = 1/5',
+      'f<sub>x</sub>(3, 4) = ' + F('1', '3 + 5') + '·(1 + ' + F('1', '2') + '·' + F('1', '5') + '·6)',
+      ' = ' + F('1', '8') + '·(1 + ' + F('3', '5') + ') = ' + F('1', '8') + '·' + F('8', '5') + ' = «o|' + F('1', '5') + '»',
+      '~ simplificando antes: f<sub>x</sub> = 1/√(x² + y²) → 1/5 também (confere)',
       '=f<sub>x</sub>(3, 4) = 1/5'] };
   q.Q2 = { t: '2) Chapa: T(x, y) = 60/(1 + x² + y²)', r: 'Receita: escreve com expoente −1 → cadeia → troca (1, 2) no fim',
     b: ['T = 60·(1 + x² + y²)<sup>−1</sup>',
@@ -460,11 +464,18 @@
       '∂z/∂t = «o|2xy³»·«b|(−s·sen t)» + «o|3x²y²»·«b|s·cos t»',
       '~ se quiser tudo em s e t: troca x = s cos t e y = s sen t (∂z/∂s vira 5s⁴cos²t sen³t)',
       '=∂z/∂s = 2xy³ cos t + 3x²y² sen t · ∂z/∂t = −2sxy³ sen t + 3sx²y² cos t'] };
-  q.Q5 = { t: '5) dz/dt em t = 3 com valores dados', r: 'Receita: acha o ponto (x, y) em t = 3 → fórmula da cadeia com números',
-    b: [ARV('z', ['x', 'y'], ['t']),
+  q.Q5 = { t: '5) z = f(x, y), x = g(t), y = h(t) · dz/dt para t = 3', r: 'Receita: árvore → fórmula da cadeia → troca pelas funções dadas → leva para t = 3 → acha o ponto (x, y) → números',
+    b: [lado(ARV3('z', ['x', 'y']), '<div>x = g(t) · y = h(t)<br><br>g(3) = 2 · h(3) = 7<br>g′(3) = 5 · h′(3) = −4<br>f<sub>x</sub>(2, 7) = 6 · f<sub>y</sub>(2, 7) = −8</div>'),
+      '#Fórmula pelos caminhos | 2 caminhos até t',
+      F('dz', 'dt') + ' = ' + F('∂z', '∂x') + '·' + F('dx', 'dt') + ' + ' + F('∂z', '∂y') + '·' + F('dy', 'dt'),
+      ' = f<sub>x</sub>(x, y)·«b|g′(t)» + f<sub>y</sub>(x, y)·«b|h′(t)»',
+      '~ ∂z/∂x é f<sub>x</sub> · dx/dt é g′(t), porque x = g(t)',
+      '#Leva para t = 3 | acha o ponto',
+      ' = f<sub>x</sub>(x, y)·g′(3) + f<sub>y</sub>(x, y)·h′(3)',
       'em t = 3: x = g(3) = 2 · y = h(3) = 7 → ponto «b|(2, 7)»',
-      '~ por isso a questão dá f<sub>x</sub> e f<sub>y</sub> em (2, 7)',
-      'dz/dt = f<sub>x</sub>·g′ + f<sub>y</sub>·h′ = 6·5 + (−8)(−4)', ' = 30 + 32 = «o|62»',
+      ' = f<sub>x</sub>(2, 7)·g′(3) + f<sub>y</sub>(2, 7)·h′(3)',
+      '~ por isso a questão dá f<sub>x</sub> e f<sub>y</sub> justamente em (2, 7)',
+      ' = 6·5 − 8·(−4) = 30 + 32 = «o|62»',
       '=dz/dt = 62 em t = 3'] };
   q.Q6 = { t: '6) Inseto: x = √(1 + t), y = 2 + t/3', r: 'Receita: acha o ponto em t = 3 → derivadas em t → cadeia',
     b: ['em t = 3: x = √4 = 2 · y = 2 + 1 = 3 → «b|(2, 3)»',
@@ -487,6 +498,8 @@
       F('dA', 'dt') + ' = ' + F('∂A', '∂w') + '·' + F('dw', 'dt') + ' + ' + F('∂A', '∂ℓ') + '·' + F('dℓ', 'dt') + ' + ' + F('∂A', '∂h') + '·' + F('dh', 'dt'),
       { c: [['*∂A/∂w', '2ℓ + 2h', ' = 2 + 4 = «o|6»'], ['*∂A/∂ℓ', '2w + 2h', ' = 4 + 4 = «o|8»'], ['*∂A/∂h', '2ℓ + 2w', ' = 2 + 4 = «o|6»']] },
       '~ cada parcial: só os termos que têm a letra; os outros viram 0',
+      ' = (2ℓ + 2h)·«b|2» + (2w + 2h)·«b|2» + (2w + 2ℓ)·«b|(−3)»',
+      '~ no instante: (2·1 + 2·2)·2 + (2·2 + 2·2)·2 + (2·2 + 2·1)·(−3)',
       F('dA', 'dt') + ' = 6·«b|2» + 8·«b|2» + 6·«b|(−3)» = 12 + 16 − 18 = «o|10 m²/s»',
       '#(c) Diagonal | D = √(w² + ℓ² + h²) = (w² + ℓ² + h²)<sup>1/2</sup>',
       ARV3('D', ['w', 'ℓ', 'h']),
