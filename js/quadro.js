@@ -8,6 +8,12 @@
   const RM = matchMedia('(prefers-reduced-motion: reduce)');
 
   /* ---------- fontes e estilo ---------- */
+  if (!document.getElementById('fdbQKalam')) {
+    const base = ME && ME.src ? new URL('../fonts/', ME.src).href : '';
+    const f = document.createElement('style'); f.id = 'fdbQKalam';
+    f.textContent = "@font-face{font-family:'FDB Kalam';font-weight:400;font-display:swap;src:url('" + base + "kalam-latin-400-normal.woff2') format('woff2')}@font-face{font-family:'FDB Kalam';font-weight:700;font-display:swap;src:url('" + base + "kalam-latin-700-normal.woff2') format('woff2')}";
+    document.head.appendChild(f);
+  }
   if (!document.getElementById('fdbQFont')) {
     const l = document.createElement('link'); l.id = 'fdbQFont'; l.rel = 'stylesheet';
     l.href = 'https://fonts.googleapis.com/css2?family=Kalam:wght@400;700&family=Caveat:wght@700&display=swap'; document.head.appendChild(l);
@@ -24,14 +30,26 @@
 .fdbq-hd button.x{border:0;font-size:1.1rem;padding:6px 10px}
 .fdbq-bd{overflow:auto;padding:18px 22px 26px;overscroll-behavior:contain}
 /* quadro */
-.fdbq-board{font-family:Kalam,"Segoe Print","Comic Sans MS",cursive;font-size:1.12rem;line-height:1.65}
-.fdbq-board .h{font-family:Caveat,Kalam,cursive;font-weight:700;font-size:1.75rem;line-height:1.1;color:var(--c1,#E2591B);margin:14px 0 4px}
-.fdbq-board .h:first-child{margin-top:0}
-.fdbq-board .en{color:var(--ink2,#4B5C71);border-left:3px solid var(--c2,#0E8A82);padding:2px 0 2px 12px;margin:0 0 8px;font-size:1.02rem}
-.fdbq-board .ln{margin:3px 0 3px 4px;padding-left:22px;position:relative}
-.fdbq-board .ln::before{content:counter(q) ".";counter-increment:q;position:absolute;left:0;color:var(--c2,#0E8A82);font-weight:700}
-.fdbq-board .sec{counter-reset:q}
-.fdbq-board .ans{display:inline-block;margin:8px 0 4px 4px;padding:6px 14px;border:2.5px solid var(--c1,#E2591B);border-radius:8px;background:color-mix(in srgb,var(--c1,#E2591B) 9%,transparent);font-weight:700;color:var(--c1,#E2591B);font-size:1.22rem;transform:rotate(-.4deg)}
+.fdbq-board{--ink:#0E1F38;--ink2:#55667D;--line:#C3CDD9;--sheet:#E8EDF2;--paper:#E8EDF2;--c1:#E0601A;--c2:#1E62C9;--c3:#6447BE;--ok:#22884A;--bad:#C73A2C;--f-math:'FDB Kalam',Kalam,cursive;
+ font-family:'FDB Kalam',Kalam,"Segoe Print","Comic Sans MS",cursive;font-size:1.1rem;line-height:1.6;color:var(--ink);
+ background-color:#E8EDF2;background-image:radial-gradient(rgba(14,31,56,.045) 1px,transparent 1.3px),radial-gradient(rgba(255,255,255,.55) 1px,transparent 1.4px),linear-gradient(165deg,#F0F3F7 0%,#E6EBF1 55%,#DEE5EC 100%);background-size:9px 9px,13px 13px,100% 100%;background-position:0 0,4px 6px,0 0;
+ border:9px solid #0E1F38;border-radius:12px;box-shadow:inset 0 0 50px rgba(14,31,56,.10);padding:22px 24px 16px;text-shadow:0 0 .7px rgba(14,31,56,.35)}
+.fdbq-board .t{font-weight:700;font-size:1.7rem;line-height:1.15;margin:0 0 4px}
+.fdbq-board .rc{font-size:.92rem;color:var(--ink2);margin:0 0 6px}
+.fdbq-board .en{color:var(--ink2);border-left:3px dashed var(--c2);padding:2px 0 2px 12px;margin:8px 0 6px;font-size:1rem}
+.fdbq-board .hd{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1.2rem;margin:16px 0 6px;padding-bottom:2px;border-bottom:2px dashed rgba(14,31,56,.28);width:fit-content;max-width:100%}
+.fdbq-board .n{flex:none;display:inline-grid;place-items:center;width:1.45em;height:1.45em;border:2.2px solid currentColor;border-radius:50%;font-weight:700;font-size:.9em;line-height:1}
+.fdbq-board .ln{margin:5px 0;padding-left:2px}
+.fdbq-board .ln.nb{display:flex;gap:9px;align-items:baseline}.fdbq-board .ln.nb .n{color:var(--c1);font-size:.82em;transform:translateY(.12em)}
+.fdbq-board .bx{border:1.8px dashed rgba(14,31,56,.32);border-radius:10px;padding:8px 12px;margin:8px 0}
+.fdbq-board b,.fdbq-board strong{color:var(--c1)}
+.fdbq-board .it{color:var(--c2);font-weight:700}
+.fdbq-board .ok{color:var(--ok);font-weight:700}
+.fdbq-board .ar{color:var(--ink2)}
+.fdbq-board .ans{display:block;margin:12px 0 6px;padding:8px 14px;border:2.6px solid var(--c1);border-radius:10px;background:rgba(242,107,29,.08);font-weight:700;font-size:1.16rem;color:var(--ink)}
+.fdbq-board .ans b,.fdbq-board .ans strong{color:var(--c1)}
+.fdbq-board .sig{text-align:right;font-size:.74rem;color:var(--ink2);margin-top:16px;text-shadow:none}
+.fdbq-board .mx{border-color:var(--ink)}
 .fdbq-board sub,.fdbq-board sup{font-size:.7em}
 .fdbq-v{position:relative;display:inline-block;padding-top:.28em;line-height:1}.fdbq-v::after{content:"";position:absolute;left:5%;right:-8%;top:.08em;height:.14em;border-top:1.6px solid currentColor;background:linear-gradient(135deg,transparent 45%,currentColor 46%,currentColor 54%,transparent 55%) right/.3em .3em no-repeat}
 .fdbq-board .w{clip-path:inset(0 100% 0 0);opacity:.2}
@@ -53,7 +71,7 @@
 .fdbq-btn{font:700 .85rem var(--f-body,system-ui);display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:8px 12px;cursor:pointer;border:1.5px solid var(--c1,#E2591B);background:transparent;color:var(--c1,#E2591B);margin:12px 0 2px}
 .fdbq-btn.fdbq-mini{margin:0;padding:7px 11px}
 .fdbq-btn:hover{background:var(--c1,#E2591B);color:#fff}
-@media (max-width:640px){.fdbq-bg{padding:0;align-items:flex-end}.fdbq{border-radius:14px 14px 0 0;max-height:92vh}.fdbq-bd{padding:14px 16px 22px}.fdbq-terms{grid-template-columns:minmax(56px,38%) 1fr;gap:8px 10px}.fdbq-board{font-size:1.04rem}}
+@media (max-width:640px){.fdbq-bg{padding:0;align-items:flex-end}.fdbq{border-radius:14px 14px 0 0;max-height:92vh}.fdbq-bd{padding:10px 10px 18px}.fdbq-board{border-width:6px;padding:16px 14px 12px}.fdbq-board .t{font-size:1.4rem}.fdbq-terms{grid-template-columns:minmax(56px,38%) 1fr;gap:8px 10px}.fdbq-board{font-size:1.04rem}}
 @media (prefers-reduced-motion: reduce){.fdbq-bg,.fdbq{transition:none}.fdbq-board .w{clip-path:none;opacity:1;animation:none}}
 @media print{.fdbq-bg{display:none}}`;
   document.head.appendChild(st);
@@ -111,17 +129,28 @@
     ws.forEach(w => { const len = (w.textContent || '').length, d = Math.min(1.6, Math.max(.35, len * .022)); w.style.setProperty('--d', d + 's'); w.style.animationDelay = t + 's'; w.classList.add('go'); t += d * .85 + .12 });
     setTimeout(() => ws.forEach(w => w.classList.add('done')), (t + 2) * 1000);
   }
+  /* realces de giz: "a)" azul, ✓ verde, setas suaves */
+  const giz = h => String(h || '').replace(/^\s*(\(?[a-h]\))\s*/, '<span class="it">$1</span> ').replace(/✓/g, '<span class="ok">✓</span>').replace(/(→|⇒|⇔)/g, '<span class="ar">$1</span>');
   function abrirQuadro(q) {
     const b = document.createElement('div'); b.className = 'fdbq-board';
-    let h = '<div class="h w">' + (q.titulo || 'Resolução') + '</div>';
+    const secs = q.secoes || [];
+    let h = '<div class="t w">' + (q.titulo || 'Resolução') + '</div>';
+    if (q.receita) h += '<div class="rc w">' + q.receita + '</div>';
     if (q.enun) h += '<div class="en w">' + q.enun + '</div>';
-    (q.secoes || []).forEach(s => {
-      h += '<div class="sec">' + (s.h ? '<div class="h w">' + s.h + '</div>' : '') +
-        (s.passos || []).map(p => '<div class="ln w">' + p + '</div>').join('') +
-        (s.resp ? '<div><span class="ans w">' + s.resp + '</span></div>' : '') + '</div>';
+    const soUma = secs.length === 1 && !secs[0].h;
+    let k = 0;
+    secs.forEach(s => {
+      const ps = s.passos || [];
+      if (soUma) h += ps.map((p, i) => '<div class="ln nb w"><span class="n">' + (i + 1) + '</span><span>' + giz(p) + '</span></div>').join('');
+      else {
+        if (s.h) h += '<div class="hd w"><span class="n">' + (++k) + '</span><span>' + giz(s.h) + '</span></div>';
+        if (ps.length) h += '<div class="bx">' + ps.map(p => '<div class="ln w">' + giz(p) + '</div>').join('') + '</div>';
+      }
+      if (s.resp) h += '<div class="ans w">' + s.resp + '</div>';
     });
+    h += '<div class="sig">Desenvolvido por Guilherme dos Santos Braz — Técnico de processos e estudante de engenharia mecânica</div>';
     b.innerHTML = vec(h);
-    const bg = janela(q.tag || 'Resolução', b, '<button class="re" type="button">↻ Escrever de novo</button><button class="tu" type="button">Mostrar tudo</button>');
+    const bg = janela(q.tag || 'Resolução', b, '<button class="re" type="button">↻ De novo</button><button class="tu" type="button">Mostrar tudo</button>');
     bg.querySelector('.re').onclick = () => { bg.querySelector('.fdbq-bd').scrollTop = 0; escrever(b) };
     bg.querySelector('.tu').onclick = () => escrever(b, true);
     requestAnimationFrame(() => escrever(b));
@@ -144,8 +173,9 @@
       bt.onclick = () => {
         const sec = ex.closest('section'), eb = sec && sec.querySelector('.eyebrow'), h2 = sec && sec.querySelector('h2');
         const q = ex.querySelector('.q'), lis = [...ex.querySelectorAll('ol>li')].map(l => l.innerHTML), ans = ex.querySelector('.ans');
-        abrirQuadro({ titulo: 'Exemplo resolvido', tag: (eb ? eb.textContent.split('·')[0].trim() + ' · ' : '') + (h2 ? h2.textContent.split(':')[0].trim() : 'Exemplo'),
-          enun: q ? q.innerHTML : '', secoes: [{ passos: lis, resp: ans ? ans.innerHTML : '' }] });
+        let tit = 'Exemplo resolvido', en = q ? q.innerHTML : ''; const m = en.match(/^\s*([^:<]{2,48}):\s*([\s\S]*)$/); if (m) { tit = m[1].trim(); en = m[2] }
+        abrirQuadro({ titulo: tit, tag: (eb ? eb.textContent.split('·')[0].trim() + ' · ' : '') + (h2 ? h2.textContent.split(':')[0].trim() : 'Exemplo'),
+          enun: en, secoes: [{ passos: lis, resp: ans ? ans.innerHTML : '' }] });
       };
       btns.appendChild(bt);
     });
