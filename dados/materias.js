@@ -77,6 +77,7 @@ window.FACULDADE = {
               caminho: "materias/calc2/oficina-de-calculo-2.html",
               ciclo: "2ª Prova", ate: "2026-11-12",
               atualizacoes: [
+                { data: "2026-11-11", texto: "Ver no quadro reescrito em todos os 49 exemplos e nas 24 questões da lista, no jeito de quadro (receita, etapas numeradas, contas curtas, caixas lado a lado), com desenhos: domínios sombreados, curvas de nível, superfícies 3D com máximo, mínimo e sela, árvores da regra da cadeia, vetores gradiente, tanque, cone e caixas. O quadro agora abre em tela cheia." },
             { data: "2026-11-08", texto: "Novo laboratório-jogo Escultor de superfícies: monte f(x, y) com peças, veja a superfície 3D e as curvas de nível, classifique pontos críticos e role a bolinha do gradiente." },
                 { data: "2026-10-29", texto: "Criada: funções de várias variáveis, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos, com a lista resolvida e cartas." },
                 { data: "2026-11-04", texto: "Aula de 04/11: ponto crítico de 9 − x² − y², a sela de x² − y², o teste da 2ª derivada com a Hessiana, os exemplos 1 e 2 resolvidos passo a passo e os dois no simulador 3D. Cada exemplo tem gráfico 3D e mapa de nível próprios." },

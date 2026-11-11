@@ -80,7 +80,16 @@
 .fdbq-btn{font:700 .85rem var(--f-body,system-ui);display:inline-flex;align-items:center;gap:6px;border-radius:8px;padding:8px 12px;cursor:pointer;border:1.5px solid var(--c1,#E2591B);background:transparent;color:var(--c1,#E2591B);margin:12px 0 2px}
 .fdbq-btn.fdbq-mini{margin:0;padding:7px 11px}
 .fdbq-btn:hover{background:var(--c1,#E2591B);color:#fff}
-@media (max-width:640px){.fdbq-bg{padding:0;align-items:flex-end}.fdbq{border-radius:14px 14px 0 0;max-height:92vh}.fdbq-bd{padding:10px 10px 18px}.fdbq-board{border-width:6px;padding:16px 14px 12px}.fdbq-board .t{font-size:1.4rem}.fdbq-terms{grid-template-columns:minmax(56px,38%) 1fr;gap:8px 10px}.fdbq-board{font-size:1.04rem}}
+@media (max-width:640px){.fdbq-bd{padding:10px 10px 18px}.fdbq-board{border-width:6px;padding:16px 14px 12px}.fdbq-board .t{font-size:1.4rem}.fdbq-terms{grid-template-columns:minmax(56px,38%) 1fr;gap:8px 10px}.fdbq-board{font-size:1.04rem}}
+/* tela cheia: o quadro ocupa a janela toda */
+.fdbq-bg{padding:0;align-items:stretch}
+.fdbq{width:100%;max-width:none;height:100vh;height:100dvh;max-height:none;border-radius:0;border:0}
+.fdbq-bd{flex:1;padding:14px clamp(10px,2.5vw,36px) 28px}
+.fdbq-board{max-width:1320px;margin:0 auto;min-height:calc(100% - 4px);font-size:clamp(1.05rem,.85rem + .55vw,1.4rem)}
+.fdbq-board .t{font-size:1.55em}.fdbq-board .hd{font-size:1.12em}
+.fdbq-board svg.fig{display:block;width:100%;max-width:520px;height:auto;margin:8px 0}
+.fdbq-board .figr{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.fdbq-board .figr svg.fig{max-width:360px;flex:1 1 260px}
 @media (prefers-reduced-motion: reduce){.fdbq-bg,.fdbq{transition:none}.fdbq-board .w{clip-path:none;opacity:1;animation:none}}
 @media print{.fdbq-bg{display:none}}`;
   document.head.appendChild(st);
