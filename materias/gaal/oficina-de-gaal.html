@@ -823,8 +823,8 @@ body{font-size:1rem}
   <p>Confere com o atalho geométrico: v₁ × v₂ = (−1, −1, 1), a normal do plano x + y − z = 0. Agora testar um vetor é só substituir na equação, como na figura abaixo: (2, 3, 5) dá 2 + 3 − 5 = 0 e <b>está</b> (é 2v₁ + 3v₂); (1, 1, 1) dá 1 ≠ 0 e <b>não está</b>.</p>
   <figure class="f3"><div class="seg" id="f3d-b"></div><div class="cv inline-cv" id="f3d"><canvas></canvas><div class="lbl">plano gerado por v₁ e v₂</div></div><figcaption id="f3d-c"></figcaption></figure>
   <div class="ex" data-ex data-q="sub-ex4"><div class="q">Exemplo 4: v₁ = (1, 1, 1) e v₂ = (1, −1, 1). a) (3, 1, 3) é combinação linear? b) E (3, 1, 4)? c) Descreva [ v₁, v₂ ] por uma equação.</div>
-    <ol><li>Combinação genérica: α₁(1, 1, 1) + α₂(1, −1, 1) = (α₁ + α₂, α₁ − α₂, α₁ + α₂). A 1ª e a 3ª coordenadas são <b>sempre iguais</b>.</li><li>c) [ v₁, v₂ ] = {(x, y, z) : x = z}, o plano x − z = 0 (confira: v₁ × v₂ = (2, 0, −2)).</li><li>a) (3, 1, 3): x = z ✓. α₁ + α₂ = 3 e α₁ − α₂ = 1 dão α₁ = 2, α₂ = 1: (3, 1, 3) = 2v₁ + v₂.</li><li>b) (3, 1, 4): 3 ≠ 4, fora do plano. Não é.</li></ol>
-    <div class="ans">a) Sim, 2v₁ + v₂ · b) Não · c) x = z</div></div>
+    <ol><li>a) Dá para achar no olho, como a professora fez: (3, 1, 3) = 2v₁ + 1v₂. Confere: 2(1, 1, 1) + (1, −1, 1) = (2 + 1, 2 − 1, 2 + 1) = (3, 1, 3) ✓.</li><li>c) Combinação genérica igual a (x, y, z): α₁(1, 1, 1) + α₂(1, −1, 1) = (x, y, z), ou seja, α₁ + α₂ = x, α₁ − α₂ = y e α₁ + α₂ = z.</li><li>Escalone (L₂ − L₁ e L₃ − L₁): <span class="mxl"><span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>1</span><span class="ag">x</span><span>1</span><span>−1</span><span class="ag">y</span><span>1</span><span>1</span><span class="ag">z</span></span> <span class="op">L₂ − L₁ · L₃ − L₁</span> <span class="mx" style="grid-template-columns:repeat(3,auto)"><span class="pv">1</span><span>1</span><span class="ag">x</span><span>0</span><span class="pv">−2</span><span class="ag">y − x</span><span>0</span><span>0</span><span class="ag">z − x</span></span></span> A linha de zeros exige z − x = 0.</li><li>[ v₁, v₂ ] = {(x, y, z) | z = x}. Exemplo de vetor nesse plano: (5, 2, 5). E o item a) confere: (3, 1, 3) tem z = x.</li><li>b) (3, 1, 4): z = 4 ≠ 3 = x, fora do plano. Não é combinação linear.</li></ol>
+    <div class="ans">a) Sim, (3, 1, 3) = 2v₁ + 1v₂ · b) Não · c) [ v₁, v₂ ] = {(x, y, z) | z = x}</div></div>
 
   <h3>4 · Os dois espaços de uma matriz</h3>
   <p>Toda matriz A (m × n) é uma máquina: entra X ∈ ℝⁿ, sai AX ∈ ℝᵐ. Dois subespaços contam tudo sobre ela.</p>
@@ -1472,7 +1472,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="gaal"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-gaal.js?v=2"></script>
+<script src="../../dados/quadros-gaal.js?v=3"></script>
 <script src="../../js/quadro.js?v=3" data-materia="gaal"></script>
 </body>
 </html>
