@@ -364,7 +364,7 @@ body{font-size:1rem}
     <div class="eq"><i>AB</i>⃗ = <i>B</i> − <i>A</i> = (<i>x<sub>B</sub></i> − <i>x<sub>A</sub></i>, <i>y<sub>B</sub></i> − <i>y<sub>A</sub></i>, <i>z<sub>B</sub></i> − <i>z<sub>A</sub></i>)</div>
     <dl class="legend"><dt>A</dt><dd>ponto de saída</dd><dt>B</dt><dd>ponto de chegada</dd><dt>AB⃗</dt><dd>a seta de A até B (a ordem importa: BA⃗ = −AB⃗)</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Exemplo: A = (1, −2, −3) e B = (3, 1, −4). Quanto vale AB⃗?</div>
+  <div class="ex" data-ex data-q="vet-ab"><div class="q">Exemplo: A = (1, −2, −3) e B = (3, 1, −4). Quanto vale AB⃗?</div>
     <ol><li>Chegada menos saída, coordenada por coordenada.</li><li>x: 3 − 1 = 2</li><li>y: 1 − (−2) = 3 &nbsp;(menos com menos vira mais)</li><li>z: −4 − (−3) = −1</li></ol>
     <div class="ans">AB⃗ = (2, 3, −1)</div></div>
 
@@ -411,7 +411,7 @@ body{font-size:1rem}
     <dl class="legend"><dt>resultado</dt><dd>vetor ⊥ a u⃗ e a v⃗</dd><dt>‖u⃗ × v⃗‖</dt><dd>área do paralelogramo formado por u⃗ e v⃗</dd><dt>u⃗ × v⃗ = 0⃗</dt><dd>u⃗ e v⃗ são paralelos</dd></dl>
   </div>
   <p><b>Truque para decorar:</b> escreva as coordenadas duas vezes em fila: <code>u₁ u₂ u₃ u₁ u₂</code>. Para a 1ª coordenada, cubra a coluna 1 e faça o "x" das colunas 2 e 3 (diagonal descendo menos diagonal subindo). Para a 2ª, colunas 3 e 1. Para a 3ª, colunas 1 e 2. É o determinante com <b>i j k</b> na primeira linha.</p>
-  <div class="ex" data-ex><div class="q">Exemplo: u⃗ = (2, 1, −1) e v⃗ = (1, 1, 0)</div>
+  <div class="ex" data-ex data-q="vet-cross"><div class="q">Exemplo: u⃗ = (2, 1, −1) e v⃗ = (1, 1, 0)</div>
     <ol><li>1ª: u₂v₃ − u₃v₂ = 1·0 − (−1)·1 = 0 + 1 = 1</li><li>2ª: u₃v₁ − u₁v₃ = (−1)·1 − 2·0 = −1</li><li>3ª: u₁v₂ − u₂v₁ = 2·1 − 1·1 = 1</li><li>Conferindo: (1, −1, 1)·(2, 1, −1) = 2 − 1 − 1 = 0 ✓ e (1, −1, 1)·(1, 1, 0) = 0 ✓</li></ol>
     <div class="ans">u⃗ × v⃗ = (1, −1, 1). Sempre confira com o escalar dando zero!</div></div>
 
@@ -483,13 +483,13 @@ body{font-size:1rem}
     <div class="eq"><span class="fr"><span><i>x</i> − <i>x</i>₀</span><span><i>a</i></span></span> = <span class="fr"><span><i>y</i> − <i>y</i>₀</span><span><i>b</i></span></span> = <span class="fr"><span><i>z</i> − <i>z</i>₀</span><span><i>c</i></span></span></div>
     <dl class="legend"><dt>em cima</dt><dd>"variável menos coordenada do ponto". Cuidado com o sinal: <i>z</i> + 3 significa <i>z</i>₀ = −3</dd><dt>embaixo</dt><dd>coordenadas do vetor diretor. Sem denominador = 1</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Ler a reta x/2 = (y − 2)/2 = (z + 3)/1 (Ex 1 da aula de distâncias)</div>
+  <div class="ex" data-ex data-q="reta-ler1"><div class="q">Ler a reta x/2 = (y − 2)/2 = (z + 3)/1 (Ex 1 da aula de distâncias)</div>
     <ol><li>x/2 é o mesmo que (x − 0)/2, então x₀ = 0 e a = 2.</li><li>(y − 2)/2: y₀ = 2 e b = 2.</li><li>(z + 3)/1 = (z − (−3))/1: z₀ = −3 e c = 1.</li></ol>
     <div class="ans">Ponto (0, 2, −3) e diretor (2, 2, 1)</div></div>
 
   <h3>Equações reduzidas</h3>
   <p>Escolhe-se uma variável como "chefe" (geralmente <i class="m">x</i>) e escreve-se as outras em função dela: <i class="m">y</i> = <i class="m">mx</i> + <i class="m">n</i> e <i class="m">z</i> = <i class="m">px</i> + <i class="m">q</i>. Para tirar ponto e vetor: faça <i class="m">x</i> = <i class="m">t</i>.</p>
-  <div class="ex" data-ex><div class="q">Ler a reta y = −2x + 3, z = 2x (Ex 3 de distâncias)</div>
+  <div class="ex" data-ex data-q="reta-ler2"><div class="q">Ler a reta y = −2x + 3, z = 2x (Ex 3 de distâncias)</div>
     <ol><li>Chame x = t.</li><li>Então y = 3 − 2t e z = 2t.</li><li>Números soltos: (0, 3, 0). Números com t: (1, −2, 2).</li></ol>
     <div class="ans">Ponto (0, 3, 0) e diretor (1, −2, 2)</div></div>
 
@@ -531,7 +531,7 @@ body{font-size:1rem}
     <dl class="legend"><dt>(a, b, c)</dt><dd>o vetor normal n⃗. Leitura direta: os números na frente de x, y e z</dd><dt>d</dt><dd>o termo solto. Calcule com d = −(a·x₀ + b·y₀ + c·z₀), usando um ponto do plano</dd></dl>
   </div>
   <p><b>De onde vem?</b> Se <i class="m">A</i> está no plano e <i class="m">X</i> = (<i class="m">x</i>, <i class="m">y</i>, <i class="m">z</i>) também, a seta <i class="m">AX</i>⃗ fica "deitada" na chapa, então é perpendicular ao prego: <i class="m">n</i>⃗ · <i class="m">AX</i>⃗ = 0. Abrindo a conta: <i class="m">a</i>(<i class="m">x</i> − <i class="m">x</i>₀) + <i class="m">b</i>(<i class="m">y</i> − <i class="m">y</i>₀) + <i class="m">c</i>(<i class="m">z</i> − <i class="m">z</i>₀) = 0.</p>
-  <div class="ex" data-ex><div class="q">Plano por Q = (1, 3, −2) com normal n⃗ = (2, −3, 2) (Ex 1 da aula)</div>
+  <div class="ex" data-ex data-q="plano-q"><div class="q">Plano por Q = (1, 3, −2) com normal n⃗ = (2, −3, 2) (Ex 1 da aula)</div>
     <ol><li>Normal dá os coeficientes: 2x − 3y + 2z + d = 0.</li><li>Q está no plano, então substitua: 2(1) − 3(3) + 2(−2) + d = 0.</li><li>2 − 9 − 4 + d = 0 → −11 + d = 0 → d = 11.</li></ol>
     <div class="ans">2x − 3y + 2z + 11 = 0</div></div>
 
@@ -566,7 +566,7 @@ body{font-size:1rem}
       <figure><svg viewBox="0 0 300 180" aria-label="retas concorrentes no plano"><path d="M30 140 L90 60 L280 60 L220 140 Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55"/><line x1="70" y1="125" x2="240" y2="80" stroke="var(--c1)" stroke-width="3"/><line x1="95" y1="70" x2="200" y2="135" stroke="var(--c2)" stroke-width="3"/><circle cx="148" cy="104" r="5" fill="currentColor"/><line x1="148" y1="104" x2="148" y2="22" stroke="var(--c3)" stroke-width="3"/><path d="M148 14 l-6 12 h12 z" fill="var(--c3)"/><text x="156" y="26" fill="var(--c3)" font-family="serif" font-style="italic" font-size="16">N = v₁ × v₂</text><text x="244" y="80" fill="var(--c1)" font-family="serif" font-style="italic" font-size="15">r₁</text><text x="204" y="150" fill="var(--c2)" font-family="serif" font-style="italic" font-size="15">r₂</text><text x="120" y="122" fill="currentColor" font-family="serif" font-size="13">P</text></svg><figcaption><b>Concorrentes</b> (o exercício 2): os dois diretores já estão no plano. N⃗ = v⃗₁ × v⃗₂.</figcaption></figure>
       <figure><svg viewBox="0 0 300 180" aria-label="retas paralelas no plano"><path d="M30 140 L90 60 L280 60 L220 140 Z" fill="none" stroke="currentColor" stroke-width="1.5" opacity=".55"/><line x1="80" y1="80" x2="250" y2="80" stroke="var(--c1)" stroke-width="3"/><line x1="55" y1="122" x2="225" y2="122" stroke="var(--c2)" stroke-width="3"/><circle cx="120" cy="80" r="5" fill="currentColor"/><circle cx="100" cy="122" r="5" fill="currentColor"/><line x1="100" y1="122" x2="118" y2="84" stroke="var(--c3)" stroke-width="2.5" stroke-dasharray="5 4"/><line x1="140" y1="122" x2="200" y2="122" stroke="var(--c2)" stroke-width="5"/><text x="124" y="74" fill="currentColor" font-family="serif" font-size="13">P₁</text><text x="84" y="140" fill="currentColor" font-family="serif" font-size="13">P₂</text><text x="186" y="142" fill="var(--c2)" font-family="serif" font-style="italic" font-size="14">v₂</text><text x="30" y="30" fill="var(--c3)" font-family="serif" font-style="italic" font-size="16">N = P₂P₁ × v₂</text></svg><figcaption><b>Paralelas</b>: v⃗₁ e v⃗₂ têm a mesma direção, então um deles não basta. Use a seta P₂P₁⃗ que liga uma reta à outra: N⃗ = P₂P₁⃗ × v⃗₂.</figcaption></figure>
     </div>
-    <div class="ex" data-ex><div class="q">Exercício 2: ache o plano π que contém r₁: x = 2t, y = t, z = 2 − t e r₂: x = s, y = s, z = 2.</div>
+    <div class="ex" data-ex data-q="plano-ex2"><div class="q">Exercício 2: ache o plano π que contém r₁: x = 2t, y = t, z = 2 − t e r₂: x = s, y = s, z = 2.</div>
       <ol><li>Diretores (os números com o parâmetro): v⃗₁ = (2, 1, −1) e v⃗₂ = (1, 1, 0). Não são múltiplos, então as retas não são paralelas.</li><li>Em t = 0 e s = 0 as duas passam por (0, 0, 2): são concorrentes, e existe plano.</li><li>N⃗ = v⃗₁ × v⃗₂ = det[ î ĵ k̂ ; 2 1 −1 ; 1 1 0 ] = −ĵ + 2k̂ − (k̂ − î) = (1, −1, 1).</li><li>Equação: x − y + z + d = 0. Com P₁ = (0, 0, 2) ∈ r₁: 0 − 0 + 2 + d = 0 → d = −2.</li></ol>
       <div class="ans">π: x − y + z − 2 = 0</div></div>
     <div class="calc" data-calc="pl2r"><h4>Plano que contém duas retas</h4><p class="hint">Ponto e diretor de cada reta. Carregado: exercício 2 da aula. Teste também retas paralelas, por exemplo P₂ = (1, 0, 0) e v⃗₂ = (2, 1, −1).</p>
@@ -623,7 +623,7 @@ body{font-size:1rem}
     <div class="eq">(<i>u</i>⃗ × <i>v</i>⃗) · <i>P<sub>r</sub>P<sub>s</sub></i>⃗ = det [ <i>u</i>⃗ ; <i>v</i>⃗ ; <i>P<sub>r</sub>P<sub>s</sub></i>⃗ ]</div>
     <dl class="legend"><dt>por quê</dt><dd>se as três setas cabem numa mesma chapa (volume zero), as retas estão no mesmo plano e, não sendo paralelas, se cruzam. Volume ≠ 0 → andares diferentes → reversas.</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Ex 4 da aula: r: (x−2)/2 = (y−3)/3 = z e s: x = y/3 = (1+z)/2</div>
+  <div class="ex" data-ex data-q="pos-ex4"><div class="q">Ex 4 da aula: r: (x−2)/2 = (y−3)/3 = z e s: x = y/3 = (1+z)/2</div>
     <ol><li>r: P = (2, 3, 0), u⃗ = (2, 3, 1). s: Q = (0, 0, −1), v⃗ = (1, 3, 2).</li><li>2/1 ≠ 3/3 → não paralelos.</li><li>PQ⃗ = Q − P = (−2, −3, −1).</li><li>det = 2(3·(−1) − 2·(−3)) − 3(1·(−1) − 2·(−2)) + 1(1·(−3) − 3·(−2)) = 2·3 − 3·3 + 1·3 = 0.</li><li>det = 0 → concorrentes. Para achar o ponto: iguale 2 + 2λ = μ, 3 + 3λ = 3μ, λ = −1 + 2μ → λ = −1, μ = 0.</li></ol>
     <div class="ans">Concorrentes no ponto (0, 0, −1)</div></div>
   <div class="calc" data-calc="posrr"><h4>Classificador de duas retas</h4><p class="hint">Carregado: Ex 3 da aula (resposta: reversas).</p>
@@ -636,7 +636,7 @@ body{font-size:1rem}
     <div class="leaf a"><b>n⃗ · u⃗ ≠ 0</b>A reta <b>fura</b> o plano em um ponto (secante). Para achar o ponto: jogue as paramétricas da reta na equação do plano e resolva o t.</div>
     <div class="leaf b"><b>n⃗ · u⃗ = 0</b>A reta é "deitada" em relação ao plano. Teste um ponto da reta no plano: deu 0 → <b>contida</b>; não deu → <b>paralela</b>.</div>
   </div>
-  <div class="ex" data-ex><div class="q">Ex 5 da aula: r: X = (1, 0, 1) + λ(2, 1, 3) e π: x + y + z = 20</div>
+  <div class="ex" data-ex data-q="pos-ex5"><div class="q">Ex 5 da aula: r: X = (1, 0, 1) + λ(2, 1, 3) e π: x + y + z = 20</div>
     <ol><li>n⃗ · u⃗ = (1,1,1)·(2,1,3) = 6 ≠ 0 → fura.</li><li>Ponto genérico: (1 + 2λ, λ, 1 + 3λ).</li><li>Substitua no plano: 1 + 2λ + λ + 1 + 3λ = 20 → 6λ = 18 → λ = 3.</li><li>Ponto: (1 + 6, 3, 1 + 9).</li></ol>
     <div class="ans">Interseção em (7, 3, 10)</div></div>
   <div class="calc" data-calc="posrp"><h4>Reta × plano</h4><p class="hint">Plano como "a, b, c, d" de ax + by + cz + d = 0. Carregado: Ex 6 (paralela).</p>
@@ -664,7 +664,7 @@ body{font-size:1rem}
     <div class="eq">cos <i>θ</i> = <span class="fr"><span>|<i>v</i>⃗₁ · <i>v</i>⃗₂|</span><span>‖<i>v</i>⃗₁‖ ‖<i>v</i>⃗₂‖</span></span></div>
     <dl class="legend"><dt>v⃗₁, v⃗₂</dt><dd>vetores diretores das duas retas</dd><dt>θ</dt><dd>o ângulo; depois do cos, use arccos (ou reconheça 1/2 → 60°, √2/2 → 45°, √3/2 → 30°)</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Ex 1 da aula: r₁: x = 3 + t, y = t, z = 1 − 2t e r₂: (x+2)/(−2) = (y−3)/1 = z/1</div>
+  <div class="ex" data-ex data-q="ang-ex1"><div class="q">Ex 1 da aula: r₁: x = 3 + t, y = t, z = 1 − 2t e r₂: (x+2)/(−2) = (y−3)/1 = z/1</div>
     <ol><li>v⃗₁ = (1, 1, −2) e v⃗₂ = (−2, 1, 1).</li><li>v⃗₁ · v⃗₂ = −2 + 1 − 2 = −3 → módulo 3.</li><li>‖v⃗₁‖ = √6 e ‖v⃗₂‖ = √6 → produto = 6.</li><li>cos θ = 3/6 = 1/2.</li></ol>
     <div class="ans">θ = 60° = π/3</div></div>
 
@@ -673,7 +673,7 @@ body{font-size:1rem}
     <div class="eq">sen <i>θ</i> = <span class="fr"><span>|<i>v</i>⃗ · <i>n</i>⃗|</span><span>‖<i>v</i>⃗‖ ‖<i>n</i>⃗‖</span></span></div>
     <dl class="legend"><dt>v⃗</dt><dd>diretor da reta</dd><dt>n⃗</dt><dd>normal do plano</dd><dt>por que seno</dt><dd>o escalar mede o ângulo φ entre a reta e o <b>prego</b> (normal). O ângulo com a <b>chapa</b> é o que falta para 90°: θ = 90° − φ, e cos φ = sen θ.</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Ex 2 da aula: r: x = 1 − 2t, y = −t, z = 3 + t e π: x + y − 5 = 0</div>
+  <div class="ex" data-ex data-q="ang-ex2"><div class="q">Ex 2 da aula: r: x = 1 − 2t, y = −t, z = 3 + t e π: x + y − 5 = 0</div>
     <ol><li>v⃗ = (−2, −1, 1) e n⃗ = (1, 1, 0) (o z não aparece no plano → 0).</li><li>v⃗ · n⃗ = −2 − 1 + 0 = −3 → módulo 3.</li><li>‖v⃗‖ = √6, ‖n⃗‖ = √2 → produto √12 = 2√3.</li><li>sen θ = 3/(2√3) = √3/2.</li></ol>
     <div class="ans">θ = 60° = π/3</div></div>
 
@@ -682,7 +682,7 @@ body{font-size:1rem}
     <div class="eq">cos <i>θ</i> = <span class="fr"><span>|<i>n</i>⃗₁ · <i>n</i>⃗₂|</span><span>‖<i>n</i>⃗₁‖ ‖<i>n</i>⃗₂‖</span></span></div>
     <dl class="legend"><dt>n⃗₁, n⃗₂</dt><dd>as normais. O ângulo entre os pregos é o mesmo ângulo entre as chapas.</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Ex 3 da aula: 2x − 3y + 5z − 8 = 0 e 3x + 2y + 5z − 4 = 0</div>
+  <div class="ex" data-ex data-q="ang-ex3"><div class="q">Ex 3 da aula: 2x − 3y + 5z − 8 = 0 e 3x + 2y + 5z − 4 = 0</div>
     <ol><li>n⃗₁ = (2, −3, 5), n⃗₂ = (3, 2, 5).</li><li>Escalar: 6 − 6 + 25 = 25.</li><li>Normas: √38 e √38 → produto 38.</li></ol>
     <div class="ans">θ = arccos(25/38) ≈ 48,9°</div></div>
   <div class="tbl"><table><tr><th>Resumo</th><th>Vetores</th><th>Função</th></tr><tr><td>reta–reta</td><td>diretor e diretor</td><td>cos</td></tr><tr><td>reta–plano</td><td>diretor e normal</td><td><b>sen</b></td></tr><tr><td>plano–plano</td><td>normal e normal</td><td>cos</td></tr></table></div>
@@ -709,7 +709,7 @@ body{font-size:1rem}
     <div class="eq">d(<i>P</i>₀, <i>r</i>) = <span class="fr"><span>‖<i>v</i>⃗ × <i>P</i>₁<i>P</i>₀⃗‖</span><span>‖<i>v</i>⃗‖</span></span></div>
     <dl class="legend"><dt>P₁</dt><dd>um ponto qualquer da reta</dd><dt>v⃗</dt><dd>diretor da reta</dd><dt>P₁P₀⃗</dt><dd>seta do ponto da reta até o ponto dado</dd><dt>ideia</dt><dd>v⃗ e P₁P₀⃗ formam um paralelogramo. Área = ‖v⃗ × P₁P₀⃗‖. Área = base × altura, e a altura é a distância. Logo altura = área ÷ base.</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Ex 1 da aula: P = (2, 0, 7) e r: x/2 = (y−2)/2 = (z+3)/1</div>
+  <div class="ex" data-ex data-q="dist-ex1"><div class="q">Ex 1 da aula: P = (2, 0, 7) e r: x/2 = (y−2)/2 = (z+3)/1</div>
     <ol><li>P₁ = (0, 2, −3), v⃗ = (2, 2, 1).</li><li>P₁P⃗ = (2, −2, 10).</li><li>v⃗ × P₁P⃗ = (2·10 − 1·(−2), 1·2 − 2·10, 2·(−2) − 2·2) = (22, −18, −8).</li><li>‖…‖ = √(484 + 324 + 64) = √872 = 2√218. ‖v⃗‖ = √9 = 3.</li></ol>
     <div class="ans">d = 2√218 / 3 ≈ 9,84</div></div>
 
@@ -718,7 +718,7 @@ body{font-size:1rem}
     <div class="eq">d(<i>P</i>, <i>π</i>) = <span class="fr"><span>|<i>ax</i>₀ + <i>by</i>₀ + <i>cz</i>₀ + <i>d</i>|</span><span><span class="rt"><span><i>a</i>² + <i>b</i>² + <i>c</i>²</span></span></span></span></div>
     <dl class="legend"><dt>em cima</dt><dd>jogue o ponto P = (x₀, y₀, z₀) na equação do plano e tire o módulo</dd><dt>embaixo</dt><dd>a norma do vetor normal</dd><dt>ideia</dt><dd>é a projeção de AP⃗ (A no plano) sobre a normal: quanto P está "acima" da chapa medido no prego</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Ex 2 da aula: P = (1, 2, −1) e π: 3x − 4y − 5z + 1 = 0</div>
+  <div class="ex" data-ex data-q="dist-ex2"><div class="q">Ex 2 da aula: P = (1, 2, −1) e π: 3x − 4y − 5z + 1 = 0</div>
     <ol><li>Em cima: |3(1) − 4(2) − 5(−1) + 1| = |3 − 8 + 5 + 1| = 1.</li><li>Embaixo: √(9 + 16 + 25) = √50 = 5√2.</li><li>1/(5√2), racionalizando: √2/10.</li></ol>
     <div class="ans">d = √2/10 ≈ 0,141</div></div>
 
@@ -732,7 +732,7 @@ body{font-size:1rem}
     <div class="eq">d(<i>r</i>, <i>s</i>) = <span class="fr"><span>|(<i>v</i>⃗<sub>r</sub>, <i>v</i>⃗<sub>s</sub>, <i>P<sub>r</sub>P<sub>s</sub></i>⃗)|</span><span>‖<i>v</i>⃗<sub>r</sub> × <i>v</i>⃗<sub>s</sub>‖</span></span></div>
     <dl class="legend"><dt>em cima</dt><dd>módulo do produto misto: volume da caixa formada pelas três setas</dd><dt>embaixo</dt><dd>área do fundo da caixa</dd><dt>ideia</dt><dd>volume = base × altura, e a altura é a distância entre os "andares" das retas</dd></dl>
   </div>
-  <div class="ex" data-ex><div class="q">Ex 4 da aula: r: (−2, 1, 4) + λ(1, 0, −2) e s: (3, −1, 3) + t(0, 2, −1)</div>
+  <div class="ex" data-ex data-q="dist-ex4"><div class="q">Ex 4 da aula: r: (−2, 1, 4) + λ(1, 0, −2) e s: (3, −1, 3) + t(0, 2, −1)</div>
     <ol><li>v⃗ᵣ × v⃗ₛ = (0·(−1) − (−2)·2, (−2)·0 − 1·(−1), 1·2 − 0·0) = (4, 1, 2). Norma √21.</li><li>PᵣPₛ⃗ = (5, −2, −1).</li><li>Misto: (4, 1, 2)·(5, −2, −1) = 20 − 2 − 2 = 16 ≠ 0 → reversas mesmo.</li></ol>
     <div class="ans">d = 16/√21 = 16√21/21 ≈ 3,49</div></div>
 
@@ -791,14 +791,17 @@ body{font-size:1rem}
   <figure class="f3"><div class="seg" id="f3a-b"></div><div class="cv inline-cv" id="f3a"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3a-c"></figcaption></figure>
   <p>Por que (i) e (ii) são duas condições, e não uma? Porque uma pode valer sem a outra. Os dois contraexemplos clássicos ficam no plano xy:</p>
   <figure class="f3"><div class="seg" id="f3b-b"></div><div class="cv inline-cv" id="f3b"><canvas></canvas><div class="lbl">plano xy visto em 3D</div></div><figcaption id="f3b-c"></figcaption></figure>
-  <div class="ex" data-ex><div class="q">Exemplo 2: decida se é subespaço de ℝ³. a) W₁: x − 2y + z = 0 &nbsp; b) W₂: x + y = 1 &nbsp; c) W₃: z = x² &nbsp; d) W₄ = {(t, 2t, −t) : t ∈ ℝ}</div>
-    <ol><li>a) Teste completo. <b>0</b>: 0 − 0 + 0 = 0 ✓. Soma: se x₁ − 2y₁ + z₁ = 0 e x₂ − 2y₂ + z₂ = 0, somando dá (x₁+x₂) − 2(y₁+y₂) + (z₁+z₂) = 0 ✓. Escalar: αx − 2αy + αz = α·0 = 0 ✓. <b>Sim</b>: é um plano pela origem.</li><li>b) <b>0</b>: 0 + 0 = 0 ≠ 1, logo <b>0</b> ∉ W₂: <b>não</b> (plano deslocado).</li><li>c) Contém o <b>0</b>, então testa o escalar com números: (1, 0, 1) ∈ W₃ (1 = 1²), mas 2(1, 0, 1) = (2, 0, 2) ∉ W₃, pois 2 ≠ 2²: <b>não</b>. O x² estraga a linearidade.</li><li>d) São todos os múltiplos de (1, 2, −1): <b>sim</b>, a reta pela origem [ (1, 2, −1) ].</li></ol>
+  <div class="ex" data-ex data-q="sub-ex2"><div class="q">Exemplo 2: decida se é subespaço de ℝ³. a) W₁: x − 2y + z = 0 &nbsp; b) W₂: x + y = 1 &nbsp; c) W₃: z = x² &nbsp; d) W₄ = {(t, 2t, −t) : t ∈ ℝ}</div>
+    <ol><li>a) Teste completo. <b>0</b>: 0 − 0 + 0 = 0 ✓. Soma: se x₁ − 2y₁ + z₁ = 0 e x₂ − 2y₂ + z₂ = 0, somando dá (x₁+x₂) − 2(y₁+y₂) + (z₁+z₂) = 0 ✓. Escalar: αx − 2αy + αz = α·0 = 0 ✓. <b>Sim</b>: é um plano pela origem.</li><li>b) <b>0</b>: 0 + 0 = 0 ≠ 1, logo <b>0</b> ∉ W₂: <b>não</b> (plano deslocado).</li><li>c) Contém o <b>0</b>, então testa o escalar com números: (1, 0, 1) ∈ W₃ (1 = 1²), mas 2(1, 0, 1) = (2, 0, 2) ∉ W₃, pois 2 ≠ 2²: <b>não</b>. O x² estraga a linearidade.</li><li>d) Em paramétricas, W₄: x = t, y = 2t, z = −t (t ∈ ℝ). São todos os múltiplos de (1, 2, −1): <b>sim</b>, a reta pela origem [ (1, 2, −1) ].</li></ol>
     <div class="ans">Sim, não, não, sim. Regra de bolso: equações lineares com lado direito 0 dão subespaço.</div></div>
 
   <h3>3 · Combinação linear e espaço gerado</h3>
   <div class="fx"><span class="tag">Definição 2 · combinação linear</span>
     <div class="eq"><i>v</i> = α₁<i>v</i>₁ + α₂<i>v</i>₂ + ⋯ + α<sub>k</sub><i>v</i><sub>k</sub></div>
     <dl class="legend"><dt>v</dt><dd>é combinação linear de v₁, …, vₖ se existirem números α₁, …, αₖ que façam a conta fechar</dd><dt>na prática</dt><dd>é um sistema linear: as colunas são v₁, …, vₖ e o lado direito é v. Tem solução? Então é combinação linear.</dd></dl></div>
+  <div class="ex" data-ex data-q="sub-ex3"><div class="q">Exemplo 3: v₁ = (1, 0, 1) e v₂ = (0, 1, 1). (2, 3, 5) é combinação linear de v₁ e v₂? E (1, 1, 1)?</div>
+    <ol><li>Escreva a pergunta como conta: (2, 3, 5) = α₁v₁ + α₂v₂ = α₁(1, 0, 1) + α₂(0, 1, 1).</li><li>Junte coordenada a coordenada: (2, 3, 5) = (α₁, α₂, α₁ + α₂).</li><li>Sistema: α₁ = 2, α₂ = 3 e α₁ + α₂ = 5. Confere: 2 + 3 = 5 ✓. Sistema possível: (2, 3, 5) = 2v₁ + 3v₂.</li><li>Com (1, 1, 1): (1, 1, 1) = (α₁, α₂, α₁ + α₂) dá α₁ = 1, α₂ = 1, mas α₁ + α₂ = 1 exigiria 1 + 1 = 1. Sistema impossível.</li></ol>
+    <div class="ans">(2, 3, 5) = 2v₁ + 3v₂ é combinação linear · (1, 1, 1) não é</div></div>
   <div class="fx"><span class="tag">Definição 3 · espaço gerado</span>
     <div class="eq" style="white-space:normal">[ <i>v</i>₁, …, <i>v</i><sub>k</sub> ] = { α₁<i>v</i>₁ + ⋯ + α<sub>k</sub><i>v</i><sub>k</sub> : α<sub>i</sub> ∈ ℝ }</div>
     <dl class="legend"><dt>[ … ]</dt><dd>todas as combinações lineares possíveis (outra notação: span{v₁, …, vₖ})</dd><dt>é subespaço</dt><dd>soma de combinações é combinação (somam-se os coeficientes), múltiplo também. É o <b>menor</b> subespaço que contém v₁, …, vₖ.</dd></dl></div>
@@ -818,7 +821,7 @@ body{font-size:1rem}
   </ol>
   <p>Confere com o atalho geométrico: v₁ × v₂ = (−1, −1, 1), a normal do plano x + y − z = 0. Agora testar um vetor é só substituir na equação, como na figura abaixo: (2, 3, 5) dá 2 + 3 − 5 = 0 e <b>está</b> (é 2v₁ + 3v₂); (1, 1, 1) dá 1 ≠ 0 e <b>não está</b>.</p>
   <figure class="f3"><div class="seg" id="f3d-b"></div><div class="cv inline-cv" id="f3d"><canvas></canvas><div class="lbl">plano gerado por v₁ e v₂</div></div><figcaption id="f3d-c"></figcaption></figure>
-  <div class="ex" data-ex><div class="q">Exemplo 4: v₁ = (1, 1, 1) e v₂ = (1, −1, 1). a) (3, 1, 3) é combinação linear? b) E (3, 1, 4)? c) Descreva [ v₁, v₂ ] por uma equação.</div>
+  <div class="ex" data-ex data-q="sub-ex4"><div class="q">Exemplo 4: v₁ = (1, 1, 1) e v₂ = (1, −1, 1). a) (3, 1, 3) é combinação linear? b) E (3, 1, 4)? c) Descreva [ v₁, v₂ ] por uma equação.</div>
     <ol><li>Combinação genérica: α₁(1, 1, 1) + α₂(1, −1, 1) = (α₁ + α₂, α₁ − α₂, α₁ + α₂). A 1ª e a 3ª coordenadas são <b>sempre iguais</b>.</li><li>c) [ v₁, v₂ ] = {(x, y, z) : x = z}, o plano x − z = 0 (confira: v₁ × v₂ = (2, 0, −2)).</li><li>a) (3, 1, 3): x = z ✓. α₁ + α₂ = 3 e α₁ − α₂ = 1 dão α₁ = 2, α₂ = 1: (3, 1, 3) = 2v₁ + v₂.</li><li>b) (3, 1, 4): 3 ≠ 4, fora do plano. Não é.</li></ol>
     <div class="ans">a) Sim, 2v₁ + v₂ · b) Não · c) x = z</div></div>
 
@@ -850,7 +853,7 @@ body{font-size:1rem}
   <div class="fx"><span class="tag">Resumo · existência e unicidade</span>
     <div class="eq" style="font-size:1.15rem;white-space:normal">existe solução ⇔ <i>b</i> ∈ C(<i>A</i>) &nbsp;&nbsp;·&nbsp;&nbsp; havendo, é única ⇔ N(<i>A</i>) = {<b>0</b>}</div>
     <dl class="legend"><dt>pivô em toda linha</dt><dd>C(A) = ℝᵐ: tem solução para qualquer b</dd><dt>pivô em toda coluna</dt><dd>N(A) = {0}: no máximo uma solução</dd><dt>coluna livre</dt><dd>N(A) ≠ {0}: nenhuma ou infinitas</dd></dl></div>
-  <div class="ex" data-ex><div class="q">Exemplo 5: geradores do espaço nulo de A = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span>2</span><span>4</span><span>0</span><span>6</span></span></span></div>
+  <div class="ex" data-ex data-q="sub-ex5"><div class="q">Exemplo 5: geradores do espaço nulo de A = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span>2</span><span>4</span><span>0</span><span>6</span></span></span></div>
     <ol><li>Escalone: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span>2</span><span>4</span><span>0</span><span>6</span></span> <span class="op">L₂ − 2L₁</span> <span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>−1</span><span>1</span><span>0</span><span>0</span><span>2</span><span>4</span></span> <span class="op">L₂/2</span> <span class="mx" style="grid-template-columns:repeat(4,auto)"><span class="pv">1</span><span>2</span><span>−1</span><span>1</span><span>0</span><span>0</span><span class="pv">1</span><span>2</span></span></span></li><li>Pivôs nas colunas 1 e 3. Livres: x₂ e x₄. Da 2ª linha, x₃ = −2x₄; da 1ª, x₁ = −2x₂ + x₃ − x₄ = −2x₂ − 3x₄.</li><li>Separe por variável livre: (x₁, x₂, x₃, x₄) = x₂(−2, 1, 0, 0) + x₄(−3, 0, −2, 1).</li><li>Bônus: C(A) = [ (1, 2), (−1, 0) ] (colunas 1 e 3 da original) = ℝ², porque há pivô em toda linha. Então AX = b tem solução para todo b, e infinitas, porque sobram 2 livres.</li></ol>
     <div class="ans">N(A) = [ (−2, 1, 0, 0), (−3, 0, −2, 1) ] · 4 incógnitas − 2 pivôs = 2 graus de liberdade</div></div>
 
@@ -871,7 +874,7 @@ body{font-size:1rem}
       <svg id="noSvg" viewBox="0 0 300 200" aria-label="Forças no nó"></svg></div>
     <div class="out" id="noOut"></div></div>
 
-  <div class="ex" data-ex><div class="q">Exercício: um nó é suspenso por u₁ = (1, 0, 1), u₂ = (0, 1, 1) e u₃ = (−1, −1, 1). a) Mostre que ele equilibra qualquer carga F ∈ ℝ³. b) Repita com u₃ = (1, 1, 2). O que acontece? c) Que relação há entre esse novo u₃ e u₁, u₂?</div>
+  <div class="ex" data-ex data-q="sub-no"><div class="q">Exercício: um nó é suspenso por u₁ = (1, 0, 1), u₂ = (0, 1, 1) e u₃ = (−1, −1, 1). a) Mostre que ele equilibra qualquer carga F ∈ ℝ³. b) Repita com u₃ = (1, 1, 2). O que acontece? c) Que relação há entre esse novo u₃ e u₁, u₂?</div>
     <ol><li>a) det[ u₁ u₂ u₃ ] = 1·(1·1 − (−1)·1) − 0 + (−1)·(0·1 − 1·1) = 2 + 1 = 3 ≠ 0. É o produto misto ≠ 0 da tabela da parte 3: os três geram ℝ³, e A t = −F tem solução para todo F.</li><li>b) Com u₃ = (1, 1, 2) o determinante dá 0: o espaço gerado vira só um plano, e há cargas que o nó não equilibra.</li><li>c) u₃ = u₁ + u₂: a terceira barra não acrescenta nenhuma direção nova, porque u₃ ∈ [ u₁, u₂ ].</li></ol>
     <div class="ans">a) det = 3 ≠ 0 · b) só um plano de cargas · c) u₃ = u₁ + u₂</div></div>
 
@@ -1468,6 +1471,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="gaal"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../js/quadro.js?v=2" data-materia="gaal"></script>
+<script src="../../dados/quadros-gaal.js?v=1"></script>
+<script src="../../js/quadro.js?v=3" data-materia="gaal"></script>
 </body>
 </html>

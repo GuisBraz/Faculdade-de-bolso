@@ -48,8 +48,17 @@
 .fdbq-board .ar{color:var(--ink2)}
 .fdbq-board .ans{display:block;margin:12px 0 6px;padding:8px 14px;border:2.6px solid var(--c1);border-radius:10px;background:rgba(242,107,29,.08);font-weight:700;font-size:1.16rem;color:var(--ink)}
 .fdbq-board .ans b,.fdbq-board .ans strong{color:var(--c1)}
-.fdbq-board .sig{text-align:right;font-size:.74rem;color:var(--ink2);margin-top:16px;text-shadow:none}
 .fdbq-board .mx{border-color:var(--ink)}
+.fdbq-board .co{color:var(--c1)}.fdbq-board .cg{color:var(--ok)}.fdbq-board .cr{color:var(--bad)}.fdbq-board .cb{color:var(--c2)}
+.fdbq-board .fm{display:inline-block;margin-left:10px;padding:0 10px;border:2px solid var(--c1);border-radius:8px;font-size:.92em;font-weight:400;color:var(--ink)}
+.fdbq-board .nt{font-size:.88rem;color:var(--ink2);margin:0 0 4px;line-height:1.4}
+.fdbq-board .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:10px;margin:8px 0}
+.fdbq-board .cols .bx{margin:0}
+.fdbq-board .bh{color:var(--c2);font-size:.95rem}
+.fdbq-board .sysw{display:flex;align-items:center;flex-wrap:wrap;gap:4px 12px;margin:6px 0}
+.fdbq-board .sys{border-left:2.4px solid var(--ink);border-radius:14px 0 0 14px;padding:2px 0 2px 12px;line-height:1.5}
+.fdbq-board .fin{margin:10px 0 6px;padding:8px 14px;border:2.6px solid var(--c1);border-radius:10px;background:rgba(242,107,29,.08);font-weight:700;font-size:1.1rem}
+.fdbq-board .hd .fm{font-size:.8em}
 .fdbq-board sub,.fdbq-board sup{font-size:.7em}
 .fdbq-v{position:relative;display:inline-block;padding-top:.28em;line-height:1}.fdbq-v::after{content:"";position:absolute;left:5%;right:-8%;top:.08em;height:.14em;border-top:1.6px solid currentColor;background:linear-gradient(135deg,transparent 45%,currentColor 46%,currentColor 54%,transparent 55%) right/.3em .3em no-repeat}
 .fdbq-board .w{clip-path:inset(0 100% 0 0);opacity:.2}
@@ -131,8 +140,30 @@
   }
   /* realces de giz: "a)" azul, ✓ verde, setas suaves */
   const giz = h => String(h || '').replace(/^\s*(\(?[a-h]\))\s*/, '<span class="it">$1</span> ').replace(/✓/g, '<span class="ok">✓</span>').replace(/(→|⇒|⇔)/g, '<span class="ar">$1</span>');
+  /* quadro escrito à mão (dados/quadros-*.js) */
+  const tinta = h => String(h || '').replace(/«([ogrb])\|([^»]*)»/g, (m, c, t) => '<span class="c' + c + '">' + t + '</span>');
+  function lousa(q, B) {
+    let h = '<div class="t w">' + tinta(B.t || q.titulo || 'Resolução') + '</div>';
+    if (B.r) h += '<div class="rc w">' + tinta(B.r) + '</div>';
+    if (q.enun && B.en !== false) h += '<div class="en w">' + q.enun + '</div>';
+    let k = 0;
+    const linha = x => {
+      if (typeof x === 'string') {
+        if (x[0] === '#') { const [a, f] = x.slice(1).split(' | '); return '<div class="hd w"><span class="n">' + (++k) + '</span><span>' + tinta(a) + (f ? '<span class="fm">' + tinta(f) + '</span>' : '') + '</span></div>' }
+        if (x[0] === '~') return '<div class="nt w">' + tinta(x.slice(1).trim()) + '</div>';
+        if (x[0] === '=') return '<div class="fin w">' + tinta(x.slice(1)) + '</div>';
+        return '<div class="ln w">' + tinta(x) + '</div>';
+      }
+      if (x.c) return '<div class="cols">' + x.c.map(col => '<div class="bx">' + col.map(l => l[0] === '*' ? '<div class="bh w">' + tinta(l.slice(1)) + '</div>' : linha(l)).join('') + '</div>').join('') + '</div>';
+      if (x.s) return '<div class="sysw w"><div class="sys">' + x.s.map(l => '<div>' + tinta(l) + '</div>').join('') + '</div>' + (x.a ? '<div>' + tinta(x.a) + '</div>' : '') + '</div>';
+      return '';
+    };
+    h += (B.b || []).map(linha).join('');
+    return h;
+  }
   function abrirQuadro(q) {
     const b = document.createElement('div'); b.className = 'fdbq-board';
+    if (q.board) { b.innerHTML = vec(lousa(q, q.board)); return mostrar(q, b) }
     const secs = q.secoes || [];
     let h = '<div class="t w">' + (q.titulo || 'Resolução') + '</div>';
     if (q.receita) h += '<div class="rc w">' + q.receita + '</div>';
@@ -148,8 +179,9 @@
       }
       if (s.resp) h += '<div class="ans w">' + s.resp + '</div>';
     });
-    h += '<div class="sig">Desenvolvido por Guilherme dos Santos Braz — Técnico de processos e estudante de engenharia mecânica</div>';
-    b.innerHTML = vec(h);
+    b.innerHTML = vec(h); mostrar(q, b);
+  }
+  function mostrar(q, b) {
     const bg = janela(q.tag || 'Resolução', b, '<button class="re" type="button">↻ De novo</button><button class="tu" type="button">Mostrar tudo</button>');
     bg.querySelector('.re').onclick = () => { bg.querySelector('.fdbq-bd').scrollTop = 0; escrever(b) };
     bg.querySelector('.tu').onclick = () => escrever(b, true);
@@ -158,7 +190,7 @@
   function lista(sel, itens) {
     const box = typeof sel === 'string' ? document.querySelector(sel) : sel; if (!box) return;
     box.querySelectorAll('details.qitem').forEach((det, i) => {
-      const q = itens[i]; if (!q) return; const body = det.querySelector('.body'); if (!body || body.querySelector('.fdbq-btn')) return;
+      const q = itens[i]; if (!q) return; const QB = (window.FDB_QUADROS || {})[MAT] || {}; if (!q.board && QB['L' + (i + 1)]) q.board = QB['L' + (i + 1)]; const body = det.querySelector('.body'); if (!body || body.querySelector('.fdbq-btn')) return;
       const bt = document.createElement('button'); bt.type = 'button'; bt.className = 'fdbq-btn'; bt.innerHTML = '✍️ Ver resolução no quadro';
       bt.onclick = () => abrirQuadro(q); body.insertBefore(bt, body.firstChild);
     });
@@ -174,7 +206,8 @@
         const sec = ex.closest('section'), eb = sec && sec.querySelector('.eyebrow'), h2 = sec && sec.querySelector('h2');
         const q = ex.querySelector('.q'), lis = [...ex.querySelectorAll('ol>li')].map(l => l.innerHTML), ans = ex.querySelector('.ans');
         let tit = 'Exemplo resolvido', en = q ? q.innerHTML : ''; const m = en.match(/^\s*([^:<]{2,48}):\s*([\s\S]*)$/); if (m) { tit = m[1].trim(); en = m[2] }
-        abrirQuadro({ titulo: tit, tag: (eb ? eb.textContent.split('·')[0].trim() + ' · ' : '') + (h2 ? h2.textContent.split(':')[0].trim() : 'Exemplo'),
+        const QB = (window.FDB_QUADROS || {})[MAT] || {}, brd = ex.dataset.q && QB[ex.dataset.q];
+        abrirQuadro({ board: brd || null, titulo: tit, tag: (eb ? eb.textContent.split('·')[0].trim() + ' · ' : '') + (h2 ? h2.textContent.split(':')[0].trim() : 'Exemplo'),
           enun: en, secoes: [{ passos: lis, resp: ans ? ans.innerHTML : '' }] });
       };
       btns.appendChild(bt);
