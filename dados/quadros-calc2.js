@@ -113,6 +113,19 @@
     return svg(W, H, g);
   }
 
+  /* árvore de 3 galhos, cada um com uma só variável t embaixo (questão 7, método da professora) */
+  function ARV3(top, mid) {
+    const W = 360, H = 220, mx = [70, 180, 290]; let g = '';
+    const no = (x, y, t, c) => '<circle cx="' + x + '" cy="' + y + '" r="15" fill="#fff" stroke="' + c + '" stroke-width="2"/>' + txt(x, y + 5, t, c, 15, 'middle');
+    mid.forEach((m, i) => {
+      g += '<line x1="180" y1="36" x2="' + mx[i] + '" y2="88" stroke="' + K.o + '" stroke-width="2"/>' + (i === 1 ? txt(188, 66, '∂' + top + '/∂' + m, K.o, 12) : txt((180 + mx[i]) / 2 + (i - 1) * 34, 60, '∂' + top + '/∂' + m, K.o, 12, 'middle'));
+      g += '<line x1="' + mx[i] + '" y1="118" x2="' + mx[i] + '" y2="172" stroke="' + K.b + '" stroke-width="2"/>' + txt(mx[i] + 8, 150, 'd' + m + '/dt', K.b, 12);
+      g += no(mx[i], 103, m, K.ink) + no(mx[i], 187, 't', K.b);
+    });
+    g += no(180, 22, top, K.o);
+    return svg(W, H, g);
+  }
+
   /* ---------- esboços ---------- */
   const CHAPA = (L, C, e) => svg(320, 170, '<path d="M40,110 L180,140 L290,95 L150,68 Z" fill="rgba(30,98,201,.12)" stroke="' + K.ink + '" stroke-width="2"/><path d="M40,110 L40,124 L180,154 L180,140 M180,154 L290,109 L290,95" fill="none" stroke="' + K.ink + '" stroke-width="2"/>'
     + txt(100, 145, L, K.o, 14, 'middle') + txt(248, 138, C, K.o, 14, 'middle') + txt(26, 124, e, K.b, 13, 'end'));
@@ -459,11 +472,31 @@
       P2({ x: [0, 3.5], y: [1.5, 5], w: 280, h: 230, tk: 1, cv: [{ p: t => [Math.sqrt(1 + t), 2 + t / 3], t: [0, 8], c: K.b, l: [2.4, 4.4, 'caminho'] }], ar: [[2, 3, 2 + 0.25 * 3, 3 + 3 / 3 * 1, K.o, 'velocidade', 6, 0]], pt: [[2, 3, K.ink, 't = 3', 6, 16]] }),
       'dT/dt = T<sub>x</sub>·x′ + T<sub>y</sub>·y′ = 4·(1/4) + 3·(1/3)', ' = 1 + 1 = «o|2»',
       '=dT/dt = 2 °C/s'] };
-  q.Q7 = { t: '7) Caixa: ℓ = 1, w = h = 2 · ℓ′ = w′ = 2, h′ = −3', r: 'Receita: fórmula → derivada no tempo (cada letra tem a sua taxa) → troca os números',
-    b: [CAIXA('ℓ = 1', 'w = 2', 'h = 2'),
-      { c: [['*(a) volume', 'V = ℓwh', 'V′ = wh·ℓ′ + ℓh·w′ + ℓw·h′', ' = 4·2 + 2·2 + 2·(−3)', ' = «o|6 m³/s»'], ['*(b) área', 'S = 2(ℓw + ℓh + wh)', 'S′ = 2[(w + h)ℓ′ + (ℓ + h)w′ + (ℓ + w)h′]', ' = 2[4·2 + 3·2 + 3·(−3)]', ' = «o|10 m²/s»'], ['*(c) diagonal', 'D = √(ℓ² + w² + h²) = 3', 'D′ = (ℓℓ′ + ww′ + hh′)/D', ' = (2 + 4 − 6)/3', ' = «o|0 m/s»']] },
-      '~ a diagonal fica parada: o que um lado ganha o outro perde',
-      '=V′ = 6 m³/s · S′ = 10 m²/s · D′ = 0'] };
+  q.Q7 = { t: '7) Caixa: ℓ = 1, w = h = 2 · ℓ e w aumentam 2 m/s, h diminui 3 m/s', r: 'Receita: escreve a fórmula → árvore (cada medida depende de t) → regra da cadeia → deriva → troca os números no instante',
+    b: [lado(CAIXA('ℓ', 'w', 'h'), '<div>ℓ = 1 · w = h = 2<br><br>«o|dℓ/dt = 2 m/s»<br>«o|dw/dt = 2 m/s»<br>«o|dh/dt = −3 m/s»<br><span style="font-size:.8em;color:#888">h diminui → taxa negativa</span></div>'),
+      '#(a) Volume | V = ℓwh',
+      ARV3('V', ['ℓ', 'w', 'h']),
+      '~ 3 caminhos até t → 3 parcelas somadas',
+      F('dV', 'dt') + ' = ' + F('∂V', '∂ℓ') + '·' + F('dℓ', 'dt') + ' + ' + F('∂V', '∂w') + '·' + F('dw', 'dt') + ' + ' + F('∂V', '∂h') + '·' + F('dh', 'dt'),
+      { c: [['*∂V/∂ℓ', 'w, h congelados', '«o|wh»'], ['*∂V/∂w', 'ℓ, h congelados', '«o|ℓh»'], ['*∂V/∂h', 'ℓ, w congelados', '«o|ℓw»']] },
+      F('dV', 'dt') + ' = wh·«b|2» + ℓh·«b|2» + ℓw·«b|(−3)»',
+      '~ no instante ℓ = 1, w = h = 2:',
+      ' = 2·2·2 + 1·2·2 − 3·1·2 = 8 + 4 − 6 = «o|6 m³/s»',
+      '#(b) Área | A = 2wℓ + 2hw + 2ℓh',
+      ARV3('A', ['w', 'ℓ', 'h']),
+      F('dA', 'dt') + ' = ' + F('∂A', '∂w') + '·' + F('dw', 'dt') + ' + ' + F('∂A', '∂ℓ') + '·' + F('dℓ', 'dt') + ' + ' + F('∂A', '∂h') + '·' + F('dh', 'dt'),
+      { c: [['*∂A/∂w', '2ℓ + 2h', ' = 2 + 4 = «o|6»'], ['*∂A/∂ℓ', '2w + 2h', ' = 4 + 4 = «o|8»'], ['*∂A/∂h', '2ℓ + 2w', ' = 2 + 4 = «o|6»']] },
+      '~ cada parcial: só os termos que têm a letra; os outros viram 0',
+      F('dA', 'dt') + ' = 6·«b|2» + 8·«b|2» + 6·«b|(−3)» = 12 + 16 − 18 = «o|10 m²/s»',
+      '#(c) Diagonal | D = √(w² + ℓ² + h²) = (w² + ℓ² + h²)<sup>1/2</sup>',
+      ARV3('D', ['w', 'ℓ', 'h']),
+      '~ no instante: D = √(4 + 1 + 4) = √9 = «b|3»',
+      F('∂D', '∂w') + ' = ' + F('1', '2') + '(w² + ℓ² + h²)<sup>−1/2</sup>·«b|2w» = ' + F('w', 'D'),
+      '~ igual para os outros: ∂D/∂ℓ = ℓ/D · ∂D/∂h = h/D',
+      { c: [['*∂D/∂w', '2/3'], ['*∂D/∂ℓ', '1/3'], ['*∂D/∂h', '2/3']] },
+      F('dD', 'dt') + ' = ' + F('2', '3') + '·«b|2» + ' + F('1', '3') + '·«b|2» + ' + F('2', '3') + '·«b|(−3)» = ' + F('4 + 2 − 6', '3') + ' = «o|0»',
+      '~ a diagonal fica parada nesse instante: o que ℓ e w ganham, h perde',
+      '=(a) dV/dt = 6 m³/s · (b) dA/dt = 10 m²/s · (c) dD/dt = 0 m/s'] };
   q.Q8 = { t: '8) f(x, y) = 5xy² − 4x³y, P(1, 2), u = ⟨5/13, 12/13⟩', r: 'Receita: gradiente → no ponto → u unitário? → D<sub>u</sub>f = ∇f · u',
     b: ['#(a) Gradiente', { c: [['*f<sub>x</sub> → y congelado', '5y² − 12x²y'], ['*f<sub>y</sub> → x congelado', '10xy − 4x³']] },
       '∇f = «o|⟨5y² − 12x²y , 10xy − 4x³⟩»',
