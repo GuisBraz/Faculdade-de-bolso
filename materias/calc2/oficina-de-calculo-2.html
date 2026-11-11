@@ -1192,7 +1192,7 @@ const PROBS=[
  {n:'13',m:'taxa máxima',e:'Determine a taxa de variação máxima de f no ponto dado e a direção em que isso ocorre: f(x, y) = sen(xy), (1, 0).',q:'f(x, y) = sen(xy) em (1, 0): taxa de variação máxima e direção.',
   s:['∇f = ⟨y cos(xy), x cos(xy)⟩.','Em (1, 0): ∇f = ⟨0, 1⟩.','Taxa máxima = |∇f| = 1, na direção do próprio gradiente.'],a:'Taxa máxima 1, na direção ⟨0, 1⟩'},
  {n:'14',m:'gradiente · aplicação',e:'A temperatura T em uma bola de metal é inversamente proporcional à distância do centro da bola, que tomamos como a origem. A temperatura no ponto (1, 2, 2) é de 120°. (a) Determine a taxa de variação de T em (1, 2, 2) em direção ao ponto (2, 1, 3).',q:'T em uma bola é inversamente proporcional à distância ao centro; T(1, 2, 2) = 120°. Taxa de variação em (1, 2, 2) em direção a (2, 1, 3).',
-  s:['T = k/√(x² + y² + z²). Em (1, 2, 2), a distância é 3: 120 = k/3 → k = 360.','∇T = −k⟨x, y, z⟩/(x² + y² + z²)^(3/2). Em (1, 2, 2): −360⟨1, 2, 2⟩/27 = −(40/3)⟨1, 2, 2⟩.','v = (2, 1, 3) − (1, 2, 2) = ⟨1, −1, 1⟩, |v| = √3.','D<sub>u</sub>T = −(40/3)(1 − 2 + 2)/√3 = −40/(3√3).'],a:'D<sub>u</sub>T = −40/(3√3) ≈ −7,7 °/unidade (a temperatura cai)'},
+  s:['Monte T: inversamente proporcional à distância → T(x, y, z) = K/√(x² + y² + z²).','Use o dado do problema, T(1, 2, 2) = 120: substituindo, K/√(1² + 2² + 2²) = 120 → K/3 = 120 → K = 360. Então T = 360/√(x² + y² + z²) = 360(x² + y² + z²)<sup>−1/2</sup>.','Direção: v = (2, 1, 3) − (1, 2, 2) = (1, −1, 1); ‖v‖ = √(1² + (−1)² + 1²) = √3; u = v/‖v‖ = (1/√3, −1/√3, 1/√3).','Gradiente pela regra da potência + cadeia: T<sub>x</sub> = 360·(−1/2)(x² + y² + z²)<sup>−3/2</sup>·2x = −360x/(x² + y² + z²)<sup>3/2</sup>, e igual para y e z.','No ponto: x² + y² + z² = 9 e 9<sup>3/2</sup> = 27, então ∇T(1, 2, 2) = (−360·1/27, −360·2/27, −360·2/27) = (−40/3, −80/3, −80/3).','D<sub>u</sub>T(1, 2, 2) = ∇T(1, 2, 2)·u = (−40/3)(1/√3) + (−80/3)(−1/√3) + (−80/3)(1/√3) = (−40 + 80 − 80)/(3√3) = −40/(3√3).'],a:'D<sub>u</sub>T(1, 2, 2) = −40/(3√3) ≈ −7,7 °C por unidade de comprimento (a temperatura cai)'},
  {n:'15',m:'gradiente · potencial',e:'Suponha que em uma certa região do espaço o potencial elétrico V seja dado por V(x, y, z) = 5x² − 3xy + xyz. (a) Determine a taxa de variação do potencial em P(3, 4, 5) na direção do vetor v = i + j − k. (b) Em que direção V varia mais rapidamente em P? (c) Qual a taxa máxima de variação em P?',q:'V = 5x² − 3xy + xyz. Em P(3, 4, 5): (a) taxa na direção v = i + j − k (b) direção de maior variação (c) taxa máxima.',
   s:['∇V = ⟨10x − 3y + yz, −3x + xz, xy⟩.','∇V(3, 4, 5) = ⟨30 − 12 + 20, −9 + 15, 12⟩ = ⟨38, 6, 12⟩.','(a) u = ⟨1, 1, −1⟩/√3: D<sub>u</sub>V = (38 + 6 − 12)/√3 = 32/√3.','(b) a direção de ∇V(P) = ⟨38, 6, 12⟩.','(c) |∇V| = √(1444 + 36 + 144) = √1624 = 2√406.'],a:'(a) 32/√3 · (b) ⟨38, 6, 12⟩ · (c) 2√406 ≈ 40,3'},
  {n:'16a',m:'máximos e mínimos',e:'Determine os valores máximos e mínimos locais e pontos de sela da função f(x, y) = 9 − 2x + 4y − x² − 4y². Faça o gráfico em 3D e verifique seus resultados.',q:'f(x, y) = 9 − 2x + 4y − x² − 4y². Extremos locais e selas.',
@@ -1261,7 +1261,7 @@ load();
 document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'), steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); { const fg=b.querySelector('.aulafig'); if(fg) b.appendChild(fg) } bindEx(b) });
 document.getElementById('probBox').innerHTML=PROBS.map(p=>'<details class="qitem"><summary><span class="qn">'+p.n+'</span><span>'+p.q+'<span class="tagt">'+p.m+'</span></span></summary><div class="body">'+(p.e?'<div class="enun"><span class="k">Enunciado</span>'+p.e+'</div>':'')+'<div class="part ex" style="border:none;padding:0;margin:14px 0 0">'+exHTML(p.s,p.a)+'</div></div></details>').join('');
 document.querySelectorAll('#probBox .part').forEach(bindEx);
-window.FDB_QLISTA={sel:'#probBox',itens:PROBS.map(p=>({titulo:'Questão '+p.n,tag:'Lista · '+p.m,enun:p.e||p.q,secoes:[{passos:p.s,resp:p.a}]}))};
+window.FDB_QLISTA={sel:'#probBox',itens:PROBS.map(p=>({key:'Q'+p.n,titulo:'Questão '+p.n,tag:'Lista · '+p.m,enun:p.e||p.q,secoes:[{passos:p.s,resp:p.a}]}))};
 document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('input',()=>runCalc(b)); runCalc(b) });
 document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
 const fn3d=Surf(document.getElementById('fn3d'),{fn:'esfera'});
@@ -1285,6 +1285,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="calc2"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../js/quadro.js?v=3" data-materia="calc2"></script>
+<script src="../../dados/quadros-calc2.js?v=2"></script>
+<script src="../../js/quadro.js?v=4" data-materia="calc2"></script>
 </body>
 </html>

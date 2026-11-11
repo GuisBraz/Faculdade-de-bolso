@@ -190,7 +190,7 @@
   function lista(sel, itens) {
     const box = typeof sel === 'string' ? document.querySelector(sel) : sel; if (!box) return;
     box.querySelectorAll('details.qitem').forEach((det, i) => {
-      const q = itens[i]; if (!q) return; const QB = (window.FDB_QUADROS || {})[MAT] || {}; if (!q.board && QB['L' + (i + 1)]) q.board = QB['L' + (i + 1)]; const body = det.querySelector('.body'); if (!body || body.querySelector('.fdbq-btn')) return;
+      const q = itens[i]; if (!q) return; const QB = (window.FDB_QUADROS || {})[MAT] || {}; if (!q.board && q.key && QB[q.key]) q.board = QB[q.key]; if (!q.board && QB['L' + (i + 1)]) q.board = QB['L' + (i + 1)]; const body = det.querySelector('.body'); if (!body || body.querySelector('.fdbq-btn')) return;
       const bt = document.createElement('button'); bt.type = 'button'; bt.className = 'fdbq-btn'; bt.innerHTML = '✍️ Ver resolução no quadro';
       bt.onclick = () => abrirQuadro(q); body.insertBefore(bt, body.firstChild);
     });
