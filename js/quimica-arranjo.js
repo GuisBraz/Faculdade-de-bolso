@@ -18,7 +18,7 @@ const GEO={'2,0':'linear','3,0':'trigonal plana','2,1':'angular','4,0':'tetraéd
 const SUBD='₀₁₂₃₄₅₆₇₈₉', SUPD='⁰¹²³⁴⁵⁶⁷⁸⁹';
 const sub=s=>String(s).replace(/\d/g,d=>SUBD[d]);
 const chg=q=>q?((Math.abs(q)>1?String(Math.abs(q)).replace(/\d/g,d=>SUPD[d]):'')+(q>0?'⁺':'⁻')):'';
-const nf=(v,d=1)=>Number(v).toLocaleString('pt-BR',{maximumFractionDigits:d});
+const NF2={}; const nf=(v,d=1)=>(NF2[d]||(NF2[d]=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:d}))).format(Number(v));
 const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim()||'#888';
 const esc=s=>String(s).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
 let anim=null; const stop=()=>{ if(anim){ anim.stop(); anim=null } };

@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-src https://open.spotify.com https://www.youtube.com; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Oficina de Cálculo II</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -1099,8 +1100,17 @@ const TREINO=[
  {g:'g4',like:'19',q:'Uma caixa sem tampa deve ter 4000 cm³. Qual a menor área de papelão possível?',p:[['área mínima (cm²)',1200]],
   s:['xyz = 4000 → z = 4000/(xy) → A = xy + 2xz + 2yz = xy + 8000/y + 8000/x','A<sub>x</sub> = y − 8000/x² = 0 · A<sub>y</sub> = x − 8000/y² = 0 → x = y = 20','z = 4000/400 = 10 → A = 400 + 400 + 400 = 1200 cm²']}
 ];
-function tEval(v){ v=String(v).trim().toLowerCase().replace(/−/g,'-').replace(/,/g,'.').replace(/·|×/g,'*').replace(/\s+/g,'').replace(/π|pi/g,'(P)').replace(/√\(/g,'R(').replace(/√([0-9.]+)/g,'R($1)').replace(/sqrt/g,'R').replace(/\^/g,'**').replace(/([0-9.)P])(?=[(PR])/g,'$1*').replace(/\)(?=[0-9])/g,')*');
-  if(!v||/[^0-9.+\-*/()PR]/.test(v)) return NaN; try{ const r=Function('P','R','return ('+v+')')(Math.PI,Math.sqrt); return typeof r==='number'?r:NaN }catch(e){ return NaN } }
+function tEval(v){ /* calculadora pequena, sem eval: + − × ÷ ^ ( ) π √ */
+  const s=String(v).trim().toLowerCase().replace(/−/g,'-').replace(/,/g,'.').replace(/·|×/g,'*').replace(/÷/g,'/').replace(/\s+/g,'').replace(/sqrt/g,'√').replace(/pi/g,'π');
+  if(!s||/[^0-9.+\-*/()^π√]/.test(s)) return NaN; let i=0;
+  const pk=()=>s[i], num=()=>{ const m=/^\d*\.?\d+/.exec(s.slice(i)); if(!m) throw 0; i+=m[0].length; return +m[0] };
+  const ini=c=>c&&(/[0-9.(π√]/.test(c));
+  function prim(){ const c=pk(); if(c==='('){ i++; const r=soma(); if(pk()!==')') throw 0; i++; return r } if(c==='π'){ i++; return Math.PI } if(c==='√'){ i++; return Math.sqrt(pot()) } if(c==='-'){ i++; return -pot() } if(c==='+'){ i++; return pot() } return num() }
+  function pot(){ const b=prim(); if(pk()==='^'){ i++; return Math.pow(b,un()) } return b }
+  function un(){ if(pk()==='-'){ i++; return -un() } return pot() }
+  function prod(){ let r=un(); for(;;){ const c=pk(); if(c==='*'||c==='/'){ i++; const d=un(); r=c==='*'?r*d:r/d } else if(ini(c)) r*=un(); else return r } }
+  function soma(){ let r=prod(); while(pk()==='+'||pk()==='-'){ const c=s[i++]; const d=prod(); r=c==='+'?r+d:r-d } return r }
+  try{ const r=soma(); return i===s.length&&isFinite(r)?r:NaN }catch(e){ return NaN } }
 let tst={}; try{ tst=JSON.parse(localStorage.getItem('calc2-treino')||'{}') }catch(e){}
 function tSave(){ try{ localStorage.setItem('calc2-treino',JSON.stringify(tst)) }catch(e){} }
 function renderTreino(){ let n=0;
@@ -1123,7 +1133,7 @@ document.addEventListener('click',ev=>{ const a=ev.target.closest('a.btreino'); 
 window.treinoGo=function(){ let g=null; try{ g=sessionStorage.getItem('calc2-tgo'); sessionStorage.removeItem('calc2-tgo') }catch(e){} if(g){ const el=document.getElementById('t-'+g); if(el) requestAnimationFrame(()=>el.scrollIntoView({block:'start'})) } }
 renderTreino();
 </script>
-<script src="../../dados/quadros-calc2.js?v=11"></script>
+<script src="../../dados/quadros-calc2.js?v=12"></script>
 <script src="../../js/quadro.js?v=6" data-materia="calc2"></script>
 </body>
 </html>

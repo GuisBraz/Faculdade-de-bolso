@@ -2,7 +2,8 @@
 (function(){
 'use strict';
 const $=id=>document.getElementById(id);
-const nf=(v,d=2)=>Number(v).toLocaleString('pt-BR',{maximumFractionDigits:d,minimumFractionDigits:0});
+/* formatadores em cache: toLocaleString cria um Intl novo a cada chamada (lento nas otimizações) */
+const NF={}; const nf=(v,d=2)=>(NF[d]||(NF[d]=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:d,minimumFractionDigits:0}))).format(Number(v));
 const RM=matchMedia('(prefers-reduced-motion: reduce)').matches;
 function css(n){ return getComputedStyle(document.documentElement).getPropertyValue(n).trim() }
 /* canvas nítido e barato: DPR limitado a 2, redimensiona só quando o tamanho muda */

@@ -1,5 +1,6 @@
 <!doctype html>
-<html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Escola de Usinagem: guia interativo de furadeira, torno, mandrilhadora e centro de usinagem, com modelos 3D, calculadoras e simulador CNC.">
+<html lang="pt-BR"><head><meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-src https://open.spotify.com https://www.youtube.com; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="description" content="Escola de Usinagem: guia interativo de furadeira, torno, mandrilhadora e centro de usinagem, com modelos 3D, calculadoras e simulador CNC.">
 <title>Oficina de Usinagem</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -671,9 +672,16 @@ figure.fig,.gcanvas{--surface:#FFFFFF;--muted:#4B5C71;--text:#13233A;--strong:#1
 </div>
 </div>
 <div class="toast" id="toast" role="status"></div>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/environments/RoomEnvironment.js"></script>
+<script>
+/* three.js (~600 KB) só é baixado quando uma tela 3D abre; versão fixa + integridade (SRI) */
+const load3D = (() => { let p = null; const B = 'https://cdn.jsdelivr.net/npm/three@0.128.0/';
+  const F = [['build/three.min.js', 'sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu'],
+    ['examples/js/controls/OrbitControls.js', 'sha384-wagZhIFgY4hD+7awjQjR4e2E294y6J2HSnd8eTNc15ZubTeQeVRZwhQJ+W6hnBsf'],
+    ['examples/js/environments/RoomEnvironment.js', 'sha384-UpJYDNQ/8wDmBlzh4lZ9VMbunag9yRAOGFiBWYVaf6/FCnrwc9qlto25EZVLhpph']];
+  const um = ([src, sri]) => new Promise((ok, no) => { const s = document.createElement('script'); s.src = B + src; s.integrity = sri; s.crossOrigin = 'anonymous'; s.onload = ok; s.onerror = no; document.head.appendChild(s); });
+  return () => p || (p = F.reduce((a, f) => a.then(() => um(f)), Promise.resolve()).catch(e => { p = null; throw e; }));
+})();
+</script>
 <script>
 /* ===================== Utilidades ===================== */
 const $ = id => document.getElementById(id);
@@ -1835,7 +1843,7 @@ VIEWS.push({id:'glossario', group:'Prática', label:'Glossário', icon:'book', l
 /* ===================== Visualizador 3D ===================== */
 const Viewer = (() => {
   let R = null, scene = null, camera, controls, raf = 0, cur = null, M = null, clock, ro;
-  let playing = true, explode = 0, showHots = true, sel = null, camAnim = null;
+  let playing = true, explode = 0, showHots = true, sel = null, camAnim = null, pend = null;
   const built = {};
   const reduceMotion = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -2261,6 +2269,7 @@ const Viewer = (() => {
   function mount(id){
     unmount();
     const st = $('vstage'); if(!st) return;
+    if(!window.THREE){ pend = id; const vm0 = $('vmsg'); if(vm0) vm0.textContent = 'Carregando o 3D…'; load3D().then(() => { if(pend === id && $('vstage') && !cur) mount(id); }).catch(() => { const vm1 = $('vmsg'); if(vm1) vm1.textContent = 'Não foi possível carregar a biblioteca 3D (three.js). Verifique a conexão e recarregue a página.'; }); return; }
     if(!ensure()){ $('vmsg').textContent = 'Não foi possível carregar a biblioteca 3D (three.js). Verifique a conexão e recarregue a página.'; return; }
     if(!built[id]) built[id] = makeScene(id);
     cur = built[id]; cur.hots = [];
@@ -2286,7 +2295,7 @@ const Viewer = (() => {
     if(reduceMotion()){ playing = false; syncPlay(); }
     clock.getDelta(); frame();
   }
-  function unmount(){ cancelAnimationFrame(raf); raf = 0; if(ro){ ro.disconnect(); ro = null; } if(sel && cur){ const p = cur.ctx.parts.find(x => x.id === sel); if(p) highlight(p, false); } sel = null; cur = null; }
+  function unmount(){ pend = null; cancelAnimationFrame(raf); raf = 0; if(ro){ ro.disconnect(); ro = null; } if(sel && cur){ const p = cur.ctx.parts.find(x => x.id === sel); if(p) highlight(p, false); } sel = null; cur = null; }
   return {mount, unmount};
 })();
 /* ===================== Código G: referência, interpretador e análise ===================== */
@@ -3548,7 +3557,7 @@ const GSim = (() => {
     $('sStage').classList.toggle('is2d', v === '2d'); $('sCam').classList.toggle('dis', v === '2d');
     hideTip(); hov = null;
     $('sLeg').innerHTML = v === '3d' ? '<span><i style="border-color:#F08A4B"></i>corte (cor da ferramenta)</span><span><i class="d" style="border-color:#8597ad"></i>rápido</span><span><i style="border-color:#FFB066"></i>bloco atual</span><span><i style="border-color:#3a4b61"></i>a executar</span>' : '<span><i style="border-color:#B4410E"></i>corte</span><span><i class="d" style="border-color:#4A5A70"></i>rápido</span><span><i style="border-color:#F08A4B"></i>bloco atual</span><span><i style="border-color:#2A4466;border-top-width:6px"></i>mais fundo = mais escuro</span>';
-    if(v === '3d' && !T3){ if(!init3D()){ $('sLoad').hidden = false; let n = 0; const w = setInterval(() => { if(!$('sim') || ++n > 100){ clearInterval(w); return; } if(window.THREE && THREE.OrbitControls){ clearInterval(w); if(view === '3d' && init3D()) $('sLoad').hidden = true; } }, 150); } }
+    if(v === '3d' && !T3){ if(!init3D()){ load3D().catch(() => {}); $('sLoad').hidden = false; let n = 0; const w = setInterval(() => { if(!$('sim') || ++n > 100){ clearInterval(w); return; } if(window.THREE && THREE.OrbitControls){ clearInterval(w); if(view === '3d' && init3D()) $('sLoad').hidden = true; } }, 150); } }
     if(v === '2d'){ resize(); need2d = true; }
     if(T3) T3.r.domElement.style.display = v === '3d' ? '' : 'none'; need3d = true;
   }

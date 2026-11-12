@@ -1,0 +1,15 @@
+# nunca sobe para o GitHub: dados pessoais e segredos
+seed-privado.sql
+*seed-privado*
+supabase/seed*.sql
+.env
+.env.*
+*.key
+*.pem
+# lixo de sistema/editor
+.DS_Store
+Thumbs.db
+desktop.ini
+*.swp
+*~
+node_modules/

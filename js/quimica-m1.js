@@ -10,7 +10,7 @@ const ELS=(typeof EL!=='undefined'?EL:[]);
 const sym=z=>(ELS[z-1]||{}).sym||'?', nome=z=>(ELS[z-1]||{}).nome||'?';
 const SUP={'0':'⁰','1':'¹','2':'²','3':'³','4':'⁴','5':'⁵','6':'⁶','7':'⁷','8':'⁸','9':'⁹','+':'⁺','-':'⁻'};
 const sup=s=>String(s).split('').map(c=>SUP[c]||c).join('');
-const nf=(v,d=2)=>Number(v).toLocaleString('pt-BR',{maximumFractionDigits:d});
+const NF1={}; const nf=(v,d=2)=>(NF1[d]||(NF1[d]=new Intl.NumberFormat('pt-BR',{maximumFractionDigits:d}))).format(Number(v));
 function sci(v,d=2){ if(v===0) return '0'; const e=Math.floor(Math.log10(Math.abs(v))); const m=v/Math.pow(10,e); if(e>=-2&&e<=4) return nf(v,d+1); return nf(m,d)+' × 10'+sup(e) }
 /* canvas nítido: DPR máx. 2, tamanho pela largura e pelo aspect-ratio do CSS */
 function tela(cv){ const x=cv.getContext('2d'); return ()=>{ const r=cv.getBoundingClientRect(), d=Math.min(2,devicePixelRatio||1), w=Math.round(r.width), h=Math.round(r.height);

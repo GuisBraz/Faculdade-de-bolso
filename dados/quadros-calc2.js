@@ -161,40 +161,12 @@
       'massa: 0,02 · 7850 = «b|157 kg»',
       'peso: 157 · 9,8 = «o|1538,6 N»',
       '=P ≈ 1539 N (≈ 157 kg de massa)'] };
-  q.x1 = { t: 'f(x, y) = 2x + y', r: 'Receita: troca x e y pelos números do par, sempre na ordem (x, y)',
-    b: [{ c: [['*f(1, 3)', '2·1 + 3', ' = «o|5»'], ['*f(0, 0)', '2·0 + 0', ' = «o|0»'], ['*f(2, −4)', '2·2 + (−4)', ' = 4 − 4 = «o|0»']] },
-      '~ pares diferentes podem dar o mesmo valor: (0, 0) e (2, −4) estão na mesma curva de nível',
-      '=f(1, 3) = 5 · f(0, 0) = 0 · f(2, −4) = 0'] };
-  q.x2 = { t: 'Domínio de t(f, n) = L / (f · n)', r: 'Receita: procura o que pode quebrar → divisão: denominador ≠ 0',
-    b: ['#O que pode quebrar?', 'divisão → «r|f · n ≠ 0»',
-      '#Produto = 0 quando um fator = 0', 'f ≠ 0 «b|e» n ≠ 0',
-      P2({ x: [-3, 3], y: [-3, 3], ax: ['f', 'n'], fill: (x, y) => Math.abs(x) > .08 && Math.abs(y) > .08, fc: 'rgba(30,98,201,.16)', cv: [{ f: () => 0, c: K.r, d: 1 }, { p: t => [0, t], t: [-3, 3], c: K.r, d: 1 }], fill2: 0,
-        tx: [[0.4, 2.5, 'fisicamente: f > 0 e n > 0', K.g, 12]], pt: [] }),
-      '~ os eixos (tracejados) ficam de fora: neles f = 0 ou n = 0 → máquina parada',
-      '=D = {(f, n) | f ≠ 0 e n ≠ 0} · na prática f > 0 e n > 0'] };
-  q.x3 = { t: 'Tampo semiesférico z = √(R² − x² − y²)', r: 'Receita: raiz → o de dentro ≥ 0 → isola → reconhece a figura',
-    b: ['#Raiz | dentro ≥ 0', 'R² − x² − y² ≥ 0', 'x² + y² ≤ «o|R²»',
-      '~ é o círculo de raio R; com o "≤", o disco cheio',
-      lado(P2({ x: [-1.5, 1.5], y: [-1.5, 1.5], w: 260, h: 230, fill: (x, y) => x * x + y * y <= 1, cv: [{ p: t => [Math.cos(t), Math.sin(t)], t: [0, 6.3], c: K.b }], ar: [[0, 0, 0.71, 0.71, K.o, 'R', 4, 4]] }),
-        S3({ f: (x, y) => Math.sqrt(Math.max(0, 1 - x * x - y * y)), cut: (x, y) => x * x + y * y <= 1.0001, x: [-1, 1], y: [-1, 1], n: 16, zmax: 1, axes: false })),
-      '=D = {x² + y² ≤ R²} · o disco da base do tampo'] };
-  q.x4 = { t: 'Domínio de g(x, y) = ln(x − y)', r: 'Receita: ln → o de dentro > 0 (estritamente) → isola o y',
-    b: ['#ln | dentro > 0', 'x − y > 0', '«o|y < x»',
-      P2({ x: [-3, 3], y: [-3, 3], tk: 1, fill: (x, y) => y < x, cv: [{ f: x => x, c: K.r, d: 1, l: [1.6, 2.2, 'y = x'] }] }),
-      '~ tracejado: a reta y = x fica de fora (é > e não ≥)',
-      '=D = {(x, y) | y < x} · abaixo da reta'] };
   q.x5 = { t: 'f(x, y) = √(x + y + 1) / (x − 1)', r: 'Receita: valor → troca os números · domínio → cada "perigo" vira uma condição',
     b: ['#Valor', 'f(3, 2) = √(3 + 2 + 1)/(3 − 1) = «o|√6/2» ≈ 1,22',
       '#Domínio',
       { c: [['*raiz', 'x + y + 1 ≥ 0', '→ y ≥ −x − 1', '~ sobre e acima da reta'], ['*fração', 'x − 1 ≠ 0', '→ x ≠ 1', '~ tira a reta vertical']] },
       P2({ x: [-3, 3], y: [-3, 3], tk: 1, fill: (x, y) => y >= -x - 1 && Math.abs(x - 1) > .06, cv: [{ f: x => -x - 1, c: K.b, l: [-2.9, 2.3, 'y = −x − 1'] }, { p: t => [1, t], t: [-3, 3], c: K.r, d: 1, l: [1.1, -2.6, 'x = 1 (fora)'] }] }),
       '=f(3, 2) = √6/2 · D = {x + y + 1 ≥ 0 e x ≠ 1}'] };
-  q.x6 = { t: 'f(x, y) = x · ln(y² − x)', r: 'Receita: valor → troca os números · domínio → ln: dentro > 0',
-    b: ['#Valor', 'f(3, 2) = 3 · ln(2² − 3) = 3 · ln 1 = 3 · 0 = «o|0»',
-      '#Domínio | ln: dentro > 0', 'y² − x > 0 → «o|x < y²»',
-      P2({ x: [-2, 4], y: [-2.5, 2.5], tk: 1, fill: (x, y) => x < y * y, cv: [{ p: t => [t * t, t], t: [-2.5, 2.5], c: K.r, d: 1, l: [2.2, 2.1, 'x = y²'] }] }),
-      '~ à esquerda da parábola deitada, sem a curva',
-      '=f(3, 2) = 0 · D = {(x, y) | x < y²}'] };
   q.x7 = { t: 'g(x, y) = √(9 − x² − y²)', r: 'Receita: domínio → raiz ≥ 0 · imagem → menor e maior valor que a função atinge',
     b: ['#Domínio | raiz ≥ 0', '9 − x² − y² ≥ 0 → «o|x² + y² ≤ 9»', '~ disco de raio 3',
       '#Imagem | menor e maior valor',
@@ -202,20 +174,12 @@
       lado(P2({ x: [-4, 4], y: [-4, 4], w: 260, h: 240, tk: 1, fill: (x, y) => x * x + y * y <= 9, cv: [{ p: t => [3 * Math.cos(t), 3 * Math.sin(t)], t: [0, 6.3], c: K.b }] }),
         S3({ f: (x, y) => Math.sqrt(Math.max(0, 9 - x * x - y * y)), cut: (x, y) => x * x + y * y <= 9.001, x: [-3, 3], y: [-3, 3], n: 16, zmax: 3, pt: [[0, 0, null, K.o, 'topo 3']] })),
       '=D = {x² + y² ≤ 9} · Im = [0, 3] · meia esfera de raio 3'] };
-  q.x8 = { t: 'Domínio de f(x, y, z) = ln(z − y) + xy·sen z', r: 'Receita: olha termo por termo → só o que pode quebrar restringe',
-    b: [{ c: [['*ln(z − y)', 'z − y > 0', '→ «o|z > y»'], ['*xy·sen z', 'vale para tudo', '«g|sem restrição»']] },
-      '~ x é livre: são os pontos acima do plano z = y',
-      '=D = {(x, y, z) | z > y}'] };
   q.x9 = { t: 'f(x, y, z) = e<sup>√(z − x² − y²)</sup>', r: 'Receita: valor → troca · domínio → raiz ≥ 0 · imagem → de quanto a quanto a raiz vai',
     b: ['#Valor', 'f(2, −1, 6) = e<sup>√(6 − 4 − 1)</sup> = e<sup>√1</sup> = «o|e»',
       '#Domínio | raiz ≥ 0', 'z − x² − y² ≥ 0 → «o|z ≥ x² + y²»',
       S3({ f: (x, y) => x * x + y * y, x: [-1.5, 1.5], y: [-1.5, 1.5], n: 14, zs: .8, zmax: 4.5, pt: [[0, 0, 2.2, K.g, 'domínio: dentro e acima']] }),
       '#Imagem', 'raiz: de 0 até ∞ → e<sup>0</sup> = «o|1» até ∞',
       '=f = e · D = {z ≥ x² + y²} · Im = [1, ∞)'] };
-  q.x10 = { t: '(a) Tanque: V = π r² h com r = 1 m e h = 3 m', r: 'Receita: substitui → só o r é ao quadrado',
-    b: [TANQUE('r = 1', 'h = 3'), 'V = π · «b|1²» · 3 = «o|3π»', '3π ≈ 9,42 m³', '~ cuidado: elevar o h também (3² = 9) dá 28,27, errado', '=V = 3π ≈ 9,42 m³'] };
-  q.x11 = { t: '(b) Caminho de volta: V = 12π m³ e r = 2 m', r: 'Receita: substitui o que tem → isola o que falta',
-    b: [TANQUE('r = 2', 'h = ?'), '12π = π · 2² · h', '12π = 4π · h', '~ o π corta dos dois lados', '12 = 4h → h = 12/4 = «o|3 m»', '=h = 3 m'] };
   q.x12 = { t: '(c) Outros tanques com 12π m³', r: 'Receita: deixa uma letra livre → isola a outra → escolhe e calcula',
     b: ['12π = π r² h → «o|r² · h = 12»',
       { c: [['*isola h', 'h = 12/r²'], ['*isola r', 'r = √(12/h)']] },
@@ -238,17 +202,6 @@
       P2({ x: [-3.6, 3.6], y: [-3.6, 3.6], w: 280, h: 260, tk: 1, cv: [3, Math.sqrt(8), Math.sqrt(5)].map((r, i) => ({ p: t => [r * Math.cos(t), r * Math.sin(t)], t: [0, 6.3], c: [K.b, K.g, K.o][i] })), pt: [[0, 0, K.r, 'k = 3']] }),
       '~ cada vez mais juntas perto da borda: ali a meia esfera fica íngreme',
       '=circunferências concêntricas de raio √(9 − k²)'] };
-  q.x15 = { t: 'Curvas de nível de h(x, y) = 4x² + y²', r: 'Receita: iguala a k → divide por k → reconhece a elipse',
-    b: ['4x² + y² = k → divide por k', 'x²/(k/4) + y²/k = 1 → «o|elipses»',
-      { c: [['*k = 0', 'só a origem'], ['*k = 4', 'x² + y²/4 = 1', 'semieixos 1 e 2'], ['*k = 16', 'x²/4 + y²/16 = 1', 'semieixos 2 e 4']] },
-      P2({ x: [-4.5, 4.5], y: [-4.5, 4.5], w: 280, h: 260, tk: 1, cv: [[1, 2, K.b], [2, 4, K.o]].map(([a, b, c]) => ({ p: t => [a * Math.cos(t), b * Math.sin(t)], t: [0, 6.3], c })), pt: [[0, 0, K.r, 'k = 0']] }),
-      '=elipses centradas na origem, mais altas que largas'] };
-  q.x16 = { t: 'Pontos na borda de k = 4 (x² + y² = 4)', r: 'Receita: isola uma variável → escolhe x → calcula y (sem chute)',
-    b: ['x² + y² = 4 → «o|y = ±√(4 − x²)»',
-      { c: [['*x = 0', 'y = ±2'], ['*x = 1', 'y = ±√3 ≈ ±1,73'], ['*x = 2', 'y = 0']] },
-      P2({ x: [-2.8, 2.8], y: [-2.6, 2.6], w: 280, h: 250, tk: 1, cv: [{ p: t => [2 * Math.cos(t), 2 * Math.sin(t)], t: [0, 6.3], c: K.b }], pt: [[0, 2, K.o], [0, -2, K.o], [1, 1.73, K.o, '(1; 1,73)'], [1, -1.73, K.o], [-1, 1.73, K.o], [-1, -1.73, K.o], [2, 0, K.o, '(2, 0)'], [-2, 0, K.o]] }),
-      '~ o ± dá os dois lados (em cima e embaixo) · |x| ≤ 2, senão a raiz fica negativa',
-      '=(0, ±2) · (±1; ±1,73) · (±2, 0)'] };
   q.x17 = { t: 'Isocusto: C(x, y) = 80x + 50y = 4000', r: 'Receita: trava o k → vira uma reta → acha pontos zerando uma variável',
     b: ['80x + 50y = «o|4000» → uma reta',
       { c: [['*só solda (y = 0)', '80x = 4000', 'x = «o|50 h»'], ['*só pintura (x = 0)', '50y = 4000', 'y = «o|80 h»'], ['*misto (x = 25)', '2000 + 50y = 4000', 'y = «o|40 h»']] },
@@ -256,69 +209,20 @@
       '=a reta 80x + 50y = 4000 é a curva de mesmo custo'] };
 
   /* ===== Aula 3 · derivadas parciais ===== */
-  q.x18 = { t: 'f(x, y) = 3x − 2y⁴', r: 'Receita: f<sub>x</sub> → y congelado · f<sub>y</sub> → x congelado',
-    b: [{ c: [['*f<sub>x</sub> → y congelado', '3x → 3 / −2y⁴ → 0', 'f<sub>x</sub> = «o|3»'], ['*f<sub>y</sub> → x congelado', '3x → 0 / −2y⁴ → −2·4y³', 'f<sub>y</sub> = «o|−8y³»']] },
-      '~ o −2 multiplica o 4y³: não esqueça o sinal (o gabarito esqueceu)',
-      '=f<sub>x</sub> = 3 · f<sub>y</sub> = −8y³'] };
   q.x19 = { t: 'z = x · e<sup>3y</sup>', r: 'Receita: quem não é a variável vira número e fica multiplicando',
     b: [{ c: [['*z<sub>x</sub> → y congelado', 'e<sup>3y</sup> é número → fica', '(x)′ = 1', 'z<sub>x</sub> = «o|e<sup>3y</sup>»'], ['*z<sub>y</sub> → x congelado', 'x é número → fica', '(e<sup>3y</sup>)′ = e<sup>3y</sup>·«b|3»', 'z<sub>y</sub> = «o|3x e<sup>3y</sup>»']] },
       '~ o 3 vem da cadeia: (3y)′ = 3',
       '=z<sub>x</sub> = e<sup>3y</sup> · z<sub>y</sub> = 3x e<sup>3y</sup>'] };
-  q.x20 = { t: 'z = (2x + 3y)<sup>10</sup>', r: 'Receita: cadeia → derivada de fora × derivada de dentro',
-    b: ['#Fora | igual nas duas', '10(2x + 3y)<sup>9</sup>',
-      { c: [['*z<sub>x</sub>', 'dentro em x: «b|2»', '10(2x + 3y)<sup>9</sup>·2', ' = «o|20(2x + 3y)<sup>9</sup>»'], ['*z<sub>y</sub>', 'dentro em y: «b|3»', '10(2x + 3y)<sup>9</sup>·3', ' = «o|30(2x + 3y)<sup>9</sup>»']] },
-      '~ só muda a derivada de dentro',
-      '=z<sub>x</sub> = 20(2x + 3y)<sup>9</sup> · z<sub>y</sub> = 30(2x + 3y)<sup>9</sup>'] };
-  q.x21 = { t: 'f(x, y) = x²y + 3y', r: 'Receita: termo por termo, congelando a outra letra',
-    b: [{ c: [['*f<sub>x</sub> → y congelado', 'x²y → 2x·y', '3y → 0', 'f<sub>x</sub> = «o|2xy»'], ['*f<sub>y</sub> → x congelado', 'x²y → x²', '3y → 3', 'f<sub>y</sub> = «o|x² + 3»']] },
-      '=f<sub>x</sub> = 2xy · f<sub>y</sub> = x² + 3'] };
   q.x22 = { t: 'f(x, y) = ln(x² + y²) em (1, 2)', r: 'Receita: deriva com letras → só no fim troca o ponto',
     b: ['#ln | (dentro)′ ÷ dentro',
       { c: [['*f<sub>x</sub>', '2x/(x² + y²)'], ['*f<sub>y</sub>', '2y/(x² + y²)']] },
       '#No ponto (1, 2)', 'x² + y² = 1 + 4 = «b|5»', 'f<sub>x</sub>(1, 2) = 2/5 = «o|0,4»', 'f<sub>y</sub>(1, 2) = 4/5 = «o|0,8»',
       '=f<sub>x</sub>(1, 2) = 0,4 · f<sub>y</sub>(1, 2) = 0,8'] };
-  q.x23 = { t: 'f(x, y) = x³ + x²y³ − 2y² em (2, 1)', r: 'Receita: deriva termo por termo → troca o ponto no fim',
-    b: [{ c: [['*f<sub>x</sub> → y congelado', 'x³ → 3x² / x²y³ → 2xy³ / −2y² → 0', 'f<sub>x</sub> = 3x² + 2xy³', 'f<sub>x</sub>(2, 1) = 12 + 4 = «o|16»'], ['*f<sub>y</sub> → x congelado', 'x³ → 0 / x²y³ → 3x²y² / −2y² → −4y', 'f<sub>y</sub> = 3x²y² − 4y', 'f<sub>y</sub>(2, 1) = 12 − 4 = «o|8»']] },
-      '=f<sub>x</sub>(2, 1) = 16 · f<sub>y</sub>(2, 1) = 8'] };
-  q.x24 = { t: 'f(x, y) = 4 − x² − 2y² em (1, 1)', r: 'Receita: deriva → troca o ponto → sinal diz sobe/desce, número diz quão rápido',
-    b: [{ c: [['*f<sub>x</sub> = −2x', 'f<sub>x</sub>(1, 1) = «o|−2»'], ['*f<sub>y</sub> = −4y', 'f<sub>y</sub>(1, 1) = «o|−4»']] },
-      S3({ f: (x, y) => 4 - x * x - 2 * y * y, x: [-1.6, 1.6], y: [-1.4, 1.4], n: 14, zs: .7, zmax: 4, pt: [[1, 1, null, K.o, '(1, 1, 1)']] }),
-      '~ em (1, 1): andando em x a superfície desce 2 por unidade; em y desce 4 (mais íngreme)',
-      '=f<sub>x</sub>(1, 1) = −2 · f<sub>y</sub>(1, 1) = −4'] };
-  q.x25 = { t: 'f(x, y, z) = e<sup>xy</sup> · ln z', r: 'Receita: três variáveis → congela as outras duas a cada vez',
-    b: [{ c: [['*f<sub>x</sub>', 'y, z congelados', '(e<sup>xy</sup>)′ = «b|y»e<sup>xy</sup>', ' = «o|y e<sup>xy</sup> ln z»'], ['*f<sub>y</sub>', 'x, z congelados', '(e<sup>xy</sup>)′ = «b|x»e<sup>xy</sup>', ' = «o|x e<sup>xy</sup> ln z»'], ['*f<sub>z</sub>', 'e<sup>xy</sup> é número', '(ln z)′ = 1/z', ' = «o|e<sup>xy</sup>/z»']] },
-      '=f<sub>x</sub> = y e<sup>xy</sup> ln z · f<sub>y</sub> = x e<sup>xy</sup> ln z · f<sub>z</sub> = e<sup>xy</sup>/z'] };
   q.x26 = { t: 'Placa: T(x, y) = 100 − 2x² − y² em (2, 1)', r: 'Receita: T<sub>x</sub> e T<sub>y</sub> → troca o ponto → °C por unidade',
     b: [{ c: [['*T<sub>x</sub> = −4x', 'T<sub>x</sub>(2, 1) = «o|−8»'], ['*T<sub>y</sub> = −2y', 'T<sub>y</sub>(2, 1) = «o|−2»']] },
       P2({ x: [-3, 3], y: [-3, 3], w: 280, h: 250, tk: 1, cv: [1, 2, 3].map((r, i) => ({ p: t => [r / Math.SQRT2 * Math.cos(t), r * Math.sin(t)], t: [0, 6.3], c: [K.o, K.p, K.b][i], d: 1 })), ar: [[2, 1, 1.2, 1, K.r, 'cai 8 em x', -40, -10], [2, 1, 2, .6, K.g, 'cai 2 em y', 6, 14]], pt: [[2, 1, K.ink, '(2, 1)', 6, -10]], tx: [[-0.6, 0.25, 'quente', K.o, 11]] }),
       '=em x cai 8 °C por unidade · em y cai 2 °C por unidade'] };
-  q.x27 = { t: 'Custo: C(x, y) = 80x + 50y', r: 'Receita: a parcial é o "preço" de cada recurso',
-    b: [{ c: [['*∂C/∂x', '80x → «o|80»', 'R$ 80 por hora de solda'], ['*∂C/∂y', '50y → «o|50»', 'R$ 50 por hora de pintura']] },
-      '~ fixas porque C é linear: não importa quantas horas você já tem',
-      '=∂C/∂x = R$ 80/h · ∂C/∂y = R$ 50/h'] };
-  q.x28 = { t: 'Massa da chapa: m(L, C, e) = 7850 · L · C · e', r: 'Receita: deriva em e (L e C congelados) → converte para mm',
-    b: [CHAPA('C = 2 m', 'L = 1 m', 'e'),
-      '∂m/∂e = 7850 · L · C', '~ L e C congelados multiplicam e ficam',
-      '1 m × 2 m: 7850 · 1 · 2 = «b|15 700 kg/m»', 'por mm: 15 700/1000 = «o|15,7 kg/mm»',
-      '~ de 10 para 12,5 mm: +2,5 mm ≈ +39 kg',
-      '=≈ 15,7 kg a cada 1 mm de espessura'] };
-  q.x29 = { t: 'Chapa do costado: A(r, h) = 2πr · h', r: 'Receita: deriva → troca r = 2 e h = 3 → interpreta',
-    b: [TANQUE('r = 2', 'h = 3'),
-      { c: [['*∂A/∂h', '2πr', 'r = 2: «o|4π ≈ 12,6 m²/m»', '~ o perímetro: uma faixa a mais'], ['*∂A/∂r', '2πh', 'h = 3: «o|6π ≈ 18,8 m²/m»']] },
-      '~ depende do ponto: tanque mais largo gasta mais chapa por metro de altura',
-      '=∂A/∂h ≈ 12,6 m²/m · ∂A/∂r ≈ 18,8 m²/m'] };
-  q.x30 = { t: 'Volume do tanque: V(r, h) = π r² h', r: 'Receita: deriva → troca r = 2 e h = 3 → compara',
-    b: [{ c: [['*∂V/∂h', 'πr² (área da base)', 'r = 2: «o|4π ≈ 12,6 m³/m»'], ['*∂V/∂r', '2πrh', 'r = 2, h = 3: «o|12π ≈ 37,7 m³/m»']] },
-      '~ mexer no raio rende 3× mais: ele entra ao quadrado',
-      '=∂V/∂h ≈ 12,6 m³/m · ∂V/∂r ≈ 37,7 m³/m'] };
-
   /* ===== Aula 4 · derivadas de ordem superior ===== */
-  q.x31 = { t: 'As quatro derivadas segundas de z = x e<sup>3y</sup>', r: 'Receita: 1ª ordem → deriva cada uma de novo em x e em y',
-    b: ['#1ª ordem', 'z<sub>x</sub> = e<sup>3y</sup> · z<sub>y</sub> = 3x e<sup>3y</sup>',
-      '#2ª ordem | deriva de novo',
-      { c: [['*de z<sub>x</sub> = e<sup>3y</sup>', 'z<sub>xx</sub> = «o|0» (sem x)', 'z<sub>xy</sub> = «o|3e<sup>3y</sup>»'], ['*de z<sub>y</sub> = 3x e<sup>3y</sup>', 'z<sub>yx</sub> = «o|3e<sup>3y</sup>»', 'z<sub>yy</sub> = «o|9x e<sup>3y</sup>»']] },
-      '~ mistas iguais «g|✓» (Clairaut)',
-      '=z<sub>xx</sub> = 0 · z<sub>xy</sub> = z<sub>yx</sub> = 3e<sup>3y</sup> · z<sub>yy</sub> = 9x e<sup>3y</sup>'] };
   q.x32 = { t: 'Derivadas segundas de f(x, y) = x³ + x²y³ − 2y²', r: 'Receita: 1ª ordem → deriva de novo → confere as mistas',
     b: ['#1ª ordem', 'f<sub>x</sub> = 3x² + 2xy³ · f<sub>y</sub> = 3x²y² − 4y',
       '#2ª ordem',
@@ -327,12 +231,6 @@
       '=f<sub>xx</sub> = 6x + 2y³ · f<sub>xy</sub> = f<sub>yx</sub> = 6xy² · f<sub>yy</sub> = 6x²y − 4'] };
   q.x33 = { t: 'f<sub>xyyz</sub> de f(x, y, z) = 1 − 2xy²z + x²y', r: 'Receita: deriva na ordem dos índices, uma letra por vez',
     b: ['x → f<sub>x</sub> = −2y²z + 2xy', 'y → f<sub>xy</sub> = −4yz + 2x', 'y → f<sub>xyy</sub> = −4z', 'z → f<sub>xyyz</sub> = «o|−4»', '=f<sub>xyyz</sub> = −4'] };
-  q.x34 = { t: 'Chapa soldada · 1ª ordem', r: 'Receita: T<sub>x</sub> e T<sub>y</sub> → no ponto → onde as duas zeram é candidato',
-    b: [{ c: [['*T<sub>x</sub> = −2x', '(1, 1): «o|−2 °C/m»'], ['*T<sub>y</sub> = −4y', '(1, 1): «o|−4 °C/m»']] },
-      '~ em y cai 2× mais rápido: o calor flui mais forte nessa direção',
-      '#Em (0, 0)', 'T<sub>x</sub> = 0 e T<sub>y</sub> = 0 → «b|candidato» (topo, fundo ou sela?)',
-      S3({ f: (x, y) => 3 - x * x - 2 * y * y, x: [-1.5, 1.5], y: [-1.2, 1.2], n: 14, zs: .7, zmax: 3, pt: [[0, 0, null, K.o, '(0, 0)'], [1, 1, null, K.b, '(1, 1)']] }),
-      '=(1, 1): −2 °C/m em x e −4 °C/m em y · (0, 0) é ponto crítico'] };
   q.x35 = { t: 'Chapa soldada · 2ª ordem', r: 'Receita: D = T<sub>xx</sub>·T<sub>yy</sub> − (T<sub>xy</sub>)² → sinal de D e de T<sub>xx</sub>',
     b: ['T<sub>xx</sub> = −2 · T<sub>yy</sub> = −4 · T<sub>xy</sub> = 0', 'D = (−2)(−4) − 0² = «o|8» > 0', 'T<sub>xx</sub> < 0 → «g|MÁXIMO» (morro)',
       S3({ f: (x, y) => 3 - x * x - 2 * y * y, x: [-1.5, 1.5], y: [-1.2, 1.2], n: 14, zs: .7, zmax: 3, pt: [[0, 0, null, K.r, 'mais quente']] }),
@@ -346,16 +244,6 @@
       '=Sim: u<sub>tt</sub> = c² u<sub>xx</sub>'] };
 
   /* ===== Aula 5 · regra da cadeia ===== */
-  q.x37 = { t: 'z = x²y + 3xy⁴, x = sen 2t, y = cos t · dz/dt em t = 0', r: 'Receita: árvore → parciais × derivadas em t → troca t = 0 no fim',
-    b: ['#Árvore | dz/dt = z<sub>x</sub>·x′ + z<sub>y</sub>·y′', ARV('z', ['x', 'y'], ['t']),
-      { c: [['*parciais', 'z<sub>x</sub> = 2xy + 3y⁴', 'z<sub>y</sub> = x² + 12xy³'], ['*derivadas em t', 'x′ = 2 cos 2t', 'y′ = −sen t']] },
-      '#Em t = 0', 'x = sen 0 = 0 · y = cos 0 = 1 · x′ = 2 · y′ = 0',
-      'dz/dt = (0 + 3)·2 + (0 + 0)·0 = «o|6»', '=dz/dt = 6 em t = 0'] };
-  q.x38 = { t: 'Gás ideal: P = 8,31 T/V', r: 'Receita: árvore → ∂P/∂T e ∂P/∂V → multiplica pelas taxas dadas',
-    b: [ARV('P', ['T', 'V'], ['t']),
-      { c: [['*∂P/∂T', '8,31/V', ' = 8,31/100', 'T′ = 0,1 K/s'], ['*∂P/∂V', '−8,31T/V²', ' = −8,31·300/100²', 'V′ = 0,2 L/s']] },
-      'dP/dt = (8,31/100)(0,1) + (−8,31·300/10 000)(0,2)', ' = 0,00831 − 0,04986 ≈ «o|−0,042»',
-      '=dP/dt ≈ −0,042 kPa/s (a pressão cai)'] };
   q.x39 = { t: 'Cone: V = πr²h/3', r: 'Receita: árvore → parciais → taxa com sinal (h diminui → negativo)',
     b: [CONE,
       { c: [['*∂V/∂r', '2πrh/3', 'r′ = «g|+1,8»'], ['*∂V/∂h', 'πr²/3', 'h′ = «r|−2,5»']] },
@@ -367,19 +255,7 @@
       '#∂z/∂s | caminhos até s', ' = eˣ sen y · «b|t²» + eˣ cos y · «b|2st»',
       '#∂z/∂t | caminhos até t', ' = eˣ sen y · «b|2st» + eˣ cos y · «b|s²»',
       '=∂z/∂s = t² e<sup>st²</sup> sen(s²t) + 2st e<sup>st²</sup> cos(s²t) · ∂z/∂t = 2st e<sup>st²</sup> sen(s²t) + s² e<sup>st²</sup> cos(s²t)'] };
-  q.x41 = { t: 'Lei de Ohm: I = V/R', r: 'Receita: isola I → árvore → parciais × taxas',
-    b: [ARV('I', ['V', 'R'], ['t']),
-      { c: [['*∂I/∂V', '1/R = 1/400', 'V′ = −0,01'], ['*∂I/∂R', '−V/R²', 'V = 0,08·400 = «b|32 V»', 'R′ = 0,03']] },
-      'dI/dt = (1/400)(−0,01) + (−32/400²)(0,03)', ' = −0,000025 − 0,000006 = «o|−0,000031»',
-      '=dI/dt ≈ −3,1 × 10⁻⁵ A/s'] };
-
   /* ===== Aula 6 · gradiente ===== */
-  q.x42 = { t: 'f(x, y) = x²y³ − 4y em (2, −1), direção v = ⟨2, 5⟩', r: 'Receita: gradiente → no ponto → u unitário → D<sub>u</sub>f = ∇f · u',
-    b: ['#Gradiente', '∇f = ⟨2xy³ , 3x²y² − 4⟩', '∇f(2, −1) = ⟨2·2·(−1) , 3·4·1 − 4⟩ = «o|⟨−4, 8⟩»',
-      '#Unitário', '|v| = √(4 + 25) = √29 → u = ⟨2, 5⟩/√29',
-      P2({ x: [-5, 4], y: [-1.5, 8.5], w: 280, h: 260, tk: 2, ar: [[0, 0, -4, 8, K.o, '∇f', -30, 0], [0, 0, 2 * 3 / Math.sqrt(29) * 1.8, 5 * 3 / Math.sqrt(29) * 1.8, K.b, 'u']], pt: [[0, 0, K.ink, '(2, −1)', 6, 16]] }),
-      '#D<sub>u</sub>f = ∇f · u', '(−4·2 + 8·5)/√29 = «o|32/√29»',
-      '=D<sub>u</sub>f(2, −1) = 32/√29 ≈ 5,94'] };
   q.x43 = { t: 'Montanha · 4a) andando para o sul', r: 'Receita: direção → unitário? → D<sub>u</sub>h = ∇h · u → sinal diz sobe/desce',
     b: ['∇h(50, 80) = (−1, −3,2)', 'sul → u = (0, −1) · ‖u‖ = 1 «g|✓»',
       ROSA([[0, 0, 0, -2.4, K.b, 'u (sul)', 8, 8]]),
@@ -394,11 +270,6 @@
     b: ['direção: «b|o próprio ∇h» = −1 î − 3,2 ĵ', ROSA(),
       'taxa máx = ‖∇h‖ = √(1 + 10,24) = √11,24 ≈ «o|3,35»',
       '=direção −î − 3,2ĵ · taxa ≈ 3,35 m/m'] };
-  q.x46 = { t: 'Montanha · 4d) descida mais íngreme', r: 'Receita: descida máxima → −∇h · taxa = −‖∇h‖',
-    b: ['direção: «b|−∇h» = î + 3,2 ĵ', ROSA([[0, 0, 1, 3.2, K.g, '−∇h', 6, 4]]),
-      'taxa mín = −‖∇h‖ ≈ «o|−3,35»',
-      '=direção î + 3,2ĵ · taxa ≈ −3,35 m/m'] };
-
   /* ===== Aula 7 · máximos e mínimos ===== */
   q.x47 = { t: 'f(x, y) = x² + y² − 2x − 6y + 14', r: 'Receita: zera as derivadas → testa a 2ª ordem em CADA ponto → classifica → calcula o valor',
     b: ['#Pontos críticos | f<sub>x</sub> = 0 e f<sub>y</sub> = 0',
@@ -410,19 +281,38 @@
       S3({ f: (x, y) => (x - 1) ** 2 + (y - 3) ** 2 + 4, x: [-1, 3], y: [1, 5], n: 14, zs: .5, zmax: 12, pt: [[1, 3, null, K.g, 'mínimo (1, 3, 4)']] }),
       '~ completando quadrados: (x − 1)² + (y − 3)² + 4 → vale com fundo na altura 4',
       '=mínimo local 4 em (1, 3) · sem máximo e sem sela'] };
-  q.x48 = { t: 'f(x, y) = x⁴ + y⁴ − 4xy + 1', r: 'Receita: zera as derivadas → testa a 2ª ordem em CADA ponto → classifica → calcula o valor',
-    b: ['#Pontos críticos | f<sub>x</sub> = 0 e f<sub>y</sub> = 0',
-      { c: [['*f<sub>x</sub>', '4x³ − 4y = 0 → y = x³'], ['*f<sub>y</sub>', '4y³ − 4x = 0 → x = y³']] },
-      'substitui: (x³)³ − x = 0 → x⁹ − x = 0 → x(x⁸ − 1) = 0',
-      '→ x = 0 ou x = ±1 → «o|(0, 0) · (1, 1) · (−1, −1)»',
-      '#Teste do D | D = f<sub>xx</sub>·f<sub>yy</sub> − (f<sub>xy</sub>)²',
-      'f<sub>xx</sub> = 12x² · f<sub>yy</sub> = 12y² · f<sub>xy</sub> = −4 → D = 144x²y² − 16',
-      { c: [['*(0, 0)', 'D = −16 < 0', '→ «r|SELA»'], ['*(1, 1)', 'D = 128 > 0 e f<sub>xx</sub> = 12 > 0', '→ «g|MÍNIMO»'], ['*(−1, −1)', 'D = 128 > 0 e f<sub>xx</sub> = 12 > 0', '→ «g|MÍNIMO»']] },
-      '#Valores', 'f(1, 1) = f(−1, −1) = 1 + 1 − 4 + 1 = «o|−1» · f(0, 0) = 1',
-      S3({ f: (x, y) => Math.min(x ** 4 + y ** 4 - 4 * x * y + 1, 4), x: [-1.6, 1.6], y: [-1.6, 1.6], n: 18, zs: .55, zmax: 4, pt: [[1, 1, null, K.g, 'mín'], [-1, -1, null, K.g, 'mín'], [0, 0, null, K.r, 'sela']] }),
-      '=sela em (0, 0) · mínimos −1 em (1, 1) e (−1, −1)'] };
-
   /* ===== Lista ===== */
+  q.x1 = { t: 'f(x, y) = 2x + y', r: 'Receita: troca x e y pelos números do par, sempre na ordem (x, y)',
+    b: [{ c: [['*f(1, 3)', '2·1 + 3', ' = «o|5»'], ['*f(0, 0)', '2·0 + 0', ' = «o|0»'], ['*f(2, −4)', '2·2 + (−4)', ' = 4 − 4 = «o|0»']] },
+      '~ pares diferentes podem dar o mesmo valor: (0, 0) e (2, −4) estão na mesma curva de nível',
+      '=f(1, 3) = 5 · f(0, 0) = 0 · f(2, −4) = 0'] };
+  q.x2 = { t: 'Domínio de t(f, n) = L / (f · n)', r: 'Receita: procura o que pode quebrar → divisão: denominador ≠ 0',
+    b: ['#O que pode quebrar?', 'divisão → «r|f · n ≠ 0»',
+      '#Produto = 0 quando um fator = 0', 'f ≠ 0 «b|e» n ≠ 0',
+      P2({ x: [-3, 3], y: [-3, 3], ax: ['f', 'n'], fill: (x, y) => Math.abs(x) > .08 && Math.abs(y) > .08, fc: 'rgba(30,98,201,.16)', cv: [{ f: () => 0, c: K.r, d: 1 }, { p: t => [0, t], t: [-3, 3], c: K.r, d: 1 }], fill2: 0,
+        tx: [[0.4, 2.5, 'fisicamente: f > 0 e n > 0', K.g, 12]], pt: [] }),
+      '~ os eixos (tracejados) ficam de fora: neles f = 0 ou n = 0 → máquina parada',
+      '=D = {(f, n) | f ≠ 0 e n ≠ 0} · na prática f > 0 e n > 0'] };
+  q.x3 = { t: 'Tampo semiesférico z = √(R² − x² − y²)', r: 'Receita: raiz → o de dentro ≥ 0 → isola → reconhece a figura',
+    b: ['#Raiz | dentro ≥ 0', 'R² − x² − y² ≥ 0', 'x² + y² ≤ «o|R²»',
+      '~ é o círculo de raio R; com o "≤", o disco cheio',
+      lado(P2({ x: [-1.5, 1.5], y: [-1.5, 1.5], w: 260, h: 230, fill: (x, y) => x * x + y * y <= 1, cv: [{ p: t => [Math.cos(t), Math.sin(t)], t: [0, 6.3], c: K.b }], ar: [[0, 0, 0.71, 0.71, K.o, 'R', 4, 4]] }),
+        S3({ f: (x, y) => Math.sqrt(Math.max(0, 1 - x * x - y * y)), cut: (x, y) => x * x + y * y <= 1.0001, x: [-1, 1], y: [-1, 1], n: 16, zmax: 1, axes: false })),
+      '=D = {x² + y² ≤ R²} · o disco da base do tampo'] };
+  q.x4 = { t: 'Domínio de g(x, y) = ln(x − y)', r: 'Receita: ln → o de dentro > 0 (estritamente) → isola o y',
+    b: ['#ln | dentro > 0', 'x − y > 0', '«o|y < x»',
+      P2({ x: [-3, 3], y: [-3, 3], tk: 1, fill: (x, y) => y < x, cv: [{ f: x => x, c: K.r, d: 1, l: [1.6, 2.2, 'y = x'] }] }),
+      '~ tracejado: a reta y = x fica de fora (é > e não ≥)',
+      '=D = {(x, y) | y < x} · abaixo da reta'] };
+  q.x18 = { t: 'f(x, y) = 3x − 2y⁴', r: 'Receita: f<sub>x</sub> → y congelado · f<sub>y</sub> → x congelado',
+    b: [{ c: [['*f<sub>x</sub> → y congelado', '3x → 3 / −2y⁴ → 0', 'f<sub>x</sub> = «o|3»'], ['*f<sub>y</sub> → x congelado', '3x → 0 / −2y⁴ → −2·4y³', 'f<sub>y</sub> = «o|−8y³»']] },
+      '~ o −2 multiplica o 4y³: não esqueça o sinal (o gabarito esqueceu)',
+      '=f<sub>x</sub> = 3 · f<sub>y</sub> = −8y³'] };
+  q.x20 = { t: 'z = (2x + 3y)<sup>10</sup>', r: 'Receita: cadeia → derivada de fora × derivada de dentro',
+    b: ['#Fora | igual nas duas', '10(2x + 3y)<sup>9</sup>',
+      { c: [['*z<sub>x</sub>', 'dentro em x: «b|2»', '10(2x + 3y)<sup>9</sup>·2', ' = «o|20(2x + 3y)<sup>9</sup>»'], ['*z<sub>y</sub>', 'dentro em y: «b|3»', '10(2x + 3y)<sup>9</sup>·3', ' = «o|30(2x + 3y)<sup>9</sup>»']] },
+      '~ só muda a derivada de dentro',
+      '=z<sub>x</sub> = 20(2x + 3y)<sup>9</sup> · z<sub>y</sub> = 30(2x + 3y)<sup>9</sup>'] };
   q.Q1a = Object.assign({}, q.x18, { t: '1a) f(x, y) = 3x − 2y⁴' });
   q.Q1b = Object.assign({}, q.x19, { t: '1b) z = x e<sup>3y</sup>' });
   q.Q1c = Object.assign({}, q.x20, { t: '1c) z = (2x + 3y)<sup>10</sup>' });

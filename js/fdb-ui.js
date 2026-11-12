@@ -40,7 +40,10 @@ function tocs(){ $$('section.view').forEach(sec=>{ if(sec.id==='v-inicio'||$('.f
     box.addEventListener('click',e=>{ const a=e.target.closest('[data-toc]'); if(!a) return; e.preventDefault(); const t=document.getElementById(a.getAttribute('href').slice(1)); t&&t.scrollIntoView({behavior:RM?'auto':'smooth',block:'start'}) }) }) }
 
 /* ---------- início das oficinas ---------- */
-function G(n){ try{ return Function('return typeof '+n+'!=="undefined"?'+n+':undefined')() }catch(e){ return undefined } }
+/* lê uma constante global da página (const MODS etc. não ficam em window) sem eval/Function */
+function G(n){ if(!/^[A-Za-z_$][\w$]*$/.test(n)) return undefined; if(n in window) return window[n];
+  const sc=document.createElement('script'); sc.textContent='window.__fdbG=(typeof '+n+'!=="undefined")?'+n+':undefined;'; (document.head||document.documentElement).appendChild(sc).remove();
+  const v=window.__fdbG; window.__fdbG=undefined; return v }
 function home(){ const ini=$('#v-inicio'), hero=$('#v-inicio > .hero'), M=G('MODS'); if(!ini||!hero||!Array.isArray(M)) return;
   const top=document.createElement('div'); top.className='fdb-top'; hero.before(top); top.appendChild(hero);
   const pc=document.createElement('aside'); pc.className='pcard'; pc.setAttribute('aria-label','Seu progresso'); top.appendChild(pc);
@@ -79,10 +82,10 @@ function surface(cv){ const x=cv.getContext('2d'); let t=0, raf=0;
     const f=(u,v)=>Math.sin(u*1.25+t)*Math.cos(v*1.1)*.9+Math.sin(u*.6-v*.8)*.35;
     const P=(u,v)=>{ const z=f(u,v); const X=u*c-v*s, Y=u*s+v*c; return [W/2+X*S/3, H/2+ (Y*se - z*ce)*S/3*1.05, Y, z] };
     const L=-3, st=6/N, q=[]; for(let i=0;i<N;i++)for(let j=0;j<N;j++){ const u=L+i*st, v=L+j*st; const p=[P(u,v),P(u+st,v),P(u+st,v+st),P(u,v+st)]; q.push({p,d:(p[0][2]+p[2][2])/2,z:(p[0][3]+p[2][3])/2}) }
-    q.sort((A,B)=>A.d-B.d); if(!cor) cor=[css('--c2')||'#1E62C9',css('--c1')||'#F26B1D']; const c1=cor[0], c2=cor[1];
+    q.sort((A,B)=>A.d-B.d); if(!cor){ const a1=css('--c2')||'#1E62C9', a2=css('--c1')||'#F26B1D'; cor=Array.from({length:41},(_,i)=>mix(a1.length===7?a1:'#1E62C9',a2.length===7?a2:'#F26B1D',i/40)) }
     for(const k of q){ const z=(k.z+1.25)/2.5; x.beginPath(); k.p.forEach((p,i)=>i?x.lineTo(p[0],p[1]):x.moveTo(p[0],p[1])); x.closePath();
-      x.fillStyle=mix(c1.length===7?c1:'#1E62C9',c2.length===7?c2:'#F26B1D',Math.max(0,Math.min(1,z))); x.globalAlpha=.92; x.fill(); x.globalAlpha=.35; x.strokeStyle='#0E1F38'; x.lineWidth=.6; x.stroke(); x.globalAlpha=1 }
-    if(!RM){ t+=.006; raf=requestAnimationFrame(draw) } };
+      x.fillStyle=cor[Math.round(Math.max(0,Math.min(1,z))*40)]; x.globalAlpha=.92; x.fill(); x.globalAlpha=.35; x.strokeStyle='#0E1F38'; x.lineWidth=.6; x.stroke(); x.globalAlpha=1 }
+    if(!RM){ t+=.012; raf=setTimeout(()=>{ raf=requestAnimationFrame(draw) },28) } };
   draw() }
 function hub(){ const top=$('header.top'); if(!top||$('.fdb-hsurf')) return; const tt=$('.tt',top);
   if(tt&&!$('.eyebrow',tt)) tt.insertAdjacentHTML('afterbegin','<div class="eyebrow">Bem-vindo à sua faculdade de bolso</div>');
@@ -188,8 +191,8 @@ function wall(seed,doodles,texts){ let el=$('.fdb-wall'); if(!el){ el=document.c
   pool.slice(0,cells.length).forEach((it,i)=>{ const [cx,cy]=cells[i]; const x=cx*W/5+30+r()*(W/5-180), y=cy*H/4+30+r()*(H/4-130), rot=(r()-.5)*16;
     if(it.d&&DOO[it.d]){ const s=1+r()*.7; items.push('<g transform="translate('+x.toFixed(0)+' '+y.toFixed(0)+') rotate('+rot.toFixed(1)+') scale('+s.toFixed(2)+')">'+DOO[it.d]+'</g>') }
     else if(it.t){ const fs=(28+r()*14).toFixed(0); items.push('<text x="'+x.toFixed(0)+'" y="'+(y+40).toFixed(0)+'" font-size="'+fs+'" transform="rotate('+rot.toFixed(1)+' '+x.toFixed(0)+' '+y.toFixed(0)+')">'+escX(it.t)+'</text>') } });
-  el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMin slice" width="100%" height="100%"><defs><filter id="fdbLapis" x="-5%" y="-5%" width="110%" height="110%"><feTurbulence type="fractalNoise" baseFrequency=".9" numOctaves="2" seed="'+Math.floor(r()*99)+'"/><feDisplacementMap in="SourceGraphic" scale="1.6"/></filter></defs>'+
-    '<g filter="url(#fdbLapis)" style="fill:none;stroke:var(--ink);stroke-opacity:.12;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;font-family:Caveat,\'Segoe Print\',cursive;font-weight:500"><g style="fill:var(--ink);fill-opacity:.12;stroke:none">'+items.filter(x=>x.startsWith('<text')).join('')+'</g>'+items.filter(x=>!x.startsWith('<text')).join('')+'</g></svg>' }
+  el.innerHTML='<svg viewBox="0 0 '+W+' '+H+'" preserveAspectRatio="xMidYMin slice" width="100%" height="100%">'+
+    '<g style="fill:none;stroke:var(--ink);stroke-opacity:.12;stroke-width:1.5;stroke-linecap:round;stroke-linejoin:round;font-family:Caveat,\'Segoe Print\',cursive;font-weight:500"><g style="fill:var(--ink);fill-opacity:.12;stroke:none">'+items.filter(x=>x.startsWith('<text')).join('')+'</g>'+items.filter(x=>!x.startsWith('<text')).join('')+'</g></svg>' }
 function wallOficina(){ const id=matDaPagina(); if(!id) return; const tema=TEMA(id);
   const go=()=>{ const sec=$$('section.view').find(x=>!x.hidden); const v=(sec&&sec.id)||'inicio';
     const fx=sec?$$('.fx .eq',sec).map(e=>e.textContent.replace(/\s+/g,' ').trim()).filter(t=>t.length>2&&t.length<40).slice(0,4):[];
