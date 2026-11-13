@@ -38,7 +38,8 @@
  border:9px solid #0E1F38;border-radius:12px;box-shadow:inset 0 0 50px rgba(14,31,56,.10);padding:22px 24px 16px;text-shadow:0 0 .7px rgba(14,31,56,.35)}
 .fdbq-board .t{font-weight:700;font-size:1.7rem;line-height:1.15;margin:0 0 4px}
 .fdbq-board .rc{font-size:.92rem;color:var(--ink2);margin:0 0 6px}
-.fdbq-board .en{color:var(--ink2);border-left:3px dashed var(--c2);padding:2px 0 2px 12px;margin:8px 0 6px;font-size:1rem}
+.fdbq-board .en{color:var(--ink,#13233A);background:color-mix(in srgb,var(--c2,#1E62C9) 7%,transparent);border:1.5px dashed var(--c2,#1E62C9);border-radius:10px;padding:10px 14px 12px;margin:10px 0 14px;font-size:1.1rem;line-height:1.55}
+.fdbq-board .en::before{content:"Enunciado";display:block;font:700 .68rem var(--f-mono,monospace);letter-spacing:.12em;text-transform:uppercase;color:var(--c2,#1E62C9);margin-bottom:4px}
 .fdbq-board .hd{display:flex;align-items:center;gap:9px;font-weight:700;font-size:1.2rem;margin:16px 0 6px;padding-bottom:2px;border-bottom:2px dashed rgba(14,31,56,.28);width:fit-content;max-width:100%}
 .fdbq-board .n{flex:none;display:inline-grid;place-items:center;width:1.45em;height:1.45em;border:2.2px solid currentColor;border-radius:50%;font-weight:700;font-size:.9em;line-height:1}
 .fdbq-board .ln{margin:5px 0;padding-left:2px}
@@ -155,10 +156,12 @@
   const giz = h => String(h || '').replace(/^\s*(\(?[a-h]\))\s*/, '<span class="it">$1</span> ').replace(/✓/g, '<span class="ok">✓</span>').replace(/(→|⇒|⇔)/g, '<span class="ar">$1</span>');
   /* quadro escrito à mão (dados/quadros-*.js) */
   const tinta = h => String(h || '').replace(/«([ogrb])\|([^»]*)»/g, (m, c, t) => '<span class="c' + c + '">' + t + '</span>');
+  /* enunciado sempre com inicial maiúscula (o texto do exemplo vem depois de "Exemplo n:") */
+  const cap = h => String(h || '').replace(/^(\s*(?:<[^>]+>\s*)*)([a-zà-ÿ])/, (m, a, c) => a + c.toUpperCase());
   function lousa(q, B) {
     let h = '<div class="t w">' + tinta(B.t || q.titulo || 'Resolução') + '</div>';
+    const en = q.enun || B.e; if (en) h += '<div class="en w">' + cap(en) + '</div>';
     if (B.r) h += '<div class="rc w">' + tinta(B.r) + '</div>';
-    if (q.enun && B.en !== false) h += '<div class="en w">' + q.enun + '</div>';
     let k = 0;
     const linha = x => {
       if (typeof x === 'string') {
@@ -179,8 +182,8 @@
     if (q.board) { b.innerHTML = vec(lousa(q, q.board)); return mostrar(q, b) }
     const secs = q.secoes || [];
     let h = '<div class="t w">' + (q.titulo || 'Resolução') + '</div>';
+    if (q.enun) h += '<div class="en w">' + cap(q.enun) + '</div>';
     if (q.receita) h += '<div class="rc w">' + q.receita + '</div>';
-    if (q.enun) h += '<div class="en w">' + q.enun + '</div>';
     const soUma = secs.length === 1 && !secs[0].h;
     let k = 0;
     secs.forEach(s => {
