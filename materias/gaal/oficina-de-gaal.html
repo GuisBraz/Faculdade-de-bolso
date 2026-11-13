@@ -385,10 +385,16 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <dl class="legend"><dt>v⃗ = (a, b, c)</dt><dd>o vetor</dd><dt>‖v⃗‖</dt><dd>o tamanho dele. É Pitágoras em 3D.</dd></dl>
   </div>
   <p>A distância entre dois pontos é só a norma da seta entre eles: d(<i class="m">A</i>,<i class="m">B</i>) = ‖<i class="m">AB</i>⃗‖.</p>
+  <div class="pq"><span class="k">Por que é Pitágoras? (explicando do zero)</span><p>Imagine a seta v⃗ = (a, b, c) saindo do canto de uma sala. Primeiro ela anda <b>a</b> no chão para a frente e <b>b</b> para o lado. A "sombra" dela no chão é a hipotenusa de um triângulo com catetos a e b: mede √(a² + b²). Depois ela sobe <b>c</b>. Agora tem outro triângulo em pé: um cateto é a sombra, o outro é a altura c. Pitágoras de novo: (√(a² + b²))² + c² = a² + b² + c². Tirando a raiz, sai a fórmula.</p></div>
+  <div class="ex" data-ex data-q="kit-norma"><div class="q">Exemplo: calcule o tamanho de v⃗ = (2, 3, −1) e a distância entre A = (1, −2, −3) e B = (3, 1, −4).</div>
+    <ol><li>Eleve cada coordenada ao quadrado (o sinal some: (−1)² = 1): 2² = 4, 3² = 9, (−1)² = 1.</li><li>Some e tire a raiz: ‖v⃗‖ = √(4 + 9 + 1) = √14 ≈ 3,74.</li><li>Para a distância, primeiro a seta entre os pontos: AB⃗ = B − A = (2, 3, −1). É o mesmo vetor de cima!</li><li>Então d(A, B) = ‖AB⃗‖ = √14 ≈ 3,74.</li></ol>
+    <div class="ans">‖v⃗‖ = √14 ≈ 3,74 · d(A, B) = √14</div></div>
 
   <h3>Vetores paralelos: um é múltiplo do outro</h3>
   <p>Se <i class="m">u</i>⃗ = <i class="m">k</i>·<i class="m">v</i>⃗ para algum número <i class="m">k</i>, eles apontam na mesma direção (podem ter sentido oposto se <i class="m">k</i> for negativo). Teste prático: divida coordenada por coordenada. Se todas as divisões derem o mesmo número, são paralelos.</p>
-  <div class="ofi"><span class="k">Na oficina</span>(2, 4, 2) e (1, 2, 1) são a mesma direção, como uma barra de 2 m e outra de 1 m apontadas para o mesmo lado. Por isso você pode <b>simplificar</b> um vetor diretor dividindo tudo por um número comum. Facilita muito as contas.</div>
+  <div class="ex" data-ex data-q="kit-par"><div class="q">Exemplo: os vetores são paralelos? a) (2, −4, 6) e (−1, 2, −3) &nbsp; b) (1, 0, 2) e (2, 0, 5)</div>
+    <ol><li>a) Divida coordenada por coordenada: 2/(−1) = −2, (−4)/2 = −2, 6/(−3) = −2. Deu o mesmo número em todas: k = −2.</li><li>a) São paralelos. O sinal negativo só diz que apontam para lados opostos (mesma reta, sentidos contrários).</li><li>b) Tem zero na mesma posição nos dois (o y): isso é bom sinal, zero com zero combina. Divida o resto: 1/2 = 0,5 e 2/5 = 0,4.</li><li>b) Deu diferente: não são paralelos.</li><li>Cuidado: se um vetor tem 0 numa posição e o outro não, já não são paralelos (k·0 é sempre 0).</li></ol>
+    <div class="ans">a) paralelos, (2, −4, 6) = −2·(−1, 2, −3) · b) não são paralelos</div></div><div class="ofi"><span class="k">Na oficina</span>(2, 4, 2) e (1, 2, 1) são a mesma direção, como uma barra de 2 m e outra de 1 m apontadas para o mesmo lado. Por isso você pode <b>simplificar</b> um vetor diretor dividindo tudo por um número comum. Facilita muito as contas.</div>
 
   <h3>Ferramenta 1 · Produto escalar (dá um número)</h3>
   <div class="fx"><span class="tag">Fórmula 1.3 · produto escalar</span>
@@ -413,7 +419,10 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <tr><td>Achar o ângulo entre retas ou planos</td><td>cos θ = |u⃗·v⃗| / (‖u⃗‖‖v⃗‖)</td></tr>
     <tr><td>Pé da perpendicular (ponto mais próximo)</td><td>impor AQ⃗·v⃗ = 0 e resolver para t</td></tr>
     <tr><td>Conferir um produto vetorial</td><td>(u⃗ × v⃗)·u⃗ = 0 e (u⃗ × v⃗)·v⃗ = 0</td></tr></table></div>
-  <div class="cuid"><span class="k">A regra de ouro</span><b>u⃗ · v⃗ = 0 ⇔ u⃗ e v⃗ são perpendiculares.</b> Você vai usar isso o tempo todo: para achar plano perpendicular, reta perpendicular, ponto mais próximo…</div>
+  <div class="pq"><span class="k">As duas caras do produto escalar</span><p>A fórmula tem dois lados que dão <b>o mesmo número</b>:</p><ul><li><b>Lado da conta:</b> u₁v₁ + u₂v₂ + u₃v₃. É o que você calcula, só multiplicação e soma.</li><li><b>Lado do significado:</b> ‖u⃗‖ ‖v⃗‖ cos θ. Os tamanhos são sempre positivos, então <b>quem decide o sinal é o cos θ</b>.</li></ul><div class="tabela"><table><tr><th>u⃗ · v⃗</th><th>cos θ</th><th>ângulo</th></tr><tr><td>positivo</td><td>&gt; 0</td><td>agudo (menos de 90°): um ajuda o outro</td></tr><tr><td>zero</td><td>= 0</td><td>exatamente 90°: perpendiculares</td></tr><tr><td>negativo</td><td>&lt; 0</td><td>obtuso (mais de 90°): um atrapalha o outro</td></tr></table></div><p>Igualando os dois lados e isolando, sai o ângulo: <b>cos θ = (u⃗ · v⃗) / (‖u⃗‖ ‖v⃗‖)</b>. É dessa fórmula que todo o Módulo 5 nasce.</p></div>
+  <div class="ex" data-ex data-q="kit-esc"><div class="q">Exemplo: u⃗ = (1, 2, 2) e v⃗ = (2, 0, 1). Calcule u⃗ · v⃗ e o ângulo entre eles.</div>
+    <ol><li>Lado da conta: multiplique x com x, y com y, z com z e some: 1·2 + 2·0 + 2·1 = 2 + 0 + 2 = 4.</li><li>Deu positivo: o ângulo é agudo (menos de 90°).</li><li>Tamanhos: ‖u⃗‖ = √(1 + 4 + 4) = √9 = 3 e ‖v⃗‖ = √(4 + 0 + 1) = √5.</li><li>cos θ = 4 / (3·√5) = 4 / 6,71 ≈ 0,596.</li><li>θ = arccos(0,596) ≈ 53,4° (na calculadora, tecla cos⁻¹).</li></ol>
+    <div class="ans">u⃗ · v⃗ = 4 · θ ≈ 53,4°</div></div><div class="cuid"><span class="k">A regra de ouro</span><b>u⃗ · v⃗ = 0 ⇔ u⃗ e v⃗ são perpendiculares.</b> Você vai usar isso o tempo todo: para achar plano perpendicular, reta perpendicular, ponto mais próximo…</div>
 
   <h3>Ferramenta 2 · Produto vetorial (dá um vetor)</h3>
   <p>O produto vetorial <i class="m">u</i>⃗ × <i class="m">v</i>⃗ gera um vetor <b>perpendicular aos dois</b> ao mesmo tempo. É a máquina de fazer vetor normal de plano.</p>
@@ -421,7 +430,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <div class="eq"><i>u</i>⃗ × <i>v</i>⃗ = ( <i>u</i>₂<i>v</i>₃ − <i>u</i>₃<i>v</i>₂ ,&nbsp; <i>u</i>₃<i>v</i>₁ − <i>u</i>₁<i>v</i>₃ ,&nbsp; <i>u</i>₁<i>v</i>₂ − <i>u</i>₂<i>v</i>₁ )</div>
     <dl class="legend"><dt>resultado</dt><dd>vetor ⊥ a u⃗ e a v⃗</dd><dt>‖u⃗ × v⃗‖</dt><dd>área do paralelogramo formado por u⃗ e v⃗</dd><dt>u⃗ × v⃗ = 0⃗</dt><dd>u⃗ e v⃗ são paralelos</dd></dl>
   </div>
-  <p><b>Truque para decorar:</b> escreva as coordenadas duas vezes em fila: <code>u₁ u₂ u₃ u₁ u₂</code>. Para a 1ª coordenada, cubra a coluna 1 e faça o "x" das colunas 2 e 3 (diagonal descendo menos diagonal subindo). Para a 2ª, colunas 3 e 1. Para a 3ª, colunas 1 e 2. É o determinante com <b>i j k</b> na primeira linha.</p>
+  <div class="pq"><span class="k">Por que o tamanho de u⃗ × v⃗ é uma área?</span><p>Desenhe u⃗ e v⃗ saindo do mesmo ponto e complete o paralelogramo. A área é <b>base × altura</b>. A base é ‖u⃗‖. A altura é o pedaço de v⃗ que fica "em pé" em relação a u⃗: ‖v⃗‖ sen θ. Então área = ‖u⃗‖ ‖v⃗‖ sen θ, que é exatamente o tamanho do produto vetorial.</p><p>Consequência: se u⃗ e v⃗ são paralelos, θ = 0°, sen 0° = 0, o paralelogramo achata e u⃗ × v⃗ = <b>0⃗</b>. Por isso "vetorial zero" é teste de paralelismo.</p></div><p><b>Truque para decorar:</b> escreva as coordenadas duas vezes em fila: <code>u₁ u₂ u₃ u₁ u₂</code>. Para a 1ª coordenada, cubra a coluna 1 e faça o "x" das colunas 2 e 3 (diagonal descendo menos diagonal subindo). Para a 2ª, colunas 3 e 1. Para a 3ª, colunas 1 e 2. É o determinante com <b>i j k</b> na primeira linha.</p>
   <div class="ex" data-ex data-q="vet-cross"><div class="q">Exemplo: u⃗ = (2, 1, −1) e v⃗ = (1, 1, 0)</div>
     <ol><li>1ª: u₂v₃ − u₃v₂ = 1·0 − (−1)·1 = 0 + 1 = 1</li><li>2ª: u₃v₁ − u₁v₃ = (−1)·1 − 2·0 = −1</li><li>3ª: u₁v₂ − u₂v₁ = 2·1 − 1·1 = 1</li><li>Conferindo: (1, −1, 1)·(2, 1, −1) = 2 − 1 − 1 = 0 ✓ e (1, −1, 1)·(1, 1, 0) = 0 ✓</li></ol>
     <div class="ans">u⃗ × v⃗ = (1, −1, 1). Sempre confira com o escalar dando zero!</div></div>
@@ -445,6 +454,9 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <dl class="legend"><dt>det</dt><dd>determinante 3×3 com u⃗, v⃗, w⃗ nas linhas</dd><dt>|(u⃗, v⃗, w⃗)|</dt><dd>volume da "caixa" (paralelepípedo) formada pelos três</dd><dt>= 0</dt><dd>os três estão no mesmo plano (coplanares)</dd></dl>
   </div>
   <p>Na prática: calcule <i class="m">u</i>⃗ × <i class="m">v</i>⃗ e depois faça o escalar com <i class="m">w</i>⃗. É o que decide se duas retas são <b>reversas</b> (módulo 4).</p>
+  <div class="ex" data-ex data-q="kit-misto"><div class="q">Exemplo: u⃗ = (2, 1, −1), v⃗ = (1, 1, 0). Os três estão no mesmo plano? a) com w⃗ = (0, 2, 3) &nbsp; b) com w⃗ = (3, 2, −1)</div>
+    <ol><li>Passo 1, o vetorial (já feito na Ferramenta 2): u⃗ × v⃗ = (1, −1, 1). É o "palito" em pé sobre o chão de u⃗ e v⃗.</li><li>a) Escalar com w⃗: (1, −1, 1)·(0, 2, 3) = 0 − 2 + 3 = 1. Volume 1 ≠ 0: a caixa tem altura, w⃗ sai do chão. Não são coplanares.</li><li>b) Escalar com w⃗: (1, −1, 1)·(3, 2, −1) = 3 − 2 − 1 = 0. Volume zero: caixa achatada, w⃗ está deitado no chão de u⃗ e v⃗.</li><li>b) Faz sentido: (3, 2, −1) = (2, 1, −1) + (1, 1, 0) = u⃗ + v⃗. Soma de dois vetores do chão continua no chão.</li></ol>
+    <div class="ans">a) misto = 1 → não coplanares · b) misto = 0 → coplanares (w⃗ = u⃗ + v⃗)</div></div>
 
   <div class="ofi"><span class="k">Em uma frase</span>O produto misto mede o <b>volume da caixa</b> que os três vetores montam. u⃗ e v⃗ formam o fundo da caixa e w⃗ é a parede inclinada. Se w⃗ "deita" no mesmo chão de u⃗ e v⃗, a caixa fica achatada: <b>volume zero = os três no mesmo plano</b>.</div>
   <div class="wid"><h4>A caixa do produto misto</h4><p class="sub">Abaixe a altura de w⃗ até zero e veja a caixa achatar. Arraste para girar.</p>
@@ -490,6 +502,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
 
   <h3>Equações simétricas</h3>
   <p>Isole o <i class="m">t</i> em cada linha e iguale (só dá se <i class="m">a</i>, <i class="m">b</i>, <i class="m">c</i> forem todos diferentes de zero):</p>
+  <div class="pq"><span class="k">Por que precisa a, b, c ≠ 0?</span><p>Para chegar na simétrica você isola o t em cada linha: de x = x₀ + at sai t = (x − x₀)/a. Isso é <b>dividir por a</b>. Se a = 0, não dá para dividir por zero, e a linha fica só x = x₀ (o x não muda). Por isso, quando o diretor tem zero, a reta é escrita meio simétrica, meio fixa (tabela "Vetor com componente zero" abaixo).</p></div>
   <div class="fx"><span class="tag">Fórmula 2.3 · simétricas</span>
     <div class="eq"><span class="fr"><span><i>x</i> − <i>x</i>₀</span><span><i>a</i></span></span> = <span class="fr"><span><i>y</i> − <i>y</i>₀</span><span><i>b</i></span></span> = <span class="fr"><span><i>z</i> − <i>z</i>₀</span><span><i>c</i></span></span></div>
     <dl class="legend"><dt>em cima</dt><dd>"variável menos coordenada do ponto". Cuidado com o sinal: <i>z</i> + 3 significa <i>z</i>₀ = −3</dd><dt>embaixo</dt><dd>coordenadas do vetor diretor. Sem denominador = 1</dd></dl>
@@ -520,6 +533,15 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <p><b>O ponto P pertence à reta?</b></p>
   <ol class="recipe"><li><span>Substitua P nas paramétricas.</span></li><li><span>Resolva o t em cada linha.</span></li><li><span>Deu o <b>mesmo t</b> nas três? Pertence. Deu diferente? Não pertence.</span></li></ol>
   <p><b>Três pontos alinhados (colineares)?</b> A₁A₂⃗ tem que ser múltiplo de A₁A₃⃗.</p>
+  <div class="ex" data-ex data-q="reta-2pts"><div class="q">Exemplo: escreva a reta que passa por A = (1, 2, 3) e B = (3, 1, 7) nas formas vetorial, paramétrica e simétrica.</div>
+    <ol><li>Direção: chegada menos saída. v⃗ = B − A = (3 − 1, 1 − 2, 7 − 3) = (2, −1, 4).</li><li>Ponto: use A = (1, 2, 3).</li><li>Vetorial: (x, y, z) = (1, 2, 3) + t(2, −1, 4).</li><li>Paramétricas (uma linha por coordenada, número solto = ponto, número com t = diretor): x = 1 + 2t, y = 2 − t, z = 3 + 4t.</li><li>Simétricas (isole o t, nenhum diretor é zero): (x − 1)/2 = (y − 2)/(−1) = (z − 3)/4.</li><li>Confere: com t = 1, x = 3, y = 1, z = 7. É o B ✓.</li></ol>
+    <div class="ans">(x, y, z) = (1, 2, 3) + t(2, −1, 4) · (x − 1)/2 = (y − 2)/(−1) = (z − 3)/4</div></div>
+  <div class="ex" data-ex data-q="reta-pert"><div class="q">Exemplo: a reta r: x = 3 + 2t, y = 2t, z = −5 − t. a) P = (7, 4, −7) está em r? b) E Q = (5, 2, −5)?</div>
+    <ol><li>a) Troque x, y, z pelas coordenadas de P e ache o t de cada linha.</li><li>x: 7 = 3 + 2t → 2t = 4 → t = 2. y: 4 = 2t → t = 2. z: −7 = −5 − t → t = 2.</li><li>O mesmo t = 2 nas três: P está na reta (é o ponto que o carro atinge depois de 2 "apertos").</li><li>b) x: 5 = 3 + 2t → t = 1. y: 2 = 2t → t = 1. z: −5 = −5 − t → t = 0.</li><li>t diferente na terceira linha: não existe um único instante que leve até Q. Q não está na reta.</li></ol>
+    <div class="ans">a) P ∈ r (t = 2) · b) Q ∉ r</div></div>
+  <div class="ex" data-ex data-q="reta-col"><div class="q">Exemplo: A = (1, 1, 1), B = (2, 3, 0) e C = (4, 7, −2) estão alinhados?</div>
+    <ol><li>Faça duas setas saindo do mesmo ponto: AB⃗ = B − A = (1, 2, −1) e AC⃗ = C − A = (3, 6, −3).</li><li>Teste se são paralelas: 3/1 = 3, 6/2 = 3, (−3)/(−1) = 3. Mesmo número: AC⃗ = 3·AB⃗.</li><li>As duas setas têm a mesma direção e saem do mesmo ponto A: estão na mesma reta.</li></ol>
+    <div class="ans">Sim, alinhados: AC⃗ = 3·AB⃗</div></div>
 
   <div class="calc" data-calc="retas"><h4>Fábrica de retas</h4><p class="hint">Dois pontos viram todas as formas da equação. Teste também se um ponto P pertence.</p>
     <div class="fields"><label>Ponto A <input type="text" id="r-a" value="1, -2, -3"></label><label>Ponto B <input type="text" id="r-b" value="3, 1, -4"></label><label>Testar ponto P <input type="text" id="r-p" value="5, 4, -5"></label></div>
@@ -549,6 +571,9 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <h3>Equação vetorial do plano</h3>
   <p>Também dá para descrever com um ponto e <b>dois</b> vetores deitados na chapa (não paralelos): <i class="m">P</i> = <i class="m">A</i> + <i class="m">t</i><i class="m">u</i>⃗ + <i class="m">h</i><i class="m">v</i>⃗. Para passar para a equação geral: <i class="m">n</i>⃗ = <i class="m">u</i>⃗ × <i class="m">v</i>⃗.</p>
 
+  <div class="ex" data-ex data-q="plano-vet"><div class="q">Exemplo: passe o plano P = (1, 0, 2) + t(1, 1, 0) + h(0, 1, 1) para a equação geral.</div>
+    <ol><li>Os dois vetores (1, 1, 0) e (0, 1, 1) estão deitados no plano. O prego (normal) é perpendicular aos dois: faça o vetorial.</li><li>n⃗ = (1, 1, 0) × (0, 1, 1) = (1·1 − 0·1, 0·0 − 1·1, 1·1 − 1·0) = (1, −1, 1).</li><li>Equação: 1x − 1y + 1z + d = 0.</li><li>O ponto (1, 0, 2) está no plano: 1 − 0 + 2 + d = 0 → d = −3.</li></ol>
+    <div class="ans">x − y + z − 3 = 0</div></div>
   <h3>O grande segredo: como achar o vetor normal</h3>
   <p>Toda questão de "determine o plano" se resume a arranjar <b>dois vetores deitados no plano</b> e fazer o produto vetorial deles.</p>
   <div class="tbl"><table><tr><th>Você recebeu…</th><th>Dois vetores no plano</th><th>Normal</th></tr>
@@ -562,6 +587,9 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <tr><td>perpendicular a uma reta</td><td>—</td><td>o próprio diretor da reta</td></tr></table></div>
   <ol class="recipe"><li><span>Arranje o vetor normal (tabela acima).</span></li><li><span>Escreva ax + by + cz + d = 0 com ele.</span></li><li><span>Substitua um ponto conhecido para achar d.</span></li><li><span>Confira: substitua outro ponto que deveria estar no plano. Tem que dar 0.</span></li></ol>
 
+  <div class="ex" data-ex data-q="plano-3pts"><div class="q">Exemplo: ache o plano que passa por A = (1, 0, 0), B = (0, 2, 0) e C = (0, 0, 3).</div>
+    <ol><li>Dois vetores deitados no plano, saindo de A: AB⃗ = B − A = (−1, 2, 0) e AC⃗ = C − A = (−1, 0, 3).</li><li>Normal: AB⃗ × AC⃗ = (2·3 − 0·0, 0·(−1) − (−1)·3, (−1)·0 − 2·(−1)) = (6, 3, 2).</li><li>Equação: 6x + 3y + 2z + d = 0. Com A: 6 + 0 + 0 + d = 0 → d = −6.</li><li>Confira com os outros pontos: B dá 0 + 6 + 0 − 6 = 0 ✓ e C dá 0 + 0 + 6 − 6 = 0 ✓.</li></ol>
+    <div class="ans">6x + 3y + 2z − 6 = 0</div></div>
   <h3>Achar um ponto qualquer do plano</h3>
   <p>Zere duas variáveis e descubra a terceira. Em 2x − 3y + z − 6 = 0, com x = 0 e y = 0 sobra z = 6, então (0, 0, 6) está no plano. Para saber se um ponto pertence, substitua: deu 0, pertence.</p>
 
@@ -647,16 +675,23 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <div class="leaf a"><b>n⃗ · u⃗ ≠ 0</b>A reta <b>fura</b> o plano em um ponto (secante). Para achar o ponto: jogue as paramétricas da reta na equação do plano e resolva o t.</div>
     <div class="leaf b"><b>n⃗ · u⃗ = 0</b>A reta é "deitada" em relação ao plano. Teste um ponto da reta no plano: deu 0 → <b>contida</b>; não deu → <b>paralela</b>.</div>
   </div>
-  <div class="ex" data-ex data-q="pos-ex5"><div class="q">Ex 5 da aula: r: X = (1, 0, 1) + λ(2, 1, 3) e π: x + y + z = 20</div>
+  <div class="pq"><span class="k">Por que n⃗ · u⃗ = 0 quer dizer "deitada"?</span><p>O prego (n⃗) está em pé na chapa. Se o diretor da reta faz 90° com o prego (escalar zero), a reta anda <b>paralela à chapa</b>: nunca sobe nem desce em relação a ela. Aí só sobram duas opções: ou ela anda <b>em cima</b> da chapa (contida), ou anda a uma altura fixa acima dela (paralela). Um ponto decide qual é. Se o escalar não é zero, a reta sobe ou desce em relação à chapa e, cedo ou tarde, atravessa.</p></div><div class="ex" data-ex data-q="pos-ex5"><div class="q">Ex 5 da aula: r: X = (1, 0, 1) + λ(2, 1, 3) e π: x + y + z = 20</div>
     <ol><li>n⃗ · u⃗ = (1,1,1)·(2,1,3) = 6 ≠ 0 → fura.</li><li>Ponto genérico: (1 + 2λ, λ, 1 + 3λ).</li><li>Substitua no plano: 1 + 2λ + λ + 1 + 3λ = 20 → 6λ = 18 → λ = 3.</li><li>Ponto: (1 + 6, 3, 1 + 9).</li></ol>
     <div class="ans">Interseção em (7, 3, 10)</div></div>
+  
+  <div class="ex" data-ex data-q="pos-rp-par"><div class="q">Exemplo (Ex 6): r: (0, 1, 3) + t(3, 2, 8) e π: 2x + y − z − 6 = 0. A reta fura, é paralela ou está contida no plano?</div>
+    <ol><li>Leia as peças: diretor u⃗ = (3, 2, 8) e normal n⃗ = (2, 1, −1) (os números na frente de x, y, z).</li><li>n⃗ · u⃗ = 2·3 + 1·2 + (−1)·8 = 6 + 2 − 8 = 0. A reta é deitada em relação ao plano.</li><li>Teste um ponto da reta, o (0, 1, 3), no plano: 2·0 + 1 − 3 − 6 = −8. Não deu 0: o ponto está fora da chapa.</li><li>Deitada e fora: paralela. Não existe ponto de encontro.</li></ol>
+    <div class="ans">r é paralela a π (não toca)</div></div>
   <div class="calc" data-calc="posrp"><h4>Reta × plano</h4><p class="hint">Plano como "a, b, c, d" de ax + by + cz + d = 0. Carregado: Ex 6 (paralela).</p>
     <div class="fields"><label>Ponto da reta <input type="text" id="prp-p" value="0, 1, 3"></label><label>Diretor <input type="text" id="prp-u" value="3, 2, 8"></label><label>Plano a, b, c, d <input type="text" id="prp-pl" value="2, 1, -1, -6"></label></div>
     <div class="out"></div></div>
 
   <h3>Dois planos</h3>
   <p>Normais paralelas → planos <b>paralelos</b> (ou coincidentes, se as equações forem proporcionais por inteiro). Normais não paralelas → <b>concorrentes</b>, e a interseção é uma reta com diretor <i class="m">n</i>⃗₁ × <i class="m">n</i>⃗₂. Para um ponto dessa reta, zere uma variável e resolva o sistema 2×2 que sobra.</p>
-  <div class="calc" data-calc="pospp"><h4>Plano × plano</h4><p class="hint">Carregado: Ex 6b da aula de planos.</p>
+<div class="ex" data-ex data-q="pos-pp"><div class="q">Exemplo: π₁: x + y + z − 6 = 0 e π₂: x − y + z − 2 = 0. Qual a posição? Se cortam, ache a reta de interseção.</div>
+    <ol><li>Normais: n⃗₁ = (1, 1, 1) e n⃗₂ = (1, −1, 1). Divida: 1/1 = 1, 1/(−1) = −1. Diferente: não são paralelas, então os planos se cortam numa reta.</li><li>A reta está nas duas chapas, então é perpendicular aos dois pregos: diretor = n⃗₁ × n⃗₂ = (1·1 − 1·(−1), 1·1 − 1·1, 1·(−1) − 1·1) = (2, 0, −2). Simplifique: (1, 0, −1).</li><li>Um ponto que está nos dois planos: zere uma variável. Com z = 0 sobra x + y = 6 e x − y = 2. Somando: 2x = 8 → x = 4, e y = 2.</li><li>Ponto (4, 2, 0). Confira: 4 + 2 + 0 − 6 = 0 ✓ e 4 − 2 + 0 − 2 = 0 ✓.</li></ol>
+    <div class="ans">concorrentes · reta (x, y, z) = (4, 2, 0) + t(1, 0, −1)</div></div>
+    <div class="calc" data-calc="pospp"><h4>Plano × plano</h4><p class="hint">Carregado: Ex 6b da aula de planos.</p>
     <div class="fields"><label>π₁: a, b, c, d <input type="text" id="ppp-1" value="-1, -1, 2, -4"></label><label>π₂: a, b, c, d <input type="text" id="ppp-2" value="2, 1, -3, 0"></label></div>
     <div class="out"></div></div>
 
@@ -670,7 +705,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <p class="lede">Todo ângulo aqui sai do produto escalar. A única diferença entre os três casos é <b>quais vetores</b> você usa e se a resposta vem pelo cosseno ou pelo seno.</p>
   <div class="cuid"><span class="k">Por que tem módulo |…| na fórmula?</span>Uma reta não tem "frente": v⃗ e −v⃗ descrevem a mesma reta. Sem o módulo você poderia achar 120° em vez de 60°. O módulo garante sempre o <b>menor</b> ângulo, entre 0° e 90°.</div>
 
-  <h3>Reta com reta</h3>
+<div class="pq"><span class="k">De onde vêm as fórmulas (explicando do zero)</span><p>Todas saem da segunda cara do produto escalar: u⃗ · v⃗ = ‖u⃗‖ ‖v⃗‖ cos θ. Divida os dois lados pelos tamanhos e o cos θ fica sozinho: cos θ = (u⃗ · v⃗) / (‖u⃗‖ ‖v⃗‖). O resto é só escolher <b>quais setas</b> representam cada objeto: reta → diretor, plano → normal.</p><p>Valores que caem muito e dispensam calculadora:</p><div class="tabela"><table><tr><th>cos θ (ou sen θ)</th><th>1</th><th>√3/2 ≈ 0,87</th><th>√2/2 ≈ 0,71</th><th>1/2</th><th>0</th></tr><tr><td>θ pelo cos</td><td>0°</td><td>30°</td><td>45°</td><td>60°</td><td>90°</td></tr><tr><td>θ pelo sen</td><td>90°</td><td>60°</td><td>45°</td><td>30°</td><td>0°</td></tr></table></div><p><b>Casos especiais sem conta:</b> diretores com escalar 0 → retas perpendiculares (90°). Diretor paralelo à normal → reta perpendicular ao plano (90°). Diretor com escalar 0 com a normal → reta paralela ao plano (0°).</p></div>  <h3>Reta com reta</h3>
   <div class="fx"><span class="tag">Fórmula 5.1 · ângulo entre retas</span>
     <div class="eq">cos <i>θ</i> = <span class="fr"><span>|<i>v</i>⃗₁ · <i>v</i>⃗₂|</span><span>‖<i>v</i>⃗₁‖ ‖<i>v</i>⃗₂‖</span></span></div>
     <dl class="legend"><dt>v⃗₁, v⃗₂</dt><dd>vetores diretores das duas retas</dd><dt>θ</dt><dd>o ângulo; depois do cos, use arccos (ou reconheça 1/2 → 60°, √2/2 → 45°, √3/2 → 30°)</dd></dl>
@@ -715,6 +750,9 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <h3>Ponto a ponto</h3>
   <div class="fx"><span class="tag">Fórmula 6.1</span><div class="eq">d(<i>A</i>, <i>B</i>) = <span class="rt"><span>(<i>x<sub>A</sub></i>−<i>x<sub>B</sub></i>)² + (<i>y<sub>A</sub></i>−<i>y<sub>B</sub></i>)² + (<i>z<sub>A</sub></i>−<i>z<sub>B</sub></i>)²</span></span></div></div>
 
+<div class="ex" data-ex data-q="dist-pp"><div class="q">Exemplo: distância entre A = (1, 2, 3) e B = (4, 6, 3).</div>
+    <ol><li>Diferença coordenada a coordenada: 4 − 1 = 3, 6 − 2 = 4, 3 − 3 = 0.</li><li>Quadrados: 9, 16 e 0. Soma: 25.</li><li>Raiz: √25 = 5. (É o triângulo 3-4-5 de Pitágoras, deitado no chão porque o z não mudou.)</li></ol>
+    <div class="ans">d(A, B) = 5</div></div>
   <h3>Ponto a reta: área ÷ base</h3>
   <div class="fx"><span class="tag">Fórmula 6.2 · ponto–reta</span>
     <div class="eq">d(<i>P</i>₀, <i>r</i>) = <span class="fr"><span>‖<i>v</i>⃗ × <i>P</i>₁<i>P</i>₀⃗‖</span><span>‖<i>v</i>⃗‖</span></span></div>
@@ -729,7 +767,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <div class="eq">d(<i>P</i>, <i>π</i>) = <span class="fr"><span>|<i>ax</i>₀ + <i>by</i>₀ + <i>cz</i>₀ + <i>d</i>|</span><span><span class="rt"><span><i>a</i>² + <i>b</i>² + <i>c</i>²</span></span></span></span></div>
     <dl class="legend"><dt>em cima</dt><dd>jogue o ponto P = (x₀, y₀, z₀) na equação do plano e tire o módulo</dd><dt>embaixo</dt><dd>a norma do vetor normal</dd><dt>ideia</dt><dd>é a projeção de AP⃗ (A no plano) sobre a normal: quanto P está "acima" da chapa medido no prego</dd></dl>
   </div>
-  <div class="ex" data-ex data-q="dist-ex2"><div class="q">Ex 2 da aula: P = (1, 2, −1) e π: 3x − 4y − 5z + 1 = 0</div>
+  <div class="pq"><span class="k">Por que a fórmula ponto–plano funciona (explicando do zero)</span><p>Imagine o ponto P pendurado acima da chapa. A distância é o comprimento do fio de prumo, que cai <b>na direção do prego</b> (normal). Pegue qualquer ponto A da chapa e a seta AP⃗. Ela é torta, mas o pedaço dela que anda na direção do prego é exatamente a altura do P. Esse pedaço é a projeção: |AP⃗ · n⃗| / ‖n⃗‖.</p><p>Abrindo a conta, AP⃗ · n⃗ = a(x₀ − x_A) + b(y₀ − y_A) + c(z₀ − z_A) = ax₀ + by₀ + cz₀ − (ax_A + by_A + cz_A). Como A está na chapa, ax_A + by_A + cz_A = −d. Sobra ax₀ + by₀ + cz₀ + d: é por isso que basta <b>jogar o ponto na equação</b>.</p></div><div class="ex" data-ex data-q="dist-ex2"><div class="q">Ex 2 da aula: P = (1, 2, −1) e π: 3x − 4y − 5z + 1 = 0</div>
     <ol><li>Em cima: |3(1) − 4(2) − 5(−1) + 1| = |3 − 8 + 5 + 1| = 1.</li><li>Embaixo: √(9 + 16 + 25) = √50 = 5√2.</li><li>1/(5√2), racionalizando: √2/10.</li></ol>
     <div class="ans">d = √2/10 ≈ 0,141</div></div>
 
@@ -747,11 +785,18 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <ol><li>v⃗ᵣ × v⃗ₛ = (0·(−1) − (−2)·2, (−2)·0 − 1·(−1), 1·2 − 0·0) = (4, 1, 2). Norma √21.</li><li>PᵣPₛ⃗ = (5, −2, −1).</li><li>Misto: (4, 1, 2)·(5, −2, −1) = 20 − 2 − 2 = 16 ≠ 0 → reversas mesmo.</li></ol>
     <div class="ans">d = 16/√21 = 16√21/21 ≈ 3,49</div></div>
 
+<div class="ex" data-ex data-q="dist-par"><div class="q">Exemplo: distância entre as retas paralelas r: (1, 0, 0) + t(1, 2, 2) e s: (0, 3, 0) + t(1, 2, 2).</div>
+    <ol><li>Mesmo diretor: são paralelas. A distância é a mesma de qualquer ponto de s até r, então pegue P₀ = (0, 3, 0) de s.</li><li>Use ponto–reta (6.2) com P₁ = (1, 0, 0) de r e v⃗ = (1, 2, 2): P₁P₀⃗ = (−1, 3, 0).</li><li>v⃗ × P₁P₀⃗ = (2·0 − 2·3, 2·(−1) − 1·0, 1·3 − 2·(−1)) = (−6, −2, 5). Tamanho: √(36 + 4 + 25) = √65.</li><li>Base: ‖v⃗‖ = √(1 + 4 + 4) = 3.</li><li>d = √65 / 3 ≈ 2,69.</li></ol>
+    <div class="ans">d(r, s) = √65/3 ≈ 2,69</div></div>
   <h3>Reta e plano · plano e plano</h3>
   <p>Só existe distância (≠ 0) se forem <b>paralelos</b>. Aí escolha um ponto qualquer da reta (ou de um dos planos) e use ponto–plano (6.3). Se cruzam, a distância é 0.</p>
   <div class="cuid"><span class="k">Pegadinha (Ex 6 da aula)</span>Distância entre 2x − 2y + z − 5 = 0 e 4x − 4y + 2z + 14 = 0. Pegue um ponto do 1º: x = y = 0 → z = 5 → (0, 0, 5). Agora no 2º: |0 − 0 + 10 + 14|/√(16+16+4) = 24/6 = <b>4</b>. Funciona sem simplificar, porque a fórmula divide pela norma de quem você usou.</div>
 
-  <div class="calc" data-calc="dist"><h4>Calculadora de distâncias</h4>
+<div class="ex" data-ex data-q="dist-rp"><div class="q">Exemplo: distância da reta r: (0, 1, 3) + t(3, 2, 8) ao plano π: 2x + y − z − 6 = 0.</div>
+    <ol><li>Primeiro a posição: n⃗ · u⃗ = 2·3 + 1·2 − 1·8 = 0 e o ponto (0, 1, 3) não está no plano (dá −8). A reta é paralela (é o exemplo do Módulo 4).</li><li>Paralela: todos os pontos da reta estão à mesma altura da chapa. Use qualquer um, o (0, 1, 3), na fórmula ponto–plano.</li><li>Em cima: |2·0 + 1 − 3 − 6| = |−8| = 8. Embaixo: √(4 + 1 + 1) = √6.</li><li>d = 8/√6 = 8√6/6 = 4√6/3 ≈ 3,27.</li></ol>
+    <div class="ans">d(r, π) = 4√6/3 ≈ 3,27</div></div>
+
+    <div class="calc" data-calc="dist"><h4>Calculadora de distâncias</h4>
     <div class="seg" id="distSeg"><button class="on" data-m="ppl">ponto–plano</button><button data-m="pr">ponto–reta</button><button data-m="rr">reta–reta</button></div>
     <div class="fields" id="distF"></div>
     <div class="out"></div></div>
@@ -805,6 +850,8 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <div class="ex" data-ex data-q="sub-ex2"><div class="q">Exemplo 2: decida se é subespaço de ℝ³. a) W₁: x − 2y + z = 0 &nbsp; b) W₂: x + y = 1 &nbsp; c) W₃: z = x² &nbsp; d) W₄ = {(t, 2t, −t) : t ∈ ℝ}</div>
     <ol><li>a) Teste completo. <b>0</b>: 0 − 0 + 0 = 0 ✓. Soma: se x₁ − 2y₁ + z₁ = 0 e x₂ − 2y₂ + z₂ = 0, somando dá (x₁+x₂) − 2(y₁+y₂) + (z₁+z₂) = 0 ✓. Escalar: αx − 2αy + αz = α·0 = 0 ✓. <b>Sim</b>: é um plano pela origem.</li><li>b) <b>0</b>: 0 + 0 = 0 ≠ 1, logo <b>0</b> ∉ W₂: <b>não</b> (plano deslocado).</li><li>c) Contém o <b>0</b>, então testa o escalar com números: (1, 0, 1) ∈ W₃ (1 = 1²), mas 2(1, 0, 1) = (2, 0, 2) ∉ W₃, pois 2 ≠ 2²: <b>não</b>. O x² estraga a linearidade.</li><li>d) Em paramétricas, W₄: x = t, y = 2t, z = −t (t ∈ ℝ). São todos os múltiplos de (1, 2, −1): <b>sim</b>, a reta pela origem [ (1, 2, −1) ].</li></ol>
     <div class="ans">Sim, não, não, sim. Regra de bolso: equações lineares com lado direito 0 dão subespaço.</div></div>
+  
+  <div class="pq"><span class="k">Por que "lado direito 0" é a regra de bolso?</span><p><b>O zero:</b> com lado direito 0, o (0, 0, 0) sempre satisfaz a equação; com lado direito 1, a origem dá 0 = 1 e já cai fora.</p><p><b>Soma e escalar:</b> numa equação linear (só x, y, z soltos, sem x², xy, √x), a conta "respeita" soma e multiplicação: se dois vetores dão 0, a soma dá 0 + 0 = 0 e 5 vezes um deles dá 5·0 = 0. Com x² isso quebra: (2x)² = 4x², não 2x². É por isso que z = x² falhou no escalar.</p></div>
 
   <h3>3 · Combinação linear e espaço gerado</h3>
   <div class="fx"><span class="tag">Definição 2 · combinação linear</span>
@@ -1650,7 +1697,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="gaal"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-gaal.js?v=10"></script>
+<script src="../../dados/quadros-gaal.js?v=11"></script>
 <script src="../../js/quadro.js?v=7" data-materia="gaal"></script>
 </body>
 </html>

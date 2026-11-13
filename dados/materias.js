@@ -140,6 +140,7 @@ window.FACULDADE = {
               caminho: "materias/gaal/oficina-de-gaal.html",
               ciclo: "2ª Prova", ate: "2026-11-06",
               atualizacoes: [
+                { data: "2026-11-13", texto: "Varredura de todos os módulos: 14 exemplos novos resolvidos passo a passo, cada um com Ver no quadro (norma, paralelismo, escalar e ângulo, produto misto, reta por dois pontos, ponto na reta, pontos alinhados, plano por 3 pontos, vetorial → geral, reta × plano paralela, reta de interseção de dois planos, distâncias ponto–ponto, entre paralelas e reta–plano) e caixas Por quê? explicando de onde vem cada fórmula." },
                 { data: "2026-11-13", texto: "Base e dimensão aprofundada: as situações do sistema explicadas (existe? depende de gerar; é única? depende de LI), com exemplo resolvido em P₂, tabela de pivôs, modelo 3D das 4 situações e caixas Por quê? nos teoremas e atalhos." },
                 { data: "2026-11-13", texto: "Nova aula Base e dimensão (aula 10): LI e LD, base, coordenadas, dimensão, a receita das variáveis livres e os exemplos 4 a 7 da professora, cada um com Ver no quadro, mais 4 modelos 3D e 5 perguntas no quiz." },
                 { data: "2026-11-10", texto: "Ver no quadro reescrito em todos os 19 exemplos e nas 15 questões da lista, no jeito de quadro: receita no topo, etapas numeradas, contas curtas com setas, caixas lado a lado e conclusão em destaque. Entrou o Exemplo 3 (combinação linear) do jeito que a professora resolveu no quadro." },
