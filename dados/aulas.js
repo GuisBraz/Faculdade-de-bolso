@@ -47,9 +47,10 @@ window.FDB_AULAS = {
       ["angulos", "Ângulos", "Entre retas, planos e reta–plano"],
       ["distancias", "Distâncias", "Ponto, reta e plano"]
     ], 3: [
-      ["subespacos", "Subespaços e espaço gerado", "Combinação linear, N(A), C(A) e o nó de barras"]
+      ["subespacos", "Subespaços e espaço gerado", "Combinação linear, N(A), C(A) e o nó de barras"],
+      ["base", "Base e dimensão", "LI e LD, base, dimensão e a base de um subespaço"]
     ] },
-    temas: { 2: "Vetores, retas e planos no espaço", 3: "Subespaços e sistemas lineares" },
+    temas: { 2: "Vetores, retas e planos no espaço", 3: "Subespaços, base e dimensão" },
     sobre: "Geometria Analítica e Álgebra Linear descreve pontos, vetores, retas e planos no espaço com equações. É a linguagem do CAD 3D, da robótica, da topografia e de qualquer conta que envolva direção e posição.",
     lab_nome: "Laboratório 3D de retas e planos", lab_desc: "Monte retas e planos no espaço e veja interseções, ângulos e distâncias." },
   qg: { pag: "materias/qg/oficina-de-quimica.html", simbolo: "⚗", lista: "ed3", lab: "lab", quiz: "quiz", cola: "cola",

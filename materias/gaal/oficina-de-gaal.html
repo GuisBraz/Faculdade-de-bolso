@@ -292,6 +292,10 @@ body{font-size:1rem}
 .duas>div:last-child{border-top-color:var(--c1)}.duas p{margin:6px 0;font-size:.93rem}.duas .r{font-family:var(--f-math);font-size:1.05rem;color:var(--ink)}
 .nocalc{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}
 @media (max-width:700px){.nocalc{grid-template-columns:1fr}}
+.rot{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin:16px 0}
+.rot>div{background:var(--sheet);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:10px 14px}
+.rot>div:nth-child(2){border-top-color:var(--c1)}.rot>div:nth-child(3){border-top-color:var(--ok)}.rot p{margin:6px 0 0;font-size:.92rem}
+@media (max-width:700px){.rot{grid-template-columns:1fr}}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
 <script src="../../js/tema.js?v=1"></script>
@@ -315,6 +319,7 @@ body{font-size:1rem}
       <a href="#angulos" data-m="angulos">5 · Ângulos</a>
       <a href="#distancias" data-m="distancias">6 · Distâncias</a>
       <a href="#subespacos" data-m="subespacos">7 · Subespaços</a>
+      <a href="#base" data-m="base">8 · Base e dimensão</a>
       <a href="#lab">Lab 3D</a>
       <a href="#lista">Lista resolvida</a>
       <a href="#quiz">Quiz</a>
@@ -890,9 +895,125 @@ body{font-size:1rem}
     <li><b>N(A) = {X : AX = <b>0</b>}:</b> sai das variáveis livres; as soluções de AX = b são Xₚ + Xₕ.</li>
     <li><b>C(A):</b> colunas com pivô da A original; AX = b tem solução ⇔ b ∈ C(A).</li>
     <li><b>Nó:</b> as cargas equilibráveis formam o espaço gerado pelas direções das barras.</li></ul></div>
-  <div class="cuid"><span class="k">Gancho para a próxima aula</span>No exercício, a terceira barra "não serviu para nada": u₃ ∈ [ u₁, u₂ ]. Quando um conjunto de geradores tem vetores sobrando? Quantos vetores, no mínimo, geram um subespaço? Isso é <b>dependência linear, base e dimensão</b>.</div>
+  <div class="cuid"><span class="k">Gancho para a próxima aula</span>No exercício, a terceira barra "não serviu para nada": u₃ ∈ [ u₁, u₂ ]. Quando um conjunto de geradores tem vetores sobrando? Quantos vetores, no mínimo, geram um subespaço? Isso é <b>dependência linear, base e dimensão</b>: <a href="#base">próxima aula →</a></div>
 
   <div class="done-btn" data-done="subespacos"></div>
+</section>
+
+<section class="view read" id="v-base" hidden>
+  <div class="eyebrow">Módulo 8 · Base e dimensão</div>
+  <h2>Base e dimensão</h2>
+  <p class="lede">No fim da aula de Subespaços, a terceira barra do nó <b>sobrou</b>: u₃ = u₁ + u₂ não acrescentou nenhuma carga nova. Esta aula dá nome a isso e responde a pergunta que fica: <b>qual é o menor conjunto de vetores que descreve um espaço inteiro, e quantos vetores ele tem?</b></p>
+  <p class="cen">combinação linear ⇒ geradores ⇒ <b>base</b> ⇒ <b>dimensão</b></p>
+  <ol class="mapa"><li><b>LI e LD</b>: tem vetor sobrando?</li><li><b>Base</b>: gerar tudo sem desperdício</li><li><b>Dimensão</b>: quantos vetores precisa</li><li><b>Base de um subespaço</b>: a receita das livres</li><li><b>Resumo</b>: o que fazer em cada pergunta</li></ol>
+  <div class="ofi"><span class="k">Onde isso aparece</span>Computação gráfica (mudar o sistema de coordenadas de um objeto), ciência de dados (cada variável é uma dimensão; o PCA reduz dimensões), imagens (o JPEG guarda a foto numa base especial e joga fora o que pesa pouco) e engenharia (modos de vibração de uma estrutura, circuitos). A ideia é sempre a mesma: <b>descrever muitos objetos com poucas informações</b>.</div>
+
+  <h3>1 · Independência linear: LI e LD</h3>
+  <p>Relembrando: <i>v</i> é <b>combinação linear</b> de v₁, …, vₙ quando <i>v</i> = a₁v₁ + ⋯ + aₙvₙ. Por exemplo, (5, 2, 3) = 5(1, 0, 0) + 2(0, 1, 0) + 3(0, 0, 1), e o polinômio 2 + x − 3x² + x³ = 2·1 + 1·x + (−3)·x² + 1·x³. O conjunto de todas as combinações é o <b>espaço gerado</b> [v₁, …, vₙ], e os vᵢ são os <b>geradores</b>.</p>
+  <p>O problema: um conjunto pode gerar o espaço com <b>vetor sobrando</b>. Dois vetores geram um plano; um terceiro vetor paralelo a esse plano não aumenta nada. Para achar o menor conjunto gerador, a gente precisa saber quando sobra vetor. É isso que LI e LD medem.</p>
+  <div class="fx"><span class="tag">Definição 1 · LI e LD</span>
+    <div class="eq">α₁<i>u</i>₁ + α₂<i>u</i>₂ + ⋯ + α<sub>n</sub><i>u</i><sub>n</sub> = <b>0</b></div>
+    <dl class="legend"><dt>u₁, …, uₙ</dt><dd>os vetores que você quer testar (podem ser listas, matrizes, polinômios)</dd><dt>α₁, …, αₙ</dt><dd>os números desconhecidos: o "quanto" de cada vetor entra na mistura</dd><dt>0</dt><dd>o vetor nulo do espaço: (0, …, 0), a matriz nula ou o polinômio nulo</dd><dt>LI</dt><dd>a <b>única</b> solução é α₁ = α₂ = ⋯ = αₙ = 0 (a solução nula, que sempre funciona)</dd><dt>LD</dt><dd>existe outra solução, com algum α ≠ 0: dá para zerar a mistura sem zerar todos os pesos</dd></dl></div>
+  <p><b>Leitura de quadro:</b> LI = cada vetor tem uma "natureza" própria. LD = misturando alguns, eu obtenho outro. Exemplo de intuição da professora: {1, x, eˣ} é LI, porque misturar uma constante com x dá uma reta, nunca a exponencial; e misturar constante com exponencial nunca dá uma reta.</p>
+  <div class="fx"><span class="tag">Proposição · o jeito prático de enxergar</span>
+    <div class="eq" style="white-space:normal">{v₁, …, vₙ} é LI &nbsp;⇔&nbsp; nenhum vᵢ é combinação linear dos outros</div>
+    <dl class="legend"><dt>2 vetores</dt><dd>LD ⇔ um é múltiplo do outro. (1, −2, 3) e (2, −4, 6) são LD: v₂ = 2v₁. Já (1, −2, 3) e (2, 1, 5) são LI: não existe k com v₁ = k v₂.</dd><dt>vetor nulo</dt><dd>qualquer conjunto que contém o <b>0</b> é LD: 1·<b>0</b> = <b>0</b> já é uma solução não nula</dd></dl></div>
+  <p><b>A geometria no ℝ³</b>: gire e compare. Vetores LD "cabem" num espaço menor do que a quantidade deles.</p>
+  <figure class="f3"><div class="seg" id="f3h-b"></div><div class="cv inline-cv" id="f3h"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3h-c"></figcaption></figure>
+  <div class="rot"><div><b>① Começar</b><p>Escreva α₁u₁ + ⋯ + αₙuₙ = <b>0</b> com os vetores do problema. Para matriz ou polinômio, a conta é a mesma.</p></div><div><b>② Desenvolver</b><p>Junte posição a posição (coordenada, entrada da matriz ou potência de x): cada uma vira uma equação "= 0". Resolva o sistema homogêneo, de baixo para cima ou escalonando.</p></div><div><b>③ Finalizar</b><p>Só deu α = 0 em tudo → <b>LI</b>. Sobrou variável livre → <b>LD</b>, e a solução mostra quem é combinação de quem.</p></div></div>
+  <div class="ex" data-ex data-q="base-ex4"><div class="q">Exemplo 4: em ℝ⁴, mostre que v₁ = (2, 2, 3, 4), v₂ = (0, 5, −3, 1) e v₃ = (0, 0, 4, −2) são LI.</div>
+    <ol><li>Monte a equação: α₁(2, 2, 3, 4) + α₂(0, 5, −3, 1) + α₃(0, 0, 4, −2) = (0, 0, 0, 0).</li><li>Coordenada a coordenada: 2α₁ = 0 · 2α₁ + 5α₂ = 0 · 3α₁ − 3α₂ + 4α₃ = 0 · 4α₁ + α₂ − 2α₃ = 0.</li><li>O sistema já está em escada (repare nos zeros no começo de v₂ e v₃): da 1ª, α₁ = 0; na 2ª, 5α₂ = 0 → α₂ = 0; na 3ª, 4α₃ = 0 → α₃ = 0. A 4ª confere: 0 = 0.</li><li>Só a solução nula: os três são LI.</li></ol>
+    <div class="ans">α₁ = α₂ = α₃ = 0 é a única solução → {v₁, v₂, v₃} é LI</div></div>
+  <div class="ex" data-ex data-q="base-ex5"><div class="q">Exemplo 5: em M(2, 2), mostre que A = { <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>−1</span><span>2</span><span>−3</span><span>1</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>2</span><span>−3</span><span>3</span><span>0</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>3</span><span>−4</span><span>3</span><span>1</span></span></span> } é LD.</div>
+    <ol><li>Monte a equação com pesos a, b, c: a<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>−1</span><span>2</span><span>−3</span><span>1</span></span></span> + b<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>2</span><span>−3</span><span>3</span><span>0</span></span></span> + c<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>3</span><span>−4</span><span>3</span><span>1</span></span></span> = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>0</span></span></span>.</li><li>Entrada por entrada (cada posição da matriz vira uma equação): −a + 2b + 3c = 0 · 2a − 3b − 4c = 0 · −3a + 3b + 3c = 0 · a + c = 0.</li><li>Da última, a = −c. Na 3ª: 3c + 3b + 3c = 0 → b = −2c. As outras duas conferem: c − 4c + 3c = 0 ✓ e −2c + 6c − 4c = 0 ✓.</li><li>Sobrou c livre: com c = 1, a = −1 e b = −2. Existe solução não nula, então é <b>LD</b>.</li><li>A solução mostra a relação: −A₁ − 2A₂ + A₃ = 0, ou seja, A₃ = A₁ + 2A₂. Confere: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>−1</span><span>2</span><span>−3</span><span>1</span></span></span> + 2<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>2</span><span>−3</span><span>3</span><span>0</span></span></span> = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>3</span><span>−4</span><span>3</span><span>1</span></span></span> ✓.</li></ol>
+    <div class="ans">a = −c, b = −2c com c livre → LD · A₃ = A₁ + 2A₂</div></div>
+
+  <h3>2 · Base</h3>
+  <div class="fx"><span class="tag">Definição 2 · base</span>
+    <div class="eq" style="white-space:normal">B = {u₁, …, uₙ} é base de V &nbsp;⇔&nbsp; (i) B é LI &nbsp; e &nbsp; (ii) B gera V</div>
+    <dl class="legend"><dt>(i) LI</dt><dd>nenhum vetor sobrando</dd><dt>(ii) gera</dt><dd>todo vetor de V é combinação de B: não falta nenhum</dd><dt>ideia</dt><dd><b>gerar tudo sem desperdício</b></dd></dl></div>
+  <div class="duas"><div><b>Base de P₃</b><p class="r">{1, x, x², x³}</p><p>Gera todo polinômio de grau ≤ 3 e é LI. É base.</p></div><div><b>Gera, mas não é base</b><p class="r">{1, x, x², x² + x, x³}</p><p>Gera, mas x² + x é a soma de x e x²: está sobrando. É LD.</p></div></div>
+  <p><b>Três situações possíveis</b> quando você tenta escrever um vetor qualquer como combinação de um conjunto:</p>
+  <div class="tabela"><table><tr><th>o conjunto é</th><th>o sistema fica</th><th>exemplo</th></tr>
+    <tr><td><b>base</b> (LI e gera)</td><td>determinado: <b>uma</b> solução</td><td>{1, x, x²} em P₂</td></tr>
+    <tr><td>gera, mas é LD</td><td>indeterminado: <b>várias</b> soluções</td><td>{1, x, x², 3x + 1} em P₂</td></tr>
+    <tr><td>LI, mas não gera</td><td><b>impossível</b> para alguns vetores</td><td>{1, x, x²} e o vetor x⁴</td></tr></table></div>
+  <div class="fx"><span class="tag">Coordenadas</span><div class="eq" style="white-space:normal">numa base, cada vetor se escreve de um <b>único</b> jeito: v = a₁u₁ + ⋯ + aₙuₙ</div>
+    <dl class="legend"><dt>a₁, …, aₙ</dt><dd>as <b>coordenadas</b> de v na base B. Trocar de base muda os números, não o vetor.</dd></dl></div>
+  <p>A mesma seta v = (5, 2, 3) em duas bases diferentes do ℝ³:</p>
+  <figure class="f3"><div class="seg" id="f3i-b"></div><div class="cv inline-cv" id="f3i"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3i-c"></figcaption></figure>
+  <div class="ex" data-ex data-q="base-coord"><div class="q">Exemplo: ache as coordenadas de v = (5, 2, 3) na base B = {(1, 1, 0), (0, 1, 1), (1, 0, 1)}.</div>
+    <ol><li>Monte a conta: a(1, 1, 0) + b(0, 1, 1) + c(1, 0, 1) = (5, 2, 3).</li><li>Coordenada a coordenada: a + c = 5 · a + b = 2 · b + c = 3.</li><li>Truque: some as três: 2a + 2b + 2c = 10 → a + b + c = 5. Tire cada equação: b = 5 − 5 = 0, c = 5 − 2 = 3, a = 5 − 3 = 2.</li><li>Confere: 2(1, 1, 0) + 0(0, 1, 1) + 3(1, 0, 1) = (2 + 3, 2, 3) = (5, 2, 3) ✓. Sistema com solução única, como toda base garante.</li></ol>
+    <div class="ans">[v]_B = (2, 0, 3) · na canônica, [v] = (5, 2, 3)</div></div>
+  <p><b>Bases canônicas</b> (as "de fábrica"):</p>
+  <div class="tabela"><table><tr><th>espaço</th><th>base canônica</th><th>nº de vetores</th></tr>
+    <tr><td>ℝ</td><td>{1}</td><td>1</td></tr><tr><td>ℝ²</td><td>{(1, 0), (0, 1)}</td><td>2</td></tr><tr><td>ℝ³</td><td>{(1, 0, 0), (0, 1, 0), (0, 0, 1)}</td><td>3</td></tr><tr><td>ℝ⁴</td><td>{(1, 0, 0, 0), (0, 1, 0, 0), (0, 0, 1, 0), (0, 0, 0, 1)}</td><td>4</td></tr>
+    <tr><td>M(2, 2)</td><td><span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>0</span><span>0</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>1</span><span>0</span><span>0</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>1</span><span>0</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>1</span></span></span></td><td>4</td></tr><tr><td>Pₙ</td><td>{1, x, x², …, xⁿ}</td><td>n + 1</td></tr></table></div>
+  <div class="ex" data-ex data-q="base-m22"><div class="q">Por que a base canônica de M(2, 2) é base? Mostre (i) LI e (ii) gera.</div>
+    <ol><li>(i) LI: a<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>0</span><span>0</span></span></span> + b<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>1</span><span>0</span><span>0</span></span></span> + c<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>1</span><span>0</span></span></span> + d<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>1</span></span></span> = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>0</span></span></span> junta tudo em <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>c</span><span>d</span></span></span> = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>0</span></span></span>. Matrizes iguais têm entradas iguais: a = b = c = d = 0. Só a solução nula → LI.</li><li>(ii) Gera: qualquer <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>c</span><span>d</span></span></span> ∈ M(2, 2) se escreve a<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>0</span><span>0</span></span></span> + b<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>1</span><span>0</span><span>0</span></span></span> + c<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>1</span><span>0</span></span></span> + d<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>1</span></span></span>. Os próprios números da matriz são os pesos.</li><li>LI e gera → é base. O mesmo argumento (identidade de polinômios) mostra que {1, x, …, xⁿ} é base de Pₙ, com n + 1 vetores.</li></ol>
+    <div class="ans">LI (a = b = c = d = 0) e gera (os pesos são as entradas) → base de M(2, 2), com 4 matrizes</div></div>
+  <div class="fx"><span class="tag">Teorema e corolário</span>
+    <div class="eq" style="white-space:normal">base com n vetores ⇒ qualquer conjunto com <b>mais de n</b> vetores é LD</div>
+    <dl class="legend"><dt>sem contas</dt><dd>{(1, 2), (3, −1), (0, 5)} em ℝ² é LD: 3 vetores num espaço que tem base com 2</dd><dt>corolário</dt><dd>duas bases quaisquer de V têm o <b>mesmo número</b> de vetores. A canônica do ℝ³ tem 3, então toda base do ℝ³ tem 3.</dd></dl></div>
+
+  <h3>3 · Dimensão</h3>
+  <div class="fx"><span class="tag">Definição 3 · dimensão</span>
+    <div class="eq">dim V = número de vetores de uma base de V</div>
+    <dl class="legend"><dt>dim V = n</dt><dd>V tem uma base com n vetores (o corolário garante que toda base tem n)</dd><dt>V = {0}</dt><dd>convenção: dim V = 0</dd><dt>dim V = ∞</dt><dd>a base tem infinitos vetores (ex.: todos os polinômios, sem limite de grau)</dd></dl></div>
+  <div class="tabela"><table><tr><th>espaço</th><th>dimensão</th><th>por quê</th></tr>
+    <tr><td>ℝⁿ</td><td><b>n</b></td><td>base canônica e₁, …, eₙ · dim ℝ² = 2, dim ℝ³ = 3</td></tr>
+    <tr><td>M(m, n)</td><td><b>m · n</b></td><td>uma matriz com um único 1 em cada posição · dim M(2, 2) = 4</td></tr>
+    <tr><td>Pₙ</td><td><b>n + 1</b></td><td>{1, x, …, xⁿ} · dim P₂ = 3 (cuidado: não é 2)</td></tr></table></div>
+  <p><b>Subespaço cabe dentro:</b> se dim V = n e S é subespaço de V, então dim S ≤ n; e se dim S = n, então S = V. No ℝ³ isso dá a lista completa dos subespaços:</p>
+  <figure class="f3"><div class="seg" id="f3j-b"></div><div class="cv inline-cv" id="f3j"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3j-c"></figcaption></figure>
+  <div class="fx"><span class="tag">Atalho · quando já sei a dimensão</span>
+    <div class="eq" style="white-space:normal">dim V = n e tenho <b>n</b> vetores: basta UMA das condições</div>
+    <dl class="legend"><dt>I)</dt><dd>n vetores LI de V formam base (gerar vem de graça)</dd><dt>II)</dt><dd>n vetores que geram V formam base (LI vem de graça)</dd><dt>exemplo</dt><dd>{(2, 1), (−1, 3)} é base do ℝ²: são 2 vetores, dim ℝ² = 2, e um não é múltiplo do outro (LI). Pelo I), não precisa mostrar que geram.</dd><dt>atenção</dt><dd>ter n vetores não basta: {(1, 2), (2, 4)} tem 2 vetores, mas (2, 4) = 2(1, 2) é LD. Não é base do ℝ².</dd></dl></div>
+
+  <h3>4 · Base e dimensão de um subespaço</h3>
+  <div class="fx"><span class="tag">Regra prática</span><div class="eq" style="white-space:normal">dim S = número de <b>variáveis livres</b> do vetor genérico de S</div>
+    <dl class="legend"><dt>variável livre</dt><dd>a que pode valer qualquer número depois de usar as equações de S</dd><dt>cada livre</dt><dd>fornece <b>um vetor</b> da base</dd></dl></div>
+  <ol class="recipe">
+    <li><span><b>Vetor genérico:</b> (x, y, z, …), p(x) = a + bx + cx² + ⋯ ou a matriz <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>c</span><span>d</span></span></span>.</span></li>
+    <li><span><b>Use as equações de S</b> para isolar variáveis em função das outras: as que sobram são as <b>livres</b>.</span></li>
+    <li><span><b>Substitua e separe</b> em uma parcela para cada variável livre.</span></li>
+    <li><span>Os vetores que multiplicam as livres formam uma <b>base de S</b> (já saem LI).</span></li>
+    <li><span><b>dim S</b> = número de variáveis livres.</span></li>
+  </ol>
+  <div class="ex" data-ex data-q="base-ex6"><div class="q">Exemplo 6: determine a dimensão e uma base de S = {(x, y, z) ∈ ℝ³ | 2x + y + z = 0}.</div>
+    <ol><li>Uma equação, três variáveis: isole a mais fácil. z = −2x − y, com x e y livres.</li><li>Substitua no genérico: (x, y, z) = (x, y, −2x − y).</li><li>Separe uma parcela por livre: (x, 0, −2x) + (0, y, −y) = x(1, 0, −2) + y(0, 1, −1).</li><li>Os vetores que multiplicam x e y geram S e são LI (um não é múltiplo do outro).</li><li>Duas livres, dois vetores na base: S é um plano pela origem.</li></ol>
+    <div class="ans">ℬ = {(1, 0, −2), (0, 1, −1)} · dim S = 2</div></div>
+  <figure class="f3"><div class="seg" id="f3k-b"></div><div class="cv inline-cv" id="f3k"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3k-c"></figcaption></figure>
+  <div class="ex" data-ex data-q="base-ex7a"><div class="q">Exemplo 7a: base e dimensão de S = {(x, y, z) ∈ ℝ³ | x + 2y = 0 e y − 3z = 0}.</div>
+    <ol><li>Duas equações: isole y e x em função de z. Da 2ª: y − 3z = 0 → y = 3z.</li><li>Na 1ª: x + 2y = 0 → x = −2y = −2(3z) = −6z. Só z ficou livre.</li><li>Substitua: (x, y, z) = (−6z, 3z, z) = z(−6, 3, 1).</li><li>Uma livre, um vetor: S é uma reta pela origem, a interseção dos planos x + 2y = 0 e y − 3z = 0 (figura acima, 2ª cena).</li></ol>
+    <div class="ans">ℬ = {(−6, 3, 1)} · dim S = 1</div></div>
+  <div class="ex" data-ex data-q="base-ex7b"><div class="q">Exemplo 7b: base e dimensão de S = {(x, y, z, w) ∈ ℝ⁴ | x − y + 2w = 0 e y − z + w = 0}.</div>
+    <ol><li>Isole y e x em função de z e w (as livres). Da 2ª: y = z − w.</li><li>Na 1ª: x = y − 2w = (z − w) − 2w = z − 3w.</li><li>Substitua: (x, y, z, w) = (z − 3w, z − w, z, w).</li><li>Separe por livre: (z, z, z, 0) + (−3w, −w, 0, w) = z(1, 1, 1, 0) + w(−3, −1, 0, 1).</li><li>Os dois são LI (um não é múltiplo do outro). Conferência: (−3, −1, 0, 1) nas equações dá −3 − (−1) + 2·1 = 0 ✓ e −1 − 0 + 1 = 0 ✓; e dim S = 4 variáveis − 2 equações = 2 ✓.</li></ol>
+    <div class="ans">ℬ = {(1, 1, 1, 0), (−3, −1, 0, 1)} · dim S = 2</div></div>
+  <div class="ex" data-ex data-q="base-ex7c"><div class="q">Exemplo 7c: base e dimensão de S = {A ∈ M₂(ℝ) | Aᵗ = A} (as matrizes simétricas).</div>
+    <ol><li>Genérico: A = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>c</span><span>d</span></span></span>. Transposta: troca linha por coluna, Aᵗ = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>c</span><span>b</span><span>d</span></span></span>.</li><li>Aᵗ = A entrada por entrada: a = a, c = b, b = c, d = d. A única condição é <b>b = c</b>.</li><li>Toda matriz de S tem a forma <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>b</span><span>d</span></span></span>, com a, b, d livres.</li><li>Separe por livre: A = a<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>0</span><span>0</span></span></span> + b<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>1</span><span>1</span><span>0</span></span></span> + d<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>1</span></span></span>.</li><li>As três matrizes são LI (cada uma tem um 1 onde as outras têm 0).</li></ol>
+    <div class="ans">ℬ = { <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>0</span><span>0</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>1</span><span>1</span><span>0</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>1</span></span></span> } · dim S = 3</div></div>
+  <div class="fx"><span class="tag">Conferência rápida</span><div class="eq" style="white-space:normal">dim S = (nº de variáveis) − (nº de equações independentes)</div>
+    <div class="tabela" style="margin-top:10px"><table><tr><th>exemplo</th><th>variáveis</th><th>equações</th><th>dim S</th></tr><tr><td>Ex. 6: plano 2x + y + z = 0</td><td>3</td><td>1</td><td><b>2</b></td></tr><tr><td>Ex. 7a: reta</td><td>3</td><td>2</td><td><b>1</b></td></tr><tr><td>Ex. 7b: em ℝ⁴</td><td>4</td><td>2</td><td><b>2</b></td></tr><tr><td>Ex. 7c: Aᵗ = A</td><td>4</td><td>1 (b = c)</td><td><b>3</b></td></tr></table></div></div>
+
+  <h3>5 · Resumo: o que fazer em cada pergunta</h3>
+  <div class="tabela"><table><tr><th>pergunta</th><th>monte e resolva</th><th>conclusão</th></tr>
+    <tr><td>v é combinação de v₁, …, vₙ?</td><td>a₁v₁ + ⋯ + aₙvₙ = v</td><td>possível: sim · impossível: não</td></tr>
+    <tr><td>{v₁, …, vₙ} é LI?</td><td>a₁v₁ + ⋯ + aₙvₙ = <b>0</b></td><td>só a solução nula: LI · outras: LD</td></tr>
+    <tr><td>{v₁, …, vₙ} gera V?</td><td>a₁v₁ + ⋯ + aₙvₙ = v, com v genérico</td><td>possível para todo v: gera</td></tr>
+    <tr><td>é base de V?</td><td>os dois testes acima</td><td>LI e gera</td></tr></table></div>
+  <p class="cen" style="font-size:1rem">Toda pergunta vira um sistema linear. Numa base, a₁v₁ + ⋯ + aₙvₙ = v é sempre <b>SPD</b>, e a solução única são as coordenadas de v.</p>
+  <div class="duas"><div><b>LI ou LD? (atalhos)</b><p>• Tem o vetor nulo: LD.</p><p>• Dois vetores: LD ⇔ um é múltiplo do outro.</p><p>• Mais vetores que dim V: LD.</p><p>• n vetores do ℝⁿ: LI ⇔ det ≠ 0 (vetores nas linhas).</p></div><div><b>É base? (dim V = n, com k vetores)</b><p>• k &lt; n: não gera. Não é base.</p><p>• k &gt; n: é LD. Não é base.</p><p>• k = n: basta uma condição (em geral LI, que é mais fácil).</p><p>Ex.: {(1, 2, 1), (−1, −3, 0)}: k = 2 &lt; 3, não gera o ℝ³.</p></div></div>
+  <div class="cuid"><span class="k">Erros que mais caem</span>✗ "dim P₂ = 2" → ✓ dim P₂ = 3 (1, x, x²: conte o termo constante).<br>✗ "tem n vetores, então é base" → ✓ precisa ser LI também: {(1, 2), (2, 4)} não é base do ℝ².<br>✗ dividir uma equação por uma variável para "simplificar" e perder solução → ✓ isole, não divida por letra.<br>✗ esquecer que (x, y, z) = z(−6, 3, 1) dá base {(−6, 3, 1)}, e não {z(−6, 3, 1)} → ✓ a base é o vetor que multiplica a livre.</div>
+  <div class="ofi"><span class="k">De volta ao nó</span>As barras u₁ = (1, 0, 1), u₂ = (0, 1, 1) e u₃ = u₁ + u₂ = (1, 1, 2) formam um conjunto <b>LD</b>: u₃ é combinação das outras. Uma base das cargas que o nó segura é {u₁, u₂}, e essas cargas formam um subespaço de <b>dimensão 2</b> (um plano). A terceira barra só ajuda se sair desse plano.</div>
+  <div class="fx"><span class="tag">Resumo da aula</span><ul class="res5">
+    <li><b>LI:</b> α₁u₁ + ⋯ + αₙuₙ = <b>0</b> só com todos os α = 0. <b>LD:</b> algum vetor é combinação dos outros.</li>
+    <li><b>Base:</b> LI e gera. Cada vetor tem coordenadas únicas nela.</li>
+    <li><b>Dimensão:</b> quantos vetores tem uma base. dim ℝⁿ = n, dim M(m, n) = mn, dim Pₙ = n + 1.</li>
+    <li><b>Subespaço:</b> vetor genérico → isola → separa pelas livres. Cada livre = um vetor da base; dim = nº de livres.</li>
+    <li><b>Atalho:</b> com n vetores num espaço de dimensão n, basta testar LI.</li></ul></div>
+
+  <div class="done-btn" data-done="base"></div>
 </section>
 
 <!-- ============ LAB ============ -->
@@ -1254,6 +1375,22 @@ function subFigs(){ const ok='ok',bad='bad';
   f3e:{r:6,sc:[
    {b:'N(A)',t:'N(A): o plano x − y + 2z = 0, gerado por w₁ = (1, 1, 0) e w₂ = (−2, 0, 1). Tudo nele A transforma em (0, 0).',o:[{t:'plane',n:[1,-1,2],d:0,c:'c2',l:'N(A)'},{t:'vec',a:[0,0,0],v:[1,1,0],c:'c1',l:'w₁'},{t:'vec',a:[0,0,0],v:[-2,0,1],c:'c3',l:'w₂'}]},
    {b:'AX = (3, 6)',t:'As soluções de AX = (3, 6) formam o plano x − y + 2z = 3: o N(A) transladado por Xₚ = (3, 0, 0). Não passa pela origem, por isso não é subespaço.',o:[{t:'plane',n:[1,-1,2],d:0,c:'c2',l:'N(A)'},{t:'plane',n:[1,-1,2],d:-3,c:'c1',l:'Xₚ + N(A)'},{t:'vec',a:[0,0,0],v:[3,0,0],c:'ink',l:'Xₚ'},{t:'vec',a:[3,0,0],v:[1,1,0],c:'c3',l:'Xₕ'},{t:'pt',p:[4,1,0],c:ok,l:'(4,1,0)'}]}]},
+  f3h:{r:4,sc:[
+   {b:'2 vetores LD',t:'v₂ = 2v₁: os dois estão na mesma reta. Um é múltiplo do outro, então são LD, e [v₁, v₂] é só uma reta.',o:[{t:'line',p:[0,0,0],v:[1,1,1],c:'c2',l:'[v₁]'},{t:'vec',a:[0,0,0],v:[2,2,2],c:'c3',l:'v₂ = 2v₁'},{t:'vec',a:[0,0,0],v:[1,1,1],c:'c1',l:'v₁'}]},
+   {b:'2 vetores LI',t:'v₁ = (1, 0, 1) e v₂ = (0, 1, 1) não são múltiplos: são LI e geram um plano.',o:[{t:'plane',n:[-1,-1,1],d:0,c:'c2',l:'[v₁, v₂]'},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'v₂'}]},
+   {b:'3 vetores LD',t:'v₃ = v₁ + v₂ = (1, 1, 2) fica no mesmo plano: é combinação dos outros, então os três são LD. É a 3ª barra do nó.',o:[{t:'plane',n:[-1,-1,1],d:0,c:'c2',l:' '},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[1,1,2],c:bad,l:'v₃ = v₁+v₂'}]},
+   {b:'3 vetores LI',t:'v₃ = (0, 0, 1) sai do plano de v₁ e v₂: nenhum é combinação dos outros. Os três são LI e geram todo o ℝ³.',o:[{t:'plane',n:[-1,-1,1],d:0,c:'c2',l:' '},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[0,0,1.6],c:ok,l:'v₃'}]}]},
+  f3i:{r:6,sc:[
+   {b:'Base canônica',t:'v = 5e₁ + 2e₂ + 3e₃: ande 5 em x, 2 em y e 3 em z. Coordenadas (5, 2, 3).',o:[{t:'vec',a:[0,0,0],v:[5,0,0],c:'c1',l:'5e₁'},{t:'vec',a:[5,0,0],v:[0,2,0],c:'c3',l:'2e₂'},{t:'vec',a:[5,2,0],v:[0,0,3],c:'c2',l:'3e₃'},{t:'vec',a:[0,0,0],v:[5,2,3],c:ok,l:'v'}]},
+   {b:'Outra base',t:'Na base {(1, 1, 0), (0, 1, 1), (1, 0, 1)}: v = 2(1, 1, 0) + 0(0, 1, 1) + 3(1, 0, 1). Mesma seta, coordenadas (2, 0, 3).',o:[{t:'vec',a:[0,0,0],v:[1,1,0],c:'c1',l:'u₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'u₂'},{t:'vec',a:[0,0,0],v:[1,0,1],c:'c2',l:'u₃'},{t:'vec',a:[0,0,0],v:[2,2,0],c:'c1',l:'2u₁'},{t:'vec',a:[2,2,0],v:[3,0,3],c:'c2',l:'3u₃'},{t:'vec',a:[0,0,0],v:[5,2,3],c:ok,l:'v'}]}]},
+  f3j:{r:4,sc:[
+   {b:'dim 0',t:'S = {0}: só a origem. Dimensão 0 por convenção.',o:[{t:'pt',p:[0,0,0],c:'c1',l:'{0}'}]},
+   {b:'dim 1',t:'Reta pela origem: base com 1 vetor.',o:[{t:'line',p:[0,0,0],v:[1,2,1],c:'c2',l:'S'},{t:'vec',a:[0,0,0],v:[1,2,1],c:'c1',l:'base'}]},
+   {b:'dim 2',t:'Plano pela origem: base com 2 vetores LI.',o:[{t:'plane',n:[1,-1,1],d:0,c:'c2',l:'S'},{t:'vec',a:[0,0,0],v:[1,1,0],c:'c1',l:'u₁'},{t:'vec',a:[0,0,0],v:[0,1,1],c:'c3',l:'u₂'}]},
+   {b:'dim 3',t:'dim S = 3 = dim ℝ³: então S é o próprio ℝ³. Base com 3 vetores LI.',o:[{t:'vec',a:[0,0,0],v:[2,0,0],c:'c1',l:'e₁'},{t:'vec',a:[0,0,0],v:[0,2,0],c:'c3',l:'e₂'},{t:'vec',a:[0,0,0],v:[0,0,2],c:'c2',l:'e₃'}]}]},
+  f3k:{r:6,sc:[
+   {b:'Ex. 6: plano',t:'2x + y + z = 0 com a base {(1, 0, −2), (0, 1, −1)}: duas livres, dois vetores, dim 2.',o:[{t:'plane',n:[2,1,1],d:0,c:'c2',l:'S'},{t:'vec',a:[0,0,0],v:[1,0,-2],c:'c1',l:'(1,0,−2)'},{t:'vec',a:[0,0,0],v:[0,1,-1],c:'c3',l:'(0,1,−1)'}]},
+   {b:'Ex. 7a: reta',t:'x + 2y = 0 e y − 3z = 0: a interseção dos dois planos é a reta de direção (−6, 3, 1). Uma livre, dim 1.',o:[{t:'plane',n:[1,2,0],d:0,c:'c2',l:'x+2y=0'},{t:'plane',n:[0,1,-3],d:0,c:'c3',l:'y−3z=0'},{t:'line',p:[0,0,0],v:[-6,3,1],c:'c1',l:'S'},{t:'vec',a:[0,0,0],v:[-6,3,1],c:ok,l:'(−6,3,1)'}]}]},
   f3g:null,
   f3f:{r:11,sc:[
    {b:'Peso',t:'C(A) é o plano xz. b = −F = (0, 0, 10) está nele: 5u₁ + 5u₂ = (5, 0, 5) + (−5, 0, 5) = (0, 0, 10).',o:[{t:'plane',n:[0,1,0],d:0,c:'c2',l:'C(A)'},{t:'vec',a:[0,0,0],v:[5,0,5],c:'c1',l:'5u₁'},{t:'vec',a:[5,0,5],v:[-5,0,5],c:'c3',l:'5u₂'},{t:'vec',a:[0,0,0],v:[0,0,10],c:ok,l:'b'}]},
@@ -1273,6 +1410,11 @@ const QUIZ=[
  ['Para escrever C(A) usando o escalonamento, eu pego…',['as colunas da escalonada com pivô','as colunas da A original onde há pivô','as linhas não nulas','as colunas sem pivô'],1,'O escalonamento só aponta quais colunas. Elas são pegas na matriz original (Exemplo 7).'],
  ['AX = b tem infinitas soluções. Então…',['b ∉ C(A)','N(A) = {0}','N(A) ≠ {0}','A é quadrada'],2,'Solução geral X = Xₚ + Xₕ: se N(A) tivesse só o vetor nulo, a solução seria única.'],
  ['O nó com u₁ = (1, 0, 1) e u₂ = (−1, 0, 1) equilibra quais cargas?',['todas','só as do plano xz (Fy = 0)','só o peso','nenhuma'],1,'C(A) = [ u₁, u₂ ] é o plano xz. A carga lateral (0, 3, 0) cai fora: mecanismo.'],
+ ['{(1, −2, 3), (2, −4, 6)} é…',['LI','LD','base do ℝ³','gera o ℝ³'],1,'(2, −4, 6) = 2·(1, −2, 3): um é múltiplo do outro, então são LD.'],
+ ['Qual é a dimensão de P₂ (polinômios de grau ≤ 2)?',['2','3','4','infinita'],1,'Base {1, x, x²}: três vetores. Não esqueça o termo constante.'],
+ ['{(1, 2), (3, −1), (0, 5)} é base do ℝ²?',['Sim','Não: tem vetores demais, é LD','Não: não gera','Só se det ≠ 0'],1,'Três vetores num espaço de dimensão 2: obrigatoriamente LD. Não precisa fazer conta.'],
+ ['S = {(x, y, z) | 2x + y + z = 0} tem dimensão…',['1','2','3','0'],1,'z = −2x − y deixa x e y livres: duas livres, dim 2 (um plano). Ou: 3 variáveis − 1 equação.'],
+ ['Em ℝ², {(2, 1), (−1, 3)} é base porque…',['tem 2 vetores','são 2 vetores LI e dim ℝ² = 2','um é múltiplo do outro','contém o vetor nulo'],1,'Com n vetores num espaço de dimensão n, basta uma condição: LI (um não é múltiplo do outro).'],
  ['Se u⃗ · v⃗ = 0, então u⃗ e v⃗ são…',['paralelos','perpendiculares','iguais','reversos'],1,'Produto escalar zero significa cos θ = 0, ou seja, θ = 90°.'],
  ['Qual é o vetor diretor da reta x = 2 + 3t, y = −t, z = 5?',['(2, 0, 5)','(3, −1, 5)','(3, −1, 0)','(2, −1, 5)'],2,'Os números que multiplicam t formam o diretor. z = 5 não tem t, então a 3ª coordenada é 0.'],
  ['O vetor normal do plano 2x − y + 4z − 7 = 0 é…',['(2, −1, 4)','(2, −1, 4, −7)','(−7, 0, 0)','(1, 1, 1)'],0,'Basta ler os coeficientes de x, y e z. O −7 só posiciona o plano.'],
@@ -1296,7 +1438,7 @@ function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHT
 function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · pronto para a prova!':ok>=9?' · quase lá':' · revise os módulos'):'') }
 
 /* ========= progresso ========= */
-const MODS=[['kit','Vetores e os 3 produtos','A base de tudo: escalar, vetorial e misto'],['retas','Retas','Ponto + direção em 4 formas de equação'],['planos','Planos','Ponto + normal, e como achar a normal'],['posicoes','Posições relativas','O fluxograma que decide quem cruza com quem'],['angulos','Ângulos','cos, cos e o seno da reta–plano'],['distancias','Distâncias','Área ÷ base, volume ÷ área, e o prumo'],['subespacos','Subespaços','Espaço gerado, N(A) e C(A)']];
+const MODS=[['kit','Vetores e os 3 produtos','A base de tudo: escalar, vetorial e misto'],['retas','Retas','Ponto + direção em 4 formas de equação'],['planos','Planos','Ponto + normal, e como achar a normal'],['posicoes','Posições relativas','O fluxograma que decide quem cruza com quem'],['angulos','Ângulos','cos, cos e o seno da reta–plano'],['distancias','Distâncias','Área ÷ base, volume ÷ área, e o prumo'],['subespacos','Subespaços','Espaço gerado, N(A) e C(A)'],['base','Base e dimensão','LI e LD, base, dimensão e a receita das livres']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('gaal-done')||'{}'); qa=JSON.parse(localStorage.getItem('gaal-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('gaal-done',JSON.stringify(done)); localStorage.setItem('gaal-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -1309,7 +1451,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getEl
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ========= rotas ========= */
-const VIEWS=['inicio','kit','retas','planos','posicoes','angulos','distancias','subespacos','lab','lista','quiz','cola'];
+const VIEWS=['inicio','kit','retas','planos','posicoes','angulos','distancias','subespacos','base','lab','lista','quiz','cola'];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
@@ -1477,7 +1619,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="gaal"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-gaal.js?v=5"></script>
+<script src="../../dados/quadros-gaal.js?v=6"></script>
 <script src="../../js/quadro.js?v=6" data-materia="gaal"></script>
 </body>
 </html>
