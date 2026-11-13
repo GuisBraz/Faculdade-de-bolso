@@ -1,7 +1,7 @@
 /* FACULDADE DE BOLSO · service worker (app instalável + uso offline do que já foi aberto)
    Páginas e scripts: rede primeiro (sempre a versão nova), cache se estiver offline.
    Nada do Supabase (outro domínio) passa por aqui. */
-const V = 'fdb-v30';
+const V = 'fdb-v31';
 const BASE = ['./', 'index.html', 'js/hub.js', 'js/boot.js', 'js/anki.js', 'js/aviso.js', 'js/vendor/supabase-2.117.3.js',
   'dados/materias.js', 'dados/cartas.js', 'dados/config.js', 'dados/aulas.js', 'css/fdb-v2.css', 'js/fdb-ui.js', 'manifest.webmanifest', 'icons/logo-icon-192.png', 'js/tema.js?v=1'];
 self.addEventListener('install', e => { e.waitUntil(caches.open(V).then(c => c.addAll(BASE)).then(() => self.skipWaiting())) });
