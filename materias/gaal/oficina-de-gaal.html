@@ -296,6 +296,10 @@ body{font-size:1rem}
 .rot>div{background:var(--sheet);border:1px solid var(--line);border-top:4px solid var(--c2);border-radius:10px;padding:10px 14px}
 .rot>div:nth-child(2){border-top-color:var(--c1)}.rot>div:nth-child(3){border-top-color:var(--ok)}.rot p{margin:6px 0 0;font-size:.92rem}
 @media (max-width:700px){.rot{grid-template-columns:1fr}}
+.pq{border:1px solid var(--line);border-left:4px solid var(--c3,#6D4AD6);background:color-mix(in srgb,var(--c3,#6D4AD6) 6%,var(--sheet));border-radius:8px;padding:10px 16px;margin:14px 0}
+.pq .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;color:var(--c3,#6D4AD6);display:block;margin-bottom:4px}
+.pq p{margin:6px 0;font-size:.95rem}.pq ol.recipe{margin:8px 0}
+h4.sub{font-size:1.05rem;margin:22px 0 6px}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
 <script src="../../js/tema.js?v=1"></script>
@@ -914,10 +918,12 @@ body{font-size:1rem}
   <div class="fx"><span class="tag">Definição 1 · LI e LD</span>
     <div class="eq">α₁<i>u</i>₁ + α₂<i>u</i>₂ + ⋯ + α<sub>n</sub><i>u</i><sub>n</sub> = <b>0</b></div>
     <dl class="legend"><dt>u₁, …, uₙ</dt><dd>os vetores que você quer testar (podem ser listas, matrizes, polinômios)</dd><dt>α₁, …, αₙ</dt><dd>os números desconhecidos: o "quanto" de cada vetor entra na mistura</dd><dt>0</dt><dd>o vetor nulo do espaço: (0, …, 0), a matriz nula ou o polinômio nulo</dd><dt>LI</dt><dd>a <b>única</b> solução é α₁ = α₂ = ⋯ = αₙ = 0 (a solução nula, que sempre funciona)</dd><dt>LD</dt><dd>existe outra solução, com algum α ≠ 0: dá para zerar a mistura sem zerar todos os pesos</dd></dl></div>
-  <p><b>Leitura de quadro:</b> LI = cada vetor tem uma "natureza" própria. LD = misturando alguns, eu obtenho outro. Exemplo de intuição da professora: {1, x, eˣ} é LI, porque misturar uma constante com x dá uma reta, nunca a exponencial; e misturar constante com exponencial nunca dá uma reta.</p>
+  <p><b>Leitura de quadro:</b> LI = cada vetor tem uma "natureza" própria. LD = misturando alguns, eu obtenho outro.</p>
+<div class="pq"><span class="k">Ex3) {1, x, eˣ} é LI ou LD?</span><p><b>Intuição da professora:</b> misturando uma constante com x sai uma reta, nunca a exponencial; misturando constante e exponencial não sai uma reta. A intuição diz: <b>LI</b>.</p><p><b>Confirmando com conta.</b> Aqui o "vetor nulo" é a função que vale 0 para <b>todo</b> x. Então a·1 + b·x + c·eˣ = 0 tem que valer em qualquer x, e isso permite derivar dos dois lados:</p><ol class="recipe"><li><span>Derive uma vez: b + c·eˣ = 0 para todo x.</span></li><li><span>Derive de novo: c·eˣ = 0. Como eˣ nunca é zero, <b>c = 0</b>.</span></li><li><span>Volte: b + 0 = 0 → <b>b = 0</b>. E a original fica a = 0 → <b>a = 0</b>.</span></li></ol><p>Só a solução nula: {1, x, eˣ} é LI. Repare que aqui não dá para "comparar coordenadas" como em ℝⁿ; o truque é usar que a igualdade vale para todo x.</p></div>
   <div class="fx"><span class="tag">Proposição · o jeito prático de enxergar</span>
     <div class="eq" style="white-space:normal">{v₁, …, vₙ} é LI &nbsp;⇔&nbsp; nenhum vᵢ é combinação linear dos outros</div>
     <dl class="legend"><dt>2 vetores</dt><dd>LD ⇔ um é múltiplo do outro. (1, −2, 3) e (2, −4, 6) são LD: v₂ = 2v₁. Já (1, −2, 3) e (2, 1, 5) são LI: não existe k com v₁ = k v₂.</dd><dt>vetor nulo</dt><dd>qualquer conjunto que contém o <b>0</b> é LD: 1·<b>0</b> = <b>0</b> já é uma solução não nula</dd></dl></div>
+<div class="pq"><span class="k">Por que LD é o mesmo que "um é combinação dos outros"?</span><p><b>Ida.</b> Se é LD, existe uma solução com algum peso diferente de zero, digamos α₃ ≠ 0: α₁u₁ + α₂u₂ + α₃u₃ = <b>0</b>. Como α₃ ≠ 0, dá para isolar: u₃ = −(α₁/α₃)u₁ − (α₂/α₃)u₂. Pronto: u₃ é combinação de u₁ e u₂.</p><p><b>Volta.</b> Se u₃ = 2u₁ + 5u₂, passe tudo para um lado: 2u₁ + 5u₂ − 1·u₃ = <b>0</b>. Achei pesos (2, 5, −1), que não são todos zero: é LD.</p><p>Por isso a solução não nula do sistema <b>é</b> a receita de quem é combinação de quem, como no Exemplo 5.</p></div>
   <p><b>A geometria no ℝ³</b>: gire e compare. Vetores LD "cabem" num espaço menor do que a quantidade deles.</p>
   <figure class="f3"><div class="seg" id="f3h-b"></div><div class="cv inline-cv" id="f3h"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3h-c"></figcaption></figure>
   <div class="rot"><div><b>① Começar</b><p>Escreva α₁u₁ + ⋯ + αₙuₙ = <b>0</b> com os vetores do problema. Para matriz ou polinômio, a conta é a mesma.</p></div><div><b>② Desenvolver</b><p>Junte posição a posição (coordenada, entrada da matriz ou potência de x): cada uma vira uma equação "= 0". Resolva o sistema homogêneo, de baixo para cima ou escalonando.</p></div><div><b>③ Finalizar</b><p>Só deu α = 0 em tudo → <b>LI</b>. Sobrou variável livre → <b>LD</b>, e a solução mostra quem é combinação de quem.</p></div></div>
@@ -933,13 +939,27 @@ body{font-size:1rem}
     <div class="eq" style="white-space:normal">B = {u₁, …, uₙ} é base de V &nbsp;⇔&nbsp; (i) B é LI &nbsp; e &nbsp; (ii) B gera V</div>
     <dl class="legend"><dt>(i) LI</dt><dd>nenhum vetor sobrando</dd><dt>(ii) gera</dt><dd>todo vetor de V é combinação de B: não falta nenhum</dd><dt>ideia</dt><dd><b>gerar tudo sem desperdício</b></dd></dl></div>
   <div class="duas"><div><b>Base de P₃</b><p class="r">{1, x, x², x³}</p><p>Gera todo polinômio de grau ≤ 3 e é LI. É base.</p></div><div><b>Gera, mas não é base</b><p class="r">{1, x, x², x² + x, x³}</p><p>Gera, mas x² + x é a soma de x e x²: está sobrando. É LD.</p></div></div>
-  <p><b>Três situações possíveis</b> quando você tenta escrever um vetor qualquer como combinação de um conjunto:</p>
-  <div class="tabela"><table><tr><th>o conjunto é</th><th>o sistema fica</th><th>exemplo</th></tr>
-    <tr><td><b>base</b> (LI e gera)</td><td>determinado: <b>uma</b> solução</td><td>{1, x, x²} em P₂</td></tr>
-    <tr><td>gera, mas é LD</td><td>indeterminado: <b>várias</b> soluções</td><td>{1, x, x², 3x + 1} em P₂</td></tr>
-    <tr><td>LI, mas não gera</td><td><b>impossível</b> para alguns vetores</td><td>{1, x, x²} e o vetor x⁴</td></tr></table></div>
+  <h4 class="sub">Por que três situações? O que faz cada uma acontecer?</h4>
+  <p>Quando você tenta escrever um vetor <i>v</i> como combinação de um conjunto {v₁, …, vₙ}, sempre monta o mesmo sistema: <b>a₁v₁ + ⋯ + aₙvₙ = v</b>. Esse sistema responde <b>duas perguntas diferentes</b>, e cada uma corresponde a uma propriedade do conjunto:</p>
+  <div class="duas"><div><b>Pergunta 1 · EXISTE solução?</b><p class="r">depende de o conjunto <b>gerar</b> V</p><p>Se gera, todo v é alcançável: sempre existe pelo menos uma combinação. Se não gera, alguns v ficam "fora do alcance" e o sistema é impossível para eles.</p></div><div><b>Pergunta 2 · a solução é ÚNICA?</b><p class="r">depende de o conjunto ser <b>LI</b></p><p>Se é LD, existe uma "combinação fantasma" que dá <b>0</b> com pesos não nulos. Somar ela a qualquer solução não muda o resultado, então a solução nunca é única. Se é LI, não existe fantasma: a solução, quando existe, é uma só.</p></div></div>
+  <p>Duas perguntas de sim/não dão <b>2 × 2 = 4</b> combinações. A tabela dos slides mostra as três que importam para chegar numa base; a quarta é o "pior caso":</p>
+  <div class="tabela"><table><tr><th></th><th>LI (solução única quando existe)</th><th>LD (fantasma: nunca única)</th></tr>
+    <tr><th>gera (sempre existe)</th><td><b>BASE</b> → sistema <b>determinado</b> (SPD) para todo v: <b>uma</b> solução</td><td>gera, mas tem vetor sobrando → <b>indeterminado</b> (SPI): <b>infinitas</b> soluções para todo v</td></tr>
+    <tr><th>não gera (às vezes não existe)</th><td>falta vetor → <b>impossível</b> para alguns v; para os que dá, solução única</td><td>falta e sobra ao mesmo tempo → impossível para alguns v, infinitas para os outros</td></tr></table></div>
+  <div class="pq"><span class="k">De onde vem o "infinitas" do LD</span><p>É a mesma estrutura <b>X = Xₚ + Xₕ</b> da aula de Subespaços. Se (a₁, …, aₙ) resolve a₁v₁ + ⋯ + aₙvₙ = v e (h₁, …, hₙ) é uma combinação fantasma (h₁v₁ + ⋯ + hₙvₙ = <b>0</b>), então (a₁ + t·h₁, …, aₙ + t·hₙ) também resolve, para <b>qualquer</b> número t. Cada t dá uma solução nova: infinitas. Se o conjunto é LI, o único fantasma é o nulo e não há o que somar.</p></div>
+  <p><b>As situações uma a uma, com o mesmo vetor</b> v = 5 + 3x − 2x² (em P₂, comparando coeficiente por coeficiente):</p>
+  <div class="ex" data-ex data-q="base-3sit"><div class="q">Escreva v = 5 + 3x − 2x² como combinação de cada conjunto e classifique o sistema: a) {1, x, x²} &nbsp; b) {1, x, x², 3x + 1} &nbsp; c) {1, x} &nbsp; d) e o vetor x⁴ com {1, x, x²}?</div>
+    <ol><li>a) <b>Base.</b> a·1 + b·x + c·x² = 5 + 3x − 2x². Igualando coeficientes: a = 5, b = 3, c = −2. Uma equação para cada peso, cada peso determinado: <b>SPD</b>, solução única (5, 3, −2). Essas são as coordenadas de v.</li><li>b) <b>Gera, mas é LD.</b> a + bx + cx² + d(3x + 1) = 5 + 3x − 2x². Junte por potência: (a + d) + (b + 3d)x + cx². Sistema: a + d = 5 · b + 3d = 3 · c = −2. São 4 incógnitas e 3 equações: <b>d fica livre</b>. a = 5 − d, b = 3 − 3d. Com d = 0: (5, 3, −2, 0). Com d = 1: (4, 0, −2, 1). Confere: 4 + 0x − 2x² + (3x + 1) = 5 + 3x − 2x² ✓. <b>SPI</b>: infinitas.</li><li>b) <b>Quem é o fantasma?</b> 3x + 1 = 1·1 + 3·x, então 1·1 + 3·x + 0·x² − 1·(3x + 1) = 0. Somar t·(1, 3, 0, −1) a qualquer solução não muda nada. É exatamente o "d livre".</li><li>c) <b>LI, mas não gera.</b> a + bx = 5 + 3x − 2x². Coeficiente de x²: 0 = −2. <b>Impossível</b>: sem x² no conjunto, nada produz o −2x². Já para v = 5 + 3x daria a = 5, b = 3, solução única. Falta vetor, não sobra.</li><li>d) <b>Mesmo caso do slide:</b> {1, x, x²} tentando fazer x⁴ (agora em P₄): a + bx + cx² = x⁴ dá, no coeficiente de x⁴, 0 = 1. Impossível. {1, x, x²} é base de P₂, mas não gera P₄.</li><li><b>Resumo:</b> sobrou vetor (LD) → aparece variável livre → infinitas. Faltou vetor (não gera) → aparece equação "0 = número" → impossível. Nem sobrou nem faltou (base) → uma solução.</li></ol>
+    <div class="ans">a) SPD, (5, 3, −2) · b) SPI, (5 − d, 3 − 3d, −2, d) · c) impossível (0 = −2) · d) impossível (0 = 1)</div></div>
+  <p><b>O que acontece no escalonamento</b> (n vetores como colunas, num espaço de dimensão m):</p>
+  <div class="tabela"><table><tr><th>no escalonado</th><th>significa</th><th>propriedade</th></tr>
+    <tr><td>pivô em <b>toda coluna</b></td><td>nenhuma variável livre → nunca há fantasma</td><td><b>LI</b></td></tr>
+    <tr><td>pivô em <b>toda linha</b></td><td>nenhuma linha "0 = algo" possível → sempre tem solução</td><td><b>gera</b></td></tr>
+    <tr><td>pivô em toda linha <b>e</b> toda coluna</td><td>só dá se n = m: matriz quadrada, det ≠ 0</td><td><b>base</b></td></tr></table></div>
+  <p>Isso já explica as contas de bolso: com <b>menos</b> vetores que a dimensão (n &lt; m) não há pivô para todas as linhas, então não gera; com <b>mais</b> (n &gt; m) não há pivô para todas as colunas, então é LD. Base só com <b>exatamente</b> m vetores.</p>
+  <figure class="f3"><div class="seg" id="f3l-b"></div><div class="cv inline-cv" id="f3l"><canvas></canvas><div class="lbl">as 4 situações no ℝ³</div></div><figcaption id="f3l-c"></figcaption></figure>
   <div class="fx"><span class="tag">Coordenadas</span><div class="eq" style="white-space:normal">numa base, cada vetor se escreve de um <b>único</b> jeito: v = a₁u₁ + ⋯ + aₙuₙ</div>
-    <dl class="legend"><dt>a₁, …, aₙ</dt><dd>as <b>coordenadas</b> de v na base B. Trocar de base muda os números, não o vetor.</dd></dl></div>
+    <dl class="legend"><dt>a₁, …, aₙ</dt><dd>as <b>coordenadas</b> de v na base B. Trocar de base muda os números, não o vetor.</dd><dt>por que único</dt><dd>se v = a₁u₁ + ⋯ + aₙuₙ e também v = b₁u₁ + ⋯ + bₙuₙ, subtraia: (a₁ − b₁)u₁ + ⋯ + (aₙ − bₙ)uₙ = <b>0</b>. Como a base é LI, todos os parênteses são 0: aᵢ = bᵢ. Os dois jeitos eram o mesmo.</dd></dl></div>
   <p>A mesma seta v = (5, 2, 3) em duas bases diferentes do ℝ³:</p>
   <figure class="f3"><div class="seg" id="f3i-b"></div><div class="cv inline-cv" id="f3i"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3i-c"></figcaption></figure>
   <div class="ex" data-ex data-q="base-coord"><div class="q">Exemplo: ache as coordenadas de v = (5, 2, 3) na base B = {(1, 1, 0), (0, 1, 1), (1, 0, 1)}.</div>
@@ -955,6 +975,7 @@ body{font-size:1rem}
   <div class="fx"><span class="tag">Teorema e corolário</span>
     <div class="eq" style="white-space:normal">base com n vetores ⇒ qualquer conjunto com <b>mais de n</b> vetores é LD</div>
     <dl class="legend"><dt>sem contas</dt><dd>{(1, 2), (3, −1), (0, 5)} em ℝ² é LD: 3 vetores num espaço que tem base com 2</dd><dt>corolário</dt><dd>duas bases quaisquer de V têm o <b>mesmo número</b> de vetores. A canônica do ℝ³ tem 3, então toda base do ℝ³ tem 3.</dd></dl></div>
+<div class="pq"><span class="k">Por que mais de n vetores é sempre LD?</span><p>Teste LI de 3 vetores do ℝ²: a₁(1, 2) + a₂(3, −1) + a₃(0, 5) = (0, 0). Coordenada a coordenada são <b>2 equações</b> com <b>3 incógnitas</b>. Escalonando, no máximo 2 pivôs; sobra pelo menos <b>1 variável livre</b>, e variável livre = solução não nula = LD.</p><p>Em geral: n + 1 vetores num espaço com base de n vetores viram um sistema homogêneo com mais incógnitas do que equações. Sempre sobra livre.</p><p><b>E o corolário?</b> Se B tem n vetores e B′ tem m, as duas são LI. Pelo teorema, B′ não pode ter mais que n (seria LD): m ≤ n. Trocando os papéis, n ≤ m. Logo m = n.</p></div>
 
   <h3>3 · Dimensão</h3>
   <div class="fx"><span class="tag">Definição 3 · dimensão</span>
@@ -964,15 +985,19 @@ body{font-size:1rem}
     <tr><td>ℝⁿ</td><td><b>n</b></td><td>base canônica e₁, …, eₙ · dim ℝ² = 2, dim ℝ³ = 3</td></tr>
     <tr><td>M(m, n)</td><td><b>m · n</b></td><td>uma matriz com um único 1 em cada posição · dim M(2, 2) = 4</td></tr>
     <tr><td>Pₙ</td><td><b>n + 1</b></td><td>{1, x, …, xⁿ} · dim P₂ = 3 (cuidado: não é 2)</td></tr></table></div>
-  <p><b>Subespaço cabe dentro:</b> se dim V = n e S é subespaço de V, então dim S ≤ n; e se dim S = n, então S = V. No ℝ³ isso dá a lista completa dos subespaços:</p>
+  <p><b>Subespaço cabe dentro:</b> se dim V = n e S é subespaço de V, então dim S ≤ n; e se dim S = n, então S = V.</p>
+<div class="pq"><span class="k">Por quê?</span><p>Uma base de S é um conjunto LI de vetores que também estão em V. Pelo teorema, V não aceita mais de n vetores LI: então a base de S tem no máximo n vetores, dim S ≤ n. Se tiver exatamente n, são n vetores LI de V, e pelo atalho I (logo abaixo) eles já geram V inteiro: S = V. Não existe "plano que ocupa o ℝ³ todo".</p></div>
+  <p>No ℝ³ isso dá a lista completa dos subespaços:</p>
   <figure class="f3"><div class="seg" id="f3j-b"></div><div class="cv inline-cv" id="f3j"><canvas></canvas><div class="lbl">arraste para girar</div></div><figcaption id="f3j-c"></figcaption></figure>
   <div class="fx"><span class="tag">Atalho · quando já sei a dimensão</span>
     <div class="eq" style="white-space:normal">dim V = n e tenho <b>n</b> vetores: basta UMA das condições</div>
     <dl class="legend"><dt>I)</dt><dd>n vetores LI de V formam base (gerar vem de graça)</dd><dt>II)</dt><dd>n vetores que geram V formam base (LI vem de graça)</dd><dt>exemplo</dt><dd>{(2, 1), (−1, 3)} é base do ℝ²: são 2 vetores, dim ℝ² = 2, e um não é múltiplo do outro (LI). Pelo I), não precisa mostrar que geram.</dd><dt>atenção</dt><dd>ter n vetores não basta: {(1, 2), (2, 4)} tem 2 vetores, mas (2, 4) = 2(1, 2) é LD. Não é base do ℝ².</dd></dl></div>
+<div class="pq"><span class="k">Por que uma condição puxa a outra?</span><p>Com n vetores num espaço de dimensão n, o sistema a₁v₁ + ⋯ + aₙvₙ = v é <b>quadrado</b>: n equações, n incógnitas. Na tabela do escalonamento: LI = pivô em toda coluna. Mas numa matriz n × n, n pivôs ocupam também <b>todas as linhas</b>, e pivô em toda linha = gera. O contrário vale igual. É por isso que, nesse caso, o teste de det ≠ 0 decide tudo de uma vez.</p></div>
 
   <h3>4 · Base e dimensão de um subespaço</h3>
   <div class="fx"><span class="tag">Regra prática</span><div class="eq" style="white-space:normal">dim S = número de <b>variáveis livres</b> do vetor genérico de S</div>
     <dl class="legend"><dt>variável livre</dt><dd>a que pode valer qualquer número depois de usar as equações de S</dd><dt>cada livre</dt><dd>fornece <b>um vetor</b> da base</dd></dl></div>
+<div class="pq"><span class="k">Por que os vetores das livres já saem LI e já geram S?</span><p><b>Geram</b>: a própria conta mostrou que todo vetor de S é (livre₁)·w₁ + (livre₂)·w₂ + ⋯. <b>São LI</b>: olhe a posição de cada variável livre. No Exemplo 6, (x, y, z) = x(<b>1</b>, 0, −2) + y(0, <b>1</b>, −1): na posição do x, só o primeiro vetor tem 1 (o outro tem 0); na posição do y, só o segundo. Se x·w₁ + y·w₂ = <b>0</b>, a coordenada x obriga x = 0 e a coordenada y obriga y = 0. Funciona assim sempre: cada vetor tem um "1 exclusivo" na posição da sua livre.</p></div>
   <ol class="recipe">
     <li><span><b>Vetor genérico:</b> (x, y, z, …), p(x) = a + bx + cx² + ⋯ ou a matriz <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>c</span><span>d</span></span></span>.</span></li>
     <li><span><b>Use as equações de S</b> para isolar variáveis em função das outras: as que sobram são as <b>livres</b>.</span></li>
@@ -994,6 +1019,7 @@ body{font-size:1rem}
     <ol><li>Genérico: A = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>c</span><span>d</span></span></span>. Transposta: troca linha por coluna, Aᵗ = <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>c</span><span>b</span><span>d</span></span></span>.</li><li>Aᵗ = A entrada por entrada: a = a, c = b, b = c, d = d. A única condição é <b>b = c</b>.</li><li>Toda matriz de S tem a forma <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>b</span><span>d</span></span></span>, com a, b, d livres.</li><li>Separe por livre: A = a<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>0</span><span>0</span></span></span> + b<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>1</span><span>1</span><span>0</span></span></span> + d<span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>1</span></span></span>.</li><li>As três matrizes são LI (cada uma tem um 1 onde as outras têm 0).</li></ol>
     <div class="ans">ℬ = { <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>0</span><span>0</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>1</span><span>1</span><span>0</span></span></span>, <span class="mxl"><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>1</span></span></span> } · dim S = 3</div></div>
   <div class="fx"><span class="tag">Conferência rápida</span><div class="eq" style="white-space:normal">dim S = (nº de variáveis) − (nº de equações independentes)</div>
+    <dl class="legend"><dt>por quê</dt><dd>cada equação independente "prende" uma variável (você isola uma); o que não foi preso fica livre</dd><dt>independentes</dt><dd>equação repetida ou combinação das outras não prende nada. Ex.: x + y + z = 0 e 2x + 2y + 2z = 0 são a mesma condição (a 2ª é 2 × a 1ª): conta como <b>1</b>, e dim S = 3 − 1 = 2, não 3 − 2 = 1. Na dúvida, escalone: o número de equações independentes é o número de pivôs.</dd></dl>
     <div class="tabela" style="margin-top:10px"><table><tr><th>exemplo</th><th>variáveis</th><th>equações</th><th>dim S</th></tr><tr><td>Ex. 6: plano 2x + y + z = 0</td><td>3</td><td>1</td><td><b>2</b></td></tr><tr><td>Ex. 7a: reta</td><td>3</td><td>2</td><td><b>1</b></td></tr><tr><td>Ex. 7b: em ℝ⁴</td><td>4</td><td>2</td><td><b>2</b></td></tr><tr><td>Ex. 7c: Aᵗ = A</td><td>4</td><td>1 (b = c)</td><td><b>3</b></td></tr></table></div></div>
 
   <h3>5 · Resumo: o que fazer em cada pergunta</h3>
@@ -1391,6 +1417,11 @@ function subFigs(){ const ok='ok',bad='bad';
   f3k:{r:6,sc:[
    {b:'Ex. 6: plano',t:'2x + y + z = 0 com a base {(1, 0, −2), (0, 1, −1)}: duas livres, dois vetores, dim 2.',o:[{t:'plane',n:[2,1,1],d:0,c:'c2',l:'S'},{t:'vec',a:[0,0,0],v:[1,0,-2],c:'c1',l:'(1,0,−2)'},{t:'vec',a:[0,0,0],v:[0,1,-1],c:'c3',l:'(0,1,−1)'}]},
    {b:'Ex. 7a: reta',t:'x + 2y = 0 e y − 3z = 0: a interseção dos dois planos é a reta de direção (−6, 3, 1). Uma livre, dim 1.',o:[{t:'plane',n:[1,2,0],d:0,c:'c2',l:'x+2y=0'},{t:'plane',n:[0,1,-3],d:0,c:'c3',l:'y−3z=0'},{t:'line',p:[0,0,0],v:[-6,3,1],c:'c1',l:'S'},{t:'vec',a:[0,0,0],v:[-6,3,1],c:ok,l:'(−6,3,1)'}]}]},
+  f3l:{r:4,sc:[
+   {b:'Base',t:'3 vetores fora de um mesmo plano: geram o ℝ³ (sempre existe) e são LI (única). Qualquer v tem exatamente uma combinação.',o:[{t:'vec',a:[0,0,0],v:[1.6,0,0.4],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1.6,0.4],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[0,0,1.6],c:'c2',l:'v₃'},{t:'vec',a:[0,0,0],v:[1.2,1.2,1.6],c:ok,l:'v'}]},
+   {b:'Gera, mas LD',t:'Os 3 de antes + v₄ = v₁ + v₂. Continua gerando tudo, mas v₄ sobra: dá para chegar em v por infinitos caminhos (trocando um pouco de v₄ por v₁ + v₂).',o:[{t:'vec',a:[0,0,0],v:[1.6,0,0.4],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1.6,0.4],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[0,0,1.6],c:'c2',l:'v₃'},{t:'vec',a:[0,0,0],v:[1.6,1.6,0.8],c:bad,l:'v₄ = v₁+v₂'}]},
+   {b:'LI, mas não gera',t:'Só v₁ e v₂: geram um plano. Vetores do plano têm uma única combinação; v fora do plano (vermelho) é impossível.',o:[{t:'plane',n:[0.4,0.4,-1.6],d:0,c:'c2',l:'[v₁, v₂]'},{t:'vec',a:[0,0,0],v:[1.6,0,0.4],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1.6,0.4],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[0.4,0.4,1.8],c:bad,l:'v fora'}]},
+   {b:'LD e não gera',t:'v₁, v₂ e v₃ = v₁ + v₂ no mesmo plano: falta direção (impossível fora do plano) e sobra vetor (infinitas dentro dele).',o:[{t:'plane',n:[0.4,0.4,-1.6],d:0,c:'c2',l:' '},{t:'vec',a:[0,0,0],v:[1.6,0,0.4],c:'c1',l:'v₁'},{t:'vec',a:[0,0,0],v:[0,1.6,0.4],c:'c3',l:'v₂'},{t:'vec',a:[0,0,0],v:[1.6,1.6,0.8],c:bad,l:'v₃ = v₁+v₂'}]}]},
   f3g:null,
   f3f:{r:11,sc:[
    {b:'Peso',t:'C(A) é o plano xz. b = −F = (0, 0, 10) está nele: 5u₁ + 5u₂ = (5, 0, 5) + (−5, 0, 5) = (0, 0, 10).',o:[{t:'plane',n:[0,1,0],d:0,c:'c2',l:'C(A)'},{t:'vec',a:[0,0,0],v:[5,0,5],c:'c1',l:'5u₁'},{t:'vec',a:[5,0,5],v:[-5,0,5],c:'c3',l:'5u₂'},{t:'vec',a:[0,0,0],v:[0,0,10],c:ok,l:'b'}]},
@@ -1619,7 +1650,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="gaal"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-gaal.js?v=8"></script>
+<script src="../../dados/quadros-gaal.js?v=10"></script>
 <script src="../../js/quadro.js?v=7" data-materia="gaal"></script>
 </body>
 </html>

@@ -140,6 +140,7 @@ window.FACULDADE = {
               caminho: "materias/gaal/oficina-de-gaal.html",
               ciclo: "2ª Prova", ate: "2026-11-06",
               atualizacoes: [
+                { data: "2026-11-13", texto: "Base e dimensão aprofundada: as situações do sistema explicadas (existe? depende de gerar; é única? depende de LI), com exemplo resolvido em P₂, tabela de pivôs, modelo 3D das 4 situações e caixas Por quê? nos teoremas e atalhos." },
                 { data: "2026-11-13", texto: "Nova aula Base e dimensão (aula 10): LI e LD, base, coordenadas, dimensão, a receita das variáveis livres e os exemplos 4 a 7 da professora, cada um com Ver no quadro, mais 4 modelos 3D e 5 perguntas no quiz." },
                 { data: "2026-11-10", texto: "Ver no quadro reescrito em todos os 19 exemplos e nas 15 questões da lista, no jeito de quadro: receita no topo, etapas numeradas, contas curtas com setas, caixas lado a lado e conclusão em destaque. Entrou o Exemplo 3 (combinação linear) do jeito que a professora resolveu no quadro." },
                 { data: "2026-11-10", texto: "Aula de Subespaços reorganizada em 5 partes, com menos exemplos soltos, conteúdo completado (como testar um subespaço, o que 2 ou 3 vetores geram no ℝ³, Xp + Xh como plano transladado) e 6 gráficos 3D no lugar dos links do GeoGebra." },
