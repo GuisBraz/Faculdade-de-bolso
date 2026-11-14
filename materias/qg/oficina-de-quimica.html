@@ -428,6 +428,7 @@ body{font-size:1rem}
 .m1cv{width:100%;display:block;border-radius:14px;background:var(--paper)}
 #m1BoI button.sel,#m1BoF button.sel,#m1RuM button.sel,#m1OrbP button.sel,#m1PrP button.sel,#m1IsoP button.sel,#m1TrT button.sel{background:var(--c1)!important;color:#fff!important;border-color:var(--c1)!important}
 #m1Ru,#m1Orb{max-height:440px}#m1Sp{max-height:230px}#m1Fe{max-height:300px}#m1Iso{max-height:240px}#m1Ie{max-height:260px}#m1At{max-height:340px}#m1Bo{max-height:380px}#m1BoE{max-height:380px}
+.sl-ion{font-size:1.25rem!important;padding:4px 0!important}.sl-ion sub{font-size:.6em}.sl-ion .h{color:#1E50B4}.sl-ion .an{color:#E8692D}
 .sl-eq{display:flex;align-items:stretch;justify-content:center;gap:10px;margin:16px 0;flex-wrap:wrap}
 .sl-eq i{font-style:normal;font-weight:800;font-size:1.6rem;align-self:center;color:var(--ink2)}
 .sl-b{border-radius:12px;padding:10px 16px;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:130px;text-align:center}
@@ -1378,6 +1379,22 @@ body{font-size:1rem}
   <div class="ex" data-ex data-q="qg-solv"><div class="q">Exemplo (slide): em cada solução da tabela, quem é o soluto, quem é o solvente e qual delas é aquosa?</div>
     <ol><li>Regra: o <b>solvente</b> é o componente em <b>maior quantidade</b>; todo o resto é <b>soluto</b>.</li><li>Soro caseiro: solutos NaCl e açúcar, solvente água → <b>aquosa</b>.</li><li>Água com gás: solutos CO₂ e sais minerais, solvente água → <b>aquosa</b>.</li><li>Etanol combustível: soluto água (pouca, ≈ 5 %), solvente etanol → não é aquosa.</li><li>Ar: solutos O₂, CO₂ etc., solvente N₂ (≈ 78 % do ar) → não é aquosa.</li><li>Latão: soluto zinco, solvente cobre (a maior parte da liga) → não é aquosa.</li></ol>
     <div class="ans">Aquosas (solvente = água): só o soro caseiro e a água com gás</div></div>
+  <h3>Reações em soluções aquosas: ácidos</h3>
+  <p>Muitas reações em água são <b>ácido-base</b>. Primeiro, o que é um ácido. Pelo <b>conceito de Arrhenius</b>: ácidos são <b>substâncias que se ionizam para formar H⁺ em solução</b>. O <b>ânion</b> (a parte negativa que sobra) <b>varia de ácido para ácido</b>.</p>
+  <p><b>Ionizar</b> quer dizer que a molécula, que era neutra, <b>se quebra em íons</b> quando encontra a água. O H sai sem o elétron (vira H⁺) e o resto fica com a carga negativa.</p>
+  <div class="fx"><span class="tag">Conceito de Arrhenius · ácido em água</span>
+    <div class="eq sl-ion">HCl<sub>(aq)</sub> &nbsp;→&nbsp; <span class="h">H⁺<sub>(aq)</sub></span> + <span class="an">Cl⁻<sub>(aq)</sub></span></div>
+    <div class="eq sl-ion">HNO₃<sub>(aq)</sub> &nbsp;→&nbsp; <span class="h">H⁺<sub>(aq)</sub></span> + <span class="an">NO₃⁻<sub>(aq)</sub></span></div>
+    <div class="eq sl-ion">CH₃COOH<sub>(aq)</sub> &nbsp;⇌&nbsp; <span class="h">H⁺<sub>(aq)</sub></span> + <span class="an">CH₃COO⁻<sub>(aq)</sub></span></div>
+    <dl class="legend"><dt style="color:#1E50B4">H⁺</dt><dd>aparece em <b>todos</b>: é ele que faz a substância ser ácida</dd><dt style="color:#E8692D">ânion</dt><dd>muda de ácido para ácido: Cl⁻ (cloreto), NO₃⁻ (nitrato), CH₃COO⁻ (acetato)</dd><dt>→</dt><dd>seta simples: ácido <b>forte</b>, praticamente todas as moléculas viram íons</dd><dt>⇌</dt><dd>seta dupla: ácido <b>fraco</b>, só uma parte ioniza e o resto continua inteiro (a reação vai e volta)</dd></dl></div>
+  <div class="m1-def">
+    <div><span class="em">🫙</span><b>Ácido acético</b><span>CH₃COOH, o ácido do <b>vinagre</b>. É fraco (⇌). Só o H do grupo COOH sai como H⁺; os 3 H do CH₃ ficam presos.</span></div>
+    <div><span class="em">⚠️</span><b>Ácido sulfúrico</b><span>H₂SO₄, <b>corrosivo</b> (o símbolo do slide), é o ácido da bateria de carro. Tem 2 H para soltar: H₂SO₄ → 2 H⁺ + SO₄²⁻.</span></div>
+    <div><span class="em">🫃</span><b>Ácido estomacal</b><span>O suco gástrico tem <b>HCl</b>, um ácido forte. É ele que ajuda a digerir e que "queima" na azia.</span></div>
+  </div>
+  <div class="ex" data-ex data-q="qg-arrh"><div class="q">Exemplo (slide): escreva a ionização em água de HCl, HNO₃, CH₃COOH e H₂SO₄. Para cada um, diga qual é o ânion e se o ácido é forte (→) ou fraco (⇌).</div>
+    <ol><li>Regra de Arrhenius: em água, o ácido <b>solta H⁺</b>; o que sobra é o <b>ânion</b>, com carga negativa igual ao número de H⁺ que saiu.</li><li>HCl → H⁺ + <b>Cl⁻</b> (cloreto). Forte →.</li><li>HNO₃ → H⁺ + <b>NO₃⁻</b> (nitrato). Forte →.</li><li>CH₃COOH ⇌ H⁺ + <b>CH₃COO⁻</b> (acetato). Fraco ⇌: só parte das moléculas ioniza.</li><li>H₂SO₄ → 2 H⁺ + <b>SO₄²⁻</b> (sulfato). Saíram 2 H⁺, então o ânion fica 2−.</li></ol>
+    <div class="ans">Todos soltam H⁺ (por isso são ácidos); muda o ânion: Cl⁻, NO₃⁻, CH₃COO⁻, SO₄²⁻</div></div>
   <h3>Concentração em mol/L</h3>
   <div class="fx"><span class="tag">Fórmula 5 · Concentração em quantidade de matéria</span><div class="eq">C = <span class="fr"><span>n</span><span>V</span></span> &nbsp;&nbsp;⇒&nbsp;&nbsp; n = C · V &nbsp;·&nbsp; V = n / C</div>
     <dl class="legend"><dt>C</dt><dd>concentração em mol/L (também escrita M, "molar")</dd><dt>n</dt><dd>mol de soluto (n = m / MM)</dd><dt>V</dt><dd>volume da solução em <b>litros</b> (mL ÷ 1000)</dd></dl></div>
@@ -2101,6 +2118,6 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="qg"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-qg.js?v=6"></script>
+<script src="../../dados/quadros-qg.js?v=7"></script>
 <script src="../../js/quadro.js?v=8" data-materia="qg"></script>
 </body></html>

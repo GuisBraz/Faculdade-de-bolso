@@ -60,6 +60,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-13", texto: "Soluções: reações em soluções aquosas, ácidos de Arrhenius (HCl, HNO₃, CH₃COOH; seta simples × seta dupla) com exemplo no quadro." },
                 { data: "2026-11-13", texto: "Soluções: slide de soluções aquosas (soluto + solvente = solução, tabela de exemplos com as aquosas em destaque) e exemplo no quadro de quem é soluto e solvente. Alto-forno resolvido no método da professora." },
                 { data: "2026-11-13", texto: "Ver no quadro reescrito nos 69 exemplos no jeito de quadro (receita, etapas numeradas, regra de 3 com chave, caixas lado a lado, conclusão em destaque) e novo exercício do slide: reagente limitante com 750 g de NH₃ e 750 g de O₂, no método da professora." },
             { data: "2026-11-09", texto: "Módulo 3 reorganizado e mais enxuto: 8 aulas (Massa e Mol viraram uma só), exercícios dentro da explicação e no máximo uma ferramenta por aula." },
