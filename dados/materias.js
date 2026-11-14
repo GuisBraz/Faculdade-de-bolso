@@ -60,6 +60,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-13", texto: "Soluções: slide de soluções aquosas (soluto + solvente = solução, tabela de exemplos com as aquosas em destaque) e exemplo no quadro de quem é soluto e solvente. Alto-forno resolvido no método da professora." },
                 { data: "2026-11-13", texto: "Ver no quadro reescrito nos 69 exemplos no jeito de quadro (receita, etapas numeradas, regra de 3 com chave, caixas lado a lado, conclusão em destaque) e novo exercício do slide: reagente limitante com 750 g de NH₃ e 750 g de O₂, no método da professora." },
             { data: "2026-11-09", texto: "Módulo 3 reorganizado e mais enxuto: 8 aulas (Massa e Mol viraram uma só), exercícios dentro da explicação e no máximo uma ferramenta por aula." },
             { data: "2026-11-09", texto: "Módulo 3 ampliado com 4 aulas novas (estequiometria com reagente limitante, pureza e rendimento; soluções e diluição; oxirredução com calculadora de Nox; pilhas e baterias com simulador de célula voltaica) e a aba Estudo Dirigido 3 com as 12 questões da lista resolvidas passo a passo." },

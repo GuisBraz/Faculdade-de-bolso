@@ -428,6 +428,13 @@ body{font-size:1rem}
 .m1cv{width:100%;display:block;border-radius:14px;background:var(--paper)}
 #m1BoI button.sel,#m1BoF button.sel,#m1RuM button.sel,#m1OrbP button.sel,#m1PrP button.sel,#m1IsoP button.sel,#m1TrT button.sel{background:var(--c1)!important;color:#fff!important;border-color:var(--c1)!important}
 #m1Ru,#m1Orb{max-height:440px}#m1Sp{max-height:230px}#m1Fe{max-height:300px}#m1Iso{max-height:240px}#m1Ie{max-height:260px}#m1At{max-height:340px}#m1Bo{max-height:380px}#m1BoE{max-height:380px}
+.sl-eq{display:flex;align-items:stretch;justify-content:center;gap:10px;margin:16px 0;flex-wrap:wrap}
+.sl-eq i{font-style:normal;font-weight:800;font-size:1.6rem;align-self:center;color:var(--ink2)}
+.sl-b{border-radius:12px;padding:10px 16px;display:flex;flex-direction:column;align-items:center;gap:2px;min-width:130px;text-align:center}
+.sl-b b{font-family:var(--f-disp);font-size:1.15rem}.sl-b span{font-size:.82rem;opacity:.85}
+.sl-g{background:#2E8B5722;border:1.5px solid #2E8B57}.sl-a{background:#1E50B422;border:1.5px solid #1E50B4}.sl-r{background:#C0392B22;border:1.5px solid #C0392B}
+.sl-tab caption{caption-side:top;text-align:left;font-size:.85rem;color:var(--ink2);padding-bottom:6px}
+.sl-tab tr.aq td{background:#C0392B12}.sl-tab tr.aq td:first-child{box-shadow:inset 3px 0 0 #C0392B}
 .m1-def{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin:14px 0}
 .m1-def>div{background:var(--sheet,#fff);border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;flex-direction:column;gap:4px}
 .m1-def .em{font-size:1.5rem}.m1-def b{font-family:var(--f-disp)}.m1-def span:last-child{color:var(--ink2);font-size:.92rem;line-height:1.45}
@@ -1347,11 +1354,30 @@ body{font-size:1rem}
   <div class="eyebrow">Módulo 3 · 3ª prova</div>
   <h2>Soluções: concentração e diluição</h2>
   <p class="lede">Quase toda reação de laboratório acontece em água. Em vez de pesar, você mede um volume, e a <b>concentração</b> diz quantos mols vieram junto.</p>
-  <div class="m1-def">
-    <div><span class="em">🧂</span><b>Soluto</b><span>O que é dissolvido (em menor quantidade): o sal, o NaOH, o ácido.</span></div>
-    <div><span class="em">💧</span><b>Solvente</b><span>O que dissolve (em maior quantidade). Se for água, a solução é <b>aquosa (aq)</b>.</span></div>
-    <div><span class="em">🧪</span><b>Solução</b><span>Mistura homogênea de soluto + solvente. O volume que entra na conta é o da <b>solução pronta</b>.</span></div>
+  <h3>O que é uma solução</h3>
+  <p><b>Misturas homogêneas</b> podem ser chamadas de <b>soluções</b>. Homogênea quer dizer <b>uma fase só</b>: você olha e não consegue ver onde está cada componente (o sal some na água, o gás some no refrigerante).</p>
+  <div class="sl-eq" aria-label="Soluto mais solvente igual a solução">
+    <div class="sl-b sl-g"><b>Soluto</b><span>demais componentes</span></div><i>+</i>
+    <div class="sl-b sl-a"><b>Solvente</b><span>componente em maior quantidade</span></div><i>=</i>
+    <div class="sl-b sl-r"><b>Solução</b><span>a mistura homogênea pronta</span></div>
   </div>
+  <div class="m1-def">
+    <div><span class="em">🧂</span><b>Soluto</b><span>Os <b>demais componentes</b>: o que está em menor quantidade e é dissolvido (o sal, o açúcar, o gás carbônico). Pode haver mais de um soluto.</span></div>
+    <div><span class="em">💧</span><b>Solvente</b><span>O <b>componente em maior quantidade</b>, o que "recebe" os outros. Se o solvente for a água, a solução é <b>aquosa (aq)</b>.</span></div>
+    <div><span class="em">🧪</span><b>Solução</b><span>Soluto + solvente formando uma fase só. Nas contas, o volume que entra é o da <b>solução pronta</b>.</span></div>
+  </div>
+  <div class="tbl sl-tab"><table><caption>Exemplos de soluções (a 25 °C e 1 atm) · as duas primeiras são <b>aquosas</b></caption>
+    <tr><th>Soluto(s)</th><th>Solvente</th><th>Solução / estado</th></tr>
+    <tr class="aq"><td>Cloreto de sódio e açúcar</td><td>Água</td><td>Soro caseiro contra desidratação / líquido</td></tr>
+    <tr class="aq"><td>Gás carbônico e sais minerais</td><td>Água</td><td>Água com gás / líquido</td></tr>
+    <tr><td>Água</td><td>Etanol</td><td>Etanol combustível / líquido</td></tr>
+    <tr><td>Gás oxigênio, gás carbônico etc.</td><td>Gás nitrogênio</td><td>Ar atmosférico / gasoso</td></tr>
+    <tr><td>Zinco</td><td>Cobre</td><td>Latão / sólido</td></tr>
+  </table></div>
+  <div class="cuid"><span class="k">Dois detalhes da tabela</span>1) Solução <b>não precisa ser líquida</b>: o ar é uma solução gasosa e o latão é uma solução sólida (uma liga metálica). 2) Quem decide quem é solvente é a <b>quantidade</b>, não "ser água": no etanol combustível a água é o <b>soluto</b>, porque está em menor quantidade.</div>
+  <div class="ex" data-ex data-q="qg-solv"><div class="q">Exemplo (slide): em cada solução da tabela, quem é o soluto, quem é o solvente e qual delas é aquosa?</div>
+    <ol><li>Regra: o <b>solvente</b> é o componente em <b>maior quantidade</b>; todo o resto é <b>soluto</b>.</li><li>Soro caseiro: solutos NaCl e açúcar, solvente água → <b>aquosa</b>.</li><li>Água com gás: solutos CO₂ e sais minerais, solvente água → <b>aquosa</b>.</li><li>Etanol combustível: soluto água (pouca, ≈ 5 %), solvente etanol → não é aquosa.</li><li>Ar: solutos O₂, CO₂ etc., solvente N₂ (≈ 78 % do ar) → não é aquosa.</li><li>Latão: soluto zinco, solvente cobre (a maior parte da liga) → não é aquosa.</li></ol>
+    <div class="ans">Aquosas (solvente = água): só o soro caseiro e a água com gás</div></div>
   <h3>Concentração em mol/L</h3>
   <div class="fx"><span class="tag">Fórmula 5 · Concentração em quantidade de matéria</span><div class="eq">C = <span class="fr"><span>n</span><span>V</span></span> &nbsp;&nbsp;⇒&nbsp;&nbsp; n = C · V &nbsp;·&nbsp; V = n / C</div>
     <dl class="legend"><dt>C</dt><dd>concentração em mol/L (também escrita M, "molar")</dd><dt>n</dt><dd>mol de soluto (n = m / MM)</dd><dt>V</dt><dd>volume da solução em <b>litros</b> (mL ÷ 1000)</dd></dl></div>
@@ -2075,6 +2101,6 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="qg"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-qg.js?v=5"></script>
+<script src="../../dados/quadros-qg.js?v=6"></script>
 <script src="../../js/quadro.js?v=8" data-materia="qg"></script>
 </body></html>
