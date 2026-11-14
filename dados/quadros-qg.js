@@ -6,6 +6,8 @@
 (function () {
   const Q = window.FDB_QUADROS = window.FDB_QUADROS || {};
   /* regra de 3 no jeito do quadro: linha base em cima, pergunta embaixo */
+  /* tabela início / reage / final, como no quadro */
+  const TAB = rows => '<table style="border-collapse:collapse;margin:6px 0;font-size:1.05em">' + rows.map((r, i) => '<tr>' + r.map((c, j) => '<td style="padding:4px 14px;' + (i === 0 ? 'border-bottom:2px solid currentColor;font-weight:700;' : '') + (j === 0 ? 'font-size:.8em;letter-spacing:.06em;text-transform:uppercase;opacity:.75;' : 'text-align:center;') + '">' + c + '</td>').join('') + '</tr>').join('') + '</table>';
   const R3 = (a, b, c, d, nota) => ({ s: [a + ' —— ' + b, c + ' —— ' + d], a: nota || 'multiplica cruzado' });
   Q.qg = {
   /* ---------- matéria e átomos ---------- */
@@ -155,9 +157,14 @@
       '#Mol de cada reagente | n = m / MM', { c: [['*NH₃', 'm = 750 g · MM = 17 g/mol', 'n = 750 / 17', ' = «b|44,1 mol NH₃»'], ['*O₂', 'm = 750 g · MM = 32 g/mol', 'n = 750 / 32', ' = «b|23,4 mol O₂»']] },
       '#Quem acaba primeiro? | regra de 3 com a linha base', { c: [['*O₂ que o NH₃ pediria', '4 mol NH₃ —— 5 mol O₂', '44,1 mol NH₃ —— x', 'x = «o|55,1 mol O₂»', '~ só tem 23,4 → «r|falta O₂»'], ['*NH₃ que o O₂ consome', '4 mol NH₃ —— 5 mol O₂', 'x —— 23,4 mol O₂', 'x = «o|18,7 mol NH₃»', '~ tem 44,1 → «g|sobra NH₃»']] },
       'O₂ = «r|limitante» · NH₃ = «g|excesso»',
-      '#Produtos | sempre pelo limitante', { c: [['*NO', '5 mol O₂ —— 4 mol NO', '23,4 —— x → x = 18,7 mol', '× 30 g/mol ≈ «o|562 g»'], ['*H₂O', '5 mol O₂ —— 6 mol H₂O', '23,4 —— x → x = 28,1 mol', '× 18 g/mol ≈ «o|506 g»']] },
-      '#Sobra do excesso', 'NH₃: 44,1 − 18,7 = 25,4 mol × 17 ≈ «o|431 g»', '~ confere: 750 + 750 = 1 500 g = 562 + 506 + 431 ≈ 1 499 g «g|✓»',
-      '=O₂ limitante (consumido todo) · gasta 18,7 mol (319 g) de NH₃ e sobram ≈ 431 g · forma ≈ 562 g de NO e 506 g de H₂O'] },
+      '#Tabela início · reage · final | em mol',
+      TAB([['', '4 NH₃', '5 O₂', '4 NO', '6 H₂O'], ['início', '44,1', '23,4', '—', '—'], ['reage', '«b|18,7»', '«b|23,4»', '«o|18,7»', '«o|28,1»'], ['final', '«g|25,4»', '«r|—»', '«o|18,7»', '«o|28,1»']]),
+      '~ reage: o limitante (O₂) vai inteiro · os outros saem pela proporção 4 : 5 : 4 : 6',
+      '~ final = início − reage nos reagentes · nos produtos, o que se formou',
+      '#Massas | n = m / MM → m = n · MM',
+      { c: [['*NO', '18,7 mol = m / 30 g·mol⁻¹', 'm = «o|561 g NO»'], ['*H₂O', '28,1 mol = m / 18 g·mol⁻¹', 'm = «o|505,8 g H₂O»'], ['*NH₃ que sobra', '25,4 mol × 17 g·mol⁻¹', 'm = «g|431,8 g NH₃»']] },
+      '~ confere: 561 + 505,8 + 431,8 ≈ 1 499 g ≈ 750 + 750 «g|✓»',
+      '=O₂ limitante: consumido todo · NH₃ em excesso: sobram 25,4 mol (431,8 g) · formam-se 561 g de NO e 505,8 g de H₂O'] },
   'qg-38': { t: 'Ferro de 1,00 t de hematita a 80 %', r: 'Receita: pureza primeiro → mol → proporção → massa',
     b: ['#Pureza | só 80 % reage', '1,00 t × 0,80 = 800 kg = «b|8,00 × 10⁵ g» de Fe₂O₃',
       '#Mol | MM(Fe₂O₃) = 159,7 g/mol', 'n = 8,00 × 10⁵ ÷ 159,7 = «b|5,01 × 10³ mol»',
