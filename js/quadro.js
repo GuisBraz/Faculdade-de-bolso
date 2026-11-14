@@ -221,7 +221,7 @@
       bt.onclick = () => {
         const sec = ex.closest('section'), eb = sec && sec.querySelector('.eyebrow'), h2 = sec && sec.querySelector('h2');
         const q = ex.querySelector('.q'), lis = [...ex.querySelectorAll('ol>li')].map(l => l.innerHTML), ans = ex.querySelector('.ans');
-        let tit = 'Exemplo resolvido', en = q ? q.innerHTML : ''; const m = en.match(/^\s*([^:<]{2,48}):\s*([\s\S]*)$/); if (m) { tit = m[1].trim(); en = m[2] }
+        let tit = 'Exemplo resolvido', en = q ? q.innerHTML : ''; const m = en.match(/^\s*((?:Exemplo|Exerc[ií]cio|Ex\b|ED\s?\d|Slide|Quest[aã]o|Problema|Desafio|Aplica[cç][aã]o)[^:<]{0,44}):\s*([\s\S]*)$/i); if (m) { tit = m[1].trim(); en = m[2] }
         const QB = (window.FDB_QUADROS || {})[MAT] || {}, brd = ex.dataset.q && QB[ex.dataset.q];
         abrirQuadro({ board: brd || null, titulo: tit, tag: (eb ? eb.textContent.split('·')[0].trim() + ' · ' : '') + (h2 ? h2.textContent.split(':')[0].trim() : 'Exemplo'),
           enun: en, secoes: [{ passos: lis, resp: ans ? ans.innerHTML : '' }] });
