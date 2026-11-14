@@ -60,6 +60,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-13", texto: "Soluções: exercício do slide 8 (completar e balancear 3 neutralizações) resolvido no quadro." },
                 { data: "2026-11-13", texto: "Soluções: reações de neutralização (ácido + base → água + sal, o que é um sal) com exemplo no quadro." },
                 { data: "2026-11-13", texto: "Soluções: bases de Arrhenius (NaOH, Ca(OH)₂ e o caso da amônia NH₃) com exemplo no quadro." },
                 { data: "2026-11-13", texto: "Soluções: reações em soluções aquosas, ácidos de Arrhenius (HCl, HNO₃, CH₃COOH; seta simples × seta dupla) com exemplo no quadro." },
