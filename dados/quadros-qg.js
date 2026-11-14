@@ -171,6 +171,13 @@
       '#Proporção | Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂', R3('1 mol Fe₂O₃', '2 mol Fe', '5,01 × 10³ mol', 'x'), 'x = 1,00 × 10⁴ mol de Fe',
       'm = 1,00 × 10⁴ × 55,85 = «o|5,60 × 10⁵ g»', '=≈ 560 kg de ferro'] },
   /* ---------- soluções ---------- */
+  'qg-rend': { t: 'Rendimento teórico × rendimento real', r: 'Receita: gramas → mol → linha base → massa teórica → η = real / teórica × 100',
+    b: ['~ Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂',
+      '#Mol de Fe₂O₃ | n = m / MM', 'MM = 2 × 56 + 3 × 16 = 112 + 48 = «b|160 g/mol»', 'n = 160 g / 160 g·mol⁻¹ = «b|1 mol»',
+      '#Linha base | regra de 3', R3('1 mol Fe₂O₃', '2 mol Fe', '1 mol Fe₂O₃', 'x'), 'x = 2 mol Fe',
+      '#Massa teórica | m = n · MM', 'm = 2 × 56 = «o|112 g Fe»', '~ é o que a conta prevê: "pela estequiometria da equação química"',
+      '#Rendimento | η = real / teórica × 100', { c: [['*teórico', '«o|112 g»', '~ o que deveria sair'], ['*real', 'o que foi pesado', '~ sempre ≤ teórico'], ['*exemplo', 'se saíssem 84 g:', '84 / 112 × 100 = «o|75 %»']] },
+      '=teórico: 160 g de Fe₂O₃ → 112 g de Fe · η = real ÷ 112 × 100 %'] },
   'qg-39': { t: 'NaCl para 500 mL de soro 0,154 mol/L', r: 'Receita: mL → L → n = C · V → m = n · MM',
     b: ['V = 500 mL = «b|0,500 L»', 'n = C · V = 0,154 × 0,500 = «b|0,0770 mol»', 'MM(NaCl) = 22,99 + 35,45 = 58,44 g/mol', 'm = 0,0770 × 58,44 = «o|4,50 g»', '~ é o "0,9 %": 0,9 g a cada 100 mL', '=m ≈ 4,50 g de NaCl'] },
   'qg-40': { t: 'Titulação: NaOH 0,125 mol/L × HCl', r: 'Receita: mol do que você conhece → proporção → V = n / C',

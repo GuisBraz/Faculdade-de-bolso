@@ -1329,6 +1329,11 @@ body{font-size:1rem}
   <div class="ex" data-ex data-q="qg-38"><div class="q">Na siderurgia: quanto ferro sai de 1,00 t de hematita com 80 % de Fe₂O₃? (Fe₂O₃ + 3 CO → 2 Fe + 3 CO₂)</div>
     <ol><li>Pureza: só 80 % é Fe₂O₃ → 800 kg = 8,00 × 10⁵ g.</li><li>MM(Fe₂O₃) = 2 × 55,85 + 3 × 16,00 = 159,7 g/mol → n = 8,00 × 10⁵ ÷ 159,7 = 5,01 × 10³ mol.</li><li>Razão 1 : 2 → n(Fe) = 1,00 × 10⁴ mol.</li><li>m(Fe) = 1,00 × 10⁴ × 55,85 = 5,60 × 10⁵ g.</li></ol>
     <div class="ans">≈ 560 kg de ferro (rendimento de 100 %)</div></div>
+  <h4 style="margin:22px 0 6px">Rendimento teórico × rendimento real (slide da aula de 13/11)</h4>
+  <p>A conta da estequiometria diz quanto produto <b>deveria</b> sair se tudo reagisse perfeitamente: é o <b>rendimento teórico</b>. Na prática sai menos (reação incompleta, perdas na filtragem, produto que gruda no recipiente, impurezas): o que você pesa no fim é o <b>rendimento real</b>. A porcentagem compara os dois.</p>
+  <div class="ex" data-ex data-q="qg-rend"><div class="q">Exemplo do slide: Fe₂O₃(s) + 3 CO(g) → 2 Fe(s) + 3 CO₂(g). Iniciou com 160 g de Fe₂O₃. Quanto ferro a estequiometria prevê (rendimento teórico)? Se o experimento entregar menos, como achar o rendimento?</div>
+    <ol><li>Massa molar do Fe₂O₃ (com Fe = 56 e O = 16): 2 × 56 + 3 × 16 = 112 + 48 = 160 g/mol. Então 160 g é exatamente <b>1 mol</b> de Fe₂O₃.</li><li>Linha base da equação: 1 mol Fe₂O₃ —— 2 mol Fe. Com 1 mol de Fe₂O₃ saem 2 mol de Fe.</li><li>Em massa: 2 mol × 56 g/mol = <b>112 g de Fe</b>. Esse é o rendimento teórico ("pela estequiometria da equação química").</li><li>O valor experimental é o que foi pesado de verdade. O rendimento é η = (massa real ÷ massa teórica) × 100 %. Por exemplo, se tivessem saído 84 g de Fe: η = 84 ÷ 112 × 100 = 75 %.</li><li>Repare: o rendimento nunca passa de 100 %. Se der mais, tem erro na conta ou o produto está úmido/impuro.</li></ol>
+    <div class="ans">Teórico: 160 g de Fe₂O₃ (1 mol) → 112 g de Fe · η = real ÷ 112 × 100 % (ex.: 84 g → 75 %)</div></div>
   <div class="ofi"><span class="k">Na fábrica</span>No oxicorte e na solda oxiacetilênica, o maçarico regula a proporção O₂ : C₂H₂. Chama com acetileno em excesso (carburante) deposita carbono na peça; com oxigênio em excesso (oxidante) queima o metal. A chama neutra é a estequiometria certa. E quando um produto químico vem "85 % m/m", é a pureza: você pesa mais para compensar.</div>
   <div class="cuid"><span class="k">Erros clássicos</span>1) Fazer a proporção em gramas em vez de mol. 2) Esquecer de balancear antes. 3) Calcular o produto pelo reagente em excesso. 4) Multiplicar pela pureza quando devia dividir (para <b>ter</b> x g puros, pese x ÷ pureza).</div>
   <div class="done-btn" data-done="esteq"></div>
@@ -2067,6 +2072,6 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="qg"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-qg.js?v=2"></script>
+<script src="../../dados/quadros-qg.js?v=3"></script>
 <script src="../../js/quadro.js?v=8" data-materia="qg"></script>
 </body></html>
