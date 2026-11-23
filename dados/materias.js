@@ -60,6 +60,10 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-23", texto: "Módulo 2 (2ª prova): Estudo Dirigido 2 com as 17 questões resolvidas no quadro, com as estruturas de Lewis e as formas desenhadas." },
+                { data: "2026-11-23", texto: "Módulo 2: forças intermoleculares (íon-dipolo, ligação de H, dipolo-dipolo, London), gráfico dos hidretos e duelo de pontos de ebulição." },
+                { data: "2026-11-23", texto: "Módulo 2: geometria molecular (RPENV) com moléculas em 3D para girar, arranjo × geometria e polaridade." },
+                { data: "2026-11-23", texto: "Módulo 2: ligação iônica (octeto, símbolos de Lewis, montador de sais, energia de rede) e ligação covalente (Lewis em 5 passos, carga formal, ressonância, eletronegatividade, ΔH pelas ligações)." },
                 { data: "2026-11-13", texto: "Soluções: exercício do slide 8 (completar e balancear 3 neutralizações) resolvido no quadro, um quadro por item com os 7 passos explicados." },
                 { data: "2026-11-13", texto: "Soluções: reações de neutralização (ácido + base → água + sal, o que é um sal) com exemplo no quadro." },
                 { data: "2026-11-13", texto: "Soluções: bases de Arrhenius (NaOH, Ca(OH)₂ e o caso da amônia NH₃) com exemplo no quadro." },

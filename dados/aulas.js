@@ -106,7 +106,13 @@ window.FDB_AULAS = {
       ["config", "Configuração eletrônica", "Pauling, Hund, Pauli, íons e exceções"],
       ["periodicas", "Propriedades periódicas", "Raio, ionização, afinidade e Z efetiva"],
       ["ed1", "Estudo dirigido 1", "As 18 questões resolvidas e treino"]
-    ], 2: [], 3: [
+    ], 2: [
+      ["ligacoes", "Ligação iônica", "Octeto, símbolos de Lewis, fórmulas e energia de rede"],
+      ["covalente", "Ligação covalente", "Estruturas de Lewis, carga formal, ressonância, polaridade e entalpia"],
+      ["geometria", "Geometria molecular", "RPENV, arranjo × geometria e polaridade em 3D"],
+      ["intermol", "Forças intermoleculares", "London, dipolo-dipolo, ligação de H e ponto de ebulição"],
+      ["ed2", "Estudo dirigido 2", "As 17 questões resolvidas"]
+    ], 3: [
       ["reacoes", "Reações e equações", "Equação química, conservação da massa e balanceamento"],
       ["massa", "Massa molar e mol", "u, g/mol, Avogadro e massa molecular"],
       ["conv", "Transformações", "gramas ↔ mol ↔ partículas"],
@@ -116,7 +122,7 @@ window.FDB_AULAS = {
       ["pilhas", "Pilhas e baterias", "Ânodo, cátodo, fem e chumbo-ácido"],
       ["ed3", "Estudo dirigido 3", "As 12 questões da lista resolvidas"]
     ] },
-    temas: { 1: "Estrutura atômica e tabela periódica", 3: "Reações, estequiometria, soluções e eletroquímica" },
+    temas: { 1: "Estrutura atômica e tabela periódica", 2: "Ligações químicas, geometria e forças intermoleculares", 3: "Reações, estequiometria, soluções e eletroquímica" },
     sobre: "Química Geral estuda a matéria e as suas transformações: do que as coisas são feitas, como os átomos se combinam e quanto de cada substância reage. Na engenharia ela aparece na corrosão, na soldagem, na combustão, no tratamento de água e na escolha de materiais.",
     lab_nome: "Laboratório de descobertas", lab_desc: "Junte átomos da tabela periódica e descubra 325 substâncias reais.", lab_estrela: true },
   cm2: { pag: "materias/materiais/oficina-de-materiais.html", simbolo: "◈", lista: null, lab: null, quiz: "quiz", cola: "cola", unico: true,

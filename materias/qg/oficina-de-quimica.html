@@ -578,6 +578,30 @@ body{font-size:1rem}
 #m3BoloT td.v{font-weight:800;color:var(--c1)}
 .m3-lb .lb{font-size:clamp(1.05rem,3.2vw,1.45rem);font-weight:700;margin:6px 0;line-height:1.5}.m3-lb sup,.m3-lb sub{font-size:.65em}
 .m3-irp{margin:-6px 0 10px}.m3-ir{font:700 .82rem var(--f-body);color:var(--c1);text-decoration:none}.m3-ir:hover{text-decoration:underline}
+
+/* ---- Módulo 2 ---- */
+.m2-lw{display:flex;flex-wrap:wrap;align-items:center;gap:4px 8px;justify-content:center;background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:10px;margin:14px 0;color:var(--ink)}
+.m2-lw.col{flex-direction:column}
+.m2-lw svg{max-width:100%;height:auto}
+.m2-res{font-size:1.6rem;color:var(--c2);font-weight:700}
+.m2-cap{font-size:.9rem;color:var(--ink2);margin-top:-4px}
+.m2-fig{width:100%;max-width:560px;height:auto;display:block;margin:6px auto;color:var(--ink)}
+.m2-geo{width:100%;max-width:560px;margin:0 auto;aspect-ratio:4/3;display:block;background:var(--paper);border-radius:12px;touch-action:none;cursor:grab}
+.m2-cross{display:flex;gap:18px;justify-content:center;font:700 1.6rem var(--f-disp);margin:4px 0 10px}.m2-cross .c{color:var(--c2)}.m2-cross .a{color:var(--c1)}
+.m2-big{font:700 1.4rem var(--f-disp);color:var(--c1)}
+.m2-en button small{opacity:.85;font-weight:400}
+.m2-dxl{display:flex;align-items:center;justify-content:center;gap:10px;font:700 1.3rem var(--f-disp);margin:6px 0 12px}.m2-dxl .p{color:var(--c2)}.m2-dxl .n{color:var(--bad)}
+.m2-dxl i{display:block;width:90px;height:6px;border-radius:4px;background:var(--ink2)}.m2-dxl i.polar{background:linear-gradient(90deg,var(--c2),var(--bad))}.m2-dxl i.ion{background:repeating-linear-gradient(90deg,var(--c1) 0 8px,transparent 8px 14px)}
+.m2-dxbar{position:relative;height:30px;border-radius:8px;background:linear-gradient(90deg,var(--ok) 0 3%,var(--c2) 8% 56%,var(--c1) 64%);margin:0 0 10px;display:flex;justify-content:space-between;align-items:flex-end;padding:0 6px 2px;font-size:.7rem;color:#fff;font-family:var(--f-body)}
+.m2-dxbar i{position:absolute;top:-4px;width:4px;height:38px;background:var(--ink);border-radius:2px;transform:translateX(-2px)}
+.wout .c1{color:var(--c1)}.wout .c2{color:var(--c2)}.wout .ok{color:var(--ok)}.wout .bad{color:var(--bad)}
+.m2-forca{display:grid;gap:8px;margin:14px 0}.m2-forca>div{display:grid;gap:3px;border-radius:10px;padding:10px 14px;border-left:6px solid}
+.m2-forca .f1{border-color:var(--c1);background:color-mix(in srgb,var(--c1) 9%,transparent)}.m2-forca .f2{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 8%,transparent)}
+.m2-forca .f3{border-color:var(--c2);background:color-mix(in srgb,var(--c2) 8%,transparent)}.m2-forca .f4{border-color:var(--ink2);background:color-mix(in srgb,var(--ink2) 8%,transparent)}
+.m2-duq{display:flex;align-items:center;justify-content:center;gap:12px;flex-wrap:wrap}.m2-duq button{font-size:1.1rem;padding:14px 20px;min-width:130px;border-radius:12px}
+.m2-duq button.ok{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,transparent)}.m2-duq button.bad{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,transparent)}
+.m2-dur{text-align:center;font-weight:700;min-height:1.4em;margin-top:8px}.m2-dur.ok{color:var(--ok)}.m2-dur.bad{color:var(--bad)}
+.m2-dus{margin-left:auto;font-size:.85rem;color:var(--ink2);align-self:center}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
 <script src="../../js/tema.js?v=1"></script>
@@ -602,6 +626,11 @@ body{font-size:1rem}
       <a href="#config" data-m="config">Configuração</a>
       <a href="#periodicas" data-m="periodicas">Propriedades periódicas</a>
       <a href="#ed1" data-m="ed1">Estudo dirigido 1</a>
+      <a href="#ligacoes" data-m="ligacoes">Ligação iônica</a>
+      <a href="#covalente" data-m="covalente">Ligação covalente</a>
+      <a href="#geometria" data-m="geometria">Geometria molecular</a>
+      <a href="#intermol" data-m="intermol">Forças intermoleculares</a>
+      <a href="#ed2" data-m="ed2">Estudo dirigido 2</a>
       <a href="#reacoes" data-m="reacoes">1 · Reações</a>
       <a href="#massa" data-m="massa">2 · Massa e mol</a>
       <a href="#conv" data-m="conv">3 · Conversões</a>
@@ -624,9 +653,9 @@ body{font-size:1rem}
 <section class="view" id="v-inicio">
   <div class="hero">
     <div>
-      <div class="eyebrow">Química Geral · do átomo à estequiometria</div>
+      <div class="eyebrow">Química Geral · do átomo às ligações e à estequiometria</div>
       <h1>Nada se perde, <em>tudo se conta</em>.</h1>
-      <p class="lede">Seu ambiente de estudo de Química: do átomo (modelos, luz, Bohr, orbitais, configuração e tabela periódica) às reações e à estequiometria, tudo explicado do zero, a tabela periódica interativa, um laboratório onde você junta átomos e descobre centenas de substâncias reais, conversões de massa ↔ mol ↔ partículas e os exercícios da professora resolvidos passo a passo.</p>
+      <p class="lede">Seu ambiente de estudo de Química: do átomo (modelos, luz, Bohr, orbitais, configuração e tabela periódica) às ligações químicas (iônica, covalente, geometria das moléculas em 3D e forças intermoleculares), às reações e à estequiometria, tudo explicado do zero, a tabela periódica interativa, um laboratório onde você junta átomos e descobre centenas de substâncias reais, conversões de massa ↔ mol ↔ partículas e os exercícios da professora resolvidos passo a passo.</p>
       <div class="btns"><a class="btn" href="#materia" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lab'">⚗️ Abrir o laboratório</button><button class="ghost" onclick="location.hash='tabela'">Tabela periódica</button></div>
     </div>
     <div class="cv heroq" id="heroCv"><canvas></canvas><div class="lbl">H₂O · 18 u · 18 g/mol</div></div>
@@ -1039,6 +1068,431 @@ body{font-size:1rem}
   </div>
   <div class="ofi"><span class="k">Como digitar</span>Configuração: escreva <b>1s2 2s2 2p6</b> ou <b>[Ne]3s2</b> (sem os expoentes, sem espaço obrigatório). Números: use vírgula ou ponto e notação <b>3,78e-19</b> ou <b>3,78 x 10^-19</b>. Aceito erro de até 2 %.</div>
   <div class="done-btn" data-done="ed1"></div>
+</section>
+
+<!-- ================= MÓDULO 2 · 2ª prova ================= -->
+<!-- ============ M2 · LIGAÇÕES E LIGAÇÃO IÔNICA ============ -->
+<section class="view read" id="v-ligacoes" hidden>
+  <div class="eyebrow">Módulo 2 · 2ª prova</div>
+  <h2>Ligações químicas e ligação iônica</h2>
+  <p class="lede">No Módulo 1 você viu como os elétrons se arrumam dentro de <b>um</b> átomo. Agora a pergunta é: por que os átomos se juntam, e de que jeito? A resposta inteira gira em torno dos <b>elétrons de valência</b>, os da última camada.</p>
+  <h3>Por que os átomos se ligam?</h3>
+  <p>Pelo mesmo motivo que uma bola rola morro abaixo: para ficar com <b>menos energia</b>. Dois átomos de H isolados têm mais energia que a molécula H₂. Quando eles se aproximam, a energia cai até um ponto mínimo: essa é a distância da ligação. Se apertar mais, os núcleos se repelem e a energia sobe de novo.</p>
+  <div class="wid"><h4>Energia de dois átomos de H conforme se aproximam</h4><svg viewBox="0 0 540 230" class="m2-fig" role="img" aria-label="Curva de energia potencial do H2"><line x1="50" y1="65.2" x2="515" y2="65.2" stroke="currentColor" stroke-opacity=".35" stroke-dasharray="4 4"/><path d="M50 20 V205 H520" fill="none" stroke="currentColor" stroke-width="1.5"/><text x="14" y="26" font-size="14" fill="currentColor">energia</text><text x="470" y="222" font-size="14" fill="currentColor">distância</text><polyline points="60.2,41.1 61.9,52.1 63.6,62.5 65.3,72.3 67.0,81.5 68.7,90.2 70.4,98.4 72.1,106.1 73.9,113.3 75.6,120.1 77.3,126.4 79.0,132.4 80.7,138.0 82.4,143.2 84.1,148.0 85.8,152.6 87.5,156.7 89.2,160.6 90.9,164.2 92.6,167.6 94.3,170.6 96.0,173.5 97.7,176.0 99.4,178.4 101.1,180.5 102.8,182.5 104.5,184.2 106.2,185.7 107.9,187.1 109.6,188.3 111.3,189.4 113.0,190.3 114.7,191.0 116.4,191.6 118.1,192.1 119.9,192.5 121.6,192.8 123.3,192.9 125.0,193.0 126.7,192.9 128.4,192.8 130.1,192.6 131.8,192.3 133.5,191.9 135.2,191.4 136.9,190.9 138.6,190.3 140.3,189.7 142.0,189.0 143.7,188.2 145.4,187.5 147.1,186.6 148.8,185.7 150.5,184.8 152.2,183.9 153.9,182.9 155.6,181.9 157.3,180.8 159.0,179.7 160.7,178.7 162.4,177.5 164.1,176.4 165.9,175.3 167.6,174.1 169.3,172.9 171.0,171.7 172.7,170.5 174.4,169.3 176.1,168.1 177.8,166.9 179.5,165.6 181.2,164.4 182.9,163.2 184.6,161.9 186.3,160.7 188.0,159.4 189.7,158.2 191.4,157.0 193.1,155.7 194.8,154.5 196.5,153.3 198.2,152.1 199.9,150.8 201.6,149.6 203.3,148.4 205.0,147.2 206.7,146.0 208.4,144.9 210.1,143.7 211.9,142.5 213.6,141.4 215.3,140.2 217.0,139.1 218.7,138.0 220.4,136.9 222.1,135.8 223.8,134.7 225.5,133.6 227.2,132.5 228.9,131.5 230.6,130.4 232.3,129.4 234.0,128.3 235.7,127.3 237.4,126.3 239.1,125.3 240.8,124.4 242.5,123.4 244.2,122.5 245.9,121.5 247.6,120.6 249.3,119.7 251.0,118.8 252.7,117.9 254.4,117.0 256.1,116.1 257.9,115.3 259.6,114.4 261.3,113.6 263.0,112.8 264.7,111.9 266.4,111.1 268.1,110.4 269.8,109.6 271.5,108.8 273.2,108.1 274.9,107.3 276.6,106.6 278.3,105.9 280.0,105.2 281.7,104.5 283.4,103.8 285.1,103.1 286.8,102.4 288.5,101.8 290.2,101.1 291.9,100.5 293.6,99.9 295.3,99.3 297.0,98.7 298.7,98.1 300.4,97.5 302.1,96.9 303.9,96.3 305.6,95.8 307.3,95.2 309.0,94.7 310.7,94.2 312.4,93.6 314.1,93.1 315.8,92.6 317.5,92.1 319.2,91.6 320.9,91.2 322.6,90.7 324.3,90.2 326.0,89.8 327.7,89.3 329.4,88.9 331.1,88.4 332.8,88.0 334.5,87.6 336.2,87.2 337.9,86.8 339.6,86.4 341.3,86.0 343.0,85.6 344.7,85.2 346.4,84.9 348.1,84.5 349.9,84.2 351.6,83.8 353.3,83.5 355.0,83.1 356.7,82.8 358.4,82.5 360.1,82.1 361.8,81.8 363.5,81.5 365.2,81.2 366.9,80.9 368.6,80.6 370.3,80.3 372.0,80.1 373.7,79.8 375.4,79.5 377.1,79.2 378.8,79.0 380.5,78.7 382.2,78.5 383.9,78.2 385.6,78.0 387.3,77.7 389.0,77.5 390.7,77.3 392.4,77.0 394.1,76.8 395.9,76.6 397.6,76.4 399.3,76.2 401.0,76.0 402.7,75.8 404.4,75.6 406.1,75.4 407.8,75.2 409.5,75.0 411.2,74.8 412.9,74.6 414.6,74.4 416.3,74.3 418.0,74.1 419.7,73.9 421.4,73.8 423.1,73.6 424.8,73.4 426.5,73.3 428.2,73.1 429.9,73.0 431.6,72.8 433.3,72.7 435.0,72.5 436.7,72.4 438.4,72.3 440.1,72.1 441.9,72.0 443.6,71.9 445.3,71.7 447.0,71.6 448.7,71.5 450.4,71.4 452.1,71.3 453.8,71.1 455.5,71.0 457.2,70.9 458.9,70.8 460.6,70.7 462.3,70.6 464.0,70.5 465.7,70.4 467.4,70.3 469.1,70.2 470.8,70.1 472.5,70.0 474.2,69.9 475.9,69.8 477.6,69.7 479.3,69.7 481.0,69.6 482.7,69.5 484.4,69.4 486.1,69.3 487.9,69.2 489.6,69.2 491.3,69.1 493.0,69.0 494.7,68.9 496.4,68.9 498.1,68.8 499.8,68.7 501.5,68.7 503.2,68.6 504.9,68.5 506.6,68.5 508.3,68.4 510.0,68.3" fill="none" stroke="#1E62C9" stroke-width="3" stroke-linejoin="round"/><line x1="125.0" y1="193.0" x2="125.0" y2="205" stroke="#E0601A" stroke-dasharray="3 3"/><circle cx="125.0" cy="193.0" r="5" fill="#E0601A"/><text x="135.0" y="197.0" font-size="14" font-weight="700" fill="#E0601A">74 pm · −436 kJ/mol</text><text x="300" y="57.2" font-size="14" fill="currentColor">longe: dois H soltos (E = 0)</text><text x="64" y="40" font-size="14" fill="#C73A2C">perto demais:</text><text x="64" y="54" font-size="14" fill="#C73A2C">núcleos se repelem</text><g><circle cx="470" cy="83.2" r="7" fill="#9FB3C8"/><circle cx="500" cy="83.2" r="7" fill="#9FB3C8"/></g><g><circle cx="120.0" cy="215.0" r="7" fill="#9FB3C8"/><circle cx="130.0" cy="215.0" r="7" fill="#9FB3C8"/></g></svg>
+    <p class="m2-cap">No fundo do "vale": distância de <b>74 pm</b> e energia <b>436 kJ/mol</b> mais baixa. Essa é a energia que você teria de gastar para quebrar a ligação.</p></div>
+  <h3>Os três tipos de ligação</h3>
+  <div class="m1-def">
+    <div><span class="em">🧲</span><b>Iônica</b><span><b>metal + ametal</b>. O metal <b>entrega</b> elétrons, o ametal <b>recebe</b>. Viram íons (+ e −) que se atraem. Ex.: NaCl, CaO.</span></div>
+    <div><span class="em">🤝</span><b>Covalente</b><span><b>ametal + ametal</b> (ou H). Ninguém entrega: os dois <b>compartilham</b> pares de elétrons. Ex.: H₂O, CO₂, Cl₂.</span></div>
+    <div><span class="em">🔩</span><b>Metálica</b><span><b>metal + metal</b>. Os elétrons de valência ficam soltos, um "mar de elétrons" em volta dos cátions. Por isso o metal conduz e é maleável. Ex.: Fe, Cu, aço.</span></div>
+  </div>
+  <h3>A regra do octeto</h3>
+  <div class="fx"><span class="tag">Regra do octeto</span><div class="eq">8 elétrons na última camada = estável</div>
+    <dl class="legend"><dt>a ideia</dt><dd>os gases nobres (Ne, Ar…) quase não reagem e têm 8 elétrons de valência (ns² np⁶). Os outros átomos ganham, perdem ou compartilham elétrons para ficar iguais a eles</dd><dt>exceção H</dt><dd>o hidrogênio fica estável com <b>2</b> (igual ao He): é o "dueto"</dd><dt>outras exceções</dt><dd>B com 6 (BF₃); P, S, Cl, Xe do 3º período para baixo podem passar de 8 (PCl₅, SF₆): "expansão do octeto"</dd></dl></div>
+  <h3>Símbolos de Lewis: os elétrons de valência como pontos</h3>
+  <p>Gilbert Lewis teve uma ideia simples: escrever o símbolo do elemento e, em volta dele, <b>um ponto para cada elétron de valência</b>. Coloque um ponto em cada um dos 4 lados primeiro; só depois comece a formar pares.</p>
+  <div class="tbl"><table><tr><th>Grupo</th><th>1</th><th>2</th><th>13</th><th>14</th><th>15</th><th>16</th><th>17</th><th>18</th></tr>
+    <tr><td>elétrons de valência</td><td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td></tr>
+    <tr><td>exemplo</td><td>Na·</td><td>·Mg·</td><td>Al (3)</td><td>C (4)</td><td>N (5)</td><td>O (6)</td><td>Cl (7)</td><td>Ne (8)</td></tr>
+    <tr><td>tende a</td><td>perder 1</td><td>perder 2</td><td>perder 3</td><td>compartilhar 4</td><td>ganhar 3</td><td>ganhar 2</td><td>ganhar 1</td><td>nada</td></tr></table></div>
+  <div class="m2-lw"><span class="m2-s" data-lw="H"></span><span class="m2-s" data-lw="C"></span><span class="m2-s" data-lw="N"></span><span class="m2-s" data-lw="O"></span><span class="m2-s" data-lw="F"></span><span class="m2-s" data-lw="Na"></span><span class="m2-s" data-lw="Mg"></span><span class="m2-s" data-lw="Cl"></span></div>
+  <div class="cuid"><span class="k">Atalho</span>Grupos 1 e 2: nº de pontos = nº do grupo. Grupos 13 a 18: nº do grupo <b>menos 10</b>. Metais de transição: use a configuração (só os elétrons de ns e np contam como "pontos").</div>
+  <div class="ex" data-ex data-q="qg-m2-01"><div class="q">Slide: símbolo de Lewis do ₁₂Mg e do ₃₃As.</div>
+    <ol><li>Mg = [Ne] 3s² → 2 elétrons de valência → <b>·Mg·</b></li><li>As = [Ar] 3d¹⁰ 4s² 4p³ → a camada de valência é a 4 (4s² 4p³) → 5 elétrons. O 3d¹⁰ é camada de dentro e não entra.</li><li>Desenhe: um ponto em cada lado (4) e o 5º formando par.</li></ol>
+    <div class="ans">Mg com 2 pontos · As com 5 pontos (1 par + 3 sozinhos)</div></div>
+  <div class="ex" data-ex data-q="qg-m2-02"><div class="q">Slide: símbolo de Lewis do Sc³⁺ e do Se²⁻.</div>
+    <ol><li>Sc = [Ar] 3d¹ 4s². Para virar Sc³⁺ ele perde os 3 elétrons de fora (4s² e 3d¹) → sobra [Ar]: <b>nenhum ponto</b>. Escreve [Sc]³⁺.</li><li>Se = [Ar] 3d¹⁰ 4s² 4p⁴ → 6 de valência. Ganhando 2 → 8 → [Ar] 3d¹⁰ 4s² 4p⁶.</li><li>Ânion: 8 pontos, entre colchetes, com a carga do lado de fora.</li></ol>
+    <div class="ans">[Sc]³⁺ sem pontos · [Se]²⁻ com 8 pontos</div></div>
+
+  <h3>Ligação iônica: um entrega, o outro recebe</h3>
+  <p>Ela acontece entre quem <b>perde elétron fácil</b> (metal: energia de ionização baixa, à esquerda da tabela) e quem <b>ganha elétron fácil</b> (ametal: afinidade eletrônica muito negativa, à direita). O metal vira <b>cátion</b> (+), o ametal vira <b>ânion</b> (−), e os dois se atraem pela força elétrica.</p>
+  <div class="m2-lw col"><span class="m2-s" data-lw="fNaCl"></span><span class="m2-s" data-lw="fCaO"></span><span class="m2-s" data-lw="fCaCl2"></span></div>
+  <p class="m2-cap">× azul = elétron que veio do metal · • = elétrons do ametal. O Ca tem 2 elétrons para dar e cada Cl só aceita 1: por isso precisa de <b>dois</b> Cl → CaCl₂.</p>
+  <div class="cuid"><span class="k">Como desenhar</span>O cátion fica <b>sem pontos</b> (perdeu a camada de valência) e com a carga em cima. O ânion fica com <b>8 pontos entre colchetes</b> e a carga do lado de fora do colchete.</div>
+
+  <h3>Montando a fórmula: a carga total tem de dar zero</h3>
+  <div class="fx"><span class="tag">Fórmula mínima de um composto iônico</span><div class="eq">M<sup>a+</sup> + X<sup>b−</sup> → M<sub>b</sub>X<sub>a</sub></div>
+    <dl class="legend"><dt>1. cruze</dt><dd>a carga de um (sem o sinal) vira o índice do outro</dd><dt>2. simplifique</dt><dd>se os dois índices têm divisor comum, divida: Mn₂O₄ → MnO₂</dd><dt>3. confira</dt><dd>soma das cargas = 0. Ex.: Al₂O₃ → 2 × (+3) + 3 × (−2) = 0 ✓</dd><dt>índice 1</dt><dd>não se escreve: NaCl, e não Na₁Cl₁</dd></dl></div>
+  <div class="wid"><h4>Montador de sais</h4><p>Escolha um cátion e um ânion. O montador cruza as cargas, simplifica e confere.</p>
+    <div class="m3-pick"><div><small>Cátion</small><div class="dinch" id="m2SalC"></div></div><div><small>Ânion</small><div class="dinch" id="m2SalA"></div></div></div>
+    <div class="wout" id="m2SalO"></div></div>
+  <div class="ex" data-ex data-q="qg-m2-03"><div class="q">Slide: fórmula mínima dos sais de a) Cu⁺ e O²⁻; e) Mn⁴⁺ e O²⁻; f) Pd⁴⁺ e S²⁻; i) Ga³⁺ e N³⁻.</div>
+    <ol><li>a) cruza: Cu₂O₁ → <b>Cu₂O</b>. Confere: 2 × (+1) − 2 = 0 ✓</li><li>e) cruza: Mn₂O₄ → divide por 2 → <b>MnO₂</b></li><li>f) cruza: Pd₂S₄ → divide por 2 → <b>PdS₂</b></li><li>i) cruza: Ga₃N₃ → divide por 3 → <b>GaN</b></li></ol>
+    <div class="ans">Cu₂O · MnO₂ · PdS₂ · GaN</div></div>
+  <h3>Dando nome</h3>
+  <p>Composto iônico se lê <b>ânion + "de" + cátion</b>: NaCl = cloreto de sódio. O ânion de um elemento só ganha a terminação <b>-eto</b> (o oxigênio é a exceção: <b>óxido</b>). Se o metal tem mais de uma carga possível (Fe, Cu, Mn…), a carga vai em algarismo romano: FeCl₂ = cloreto de ferro(II), FeCl₃ = cloreto de ferro(III).</p>
+  <div class="tbl"><table><tr><th>Ânion</th><th>Nome</th><th>Ânion</th><th>Nome</th></tr>
+    <tr><td>F⁻</td><td>fluoreto</td><td>O²⁻</td><td>óxido</td></tr><tr><td>Cl⁻</td><td>cloreto</td><td>S²⁻</td><td>sulfeto</td></tr>
+    <tr><td>Br⁻</td><td>brometo</td><td>Se²⁻</td><td>seleneto</td></tr><tr><td>I⁻</td><td>iodeto</td><td>N³⁻</td><td>nitreto</td></tr>
+    <tr><td>H⁻</td><td>hidreto</td><td>P³⁻</td><td>fosfeto</td></tr></table></div>
+
+  <h3>Energia de rede: quão forte o cristal se segura</h3>
+  <p>No sal sólido, cada íon fica cercado de íons de carga oposta, num retículo cristalino. <b>Energia de rede</b> é a energia necessária para desmontar 1 mol desse cristal em íons soltos, no estado gasoso. Para o NaCl são 788 kJ/mol.</p>
+  <div class="fx"><span class="tag">Energia de rede</span><div class="eq">E = κ · Q₁ · Q₂ / d</div>
+    <dl class="legend"><dt>Q₁, Q₂</dt><dd>cargas dos íons: <b>mais carga → mais energia</b> (efeito mais forte)</dd><dt>d</dt><dd>distância entre os centros dos íons ≈ soma dos raios: <b>íons maiores → menos energia</b></dd><dt>κ</dt><dd>constante (depende do tipo de cristal)</dd><dt>e daí?</dt><dd>quanto maior a energia de rede, <b>maior o ponto de fusão</b></dd></dl></div>
+  <div class="tbl"><table><tr><th>Composto</th><th>Cargas</th><th>Energia de rede (kJ/mol)</th></tr>
+    <tr><td>CsI</td><td>+1 e −1, íons grandes</td><td>600</td></tr><tr><td>KCl</td><td>+1 e −1</td><td>701</td></tr><tr><td>NaCl</td><td>+1 e −1</td><td>788</td></tr>
+    <tr><td>LiF</td><td>+1 e −1, íons pequenos</td><td>1030</td></tr><tr><td>MgCl₂</td><td>+2 e −1</td><td>2326</td></tr><tr><td>CaO</td><td>+2 e −2</td><td>3414</td></tr><tr><td>MgO</td><td>+2 e −2, íons pequenos</td><td><b>3795</b></td></tr></table></div>
+  <div class="ex" data-ex data-q="qg-m2-04"><div class="q">Ordene em energia de rede decrescente: NaF, CsI e CaO.</div>
+    <ol><li>Olhe primeiro as <b>cargas</b>: CaO tem +2 e −2 (produto 4). NaF e CsI têm +1 e −1 (produto 1). → CaO é o maior, de longe.</li><li>Entre NaF e CsI (mesmas cargas), decide o <b>tamanho</b>: Na⁺ e F⁻ são pequenos (períodos 3 e 2); Cs⁺ e I⁻ são enormes (período 6 e 5). Menor d → maior energia → NaF &gt; CsI.</li></ol>
+    <div class="ans">CaO (3414) &gt; NaF (910) &gt; CsI (600)</div></div>
+  <h3>Propriedades dos compostos iônicos</h3>
+  <div class="curio">
+    <div><span class="em">🔥</span><b>Ponto de fusão alto</b><span>Precisa vencer a atração entre íons em todas as direções. NaCl funde a 801 °C; o MgO, a 2852 °C, por isso vira tijolo refratário de forno.</span></div>
+    <div><span class="em">💎</span><b>Duros e quebradiços</b><span>Uma pancada desliza uma camada: + fica de frente para + e o cristal racha. Por isso o sal se parte e não amassa como o metal.</span></div>
+    <div><span class="em">⚡</span><b>Conduzem só soltos</b><span>Sólidos não conduzem (íons presos). Fundidos ou dissolvidos em água, os íons andam e conduzem corrente.</span></div>
+  </div>
+  <p class="m3-irp"><a class="m3-ir" href="#ed2">questões 1 a 5 do Estudo Dirigido 2 →</a></p>
+  <div class="done-btn" data-done="ligacoes"></div>
+</section>
+
+<!-- ============ M2 · LIGAÇÃO COVALENTE ============ -->
+<section class="view read" id="v-covalente" hidden>
+  <div class="eyebrow">Módulo 2 · 2ª prova</div>
+  <h2>Ligação covalente e estruturas de Lewis</h2>
+  <p class="lede">Quando dois ametais se encontram, nenhum dos dois quer entregar elétron. A saída é <b>dividir</b>: cada par de elétrons compartilhado é um traço entre os átomos, e conta para o octeto dos dois.</p>
+  <h3>Compartilhar um par</h3>
+  <p>Cada H tem 1 elétron. Juntos, dividem o par e os dois "enxergam" 2 elétrons (dueto). Cada Cl tem 7: dividindo 1 par, os dois ficam com 8.</p>
+  <div class="m2-lw"><span class="m2-s" data-lw="H2"></span><span class="m2-s" data-lw="Cl2"></span><span class="m2-s" data-lw="O2"></span><span class="m2-s" data-lw="N2"></span></div>
+  <div class="m1-def">
+    <div><span class="em">➖</span><b>Ligação simples</b><span>1 par compartilhado (2 elétrons). H–H, Cl–Cl.</span></div>
+    <div><span class="em">🟰</span><b>Ligação dupla</b><span>2 pares (4 elétrons). O=O.</span></div>
+    <div><span class="em">≡</span><b>Ligação tripla</b><span>3 pares (6 elétrons). N≡N, uma das ligações mais fortes que existem.</span></div>
+    <div><span class="em">••</span><b>Par isolado</b><span>Par de elétrons que fica só num átomo, sem ligar. Na água o O tem 2.</span></div>
+  </div>
+  <div class="tbl"><table><tr><th>Átomo</th><th>H</th><th>C (grupo 14)</th><th>N (15)</th><th>O (16)</th><th>F, Cl, Br (17)</th></tr>
+    <tr><td>quantas ligações faz</td><td>1</td><td>4</td><td>3</td><td>2</td><td>1</td></tr>
+    <tr><td>pares isolados</td><td>0</td><td>0</td><td>1</td><td>2</td><td>3</td></tr></table></div>
+  <div class="cuid"><span class="k">Para conferir sua estrutura</span>Na maioria das moléculas neutras: C faz 4 traços, N faz 3, O faz 2, H e halogênio fazem 1. Se o seu desenho tem um C com 3 traços, algo está errado.</div>
+  <h3>Montando a estrutura de Lewis em 5 passos</h3>
+  <div class="ofi"><span class="k">O método da professora</span>
+    <b>1.</b> Some os elétrons de valência de todos os átomos (ânion: <b>some</b> a carga; cátion: <b>subtraia</b>).<br>
+    <b>2.</b> Monte o esqueleto: o átomo central costuma ser o <b>menos eletronegativo</b> (nunca o H). Una com ligações simples (cada traço gasta 2 elétrons).<br>
+    <b>3.</b> Complete o octeto dos átomos de fora (os ligados ao central).<br>
+    <b>4.</b> Sobrou elétron? Coloque no átomo central.<br>
+    <b>5.</b> O central ficou sem octeto? Transforme pares isolados dos vizinhos em ligações duplas ou triplas.</div>
+  <div class="ex" data-ex data-q="qg-m2-05"><div class="q">Slide: estrutura de Lewis do CO₂.</div>
+    <ol><li>Elétrons: C 4 + O 6 × 2 = <b>16</b>.</li><li>Esqueleto O–C–O (o C é menos eletronegativo, fica no meio): 2 ligações gastam 4 → sobram 12.</li><li>Octeto dos O: 6 em cada → gastou os 12. Sobrou 0.</li><li>O C só tem 4 elétrons em volta (as 2 ligações). Falta octeto.</li><li>Leve 1 par de cada O para a ligação: O=C=O. Agora todos têm 8 ✓</li></ol>
+    <div class="ans">O=C=O, com 2 pares isolados em cada O</div></div>
+  <div class="ex" data-ex data-q="qg-m2-06"><div class="q">Estrutura de Lewis do HCN.</div>
+    <ol><li>Elétrons: H 1 + C 4 + N 5 = <b>10</b>.</li><li>Esqueleto H–C–N (H nunca fica no meio): 2 ligações → sobram 6.</li><li>Os 6 vão para o N (octeto do átomo de fora). O C fica com só 4.</li><li>Passe 2 pares do N para a ligação C–N: H–C≡N. C com 8, N com 8 (3 pares na ligação + 1 isolado) ✓</li></ol>
+    <div class="ans">H–C≡N: com 1 par isolado no N</div></div>
+
+  <h3>Carga formal: escolhendo a melhor estrutura</h3>
+  <p>Às vezes dá para desenhar mais de uma estrutura que obedece o octeto. Para decidir, calcule a <b>carga formal</b> de cada átomo: é como se cada átomo ficasse com todos os seus pares isolados e com <b>metade</b> de cada ligação.</p>
+  <div class="fx"><span class="tag">Carga formal</span><div class="eq">CF = EV − ENL − EL/2</div>
+    <dl class="legend"><dt>EV</dt><dd>elétrons de valência do átomo isolado (o grupo)</dd><dt>ENL</dt><dd>elétrons não ligantes: os dos pares isolados daquele átomo (cada par = 2)</dd><dt>EL</dt><dd>elétrons ligantes: 2 por traço ligado a ele</dd><dt>soma</dt><dd>a soma das cargas formais = carga da espécie (0 na molécula)</dd></dl></div>
+  <div class="ofi"><span class="k">Qual estrutura escolher</span>1) A que tem cargas formais <b>mais perto de zero</b>. 2) Se precisar de carga negativa, ela deve ficar no átomo <b>mais eletronegativo</b>.</div>
+  <div class="ex" data-ex data-q="qg-m2-07"><div class="q">Slide: compare as estruturas O=C=O e O≡C–O do CO₂ pela carga formal.</div>
+    <ol><li>O=C=O: cada O tem EV 6, 4 não ligantes, 4 ligantes → 6 − 4 − 2 = 0. C: 4 − 0 − 8/2 = 0.</li><li>O≡C–O: O da tripla 6 − 2 − 6/2 = <b>+1</b>; C 4 − 0 − 4 = 0; O da simples 6 − 6 − 1 = <b>−1</b>.</li><li>A primeira tem tudo zero → é a estrutura que vale.</li></ol>
+    <div class="ans">O=C=O (cargas formais 0, 0, 0)</div></div>
+  <div class="m2-lw"><span class="m2-s" data-lw="CO2"></span><span class="m2-s" data-lw="CO2a"></span></div>
+
+  <h3>Ressonância: quando uma estrutura só não basta</h3>
+  <p>No ozônio dá para pôr a ligação dupla à esquerda ou à direita. Nenhuma das duas é a verdade: medindo, as <b>duas ligações O–O são iguais</b>, um meio-termo entre simples e dupla. As estruturas de ressonância são desenhos diferentes da mesma molécula; a real é a "média" delas. Liga-se as formas com uma seta de duas pontas ↔.</p>
+  <div class="m2-lw"><span class="m2-s" data-lw="O3"></span><span class="m2-res">↔</span><span class="m2-s" data-lw="O3b"></span></div>
+  <div class="m2-lw"><span class="m2-s" data-lw="CO3"></span><span class="m2-res">↔</span><span class="m2-s" data-lw="CO3b"></span><span class="m2-res">↔</span><span class="m2-s" data-lw="CO3c"></span></div>
+  <p class="m2-cap">No carbonato a "dupla" passeia pelos 3 oxigênios: na realidade as 3 ligações C–O são iguais. O mesmo acontece no NO₃⁻ e no benzeno.</p>
+
+  <h3>Eletronegatividade e polaridade da ligação</h3>
+  <p><b>Eletronegatividade</b> (χ) é a força com que um átomo puxa para si os elétrons de uma ligação. Ela cresce para a direita e para cima na tabela (igual à energia de ionização). A ordem que cai em prova:</p>
+  <div class="m3-eq">F &gt; O &gt; N ≈ Cl &gt; Br &gt; I &gt; S &gt; C &gt; P &gt; H</div>
+  <p>Se os dois átomos puxam igual (H–H, Cl–Cl), o par fica no meio: ligação <b>apolar</b>. Se um puxa mais, o par fica mais perto dele: esse lado ganha uma carga parcial <b>δ−</b> e o outro <b>δ+</b>. É uma ligação <b>polar</b>, um pequeno ímã elétrico chamado <b>dipolo</b>.</p>
+  <div class="fx"><span class="tag">Momento de dipolo</span><div class="eq">μ = Q · r</div>
+    <dl class="legend"><dt>Q</dt><dd>tamanho das cargas parciais δ+ e δ−</dd><dt>r</dt><dd>distância entre elas</dd><dt>μ = 0</dt><dd>ligação apolar · μ ≠ 0: ligação polar</dd><dt>seta</dt><dd>desenha-se com a ponta no lado δ− e a cruz no lado δ+: H⟶F</dd></dl></div>
+  <div class="wid"><h4>Quem puxa mais?</h4><p>Escolha os dois átomos da ligação. Os números são a escala de Pauling do livro.</p>
+    <div class="m3-pick"><div><small>Átomo 1</small><div class="dinch m2-en" id="m2DxA"></div></div><div><small>Átomo 2</small><div class="dinch m2-en" id="m2DxB"></div></div></div>
+    <div class="wout" id="m2DxO"></div></div>
+  <div class="cuid"><span class="k">Regra prática</span>Δχ = 0 → covalente apolar · Δχ entre 0 e ~2 → covalente polar · Δχ acima de ~2 → caráter iônico (o livro usa 2,0; alguns usam 1,7). É uma faixa, não uma parede: a natureza vai mudando aos poucos de um tipo para outro.</div>
+
+  <h3>Força da ligação: entalpia de ligação</h3>
+  <p>A <b>entalpia de ligação</b> (ΔH) é a energia para quebrar 1 mol daquela ligação, no estado gasoso. É sempre <b>positiva</b> (quebrar sempre custa) e quanto maior, mais forte a ligação. Mais traços = átomos mais próximos e mais presos:</p>
+  <div class="tbl"><table><tr><th>Ligação</th><th>ΔH (kJ/mol)</th><th>Comprimento (pm)</th></tr>
+    <tr><td>C–C</td><td>348</td><td>154</td></tr><tr><td>C=C</td><td>614</td><td>134</td></tr><tr><td>C≡C</td><td>839</td><td>120</td></tr>
+    <tr><td>N–N</td><td>163</td><td>147</td></tr><tr><td>N≡N</td><td>941</td><td>110</td></tr></table></div>
+  <h3>Calculando o calor de uma reação pelas ligações</h3>
+  <p>Toda reação <b>quebra</b> ligações dos reagentes (gasta energia) e <b>forma</b> ligações nos produtos (libera energia). O saldo é o ΔH da reação:</p>
+  <div class="fx"><span class="tag">Entalpia de reação pelas ligações</span><div class="eq" style="font-size:1.1rem">ΔH<sub>r</sub> = Σ rompidas − Σ formadas</div>
+    <dl class="legend"><dt>ΔH<sub>r</sub> &lt; 0</dt><dd><b>exotérmica</b>: as ligações novas são mais fortes, sobra energia (sai calor)</dd><dt>ΔH<sub>r</sub> &gt; 0</dt><dd><b>endotérmica</b>: gasta mais para quebrar do que ganha formando</dd><dt>atalho</dt><dd>só conte as ligações que <b>mudam</b>. As que passam intactas aparecem dos dois lados e se cancelam</dd></dl></div>
+  <div class="ex" data-ex data-q="qg-m2-08"><div class="q">Slide: calcule o ΔH de CH₄ + Cl₂ → CH₃Cl + HCl. Dados: C–H 413 · Cl–Cl 242 · C–Cl 328 · H–Cl 431 kJ/mol.</div>
+    <ol><li>Rompidas: 1 C–H (um H sai do metano) + 1 Cl–Cl → 413 + 242 = 655 kJ</li><li>Formadas: 1 C–Cl + 1 H–Cl → 328 + 431 = 759 kJ</li><li>ΔH = 655 − 759 = −104 kJ/mol → negativo → exotérmica</li><li>As outras 3 C–H do metano continuam iguais: nem entram na conta.</li></ol>
+    <div class="ans">ΔH = −104 kJ/mol (exotérmica)</div></div>
+  <div class="curio"><div><span class="em">🪨</span><b>A crosta é Si–O</b><span>A ligação Si–O está entre as mais fortes que o silício faz. Por isso mais de 90 % da crosta terrestre é SiO₂ e silicatos: areia, quartzo, granito, vidro, cimento.</span></div>
+    <div><span class="em">🚀</span><b>Por que N₂ não reage?</b><span>A tripla N≡N (941 kJ/mol) é duríssima de quebrar. É por isso que o ar, 78 % N₂, é tão "preguiçoso", e o nitrogênio é usado como gás inerte em solda e em tanques.</span></div></div>
+  <p class="m3-irp"><a class="m3-ir" href="#ed2">questões 6 a 9 do Estudo Dirigido 2 →</a></p>
+  <div class="done-btn" data-done="covalente"></div>
+</section>
+
+<!-- ============ M2 · GEOMETRIA MOLECULAR ============ -->
+<section class="view read" id="v-geometria" hidden>
+  <div class="eyebrow">Módulo 2 · 2ª prova</div>
+  <h2>Geometria molecular e polaridade</h2>
+  <p class="lede">A estrutura de Lewis diz <b>quem liga em quem</b>, mas é um desenho no papel. A molécula de verdade é 3D. O modelo <b>RPENV</b> (repulsão dos pares de elétrons da camada de valência, ou VSEPR em inglês) prevê essa forma com uma ideia só.</p>
+  <h3>A ideia: os pares de elétrons se empurram</h3>
+  <p>Elétrons têm carga negativa e se repelem. Então, em volta do átomo central, os grupos de elétrons se espalham <b>o mais longe possível uns dos outros</b>. Pense em balões amarrados pelo nó: 2 balões ficam em linha, 3 formam um triângulo, 4 formam um tetraedro.</p>
+  <div class="fx"><span class="tag">Domínio de elétrons</span><div class="eq" style="font-size:1.1rem">domínios = ligações + pares isolados</div>
+    <dl class="legend"><dt>conta 1</dt><dd>cada ligação, <b>seja simples, dupla ou tripla</b> (a dupla aponta numa direção só)</dd><dt>conta 1</dt><dd>cada par isolado do átomo central</dd><dt>arranjo</dt><dd>a forma de <b>todos</b> os domínios (pares incluídos)</dd><dt>geometria molecular</dt><dd>a forma olhando <b>só os átomos</b> (os pares ficam invisíveis)</dd></dl></div>
+  <div class="tbl"><table><tr><th>Domínios</th><th>Arranjo · ângulo</th><th>0 par isolado</th><th>1 par</th><th>2 pares</th><th>3 pares</th></tr>
+    <tr><td>2</td><td>linear · 180°</td><td>linear (CO₂)</td><td>—</td><td>—</td><td>—</td></tr>
+    <tr><td>3</td><td>trigonal plano · 120°</td><td>trigonal plana (BF₃)</td><td>angular (SO₂)</td><td>—</td><td>—</td></tr>
+    <tr><td>4</td><td>tetraédrico · 109,5°</td><td>tetraédrica (CH₄)</td><td>piramidal (NH₃)</td><td>angular (H₂O)</td><td>—</td></tr>
+    <tr><td>5</td><td>bipirâmide trigonal · 90° e 120°</td><td>bipirâmide trigonal (PCl₅)</td><td>gangorra (SF₄)</td><td>forma de T (ClF₃)</td><td>linear (XeF₂)</td></tr>
+    <tr><td>6</td><td>octaédrico · 90°</td><td>octaédrica (SF₆)</td><td>pirâmide quadrada (BrF₅)</td><td>quadrado plana (XeF₄)</td><td>—</td></tr></table></div>
+  <div class="wid"><h4>Molécula em 3D</h4><p>Escolha a molécula, arraste para girar. As nuvens roxas são os pares isolados.</p>
+    <div class="dinch" id="m2GeoP"></div>
+    <canvas id="m2Geo" class="m1cv m2-geo" aria-label="Molécula em 3D"></canvas>
+    <div class="dinch" style="margin-top:8px"><button id="m2GeoG">Girar sozinha</button><button id="m2GeoPa">Mostrar pares isolados</button><button id="m2GeoA">Mostrar o arranjo</button></div>
+    <div class="wout" id="m2GeoO"></div></div>
+  <h3>Pares isolados empurram mais</h3>
+  <p>Um par isolado não está preso entre dois núcleos: ele se "espalha" mais perto do átomo central e empurra as ligações. Por isso, com o mesmo arranjo tetraédrico, o ângulo fecha a cada par isolado a mais:</p>
+  <div class="m2-lw"><span class="m2-s" data-lw="gCH4"></span><span class="m2-s" data-lw="gNH3"></span><span class="m2-s" data-lw="gH2O"></span></div>
+  <p class="m2-cap">Cunha cheia = ligação vindo para a frente do papel · tracejado = indo para trás.</p>
+  <div class="ex" data-ex data-q="qg-m2-09"><div class="q">Slide: arranjo e geometria molecular da água, H₂O.</div>
+    <ol><li>Lewis: O no centro, 2 ligações O–H e 2 pares isolados no O.</li><li>Domínios no O: 2 ligações + 2 pares = <b>4</b> → arranjo <b>tetraédrico</b>.</li><li>Olhando só os átomos (H–O–H), os pares somem do desenho → geometria <b>angular</b>.</li><li>Os 2 pares empurram as ligações: o ângulo cai de 109,5° para ≈ 104,5°.</li></ol>
+    <div class="ans">Arranjo tetraédrico · geometria angular (≈ 104,5°)</div></div>
+
+  <h3>Polaridade da molécula: some os vetores</h3>
+  <p>Uma molécula pode ter ligações polares e mesmo assim ser <b>apolar</b>. Cada ligação polar é uma seta (vetor) apontando para o átomo mais eletronegativo. Se as setas se <b>cancelam</b> pela simetria, μ total = 0 → molécula apolar. Se sobra uma resultante, a molécula é <b>polar</b>.</p>
+  <div class="m2-lw"><span class="m2-s" data-lw="pCO2"></span><span class="m2-s" data-lw="pH2O"></span><span class="m2-s" data-lw="pBF3"></span><span class="m2-s" data-lw="pNH3"></span></div>
+  <div class="m1-def">
+    <div><span class="em">⚪</span><b>Apolares (μ = 0)</b><span>H₂, CO₂, BF₃, CH₄, CCl₄, PCl₅, SF₆: tudo simétrico, setas iguais se anulando.</span></div>
+    <div><span class="em">🔴</span><b>Polares (μ ≠ 0)</b><span>HF, H₂O, NH₃, CH₂Cl₂, SO₂: par isolado no central ou ligantes diferentes quebram a simetria.</span></div>
+  </div>
+  <div class="cuid"><span class="k">Atalho de prova</span>O central <b>não tem par isolado</b> e todos os átomos em volta são <b>iguais</b>? → apolar. Tem par isolado (H₂O, NH₃) ou ligantes diferentes (CH₂Cl₂, CH₃Cl)? → polar. (Exceções: XeF₂ e XeF₄ têm pares, mas simétricos → apolares.)</div>
+  <div class="ex" data-ex data-q="qg-m2-10"><div class="q">Slide: o CH₂Cl₂ é polar ou apolar?</div>
+    <ol><li>C central com 4 ligações e nenhum par → arranjo e geometria <b>tetraédrica</b>.</li><li>Mas os ligantes não são iguais: as C–Cl são bem polares (Cl puxa), as C–H quase não.</li><li>As setas das duas C–Cl apontam para o mesmo "lado" do tetraedro e não têm quem as cancele → sobra resultante.</li></ol>
+    <div class="ans">Polar (μ ≠ 0), mesmo sendo tetraédrico</div></div>
+  <p class="m3-irp"><a class="m3-ir" href="#ed2">questões 10, 12 e 13 do Estudo Dirigido 2 →</a></p>
+  <div class="done-btn" data-done="geometria"></div>
+</section>
+
+<!-- ============ M2 · FORÇAS INTERMOLECULARES ============ -->
+<section class="view read" id="v-intermol" hidden>
+  <div class="eyebrow">Módulo 2 · 2ª prova</div>
+  <h2>Forças intermoleculares</h2>
+  <p class="lede">Por que a água é líquida e o CO₂ é gás, se os dois são moléculas pequenas? Porque as moléculas de água se <b>grudam</b> umas nas outras com mais força. Essas "colas" entre moléculas são as forças intermoleculares, e são elas que decidem ponto de ebulição, viscosidade e tensão superficial.</p>
+  <h3>Dentro × entre as moléculas</h3>
+  <div class="fx"><span class="tag">Intra × inter</span><div class="eq">HCl: 431 kJ/mol (dentro) × 16 kJ/mol (entre)</div>
+    <dl class="legend"><dt>intramolecular</dt><dd>a ligação covalente que segura os átomos <b>dentro</b> da molécula (H–Cl)</dd><dt>intermolecular</dt><dd>a atração de uma molécula <b>com a vizinha</b>: muito mais fraca</dd><dt>na prática</dt><dd>ferver a água não quebra H₂O em H e O: só afasta uma molécula da outra. O vapor ainda é H₂O</dd></dl></div>
+  <div class="m1-def">
+    <div><span class="em">🧊</span><b>Sólido</b><span>Moléculas presas num arranjo, só vibram no lugar. Forças vencem a agitação.</span></div>
+    <div><span class="em">💧</span><b>Líquido</b><span>Moléculas juntas mas deslizando umas sobre as outras.</span></div>
+    <div><span class="em">💨</span><b>Gás</b><span>Agitação venceu as forças: moléculas longe, rápidas, batendo nas paredes.</span></div>
+  </div>
+  <p>Aquecer dá energia de agitação; resfriar ou comprimir deixa as forças agirem. Quanto <b>mais forte</b> a força intermolecular, <b>mais calor</b> é preciso para separar as moléculas → <b>maior o ponto de ebulição</b>.</p>
+  <h3>As quatro forças, da mais forte para a mais fraca</h3>
+  <div class="m2-forca">
+    <div class="f1"><b>Íon-dipolo</b><span>Entre um <b>íon</b> e uma molécula <b>polar</b>. É o que dissolve sal na água: o lado δ− do O abraça o Na⁺, o lado δ+ do H abraça o Cl⁻ (hidratação). Quanto mais carga o íon tem, mais forte.</span></div>
+    <div class="f2"><b>Ligação de hidrogênio</b><span>Um H ligado a <b>F, O ou N</b> numa molécula + um par isolado de F, O ou N na vizinha. O H fica tão δ+ que vira quase um próton nu. Água, álcoois, ácidos, amônia, DNA.</span></div>
+    <div class="f3"><b>Dipolo-dipolo</b><span>Entre moléculas <b>polares</b>: o δ+ de uma atrai o δ− da outra. HCl, H₂S, acetona, CH₂Cl₂.</span></div>
+    <div class="f4"><b>Dispersão de London</b><span>Em <b>todas</b> as moléculas, até as apolares. A nuvem de elétrons balança e cria um dipolo de um instante, que induz outro na vizinha. Cresce com o <b>número de elétrons</b> (tamanho) e com a <b>área de contato</b>.</span></div>
+  </div>
+  <div class="ofi"><span class="k">Como descobrir as forças de uma substância</span>
+    <b>1.</b> Tem íon junto de molécula polar? → <b>íon-dipolo</b>.<br>
+    <b>2.</b> Tem H ligado direto a F, O ou N? → <b>ligação de hidrogênio</b> (e as de baixo também).<br>
+    <b>3.</b> A molécula é polar (geometria!)? → <b>dipolo-dipolo</b>.<br>
+    <b>4.</b> Sempre: <b>London</b>. Se a molécula é apolar, é a única.</div>
+
+  <h3>London: maior e mais "esticado" = mais forte</h3>
+  <p><b>Polarizabilidade</b> é a facilidade de deformar a nuvem de elétrons. Átomos grandes, com muitos elétrons longe do núcleo, se deformam fácil → London forte. Por isso, nos halogênios: F₂ e Cl₂ são gases, Br₂ é líquido, I₂ é sólido. E a forma importa: cadeia reta encosta mais na vizinha que cadeia ramificada.</p>
+  <div class="curio">
+    <div><span class="em">🦎</span><b>A lagartixa no teto</b><span>Os pés têm milhões de pelinhos microscópicos. Cada um encosta tão perto da parede que a força de London, somada, segura o animal inteiro.</span></div>
+    <div><span class="em">🛢️</span><b>Graxa e polietileno</b><span>Moléculas apolares gigantes (cadeias de milhares de C): só London, mas tanto contato que viram sólidos e pastas. Óleo lubrificante mais "grosso" = cadeias maiores.</span></div>
+  </div>
+
+  <h3>Ligação de hidrogênio: a anomalia da água</h3>
+  <p>Descendo um grupo, o ponto de ebulição dos hidretos deveria crescer (mais elétrons, mais London). Mas H₂O, HF e NH₃ ficam muito acima do esperado: é a ligação de hidrogênio. Sem ela, a água ferveria perto de −80 °C e não existiria água líquida na Terra.</p>
+  <div class="wid"><h4>Ponto de ebulição dos hidretos</h4><svg viewBox="0 0 520 360" class="m2-fig" role="img" aria-label="Pontos de ebulição dos hidretos dos grupos 14 a 17"><line x1="62" y1="296.6" x2="440" y2="296.6" stroke="currentColor" stroke-opacity=".12"/><text x="56" y="300.6" text-anchor="end" font-size="13" fill="currentColor">-150 °C</text><line x1="62" y1="243.0" x2="440" y2="243.0" stroke="currentColor" stroke-opacity=".12"/><text x="56" y="247.0" text-anchor="end" font-size="13" fill="currentColor">-100 °C</text><line x1="62" y1="189.4" x2="440" y2="189.4" stroke="currentColor" stroke-opacity=".12"/><text x="56" y="193.4" text-anchor="end" font-size="13" fill="currentColor">-50 °C</text><line x1="62" y1="135.9" x2="440" y2="135.9" stroke="currentColor" stroke-opacity=".12"/><text x="56" y="139.9" text-anchor="end" font-size="13" fill="currentColor">0 °C</text><line x1="62" y1="82.3" x2="440" y2="82.3" stroke="currentColor" stroke-opacity=".12"/><text x="56" y="86.3" text-anchor="end" font-size="13" fill="currentColor">50 °C</text><line x1="62" y1="28.7" x2="440" y2="28.7" stroke="currentColor" stroke-opacity=".12"/><text x="56" y="32.7" text-anchor="end" font-size="13" fill="currentColor">100 °C</text><text x="120" y="352" text-anchor="middle" font-size="13" fill="currentColor">período 2</text><text x="220" y="352" text-anchor="middle" font-size="13" fill="currentColor">período 3</text><text x="320" y="352" text-anchor="middle" font-size="13" fill="currentColor">período 4</text><text x="420" y="352" text-anchor="middle" font-size="13" fill="currentColor">período 5</text><polyline points="120,308.4 220,255.9 320,230.1 420,191.6" fill="none" stroke="#8A99AD" stroke-width="3"/><circle cx="120" cy="308.4" r="4" fill="#8A99AD"/><circle cx="220" cy="255.9" r="4" fill="#8A99AD"/><circle cx="320" cy="230.1" r="4" fill="#8A99AD"/><circle cx="420" cy="191.6" r="4" fill="#8A99AD"/><text x="110" y="313.4" text-anchor="end" font-size="14" font-weight="700" fill="#8A99AD">CH₄</text><text x="430" y="196.6" font-size="14" font-weight="700" fill="#8A99AD">SnH₄</text><polyline points="120,171.2 220,230.1 320,202.3 420,154.1" fill="none" stroke="#6447BE" stroke-width="3"/><circle cx="120" cy="171.2" r="6" fill="#6447BE"/><circle cx="220" cy="230.1" r="4" fill="#6447BE"/><circle cx="320" cy="202.3" r="4" fill="#6447BE"/><circle cx="420" cy="154.1" r="4" fill="#6447BE"/><text x="110" y="176.2" text-anchor="end" font-size="14" font-weight="700" fill="#6447BE">NH₃</text><text x="430" y="159.1" font-size="14" font-weight="700" fill="#6447BE">SbH₃</text><polyline points="120,28.7 220,200.1 320,179.8 420,138.0" fill="none" stroke="#1E62C9" stroke-width="3"/><circle cx="120" cy="28.7" r="6" fill="#1E62C9"/><circle cx="220" cy="200.1" r="4" fill="#1E62C9"/><circle cx="320" cy="179.8" r="4" fill="#1E62C9"/><circle cx="420" cy="138.0" r="4" fill="#1E62C9"/><text x="110" y="33.7" text-anchor="end" font-size="14" font-weight="700" fill="#1E62C9">H₂O</text><text x="430" y="143.0" font-size="14" font-weight="700" fill="#1E62C9">H₂Te</text><polyline points="120,114.4 220,226.9 320,207.6 420,173.4" fill="none" stroke="#2A8C46" stroke-width="3"/><circle cx="120" cy="114.4" r="6" fill="#2A8C46"/><circle cx="220" cy="226.9" r="4" fill="#2A8C46"/><circle cx="320" cy="207.6" r="4" fill="#2A8C46"/><circle cx="420" cy="173.4" r="4" fill="#2A8C46"/><text x="110" y="119.4" text-anchor="end" font-size="14" font-weight="700" fill="#2A8C46">HF</text><text x="430" y="178.4" font-size="14" font-weight="700" fill="#2A8C46">HI</text></svg><p class="m2-cap">Cinza: grupo 14 (CH₄…SnH₄), só London, cresce certinho. Roxo: grupo 15 · azul: 16 · verde: 17. No período 2, <b>NH₃, H₂O e HF "furam" a tendência</b>: é a ligação de hidrogênio.</p></div>
+  <div class="curio">
+    <div><span class="em">🧊</span><b>O gelo boia</b><span>No gelo, cada molécula faz 4 ligações de H num retículo aberto, cheio de buracos. O gelo fica menos denso que a água líquida e flutua: os lagos congelam por cima e a vida embaixo sobrevive.</span></div>
+    <div><span class="em">🏗️</span><b>Eflorescência no concreto</b><span>A água da chuva dissolve sais do concreto (íon-dipolo), sobe pelos poros e evapora na superfície, deixando aquelas manchas brancas de sal.</span></div>
+  </div>
+  <h3>Propriedades que as forças explicam</h3>
+  <div class="m1-def">
+    <div><span class="em">🍯</span><b>Viscosidade</b><span>Resistência a escorrer. Forças fortes e moléculas compridas que se enroscam → mais viscoso (mel, óleo). Esquentando, diminui.</span></div>
+    <div><span class="em">🫧</span><b>Tensão superficial</b><span>As moléculas da superfície são puxadas para dentro e formam uma "película". Por isso a gota é redonda e o inseto anda na água.</span></div>
+    <div><span class="em">🧪</span><b>Coesão × adesão</b><span>Coesão: atração entre moléculas iguais. Adesão: com a parede. Água no vidro: adesão vence → menisco côncavo (sobe no canto). Mercúrio: coesão vence → menisco convexo.</span></div>
+  </div>
+  <div class="wid"><h4>Duelo: quem ferve a uma temperatura maior?</h4><p>Toque na substância de ponto de ebulição mais alto. Eu só digo se está certo; o porquê aparece se você pedir.</p>
+    <div class="m2-du" id="m2Du"><div class="m2-duq" id="m2DuQ"></div><div class="m2-dur" id="m2DuR"></div>
+    <div class="dinch" style="margin-top:10px"><button id="m2DuW" hidden>Por quê?</button><button id="m2DuN">Próximo →</button><span class="m2-dus">Acertos: <b id="m2DuS">0 de 0</b></span></div>
+    <div class="wout" id="m2DuX" hidden></div></div></div>
+  <div class="ex" data-ex data-q="qg-m2-11"><div class="q">Quais forças intermoleculares existem em cada caso: a) CH₄; b) HCl; c) H₂O; d) NaCl dissolvido em água?</div>
+    <ol><li>a) CH₄: tetraédrico com 4 C–H iguais → apolar → <b>só London</b>.</li><li>b) HCl: ligação polar, molécula polar, mas o H está ligado a Cl (não é F, O, N) → <b>dipolo-dipolo + London</b>.</li><li>c) H₂O: H ligado a O → <b>ligação de hidrogênio</b> + dipolo-dipolo + London.</li><li>d) Íons Na⁺ e Cl⁻ cercados de água polar → <b>íon-dipolo</b> (e, entre as águas, ligação de H).</li></ol>
+    <div class="ans">London · dipolo-dipolo · ligação de H · íon-dipolo</div></div>
+  <p class="m3-irp"><a class="m3-ir" href="#ed2">questões 11 e 14 a 17 do Estudo Dirigido 2 →</a></p>
+  <div class="done-btn" data-done="intermol"></div>
+</section>
+
+<!-- ============ M2 · ESTUDO DIRIGIDO 2 ============ -->
+<section class="view read" id="v-ed2" hidden>
+  <div class="eyebrow">Módulo 2 · Lista da professora</div>
+  <h2>Estudo Dirigido 2 resolvido</h2>
+  <p class="lede">As 17 questões do 2º Estudo Dirigido, passo a passo, no jeito do quadro. Cada bloco tem um atalho para a aula daquele assunto. Tente antes de abrir.</p>
+
+  <h3 data-q="1">Questão 1 · Símbolos de Lewis</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#ligacoes">ver a aula →</a></p>
+  <div class="ex" data-ex data-q="qg-e2-01"><div class="q">Qual é o símbolo de Lewis para cada um dos seguintes átomos ou íons: (a) K (b) S (c) Al³⁺ (d) As³⁻?</div>
+    <ol><li>a) K = [Ar] 4s¹ → 1 elétron de valência → K·</li><li>b) S = [Ne] 3s² 3p⁴ → 6 → 2 pares + 2 sozinhos</li><li>c) Al = [Ne] 3s² 3p¹ → perde os 3 → [Ne]: sem pontos, [Al]³⁺</li><li>d) As = [Ar] 3d¹⁰ 4s² 4p³ (5) + 3 ganhos = 8 → [As com 8 pontos]³⁻</li></ol>
+    <div class="ans">K· · S com 6 · [Al]³⁺ sem pontos · [As]³⁻ com 8</div></div>
+  <div class="m2-lw"><span class="m2-s" data-lw="K"></span><span class="m2-s" data-lw="S"></span><span class="m2-s" data-lw="Al3"></span><span class="m2-s" data-lw="As3"></span></div>
+
+  <h3 data-q="2">Questão 2 · Fórmula mínima dos sais</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#ligacoes">praticar no montador de sais →</a></p>
+  <div class="tbl"><table><tr><th></th><th>Íons</th><th>Cruzando</th><th>Fórmula</th><th></th><th>Íons</th><th>Cruzando</th><th>Fórmula</th></tr>
+    <tr><td>a</td><td>Cu⁺ e O²⁻</td><td>Cu₂O₁</td><td><b>Cu₂O</b></td><td>j</td><td>Re⁴⁺ e S²⁻</td><td>Re₂S₄ ÷ 2</td><td><b>ReS₂</b></td></tr>
+    <tr><td>b</td><td>Cr³⁺ e Br⁻</td><td>Cr₁Br₃</td><td><b>CrBr₃</b></td><td>k</td><td>V⁵⁺ e N³⁻</td><td>V₃N₅</td><td><b>V₃N₅</b></td></tr>
+    <tr><td>c</td><td>Ca²⁺ e H⁻</td><td>Ca₁H₂</td><td><b>CaH₂</b></td><td>l</td><td>Co²⁺ e P³⁻</td><td>Co₃P₂</td><td><b>Co₃P₂</b></td></tr>
+    <tr><td>d</td><td>Cu²⁺ e Br⁻</td><td>Cu₁Br₂</td><td><b>CuBr₂</b></td><td>m</td><td>Cr⁶⁺ e O²⁻</td><td>Cr₂O₆ ÷ 2</td><td><b>CrO₃</b></td></tr>
+    <tr><td>e</td><td>Mn⁴⁺ e O²⁻</td><td>Mn₂O₄ ÷ 2</td><td><b>MnO₂</b></td><td>n</td><td>Nb⁵⁺ e S²⁻</td><td>Nb₂S₅</td><td><b>Nb₂S₅</b></td></tr>
+    <tr><td>f</td><td>Pd⁴⁺ e S²⁻</td><td>Pd₂S₄ ÷ 2</td><td><b>PdS₂</b></td><td>o</td><td>Mn²⁺ e Se²⁻</td><td>Mn₂Se₂ ÷ 2</td><td><b>MnSe</b></td></tr>
+    <tr><td>g</td><td>Sr²⁺ e Se²⁻</td><td>Sr₂Se₂ ÷ 2</td><td><b>SrSe</b></td><td>p</td><td>U⁵⁺ e I⁻</td><td>U₁I₅</td><td><b>UI₅</b></td></tr>
+    <tr><td>h</td><td>Fe²⁺ e Cl⁻</td><td>Fe₁Cl₂</td><td><b>FeCl₂</b></td><td>q</td><td>Hg⁺ e S²⁻</td><td>Hg₂S₁</td><td><b>Hg₂S</b></td></tr>
+    <tr><td>i</td><td>Ga³⁺ e N³⁻</td><td>Ga₃N₃ ÷ 3</td><td><b>GaN</b></td><td>r</td><td>Hg²⁺ e S²⁻</td><td>Hg₂S₂ ÷ 2</td><td><b>HgS</b></td></tr></table></div>
+  <div class="ex" data-ex data-q="qg-e2-02"><div class="q">Escreva a fórmula mínima dos sais formados pelos íons: (a) Cu⁺ e O²⁻ (b) Cr³⁺ e Br⁻ (c) Ca²⁺ e H⁻ (d) Br⁻ e Cu²⁺ (e) Mn⁴⁺ e O²⁻ (f) Pd⁴⁺ e S²⁻ (g) Se²⁻ e Sr²⁺ (h) Fe²⁺ e Cl⁻ (i) Ga³⁺ e N³⁻ (j) Re⁴⁺ e S²⁻ (k) V⁵⁺ e N³⁻ (l) P³⁻ e Co²⁺ (m) Cr⁶⁺ e O²⁻ (n) Nb⁵⁺ e S²⁻ (o) Mn²⁺ e Se²⁻ (p) I⁻ e U⁵⁺ (q) S²⁻ e Hg⁺ (r) Hg²⁺ e S²⁻</div>
+    <ol><li>Escreva sempre o <b>cátion primeiro</b>, mesmo quando o enunciado dá o ânion antes (d, g, l, p, q).</li><li>Cruze: a carga de um vira o índice do outro.</li><li>Simplifique quando os dois índices dividem pelo mesmo número (e, f, g, i, j, m, o, r).</li><li>Confira: soma das cargas = 0. Ex. k) 3 × (+5) + 5 × (−3) = 0 ✓</li></ol>
+    <div class="ans">a Cu₂O · b CrBr₃ · c CaH₂ · d CuBr₂ · e MnO₂ · f PdS₂ · g SrSe · h FeCl₂ · i GaN · j ReS₂ · k V₃N₅ · l Co₃P₂ · m CrO₃ · n Nb₂S₅ · o MnSe · p UI₅ · q Hg₂S · r HgS</div></div>
+
+  <h3 data-q="3">Questão 3 · Energia de rede</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#ligacoes">ver a aula →</a></p>
+  <div class="ex" data-ex data-q="qg-e2-03"><div class="q">(a) A energia de rede de um sólido iônico aumenta ou diminui (i) quando as cargas dos íons aumentam; (ii) quando os tamanhos dos íons aumentam? (b) Usando uma tabela periódica, ordene as seguintes substâncias de acordo com suas expectativas de energia de rede, listando-as em ordem crescente: LiCl, NaBr, RbBr, MgO.</div>
+    <ol><li>E = κQ₁Q₂/d. (i) Q maior → E <b>aumenta</b>. (ii) íon maior → d maior → E <b>diminui</b>.</li><li>b) MgO é o único com cargas +2 e −2 → maior de todos.</li><li>Os outros são +1 e −1: decide o tamanho. LiCl tem os menores íons (Li⁺ e Cl⁻) → maior entre eles.</li><li>NaBr × RbBr: mesmo Br⁻; Rb⁺ é maior que Na⁺ → RbBr tem a menor.</li></ol>
+    <div class="ans">(i) aumenta · (ii) diminui · RbBr &lt; NaBr &lt; LiCl &lt; MgO</div></div>
+
+  <h3 data-q="4">Questão 4 · Formação dos compostos iônicos</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#ligacoes">ver a aula →</a></p>
+  <div class="ex" data-ex data-q="qg-e2-04"><div class="q">Utilizando as estruturas de Lewis, faça o desenho da formação dos compostos iônicos a partir da combinação dos seguintes elementos e indique a fórmula mínima de cada um: (a) Li e Cl; (b) Na e O; (c) Ca e Br; (d) K e F.</div>
+    <ol><li>a) Li tem 1 para dar, Cl precisa de 1 → 1 : 1 → <b>LiCl</b></li><li>b) Na dá 1, O precisa de 2 → 2 Na para 1 O → <b>Na₂O</b></li><li>c) Ca dá 2, cada Br aceita 1 → 1 Ca para 2 Br → <b>CaBr₂</b></li><li>d) K dá 1, F precisa de 1 → <b>KF</b></li></ol>
+    <div class="ans">LiCl · Na₂O · CaBr₂ · KF</div></div>
+  <div class="m2-lw col"><span class="m2-s" data-lw="fLiCl"></span><span class="m2-s" data-lw="fNa2O"></span><span class="m2-s" data-lw="fCaBr2"></span><span class="m2-s" data-lw="fKF"></span></div>
+
+  <h3 data-q="5">Questão 5 · Tendências na energia de rede</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#ligacoes">ver a aula →</a></p>
+  <div class="ex" data-ex data-q="qg-e2-05"><div class="q">Explique as seguintes tendências na energia de rede: (a) MgO &gt; MgCl₂ (b) NaCl &gt; RbBr &gt; CsBr (c) BaO &gt; KF</div>
+    <ol><li>a) Mesmo cátion Mg²⁺. O²⁻ tem carga 2− (Cl⁻ só 1−) e ainda é menor → Q maior e d menor → MgO maior.</li><li>b) Todos +1/−1. Os íons crescem: Na⁺ &lt; Rb⁺ &lt; Cs⁺ e Cl⁻ &lt; Br⁻ → d cresce → energia cai.</li><li>c) BaO: cargas +2 e −2 (produto 4). KF: +1 e −1 (produto 1). Mesmo o Ba²⁺ sendo grande, a carga 4 vezes maior manda.</li></ol>
+    <div class="ans">a) carga maior e íon menor · b) mesma carga, íons cada vez maiores · c) a carga pesa mais que o tamanho</div></div>
+
+  <h3 data-q="6">Questão 6 · Estruturas de Lewis</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#covalente">ver os 5 passos →</a></p>
+  <div class="tbl"><table><tr><th></th><th>Espécie</th><th>Elétrons de valência</th><th>Central</th><th>Resumo</th></tr>
+    <tr><td>a</td><td>H₂O</td><td>2 × 1 + 6 = 8</td><td>O</td><td>2 ligações + 2 pares no O</td></tr>
+    <tr><td>b</td><td>NH₃</td><td>5 + 3 × 1 = 8</td><td>N</td><td>3 ligações + 1 par no N</td></tr>
+    <tr><td>c</td><td>PCl₃</td><td>5 + 3 × 7 = 26</td><td>P</td><td>3 P–Cl, 1 par no P, 3 pares em cada Cl</td></tr>
+    <tr><td>d</td><td>CO₂</td><td>4 + 2 × 6 = 16</td><td>C</td><td>O=C=O</td></tr>
+    <tr><td>e</td><td>CO₃H₂ (H₂CO₃)</td><td>2 + 4 + 18 = 24</td><td>C</td><td>C=O e duas C–O–H</td></tr>
+    <tr><td>f</td><td>CSN⁻</td><td>6 + 4 + 5 + 1 = 16</td><td>C</td><td>[S=C=N]⁻</td></tr>
+    <tr><td>g</td><td>CH₃Cl</td><td>4 + 3 + 7 = 14</td><td>C</td><td>4 ligações simples</td></tr>
+    <tr><td>h</td><td>CN⁻</td><td>4 + 5 + 1 = 10</td><td>—</td><td>[:C≡N:]⁻</td></tr>
+    <tr><td>i</td><td>CH₂Cl₂</td><td>4 + 2 + 14 = 20</td><td>C</td><td>4 ligações simples</td></tr>
+    <tr><td>j</td><td>H₂S</td><td>2 + 6 = 8</td><td>S</td><td>igual à água</td></tr>
+    <tr><td>k</td><td>CO₃²⁻</td><td>4 + 18 + 2 = 24</td><td>C</td><td>1 C=O + 2 C–O⁻ (ressonância)</td></tr>
+    <tr><td>l</td><td>COCl₂</td><td>4 + 6 + 14 = 24</td><td>C</td><td>C=O e duas C–Cl</td></tr></table></div>
+  <div class="m2-lw"><span class="m2-s" data-lw="H2O"></span><span class="m2-s" data-lw="NH3"></span><span class="m2-s" data-lw="PCl3"></span><span class="m2-s" data-lw="CO2"></span><span class="m2-s" data-lw="H2CO3"></span><span class="m2-s" data-lw="SCN"></span><span class="m2-s" data-lw="CH3Cl"></span><span class="m2-s" data-lw="CN"></span><span class="m2-s" data-lw="CH2Cl2"></span><span class="m2-s" data-lw="H2S"></span><span class="m2-s" data-lw="CO3"></span><span class="m2-s" data-lw="COCl2"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-06a"><div class="q">Desenhe a estrutura de Lewis para as espécies abaixo, desconsiderando a expansão do octeto: (a) H₂O (b) NH₃ (c) PCl₃ (d) CO₂ (e) CO₃H₂ (f) CSN⁻</div>
+    <ol><li>a) 8 e⁻: H–O–H gasta 4, sobram 4 → 2 pares no O.</li><li>b) 8 e⁻: 3 N–H gastam 6, sobra 1 par no N.</li><li>c) 26 e⁻: 3 P–Cl gastam 6; 3 pares em cada Cl gastam 18; sobram 2 → 1 par no P.</li><li>d) 16 e⁻: O=C=O (veja o exemplo da aula).</li><li>e) 24 e⁻: o C no centro com 3 O; 2 desses O seguram um H cada. Com só simples o C fica com 6 → 1 par de um O vira dupla: C=O.</li><li>f) 16 e⁻: S–C–N gasta 4; completando S e N gasta 12; C fica com 4 → duas duplas S=C=N. Carga formal: S 0, C 0, N −1 (o negativo fica no N, mais eletronegativo) ✓</li></ol>
+    <div class="ans">Veja os desenhos acima (a a f)</div></div>
+  <div class="ex" data-ex data-q="qg-e2-06b"><div class="q">Desenhe a estrutura de Lewis para as espécies abaixo, desconsiderando a expansão do octeto: (g) CH₃Cl (h) CN⁻ (i) CH₂Cl₂ (j) H₂S (k) CO₃²⁻ (l) COCl₂</div>
+    <ol><li>g) 14 e⁻: 4 ligações no C gastam 8; sobram 6 → 3 pares no Cl.</li><li>h) 10 e⁻: C–N gasta 2; completar dá falta → tripla C≡N e 1 par em cada → [:C≡N:]⁻.</li><li>i) 20 e⁻: 4 ligações (8) + 3 pares em cada Cl (12).</li><li>j) 8 e⁻: igual à água, S no lugar do O.</li><li>k) 24 e⁻: 3 C–O gastam 6; 3 pares em cada O gastam 18; o C fica com 6 → 1 dupla. Como a dupla pode estar em qualquer O: 3 formas de ressonância, entre colchetes com 2−.</li><li>l) 24 e⁻: C central, C=O e 2 C–Cl (a dupla vai para o O: carga formal 0 em todos).</li></ol>
+    <div class="ans">Veja os desenhos acima (g a l)</div></div>
+
+  <h3 data-q="7">Questão 7 · Carga formal</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#covalente">ver a aula →</a></p>
+  <div class="m2-lw"><span class="m2-s" data-lw="O3"></span><span class="m2-s" data-lw="NH4"></span><span class="m2-s" data-lw="NO2"></span><span class="m2-s" data-lw="CCl4"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-07"><div class="q">Calcule a carga formal no átomo indicado em cada uma das seguintes moléculas ou íons: (a) do átomo central de O em O₃ (b) do nitrogênio em NH₄⁺ (c) do nitrogênio em NO₂⁻ (d) do carbono em CCl₄.</div>
+    <ol><li>CF = EV − ENL − EL/2</li><li>a) O central: 1 dupla + 1 simples (6 ligantes) e 1 par (2 não ligantes) → 6 − 2 − 3 = <b>+1</b></li><li>b) N: 4 ligações (8 ligantes), sem pares → 5 − 0 − 4 = <b>+1</b></li><li>c) N: 1 dupla + 1 simples (6) e 1 par (2) → 5 − 2 − 3 = <b>0</b></li><li>d) C: 4 ligações (8), sem pares → 4 − 0 − 4 = <b>0</b></li></ol>
+    <div class="ans">O em O₃: +1 · N em NH₄⁺: +1 · N em NO₂⁻: 0 · C em CCl₄: 0</div></div>
+
+  <h3 data-q="8">Questão 8 · ΔH pelas entalpias de ligação</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#covalente">ver a aula →</a></p>
+  <div class="ofi"><span class="k">Valores do slide (kJ/mol)</span>C–H 413 · C=C 614 · O–O 146 · C–O 358 · O–H 463 · C=O 799 · N–Cl 200 · C≡N 891 · Cl–Cl 242 · C–C 348 · N≡N 941</div>
+  <div class="ex" data-ex data-q="qg-e2-08a"><div class="q">Usando as entalpias de ligação, determine o ΔH da reação em fase gasosa (a) H₂C=CH₂ + H–O–O–H → HO–CH₂–CH₂–OH</div>
+    <ol><li>O que muda: a C=C vira C–C e a O–O se rompe; cada O se liga a um C (2 C–O novas). As 4 C–H e as 2 O–H continuam.</li><li>Rompidas: C=C + O–O = 614 + 146 = 760 kJ</li><li>Formadas: C–C + 2 C–O = 348 + 2 × 358 = 1064 kJ</li><li>ΔH = 760 − 1064 = −304 kJ</li></ol>
+    <div class="ans">ΔH = −304 kJ (exotérmica)</div></div>
+  <div class="ex" data-ex data-q="qg-e2-08b"><div class="q">Usando as entalpias de ligação, determine o ΔH da reação em fase gasosa (b) H₂C=CH₂ + H–C≡N → H₃C–CH₂–C≡N</div>
+    <ol><li>O que muda: a C=C vira C–C; o H do HCN sai do C e vai para um C do eteno; o C do CN se liga ao outro C (C–C nova). A C≡N passa intacta.</li><li>Rompidas: C=C + C–H (do HCN) = 614 + 413 = 1027 kJ</li><li>Formadas: C–C (da dupla) + C–C (com o CN) + C–H (nova) = 348 + 348 + 413 = 1109 kJ</li><li>ΔH = 1027 − 1109 = −82 kJ</li></ol>
+    <div class="ans">ΔH = −82 kJ (exotérmica)</div></div>
+  <div class="ex" data-ex data-q="qg-e2-08c"><div class="q">Usando as entalpias de ligação, determine o ΔH da reação em fase gasosa (c) 2 NCl₃ → N₂ + 3 Cl₂</div>
+    <ol><li>Rompidas: cada NCl₃ tem 3 N–Cl; são 2 → 6 × 200 = 1200 kJ</li><li>Formadas: 1 N≡N + 3 Cl–Cl = 941 + 3 × 242 = 1667 kJ</li><li>ΔH = 1200 − 1667 = −467 kJ</li></ol>
+    <div class="ans">ΔH = −467 kJ (exotérmica)</div></div>
+
+  <h3 data-q="9">Questão 9 · Qual reação é mais exotérmica?</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#covalente">ver a aula →</a></p>
+  <div class="ofi"><span class="k">Valores da Tabela 8.4 do livro (kJ/mol)</span>C–F 485 · F–F 155 · C≡O 1072 · C=O 799 · O–F 190. O enunciado escreve CO(s), mas é CO gasoso.</div>
+  <div class="ex" data-ex data-q="qg-e2-09"><div class="q">(a) Usando os valores de entalpia média de ligação, determine qual das seguintes reações será mais exotérmica: (i) C(g) + 2F₂(g) → CF₄(g) (ii) CO(g) + 3F₂(g) → CF₄(g) + OF₂(g) (iii) CO₂(g) + 4F₂(g) → CF₄(g) + 2OF₂(g). (b) Explique a tendência, se houver alguma, que existe entre a quantidade de calor liberado e a extensão na qual o átomo de carbono está ligado ao oxigênio.</div>
+    <ol><li>(i) rompe 2 F–F = 310; forma 4 C–F = 1940 → ΔH = −1630 kJ</li><li>(ii) rompe C≡O + 3 F–F = 1072 + 465 = 1537; forma 4 C–F + 2 O–F = 1940 + 380 = 2320 → ΔH = −783 kJ</li><li>(iii) rompe 2 C=O + 4 F–F = 1598 + 620 = 2218; forma 4 C–F + 4 O–F = 1940 + 760 = 2700 → ΔH = −482 kJ</li><li>b) Quanto mais o C está ligado ao O no reagente, mais energia se gasta quebrando essas ligações fortes antes de formar as C–F → menos calor sobra.</li></ol>
+    <div class="ans">(i) é a mais exotérmica (−1630 kJ) · mais ligação C–O no reagente → menos calor liberado</div></div>
+
+  <h3 data-q="10">Questão 10 · Arranjo e geometria</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#geometria">ver a aula e o modelo 3D →</a></p>
+  <div class="tbl"><table><tr><th></th><th>Espécie</th><th>e⁻</th><th>Domínios no central</th><th>Arranjo</th><th>Geometria</th></tr>
+    <tr><td>a</td><td>H₃O⁺</td><td>8</td><td>3 ligações + 1 par = 4</td><td>tetraédrico</td><td><b>piramidal</b> (≈ 107°)</td></tr>
+    <tr><td>b</td><td>SCN⁻</td><td>16</td><td>2 ligações (duplas) = 2</td><td>linear</td><td><b>linear</b> (180°)</td></tr>
+    <tr><td>c</td><td>CS₂</td><td>16</td><td>2 duplas = 2</td><td>linear</td><td><b>linear</b> (180°)</td></tr>
+    <tr><td>d</td><td>SO₃</td><td>24</td><td>3 ligações = 3</td><td>trigonal plano</td><td><b>trigonal plana</b> (120°)</td></tr>
+    <tr><td>e</td><td>N₂O</td><td>16</td><td>2 duplas = 2</td><td>linear</td><td><b>linear</b> (180°)</td></tr></table></div>
+  <div class="m2-lw"><span class="m2-s" data-lw="gH3O"></span><span class="m2-s" data-lw="SCNfc"></span><span class="m2-s" data-lw="CS2"></span><span class="m2-s" data-lw="SO3"></span><span class="m2-s" data-lw="N2O"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-10"><div class="q">Desenhe a estrutura de Lewis para cada um dos seguintes íons ou moléculas e determine seu arranjo e sua geometria molecular: (a) H₃O⁺ (b) SCN⁻ (c) CS₂ (d) SO₃ (e) N₂O</div>
+    <ol><li>a) 3 × 1 + 6 − 1 = 8 e⁻. O com 3 ligações e 1 par → 4 domínios → tetraédrico; olhando só os átomos → piramidal.</li><li>b) e c) 16 e⁻, central C com duas duplas e nenhum par → 2 domínios → linear e linear.</li><li>d) 24 e⁻: S com 1 dupla e 2 simples (ressonância), nenhum par no S → 3 domínios → trigonal plana.</li><li>e) 16 e⁻: N central, N=N=O, nenhum par no central → linear.</li></ol>
+    <div class="ans">H₃O⁺ tetraédrico/piramidal · SCN⁻, CS₂ e N₂O lineares · SO₃ trigonal plana</div></div>
+
+  <h3 data-q="11">Questão 11 · Polaridade e ponto de ebulição</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#intermol">ver a aula →</a></p>
+  <div class="m2-lw"><span class="m2-s" data-lw="H2O"></span><span class="m2-s" data-lw="CH3OH"></span><span class="m2-s" data-lw="etanol"></span><span class="m2-s" data-lw="propanol"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-11a"><div class="q">(I) H₂O, CH₃OH, CH₃CH₂OH, CH₃CH₂CH₂OH: (a) desenhe as estruturas de Lewis e coloque em ordem crescente de polaridade, justificando; (b) coloque em ordem de temperatura de ebulição, justificando.</div>
+    <ol><li>a) Todas têm o O–H polar. A cada C que entra, cresce a parte apolar (C–H) e a molécula fica "menos polar" no geral.</li><li>Polaridade crescente: CH₃CH₂CH₂OH &lt; CH₃CH₂OH &lt; CH₃OH &lt; H₂O.</li><li>b) Todas fazem ligação de H. Nos álcoois, cadeia maior → mais London → ferve mais alto. A água ferve mais que todos: cada molécula faz até 4 ligações de H (2 H + 2 pares).</li><li>PE crescente: CH₃OH (65 °C) &lt; CH₃CH₂OH (78 °C) &lt; CH₃CH₂CH₂OH (97 °C) &lt; H₂O (100 °C).</li></ol>
+    <div class="ans">Polaridade: propanol &lt; etanol &lt; metanol &lt; água · PE: metanol &lt; etanol &lt; propanol &lt; água</div></div>
+  <div class="m2-lw"><span class="m2-s" data-lw="CH3OH"></span><span class="m2-s" data-lw="CH3SH"></span><span class="m2-s" data-lw="CH3SeH"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-11b"><div class="q">(II) CH₃OH, CH₃SH, CH₃SeH: ordem crescente de polaridade e ordem de temperatura de ebulição, justificando.</div>
+    <ol><li>a) A diferença está em O, S ou Se ligado ao H. Eletronegatividade: O (3,5) &gt; S (2,5) &gt; Se (2,4) → a ligação com o O é a mais polar.</li><li>Polaridade crescente: CH₃SeH &lt; CH₃SH &lt; CH₃OH.</li><li>b) Só o CH₃OH faz ligação de H (O na lista F, O, N) → o maior PE. Entre CH₃SH e CH₃SeH (só dipolo-dipolo + London), o Se é maior e tem mais elétrons → London mais forte.</li><li>PE crescente: CH₃SH (6 °C) &lt; CH₃SeH (25 °C) &lt; CH₃OH (65 °C).</li></ol>
+    <div class="ans">Polaridade: CH₃SeH &lt; CH₃SH &lt; CH₃OH · PE: CH₃SH &lt; CH₃SeH &lt; CH₃OH</div></div>
+  <div class="m2-lw"><span class="m2-s" data-lw="CH4"></span><span class="m2-s" data-lw="NH3"></span><span class="m2-s" data-lw="H2O"></span><span class="m2-s" data-lw="HF"></span><span class="m2-s" data-lw="PH3"></span><span class="m2-s" data-lw="NH4"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-11c"><div class="q">(III) NH₃, HF, H₂O, CH₄: ordem crescente de polaridade e ordem de temperatura de ebulição, justificando.</div>
+    <ol><li>a) CH₄ é tetraédrico e simétrico → apolar. Nos outros, o H se liga a N (3,0), O (3,5) e F (4,0): quanto maior a diferença de eletronegatividade, mais polar.</li><li>Polaridade crescente: CH₄ &lt; NH₃ &lt; H₂O &lt; HF (medindo, H₂O e HF dão quase o mesmo μ, ≈ 1,8 D).</li><li>b) CH₄ só tem London → o mais baixo. Os outros três fazem ligação de H. A água faz mais ligações de H por molécula (2 H e 2 pares) que o HF (1 H) e a NH₃ (só 1 par) → a água é a mais alta.</li><li>PE crescente: CH₄ (−161 °C) &lt; NH₃ (−33 °C) &lt; HF (20 °C) &lt; H₂O (100 °C).</li></ol>
+    <div class="ans">Polaridade: CH₄ &lt; NH₃ &lt; H₂O &lt; HF · PE: CH₄ &lt; NH₃ &lt; HF &lt; H₂O</div></div>
+  <div class="ex" data-ex data-q="qg-e2-11d"><div class="q">(IV) NH₃, PH₃, NH₄⁺: ordem crescente de polaridade e ordem de temperatura de ebulição, justificando.</div>
+    <ol><li>a) NH₄⁺ é tetraédrico com 4 N–H iguais → os dipolos se cancelam (μ = 0, apesar de ser um íon). PH₃ e NH₃ são piramidais; o P (2,1) quase não difere do H (2,1) → PH₃ pouco polar; N (3,0) → NH₃ bem polar.</li><li>Polaridade crescente: NH₄⁺ &lt; PH₃ &lt; NH₃.</li><li>b) PH₃ só tem dipolo-dipolo fraco + London → o mais baixo. NH₃ faz ligação de H. O NH₄⁺ não existe sozinho: aparece em sais (NH₄Cl), sólidos iônicos presos por atração entre íons → o mais alto de todos.</li><li>PE crescente: PH₃ (−88 °C) &lt; NH₃ (−33 °C) &lt; NH₄⁺ (sal sólido).</li></ol>
+    <div class="ans">Polaridade: NH₄⁺ &lt; PH₃ &lt; NH₃ · PE: PH₃ &lt; NH₃ &lt; NH₄⁺</div></div>
+
+  <h3 data-q="12">Questão 12 · Forma e ponto de ebulição</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#geometria">ver o modelo 3D →</a></p>
+  <div class="m2-lw"><span class="m2-s" data-lw="gBF3"></span><span class="m2-s" data-lw="gClF3"></span><span class="m2-s" data-lw="gSF4"></span><span class="m2-s" data-lw="gCF4"></span><span class="m2-s" data-lw="gSO2"></span><span class="m2-s" data-lw="gCO2"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-12"><div class="q">Use a teoria VSEPR para predizer as formas de cada uma das seguintes moléculas. Identifique, em cada par, o composto de ponto de ebulição mais alto: (a) BF₃ ou ClF₃ (b) SF₄ ou CF₄ (c) SO₂ ou CO₂</div>
+    <ol><li>a) BF₃: 3 domínios, 0 par → trigonal plana, apolar. ClF₃: 5 domínios (3 + 2 pares) → forma de T, polar. → <b>ClF₃</b> (dipolo-dipolo).</li><li>b) SF₄: 5 domínios (4 + 1 par) → gangorra, polar. CF₄: 4 domínios → tetraédrica, apolar. → <b>SF₄</b>.</li><li>c) SO₂: 3 domínios (2 + 1 par) → angular, polar. CO₂: 2 domínios → linear, apolar. → <b>SO₂</b>.</li><li>Em cada par, o polar soma dipolo-dipolo ao London → ferve mais alto.</li></ol>
+    <div class="ans">ClF₃ (T) · SF₄ (gangorra) · SO₂ (angular): os polares fervem mais alto</div></div>
+
+  <h3 data-q="13">Questão 13 · Diclorobenzeno</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#geometria">ver a aula →</a></p>
+  <div class="m2-lw"><span class="m2-s" data-lw="BENZ"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-13"><div class="q">O diclorobenzeno, C₆H₄Cl₂, existe em três diferentes formas (isômeros) chamadas orto, meta e para. Qual dessas teria um momento de dipolo diferente de zero? Explique.</div>
+    <ol><li>O anel é plano e hexagonal. Cada C–Cl é uma seta apontando para o Cl.</li><li>Orto (Cl vizinhos, 60° entre as setas): as setas somam → μ ≠ 0.</li><li>Meta (120° entre as setas): ainda sobra resultante → μ ≠ 0.</li><li>Para (lados opostos, 180°): setas iguais e opostas se anulam → μ = 0.</li></ol>
+    <div class="ans">Orto e meta têm μ ≠ 0 · para é apolar</div></div>
+
+  <h3 data-q="14">Questão 14 · Forças a romper</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#intermol">ver a aula →</a></p>
+  <div class="m2-lw"><span class="m2-s" data-lw="Br2"></span><span class="m2-s" data-lw="CH3OH"></span><span class="m2-s" data-lw="H2S"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-14"><div class="q">Descreva as forças intermoleculares que devem ser rompidas para se converter cada um dos itens seguintes de um líquido para um gás: (a) Br₂; (b) CH₃OH; (c) H₂S.</div>
+    <ol><li>a) Br₂: dois átomos iguais → apolar → só <b>London</b>.</li><li>b) CH₃OH: tem O–H → <b>ligação de hidrogênio</b> (a principal), além de dipolo-dipolo e London.</li><li>c) H₂S: angular e polar, mas S não é F, O ou N → <b>dipolo-dipolo</b> + London.</li></ol>
+    <div class="ans">Br₂: London · CH₃OH: ligação de H (+ dipolo e London) · H₂S: dipolo-dipolo + London</div></div>
+
+  <h3 data-q="15">Questão 15 · Racionalizando pontos de ebulição</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#intermol">ver a aula →</a></p>
+  <div class="ex" data-ex data-q="qg-e2-15"><div class="q">Racionalize a diferença em pontos de ebulição entre os membros dos seguintes pares de substâncias: (a) HF (20 °C) e HCl (−85 °C); (b) CHCl₃ (61 °C) e CHBr₃ (150 °C); (c) C₃H₈ (−42 °C) e C₄H₁₀ (−1 °C); (d) CH₃COOH (98 °C) e CH₃COCH₃ (56 °C).</div>
+    <ol><li>a) HF faz ligação de H (H–F); HCl só dipolo-dipolo → HF bem mais alto.</li><li>b) Mesma forma, ambos polares. Br é maior, com mais elétrons → nuvem mais polarizável → London mais forte → CHBr₃ mais alto.</li><li>c) Os dois são apolares (só London). Butano tem 1 C a mais: mais elétrons e mais superfície → mais alto.</li><li>d) Ácido acético tem O–H → ligação de H (forma até pares de moléculas). Acetona tem C=O polar mas nenhum H em O → só dipolo-dipolo → ácido mais alto.</li></ol>
+    <div class="ans">a) ligação de H · b) London (Br maior) · c) London (cadeia maior) · d) ligação de H no ácido</div></div>
+
+  <h3 data-q="16">Questão 16 · Propanol × isopropanol</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#intermol">ver a aula →</a></p>
+  <div class="ex" data-ex data-q="qg-e2-16"><div class="q">O álcool propílico (CH₃CH₂CH₂OH) e o álcool isopropílico [(CH₃)₂CHOH] têm pontos de ebulição de 97,2 °C e 82,5 °C, respectivamente. Explique por que o ponto de ebulição do álcool propílico é mais alto apesar de ambos terem a fórmula molecular C₃H₈O.</div>
+    <ol><li>Os dois fazem ligação de H (os dois têm O–H) e têm o mesmo número de elétrons.</li><li>A diferença é a <b>forma</b>: o propílico é uma cadeia reta, comprida; o isopropílico é ramificado, mais compacto (quase uma bola).</li><li>Cadeia reta encosta mais na vizinha → mais área de contato → London mais forte. No isopropílico o OH também fica mais "escondido" entre os CH₃, atrapalhando a ligação de H.</li></ol>
+    <div class="ans">Cadeia reta = mais contato = forças maiores → propílico ferve mais alto</div></div>
+
+  <h3 data-q="17">Questão 17 · Quem faz ligação de hidrogênio?</h3>
+  <p class="m3-irp"><a class="m3-ir" href="#intermol">ver a aula →</a></p>
+  <div class="m2-lw"><span class="m2-s" data-lw="CH3F"></span><span class="m2-s" data-lw="CH3NH2"></span><span class="m2-s" data-lw="CH3OH"></span><span class="m2-s" data-lw="CH3Br"></span></div>
+  <div class="ex" data-ex data-q="qg-e2-17"><div class="q">Quais das seguintes moléculas podem formar ligações de hidrogênio com outras moléculas do mesmo tipo: CH₃F, CH₃NH₂, CH₃OH, CH₃Br?</div>
+    <ol><li>Regra: precisa de um H ligado <b>diretamente</b> a F, O ou N.</li><li>CH₃F: tem F, mas os H estão no C → <b>não</b>.</li><li>CH₃NH₂: tem N–H → <b>sim</b>.</li><li>CH₃OH: tem O–H → <b>sim</b>.</li><li>CH₃Br: Br não está na lista e os H estão no C → <b>não</b>.</li></ol>
+    <div class="ans">CH₃NH₂ e CH₃OH</div></div>
+  <div class="done-btn" data-done="ed2"></div>
 </section>
 
 <!-- ============ 1 REAÇÕES ============ -->
@@ -1760,6 +2214,15 @@ body{font-size:1rem}
     <div class="fx"><span class="tag">Hund · Pauli</span><div class="eq" style="font-size:1rem">↑ ↑ ↑ antes de ↑↓</div><p>máx. 2 e⁻ por orbital, spins opostos</p></div>
     <div class="fx"><span class="tag">Exceções</span><div class="eq" style="font-size:1rem">Cr [Ar]3d⁵4s¹ · Cu [Ar]3d¹⁰4s¹</div><p>d⁵ e d¹⁰ são estáveis</p></div>
     <div class="fx"><span class="tag">Tendências</span><div class="eq" style="font-size:1rem">raio ↙ · EI e AE ↗</div><p>Z<sub>ef</sub> = Z − S cresce →</p></div>
+    <div class="fx"><span class="tag">Octeto e Lewis</span><div class="eq" style="font-size:1rem">8 e⁻ na valência · H: 2</div><p>pontos = elétrons de valência</p></div>
+    <div class="fx"><span class="tag">Fórmula iônica</span><div class="eq" style="font-size:1rem">M<sup>a+</sup> X<sup>b−</sup> → M<sub>b</sub>X<sub>a</sub></div><p>cruza, simplifica, soma das cargas = 0</p></div>
+    <div class="fx"><span class="tag">Energia de rede</span><div class="eq" style="font-size:1rem">E = κQ₁Q₂/d</div><p>mais carga ↑ · íon maior ↓</p></div>
+    <div class="fx"><span class="tag">Carga formal</span><div class="eq" style="font-size:1rem">CF = EV − ENL − EL/2</div><p>a melhor estrutura tem CF perto de 0</p></div>
+    <div class="fx"><span class="tag">Eletronegatividade</span><div class="eq" style="font-size:.95rem">F > O > N ≈ Cl > Br > I > S > C > P > H</div><p>Δχ 0 apolar · até ~2 polar · acima iônica</p></div>
+    <div class="fx"><span class="tag">ΔH pelas ligações</span><div class="eq" style="font-size:1rem">ΔH = Σ rompidas − Σ formadas</div><p>&lt; 0 exotérmica · só entram as que mudam</p></div>
+    <div class="fx"><span class="tag">RPENV</span><div class="eq" style="font-size:.95rem">2 linear · 3 trigonal · 4 tetraédrico</div><p>domínios = ligações + pares (dupla conta 1)</p></div>
+    <div class="fx"><span class="tag">Polaridade molecular</span><div class="eq" style="font-size:1rem">Σ vetores = 0 → apolar</div><p>par no central ou ligantes diferentes → polar</p></div>
+    <div class="fx"><span class="tag">Forças intermoleculares</span><div class="eq" style="font-size:.95rem">íon-dipolo > lig. H > dipolo > London</div><p>força maior → ponto de ebulição maior</p></div>
     <div class="fx"><span class="tag">Razão molar</span><div class="eq" style="font-size:1rem">n(B) = n(A) × coef B / coef A</div><p>sempre em mol, equação balanceada</p></div>
     <div class="fx"><span class="tag">Limitante</span><div class="eq" style="font-size:1rem">menor n ÷ coeficiente</div><p>sobra = tinha − reagiu</p></div>
     <div class="fx"><span class="tag">Pureza · rendimento</span><div class="eq" style="font-size:1rem">m pura = m × p% · η = real/teórico</div><p>para ter x g puros, pese x ÷ p</p></div>
@@ -2101,7 +2564,17 @@ const QUIZ=[
  ['Em Mg(NO₃)₂, quantos átomos de O há?',['3','5','6','9'],2,'O 2 de fora multiplica o parêntese: 2 × 3 = 6 O.'],
  ['Quantos íons NO₃⁻ há em 1 mol de Al(NO₃)₃?',['6,022 × 10²³','1,8 × 10²⁴ (3 × Avogadro)','3','4 × Avogadro'],1,'Cada Al(NO₃)₃ tem 3 NO₃⁻: 3 mol de íons = 3 × 6,022 × 10²³ ≈ 1,8 × 10²⁴.'],
  ['Num exercício com massas dos dois reagentes, o reagente limitante é…',['o de maior massa','o que tem o menor n ÷ coeficiente','sempre o primeiro da equação','o de menor massa molar'],1,'Divida os mols de cada reagente pelo coeficiente: o menor resultado acaba primeiro e limita o produto.'],
- ['Uma molécula de H₂O pesa, em gramas, aproximadamente:',['18 g','1 g','3 × 10⁻²³ g','6 × 10²³ g'],2,'18 g ÷ 6,022 × 10²³ ≈ 3 × 10⁻²³ g.']];
+ ['Uma molécula de H₂O pesa, em gramas, aproximadamente:',['18 g','1 g','3 × 10⁻²³ g','6 × 10²³ g'],2,'18 g ÷ 6,022 × 10²³ ≈ 3 × 10⁻²³ g.'],
+ ['A ligação entre Na e Cl é…',['covalente apolar','covalente polar','iônica','metálica'],2,'Metal + ametal: o Na entrega 1 elétron ao Cl e os dois viram íons, Na⁺ e Cl⁻.'],
+ ['A fórmula do composto entre Al³⁺ e O²⁻ é:',['AlO','Al₃O₂','Al₂O₃','AlO₃'],2,'Cruze as cargas: Al₂O₃. Confere: 2 × (+3) + 3 × (−2) = 0.'],
+ ['Qual tem a maior energia de rede?',['NaCl','KBr','MgO','CsI'],2,'MgO tem cargas +2 e −2 e íons pequenos: E = κQ₁Q₂/d fica enorme (3795 kJ/mol).'],
+ ['Quantos elétrons de valência o CO₂ tem ao todo?',['12','16','18','22'],1,'C 4 + 2 × O 6 = 16.'],
+ ['A carga formal do N no NH₄⁺ é:',['0','+1','−1','+4'],1,'CF = EV − ENL − EL/2 = 5 − 0 − 8/2 = +1.'],
+ ['A geometria da NH₃ é:',['trigonal plana','tetraédrica','piramidal','angular'],2,'4 domínios (3 ligações + 1 par): arranjo tetraédrico, mas olhando só os átomos é uma pirâmide.'],
+ ['Qual é apolar mesmo tendo ligações polares?',['H₂O','CO₂','NH₃','HCl'],1,'O CO₂ é linear: as duas setas C→O são iguais e opostas e se cancelam.'],
+ ['Qual destas faz ligação de hidrogênio entre moléculas iguais?',['CH₄','H₂S','CH₃OH','CH₃F'],2,'Precisa de H ligado direto a F, O ou N: o CH₃OH tem O–H. No CH₃F o F está lá, mas os H estão no C.'],
+ ['A única força entre moléculas de I₂ é…',['ligação de H','dipolo-dipolo','dispersão de London','íon-dipolo'],2,'I₂ é apolar: só London. Como o I é grande, ela é forte o bastante para o I₂ ser sólido.'],
+ ['O ΔH de uma reação pelas entalpias de ligação é:',['Σ formadas − Σ rompidas','Σ rompidas − Σ formadas','Σ rompidas + Σ formadas','só a soma das formadas'],1,'Quebrar custa energia, formar libera: ΔH = Σ rompidas − Σ formadas. Negativo = exotérmica.']];
 let qa={};
 function renderQuiz(){ const box=$('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<div class="qz" data-i="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="opts">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="why" hidden></div></div>').join('');
   box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i]; const bs=c.querySelectorAll('button');
@@ -2110,7 +2583,7 @@ function renderQuiz(){ const box=$('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<d
 function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; $('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · mandou bem!':ok>=9?' · quase lá':' · revise os módulos'):'') }
 
 /* ========= progresso e rotas ========= */
-const MODS=[['materia','Matéria e elementos','Substâncias, misturas e símbolos'],['modelos','Modelos atômicos','De Dalton a Schrödinger, Rutherford e as partículas'],['luz','Luz e fótons','c = λν, E = hν e o efeito fotoelétrico'],['bohr','Átomo de Bohr','Órbitas, saltos e as linhas do hidrogênio'],['quanticos','Números quânticos','n, l, mₗ, mₛ e os orbitais em 3D'],['config','Configuração eletrônica','Pauling, Hund, Pauli, íons e exceções'],['periodicas','Propriedades periódicas','Raio, ionização, afinidade e Z efetiva'],['ed1','Estudo dirigido 1','Índice das 18 questões e treino'],['reacoes','Reações e equações','Anatomia da equação, conservação da massa e balanceamento'],['massa','Massa molar e mol','u, g/mol, Avogadro e massa molecular'],['conv','Transformações','gramas ↔ mol ↔ partículas e os exercícios da aula'],['esteq','Estequiometria','Limitante, excesso, pureza e rendimento'],['solucoes','Soluções','Concentração em mol/L e diluição'],['redox','Oxirredução','Nox, quem oxida e quem reduz'],['pilhas','Pilhas e baterias','Ânodo, cátodo, fem e chumbo-ácido'],['ed3','Estudo dirigido 3','As 12 questões da lista resolvidas']];
+const MODS=[['materia','Matéria e elementos','Substâncias, misturas e símbolos'],['modelos','Modelos atômicos','De Dalton a Schrödinger, Rutherford e as partículas'],['luz','Luz e fótons','c = λν, E = hν e o efeito fotoelétrico'],['bohr','Átomo de Bohr','Órbitas, saltos e as linhas do hidrogênio'],['quanticos','Números quânticos','n, l, mₗ, mₛ e os orbitais em 3D'],['config','Configuração eletrônica','Pauling, Hund, Pauli, íons e exceções'],['periodicas','Propriedades periódicas','Raio, ionização, afinidade e Z efetiva'],['ed1','Estudo dirigido 1','Índice das 18 questões e treino'],['ligacoes','Ligação iônica','Octeto, Lewis, fórmulas e energia de rede'],['covalente','Ligação covalente','Estruturas de Lewis, carga formal, polaridade e entalpia'],['geometria','Geometria molecular','RPENV, arranjo, forma e polaridade em 3D'],['intermol','Forças intermoleculares','London, dipolo, ligação de H e ponto de ebulição'],['ed2','Estudo dirigido 2','As 17 questões resolvidas'],['reacoes','Reações e equações','Anatomia da equação, conservação da massa e balanceamento'],['massa','Massa molar e mol','u, g/mol, Avogadro e massa molecular'],['conv','Transformações','gramas ↔ mol ↔ partículas e os exercícios da aula'],['esteq','Estequiometria','Limitante, excesso, pureza e rendimento'],['solucoes','Soluções','Concentração em mol/L e diluição'],['redox','Oxirredução','Nox, quem oxida e quem reduz'],['pilhas','Pilhas e baterias','Ânodo, cátodo, fem e chumbo-ácido'],['ed3','Estudo dirigido 3','As 12 questões da lista resolvidas']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('qg-done')||'{}'); qa=JSON.parse(localStorage.getItem('qg-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('qg-done',JSON.stringify(done)); localStorage.setItem('qg-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -2121,7 +2594,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; $('progtxt').t
   document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
     d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#lab">Agora vá para o laboratório de descobertas →</a>');
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
-const VIEWS=['inicio','materia','modelos','luz','bohr','quanticos','config','periodicas','ed1','reacoes','massa','conv','esteq','solucoes','redox','pilhas','ed3','tabela','lab','quiz','cola'];
+const VIEWS=['inicio','materia','modelos','luz','bohr','quanticos','config','periodicas','ed1','ligacoes','covalente','geometria','intermol','ed2','reacoes','massa','conv','esteq','solucoes','redox','pilhas','ed3','tabela','lab','quiz','cola'];
 function route(){ let h=location.hash.slice(1); if(h==='mol'){ history.replaceState(null,'','#massa'); h='massa' } if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>$('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
@@ -2150,11 +2623,12 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
   location.href='../../index.html#m-qg' });
 </script>
 <script src="../../js/quimica-m1.js?v=3"></script>
+<script src="../../js/quimica-m2.js?v=1"></script>
 <script src="../../js/quimica-m3.js?v=6"></script>
 <script src="../../dados/cartas.js"></script>
 <script src="../../js/anki.js" data-materia="qg"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-qg.js?v=11"></script>
+<script src="../../dados/quadros-qg.js?v=12"></script>
 <script src="../../js/quadro.js?v=8" data-materia="qg"></script>
 </body></html>
