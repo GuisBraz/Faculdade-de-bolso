@@ -9,7 +9,17 @@
 */
 window.FDB_AULAS = {
   calc2: { pag: "materias/calc2/oficina-de-calculo-2.html", simbolo: "∫", lista: "lista", lab: "lab", quiz: "quiz", cola: "cola",
-    modulos: { 1: [], 2: [
+    modulos: { 1: [
+      ["primitivas", "Primitivas", "A derivada ao contrário e o + C"],
+      ["riemann", "Integral definida", "Somas de Riemann e área"],
+      ["tfc", "Teorema Fundamental", "F(b) − F(a)"],
+      ["subst", "Substituição", "u = o de dentro"],
+      ["partes", "Integração por partes", "uv − ∫ v du e a ordem LIATE"],
+      ["fracoes", "Frações parciais", "Os 4 casos e as constantes"],
+      ["areacurvas", "Área entre curvas", "De cima menos de baixo"],
+      ["discos", "Volume por discos", "Discos e arruelas"],
+      ["cascas", "Volume por cascas", "2π · raio · altura e os dois métodos"]
+    ], 2: [
       ["funcoes", "Funções de 2 variáveis", "Domínio, imagem e gráfico"],
       ["nivel", "Curvas de nível", "f(x, y) = k e mapas de contorno"],
       ["parciais", "Derivadas parciais", "Uma variável por vez"],
@@ -17,9 +27,13 @@ window.FDB_AULAS = {
       ["cadeia", "Regra da cadeia", "Casos I e II, diagrama de árvore"],
       ["gradiente", "Gradiente", "Derivada direcional e taxa máxima"],
       ["extremos", "Máximos e mínimos", "Pontos críticos, teste D e otimização"]
-    ], 3: [] },
-    temas: { 2: "Funções de várias variáveis e derivadas" },
-    sobre: "Cálculo II leva o Cálculo I para funções de várias variáveis: em vez de uma curva y = f(x), você trabalha com superfícies z = f(x, y). É a matemática por trás da temperatura numa chapa soldada, da tensão numa viga, do volume de um tanque e da otimização de um projeto.",
+    ], 3: [
+      ["dupla", "Integral dupla", "Volume, propriedades e Fubini"],
+      ["regioes", "Regiões gerais", "Tipo I e tipo II"],
+      ["inverter", "Inverter a ordem", "Redesenhar os limites"]
+    ] },
+    temas: { 1: "Integrais: técnicas, áreas e volumes", 2: "Funções de várias variáveis e derivadas", 3: "Integrais duplas" },
+    sobre: "Cálculo II começa onde o Cálculo I parou: a integral. Primeiro você aprende a integrar (primitivas, TFC e as técnicas) e usa isso para calcular áreas e volumes. Depois leva o cálculo para funções de várias variáveis, superfícies z = f(x, y), e no fim integra sobre regiões do plano (integrais duplas). É a matemática por trás do volume de um tanque, da temperatura numa chapa soldada e da otimização de um projeto.",
     lab_nome: "Laboratório 3D de superfícies", lab_desc: "Digite qualquer f(x, y) e veja a superfície, as curvas de nível e o gradiente." },
   fis1: { pag: "materias/fis1/oficina-de-fisica.html", simbolo: "F", lista: "problemas", lab: "lab", quiz: "quiz", cola: "cola",
     modulos: { 1: [

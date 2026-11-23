@@ -78,11 +78,13 @@ window.FACULDADE = {
           ] },
         { id: "calc2", sigla: "Cálculo II", nome: "Cálculo II", ch: 60, icone: "calculo", area: "a", arquivos: [
             {
-              titulo: "Oficina de Cálculo II · Várias Variáveis",
+              titulo: "Oficina de Cálculo II · Integrais e Várias Variáveis",
               tipo: "site",
               caminho: "materias/calc2/oficina-de-calculo-2.html",
-              ciclo: "2ª Prova", ate: "2026-11-12",
+              ciclo: "3ª Prova", ate: "2026-12-09",
               atualizacoes: [
+                { data: "2026-11-23", texto: "Oficina organizada pelo cronograma em 3 módulos, um por prova. Novo Módulo 1 (1ª prova) com 9 aulas: primitivas, integral definida e somas de Riemann (com simulador), TFC, substituição, por partes, frações parciais, área entre curvas, volumes por discos (com simulador da fatia) e por cascas." },
+                { data: "2026-11-23", texto: "Novo Módulo 3 (3ª prova): integral dupla e Fubini (com modelo 3D), regiões do tipo I e II e inverter a ordem. 36 exemplos novos com Ver no quadro, 37 exercícios novos para treinar (a calculadora agora aceita e, ln, sen e cos) e 15 perguntas novas no quiz." },
                 { data: "2026-11-11", texto: "Nova aba Exercícios para treinar: 26 exercícios parecidos com a lista (outros números), com conferência de certo/errado e resolução só quando você pedir. Cada aula termina com o botão que leva para o grupo dela." },
                 { data: "2026-11-11", texto: "As 7 aulas reescritas e aprofundadas: menos exemplos, receita no topo, cada variável das fórmulas explicada, roteiro começar → desenvolver → finalizar, modelos 3D giráveis, esboços centralizados e quadro de erros que mais caem." },
                 { data: "2026-11-11", texto: "Ver no quadro reescrito em todos os 49 exemplos e nas 24 questões da lista, no jeito de quadro (receita, etapas numeradas, contas curtas, caixas lado a lado), com desenhos: domínios sombreados, curvas de nível, superfícies 3D com máximo, mínimo e sela, árvores da regra da cadeia, vetores gradiente, tanque, cone e caixas. O quadro agora abre em tela cheia." },

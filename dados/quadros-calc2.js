@@ -1,6 +1,6 @@
 /* FACULDADE DE BOLSO · quadros escritos à mão de Cálculo II ("Ver no quadro")
    Mesmo formato de dados/quadros-gaal.js.
-   Chaves: x0…x48 = exemplos das aulas (data-q na página) · Q + número = questões da lista (ex.: Q14).
+   Chaves: x0…x48 = exemplos das aulas do Módulo 2 · i1…i36 = Módulos 1 e 3 (integrais) · Q + número = questões da lista (ex.: Q14).
    Figuras desenhadas aqui mesmo em SVG: P2 (plano xy), S3 (superfície 3D), ARV (árvore da cadeia) e esboços. */
 (function () {
   const Q = window.FDB_QUADROS = window.FDB_QUADROS || {};
@@ -570,6 +570,160 @@
       'simetria: x = y → x³ = 64 000 → x = «o|40» → z = 32 000/1600 = «o|20»',
       '#Teste do D', 'S<sub>xx</sub> = 128 000/x³ = 2 · S<sub>yy</sub> = 2 · S<sub>xy</sub> = 1 → D = 4 − 1 = 3 > 0 e S<sub>xx</sub> > 0 → «g|MÍNIMO»',
       '=base quadrada de 40 cm × 40 cm e altura 20 cm'] };
+
+  /* ================= MÓDULO 1 · Integrais (aulas 1 a 11) ================= */
+  const INT = (a, b) => '∫<sub>' + a + '</sub><sup>' + b + '</sup>';
+  q.i1 = { t: 'Primitivas mais gerais', r: 'Receita: pergunte "quem derivado dá isso?" → tabela → + C',
+    b: [{ c: [['*a) sen x', '(−cos x)′ = sen x', '→ «o|−cos x + C»'], ['*b) 1/x', '(ln |x|)′ = 1/x', '→ «o|ln |x| + C»'], ['*c) xⁿ', 'sobe 1 e divide', '→ «o|' + F('xⁿ⁺¹', 'n + 1') + ' + C»']] },
+      '~ o + C aparece porque a derivada de qualquer número é 0',
+      '=a) −cos x + C · b) ln |x| + C · c) xⁿ⁺¹/(n + 1) + C'] };
+  q.i2 = { t: 'f′(x) = 4x + 5 e f(2) = 3', r: 'Receita: primitiva com + C → substitui o ponto dado → acha C',
+    b: ['#Primitiva | xⁿ → xⁿ⁺¹/(n + 1)', 'f(x) = 4 · ' + F('x²', '2') + ' + 5x + C = «b|2x² + 5x + C»',
+      '#Usar f(2) = 3 | troca x por 2', '2 · 2² + 5 · 2 + C = 3', '8 + 10 + C = 3 → «o|C = −15»',
+      '=f(x) = 2x² + 5x − 15'] };
+  q.i3 = { t: 'f″ = −2 + 12x − 12x², f(0) = 4, f′(0) = 12', r: 'Receita: primitiva duas vezes → uma constante em cada → uma condição para cada',
+    b: ['#1ª primitiva | acha f′', 'f′(x) = −2x + 6x² − 4x³ + «b|C₁»', 'f′(0) = 12 → «o|C₁ = 12»',
+      '#2ª primitiva | acha f', 'f(x) = −x² + 2x³ − x⁴ + 12x + «b|C₂»', 'f(0) = 4 → «o|C₂ = 4»',
+      '~ f″ → duas primitivas → duas constantes',
+      '=f(x) = −x⁴ + 2x³ − x² + 12x + 4'] };
+  q.i4 = { t: 'Área sob y = x² com 4 retângulos', r: 'Receita: Δx = (b − a)/n → alturas nas pontas → soma f · Δx',
+    b: [P2({ x: [-0.1, 1.15], y: [-0.1, 1.1], w: 300, h: 220, fill: (x, y) => { const k = Math.min(3, Math.floor(x * 4)); return x >= 0 && x <= 1 && y >= 0 && y <= ((k + 1) / 4) ** 2 }, fc: 'rgba(224,96,26,.22)', cv: [{ f: x => x * x, c: K.b, w: 2.6 }], tx: [[0.6, 0.15, 'direita', K.o, 12]] }),
+      '#Largura | Δx = (1 − 0)/4', 'Δx = «b|1/4»',
+      { c: [['*esquerda (0, ¼, ½, ¾)', '¼ · (0 + 1/16 + 4/16 + 9/16)', '= 14/64 = «o|0,21875»'], ['*direita (¼, ½, ¾, 1)', '¼ · (1/16 + 4/16 + 9/16 + 1)', '= 30/64 = «o|0,46875»']] },
+      '~ x² cresce: a esquerda fica abaixo, a direita fica acima',
+      '=0,21875 < A < 0,46875 (a exata é 1/3)'] };
+  q.i5 = { t: '∫ₐᵇ c dx pela definição', r: 'Receita: Δx = (b − a)/n → todas as alturas valem c → soma → limite',
+    b: ['#Soma | n retângulos iguais', 'Σ c · ' + F('b − a', 'n') + ' = n · c · ' + F('b − a', 'n') + ' = «b|c(b − a)»', '~ o n cancela: a soma nem depende de n',
+      '#Limite | n → ∞', 'lim c(b − a) = «o|c(b − a)»',
+      '=∫ₐᵇ c dx = c(b − a): altura × base'] };
+  q.i6 = { t: 'Derivada de g(x) = ∫₀ˣ √(1 + t²) dt', r: 'Receita: TFC 1 → derivar a integral de a até x devolve o integrando com t → x',
+    b: ['#TFC parte 1 | d/dx ∫ₐˣ f(t) dt = f(x)', 'f(t) = √(1 + t²)', 'g′(x) = «o|√(1 + x²)»', '~ não precisa integrar nada', '=g′(x) = √(1 + x²)'] };
+  q.i7 = { t: 'Área sob y = x² de 0 até 1', r: 'Receita: primitiva → F(b) − F(a)',
+    b: ['#Primitiva | x² → x³/3', '#TFC parte 2 | F(1) − F(0)', F('1³', '3') + ' − ' + F('0³', '3') + ' = «o|1/3»', '~ o mesmo 1/3 da soma de Riemann, sem limite nenhum', '=A = 1/3'] };
+  q.i8 = { t: '∫ sen x: de 0 a π e de 0 a 2π', r: 'Receita: primitiva → F(b) − F(a) → para área, separe onde f troca de sinal',
+    b: [P2({ x: [-0.3, 6.6], y: [-1.3, 1.3], w: 340, h: 180, fill: (x, y) => x >= 0 && x <= 6.283 && (Math.sin(x) >= 0 ? y >= 0 && y <= Math.sin(x) : y <= 0 && y >= Math.sin(x)), cv: [{ f: Math.sin, c: K.b, w: 2.6 }], tx: [[1.3, 0.4, '+2', K.g, 15], [4.4, -0.55, '−2', K.r, 15]] }),
+      '#Primitiva | sen x → −cos x',
+      { c: [['*de 0 a π', '−cos π + cos 0', '= 1 + 1 = «o|2»'], ['*de 0 a 2π', '−cos 2π + cos 0', '= −1 + 1 = «r|0»']] },
+      '#Área de 0 a 2π | some os módulos', '|2| + |−2| = «o|4»',
+      '=área [0, π] = 2 · ∫₀<sup>2π</sup> = 0 · área [0, 2π] = 4'] };
+  q.i9 = { t: '∫₁³ eˣ dx e ∫₃⁶ dx/x', r: 'Receita: primitiva da tabela → F(b) − F(a)',
+    b: [{ c: [['*eˣ → eˣ', 'e³ − e¹', '= «o|e³ − e» ≈ 17,4'], ['*1/x → ln x', 'ln 6 − ln 3', '= ln(6/3) = «o|ln 2» ≈ 0,693']] },
+      '~ ln a − ln b = ln(a/b)', '=e³ − e · ln 2'] };
+  q.i10 = { t: '∫ sen x cos x dx', r: 'Receita: u = o "de dentro" → du → troca tudo → integra → volta para x',
+    b: ['#Escolher u | a derivada aparece fora', 'u = «b|sen x» → du = «b|cos x dx»',
+      '#Trocar | ∫ u du', '∫ u du = u²/2 + C',
+      '#Voltar | u = sen x', '«o|sen²x/2 + C»', '=∫ sen x cos x dx = sen²x/2 + C'] };
+  q.i11 = { t: '∫₁ᵉ (ln x)/x dx', r: 'Receita: u = ln x → du = dx/x → troca os limites → integra em u',
+    b: ['#Escolher u | ln x, porque (ln x)′ = 1/x está fora', 'u = ln x → du = ' + F('1', 'x') + ' dx',
+      '#Limites novos | x → u', { c: [['*x = 1', 'u = ln 1 = «b|0»'], ['*x = e', 'u = ln e = «b|1»']] },
+      '#Integrar | sem voltar para x', '∫₀¹ u du = ' + F('u²', '2') + ' |₀¹ = «o|1/2»', '=1/2'] };
+  q.i12 = { t: '∫ √(2x + 1) dx e ∫ x/√(1 − 4x²) dx', r: 'Receita: u = de dentro da raiz → ajusta o número do du → potência → volta',
+    b: [{ c: [['*d) u = 2x + 1', 'du = 2 dx → dx = du/2', '∫ u<sup>1/2</sup> du/2', '= ½ · u<sup>3/2</sup>/(3/2)', '= «o|⅓(2x + 1)<sup>3/2</sup> + C»'], ['*e) u = 1 − 4x²', 'du = −8x dx → x dx = −du/8', '∫ u<sup>−1/2</sup>(−du/8)', '= −⅛ · u<sup>1/2</sup>/(1/2)', '= «o|−¼√(1 − 4x²) + C»']] },
+      '~ o número que falta no du entra dividindo', '=d) ⅓(2x + 1)<sup>3/2</sup> + C · e) −¼√(1 − 4x²) + C'] };
+  q.i13 = { t: '∫₁² dx/(3 − 5x)² e ∫ (2x + 5)/(x² + 5x − 3) dx', r: 'Receita: u = de dentro → em definida troque os limites → em ∫du/u dá ln',
+    b: ['#f) u = 3 − 5x | du = −5 dx', 'limites: x = 1 → u = −2 · x = 2 → u = −7',
+      '−⅕ ∫₋₂<sup>−7</sup> u⁻² du = −⅕ [−1/u]₋₂<sup>−7</sup> = −⅕(1/7 − 1/2) = «o|1/14»',
+      '#g) u = x² + 5x − 3 | du = (2x + 5) dx', '~ o numerador é exatamente du', '∫ du/u = «o|ln |x² + 5x − 3| + C»',
+      '=f) 1/14 · g) ln |x² + 5x − 3| + C'] };
+  q.i14 = { t: '∫ ln x dx', r: 'Receita: LIATE → u = ln x, dv = dx → uv − ∫ v du',
+    b: [{ c: [['*u (deriva)', 'u = ln x', 'du = «b|dx/x»'], ['*dv (integra)', 'dv = dx', 'v = «b|x»']] },
+      '#Fórmula | uv − ∫ v du', 'x ln x − ∫ x · ' + F('1', 'x') + ' dx = x ln x − ∫ 1 dx',
+      '«o|x ln x − x + C»', '~ conferindo: (x ln x − x)′ = ln x + 1 − 1 = ln x «g|✓»', '=x ln x − x + C'] };
+  q.i15 = { t: '∫ t² eᵗ dt', r: 'Receita: LIATE (A antes de E) → partes → sobrou ∫ t eᵗ → partes de novo',
+    b: ['#1ª vez | u = t², dv = eᵗ dt', 'du = 2t dt · v = eᵗ', 't²eᵗ − 2«b|∫ t eᵗ dt»',
+      '#2ª vez | u = t, dv = eᵗ dt', 'du = dt · v = eᵗ', '∫ t eᵗ dt = t eᵗ − eᵗ',
+      '#Juntar | cuidado com o −2', 't²eᵗ − 2(t eᵗ − eᵗ) = «o|eᵗ(t² − 2t + 2) + C»',
+      '=eᵗ(t² − 2t + 2) + C'] };
+  q.i16 = { t: 'Área sob y = x e<sup>−x</sup> de 0 a 4', r: 'Receita: área = ∫ (f ≥ 0) → partes (u = x) → F(4) − F(0)',
+    b: [P2({ x: [-0.3, 4.4], y: [-0.08, 0.45], w: 320, h: 180, fill: (x, y) => x >= 0 && x <= 4 && y >= 0 && y <= x * Math.exp(-x), cv: [{ f: x => x * Math.exp(-x), c: K.b, w: 2.6 }] }),
+      { c: [['*u', 'u = x → du = dx'], ['*dv', 'dv = e<sup>−x</sup> dx → v = «b|−e<sup>−x</sup>»']] },
+      '#Primitiva | uv − ∫ v du', '−x e<sup>−x</sup> − ∫ (−e<sup>−x</sup>) dx = «b|−e<sup>−x</sup>(x + 1)»',
+      '#De 0 a 4 | F(4) − F(0)', '−5e<sup>−4</sup> − (−1) = «o|1 − 5e<sup>−4</sup>» ≈ 0,908',
+      '=Área = 1 − 5e<sup>−4</sup> ≈ 0,908'] };
+  q.i17 = { t: '∫ (x³ + x)/(x − 1) dx', r: 'Receita: grau de cima ≥ grau de baixo → divida primeiro → integre o quociente e o resto',
+    b: ['#Divisão | (x³ + x) ÷ (x − 1)', 'quociente «b|x² + x + 2» · resto «b|2»',
+      F('x³ + x', 'x − 1') + ' = x² + x + 2 + ' + F('2', 'x − 1'),
+      '#Integrar | termo a termo', '«o|x³/3 + x²/2 + 2x + 2 ln |x − 1| + C»',
+      '=x³/3 + x²/2 + 2x + 2 ln |x − 1| + C'] };
+  q.i18 = { t: '∫ (x² + 2x − 1)/(2x³ + 3x² − 2x) dx', r: 'Receita: fatore → caso I (A/x + B/(2x − 1) + C/(x + 2)) → raízes acham A, B, C → ln',
+    b: ['#Fatorar | evidência e Bhaskara', '2x³ + 3x² − 2x = x(2x² + 3x − 2) = «b|x(2x − 1)(x + 2)»',
+      '#Montar | lineares distintos', 'x² + 2x − 1 = A(2x − 1)(x + 2) + Bx(x + 2) + Cx(2x − 1)',
+      { c: [['*x = 0', '−1 = −2A', '«o|A = ½»'], ['*x = ½', '¼ = B · 5/4', '«o|B = ⅕»'], ['*x = −2', '−1 = 10C', '«o|C = −1/10»']] },
+      '#Integrar | cada fração vira ln', '½ ln |x| + ⅕ · ½ ln |2x − 1| − 1/10 ln |x + 2| + K', '~ o ½ extra vem de u = 2x − 1',
+      '=½ ln |x| + 1/10 ln |2x − 1| − 1/10 ln |x + 2| + K'] };
+  q.i19 = { t: '∫ (2x² − x + 4)/(x³ + 4x) dx', r: 'Receita: x(x² + 4) → caso III: A/x + (Bx + C)/(x² + 4) → iguale coeficientes → ln e arctg',
+    b: ['#Montar | x² + 4 não fatora (Δ < 0)', '2x² − x + 4 = A(x² + 4) + (Bx + C)x = (A + B)x² + Cx + 4A',
+      { s: ['A + B = 2', 'C = −1', '4A = 4'], a: '→ «o|A = 1 · B = 1 · C = −1»' },
+      '#Separar | três integrais', '∫ ' + F('1', 'x') + ' + ∫ ' + F('x', 'x² + 4') + ' − ∫ ' + F('1', 'x² + 4'),
+      { c: [['*1/x', '«o|ln |x|»'], ['*x/(x² + 4)', 'u = x² + 4', '«o|½ ln(x² + 4)»'], ['*1/(x² + 2²)', 'fórmula com a = 2', '«o|½ arctg(x/2)»']] },
+      '=ln |x| + ½ ln(x² + 4) − ½ arctg(x/2) + K'] };
+  q.i20 = { t: 'Área entre y = eˣ e y = x, de 0 a 1', r: 'Receita: de cima − de baixo → integre de a até b',
+    b: [P2({ x: [-0.3, 1.3], y: [-0.3, 2.9], w: 260, h: 240, fill: (x, y) => x >= 0 && x <= 1 && y >= x && y <= Math.exp(x), cv: [{ f: Math.exp, c: K.o, w: 2.6, l: [1.05, 2.75, 'eˣ'] }, { f: x => x, c: K.b, w: 2.6, l: [1.05, 1.15, 'x'] }] }),
+      '#Cima e baixo | eˣ > x em [0, 1]', 'A = ∫₀¹ (eˣ − x) dx',
+      '#Integrar | primitiva', '[eˣ − x²/2]₀¹ = (e − ½) − (1 − 0) = «o|e − 1,5» ≈ 1,22', '=A = e − 1,5 ≈ 1,22'] };
+  q.i21 = { t: 'Área entre y = x − 1 e y² = 2x + 6', r: 'Receita: escreva x em função de y → interseções em y → direita − esquerda',
+    b: [P2({ x: [-3.5, 6], y: [-3, 5], w: 300, h: 250, tk: 2, fill: (x, y) => y >= -2 && y <= 4 && x <= y + 1 && x >= y * y / 2 - 3, cv: [{ p: t => [t * t / 2 - 3, t], t: [-3, 4.2], c: K.b, w: 2.4 }, { f: x => x - 1, c: K.o, w: 2.4 }], pt: [[-1, -2, K.r, '(−1, −2)'], [5, 4, K.r, '(5, 4)', -40, -8]] }),
+      '#Tudo em y | x = …', { c: [['*reta (direita)', 'x = «b|y + 1»'], ['*parábola (esquerda)', 'x = «b|y²/2 − 3»']] },
+      '#Interseções | y + 1 = y²/2 − 3', 'y² − 2y − 8 = 0 → «b|y = −2 e y = 4»',
+      '#Integrar | direita − esquerda', '∫₋₂⁴ (−y²/2 + y + 4) dy', '= [−y³/6 + y²/2 + 4y]₋₂⁴', '= 40/3 − (−14/3) = «o|18»',
+      '=A = 18 u.a.'] };
+  q.i22 = { t: 'Área entre y = 0, y = x e y = −x + 5', r: 'Receita: em x o teto muda (duas integrais) · em y é uma só',
+    b: [P2({ x: [-0.5, 5.6], y: [-0.5, 3.2], w: 300, h: 190, tk: 1, fill: (x, y) => y >= 0 && y <= x && y <= 5 - x, cv: [{ f: x => x, c: K.b }, { f: x => 5 - x, c: K.o }], pt: [[2.5, 2.5, K.r, '(5/2, 5/2)']] }),
+      { c: [['*em x', '∫₀<sup>5/2</sup> x dx + ∫<sub>5/2</sub>⁵ (5 − x) dx', '= 25/8 + 25/8', '= «o|25/4»'], ['*em y', 'direita 5 − y · esquerda y', '∫₀<sup>5/2</sup> (5 − 2y) dy', '= [5y − y²]₀<sup>5/2</sup> = «o|25/4»']] },
+      '~ em y foi uma integral só: escolha a variável que não divide a região', '=A = 25/4 u.a.'] };
+  q.i23 = { t: 'Volume da esfera de raio r', r: 'Receita: círculo girando no eixo x → fatia = disco de raio y → A(x) = πy² → integre de −r a r',
+    b: ['#Fatia | disco de raio y', 'x² + y² = r² → y² = «b|r² − x²»', 'A(x) = π(r² − x²)',
+      '#Integrar | de −r a r', 'π[r²x − x³/3]₋ᵣʳ = π[(r³ − r³/3) − (−r³ + r³/3)]', '= π · «o|(4/3)r³»', '=V = (4/3)πr³'] };
+  q.i24 = { t: '√x de 0 a 1 em torno do eixo x', r: 'Receita: encosta no eixo → disco → raio = √x → V = ∫ π raio²',
+    b: ['#Raio | distância até o eixo x', 'R = √x → A(x) = π(√x)² = «b|πx»', '#Integrar | 0 a 1', '∫₀¹ πx dx = π · ½ = «o|π/2»', '=V = π/2'] };
+  q.i25 = { t: 'y = x³, y = 8, x = 0 em torno do eixo y', r: 'Receita: eixo vertical → fatias em y → x em função de y → disco',
+    b: ['#Tudo em y | x = ∛y', 'raio = x = «b|y<sup>1/3</sup>», y de 0 a 8',
+      '#Integrar | π ∫ raio² dy', 'π∫₀⁸ y<sup>2/3</sup> dy = π · ⅗ y<sup>5/3</sup> |₀⁸ = π · ⅗ · 32 = «o|96π/5»', '~ 8<sup>5/3</sup> = (∛8)⁵ = 2⁵ = 32', '=V = 96π/5'] };
+  q.i26 = { t: 'y = x e y = x² girando em y = 2 e em x = −1', r: 'Receita: raio = DISTÂNCIA até a reta do eixo → R = mais longe, r = mais perto → π(R² − r²)',
+    b: ['#(a) eixo y = 2 | fatias em x', { c: [['*R (mais longe)', '2 − x²'], ['*r (mais perto)', '2 − x']] },
+      'π∫₀¹ [(2 − x²)² − (2 − x)²] dx = π∫₀¹ (x⁴ − 5x² + 4x) dx = π(⅕ − ⁵⁄₃ + 2) = «o|8π/15»',
+      '#(b) eixo x = −1 | fatias em y', { c: [['*R', '√y + 1'], ['*r', 'y + 1']] },
+      'π∫₀¹ [(√y + 1)² − (y + 1)²] dy = π∫₀¹ (2√y − y − y²) dy = π(4/3 − ½ − ⅓) = «o|π/2»',
+      '=(a) 8π/15 · (b) π/2'] };
+  q.i27 = { t: 'Cascas: y = x e y = x² em torno do eixo y', r: 'Receita: faixa vertical (paralela ao eixo) → raio = x · altura = cima − baixo → 2π∫',
+    b: [{ c: [['*raio', 'até o eixo y: «b|x»'], ['*altura', '«b|x − x²»']] },
+      '#Integrar | 2π ∫ raio · altura', '2π∫₀¹ x(x − x²) dx = 2π∫₀¹ (x² − x³) dx = 2π(⅓ − ¼) = «o|π/6»', '=V = π/6'] };
+  q.i28 = { t: 'Cascas: √x de 0 a 1 em torno do eixo x', r: 'Receita: eixo horizontal → faixa horizontal → cascas em y',
+    b: ['#Faixa em y | de x = y² até x = 1', { c: [['*raio', 'até o eixo x: «b|y»'], ['*altura', '«b|1 − y²»']] },
+      '#Integrar', '2π∫₀¹ y(1 − y²) dy = 2π(½ − ¼) = «o|π/2»', '~ mesmo resultado dos discos «g|✓»', '=V = π/2'] };
+  q.i29 = { t: 'y = x − x² em torno da reta x = 2', r: 'Receita: eixo x = 2 → raio = 2 − x · altura = x − x² → 2π∫',
+    b: ['#Limites | x − x² = 0', 'x = 0 e x = 1', { c: [['*raio', 'até x = 2: «b|2 − x»'], ['*altura', '«b|x − x²»']] },
+      '#Integrar', '2π∫₀¹ (2 − x)(x − x²) dx = 2π∫₀¹ (x³ − 3x² + 2x) dx', '= 2π(¼ − 1 + 1) = «o|π/2»', '=V = π/2'] };
+
+  /* ================= MÓDULO 3 · Integrais duplas ================= */
+  q.i30 = { t: '∬ (x − 3y²) dA nas duas ordens', r: 'Receita: integral de dentro com a outra letra congelada → depois a de fora',
+    b: [{ c: [['*dy primeiro (x congelado)', '∫₁² (x − 3y²) dy = [xy − y³]₁²', '= x − 7', '∫₀² (x − 7) dx = «o|−12»'], ['*dx primeiro (y congelado)', '∫₀² (x − 3y²) dx = [x²/2 − 3y²x]₀²', '= 2 − 6y²', '∫₁² (2 − 6y²) dy = «o|−12»']] },
+      '~ Fubini: num retângulo a ordem não muda o valor', '=−12 nas duas ordens'] };
+  q.i31 = { t: 'Volume sob z = 16 − x² − 2y² em [0, 2] × [0, 2]', r: 'Receita: V = ∬ f dA → iterada → de dentro → de fora',
+    b: ['#Montar | dy dx', 'V = ∫₀² ∫₀² (16 − x² − 2y²) dy dx',
+      '#De dentro | x congelado', '[16y − x²y − ⅔y³]₀² = 32 − 2x² − 16/3 = «b|80/3 − 2x²»',
+      '#De fora', '∫₀² (80/3 − 2x²) dx = 160/3 − 16/3 = «o|48»', '=V = 48'] };
+  q.i32 = { t: '∬ x²y dA em [0, 3] × [1, 2]', r: 'Receita: f = g(x) · h(y) → separa em duas integrais simples e multiplica',
+    b: [{ c: [['*∫₀³ x² dx', '= 27/3 = «b|9»'], ['*∫₁² y dy', '= (4 − 1)/2 = «b|3/2»']] }, '9 · 3/2 = «o|27/2»', '=∬ x²y dA = 27/2'] };
+  q.i33 = { t: 'Volume sob z = x² + y² sobre a região entre y = 2x e y = x²', r: 'Receita: desenhe → tipo I (y de baixo até y de cima) → de dentro → de fora',
+    b: [P2({ x: [-0.5, 2.6], y: [-0.5, 4.6], w: 240, h: 260, tk: 1, fill: (x, y) => x >= 0 && x <= 2 && y >= x * x && y <= 2 * x, cv: [{ f: x => 2 * x, c: K.o, l: [0.75, 3.3, 'y = 2x'] }, { f: x => x * x, c: K.b, l: [1.7, 1.1, 'y = x²'] }] }),
+      '#Região | tipo I', '0 ≤ x ≤ 2 · «b|x² ≤ y ≤ 2x»',
+      '#De dentro | ∫ (x² + y²) dy', '[x²y + y³/3]<sub>x²</sub><sup>2x</sup> = 14x³/3 − x⁴ − x⁶/3',
+      '#De fora | 0 a 2', '56/3 − 32/5 − 128/21 = (1960 − 672 − 640)/105 = «o|216/35»', '=V = 216/35 ≈ 6,17'] };
+  q.i34 = { t: '∬ xy dA, região entre y = x − 1 e y² = 2x + 6', r: 'Receita: em x a região quebra → tipo II (x da esquerda até x da direita)',
+    b: ['#Região | tipo II', '−2 ≤ y ≤ 4 · «b|y²/2 − 3 ≤ x ≤ y + 1»',
+      '#De dentro | y congelado', '∫ xy dx = ' + F('x²', '2') + ' y → ' + F('y', '2') + '[(y + 1)² − (y²/2 − 3)²]', '= −y⁵/8 + 2y³ + y² − 4y',
+      '#De fora | −2 a 4', '[−y⁶/48 + y⁴/2 + y³/3 − 2y²]₋₂⁴ = «o|36»', '=∬ xy dA = 36'] };
+  q.i35 = { t: 'Inverter ∫₀² ∫<sub>x²</sub>⁴ f dy dx', r: 'Receita: leia a região → desenhe → releia na horizontal',
+    b: [P2({ x: [-0.5, 2.6], y: [-0.5, 4.6], w: 220, h: 250, tk: 1, fill: (x, y) => x >= 0 && x <= 2 && y >= x * x && y <= 4, cv: [{ f: x => x * x, c: K.b, l: [1.4, 1.2, 'y = x²'] }, { f: () => 4, c: K.o }], ar: [[-0.3, 2.2, 1.5, 2.2, K.p]] }),
+      '#Ler | vertical', '0 ≤ x ≤ 2 · x² ≤ y ≤ 4',
+      '#Reler | horizontal', '0 ≤ y ≤ 4 · «b|0 ≤ x ≤ √y»', '~ na reta horizontal, x sai do eixo e vai até a parábola',
+      '=∫₀⁴ ∫₀<sup>√y</sup> f(x, y) dx dy'] };
+  q.i36 = { t: '∫₀¹ ∫<sub>√y</sub>¹ e<sup>x³</sup> dx dy', r: 'Receita: ∫ e<sup>x³</sup> dx não sai → inverta a ordem → substituição',
+    b: ['#Ler | 0 ≤ y ≤ 1 · √y ≤ x ≤ 1', '~ é a região abaixo de y = x², com 0 ≤ x ≤ 1',
+      '#Reler | vertical', '0 ≤ x ≤ 1 · «b|0 ≤ y ≤ x²»', '∫₀¹ ∫₀<sup>x²</sup> e<sup>x³</sup> dy dx',
+      '#De dentro | e<sup>x³</sup> é número', 'e<sup>x³</sup> · y |₀<sup>x²</sup> = «b|x² e<sup>x³</sup>»',
+      '#De fora | u = x³, du = 3x² dx', '⅓ ∫₀¹ eᵘ du = «o|(e − 1)/3»', '=(e − 1)/3 ≈ 0,573'] };
 
   Q.calc2 = q;
 })();

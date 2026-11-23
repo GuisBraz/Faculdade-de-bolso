@@ -325,13 +325,25 @@ a.btreino:hover{filter:brightness(1.08)}
     </div>
     <nav id="nav">
       <a href="#inicio">Início</a>
-      <a href="#funcoes" data-m="funcoes">1 · Funções de 2 variáveis</a>
-      <a href="#nivel" data-m="nivel">2 · Curvas de nível</a>
-      <a href="#parciais" data-m="parciais">3 · Derivadas parciais</a>
-      <a href="#ordem" data-m="ordem">4 · 2ª ordem</a>
-      <a href="#cadeia" data-m="cadeia">5 · Regra da cadeia</a>
-      <a href="#gradiente" data-m="gradiente">6 · Gradiente</a>
-      <a href="#extremos" data-m="extremos">7 · Máximos e mínimos</a>
+      <a href="#primitivas" data-m="primitivas">1.1 · Primitivas</a>
+      <a href="#riemann" data-m="riemann">1.2 · Integral definida</a>
+      <a href="#tfc" data-m="tfc">1.3 · TFC</a>
+      <a href="#subst" data-m="subst">1.4 · Substituição</a>
+      <a href="#partes" data-m="partes">1.5 · Por partes</a>
+      <a href="#fracoes" data-m="fracoes">1.6 · Frações parciais</a>
+      <a href="#areacurvas" data-m="areacurvas">1.7 · Área entre curvas</a>
+      <a href="#discos" data-m="discos">1.8 · Discos e arruelas</a>
+      <a href="#cascas" data-m="cascas">1.9 · Cascas</a>
+      <a href="#funcoes" data-m="funcoes">2.1 · Funções de 2 variáveis</a>
+      <a href="#nivel" data-m="nivel">2.2 · Curvas de nível</a>
+      <a href="#parciais" data-m="parciais">2.3 · Derivadas parciais</a>
+      <a href="#ordem" data-m="ordem">2.4 · 2ª ordem</a>
+      <a href="#cadeia" data-m="cadeia">2.5 · Regra da cadeia</a>
+      <a href="#gradiente" data-m="gradiente">2.6 · Gradiente</a>
+      <a href="#extremos" data-m="extremos">2.7 · Máximos e mínimos</a>
+      <a href="#dupla" data-m="dupla">3.1 · Integral dupla</a>
+      <a href="#regioes" data-m="regioes">3.2 · Regiões gerais</a>
+      <a href="#inverter" data-m="inverter">3.3 · Inverter a ordem</a>
       <a href="#lab">Laboratório</a>
       <a href="#lista">Lista resolvida</a>
       <a href="#treino">Exercícios para treinar</a>
@@ -347,30 +359,396 @@ a.btreino:hover{filter:brightness(1.08)}
 <section class="view" id="v-inicio">
   <div class="hero">
     <div>
-      <div class="eyebrow">Cálculo II · 2ª prova · 12/11</div>
-      <h1>Uma função, <em>várias entradas</em>. O cálculo agora é uma superfície.</h1>
-      <p class="lede">Funções de várias variáveis do zero: domínio, gráfico, curvas de nível, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos. Cada fórmula vem explicada símbolo por símbolo, com superfícies 3D que você gira com o dedo e a lista da professora resolvida passo a passo.</p>
-      <div class="btns"><a class="btn" href="#funcoes" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lista'">Ir para a lista</button></div>
+      <div class="eyebrow">Cálculo II · 3 módulos, um por prova</div>
+      <h1>Somar, girar, <em>subir de dimensão</em>. Cálculo II do zero.</h1>
+      <p class="lede"><b>Módulo 1</b> (1ª prova): primitivas, integral definida, TFC, as técnicas de integração e áreas e volumes. <b>Módulo 2</b> (2ª prova): funções de várias variáveis, derivadas parciais, regra da cadeia, gradiente e máximos e mínimos. <b>Módulo 3</b> (3ª prova): integrais duplas. Cada fórmula explicada símbolo por símbolo, simuladores, exemplos com "Ver no quadro", exercícios para treinar e a lista resolvida.</p>
+      <div class="btns"><a class="btn" href="#primitivas" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lista'">Ir para a lista</button></div>
     </div>
     <div class="cv sim" id="heroSim" style="aspect-ratio:1/1"><canvas></canvas></div>
   </div>
 
   <h3 style="margin-top:0">A trilha</h3>
-  <p class="read">Os módulos 1 a 5 seguem os slides das aulas 21/10, 22/10 e 28/10. Os módulos 6 e 7 (gradiente e máximos e mínimos) são das aulas de 29/10, 04/11 e 05/11 e já estão aqui pelo Stewart, porque a lista cobra. Conforme as aulas acontecerem, eu acrescento o que a professora passar.</p>
+  <p class="read">A trilha segue o cronograma da professora. Módulo 1: aulas 1 a 11 (até 01/10, 1ª prova). Módulo 2: aulas de 21/10 a 05/11 (2ª prova). Módulo 3: integrais duplas, aulas de 25/11 a 02/12 (3ª prova). O Módulo 3 está pelo Stewart 15.1 e 15.2; quando a professora passar os slides, eu ajusto.</p>
   <div class="trail" id="trail"></div>
 
   <h3>A ideia que atravessa tudo</h3>
   <ol class="recipe read">
-    <li><span><b>Uma variável por vez.</b> Quase tudo em várias variáveis é o Cálculo I aplicado a uma variável enquanto as outras ficam paradas.</span></li>
-    <li><span><b>Derivada parcial = inclinação numa direção.</b> f<sub>x</sub> é a inclinação andando em x; f<sub>y</sub>, andando em y.</span></li>
-    <li><span><b>O gradiente junta as duas</b> num vetor ∇f = ⟨f<sub>x</sub>, f<sub>y</sub>⟩, que aponta para onde a função sobe mais rápido.</span></li>
-    <li><span><b>Máximo, mínimo ou sela</b> só pode acontecer onde ∇f = 0. O teste da derivada segunda decide qual dos três.</span></li>
+    <li><span><b>Integral é soma de pedacinhos.</b> Retângulos viram área (Módulo 1), fatias viram volume (Módulo 1) e caixinhas embaixo de uma superfície viram volume de novo (Módulo 3).</span></li>
+    <li><span><b>Integrar é derivar ao contrário.</b> O TFC troca o limite de somas por F(b) − F(a); as técnicas (substituição, partes, frações) são as regras de derivação lidas de trás para a frente.</span></li>
+    <li><span><b>Uma variável por vez.</b> Em várias variáveis, derivada parcial e integral dupla são o Cálculo de uma variável com as outras congeladas.</span></li>
+    <li><span><b>Desenhe antes de calcular.</b> Área, volume e integral dupla: os limites saem do desenho da região.</span></li>
   </ol>
+</section>
+
+<!-- ============ M1 · PRIMITIVAS ============ -->
+<section class="view read" id="v-primitivas" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 4.9</div>
+  <h2>Primitivas: a derivada ao contrário</h2>
+  <p class="lede">No Cálculo I você aprendeu a <b>derivar</b>: dada a função, achar a taxa de variação. Agora a pergunta é a inversa: <b>"que função, quando eu derivo, dá esta aqui?"</b> A resposta se chama primitiva (ou antiderivada), e ela é a porta de entrada de toda a integral.</p>
+<div class="rec"><span class="k">Receita</span>pergunte "quem derivado dá isso?" <span class="ar">→</span> use a tabela termo a termo <span class="ar">→</span> some + C <span class="ar">→</span> confira derivando</div>
+
+<h3 data-n="1">O que é uma primitiva</h3>
+<div class="fx"><span class="tag">Definição 1.1 · primitiva</span><div class="eq"><i>F</i> é primitiva de <i>f</i> &nbsp;⇔&nbsp; <i>F</i>′(<i>x</i>) = <i>f</i>(<i>x</i>)</div><dl class="vars"><dt>f</dt><dd>a função que você <b>tem</b> (a "derivada")</dd><dt>F</dt><dd>a função que você <b>procura</b>: derivada dela tem que dar f</dd><dt>exemplo</dt><dd>f(x) = cos x → F(x) = sen x, porque (sen x)′ = cos x</dd></dl></div>
+<p class="ln">É o caminho de volta: <span class="az">derivar</span> leva F <span class="ar">→</span> f; <span class="lr">primitivar</span> leva f <span class="ar">→</span> F.</p>
+
+<h3 data-n="2">Por que sempre aparece o "+ C"</h3>
+<p>A derivada de um número é zero. Então x³/3, x³/3 + 100 e x³/3 − 7 têm <b>a mesma derivada</b>: x². Todas são primitivas de x². Para escrever todas de uma vez, a gente soma uma constante qualquer C.</p>
+<div class="fx"><span class="tag">Teorema 1.2 · primitiva mais geral</span><div class="eq"><i>F</i>(<i>x</i>) + <i>C</i>, &nbsp; <i>C</i> ∈ ℝ</div><dl class="vars"><dt>C</dt><dd>constante arbitrária: qualquer número. Achou uma primitiva, achou todas (é só somar C)</dd><dt>no gráfico</dt><dd>cada valor de C sobe ou desce a curva inteira. As curvas são "paralelas": em cada x têm a <b>mesma inclinação</b></dd></dl></div>
+<div class="esb"><svg viewBox="0 0 340 200" role="img" aria-label="Família de curvas x ao cubo sobre 3 mais C, deslocadas na vertical"><line x1="20" y1="110" x2="320" y2="110" stroke="var(--ink2)" stroke-width="1.2"/><line x1="170" y1="190" x2="170" y2="10" stroke="var(--ink2)" stroke-width="1.2"/>
+<path d="M70,180 C120,120 150,112 170,110 C190,108 220,100 270,40" fill="none" stroke="var(--c2)" stroke-width="2.4"/><path d="M70,150 C120,90 150,82 170,80 C190,78 220,70 270,10" fill="none" stroke="var(--c1)" stroke-width="2.4"/><path d="M70,205 C120,145 150,137 170,135 C190,133 220,125 270,65" fill="none" stroke="var(--c3)" stroke-width="2.4"/>
+<text x="276" y="16" font-size="12" fill="var(--c1)">C = 1</text><text x="276" y="44" font-size="12" fill="var(--c2)">C = 0</text><text x="276" y="70" font-size="12" fill="var(--c3)">C = −0,8</text></svg><div class="cap">F(x) = x³/3 + C para três valores de C: a mesma curva, só deslocada para cima ou para baixo.</div></div>
+
+<h3 data-n="3">A tabela das primitivas (some + C em todas)</h3>
+<div class="tbl"><table><tr><th>Função f(x)</th><th>Primitiva F(x)</th><th>Como lembrar</th></tr>
+<tr><td>k (número)</td><td>kx</td><td>(kx)′ = k</td></tr>
+<tr><td>xⁿ (n ≠ −1)</td><td>xⁿ⁺¹ / (n + 1)</td><td>sobe 1 no expoente e divide pelo novo expoente</td></tr>
+<tr><td>1/x</td><td>ln |x|</td><td>o único caso em que a regra de cima não funciona (n = −1)</td></tr>
+<tr><td>eˣ</td><td>eˣ</td><td>a exponencial é primitiva dela mesma</td></tr>
+<tr><td>cos x</td><td>sen x</td><td>(sen x)′ = cos x</td></tr>
+<tr><td>sen x</td><td>−cos x</td><td>atenção ao sinal: (−cos x)′ = sen x</td></tr>
+<tr><td>sec² x</td><td>tg x</td><td>(tg x)′ = sec² x</td></tr>
+<tr><td>sec x · tg x</td><td>sec x</td><td></td></tr>
+<tr><td>1/(1 + x²)</td><td>arctg x</td><td>vai aparecer em frações parciais</td></tr>
+<tr><td>1/√(1 − x²)</td><td>arcsen x</td><td></td></tr>
+<tr><td>c · f(x) &nbsp; e &nbsp; f + g</td><td>c · F(x) &nbsp; e &nbsp; F + G</td><td>número multiplicando fica; soma vira soma</td></tr></table></div>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> esquecer o + C na integral indefinida</div><div class="ln"><span class="er">✗</span> primitiva de 1/x² como "ln x²": reescreva 1/x² = x⁻² → x⁻¹/(−1) = <b>−1/x</b></div><div class="ln"><span class="er">✗</span> raiz: √x = x<sup>1/2</sup> → x<sup>3/2</sup>/(3/2) = <b>(2/3)x<sup>3/2</sup></b></div><div class="ln"><span class="ok2">✓</span> sempre confira derivando a resposta: tem que voltar na função do enunciado</div></div>
+
+<h3 data-n="4">Como resolver, do começo ao fim</h3>
+<p class="ln">Exemplo 2 da aula: encontre todas as funções g tais que g′(x) = 4 sen x + (2x⁵ − √x)/x.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · arrume em potências</b><div class="ln">divida cada termo da fração por x <span class="ar">→</span> 2x⁵/x = <span class="az">2x⁴</span> e √x/x = x<sup>1/2</sup>/x = <span class="az">x<sup>−1/2</sup></span></div><div class="ln">g′(x) = 4 sen x + 2x⁴ − x<sup>−1/2</sup></div><div class="nt">fração com x embaixo: separe e transforme em expoente</div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · termo a termo pela tabela</b><div class="cols2"><div class="bx"><div class="bh">4 sen x</div><div>4 · (−cos x) = <span class="lr">−4 cos x</span></div></div><div class="bx"><div class="bh">2x⁴</div><div>2 · x⁵/5 = <span class="lr">(2/5)x⁵</span></div></div><div class="bx"><div class="bh">−x<sup>−1/2</sup></div><div>−x<sup>1/2</sup>/(1/2) = <span class="lr">−2√x</span></div></div></div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · junta e soma + C</b><div class="ln">g(x) = −4 cos x + (2/5)x⁵ − 2√x + C</div><div class="nt">conferindo: (−4 cos x)′ = 4 sen x ✓ · ((2/5)x⁵)′ = 2x⁴ ✓ · (−2√x)′ = −1/√x ✓</div><div class="fin">g(x) = −4 cos x + (2/5)x⁵ − 2√x + C</div></div></div>
+
+<h3 data-n="5">Quando o problema dá um ponto: achar o C</h3>
+<p>Se o enunciado diz quanto a função vale em algum ponto (uma "condição inicial"), o C deixa de ser qualquer: ele vira um número. Ache a primitiva com + C, substitua o ponto e resolva para C.</p>
+<div class="ex" data-ex data-q="i1"><div class="q">Exemplo 1: encontre a primitiva mais geral de a) f(x) = sen x; b) f(x) = 1/x; c) f(x) = xⁿ (n ≠ −1).</div>
+<ol><li>a) Quem derivado dá sen x? (−cos x)′ = sen x → F(x) = −cos x + C.</li><li>b) (ln |x|)′ = 1/x → F(x) = ln |x| + C.</li><li>c) Regra da potência: sobe 1 no expoente e divide por ele → F(x) = xⁿ⁺¹/(n + 1) + C.</li></ol>
+<div class="ans">a) −cos x + C · b) ln |x| + C · c) xⁿ⁺¹/(n + 1) + C</div></div>
+<div class="ex" data-ex data-q="i2"><div class="q">Exemplo 3: sabendo que f′(x) = 4x + 5 e que f(2) = 3, determine f.</div>
+<ol><li>f é primitiva de 4x + 5: f(x) = 4 · x²/2 + 5x + C = 2x² + 5x + C.</li><li>Use f(2) = 3: 2 · 2² + 5 · 2 + C = 3 → 8 + 10 + C = 3.</li><li>C = 3 − 18 = −15.</li></ol>
+<div class="ans">f(x) = 2x² + 5x − 15</div></div>
+<div class="ex" data-ex data-q="i3"><div class="q">Exemplo (Praticando 2b): f″(x) = −2 + 12x − 12x², com f(0) = 4 e f′(0) = 12. Encontre f.</div>
+<ol><li>Primitive uma vez: f′(x) = −2x + 6x² − 4x³ + C₁. Como f′(0) = 12, C₁ = 12.</li><li>Primitive de novo: f(x) = −x² + 2x³ − x⁴ + 12x + C₂. Como f(0) = 4, C₂ = 4.</li><li>Com f″ são <b>duas</b> primitivas, então aparecem <b>duas</b> constantes, uma para cada condição.</li></ol>
+<div class="ans">f(x) = −x⁴ + 2x³ − x² + 12x + 4</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g5">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>da lista "Praticando", com conferência de resposta</span></div>
+<div class="done-btn" data-done="primitivas"></div>
+</section>
+
+<!-- ============ M1 · INTEGRAL DEFINIDA ============ -->
+<section class="view read" id="v-riemann" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 5.1 e 5.2</div>
+  <h2>Integral definida: somar retângulos até virar área</h2>
+  <p class="lede">Área de triângulo e de retângulo é fácil. Mas e a área embaixo de uma curva? A ideia da aula: <b>encher a região com retângulos</b>, somar, e ir afinando. No limite, com infinitos retângulos fininhos, a soma vira a área exata. Esse limite é a <b>integral definida</b>.</p>
+<div class="rec"><span class="k">Receita</span>divida [a, b] em n pedaços de largura Δx <span class="ar">→</span> altura de cada retângulo = f(ponto escolhido) <span class="ar">→</span> some f · Δx <span class="ar">→</span> faça n → ∞</div>
+
+<h3 data-n="1">A ideia em três passos</h3>
+<div class="rot"><div><span class="n">1</span><b>Aproximar</b>Cubra a região com retângulos. Sobra ou falta um pouco nas pontas.</div><div><span class="n">2</span><b>Refinar</b>Use mais retângulos, mais fininhos. O erro diminui.</div><div><span class="n">3</span><b>No limite</b>Base → 0 e número de retângulos → ∞: a soma vira a área exata.</div></div>
+
+<h3 data-n="2">A soma de Riemann</h3>
+<div class="fx"><span class="tag">Fórmula 2.1 · soma de Riemann</span><div class="eq"><i>R<sub>n</sub></i> = Σ<sub><i>i</i>=1</sub><sup><i>n</i></sup> <i>f</i>(<i>x<sub>i</sub></i>*) · Δ<i>x</i> &nbsp;&nbsp;&nbsp; Δ<i>x</i> = <span class="frm"><span><i>b</i> − <i>a</i></span><span><i>n</i></span></span></div><dl class="vars"><dt>Σ</dt><dd>"some tudo", do retângulo 1 até o n</dd><dt>n</dt><dd>quantos retângulos</dd><dt>Δx</dt><dd>largura de cada um (o intervalo dividido em n partes iguais)</dd><dt>xᵢ*</dt><dd>o ponto escolhido no i-ésimo pedaço para medir a altura: pode ser a ponta esquerda, a direita ou o meio</dd><dt>f(xᵢ*) · Δx</dt><dd>altura × base = área de um retângulo</dd></dl></div>
+
+<h3 data-n="3">Simulador: mexa no número de retângulos</h3>
+<div class="row-ctl"><label class="mono" style="font-size:.82rem">função <select id="rmFn"><option value="x2">x² em [0, 1]</option><option value="sen">sen x em [0, π]</option><option value="raiz">√x em [0, 4]</option><option value="exp">eˣ em [0, 1]</option><option value="cub">x³ em [−1, 2]</option></select></label><div class="seg" id="rmSeg" style="margin:0"><button data-e="L">esquerda</button><button class="on" data-e="R">direita</button><button data-e="M">meio</button></div></div>
+<div class="cv sim" id="rmSim" style="aspect-ratio:16/10;max-height:460px"><canvas></canvas></div><div class="simctl" id="rmCtl"></div><div class="simout" id="rmOut"></div>
+
+<h3 data-n="4">A definição: integral é o limite das somas</h3>
+<div class="fx"><span class="tag">Definição 2.2 · integral definida</span><div class="eq">∫<sub><i>a</i></sub><sup><i>b</i></sup> <i>f</i>(<i>x</i>) <i>dx</i> = lim<sub><i>n</i>→∞</sub> Σ<sub><i>i</i>=1</sub><sup><i>n</i></sup> <i>f</i>(<i>x<sub>i</sub></i>*) Δ<i>x</i></div><dl class="vars"><dt>∫</dt><dd>um "S" esticado (de <b>soma</b>), criado por Leibniz</dd><dt>a, b</dt><dd>limites de integração: onde começa e onde termina</dd><dt>f(x)</dt><dd>o integrando: a altura</dd><dt>dx</dt><dd>a base "infinitamente fina"; também avisa que a variável é x</dd><dt>resultado</dt><dd>é um <b>número</b>, não uma função. Trocar x por t não muda nada: ∫f(x)dx = ∫f(t)dt</dd></dl></div>
+<div class="cuid"><span class="k">Integral não é sempre área</span><div class="ln">Onde f fica <b>abaixo</b> do eixo x, os retângulos têm altura negativa e a integral conta <b>negativo</b>.</div><div class="ln">Integral = (área acima do eixo) − (área abaixo do eixo). Para a <b>área de verdade</b>, separe os pedaços e some os valores sem sinal.</div></div>
+
+<h3 data-n="5">Como resolver, do começo ao fim (pela definição)</h3>
+<p class="ln">Exemplo da aula: a área sob y = x² de 0 até 1.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · largura e alturas</b><div class="ln">Δx = (1 − 0)/n = <span class="az">1/n</span> · pontas direitas: 1/n, 2/n, …, n/n</div><div class="ln">alturas: (1/n)², (2/n)², …, (n/n)²</div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · soma e fórmula da soma dos quadrados</b><div class="ln">R<sub>n</sub> = (1/n)·[(1/n)² + (2/n)² + … + (n/n)²] = (1/n³)(1² + 2² + … + n²)</div><div class="ln">1² + 2² + … + n² = <span class="az">n(n + 1)(2n + 1)/6</span></div><div class="ln">R<sub>n</sub> = (n + 1)(2n + 1)/(6n²) = (1/6)(1 + 1/n)(2 + 1/n)</div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · limite com n → ∞</b><div class="ln">1/n → 0 <span class="ar">→</span> (1/6) · 1 · 2 = <span class="lr">1/3</span></div><div class="nt">com 4 retângulos a área ficava entre 0,21875 (esquerda) e 0,46875 (direita)</div><div class="fin">∫₀¹ x² dx = 1/3</div></div></div>
+<p>Calcular pela definição é longo. A próxima aula (TFC) mostra o atalho que dá o mesmo 1/3 em uma linha.</p>
+
+<div class="ex" data-ex data-q="i4"><div class="q">Exemplo (aula): estime a área sob y = x² de 0 até 1 com 4 retângulos, pela extremidade esquerda e pela direita.</div>
+<ol><li>Δx = 1/4. Pontas esquerdas: 0, 1/4, 1/2, 3/4. Pontas direitas: 1/4, 1/2, 3/4, 1.</li><li>Esquerda: (1/4)(0² + (1/4)² + (1/2)² + (3/4)²) = (1/4)(0 + 1/16 + 4/16 + 9/16) = 14/64 = 7/32 = 0,21875.</li><li>Direita: (1/4)((1/4)² + (1/2)² + (3/4)² + 1²) = (1/4)(30/16) = 15/32 = 0,46875.</li><li>Como x² é crescente, a esquerda fica abaixo e a direita fica acima: 0,21875 &lt; A &lt; 0,46875.</li></ol>
+<div class="ans">0,21875 &lt; A &lt; 0,46875 (e a área exata é 1/3)</div></div>
+<div class="ex" data-ex data-q="i5"><div class="q">Exemplo (aula): calcule ∫ₐᵇ c dx pela definição (área de um retângulo de altura c).</div>
+<ol><li>Δx = (b − a)/n e todas as alturas valem c (a função é constante).</li><li>Soma: Σ c · (b − a)/n = c · (b − a)/n · n = c(b − a). O n se cancela.</li><li>O limite de uma coisa que não depende de n é ela mesma.</li></ol>
+<div class="ans">∫ₐᵇ c dx = c(b − a): altura × base, como esperado</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g5">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>primitivas, somas de Riemann e TFC</span></div>
+<div class="done-btn" data-done="riemann"></div>
+</section>
+
+<!-- ============ M1 · TFC ============ -->
+<section class="view read" id="v-tfc" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 5.3</div>
+  <h2>Teorema Fundamental do Cálculo: o atalho</h2>
+  <p class="lede">O TFC liga as duas metades do cálculo: <b>derivada e integral são operações inversas</b>. Na prática ele troca aquele limite enorme de somas por uma conta de duas linhas: ache a primitiva e faça "valor em cima menos valor embaixo".</p>
+<div class="rec"><span class="k">Receita</span>ache uma primitiva F <span class="ar">→</span> calcule F(b) <span class="ar">→</span> calcule F(a) <span class="ar">→</span> F(b) − F(a) (sem + C)</div>
+
+<h3 data-n="1">Parte 1: derivar uma integral devolve a função</h3>
+<div class="fx"><span class="tag">TFC · parte 1</span><div class="eq"><i>g</i>(<i>x</i>) = ∫<sub><i>a</i></sub><sup><i>x</i></sup> <i>f</i>(<i>t</i>) <i>dt</i> &nbsp;⇒&nbsp; <i>g</i>′(<i>x</i>) = <i>f</i>(<i>x</i>)</div><dl class="vars"><dt>g(x)</dt><dd>a área acumulada de a até x: uma função, porque muda quando x anda</dd><dt>t</dt><dd>variável "de dentro" (muda), só para não confundir com o x do limite</dd><dt>g′(x) = f(x)</dt><dd>a taxa com que a área cresce é a altura da curva ali</dd></dl></div>
+<p><b>Por que funciona:</b> andando um passinho h, a área ganha uma tira de largura h e altura ≈ f(x). Então g(x + h) − g(x) ≈ h · f(x); dividindo por h e fazendo h → 0, sobra g′(x) = f(x).</p>
+<div class="esb"><svg viewBox="0 0 340 190" role="img" aria-label="Área acumulada de a até x sob a curva, com uma tira fina de largura h"><line x1="20" y1="160" x2="320" y2="160" stroke="var(--ink2)"/><path d="M60,160 L60,110 C120,70 180,60 230,80 L230,160 Z" fill="var(--c2)" fill-opacity=".18"/><rect x="230" y="78" width="22" height="82" fill="var(--c1)" fill-opacity=".35" stroke="var(--c1)"/><path d="M40,125 C120,70 180,60 300,110" fill="none" stroke="var(--c2)" stroke-width="2.6"/><text x="56" y="176" font-size="12" fill="var(--ink2)">a</text><text x="226" y="176" font-size="12" fill="var(--ink2)">x</text><text x="246" y="176" font-size="12" fill="var(--c1)">x+h</text><text x="120" y="140" font-size="13" fill="var(--c2)">g(x)</text><text x="258" y="70" font-size="12" fill="var(--c1)">≈ h·f(x)</text></svg><div class="cap">A área cresce uma tira de altura f(x) a cada passinho h.</div></div>
+<div class="ex" data-ex data-q="i6"><div class="q">Exemplo 1: encontre a derivada de g(x) = ∫₀ˣ √(1 + t²) dt.</div>
+<ol><li>É exatamente a forma da parte 1: integral de a (número) até x.</li><li>Derivar devolve o integrando trocando t por x.</li></ol>
+<div class="ans">g′(x) = √(1 + x²)</div></div>
+
+<h3 data-n="2">Parte 2: calcular integral com a primitiva</h3>
+<div class="fx"><span class="tag">TFC · parte 2</span><div class="eq">∫<sub><i>a</i></sub><sup><i>b</i></sup> <i>f</i>(<i>x</i>) <i>dx</i> = <i>F</i>(<i>b</i>) − <i>F</i>(<i>a</i>) = <i>F</i>(<i>x</i>) |<sub><i>a</i></sub><sup><i>b</i></sup></div><dl class="vars"><dt>F</dt><dd><b>qualquer</b> primitiva de f (F′ = f). O + C se cancela na subtração, então nem escreva</dd><dt>F(x) |ₐᵇ</dt><dd>notação para "coloque b, coloque a e subtraia"</dd><dt>em física</dt><dd>∫ v(t) dt = s(b) − s(a): a área sob a velocidade é a distância percorrida</dd></dl></div>
+<div class="cuid"><span class="k">Integral × área</span><div class="ln">∫₀<sup>2π</sup> sen x dx = 0: o pedaço de cima (+2) cancela o de baixo (−2).</div><div class="ln">A <b>área</b> é 2 + 2 = 4. Quando f troca de sinal, separe nos zeros e some os módulos.</div></div>
+
+<h3 data-n="3">Como resolver, do começo ao fim</h3>
+<p class="ln">Exemplo 9 da aula: calcule ∫₋₁² x³ dx e interprete como diferença de áreas.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · primitiva</b><div class="ln">x³ <span class="ar">→</span> <span class="az">x⁴/4</span></div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · em cima menos embaixo</b><div class="cols2"><div class="bx"><div class="bh">F(2)</div><div>2⁴/4 = 16/4 = <span class="lr">4</span></div></div><div class="bx"><div class="bh">F(−1)</div><div>(−1)⁴/4 = <span class="lr">1/4</span></div></div></div><div class="ln">4 − 1/4 = <span class="lr">15/4 = 3,75</span></div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · interpretar</b><div class="ln">de −1 a 0 a curva fica abaixo do eixo: área 1/4 contada como <span class="er">−1/4</span></div><div class="ln">de 0 a 2 fica acima: área <span class="ok2">4</span> · 4 − 1/4 = 3,75</div><div class="fin">∫₋₁² x³ dx = 15/4 (área de cima − área de baixo)</div></div></div>
+
+<div class="ex" data-ex data-q="i7"><div class="q">Exemplo 2: encontre a área sob a parábola y = x² de 0 até 1.</div>
+<ol><li>Primitiva de x²: x³/3.</li><li>F(1) − F(0) = 1/3 − 0 = 1/3. O mesmo resultado da soma de Riemann, em uma linha.</li></ol>
+<div class="ans">Área = 1/3</div></div>
+<div class="ex" data-ex data-q="i8"><div class="q">Exemplos 3 e 4: calcule a área sob y = sen x de 0 até π e a integral ∫₀<sup>2π</sup> sen x dx.</div>
+<ol><li>Primitiva de sen x: −cos x.</li><li>De 0 a π: −cos π − (−cos 0) = −(−1) + 1 = 2.</li><li>De 0 a 2π: −cos 2π + cos 0 = −1 + 1 = 0. A integral deu zero, mas a área não: de π a 2π a curva está abaixo do eixo.</li><li>Área total de 0 a 2π: 2 + |−2| = 4.</li></ol>
+<div class="ans">área de 0 a π = 2 · ∫₀<sup>2π</sup> sen x dx = 0 · área de 0 a 2π = 4</div></div>
+<div class="ex" data-ex data-q="i9"><div class="q">Exemplos 6 e 7: calcule ∫₁³ eˣ dx e ∫₃⁶ (1/x) dx.</div>
+<ol><li>eˣ é primitiva dela mesma: e³ − e¹ = e³ − e.</li><li>Primitiva de 1/x é ln x: ln 6 − ln 3 = ln(6/3) = ln 2 (propriedade do log: ln a − ln b = ln(a/b)).</li></ol>
+<div class="ans">∫₁³ eˣ dx = e³ − e ≈ 17,4 · ∫₃⁶ dx/x = ln 2 ≈ 0,693</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g5">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>as integrais do "Praticando" da aula</span></div>
+<div class="done-btn" data-done="tfc"></div>
+</section>
+
+<!-- ============ M1 · SUBSTITUIÇÃO ============ -->
+<section class="view read" id="v-subst" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 5.5</div>
+  <h2>Regra da substituição: a regra da cadeia ao contrário</h2>
+  <p class="lede">Muitas integrais não estão na tabela, mas têm um "pacote" dentro e, do lado de fora, a derivada desse pacote. A substituição troca o pacote por uma letra nova, <b>u</b>, e a integral feia vira uma da tabela.</p>
+<div class="rec"><span class="k">Receita</span>escolha u = o "de dentro" <span class="ar">→</span> du = u′ dx <span class="ar">→</span> troque tudo para u (não pode sobrar x) <span class="ar">→</span> integre em u <span class="ar">→</span> volte para x</div>
+
+<h3 data-n="1">A ideia</h3>
+<div class="fx"><span class="tag">Fórmula 4.1 · substituição</span><div class="eq">∫ <i>f</i>(<i>g</i>(<i>x</i>)) · <i>g</i>′(<i>x</i>) <i>dx</i> = ∫ <i>f</i>(<i>u</i>) <i>du</i>, &nbsp; <i>u</i> = <i>g</i>(<i>x</i>)</div><dl class="vars"><dt>g(x)</dt><dd>o "de dentro" (o pacote)</dd><dt>g′(x) dx</dt><dd>a derivada do pacote, que tem que aparecer do lado de fora (a menos de um número)</dd><dt>du</dt><dd>= g′(x) dx: é assim que o dx vira du</dd><dt>de onde vem</dt><dd>da regra da cadeia: (F(g(x)))′ = f(g(x)) · g′(x)</dd></dl></div>
+<h3 data-n="2">Como escolher o u</h3>
+<div class="rot"><div><span class="n">1</span><b>Derivada aparece fora?</b>Escolha u como a parte cuja derivada está multiplicando (sobrar só um número de diferença tudo bem).</div><div><span class="n">2</span><b>Função composta?</b>Se não, tente u = o "de dentro": o que está dentro do parêntese, da raiz, do expoente, do seno.</div><div><span class="n">3</span><b>Não deu?</b>É normal errar a primeira escolha. Volte e tente outra.</div></div>
+<div class="fx"><span class="tag">Fórmula 4.2 · substituição na integral definida</span><div class="eq">∫<sub><i>a</i></sub><sup><i>b</i></sup> <i>f</i>(<i>g</i>(<i>x</i>)) <i>g</i>′(<i>x</i>) <i>dx</i> = ∫<sub><i>g</i>(<i>a</i>)</sub><sup><i>g</i>(<i>b</i>)</sup> <i>f</i>(<i>u</i>) <i>du</i></div><dl class="vars"><dt>limites novos</dt><dd>troque também os limites: x = a vira u = g(a); x = b vira u = g(b). Aí <b>não precisa voltar para x</b></dd></dl></div>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> trocar para u mas deixar um x sobrando na integral</div><div class="ln"><span class="er">✗</span> esquecer de corrigir o número: du = 2x dx → x dx = du/2</div><div class="ln"><span class="er">✗</span> em integral definida, trocar para u e continuar com os limites de x</div></div>
+
+<h3 data-n="3">Como resolver, do começo ao fim</h3>
+<p class="ln">Exemplo 1b da aula: ∫ x³ cos(x⁴ + 2) dx.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · escolher u</b><div class="ln">pacote: <span class="az">u = x⁴ + 2</span> <span class="ar">→</span> du = 4x³ dx <span class="ar">→</span> <span class="az">x³ dx = du/4</span></div><div class="nt">o x³ de fora é a derivada do pacote (falta só o 4)</div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · trocar e integrar</b><div class="ln">∫ cos u · du/4 = (1/4) ∫ cos u du = (1/4) sen u + C</div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · voltar para x</b><div class="fin">∫ x³ cos(x⁴ + 2) dx = (1/4) sen(x⁴ + 2) + C</div></div></div>
+
+<div class="ex" data-ex data-q="i10"><div class="q">Exemplo 1a: calcule ∫ sen x cos x dx.</div>
+<ol><li>u = sen x → du = cos x dx. O cos x dx de fora é exatamente du.</li><li>∫ u du = u²/2 + C.</li><li>Volte: sen²x/2 + C.</li></ol>
+<div class="ans">∫ sen x cos x dx = sen²x/2 + C</div></div>
+<div class="ex" data-ex data-q="i11"><div class="q">Exemplo 1c: calcule ∫₁ᵉ (ln x / x) dx.</div>
+<ol><li>u = ln x → du = (1/x) dx. O 1/x de fora é o du.</li><li>Limites novos: x = 1 → u = ln 1 = 0; x = e → u = ln e = 1.</li><li>∫₀¹ u du = u²/2 |₀¹ = 1/2.</li></ol>
+<div class="ans">∫₁ᵉ (ln x / x) dx = 1/2</div></div>
+<div class="ex" data-ex data-q="i12"><div class="q">Exemplos 1d e 1e: calcule ∫ √(2x + 1) dx e ∫ x/√(1 − 4x²) dx.</div>
+<ol><li>d) u = 2x + 1 → du = 2 dx → dx = du/2. ∫ u<sup>1/2</sup> du/2 = (1/2) · u<sup>3/2</sup>/(3/2) = (1/3)u<sup>3/2</sup> → (1/3)(2x + 1)<sup>3/2</sup> + C.</li><li>e) u = 1 − 4x² → du = −8x dx → x dx = −du/8.</li><li>∫ u<sup>−1/2</sup> · (−du/8) = −(1/8) · u<sup>1/2</sup>/(1/2) = −(1/4)√u → −(1/4)√(1 − 4x²) + C.</li></ol>
+<div class="ans">d) (1/3)(2x + 1)<sup>3/2</sup> + C · e) −(1/4)√(1 − 4x²) + C</div></div>
+<div class="ex" data-ex data-q="i13"><div class="q">Exemplos 1f e 1g: calcule ∫₁² dx/(3 − 5x)² e ∫ (2x + 5)/(x² + 5x − 3) dx.</div>
+<ol><li>f) u = 3 − 5x → du = −5 dx. Limites: x = 1 → u = −2; x = 2 → u = −7.</li><li>∫₋₂<sup>−7</sup> u⁻² (−du/5) = −(1/5) · (−1/u) |₋₂<sup>−7</sup> = (1/5)(1/u) |₋₂<sup>−7</sup> = (1/5)(−1/7 + 1/2) = (1/5)(5/14) = 1/14.</li><li>g) u = x² + 5x − 3 → du = (2x + 5) dx, exatamente o de cima. ∫ du/u = ln |u| + C.</li></ol>
+<div class="ans">f) 1/14 · g) ln |x² + 5x − 3| + C</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g6">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>as integrais definidas do "Praticando"</span></div>
+<div class="done-btn" data-done="subst"></div>
+</section>
+
+<!-- ============ M1 · PARTES ============ -->
+<section class="view read" id="v-partes" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 7.1</div>
+  <h2>Integração por partes: a regra do produto ao contrário</h2>
+  <p class="lede">Quando o integrando é um <b>produto de dois tipos diferentes</b> de função (x vezes seno, x vezes eˣ, ln x sozinho…), a substituição não resolve. A integração por partes troca a integral difícil por outra mais fácil.</p>
+<div class="rec"><span class="k">Receita</span>escolha u pela ordem LIATE <span class="ar">→</span> o resto é dv <span class="ar">→</span> derive u (du) e integre dv (v) <span class="ar">→</span> uv − ∫v du</div>
+
+<h3 data-n="1">A fórmula</h3>
+<div class="fx"><span class="tag">Fórmula 5.1 · integração por partes</span><div class="eq">∫ <i>u</i> <i>dv</i> = <i>u v</i> − ∫ <i>v</i> <i>du</i></div><dl class="vars"><dt>u</dt><dd>a parte que você vai <b>derivar</b> (tem que ficar mais simples ao derivar)</dd><dt>dv</dt><dd>o resto, que você vai <b>integrar</b> (tem que ser fácil de integrar)</dd><dt>du</dt><dd>u′ dx</dd><dt>v</dt><dd>a primitiva de dv (sem + C aqui; ele aparece no final)</dd><dt>de onde vem</dt><dd>da regra do produto: (uv)′ = u′v + uv′ → integrando e isolando ∫uv′</dd></dl></div>
+<p class="ln">Objetivo: a integral nova, ∫ v du, tem que ser <b>mais simples</b> que a original. Se ficou pior, troque a escolha de u.</p>
+
+<h3 data-n="2">Quem é o u? A ordem LIATE</h3>
+<div class="tbl"><table><tr><th>Letra</th><th>Tipo</th><th>Exemplos</th></tr>
+<tr><td><b>L</b></td><td>Logaritmo</td><td>ln x</td></tr>
+<tr><td><b>I</b></td><td>Inversas trigonométricas</td><td>arctg x, arcsen x</td></tr>
+<tr><td><b>A</b></td><td>Algébricas (polinômios)</td><td>x, x², t³</td></tr>
+<tr><td><b>T</b></td><td>Trigonométricas</td><td>sen x, cos 5x</td></tr>
+<tr><td><b>E</b></td><td>Exponenciais</td><td>eˣ, e<sup>−x</sup></td></tr></table></div>
+<p>Quem aparece <b>primeiro</b> na lista vira u; o resto (junto com o dx) é dv. Exemplo: x · eˣ → A vem antes de E → u = x, dv = eˣ dx.</p>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> escolher u = eˣ em x eˣ: a integral nova fica x²eˣ/2, pior que antes</div><div class="ln"><span class="er">✗</span> errar o sinal de v: dv = sen x dx → v = <b>−cos x</b></div><div class="ln"><span class="er">✗</span> esquecer o parêntese no "− ∫ v du" quando v já tem sinal negativo</div><div class="ln"><span class="ok2">✓</span> com x² (ou t²) na frente, é preciso aplicar partes <b>duas vezes</b></div></div>
+
+<h3 data-n="3">Como resolver, do começo ao fim</h3>
+<p class="ln">Exemplo 1 da aula: ∫ x sen x dx.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · LIATE escolhe</b><div class="cols2"><div class="bx"><div class="bh">u (deriva)</div><div>u = x <span class="ar">→</span> <span class="az">du = dx</span></div></div><div class="bx"><div class="bh">dv (integra)</div><div>dv = sen x dx <span class="ar">→</span> <span class="az">v = −cos x</span></div></div></div><div class="nt">A (x) vem antes de T (sen) → u = x</div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · uv − ∫ v du</b><div class="ln">x · (−cos x) − ∫ (−cos x) dx = −x cos x + ∫ cos x dx</div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · integra o que sobrou</b><div class="ln">∫ cos x dx = sen x</div><div class="nt">conferindo: (−x cos x + sen x)′ = −cos x + x sen x + cos x = x sen x ✓</div><div class="fin">∫ x sen x dx = −x cos x + sen x + C</div></div></div>
+
+<div class="ex" data-ex data-q="i14"><div class="q">Exemplo 2: avalie ∫ ln x dx.</div>
+<ol><li>Só tem um fator, mas dá para ver como ln x · 1. L vem primeiro: u = ln x, dv = dx.</li><li>du = (1/x) dx e v = x.</li><li>x ln x − ∫ x · (1/x) dx = x ln x − ∫ 1 dx = x ln x − x + C.</li></ol>
+<div class="ans">∫ ln x dx = x ln x − x + C</div></div>
+<div class="ex" data-ex data-q="i15"><div class="q">Exemplo 3: encontre ∫ t² eᵗ dt.</div>
+<ol><li>1ª vez: u = t², dv = eᵗ dt → du = 2t dt, v = eᵗ. Fica t²eᵗ − 2∫ t eᵗ dt.</li><li>2ª vez (na integral que sobrou): u = t, dv = eᵗ dt → du = dt, v = eᵗ. ∫ t eᵗ dt = t eᵗ − eᵗ.</li><li>Junta: t²eᵗ − 2(t eᵗ − eᵗ) + C = eᵗ(t² − 2t + 2) + C.</li></ol>
+<div class="ans">∫ t² eᵗ dt = eᵗ(t² − 2t + 2) + C</div></div>
+<div class="ex" data-ex data-q="i16"><div class="q">Exemplo 4: encontre a área da região delimitada pela curva y = x e<sup>−x</sup> e pelo eixo x, de x = 0 a x = 4.</div>
+<ol><li>A curva fica acima do eixo em [0, 4], então área = ∫₀⁴ x e<sup>−x</sup> dx.</li><li>u = x, dv = e<sup>−x</sup> dx → du = dx, v = −e<sup>−x</sup>.</li><li>Primitiva: −x e<sup>−x</sup> − ∫(−e<sup>−x</sup>)dx = −x e<sup>−x</sup> − e<sup>−x</sup> = −e<sup>−x</sup>(x + 1).</li><li>De 0 a 4: −e<sup>−4</sup>(5) − (−e⁰ · 1) = 1 − 5e<sup>−4</sup> ≈ 0,908.</li></ol>
+<div class="ans">Área = 1 − 5e<sup>−4</sup> ≈ 0,908</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g7">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>as integrais do "Praticando"</span></div>
+<div class="done-btn" data-done="partes"></div>
+</section>
+
+<!-- ============ M1 · FRAÇÕES PARCIAIS ============ -->
+<section class="view read" id="v-fracoes" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 7.4</div>
+  <h2>Frações parciais: quebrar a fração em pedaços fáceis</h2>
+  <p class="lede">Uma fração de polinômios (função racional) quase nunca está na tabela. Mas ela pode ser <b>desmontada numa soma de frações simples</b>, cada uma integrando em ln ou arctg. É o caminho inverso de "tirar o mínimo":</p>
+<p class="ln">2/(x − 1) − 1/(x + 2) = (x + 5)/(x² + x − 2) <span class="ar">→</span> então ∫ (x + 5)/(x² + x − 2) dx = 2 ln |x − 1| − ln |x + 2| + C</p>
+<div class="rec"><span class="k">Receita</span>grau de cima ≥ grau de baixo? divida <span class="ar">→</span> fatore o denominador <span class="ar">→</span> monte as frações pelo caso <span class="ar">→</span> ache A, B, C… <span class="ar">→</span> integre cada pedaço</div>
+
+<h3 data-n="1">Etapa 0: a fração é própria?</h3>
+<p>Só dá para quebrar se o <b>grau de cima for menor</b> que o de baixo. Se não for, faça antes a <b>divisão de polinômios</b>: P/Q = S(x) + R(x)/Q(x), com R de grau menor. Às vezes essa divisão já resolve tudo.</p>
+<div class="ex" data-ex data-q="i17"><div class="q">Exemplo 1: encontre ∫ (x³ + x)/(x − 1) dx.</div>
+<ol><li>Grau 3 em cima, grau 1 embaixo: divida. (x³ + x) ÷ (x − 1) = x² + x + 2, com resto 2.</li><li>Então (x³ + x)/(x − 1) = x² + x + 2 + 2/(x − 1).</li><li>Integrando termo a termo: x³/3 + x²/2 + 2x + 2 ln |x − 1| + C.</li></ol>
+<div class="ans">x³/3 + x²/2 + 2x + 2 ln |x − 1| + C</div></div>
+
+<h3 data-n="2">Etapa 1: fatore o denominador</h3>
+<p>Todo polinômio se fatora em <b>fatores lineares</b> (ax + b) e <b>quadráticos irredutíveis</b> (ax² + bx + c com Δ = b² − 4ac &lt; 0). Para grau 2, use as raízes de Bhaskara: ax² + bx + c = a(x − x₁)(x − x₂). Também ajuda colocar em evidência e os produtos notáveis, como a² − b² = (a − b)(a + b).</p>
+
+<h3 data-n="3">Etapa 2: os 4 casos (como montar as frações)</h3>
+<div class="tbl"><table><tr><th>Caso</th><th>Denominador tem…</th><th>Monte assim</th><th>Integra em</th></tr>
+<tr><td><b>I</b></td><td>fatores lineares distintos</td><td>A/(x − 1) + B/(x + 2)</td><td>ln</td></tr>
+<tr><td><b>II</b></td><td>fator linear repetido (x − 1)²</td><td>A/(x − 1) + B/(x − 1)²</td><td>ln e potência</td></tr>
+<tr><td><b>III</b></td><td>quadrático irredutível x² + 4</td><td>(Bx + C)/(x² + 4)</td><td>ln e arctg</td></tr>
+<tr><td><b>IV</b></td><td>quadrático repetido (x² + 1)²</td><td>(Bx + C)/(x² + 1) + (Dx + E)/(x² + 1)²</td><td>substituição</td></tr></table></div>
+<p class="ln">Regra de bolso: em cima de fator <span class="az">linear</span> vai uma <b>constante</b> (A); em cima de <span class="az">quadrático</span> vai um <b>linear</b> (Bx + C). Fator repetido r vezes ganha r frações, com potências 1, 2, …, r.</p>
+
+<h3 data-n="4">Etapa 3: achar as constantes</h3>
+<div class="rot"><div><span class="n">1</span><b>Tire o mínimo</b>Multiplique tudo pelo denominador: some a fração e fica uma igualdade de polinômios.</div><div><span class="n">2</span><b>Substitua as raízes</b>Coloque x = cada raiz: vários termos zeram e sobra uma constante por vez (o jeito mais rápido).</div><div><span class="n">3</span><b>Ou iguale coeficientes</b>Expanda e iguale o que multiplica x², x e o número dos dois lados: vira um sistema.</div></div>
+<div class="fx"><span class="tag">Fórmula 6.1 · as integrais que aparecem no fim</span><div class="eq">∫ <span class="frm"><span><i>dx</i></span><span><i>x</i> − <i>a</i></span></span> = ln |<i>x</i> − <i>a</i>| &nbsp;&nbsp; ∫ <span class="frm"><span><i>dx</i></span><span><i>x</i>² + <i>a</i>²</span></span> = <span class="frm"><span>1</span><span><i>a</i></span></span> arctg <span class="frm"><span><i>x</i></span><span><i>a</i></span></span></div><dl class="vars"><dt>ln</dt><dd>cada fração com fator linear vira um logaritmo</dd><dt>arctg</dt><dd>fração com x² + a² embaixo e número em cima. Se embaixo não está nessa forma, <b>complete o quadrado</b></dd><dt>x/(x² + a²)</dt><dd>use u = x² + a² (substituição): vira (1/2) ln(x² + a²)</dd></dl></div>
+
+<h3 data-n="5">Como resolver, do começo ao fim (caso II)</h3>
+<p class="ln">Exemplo 3 da aula: ∫ 4x/(x³ − x² − x + 1) dx.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · fatorar</b><div class="ln">x³ − x² − x + 1 = x²(x − 1) − (x − 1) = (x − 1)(x² − 1) = <span class="az">(x − 1)²(x + 1)</span></div><div class="nt">evidência e depois a² − b² = (a − b)(a + b)</div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · montar e achar A, B, C</b><div class="ln">4x/((x − 1)²(x + 1)) = A/(x − 1) + B/(x − 1)² + C/(x + 1)</div><div class="ln">4x = A(x − 1)(x + 1) + B(x + 1) + C(x − 1)²</div><div class="cols2"><div class="bx"><div class="bh">x = 1</div><div>4 = 2B <span class="ar">→</span> <span class="lr">B = 2</span></div></div><div class="bx"><div class="bh">x = −1</div><div>−4 = 4C <span class="ar">→</span> <span class="lr">C = −1</span></div></div><div class="bx"><div class="bh">x = 0</div><div>0 = −A + B + C <span class="ar">→</span> <span class="lr">A = 1</span></div></div></div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · integrar cada pedaço</b><div class="ln">∫ [1/(x − 1) + 2/(x − 1)² − 1/(x + 1)] dx</div><div class="ln">= ln |x − 1| − 2/(x − 1) − ln |x + 1| + K</div><div class="fin">ln |(x − 1)/(x + 1)| − 2/(x − 1) + K</div></div></div>
+
+<div class="ex" data-ex data-q="i18"><div class="q">Exemplo 2 (caso I): calcule ∫ (x² + 2x − 1)/(2x³ + 3x² − 2x) dx.</div>
+<ol><li>Fatore: 2x³ + 3x² − 2x = x(2x² + 3x − 2) = x(2x − 1)(x + 2).</li><li>Monte: (x² + 2x − 1)/(x(2x − 1)(x + 2)) = A/x + B/(2x − 1) + C/(x + 2). Multiplicando: x² + 2x − 1 = A(2x − 1)(x + 2) + Bx(x + 2) + Cx(2x − 1).</li><li>x = 0: −1 = −2A → A = 1/2. x = 1/2: 1/4 = B · 5/4 → B = 1/5. x = −2: −1 = 10C → C = −1/10.</li><li>∫ = (1/2) ln |x| + (1/5) · (1/2) ln |2x − 1| − (1/10) ln |x + 2| + K. O 1/2 extra vem do 2x (u = 2x − 1).</li></ol>
+<div class="ans">(1/2) ln |x| + (1/10) ln |2x − 1| − (1/10) ln |x + 2| + K</div></div>
+<div class="ex" data-ex data-q="i19"><div class="q">Exemplo 4 (caso III): calcule ∫ (2x² − x + 4)/(x³ + 4x) dx.</div>
+<ol><li>x³ + 4x = x(x² + 4), e x² + 4 não fatora (Δ &lt; 0). Monte: A/x + (Bx + C)/(x² + 4).</li><li>2x² − x + 4 = A(x² + 4) + (Bx + C)x = (A + B)x² + Cx + 4A → A + B = 2, C = −1, 4A = 4. Então A = 1, B = 1, C = −1.</li><li>∫ [1/x + x/(x² + 4) − 1/(x² + 4)] dx.</li><li>ln |x| + (1/2) ln(x² + 4) − (1/2) arctg(x/2) + K (o do meio por u = x² + 4; o último pela fórmula com a = 2).</li></ol>
+<div class="ans">ln |x| + ½ ln(x² + 4) − ½ arctg(x/2) + K</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g8">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>montar frações e achar as constantes</span></div>
+<div class="done-btn" data-done="fracoes"></div>
+</section>
+
+<!-- ============ M1 · ÁREA ENTRE CURVAS ============ -->
+<section class="view read" id="v-areacurvas" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 6.1</div>
+  <h2>Área entre curvas: de cima menos de baixo</h2>
+  <p class="lede">Até aqui a área era entre a curva e o eixo x. Agora a região fica <b>entre duas curvas</b>. A ideia é a mesma da soma de Riemann, só que a altura de cada retângulo é a <b>distância entre as curvas</b>.</p>
+<div class="rec"><span class="k">Receita</span>esboce (GeoGebra ajuda) <span class="ar">→</span> ache as interseções <span class="ar">→</span> desenhe um retângulo típico <span class="ar">→</span> altura = de cima − de baixo <span class="ar">→</span> integre</div>
+
+<h3 data-n="1">A fórmula</h3>
+<div class="esb"><svg viewBox="0 0 340 210" role="img" aria-label="Região entre duas curvas com um retângulo típico de altura f menos g"><line x1="20" y1="180" x2="320" y2="180" stroke="var(--ink2)"/><path d="M60,70 C120,40 220,40 280,80 L280,150 C220,170 120,160 60,140 Z" fill="var(--c2)" fill-opacity=".16"/><path d="M40,80 C120,30 220,40 300,90" fill="none" stroke="var(--c1)" stroke-width="2.6"/><path d="M40,135 C120,165 220,175 300,145" fill="none" stroke="var(--c2)" stroke-width="2.6"/><rect x="160" y="44" width="16" height="118" fill="var(--c3)" fill-opacity=".3" stroke="var(--c3)"/><line x1="60" y1="70" x2="60" y2="180" stroke="var(--ink2)" stroke-dasharray="4 4"/><line x1="280" y1="80" x2="280" y2="180" stroke="var(--ink2)" stroke-dasharray="4 4"/><text x="56" y="196" font-size="12" fill="var(--ink2)">a</text><text x="276" y="196" font-size="12" fill="var(--ink2)">b</text><text x="300" y="86" font-size="13" fill="var(--c1)">y = f(x)</text><text x="300" y="150" font-size="13" fill="var(--c2)">y = g(x)</text><text x="182" y="108" font-size="12" fill="var(--c3)">f − g</text><text x="160" y="196" font-size="12" fill="var(--c3)">Δx</text></svg><div class="cap">Retângulo típico: base Δx e altura f(x) − g(x).</div></div>
+<div class="fx"><span class="tag">Fórmula 8.1 · área entre curvas (fatias verticais)</span><div class="eq"><i>A</i> = ∫<sub><i>a</i></sub><sup><i>b</i></sup> [ <i>f</i>(<i>x</i>) − <i>g</i>(<i>x</i>) ] <i>dx</i></div><dl class="vars"><dt>f</dt><dd>a curva de <b>cima</b> (f(x) ≥ g(x) em [a, b])</dd><dt>g</dt><dd>a curva de <b>baixo</b></dd><dt>a, b</dt><dd>onde a região começa e termina: retas dadas ou os <b>pontos de interseção</b> (resolva f(x) = g(x))</dd><dt>vale sempre</dt><dd>mesmo se as curvas estiverem abaixo do eixo x: a diferença f − g já é a altura</dd></dl></div>
+<div class="fx"><span class="tag">Fórmula 8.2 · fatias horizontais (integrar em y)</span><div class="eq"><i>A</i> = ∫<sub><i>c</i></sub><sup><i>d</i></sup> [ <i>x</i><sub>direita</sub>(<i>y</i>) − <i>x</i><sub>esquerda</sub>(<i>y</i>) ] <i>dy</i></div><dl class="vars"><dt>quando usar</dt><dd>quando as curvas são do tipo x = (algo com y), como y² = 2x + 6, ou quando em x a região teria que ser dividida em duas</dd><dt>altura do retângulo</dt><dd>agora é um retângulo deitado: <b>direita − esquerda</b></dd></dl></div>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> trocar a ordem (de baixo − de cima): a área sai negativa</div><div class="ln"><span class="er">✗</span> se as curvas se cruzam no meio do intervalo, quem está em cima <b>troca</b>: divida a integral no ponto de cruzamento</div><div class="ln"><span class="ok2">✓</span> antes de integrar, teste um x no meio: qual curva dá o maior valor?</div></div>
+
+<h3 data-n="2">Como resolver, do começo ao fim</h3>
+<p class="ln">Exemplo 2 da aula: área entre as parábolas y = x² e y = 2x − x².</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · interseções</b><div class="ln">x² = 2x − x² <span class="ar">→</span> 2x² − 2x = 0 <span class="ar">→</span> 2x(x − 1) = 0 <span class="ar">→</span> <span class="az">x = 0 e x = 1</span></div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · quem está em cima?</b><div class="ln">teste x = 0,5: x² = 0,25 e 2x − x² = 0,75 <span class="ar">→</span> <span class="az">2x − x² em cima</span></div><div class="ln">A = ∫₀¹ [(2x − x²) − x²] dx = ∫₀¹ (2x − 2x²) dx</div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · integrar</b><div class="ln">[x² − (2/3)x³]₀¹ = 1 − 2/3 = <span class="lr">1/3</span></div><div class="fin">A = 1/3 u.a.</div></div></div>
+
+<div class="ex" data-ex data-q="i20"><div class="q">Exemplo 1: encontre a área da região limitada acima por y = eˣ, abaixo por y = x, e nos lados por x = 0 e x = 1.</div>
+<ol><li>Cima: eˣ; baixo: x. Limites já dados: 0 e 1.</li><li>A = ∫₀¹ (eˣ − x) dx = [eˣ − x²/2]₀¹.</li><li>(e − 1/2) − (1 − 0) = e − 1,5 ≈ 1,22.</li></ol>
+<div class="ans">A = e − 1,5 ≈ 1,22 u.a.</div></div>
+<div class="ex" data-ex data-q="i21"><div class="q">Exemplo 3: encontre a área delimitada pela reta y = x − 1 e pela parábola y² = 2x + 6.</div>
+<ol><li>Em x, a região precisaria ser dividida em duas. Em y é uma integral só: escreva as duas como x de y. Reta: x = y + 1. Parábola: x = y²/2 − 3.</li><li>Interseções: y + 1 = y²/2 − 3 → y² − 2y − 8 = 0 → y = −2 e y = 4.</li><li>Direita: a reta; esquerda: a parábola. A = ∫₋₂⁴ [(y + 1) − (y²/2 − 3)] dy = ∫₋₂⁴ (−y²/2 + y + 4) dy.</li><li>[−y³/6 + y²/2 + 4y]₋₂⁴ = (−64/6 + 8 + 16) − (8/6 + 2 − 8) = 40/3 − (−14/3) = 18.</li></ol>
+<div class="ans">A = 18 u.a.</div></div>
+<div class="ex" data-ex data-q="i22"><div class="q">Exemplo 4: expresse a área da região limitada por y = 0, y = x e y = −x + 5 integrando em x e integrando em y. Calcule.</div>
+<ol><li>As retas y = x e y = −x + 5 se cruzam em x = 5/2 (y = 5/2). O teto muda nesse ponto.</li><li>Em x (duas integrais): A = ∫₀<sup>5/2</sup> x dx + ∫<sub>5/2</sub>⁵ (−x + 5) dx = 25/8 + 25/8 = 25/4.</li><li>Em y (uma integral): direita x = 5 − y, esquerda x = y. A = ∫₀<sup>5/2</sup> [(5 − y) − y] dy = [5y − y²]₀<sup>5/2</sup> = 25/2 − 25/4 = 25/4.</li></ol>
+<div class="ans">A = 25/4 u.a. pelos dois caminhos</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g9">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>áreas e volumes do "Praticando"</span></div>
+<div class="done-btn" data-done="areacurvas"></div>
+</section>
+
+<!-- ============ M1 · DISCOS ============ -->
+<section class="view read" id="v-discos" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 6.2</div>
+  <h2>Volume por discos e arruelas</h2>
+  <p class="lede">Para achar o volume de um sólido, <b>fatie como um salame</b>. Cada fatia é quase um cilindro fininho: volume ≈ área da face × espessura. Somando todas e afinando, sai uma integral.</p>
+<div class="rec"><span class="k">Receita</span>esboce a região e o eixo <span class="ar">→</span> fatia perpendicular ao eixo <span class="ar">→</span> raio (ou raios) da fatia <span class="ar">→</span> A = π·R² (ou πR² − πr²) <span class="ar">→</span> integre</div>
+
+<h3 data-n="1">Volume por fatias</h3>
+<div class="fx"><span class="tag">Fórmula 9.1 · volume por seções transversais</span><div class="eq"><i>V</i> = ∫<sub><i>a</i></sub><sup><i>b</i></sup> <i>A</i>(<i>x</i>) <i>dx</i> &nbsp; ou &nbsp; <i>V</i> = ∫<sub><i>c</i></sub><sup><i>d</i></sup> <i>A</i>(<i>y</i>) <i>dy</i></div><dl class="vars"><dt>A(x)</dt><dd>área da face da fatia na posição x</dd><dt>dx</dt><dd>espessura da fatia</dd><dt>passos da aula</dt><dd>1) esboce a seção · 2) ache A(x) · 3) ache os limites · 4) integre</dd></dl></div>
+
+<h3 data-n="2">Sólido de revolução: a fatia é um disco ou uma arruela</h3>
+<p>Girando uma região em torno de um eixo, cada fatia <b>perpendicular ao eixo</b> vira um círculo cheio (disco) ou um círculo com furo (arruela).</p>
+<div class="cols2"><div class="bx"><div class="bh">Disco (a região encosta no eixo)</div><div><i>A</i> = π · (raio)²</div><div class="nt">raio = distância do eixo até a curva</div></div><div class="bx"><div class="bh">Arruela (há um vão até o eixo)</div><div><i>A</i> = π · R² − π · r²</div><div class="nt">R = raio externo (curva mais longe do eixo) · r = raio interno (curva mais perto)</div></div></div>
+<div class="fx"><span class="tag">Fórmula 9.2 · disco e arruela</span><div class="eq"><i>V</i> = ∫<sub><i>a</i></sub><sup><i>b</i></sup> π [<i>R</i>(<i>x</i>)]² <i>dx</i> &nbsp;&nbsp;&nbsp; <i>V</i> = ∫<sub><i>a</i></sub><sup><i>b</i></sup> π ( [<i>R</i>(<i>x</i>)]² − [<i>r</i>(<i>x</i>)]² ) <i>dx</i></div><dl class="vars"><dt>R, r</dt><dd>raios <b>medidos a partir do eixo de rotação</b>. Eixo y = 2? O raio é 2 − y. Eixo x = −1? O raio é x + 1</dd><dt>variável</dt><dd>eixo horizontal (x ou y = k) → fatias em <b>x</b> · eixo vertical (y ou x = k) → fatias em <b>y</b>: escreva x em função de y</dd></dl></div>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> fazer π(R − r)²: o certo é π(R² − r²)</div><div class="ln"><span class="er">✗</span> girar em torno de y = 2 e usar o raio como "y": o raio é a <b>distância</b> até a reta, 2 − y</div><div class="ln"><span class="er">✗</span> girar em torno do eixo y e integrar em x com fatias "em pé"</div></div>
+
+<h3 data-n="3">Simulador: a fatia típica</h3>
+<div class="row-ctl"><label class="mono" style="font-size:.82rem">sólido <select id="rvFn"><option value="raiz">√x, 0 a 1, em torno de x (disco)</option><option value="arr">y = x e y = x², em torno de x (arruela)</option><option value="arr2">y = x e y = x², em torno de y = 2</option><option value="cub">y = x³, y = 8, x = 0, em torno de y (disco em y)</option></select></label></div>
+<div class="cv sim" id="rvSim" style="aspect-ratio:16/10;max-height:480px"><canvas></canvas></div><div class="simctl" id="rvCtl"></div><div class="simout" id="rvOut"></div>
+
+<h3 data-n="4">Como resolver, do começo ao fim (arruela)</h3>
+<p class="ln">Exemplo 4 da aula: a região entre y = x e y = x² gira em torno do eixo x.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · região e fatia</b><div class="ln">interseções: x = x² <span class="ar">→</span> x = 0 e x = 1 · eixo x horizontal <span class="ar">→</span> fatias em <span class="az">x</span></div><div class="ln">entre 0 e 1, y = x fica acima de y = x²: há um vão até o eixo <span class="ar">→</span> <span class="az">arruela</span></div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · raios e área</b><div class="cols2"><div class="bx"><div class="bh">raio externo</div><div>R = x</div></div><div class="bx"><div class="bh">raio interno</div><div>r = x²</div></div></div><div class="ln">A(x) = π(x² − x⁴)</div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · integrar</b><div class="ln">V = π∫₀¹ (x² − x⁴) dx = π(1/3 − 1/5) = <span class="lr">2π/15</span></div><div class="fin">V = 2π/15 ≈ 0,419</div></div></div>
+
+<div class="ex" data-ex data-q="i23"><div class="q">Exemplo 1: mostre que o volume de uma esfera de raio r é (4/3)πr³.</div>
+<ol><li>A esfera é o círculo x² + y² = r² girando em torno do eixo x. Cada fatia em x é um disco de raio y = √(r² − x²).</li><li>A(x) = π(r² − x²).</li><li>V = ∫₋ᵣʳ π(r² − x²) dx = π[r²x − x³/3]₋ᵣʳ = π[(r³ − r³/3) − (−r³ + r³/3)] = π · (4/3)r³.</li></ol>
+<div class="ans">V = (4/3)πr³</div></div>
+<div class="ex" data-ex data-q="i24"><div class="q">Exemplo 2: encontre o volume do sólido obtido pela rotação em torno do eixo x da região sob y = √x de 0 a 1.</div>
+<ol><li>A região encosta no eixo x: disco. Raio = √x.</li><li>A(x) = π(√x)² = πx.</li><li>V = ∫₀¹ πx dx = π/2.</li></ol>
+<div class="ans">V = π/2</div></div>
+<div class="ex" data-ex data-q="i25"><div class="q">Exemplo 3: encontre o volume do sólido obtido pela rotação da região delimitada por y = x³, y = 8 e x = 0 em torno do eixo y.</div>
+<ol><li>Eixo y (vertical) → fatias horizontais, em y. Escreva x em função de y: x = ∛y = y<sup>1/3</sup>.</li><li>Cada fatia é um disco de raio x = y<sup>1/3</sup>, para y de 0 a 8.</li><li>V = π∫₀⁸ y<sup>2/3</sup> dy = π · (3/5) y<sup>5/3</sup> |₀⁸ = π · (3/5) · 32 = 96π/5.</li></ol>
+<div class="ans">V = 96π/5</div></div>
+<div class="ex" data-ex data-q="i26"><div class="q">Exemplos 5 e 6: gire a região entre y = x e y = x² (a) em torno da reta y = 2; (b) em torno da reta x = −1.</div>
+<ol><li>(a) Eixo horizontal → fatias em x. Distâncias até y = 2: R = 2 − x² (curva mais longe) e r = 2 − x (mais perto).</li><li>V = π∫₀¹ [(2 − x²)² − (2 − x)²] dx = π∫₀¹ (x⁴ − 5x² + 4x) dx = π(1/5 − 5/3 + 2) = 8π/15.</li><li>(b) Eixo vertical → fatias em y, com x = y (reta) e x = √y (parábola). Distâncias até x = −1: R = √y + 1 e r = y + 1.</li><li>V = π∫₀¹ [(√y + 1)² − (y + 1)²] dy = π∫₀¹ (2√y − y − y²) dy = π(4/3 − 1/2 − 1/3) = π/2.</li></ol>
+<div class="ans">(a) 8π/15 · (b) π/2</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g9">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>áreas e volumes do "Praticando"</span></div>
+<div class="done-btn" data-done="discos"></div>
+</section>
+
+<!-- ============ M1 · CASCAS ============ -->
+<section class="view read" id="v-cascas" hidden>
+  <div class="eyebrow">Módulo 1 · Stewart 6.3</div>
+  <h2>Volume por cascas cilíndricas (e os dois métodos)</h2>
+  <p class="lede">Às vezes os discos dão trabalho demais (por exemplo, quando não dá para isolar x em função de y). O método das cascas corta o sólido em <b>tubos finos</b>, um dentro do outro, como as camadas de uma cebola, crescendo do eixo para fora.</p>
+<div class="rec"><span class="k">Receita</span>esboce <span class="ar">→</span> faixa PARALELA ao eixo <span class="ar">→</span> raio = distância da faixa ao eixo · altura = comprimento da faixa <span class="ar">→</span> ∫ 2π·raio·altura</div>
+
+<h3 data-n="1">De onde vem 2π · raio · altura</h3>
+<p>Corte uma casca (um tubo fino) e desenrole: vira uma placa quase retangular. O comprimento da placa é a <b>circunferência 2π·r</b>, a altura é a altura da casca e a espessura é Δx. Volume ≈ 2πr · h · Δx.</p>
+<div class="esb"><svg viewBox="0 0 360 200" role="img" aria-label="Uma casca cilíndrica e a mesma casca desenrolada como uma placa de comprimento 2 pi r"><ellipse cx="90" cy="50" rx="56" ry="14" fill="none" stroke="var(--c2)" stroke-width="2"/><path d="M34,50 L34,160 A56,14 0 0 0 146,160 L146,50" fill="var(--c2)" fill-opacity=".12" stroke="var(--c2)" stroke-width="2"/><line x1="90" y1="20" x2="90" y2="185" stroke="var(--ink2)" stroke-dasharray="4 4"/><line x1="90" y1="160" x2="146" y2="160" stroke="var(--c1)" stroke-width="2"/><text x="108" y="154" font-size="12" fill="var(--c1)">r</text><text x="150" y="110" font-size="12" fill="var(--c3)">h</text><path d="M170,105 L190,105" stroke="var(--ink2)" stroke-width="2"/><path d="M190,105 l-7,-5 v10 z" fill="var(--ink2)"/><rect x="205" y="60" width="140" height="90" fill="var(--c2)" fill-opacity=".12" stroke="var(--c2)" stroke-width="2"/><text x="250" y="170" font-size="13" fill="var(--c1)">2πr</text><text x="330" y="110" font-size="13" fill="var(--c3)">h</text><text x="210" y="52" font-size="11" fill="var(--ink2)">espessura Δx</text></svg><div class="cap">Casca desenrolada: placa de 2πr × h × Δx.</div></div>
+<div class="fx"><span class="tag">Fórmula 10.1 · cascas cilíndricas</span><div class="eq"><i>V</i> = ∫<sub><i>a</i></sub><sup><i>b</i></sup> 2π · (raio) · (altura) <i>dx</i> &nbsp; (em torno do eixo y: <i>V</i> = ∫ 2π<i>x</i> <i>f</i>(<i>x</i>) <i>dx</i>)</div><dl class="vars"><dt>raio</dt><dd>distância da faixa até o eixo de rotação (eixo y → x; reta x = 2 → 2 − x)</dd><dt>altura</dt><dd>comprimento da faixa: de cima − de baixo</dd><dt>faixa</dt><dd>sempre <b>paralela</b> ao eixo de rotação (nos discos ela era perpendicular)</dd></dl></div>
+
+<h3 data-n="2">Discos × cascas: qual usar?</h3>
+<div class="tbl"><table><tr><th></th><th>Discos / arruelas</th><th>Cascas</th></tr>
+<tr><td>Faixa auxiliar</td><td>perpendicular ao eixo</td><td>paralela ao eixo</td></tr>
+<tr><td>Eixo vertical (y ou x = k)</td><td>integra em y: x em função de y</td><td>integra em x: y em função de x</td></tr>
+<tr><td>Eixo horizontal (x ou y = k)</td><td>integra em x: y em função de x</td><td>integra em y: x em função de y</td></tr>
+<tr><td>O que achar</td><td>área do disco ou da arruela</td><td>raio e altura da casca</td></tr>
+<tr><td>Integral</td><td>V = ∫ π(R² − r²)</td><td>V = ∫ 2π · raio · altura</td></tr></table></div>
+<p class="ln">Dica: use o método que deixa a função <b>do jeito que ela veio</b>. y = 2x² − x³ em torno do eixo y? Isolar x é horrível → cascas em x.</p>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> usar o raio como x quando o eixo é x = 2: o raio é <b>2 − x</b></div><div class="ln"><span class="er">✗</span> esquecer o 2π, ou colocar π como nos discos</div><div class="ln"><span class="ok2">✓</span> os dois métodos têm que dar o mesmo volume: bom para conferir</div></div>
+
+<h3 data-n="3">Como resolver, do começo ao fim</h3>
+<p class="ln">Exemplo 1 da aula: gire em torno do eixo y a região entre y = 2x² − x³ e y = 0.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · limites e faixa</b><div class="ln">2x² − x³ = 0 <span class="ar">→</span> x²(2 − x) = 0 <span class="ar">→</span> <span class="az">x = 0 e x = 2</span></div><div class="ln">eixo y vertical <span class="ar">→</span> faixa vertical (paralela) <span class="ar">→</span> cascas em x</div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · raio e altura</b><div class="cols2"><div class="bx"><div class="bh">raio</div><div>distância até o eixo y: <span class="lr">x</span></div></div><div class="bx"><div class="bh">altura</div><div><span class="lr">2x² − x³</span> − 0</div></div></div><div class="ln">V = ∫₀² 2π · x · (2x² − x³) dx = 2π∫₀² (2x³ − x⁴) dx</div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · integrar</b><div class="ln">2π[x⁴/2 − x⁵/5]₀² = 2π(8 − 32/5) = 2π · 8/5 = <span class="lr">16π/5</span></div><div class="fin">V = 16π/5</div></div></div>
+
+<div class="ex" data-ex data-q="i27"><div class="q">Exemplo 2: encontre o volume do sólido obtido pela rotação em torno do eixo y da região entre y = x e y = x².</div>
+<ol><li>Interseções: x = 0 e x = 1. Faixa vertical, cascas em x.</li><li>Raio = x; altura = x − x² (a reta fica em cima).</li><li>V = ∫₀¹ 2πx(x − x²) dx = 2π∫₀¹ (x² − x³) dx = 2π(1/3 − 1/4) = π/6.</li></ol>
+<div class="ans">V = π/6</div></div>
+<div class="ex" data-ex data-q="i28"><div class="q">Exemplo 3: use cascas para achar o volume da rotação em torno do eixo x da região sob y = √x de 0 a 1 (já resolvido por discos: π/2).</div>
+<ol><li>Eixo x horizontal → faixa horizontal → cascas em y. A região vai de y = 0 a 1; para cada y, a faixa vai de x = y² (curva) até x = 1.</li><li>Raio = y; altura = 1 − y².</li><li>V = ∫₀¹ 2πy(1 − y²) dy = 2π(1/2 − 1/4) = π/2. O mesmo resultado dos discos.</li></ol>
+<div class="ans">V = π/2 (confere com o método dos discos)</div></div>
+<div class="ex" data-ex data-q="i29"><div class="q">Exemplo 4: encontre o volume do sólido obtido pela rotação da região delimitada por y = x − x² (e y = 0) em torno da reta x = 2.</div>
+<ol><li>x − x² = 0 → x = 0 e x = 1. Eixo x = 2 é vertical → cascas em x.</li><li>Raio = distância até x = 2: 2 − x. Altura = x − x².</li><li>V = ∫₀¹ 2π(2 − x)(x − x²) dx = 2π∫₀¹ (x³ − 3x² + 2x) dx = 2π(1/4 − 1 + 1) = π/2.</li></ol>
+<div class="ans">V = π/2</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g9">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>volumes pelos dois métodos</span></div>
+<div class="done-btn" data-done="cascas"></div>
 </section>
 
 <!-- ============ 1 FUNÇÕES ============ -->
 <section class="view read" id="v-funcoes" hidden>
-  <div class="eyebrow">Módulo 1 · Aula de 21/10 · Stewart 14.1</div>
+  <div class="eyebrow">Módulo 2 · Aula de 21/10 · Stewart 14.1</div>
   <h2>Funções de duas (ou três) variáveis</h2>
   <p class="lede">Quase nada na engenharia depende de uma coisa só. A temperatura de uma chapa depende de <b>onde</b> você mede (x e y); o peso dela depende de <b>três</b> medidas. Uma função de várias variáveis recebe várias entradas e devolve <b>um único número</b>.</p>
 <div class="rec"><span class="k">Receita</span>identifica as entradas e a saída <span class="ar">→</span> troca as letras pelos números para calcular <span class="ar">→</span> procura as "proibições" para achar o domínio <span class="ar">→</span> imagina a superfície</div><h3 data-n="1">De y = f(x) para z = f(x, y)</h3>
@@ -458,7 +836,7 @@ a.btreino:hover{filter:brightness(1.08)}
 
 <!-- ============ 3 DERIVADAS PARCIAIS ============ -->
 <section class="view read" id="v-parciais" hidden>
-  <div class="eyebrow">Módulo 3 · Aula de 22/10 · Stewart 14.3</div>
+  <div class="eyebrow">Módulo 2 · Aula de 22/10 · Stewart 14.3</div>
   <h2>Derivadas parciais: derive em uma, congele as outras</h2>
   <p class="lede">Uma função de duas variáveis tem <b>duas taxas de variação</b>: uma andando em x e outra andando em y. A derivada parcial mede uma de cada vez.</p>
 <div class="rec"><span class="k">Receita</span>escolhe a variável <span class="ar">→</span> congela as outras (viram números) <span class="ar">→</span> deriva com as regras do Cálculo I <span class="ar">→</span> só no fim troca o ponto</div><h3 data-n="1">Relembrando: derivada é taxa de variação</h3>
@@ -499,7 +877,7 @@ a.btreino:hover{filter:brightness(1.08)}
 
 <!-- ============ 4 SEGUNDA ORDEM ============ -->
 <section class="view read" id="v-ordem" hidden>
-  <div class="eyebrow">Módulo 4 · Aula de 22/10 · Stewart 14.3</div>
+  <div class="eyebrow">Módulo 2 · Aula de 22/10 · Stewart 14.3</div>
   <h2>Derivadas de segunda ordem</h2>
   <p class="lede">f<sub>x</sub> e f<sub>y</sub> também são funções de x e y, então dá para derivar de novo. A 1ª derivada diz se a superfície <b>sobe ou desce</b>; a 2ª diz <b>como ela dobra</b> (para cima, como vale, ou para baixo, como morro).</p>
 <div class="rec"><span class="k">Receita</span>acha f<sub>x</sub> e f<sub>y</sub> <span class="ar">→</span> deriva cada uma de novo em x e em y <span class="ar">→</span> confere as mistas (Clairaut) <span class="ar">→</span> troca o ponto no fim</div><h3 data-n="1">As quatro derivadas segundas</h3><div class="fx"><span class="tag">Notação</span><div class="eq"><i>f<sub>xx</sub></i> &nbsp; <i>f<sub>xy</sub></i> &nbsp; <i>f<sub>yx</sub></i> &nbsp; <i>f<sub>yy</sub></i></div><dl class="vars"><dt>f<sub>xx</sub></dt><dd><b>pura</b>: derivou em x e de novo em x. Mede como a inclinação em x muda andando em x (a curvatura do corte em x)</dd><dt>f<sub>yy</sub></dt><dd><b>pura</b> em y: a curvatura do corte em y</dd><dt>f<sub>xy</sub></dt><dd><b>mista</b>: primeiro em x, depois em y (lê o índice da esquerda para a direita). Mede como a inclinação em x muda quando você anda em y</dd><dt>∂²f/∂y∂x</dt><dd>a mesma f<sub>xy</sub> na notação de fração: aqui a ordem é da <b>direita para a esquerda</b></dd><dt>sinal de f<sub>xx</sub></dt><dd>positivo → o corte dobra para cima (vale) · negativo → dobra para baixo (morro)</dd></dl></div>
@@ -528,7 +906,7 @@ a.btreino:hover{filter:brightness(1.08)}
 
 <!-- ============ 5 REGRA DA CADEIA ============ -->
 <section class="view read" id="v-cadeia" hidden>
-  <div class="eyebrow">Módulo 5 · Stewart 14.5</div>
+  <div class="eyebrow">Módulo 2 · Stewart 14.5</div>
   <h2>Regra da cadeia</h2>
   <p class="lede">Às vezes z depende de x e y, mas x e y dependem de outra coisa (do tempo t, por exemplo). A regra da cadeia mede como z muda com t <b>passando por x e por y</b>.</p>
 <div class="rec"><span class="k">Receita</span>desenha a árvore <span class="ar">→</span> escreve a fórmula pelos caminhos <span class="ar">→</span> calcula cada pedaço <span class="ar">→</span> monta <span class="ar">→</span> troca o ponto/instante no fim</div><h3 data-n="1">A árvore: quem depende de quem</h3><div class="esb"><svg viewBox="0 0 340 210" role="img" aria-label="árvore da regra da cadeia"><line x1="170" y1="34" x2="90" y2="92" stroke="var(--c1)" stroke-width="3"/><text x="100" y="63" font-size="12" fill="var(--c1)" text-anchor="middle">∂z/∂x</text><line x1="170" y1="34" x2="250" y2="92" stroke="var(--c1)" stroke-width="3"/><text x="240" y="63" font-size="12" fill="var(--c1)" text-anchor="middle">∂z/∂y</text><line x1="90" y1="108" x2="170" y2="172" stroke="var(--c1)" stroke-width="3"/><text x="100" y="140" font-size="12" fill="var(--c1)" text-anchor="middle">dx/dt</text><line x1="250" y1="108" x2="170" y2="172" stroke="var(--c1)" stroke-width="3"/><text x="240" y="140" font-size="12" fill="var(--c1)" text-anchor="middle">dy/dt</text><circle cx="170" cy="22" r="15" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/><text x="170" y="27" font-size="15" fill="var(--ink)" text-anchor="middle">z</text><circle cx="90" cy="100" r="15" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/><text x="90" y="105" font-size="15" fill="var(--ink)" text-anchor="middle">x</text><circle cx="250" cy="100" r="15" fill="var(--sheet)" stroke="var(--ink)" stroke-width="2"/><text x="250" y="105" font-size="15" fill="var(--ink)" text-anchor="middle">y</text><circle cx="170" cy="184" r="15" fill="var(--sheet)" stroke="var(--c1)" stroke-width="2"/><text x="170" y="189" font-size="15" fill="var(--c1)" text-anchor="middle">t</text></svg><div class="cap">Caso I: z = f(x, y), com x = x(t) e y = y(t). Dois caminhos de z até t.</div></div><div class="fx"><span class="tag">Caso I · uma variável no fim</span><div class="eq"><span class="frm"><span>d<i>z</i></span><span>d<i>t</i></span></span> = <span class="frm"><span>∂<i>z</i></span><span>∂<i>x</i></span></span>·<span class="frm"><span>d<i>x</i></span><span>d<i>t</i></span></span> + <span class="frm"><span>∂<i>z</i></span><span>∂<i>y</i></span></span>·<span class="frm"><span>d<i>y</i></span><span>d<i>t</i></span></span></div><dl class="vars"><dt>dz/dt</dt><dd>a taxa de z em relação ao tempo (o que se quer)</dd><dt>∂z/∂x</dt><dd>quanto z muda por unidade de x (derivada parcial: y congelado)</dd><dt>dx/dt</dt><dd>quão rápido o x anda no tempo. É d "reto" porque x só depende de t</dd><dt>cada termo</dt><dd>um <b>caminho</b> da árvore: multiplica o que está no caminho</dd><dt>o "+"</dt><dd>soma os caminhos: z sente a mudança de t pelos dois lados</dd></dl></div>
@@ -550,7 +928,7 @@ a.btreino:hover{filter:brightness(1.08)}
 
 <!-- ============ 6 GRADIENTE ============ -->
 <section class="view read" id="v-gradiente" hidden>
-  <div class="eyebrow">Módulo 6 · Stewart 14.6</div>
+  <div class="eyebrow">Módulo 2 · Stewart 14.6</div>
   <h2>Derivada direcional e gradiente</h2>
   <p class="lede">f<sub>x</sub> e f<sub>y</sub> medem a taxa andando só nos eixos. Mas dá para andar em <b>qualquer direção</b>. A derivada direcional mede a taxa numa direção escolhida; o gradiente aponta a direção de <b>subida mais rápida</b>.</p>
 <div class="rec"><span class="k">Receita</span>acha ∇f <span class="ar">→</span> troca o ponto <span class="ar">→</span> deixa a direção unitária (u = v/‖v‖) <span class="ar">→</span> produto escalar ∇f · u <span class="ar">→</span> sinal diz sobe ou desce</div><h3 data-n="1">O gradiente</h3><div class="fx"><span class="tag">Definição 6.1 · vetor gradiente</span><div class="eq">∇<i>f</i> = ⟨ <i>f<sub>x</sub></i> , <i>f<sub>y</sub></i> ⟩</div><dl class="vars"><dt>∇</dt><dd>"nabla": o símbolo do gradiente</dd><dt>⟨f<sub>x</sub>, f<sub>y</sub>⟩</dt><dd>um <b>vetor</b> montado com as duas derivadas parciais (com 3 variáveis, ganha o f<sub>z</sub>)</dd><dt>direção</dt><dd>aponta para onde f <b>sobe mais rápido</b></dd><dt>‖∇f‖</dt><dd>o tamanho: a <b>taxa máxima</b> de subida</dd><dt>−∇f</dt><dd>a direção de descida mais rápida</dd><dt>curvas de nível</dt><dd>o gradiente é sempre <b>perpendicular</b> a elas</dd></dl></div>
@@ -574,7 +952,7 @@ a.btreino:hover{filter:brightness(1.08)}
 
 <!-- ============ 7 EXTREMOS ============ -->
 <section class="view read" id="v-extremos" hidden>
-  <div class="eyebrow">Módulo 7 · Aula de 04/11 · Stewart 14.7</div>
+  <div class="eyebrow">Módulo 2 · Aula de 04/11 · Stewart 14.7</div>
   <h2>Máximos, mínimos e pontos de sela</h2>
   <p class="lede">No topo de um morro e no fundo de um vale a superfície fica "plana": nenhuma direção sobe. Por isso os candidatos são os pontos em que <b>as duas derivadas parciais zeram</b>. Depois, a 2ª ordem diz se é topo, fundo ou sela.</p>
 <div class="rec"><span class="k">Receita</span>zera as derivadas <span class="ar">→</span> resolve o sistema (todos os pontos) <span class="ar">→</span> testa a 2ª ordem em CADA ponto <span class="ar">→</span> classifica <span class="ar">→</span> calcula o valor</div><h3 data-n="1">Ponto crítico</h3><div class="fx"><span class="tag">Fórmula 7.1 · ponto crítico</span><div class="eq"><i>f<sub>x</sub></i>(<i>a</i>, <i>b</i>) = 0 &nbsp; e &nbsp; <i>f<sub>y</sub></i>(<i>a</i>, <i>b</i>) = 0</div><dl class="vars"><dt>(a, b)</dt><dd>o <b>candidato</b>: o ponto onde a superfície fica "plana" nas duas direções</dd><dt>as duas = 0</dt><dd>é um <b>sistema</b> de duas equações: precisa achar TODOS os pares que zeram as duas ao mesmo tempo</dd><dt>por que</dt><dd>se f<sub>x</sub> ≠ 0, dá para subir andando em x: não pode ser topo nem fundo</dd></dl></div><div class="aulafig"><div class="labgrid2"><div class="cv sim" id="au13d" style="aspect-ratio:4/3"><canvas></canvas></div><div class="cv sim" id="au1map" style="aspect-ratio:4/3"><canvas></canvas></div></div><p class="hint" style="margin:6px 0 0">Topo do morro em (0, 0, 9). No mapa, as curvas de nível são círculos fechando em volta do ponto: sinal de extremo.</p></div><p class="ln">Mas nem todo ponto crítico é topo ou fundo: em f = x² − y², (0, 0) zera as duas derivadas e é uma <b>sela</b> (sobe em x, desce em y).</p><div class="aulafig"><div class="labgrid2"><div class="cv sim" id="au23d" style="aspect-ratio:4/3"><canvas></canvas></div><div class="cv sim" id="au2map" style="aspect-ratio:4/3"><canvas></canvas></div></div><p class="hint" style="margin:6px 0 0">Sobe ao longo de x e desce ao longo de y. No mapa, as curvas de nível formam um "X" cruzando no ponto: sinal de sela.</p></div>
@@ -601,6 +979,104 @@ a.btreino:hover{filter:brightness(1.08)}
 </section>
 
 <!-- ============ LAB ============ -->
+<!-- ============ M3 · INTEGRAL DUPLA EM RETÂNGULOS ============ -->
+<section class="view read" id="v-dupla" hidden>
+  <div class="eyebrow">Módulo 3 · Aula de 25/11 · Stewart 15.1</div>
+  <h2>Integral dupla: volume embaixo de uma superfície</h2>
+  <p class="lede">No Módulo 1, a integral somava <b>retângulos</b> embaixo de uma curva e dava uma <b>área</b>. Agora a função tem duas variáveis, z = f(x, y), e o gráfico é uma superfície. Somando <b>caixinhas</b> embaixo dela, sai um <b>volume</b>. É a mesma ideia, um andar acima.</p>
+<div class="rec"><span class="k">Receita</span>divida o retângulo em quadradinhos de área ΔA <span class="ar">→</span> altura de cada caixa = f(ponto) <span class="ar">→</span> some f · ΔA <span class="ar">→</span> no limite vira ∬ f dA <span class="ar">→</span> calcule por integrais iteradas (Fubini)</div>
+
+<h3 data-n="1">Do retângulo para a caixa</h3>
+<div class="cols2"><div class="bx"><div class="bh">Módulo 1 · uma variável</div><div>intervalo [a, b] cortado em pedaços Δx</div><div>retângulo: altura f(x) × base Δx</div><div>soma → <b>área</b> ∫ f(x) dx</div></div><div class="bx"><div class="bh">Módulo 3 · duas variáveis</div><div>retângulo R = [a, b] × [c, d] cortado em quadradinhos ΔA = Δx Δy</div><div>caixa: altura f(x, y) × base ΔA</div><div>soma → <b>volume</b> ∬ f(x, y) dA</div></div></div>
+<div class="f3c"><div class="cv3" data-f3="dupla"><canvas></canvas><span class="dica">arraste para girar</span></div><div class="cap">Superfície z = 16 − x² − 2y² sobre o quadrado R = [0, 2] × [0, 2]. Cada caixa tem base ΔA e altura f no canto de cima. Somando as caixas sai uma estimativa do volume; com caixas cada vez menores, sai o volume exato.</div></div>
+
+<h3 data-n="2">A definição</h3>
+<div class="fx"><span class="tag">Definição 15.1 · integral dupla</span><div class="eq">∬<sub><i>R</i></sub> <i>f</i>(<i>x</i>, <i>y</i>) <i>dA</i> = lim<sub><i>m</i>, <i>n</i>→∞</sub> Σ<sub><i>i</i>=1</sub><sup><i>m</i></sup> Σ<sub><i>j</i>=1</sub><sup><i>n</i></sup> <i>f</i>(<i>x<sub>ij</sub></i>*, <i>y<sub>ij</sub></i>*) Δ<i>A</i></div><dl class="vars"><dt>R</dt><dd>a região do chão (aqui, um retângulo [a, b] × [c, d])</dd><dt>m, n</dt><dd>quantos pedaços em x e em y</dd><dt>ΔA</dt><dd>área de cada quadradinho: Δx · Δy</dd><dt>(xᵢⱼ*, yᵢⱼ*)</dt><dd>o ponto escolhido em cada quadradinho para medir a altura</dd><dt>dA</dt><dd>"pedacinho de área"; vira dx dy ou dy dx na hora de calcular</dd><dt>resultado</dt><dd>se f ≥ 0, é o <b>volume</b> do sólido entre a superfície e o chão R. Se f = 1, dá a <b>área</b> de R</dd></dl></div>
+
+<h3 data-n="3">Como calcular de verdade: integrais iteradas</h3>
+<p>Ninguém calcula aquele limite duplo. Integra-se <b>uma variável por vez</b>, exatamente como nas derivadas parciais: congela uma, integra na outra.</p>
+<div class="fx"><span class="tag">Teorema de Fubini · retângulo</span><div class="eq">∬<sub><i>R</i></sub> <i>f</i> <i>dA</i> = ∫<sub><i>a</i></sub><sup><i>b</i></sup> [ ∫<sub><i>c</i></sub><sup><i>d</i></sup> <i>f</i>(<i>x</i>, <i>y</i>) <i>dy</i> ] <i>dx</i> = ∫<sub><i>c</i></sub><sup><i>d</i></sup> [ ∫<sub><i>a</i></sub><sup><i>b</i></sup> <i>f</i>(<i>x</i>, <i>y</i>) <i>dx</i> ] <i>dy</i></div><dl class="vars"><dt>de dentro para fora</dt><dd>resolva primeiro a integral de dentro (o colchete), com a outra letra <b>congelada</b> como número</dd><dt>∫ f dy</dt><dd>x é constante: integra só em y. O resultado é uma função de x</dd><dt>depois</dt><dd>integra esse resultado em x, de a até b: sai um número</dd><dt>ordem</dt><dd>num retângulo, as duas ordens dão o mesmo valor (escolha a mais fácil)</dd><dt>truque</dt><dd>se f(x, y) = g(x) · h(y), então ∬ = (∫ g dx) · (∫ h dy)</dd></dl></div>
+<div class="esb"><svg viewBox="0 0 340 200" role="img" aria-label="Fatia em x fixo: a integral de dentro dá a área da fatia, e a de fora soma as fatias"><path d="M60,150 L200,150 L280,100 L140,100 Z" fill="var(--c2)" fill-opacity=".10" stroke="var(--ink2)"/><path d="M130,150 L210,100 L210,40 C190,30 160,40 130,90 Z" fill="var(--c1)" fill-opacity=".25" stroke="var(--c1)" stroke-width="2"/><text x="215" y="70" font-size="12" fill="var(--c1)">A(x) = ∫ f dy</text><text x="120" y="170" font-size="12" fill="var(--ink2)">x fixo</text><text x="20" y="190" font-size="12" fill="var(--c2)">V = ∫ A(x) dx: soma as fatias</text></svg><div class="cap">A integral de dentro (em y, com x parado) dá a área de uma fatia. A de fora soma as fatias. É o "volume por fatias" do Módulo 1.</div></div>
+<div class="fx"><span class="tag">Propriedades</span><div class="eq" style="font-size:1.05rem">∬(<i>f</i> + <i>g</i>) = ∬<i>f</i> + ∬<i>g</i> &nbsp; ∬ <i>c f</i> = <i>c</i> ∬<i>f</i> &nbsp; <i>f</i> ≥ <i>g</i> ⇒ ∬<i>f</i> ≥ ∬<i>g</i></div><dl class="vars"><dt>linearidade</dt><dd>soma vira soma e número sai para fora, como na integral simples</dd><dt>comparação</dt><dd>superfície mais alta → volume maior</dd></dl></div>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> integrar em y e esquecer que x é constante: ∫ x² dy = <b>x² y</b>, não x³/3</div><div class="ln"><span class="er">✗</span> trocar os limites: o dy de dentro usa os limites de <b>y</b></div><div class="ln"><span class="ok2">✓</span> depois da de dentro, a letra dela tem que sumir (só sobra a de fora)</div></div>
+
+<h3 data-n="4">Como resolver, do começo ao fim</h3>
+<p class="ln">Stewart, exemplo 15.1: ∬<sub>R</sub> (x − 3y²) dA com R = [0, 2] × [1, 2].</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · montar a iterada</b><div class="ln">x de 0 a 2, y de 1 a 2 <span class="ar">→</span> ∫₀² [ ∫₁² (x − 3y²) dy ] dx</div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · de dentro (x congelado)</b><div class="ln">∫ (x − 3y²) dy = <span class="az">xy − y³</span> &nbsp; (x é número: ∫ x dy = xy)</div><div class="ln">de y = 1 a 2: (2x − 8) − (x − 1) = <span class="lr">x − 7</span></div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · de fora</b><div class="ln">∫₀² (x − 7) dx = [x²/2 − 7x]₀² = 2 − 14 = <span class="lr">−12</span></div><div class="nt">deu negativo: a superfície fica abaixo do chão em boa parte de R</div><div class="fin">∬<sub>R</sub> (x − 3y²) dA = −12</div></div></div>
+
+<div class="ex" data-ex data-q="i30"><div class="q">Exemplo: calcule ∬<sub>R</sub> (x − 3y²) dA com R = [0, 2] × [1, 2] na outra ordem (primeiro x, depois y) e confira.</div>
+<ol><li>∫₁² [ ∫₀² (x − 3y²) dx ] dy. Agora y é que fica congelado.</li><li>De dentro: [x²/2 − 3y²x]₀² = 2 − 6y².</li><li>De fora: ∫₁² (2 − 6y²) dy = [2y − 2y³]₁² = (4 − 16) − (2 − 2) = −12.</li><li>Mesmo valor: num retângulo, a ordem não muda o resultado (Fubini).</li></ol>
+<div class="ans">−12 nas duas ordens</div></div>
+<div class="ex" data-ex data-q="i31"><div class="q">Exemplo: encontre o volume do sólido abaixo de z = 16 − x² − 2y² e acima do quadrado R = [0, 2] × [0, 2].</div>
+<ol><li>V = ∫₀² ∫₀² (16 − x² − 2y²) dy dx.</li><li>De dentro (x congelado): [16y − x²y − (2/3)y³]₀² = 32 − 2x² − 16/3 = 80/3 − 2x².</li><li>De fora: ∫₀² (80/3 − 2x²) dx = 160/3 − 16/3 = 144/3 = 48.</li></ol>
+<div class="ans">V = 48</div></div>
+<div class="ex" data-ex data-q="i32"><div class="q">Exemplo: calcule ∬<sub>R</sub> x²y dA com R = [0, 3] × [1, 2], usando que o integrando é um produto g(x) · h(y).</div>
+<ol><li>x²y = (x²) · (y): separa em duas integrais simples.</li><li>∫₀³ x² dx = 27/3 = 9.</li><li>∫₁² y dy = (4 − 1)/2 = 3/2.</li><li>Resultado: 9 · 3/2 = 27/2.</li></ol>
+<div class="ans">∬ x²y dA = 27/2 = 13,5</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g10">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>integrais duplas com conferência</span></div>
+<div class="done-btn" data-done="dupla"></div>
+</section>
+
+<!-- ============ M3 · REGIÕES GERAIS ============ -->
+<section class="view read" id="v-regioes" hidden>
+  <div class="eyebrow">Módulo 3 · Aula de 26/11 · Stewart 15.2</div>
+  <h2>Integral dupla em regiões gerais: tipo I e tipo II</h2>
+  <p class="lede">Na vida real o "chão" quase nunca é um retângulo: é um pedaço entre uma parábola e uma reta, um triângulo… A integral é a mesma; o que muda são os <b>limites da integral de dentro</b>, que agora são <b>curvas</b>.</p>
+<div class="rec"><span class="k">Receita</span>desenhe a região <span class="ar">→</span> trace uma reta vertical (tipo I) ou horizontal (tipo II) atravessando <span class="ar">→</span> onde ela entra e sai = limites de dentro <span class="ar">→</span> os extremos da região = limites de fora (números)</div>
+
+<h3 data-n="1">Os dois tipos de região</h3>
+<div class="cols2"><div class="bx"><div class="bh">Tipo I · entre duas curvas de x</div><div>a ≤ x ≤ b</div><div>g₁(x) ≤ y ≤ g₂(x)</div><div class="nt">uma reta vertical entra sempre pela mesma curva de baixo e sai pela mesma de cima</div></div><div class="bx"><div class="bh">Tipo II · entre duas curvas de y</div><div>c ≤ y ≤ d</div><div>h₁(y) ≤ x ≤ h₂(y)</div><div class="nt">uma reta horizontal entra sempre pela mesma curva da esquerda e sai pela mesma da direita</div></div></div>
+<div class="esb"><svg viewBox="0 0 360 200" role="img" aria-label="Região tipo I entre duas curvas com uma reta vertical, e região tipo II com uma reta horizontal"><g><line x1="10" y1="180" x2="170" y2="180" stroke="var(--ink2)"/><path d="M30,150 C70,160 110,150 150,130 L150,50 C110,30 70,60 30,90 Z" fill="var(--c2)" fill-opacity=".16"/><path d="M30,150 C70,160 110,150 150,130" fill="none" stroke="var(--c2)" stroke-width="2.4"/><path d="M30,90 C70,60 110,30 150,50" fill="none" stroke="var(--c1)" stroke-width="2.4"/><line x1="90" y1="190" x2="90" y2="30" stroke="var(--c3)" stroke-width="1.8" stroke-dasharray="5 4"/><text x="40" y="196" font-size="12" fill="var(--ink2)">tipo I</text><text x="112" y="40" font-size="11" fill="var(--c1)">y = g₂(x)</text><text x="100" y="168" font-size="11" fill="var(--c2)">y = g₁(x)</text></g>
+<g><line x1="200" y1="180" x2="350" y2="180" stroke="var(--ink2)"/><path d="M230,40 C210,80 215,130 240,170 L330,170 C340,120 320,80 300,40 Z" fill="var(--c2)" fill-opacity=".16"/><path d="M230,40 C210,80 215,130 240,170" fill="none" stroke="var(--c2)" stroke-width="2.4"/><path d="M300,40 C320,80 340,120 330,170" fill="none" stroke="var(--c1)" stroke-width="2.4"/><line x1="200" y1="105" x2="350" y2="105" stroke="var(--c3)" stroke-width="1.8" stroke-dasharray="5 4"/><text x="250" y="196" font-size="12" fill="var(--ink2)">tipo II</text><text x="196" y="66" font-size="11" fill="var(--c2)">x = h₁(y)</text><text x="312" y="66" font-size="11" fill="var(--c1)">x = h₂(y)</text></g></svg><div class="cap">Tipo I: a reta vertical diz onde y começa e termina. Tipo II: a reta horizontal diz onde x começa e termina.</div></div>
+<div class="fx"><span class="tag">Fórmula 15.2 · regiões gerais</span><div class="eq" style="font-size:1.1rem">tipo I: ∬<sub><i>D</i></sub> <i>f</i> <i>dA</i> = ∫<sub><i>a</i></sub><sup><i>b</i></sup> ∫<sub><i>g</i>₁(<i>x</i>)</sub><sup><i>g</i>₂(<i>x</i>)</sup> <i>f</i> <i>dy</i> <i>dx</i> &nbsp;&nbsp; tipo II: ∬<sub><i>D</i></sub> <i>f</i> <i>dA</i> = ∫<sub><i>c</i></sub><sup><i>d</i></sup> ∫<sub><i>h</i>₁(<i>y</i>)</sub><sup><i>h</i>₂(<i>y</i>)</sup> <i>f</i> <i>dx</i> <i>dy</i></div><dl class="vars"><dt>limites de dentro</dt><dd>podem ter letra (curvas). São da variável <b>de fora</b></dd><dt>limites de fora</dt><dd>sempre <b>números</b>: onde a região começa e termina</dd><dt>área de D</dt><dd>com f = 1: A(D) = ∬<sub>D</sub> 1 dA (de novo "de cima − de baixo", como no Módulo 1)</dd></dl></div>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> colocar letra no limite de fora: o resultado final tem que ser um número</div><div class="ln"><span class="er">✗</span> no tipo I, usar limites de y que dependem de y (tem que ser função de x)</div><div class="ln"><span class="ok2">✓</span> sempre desenhe: os limites saem do desenho, não da fórmula</div></div>
+
+<h3 data-n="2">Como resolver, do começo ao fim</h3>
+<p class="ln">Stewart, exemplo 15.2.1: ∬<sub>D</sub> (x + 2y) dA, D entre as parábolas y = 2x² e y = 1 + x².</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · desenhar e achar a região</b><div class="ln">interseção: 2x² = 1 + x² <span class="ar">→</span> x² = 1 <span class="ar">→</span> <span class="az">x = −1 e x = 1</span></div><div class="ln">reta vertical: entra em y = 2x² (baixo), sai em y = 1 + x² (cima) <span class="ar">→</span> <span class="az">tipo I</span></div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · de dentro (em y)</b><div class="ln">∫ (x + 2y) dy = xy + y² <span class="ar">→</span> de 2x² até 1 + x²</div><div class="ln">[x(1 + x²) + (1 + x²)²] − [x · 2x² + 4x⁴] = <span class="lr">−3x⁴ − x³ + 2x² + x + 1</span></div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · de fora (em x)</b><div class="ln">∫₋₁¹ (−3x⁴ − x³ + 2x² + x + 1) dx = −6/5 + 0 + 4/3 + 0 + 2</div><div class="nt">potências ímpares em [−1, 1] somem (área de um lado cancela a do outro)</div><div class="fin">∬<sub>D</sub> (x + 2y) dA = 32/15</div></div></div>
+
+<div class="ex" data-ex data-q="i33"><div class="q">Exemplo: encontre o volume do sólido abaixo de z = x² + y² e acima da região D do plano xy limitada por y = 2x e y = x².</div>
+<ol><li>Interseção: 2x = x² → x = 0 e x = 2. Entre elas, y = 2x fica em cima. Tipo I: 0 ≤ x ≤ 2, x² ≤ y ≤ 2x.</li><li>De dentro: ∫ (x² + y²) dy = x²y + y³/3, de x² até 2x → (2x³ + 8x³/3) − (x⁴ + x⁶/3) = 14x³/3 − x⁴ − x⁶/3.</li><li>De fora: ∫₀² (14x³/3 − x⁴ − x⁶/3) dx = 14·16/12 − 32/5 − 128/21 = 56/3 − 32/5 − 128/21.</li><li>Denominador comum 105: (1960 − 672 − 640)/105 = 648/105 = 216/35 ≈ 6,17.</li></ol>
+<div class="ans">V = 216/35 ≈ 6,17</div></div>
+<div class="ex" data-ex data-q="i34"><div class="q">Exemplo: calcule ∬<sub>D</sub> xy dA, onde D é a região limitada pela reta y = x − 1 e pela parábola y² = 2x + 6.</div>
+<ol><li>É a mesma região da área entre curvas (Módulo 1): em x precisaria dividir; em y é uma só. Tipo II: −2 ≤ y ≤ 4, y²/2 − 3 ≤ x ≤ y + 1.</li><li>De dentro (y congelado): ∫ xy dx = (x²/2)y, de y²/2 − 3 até y + 1 → (y/2)[(y + 1)² − (y²/2 − 3)²].</li><li>Expandindo: (y/2)(−y⁴/4 + 4y² + 2y − 8) = −y⁵/8 + 2y³ + y² − 4y.</li><li>De fora: ∫₋₂⁴ (−y⁵/8 + 2y³ + y² − 4y) dy = [−y⁶/48 + y⁴/2 + y³/3 − 2y²]₋₂⁴ = 36.</li></ol>
+<div class="ans">∬<sub>D</sub> xy dA = 36</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g10">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>integrais duplas com conferência</span></div>
+<div class="done-btn" data-done="regioes"></div>
+</section>
+
+<!-- ============ M3 · INVERTER A ORDEM ============ -->
+<section class="view read" id="v-inverter" hidden>
+  <div class="eyebrow">Módulo 3 · Aula de 02/12 · Stewart 15.2</div>
+  <h2>Inverter a ordem de integração</h2>
+  <p class="lede">Algumas integrais duplas são <b>impossíveis</b> numa ordem e fáceis na outra. ∫ sen(y²) dy, por exemplo, não tem primitiva elementar. Mas se a ordem for trocada, aparece um "y" do lado que salva a substituição. Trocar a ordem é <b>redesenhar os limites</b>, não só trocar dx por dy.</p>
+<div class="rec"><span class="k">Receita</span>leia os limites e desenhe a região <span class="ar">→</span> mude o "olhar" (vertical ↔ horizontal) <span class="ar">→</span> escreva os limites novos pelo desenho <span class="ar">→</span> calcule</div>
+
+<h3 data-n="1">O passo a passo</h3>
+<div class="rot"><div><span class="n">1</span><b>Leia</b>Da integral dada, escreva a região como desigualdades. Ex.: 0 ≤ x ≤ 1 e x ≤ y ≤ 1.</div><div><span class="n">2</span><b>Desenhe</b>Cada desigualdade é uma reta ou curva no plano. A região fica entre elas.</div><div><span class="n">3</span><b>Releia ao contrário</b>Agora com a outra reta (horizontal se era vertical). Os limites de fora viram números da outra variável.</div></div>
+<div class="esb"><svg viewBox="0 0 300 220" role="img" aria-label="Triângulo com vértices na origem, em (0,1) e em (1,1); lido na vertical e na horizontal"><line x1="40" y1="190" x2="270" y2="190" stroke="var(--ink2)"/><line x1="60" y1="210" x2="60" y2="20" stroke="var(--ink2)"/><path d="M60,190 L220,30 L60,30 Z" fill="var(--c2)" fill-opacity=".18" stroke="var(--c2)" stroke-width="2"/><line x1="140" y1="200" x2="140" y2="20" stroke="var(--c1)" stroke-width="1.8" stroke-dasharray="5 4"/><line x1="40" y1="90" x2="250" y2="90" stroke="var(--c3)" stroke-width="1.8" stroke-dasharray="5 4"/><text x="150" y="130" font-size="12" fill="var(--c1)">x ≤ y ≤ 1</text><text x="160" y="84" font-size="12" fill="var(--c3)">0 ≤ x ≤ y</text><text x="224" y="26" font-size="12" fill="var(--ink2)">(1, 1)</text><text x="226" y="120" font-size="12" fill="var(--ink2)">y = x</text><text x="44" y="34" font-size="12" fill="var(--ink2)">1</text></svg><div class="cap">A mesma região. Olhando na vertical (laranja): 0 ≤ x ≤ 1, x ≤ y ≤ 1. Olhando na horizontal (roxo): 0 ≤ y ≤ 1, 0 ≤ x ≤ y.</div></div>
+<div class="cuid"><span class="k">Erros que mais caem</span><div class="ln"><span class="er">✗</span> trocar dy dx por dx dy e manter os limites: quase sempre fica errado</div><div class="ln"><span class="er">✗</span> deixar os limites de fora com letra depois de trocar</div><div class="ln"><span class="ok2">✓</span> confira: a área da região calculada nas duas ordens tem que dar a mesma</div></div>
+
+<h3 data-n="2">Como resolver, do começo ao fim</h3>
+<p class="ln">Stewart, exemplo 15.2.5: ∫₀¹ ∫ₓ¹ sen(y²) dy dx.</p>
+<div class="etapa"><span class="n">1</span><div><b>Começar · ler a região</b><div class="ln">0 ≤ x ≤ 1 e <span class="az">x ≤ y ≤ 1</span>: triângulo entre y = x, y = 1 e x = 0</div><div class="nt">∫ sen(y²) dy não tem primitiva elementar: nesta ordem é impossível</div></div></div>
+<div class="etapa"><span class="n">2</span><div><b>Desenvolver · reler na horizontal</b><div class="ln">0 ≤ y ≤ 1 e <span class="az">0 ≤ x ≤ y</span> <span class="ar">→</span> ∫₀¹ ∫₀ʸ sen(y²) dx dy</div><div class="ln">de dentro (y congelado): sen(y²) · x |₀ʸ = <span class="lr">y sen(y²)</span></div></div></div>
+<div class="etapa"><span class="n">3</span><div><b>Finalizar · substituição u = y²</b><div class="ln">∫₀¹ y sen(y²) dy, u = y², du = 2y dy <span class="ar">→</span> (1/2)∫₀¹ sen u du = (1/2)(1 − cos 1)</div><div class="fin">≈ 0,23</div></div></div>
+
+<div class="ex" data-ex data-q="i35"><div class="q">Exemplo: inverta a ordem de ∫₀² ∫<sub>x²</sub><sup>4</sup> f(x, y) dy dx (só os limites).</div>
+<ol><li>Região: 0 ≤ x ≤ 2 e x² ≤ y ≤ 4. É a área entre a parábola y = x² e a reta y = 4, com x ≥ 0.</li><li>Na horizontal: y vai de 0 a 4. Para cada y, x vai do eixo (x = 0) até a parábola: x = √y.</li><li>Nova integral: ∫₀⁴ ∫₀<sup>√y</sup> f(x, y) dx dy.</li></ol>
+<div class="ans">∫₀⁴ ∫₀<sup>√y</sup> f(x, y) dx dy</div></div>
+<div class="ex" data-ex data-q="i36"><div class="q">Exemplo: calcule ∫₀¹ ∫<sub>√y</sub><sup>1</sup> e<sup>x³</sup> dx dy invertendo a ordem.</div>
+<ol><li>∫ e<sup>x³</sup> dx não tem primitiva elementar. Leia a região: 0 ≤ y ≤ 1 e √y ≤ x ≤ 1, ou seja, y ≤ x² com 0 ≤ x ≤ 1.</li><li>Na vertical: 0 ≤ x ≤ 1 e 0 ≤ y ≤ x². Nova integral: ∫₀¹ ∫₀<sup>x²</sup> e<sup>x³</sup> dy dx.</li><li>De dentro: e<sup>x³</sup> · y |₀<sup>x²</sup> = x² e<sup>x³</sup>.</li><li>De fora com u = x³ (du = 3x² dx): (1/3)∫₀¹ eᵘ du = (e − 1)/3 ≈ 0,573.</li></ol>
+<div class="ans">(e − 1)/3 ≈ 0,573</div></div>
+<div class="tlink"><a class="btreino" href="#treino" data-g="g10">✍️ Exercícios para treinar <span aria-hidden="true">→</span></a><span>integrais duplas com conferência</span></div>
+<div class="done-btn" data-done="inverter"></div>
+</section>
+
 <section class="view" id="v-lab" hidden>
   <div class="eyebrow">Laboratório</div>
   <h2>Gire, compare, leia o mapa</h2>
@@ -611,10 +1087,10 @@ a.btreino:hover{filter:brightness(1.08)}
 
 <!-- ============ LISTA ============ -->
 <section class="view read" id="v-treino" hidden>
-  <div class="eyebrow">Treino · parecidos com a lista</div>
+  <div class="eyebrow">Treino · os três módulos</div>
   <h2>Exercícios para treinar</h2>
   <p class="lede">Mesmo tipo das questões da lista, com outros números. Resolva no papel, digite o resultado e clique em <b>Conferir</b> (ou Enter): aparece só se está certo ou errado. A resolução fica fechada até você pedir. <span class="tprog" id="treinoProg"></span></p>
-  <p class="nt" style="font-size:.85rem">Aceita decimal com vírgula, frações (52/5), π e raiz (√5, 51π).</p>
+  <p class="nt" style="font-size:.85rem">Aceita decimal com vírgula, frações (52/5), π, raiz (√5), e, ln, sen e cos: por exemplo 19π/12, ln(2)+7, (e−1)/2.</p>
   <div id="treinoBox"></div>
 </section>
 
@@ -639,6 +1115,15 @@ a.btreino:hover{filter:brightness(1.08)}
   <div class="eyebrow">Cola</div>
   <h2>Todas as fórmulas numa folha</h2>
   <div class="cola">
+    <div class="fx"><span class="tag">Primitiva</span><div class="eq">∫ xⁿ dx = xⁿ⁺¹/(n + 1) + C</div><p>n ≠ −1 · ∫ dx/x = ln |x| · ∫ eˣ = eˣ</p></div>
+    <div class="fx"><span class="tag">Riemann</span><div class="eq" style="font-size:1rem">Σ f(xᵢ*) Δx, Δx = (b − a)/n</div><p>integral = limite com n → ∞</p></div>
+    <div class="fx"><span class="tag">TFC</span><div class="eq">∫ₐᵇ f = F(b) − F(a)</div><p>parte 1: (∫ₐˣ f(t) dt)′ = f(x)</p></div>
+    <div class="fx"><span class="tag">Substituição</span><div class="eq">u = g(x), du = g′(x) dx</div><p>na definida, troque os limites</p></div>
+    <div class="fx"><span class="tag">Por partes</span><div class="eq">∫ u dv = uv − ∫ v du</div><p>u pela ordem LIATE</p></div>
+    <div class="fx"><span class="tag">Frações parciais</span><div class="eq" style="font-size:1rem">A/(x − a) · B/(x − a)² · (Bx + C)/(x² + k)</div><p>∫ dx/(x² + a²) = (1/a) arctg(x/a)</p></div>
+    <div class="fx"><span class="tag">Área entre curvas</span><div class="eq">∫ₐᵇ (cima − baixo) dx</div><p>ou ∫ (direita − esquerda) dy</p></div>
+    <div class="fx"><span class="tag">Discos e arruelas</span><div class="eq">V = ∫ π(R² − r²)</div><p>fatia perpendicular ao eixo · raio = distância ao eixo</p></div>
+    <div class="fx"><span class="tag">Cascas</span><div class="eq">V = ∫ 2π · raio · altura</div><p>faixa paralela ao eixo</p></div>
     <div class="fx"><span class="tag">Domínio</span><div class="eq" style="font-size:1rem">√(…) ≥ 0 · ln(…) &gt; 0 · den ≠ 0</div><p>escreva a condição de cada uma</p></div>
     <div class="fx"><span class="tag">Curva de nível</span><div class="eq"><i>f</i>(<i>x</i>, <i>y</i>) = <i>k</i></div><p>juntas = íngreme · afastadas = plano</p></div>
     <div class="fx"><span class="tag">Parcial</span><div class="eq"><i>f<sub>x</sub></i>: y constante</div><p>f<sub>y</sub>: x constante · taxa de variação numa direção do eixo</p></div>
@@ -651,6 +1136,9 @@ a.btreino:hover{filter:brightness(1.08)}
     <div class="fx"><span class="tag">Ponto crítico</span><div class="eq"><i>f<sub>x</sub></i> = <i>f<sub>y</sub></i> = 0</div><p>fatore, não divida</p></div>
     <div class="fx"><span class="tag">Teste da 2ª derivada</span><div class="eq"><i>D</i> = <i>f<sub>xx</sub>f<sub>yy</sub></i> − <i>f<sub>xy</sub></i>²</div><p>D&gt;0, f<sub>xx</sub>&gt;0: mín · D&gt;0, f<sub>xx</sub>&lt;0: máx · D&lt;0: sela · D=0: ?</p></div>
     <div class="fx"><span class="tag">Onda e Laplace</span><div class="eq" style="font-size:1rem"><i>u<sub>tt</sub></i> = <i>c</i>²<i>u<sub>xx</sub></i> · <i>T<sub>xx</sub></i> + <i>T<sub>yy</sub></i> = 0</div><p>verifique substituindo as derivadas</p></div>
+    <div class="fx"><span class="tag">Integral dupla</span><div class="eq">∬<sub>R</sub> f dA = ∫∫ f dy dx</div><p>Fubini: de dentro para fora, a outra letra congelada</p></div>
+    <div class="fx"><span class="tag">Tipo I e tipo II</span><div class="eq" style="font-size:1rem">∫ₐᵇ∫<sub>g₁(x)</sub><sup>g₂(x)</sup> f dy dx · ∫꜀ᵈ∫<sub>h₁(y)</sub><sup>h₂(y)</sup> f dx dy</div><p>limites de fora: números · área: f = 1</p></div>
+    <div class="fx"><span class="tag">Inverter a ordem</span><div class="eq" style="font-size:1rem">leia → desenhe → releia</div><p>nunca só troque dx por dy</p></div>
   </div>
 </section>
 
@@ -859,6 +1347,76 @@ function simExt(){ const sel=document.getElementById('exFn'), out=document.getEl
   sel.onchange=draw; draw(); return [s3,m] }
 function simLab(){ const sel=document.getElementById('labFn'); const s3=Surf(document.getElementById('lab3d'),{fn:sel.value}), m=Mapa(document.getElementById('labMap'),{fn:sel.value,niveis:11});
   sel.onchange=()=>{ s3.set({fn:sel.value}); m.set({fn:sel.value}) }; return [s3,m] }
+
+/* ===== Módulo 1: soma de Riemann ===== */
+function simRiemann(){ const box=document.getElementById('rmSim'), out=document.getElementById('rmOut'), sel=document.getElementById('rmFn');
+  const FS={ x2:{f:x=>x*x,a:0,b:1,I:1/3,t:'x²',ex:'1/3'}, sen:{f:Math.sin,a:0,b:Math.PI,I:2,t:'sen x',ex:'2'}, raiz:{f:Math.sqrt,a:0,b:4,I:16/3,t:'√x',ex:'16/3'}, exp:{f:Math.exp,a:0,b:1,I:Math.E-1,t:'eˣ',ex:'e − 1'}, cub:{f:x=>x*x*x,a:-1,b:2,I:15/4,t:'x³',ex:'15/4'} };
+  let st={fn:'x2',n:4,m:'R'};
+  const soma=()=>{ const F=FS[st.fn], dx=(F.b-F.a)/st.n; let s=0; for(let i=0;i<st.n;i++){ const xi=F.a+(i+(st.m==='L'?0:st.m==='R'?1:.5))*dx; s+=F.f(xi)*dx } return s };
+  const cv=new Cv(box,(x,w,h)=>{ const F=FS[st.fn], N=200; let lo=0,hi=0; for(let i=0;i<=N;i++){ const v=F.f(F.a+(F.b-F.a)*i/N); lo=Math.min(lo,v); hi=Math.max(hi,v) }
+    const L=44,R=w-20,T=18,B=h-30, sx=v=>L+(v-F.a)/(F.b-F.a)*(R-L), sy=v=>B-(v-lo)/(hi-lo||1)*(B-T), y0=sy(0), dx=(F.b-F.a)/st.n;
+    for(let i=0;i<st.n;i++){ const xa=F.a+i*dx, xi=xa+(st.m==='L'?0:st.m==='R'?1:.5)*dx, v=F.f(xi);
+      x.fillStyle=v>=0?'rgba(224,96,26,.28)':'rgba(199,58,44,.28)'; x.strokeStyle=tok('c1'); x.lineWidth=st.n>60?.4:1;
+      x.fillRect(sx(xa),Math.min(sy(v),y0),sx(xa+dx)-sx(xa),Math.abs(sy(v)-y0)); if(st.n<=60) x.strokeRect(sx(xa),Math.min(sy(v),y0),sx(xa+dx)-sx(xa),Math.abs(sy(v)-y0));
+      if(st.n<=20){ x.fillStyle=tok('ink'); x.beginPath(); x.arc(sx(xi),sy(v),3,0,7); x.fill() } }
+    x.strokeStyle=tok('ink2'); x.lineWidth=1.2; x.beginPath(); x.moveTo(L-6,y0); x.lineTo(R+6,y0); x.stroke();
+    x.strokeStyle=tok('c2'); x.lineWidth=2.6; x.beginPath(); for(let i=0;i<=N;i++){ const xx=F.a+(F.b-F.a)*i/N; i?x.lineTo(sx(xx),sy(F.f(xx))):x.moveTo(sx(xx),sy(F.f(xx))) } x.stroke();
+    x.fillStyle=tok('ink2'); x.font='11px "JetBrains Mono", monospace'; x.textAlign='center'; x.fillText(dec(F.a,2),sx(F.a),B+16); x.fillText(st.fn==='sen'?'π':dec(F.b,2),sx(F.b),B+16); x.textAlign='left';
+    x.fillStyle=tok('c2'); x.font='600 13px "JetBrains Mono", monospace'; x.fillText('y = '+F.t,L+6,T+6) });
+  const upd=()=>{ const F=FS[st.fn], s=soma(); out.innerHTML='<ol><li>Δx = (b − a)/n = '+dec((F.b-F.a)/st.n,4)+'</li><li>Soma dos '+st.n+' retângulos ('+({L:'ponta esquerda',R:'ponta direita',M:'ponto do meio'})[st.m]+'): <b>'+dec(s,5)+'</b></li><li>Integral exata (TFC): '+F.ex+' = <b>'+dec(F.I,5)+'</b> · erro: '+dec(Math.abs(s-F.I),5)+'</li></ol>'; cv.draw() };
+  controls(document.getElementById('rmCtl'),[{k:'n',l:'número de retângulos n',min:1,max:100,st:1,v:4,d:0}],v=>{ st.n=v.n; upd() });
+  sel.onchange=()=>{ st.fn=sel.value; upd() };
+  document.querySelectorAll('#rmSeg button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#rmSeg button').forEach(z=>z.classList.toggle('on',z===b)); st.m=b.dataset.e; upd() });
+  upd(); return [cv] }
+
+/* ===== Módulo 1: sólido de revolução e a fatia típica ===== */
+function simRev(){ const box=document.getElementById('rvSim'), out=document.getElementById('rvOut'), sel=document.getElementById('rvFn');
+  /* eixo 'x' (horizontal: y = k) ou 'y' (vertical: x = k); R(t), r(t) = raios externo/interno no parâmetro t (x ou y) */
+  const S={
+    raiz:{eixo:'x',k:0,t:[0,1],top:x=>Math.sqrt(x),bot:()=>0,R:x=>Math.sqrt(x),r:()=>0,V:Math.PI/2,Vt:'π/2',txt:'disco: raio = √x'},
+    arr:{eixo:'x',k:0,t:[0,1],top:x=>x,bot:x=>x*x,R:x=>x,r:x=>x*x,V:2*Math.PI/15,Vt:'2π/15',txt:'arruela: R = x, r = x²'},
+    arr2:{eixo:'x',k:2,t:[0,1],top:x=>x,bot:x=>x*x,R:x=>2-x*x,r:x=>2-x,V:8*Math.PI/15,Vt:'8π/15',txt:'arruela: R = 2 − x², r = 2 − x'},
+    cub:{eixo:'y',k:0,t:[0,8],left:()=>0,right:y=>Math.cbrt(y),R:y=>Math.cbrt(y),r:()=>0,V:96*Math.PI/5,Vt:'96π/5',txt:'disco em y: raio = ∛y'} };
+  let st={s:'raiz',p:.5};
+  const cv=new Cv(box,(x,w,h)=>{ const E=S[st.s], [t0,t1]=E.t, tp=t0+(t1-t0)*st.p, ink=tok('ink'), c1=tok('c1'), c2=tok('c2');
+    if(E.eixo==='x'){ /* eixo horizontal y = k */
+      let Rm=0; for(let i=0;i<=40;i++) Rm=Math.max(Rm,Math.abs(E.R(t0+(t1-t0)*i/40))); const ymax=E.k+Rm*1.1, ymin=E.k-Rm*1.1;
+      const L=50,Rr=w-30, sx=v=>L+(v-t0)/(t1-t0)*(Rr-L-40), sc=(h-40)/(ymax-ymin), sy=v=>20+(ymax-v)*sc, ky=sy(E.k);
+      /* sólido: elipses */
+      for(let i=0;i<=24;i++){ const t=t0+(t1-t0)*i/24, Ro=Math.abs(E.R(t))*sc; x.strokeStyle='rgba(30,98,201,.28)'; x.lineWidth=1; x.beginPath(); x.ellipse(sx(t),ky,Math.max(1,Ro*.28),Ro,0,0,7); x.stroke() }
+      /* contorno espelhado */
+      x.strokeStyle=c2; x.lineWidth=1.4; x.setLineDash([5,4]); x.beginPath(); for(let i=0;i<=60;i++){ const t=t0+(t1-t0)*i/60, v=2*E.k-E.top(t); i?x.lineTo(sx(t),sy(v)):x.moveTo(sx(t),sy(v)) } x.stroke(); x.setLineDash([]);
+      /* região */
+      x.fillStyle='rgba(30,98,201,.22)'; x.beginPath(); for(let i=0;i<=60;i++){ const t=t0+(t1-t0)*i/60; i?x.lineTo(sx(t),sy(E.top(t))):x.moveTo(sx(t),sy(E.top(t))) } for(let i=60;i>=0;i--){ const t=t0+(t1-t0)*i/60; x.lineTo(sx(t),sy(E.bot(t))) } x.closePath(); x.fill();
+      x.strokeStyle=c2; x.lineWidth=2.4; x.beginPath(); for(let i=0;i<=60;i++){ const t=t0+(t1-t0)*i/60; i?x.lineTo(sx(t),sy(E.top(t))):x.moveTo(sx(t),sy(E.top(t))) } x.stroke();
+      x.beginPath(); for(let i=0;i<=60;i++){ const t=t0+(t1-t0)*i/60; i?x.lineTo(sx(t),sy(E.bot(t))):x.moveTo(sx(t),sy(E.bot(t))) } x.stroke();
+      /* eixo */
+      x.strokeStyle=ink; x.lineWidth=1.6; x.setLineDash([8,5]); x.beginPath(); x.moveTo(20,ky); x.lineTo(w-10,ky); x.stroke(); x.setLineDash([]);
+      x.fillStyle=ink; x.font='600 12px "JetBrains Mono", monospace'; x.fillText(E.k?'eixo y = '+E.k:'eixo x',w-90,ky-6);
+      /* fatia típica */
+      const Ro=Math.abs(E.R(tp))*sc, ri=Math.abs(E.r(tp))*sc; x.fillStyle='rgba(224,96,26,.35)'; x.strokeStyle=c1; x.lineWidth=2.4;
+      x.beginPath(); x.ellipse(sx(tp),ky,Math.max(2,Ro*.28),Ro,0,0,7); x.fill(); x.stroke();
+      if(ri>1){ x.fillStyle=tok('sheet')||'#fff'; x.beginPath(); x.ellipse(sx(tp),ky,Math.max(1,ri*.28),ri,0,0,7); x.fill(); x.stroke() }
+      x.strokeStyle=c1; x.beginPath(); x.moveTo(sx(tp),ky); x.lineTo(sx(tp),ky-(E.k>0?-1:1)*Ro); x.stroke();
+      x.fillStyle=c1; x.font='600 12px "JetBrains Mono", monospace'; x.fillText('R',sx(tp)+5,ky-(E.k>0?-1:1)*Ro/2);
+      x.fillStyle=tok('ink2'); x.font='11px "JetBrains Mono", monospace'; x.fillText('x = '+dec(tp,2),sx(tp)-24,h-6);
+    } else { /* eixo vertical (eixo y), fatias horizontais em y */
+      const xmax=E.right(t1)*1.25, L=w/2, sc=Math.min((w/2-30)/xmax,(h-40)/(t1-t0)), sy=v=>h-20-(v-t0)*sc, sxp=v=>L+v*sc;
+      for(let i=0;i<=24;i++){ const t=t0+(t1-t0)*i/24, Ro=E.R(t)*sc; x.strokeStyle='rgba(30,98,201,.28)'; x.lineWidth=1; x.beginPath(); x.ellipse(L,sy(t),Ro,Math.max(1,Ro*.28),0,0,7); x.stroke() }
+      x.fillStyle='rgba(30,98,201,.22)'; x.beginPath(); x.moveTo(L,sy(t0)); for(let i=0;i<=60;i++){ const t=t0+(t1-t0)*i/60; x.lineTo(sxp(E.right(t)),sy(t)) } x.lineTo(L,sy(t1)); x.closePath(); x.fill();
+      x.strokeStyle=c2; x.lineWidth=2.4; x.beginPath(); for(let i=0;i<=60;i++){ const t=t0+(t1-t0)*i/60; i?x.lineTo(sxp(E.right(t)),sy(t)):x.moveTo(sxp(E.right(t)),sy(t)) } x.stroke();
+      x.lineWidth=1.4; x.setLineDash([5,4]); x.beginPath(); for(let i=0;i<=60;i++){ const t=t0+(t1-t0)*i/60; i?x.lineTo(L-E.right(t)*sc,sy(t)):x.moveTo(L-E.right(t)*sc,sy(t)) } x.stroke(); x.setLineDash([]);
+      x.strokeStyle=ink; x.lineWidth=1.6; x.setLineDash([8,5]); x.beginPath(); x.moveTo(L,h-10); x.lineTo(L,10); x.stroke(); x.setLineDash([]); x.fillStyle=ink; x.font='600 12px "JetBrains Mono", monospace'; x.fillText('eixo y',L+6,16);
+      const Ro=E.R(tp)*sc; x.fillStyle='rgba(224,96,26,.35)'; x.strokeStyle=c1; x.lineWidth=2.4; x.beginPath(); x.ellipse(L,sy(tp),Math.max(2,Ro),Math.max(2,Ro*.28),0,0,7); x.fill(); x.stroke();
+      x.beginPath(); x.moveTo(L,sy(tp)); x.lineTo(L+Ro,sy(tp)); x.stroke(); x.fillStyle=c1; x.fillText('raio',L+Ro/2-12,sy(tp)-6);
+      x.fillStyle=tok('ink2'); x.font='11px "JetBrains Mono", monospace'; x.fillText('y = '+dec(tp,2),10,h-6) }
+  });
+  const upd=()=>{ const E=S[st.s], tp=E.t[0]+(E.t[1]-E.t[0])*st.p, R=Math.abs(E.R(tp)), r=Math.abs(E.r(tp)), A=Math.PI*(R*R-r*r), v=E.eixo==='x'?'x':'y';
+    out.innerHTML='<ol><li>Fatia em '+v+' = '+dec(tp,2)+' ('+E.txt+')</li><li>R = '+dec(R,3)+(r>0?' · r = '+dec(r,3):'')+' → A('+v+') = π('+(r>0?'R² − r²':'R²')+') = <b>'+dec(A,3)+'</b></li><li>Somando todas as fatias: V = '+E.Vt+' ≈ <b>'+dec(E.V,3)+'</b></li></ol>'; cv.draw() };
+  controls(document.getElementById('rvCtl'),[{k:'p',l:'posição da fatia típica',min:0.05,max:0.95,st:0.01,v:.5,d:2}],v=>{ st.p=v.p; upd() });
+  sel.onchange=()=>{ st.s=sel.value; upd() };
+  upd(); return [cv] }
+
 function simHero(){ const s=Surf(document.getElementById('heroSim'),{fn:'ondas',alpha:.95,N:30}); let t=0, last=0;
   const step=tt=>{ if(document.hidden||document.getElementById('v-inicio').hidden||matchMedia('(prefers-reduced-motion: reduce)').matches){ setTimeout(()=>requestAnimationFrame(step),500); return } if(tt-last>60){ last=tt; t+=.02; s.set({level:Math.sin(t)*.9}) } requestAnimationFrame(step) }; requestAnimationFrame(step); return [s] }
 
@@ -948,17 +1506,32 @@ const QUIZ=[
  ['D > 0 e f<sub>xx</sub> < 0 indicam…',['mínimo local','máximo local','sela','nada'],1,'Côncava para baixo em todas as direções: topo de morro.'],
  ['Pontos críticos de f(x, y) = x² + y² + x²y + 4 incluem…',['só (0, 0)','(0, 0) e (±√2, −1)','(1, 1)','nenhum'],1,'2x(1 + y) = 0 dá dois casos: x = 0 ou y = −1 (questão 16b).'],
  ['u(x, t) = sen(x − ct) satisfaz…',['u<sub>tt</sub> = c²u<sub>xx</sub>','u<sub>xx</sub> + u<sub>tt</sub> = 0','u<sub>t</sub> = u<sub>x</sub>','nenhuma'],0,'u<sub>xx</sub> = −sen(x − ct) e u<sub>tt</sub> = −c²sen(x − ct): é a equação da onda.'],
- ['T(x, y) = 60/(1 + x² + y²). Em (1, 2), andando no sentido de +x, a temperatura…',['sobe','cai','não muda','depende de y'],1,'T<sub>x</sub>(1, 2) = −10/3 < 0 (questão 2).']
+ ['T(x, y) = 60/(1 + x² + y²). Em (1, 2), andando no sentido de +x, a temperatura…',['sobe','cai','não muda','depende de y'],1,'T<sub>x</sub>(1, 2) = −10/3 < 0 (questão 2).'],
+ ["Por que a primitiva mais geral tem + C?", ["Porque a derivada de uma constante é zero", "Porque toda integral tem erro", "Porque C é a área", "Para a conta ficar positiva"], 0, "Várias funções diferem só por um número e têm a mesma derivada."],
+ ["Primitiva de 1/x²:", ["2/x³ + C", "−1/x + C", "ln x² + C", "1/(3x³) + C"], 1, "1/x² = x⁻² → x⁻¹/(−1) = −1/x."],
+ ["∫₀<sup>2π</sup> sen x dx vale…", ["2", "2π", "0", "4"], 2, "A parte de cima (+2) cancela a de baixo (−2). A área seria 4."],
+ ["Pelo TFC, se g(x) = ∫₂ˣ eᵗ² dt, então g′(x) =", ["2x e<sup>x²</sup>", "e<sup>x²</sup> − e⁴", "não dá para calcular", "e<sup>x²</sup>"], 3, "TFC parte 1: derivar a integral de a até x devolve o integrando em x."],
+ ["Em ∫ x cos(x²) dx, a melhor substituição é…", ["u = x²", "u = cos x", "u = x", "u = sen(x²)"], 0, "du = 2x dx: o x de fora é a derivada do de dentro."],
+ ["Em ∫ x eˣ dx por partes, quem é u?", ["dx", "x", "eˣ", "x eˣ"], 1, "LIATE: Algébrica (x) vem antes de Exponencial."],
+ ["A forma das frações parciais de 1/((x − 1)²(x + 3)) é…", ["(Ax + B)/(x − 1)² + C/(x + 3)", "A/(x − 1) + B/(x + 3)", "A/(x − 1) + B/(x − 1)² + C/(x + 3)", "A/(x − 1)² + B/(x + 3)"], 2, "Fator repetido 2 vezes ganha duas frações: potência 1 e 2."],
+ ["Para 1/(x² + 9), a integral é…", ["ln(x² + 9) + C", "arctg(x) + C", "(1/9) arctg x + C", "(1/3) arctg(x/3) + C"], 3, "∫ dx/(x² + a²) = (1/a) arctg(x/a), com a = 3."],
+ ["Área entre duas curvas: a altura do retângulo típico vertical é…", ["de cima − de baixo", "de baixo − de cima", "a soma das duas", "a curva de cima só"], 0, "A = ∫ [f(x) − g(x)] dx com f em cima."],
+ ["Girando em torno da reta y = 2, o raio de uma fatia na curva y = x² é…", ["2", "2 − x²", "x²", "x² − 2"], 1, "Raio é a distância até o eixo: 2 − x²."],
+ ["Arruela: a área da fatia é…", ["2πRr", "πR² + πr²", "π(R² − r²)", "π(R − r)²"], 2, "Disco grande menos o furo."],
+ ["No método das cascas, a faixa auxiliar é…", ["perpendicular ao eixo de rotação", "sempre vertical", "sempre horizontal", "paralela ao eixo de rotação"], 3, "Casca: faixa paralela ao eixo; disco: perpendicular."],
+ ["Na integral de dentro ∫ x² dy, o resultado é…", ["x²y", "x³/3", "2x", "x²/2"], 0, "Em dy, x é constante: ∫ c dy = c·y."],
+ ["Numa região do tipo I, os limites da integral de dentro são…", ["x de 0 a 1", "curvas de x (y = g₁(x) até g₂(x))", "sempre números", "curvas de y"], 1, "Tipo I: reta vertical → y vai da curva de baixo à de cima."],
+ ["Por que inverter a ordem em ∫₀¹∫ₓ¹ sen(y²) dy dx?", ["Porque a região muda", "Não precisa inverter", "∫ sen(y²) dy não tem primitiva elementar", "Porque a resposta fica positiva"], 2, "Na outra ordem aparece y sen(y²), que sai por substituição."]
 ];
 let qa={};
 function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<div class="qz" data-i="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="opts">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="why" hidden></div></div>').join('');
   box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i], bs=c.querySelectorAll('button');
     const show=j=>{ bs.forEach((b,k)=>{ b.disabled=true; if(k===q[2])b.classList.add('right'); else if(k===j)b.classList.add('wrong') }); const w=c.querySelector('.why'); w.hidden=false; w.innerHTML=(j===q[2]?'<b style="color:var(--ok)">Certo!</b> ':'<b style="color:var(--bad)">Quase.</b> ')+q[3] };
     bs.forEach(b=>b.onclick=()=>{ qa[i]=+b.dataset.j; show(qa[i]); score(); save() }); if(qa[i]!==undefined)show(qa[i]) }); score() }
-function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=13?' · pronto para a prova!':ok>=10?' · quase lá':' · revise os módulos'):'') }
+function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=QUIZ.length*.8?' · pronto para a prova!':ok>=QUIZ.length*.6?' · quase lá':' · revise os módulos'):'') }
 
 /* ===== progresso ===== */
-const MODS=[['funcoes','Funções de 2 variáveis','Domínio, imagem e gráfico'],['nivel','Curvas de nível','f(x, y) = k e mapas de contorno'],['parciais','Derivadas parciais','Uma variável por vez'],['ordem','Segunda ordem','f<sub>xx</sub>, f<sub>xy</sub>, Clairaut, onda e Laplace'],['cadeia','Regra da cadeia','Casos I e II, diagrama de árvore'],['gradiente','Gradiente','Derivada direcional e taxa máxima'],['extremos','Máximos e mínimos','Pontos críticos, teste D e otimização']];
+const MODS=[['primitivas','Primitivas','A derivada ao contrário e o + C'],['riemann','Integral definida','Somas de Riemann e área'],['tfc','Teorema Fundamental','F(b) − F(a)'],['subst','Substituição','u = o de dentro'],['partes','Por partes','∫u dv = uv − ∫v du e LIATE'],['fracoes','Frações parciais','Os 4 casos e as constantes'],['areacurvas','Área entre curvas','De cima menos de baixo'],['discos','Discos e arruelas','π(R² − r²)'],['cascas','Cascas cilíndricas','2π · raio · altura'],['funcoes','Funções de 2 variáveis','Domínio, imagem e gráfico'],['nivel','Curvas de nível','f(x, y) = k e mapas de contorno'],['parciais','Derivadas parciais','Uma variável por vez'],['ordem','Segunda ordem','f<sub>xx</sub>, f<sub>xy</sub>, Clairaut, onda e Laplace'],['cadeia','Regra da cadeia','Casos I e II, diagrama de árvore'],['gradiente','Gradiente','Derivada direcional e taxa máxima'],['extremos','Máximos e mínimos','Pontos críticos, teste D e otimização'],['dupla','Integral dupla','Volume, propriedades e Fubini'],['regioes','Regiões gerais','Tipo I e tipo II'],['inverter','Inverter a ordem','Redesenhar os limites']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('calc2-done')||'{}'); qa=JSON.parse(localStorage.getItem('calc2-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('calc2-done',JSON.stringify(done)); localStorage.setItem('calc2-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -971,7 +1544,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getEl
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ===== rotas ===== */
-const VIEWS=['inicio','funcoes','nivel','parciais','ordem','cadeia','gradiente','extremos','lab','lista','treino','quiz','cola'];
+const VIEWS=['inicio','primitivas','riemann','tfc','subst','partes','fracoes','areacurvas','discos','cascas','funcoes','nivel','parciais','ordem','cadeia','gradiente','extremos','dupla','regioes','inverter','lab','lista','treino','quiz','cola'];
 let sims=[];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
@@ -988,7 +1561,7 @@ document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('i
 document.getElementById('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
 const fn3d=Surf(document.getElementById('fn3d'),{fn:'esfera'});
 document.querySelectorAll('#fnSeg button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#fnSeg button').forEach(z=>z.classList.toggle('on',z===b)); fn3d.set({fn:b.dataset.f}) });
-sims=[fn3d,...simM12(),...simDP(),...simHero(),...simNivel(),...simParcial(),...simGrad(),...simAula(),...simExt(),...simLab()];
+sims=[fn3d,...simRiemann(),...simRev(),...simM12(),...simDP(),...simHero(),...simNivel(),...simParcial(),...simGrad(),...simAula(),...simExt(),...simLab()];
 renderQuiz(); renderProg();
 addEventListener('hashchange',route); route();
 const redraw=()=>sims.forEach(s=>s&&s.draw());
@@ -1011,6 +1584,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 (function(){
 const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
 const FIG={
+ dupla:{f:(x,y)=>16-x*x-2*y*y, x:[0,2], y:[0,2], c:[1,1], zs:.055, zmax:17, extra:(L,Pt,T,Pl)=>{const f=FIG.dupla.f,col='rgba(224,96,26,.20)';for(let i=0;i<2;i++)for(let j=0;j<2;j++){const x0=i,x1=i+1,y0=j,y1=j+1,h=f(x1,y1);Pl([[x0,y0,h],[x1,y0,h],[x1,y1,h],[x0,y1,h]],col);Pl([[x0,y0,0],[x1,y0,0],[x1,y0,h],[x0,y0,h]],col);Pl([[x0,y0,0],[x0,y1,0],[x0,y1,h],[x0,y0,h]],col);[[[x0,y0,h],[x1,y0,h],[x1,y1,h],[x0,y1,h],[x0,y0,h]],[[x0,y0,0],[x0,y0,h]],[[x1,y0,0],[x1,y0,h]],[[x0,y1,0],[x0,y1,h]],[[x1,y1,0],[x1,y1,h]]].forEach(p=>L(p,'--c1',1.6))}L([[0,0,0],[2,0,0],[2,2,0],[0,2,0],[0,0,0]],'--c2',2.4);T([2,2,0],'--c2','R');T([2,2,f(2,2)],'--c1','f(2, 2)')}},
  entrada:{f:(x,y)=>2+0.5*x+0.35*y-0.12*x*x, x:[-2,2], y:[-2,2], zs:1, extra:(L,Pt,T)=>{L([[1.2,0.8,0],[1.2,0.8,FIG.entrada.f(1.2,0.8)]],'--c2',2.5,[6,4]);Pt([1.2,0.8,0],'--c1','(x, y)');Pt([1.2,0.8,FIG.entrada.f(1.2,0.8)],'--c2','z = f(x, y)')}},
  nivel:{f:(x,y)=>x*x+y*y, x:[-2,2], y:[-2,2], zs:.45, cut:(x,y)=>x*x+y*y<=4.2, extra:(L,Pt,T,Pl)=>{const k=2.5,r=Math.sqrt(k);Pl([[-2,-2,k],[2,-2,k],[2,2,k],[-2,2,k]],'rgba(30,98,201,.13)');const c=[],cf=[];for(let i=0;i<=64;i++){const t=i/64*6.2832;c.push([r*Math.cos(t),r*Math.sin(t),k]);cf.push([r*Math.cos(t),r*Math.sin(t),0])}L(c,'--c1',3);L(cf,'--c1',2,[6,4]);T([r,0,k+.3],'--c1','z = k')}},
  parcial:{f:(x,y)=>4-x*x-2*y*y, x:[-1.6,1.6], y:[-1.4,1.4], zs:.4, extra:(L,Pt,T,Pl)=>{Pl([[-1.6,1,-1.2],[1.6,1,-1.2],[1.6,1,4.4],[-1.6,1,4.4]],'rgba(30,98,201,.12)');L(Array.from({length:61},(_,j)=>{const x=-1.6+3.2*j/60;return[x,1,4-x*x-2]}),'--c1',3);L([[0.4,1,2.2],[1.5,1,0]],'--bad',2.5);Pt([1,1,1],'--c1','(1, 1, 1)');T([1.1,1,-0.4],'--bad','−2')}},
@@ -1021,7 +1595,7 @@ const FIG={
 function vista(box,F){const cv=box.querySelector('canvas'),g=cv.getContext('2d');let yaw=-0.8,pit=0.5;
  function draw(){const dpr=Math.min(2,devicePixelRatio||1),W=box.clientWidth,H=box.clientHeight;if(!W)return;cv.width=W*dpr;cv.height=H*dpr;g.setTransform(dpr,0,0,dpr,0,0);g.clearRect(0,0,W,H);
   const [a,b]=F.x,[c,d]=F.y,R=Math.max(b-a,d-c);const s=Math.min(W/(R*1.35),H/(R*1.05));
-  const P=(x,y,z)=>{const u=x*Math.cos(yaw)-y*Math.sin(yaw),dd=x*Math.sin(yaw)+y*Math.cos(yaw);return[W/2+u*s,H*0.66-(z*F.zs*Math.cos(pit)+dd*Math.sin(pit))*s]};
+  const P=(x,y,z)=>{if(F.c){x-=F.c[0];y-=F.c[1]}const u=x*Math.cos(yaw)-y*Math.sin(yaw),dd=x*Math.sin(yaw)+y*Math.cos(yaw);return[W/2+u*s,H*0.66-(z*F.zs*Math.cos(pit)+dd*Math.sin(pit))*s]};
   const L=(pts,col,w,dash)=>{g.beginPath();let on=false;pts.forEach(p=>{if(!p){on=false;return}const q=P(...p);on?g.lineTo(...q):g.moveTo(...q);on=true});g.strokeStyle=col.startsWith('--')?css(col):col;g.lineWidth=w||1;g.setLineDash(dash||[]);g.stroke();g.setLineDash([])};
   const T=(p,col,t)=>{const q=P(...p);g.fillStyle=css(col);g.font='13px Inter,sans-serif';g.fillText(t,q[0]+8,q[1]-8)};
   const Pt=(p,col,t)=>{const q=P(...p);g.beginPath();g.arc(q[0],q[1],5,0,7);g.fillStyle=css(col);g.fill();if(t)T(p,col,t)};
@@ -1040,11 +1614,17 @@ document.querySelectorAll('[data-f3]').forEach(b=>{const F=FIG[b.dataset.f3];if(
 <script>
 /* ===== exercícios para treinar (parecidos com a lista) ===== */
 const TGRUPOS=[
- ['g0','Funções e curvas de nível','aulas 1 e 2'],
- ['g1','Derivadas parciais','aulas 3 e 4 · parecidos com as questões 1 e 2'],
- ['g2','Regra da cadeia','aula 5 · parecidos com as questões 3 a 7'],
- ['g3','Gradiente e derivada direcional','aula 6 · parecidos com as questões 8 a 15'],
- ['g4','Máximos, mínimos e otimização','aula 7 · parecidos com as questões 16 a 19']];
+ ['g5','Primitivas, somas de Riemann e TFC','Módulo 1 · aulas 1 a 3 · do "Praticando" da professora'],
+ ['g6','Substituição','Módulo 1 · aula 4'],
+ ['g7','Integração por partes','Módulo 1 · aula 5'],
+ ['g8','Frações parciais','Módulo 1 · aula 6'],
+ ['g9','Área entre curvas e volumes','Módulo 1 · aulas 8 a 11'],
+ ['g0','Funções e curvas de nível','Módulo 2 · aulas 1 e 2'],
+ ['g1','Derivadas parciais','Módulo 2 · aulas 3 e 4 · parecidos com as questões 1 e 2'],
+ ['g2','Regra da cadeia','Módulo 2 · aula 5 · parecidos com as questões 3 a 7'],
+ ['g3','Gradiente e derivada direcional','Módulo 2 · aula 6 · parecidos com as questões 8 a 15'],
+ ['g4','Máximos, mínimos e otimização','Módulo 2 · aula 7 · parecidos com as questões 16 a 19'],
+ ['g10','Integrais duplas','Módulo 3']];
 const SEL=['mínimo','máximo','sela'];
 const TREINO=[
  {g:'g0',q:'Para f(x, y) = x² − 3xy + 2, calcule f(1, 2) e f(−2, 1).',p:[['f(1, 2)',-3],['f(−2, 1)',12]],
@@ -1098,19 +1678,56 @@ const TREINO=[
  {g:'g4',like:'18',q:'A soma das 12 arestas de uma caixa retangular é 48 cm. Qual o volume máximo?',p:[['volume máximo (cm³)',64]],
   s:['4x + 4y + 4z = 48 → z = 12 − x − y → V = xy(12 − x − y)','V<sub>x</sub> = 0 e V<sub>y</sub> = 0 → 2x + y = 12 e x + 2y = 12 → x = y = 4, z = 4','Cubo de aresta 4: V = 64 cm³']},
  {g:'g4',like:'19',q:'Uma caixa sem tampa deve ter 4000 cm³. Qual a menor área de papelão possível?',p:[['área mínima (cm²)',1200]],
-  s:['xyz = 4000 → z = 4000/(xy) → A = xy + 2xz + 2yz = xy + 8000/y + 8000/x','A<sub>x</sub> = y − 8000/x² = 0 · A<sub>y</sub> = x − 8000/y² = 0 → x = y = 20','z = 4000/400 = 10 → A = 400 + 400 + 400 = 1200 cm²']}
+  s:['xyz = 4000 → z = 4000/(xy) → A = xy + 2xz + 2yz = xy + 8000/y + 8000/x','A<sub>x</sub> = y − 8000/x² = 0 · A<sub>y</sub> = x − 8000/y² = 0 → x = y = 20','z = 4000/400 = 10 → A = 400 + 400 + 400 = 1200 cm²']},
+ {g:"g5",q:"f′(x) = 1 + 3√x e f(4) = 25. Quanto vale f(1)?",p:[["f(1)", 8]],s:["Primitiva: f(x) = x + 3 · x<sup>3/2</sup>/(3/2) + C = x + 2x<sup>3/2</sup> + C.", "f(4) = 4 + 2 · 8 + C = 25 → C = 5.", "f(1) = 1 + 2 + 5 = 8."]},
+ {g:"g5",q:"Estime ∫₀² x² dx com 4 retângulos: pela ponta direita e pela ponta esquerda.",p:[["direita", 3.75], ["esquerda", 1.75]],s:["Δx = 2/4 = 0,5. Pontas direitas: 0,5; 1; 1,5; 2. Esquerdas: 0; 0,5; 1; 1,5.", "Direita: 0,5 · (0,25 + 1 + 2,25 + 4) = 0,5 · 7,5 = 3,75.", "Esquerda: 0,5 · (0 + 0,25 + 1 + 2,25) = 0,5 · 3,5 = 1,75. (A exata é 8/3 ≈ 2,67.)"]},
+ {g:"g5",q:"Calcule ∫₀⁶ x dx (é a área sob y = x em [0, b] com b = 6).",p:[["valor", 18]],s:["Primitiva x²/2.", "6²/2 − 0 = 18. Em geral: b²/2, a área do triângulo."]},
+ {g:"g5",q:"Calcule ∫₁⁴ (5 − 2t + 3t²) dt.",p:[["valor", 63]],s:["Primitiva: 5t − t² + t³.", "F(4) = 20 − 16 + 64 = 68 · F(1) = 5 − 1 + 1 = 5.", "68 − 5 = 63."]},
+ {g:"g5",q:"Calcule ∫₁² 3/t⁴ dt.",p:[["valor", "7/8"]],s:["3t⁻⁴ → 3 · t⁻³/(−3) = −t⁻³ = −1/t³.", "F(2) − F(1) = −1/8 − (−1) = 7/8."]},
+ {g:"g5",q:"Calcule ∫₁⁹ (x − 1)/√x dx.",p:[["valor", "40/3"]],s:["Separe: x/√x − 1/√x = x<sup>1/2</sup> − x<sup>−1/2</sup>.", "Primitiva: (2/3)x<sup>3/2</sup> − 2x<sup>1/2</sup>.", "F(9) = 18 − 6 = 12 · F(1) = 2/3 − 2 = −4/3 → 12 + 4/3 = 40/3."]},
+ {g:"g5",q:"Calcule ∫₁² (v³ + 3v⁶)/v⁴ dv. (pode digitar ln)",p:[["valor", "ln(2)+7"]],s:["Separe: v³/v⁴ + 3v⁶/v⁴ = 1/v + 3v².", "Primitiva: ln v + v³.", "(ln 2 + 8) − (0 + 1) = ln 2 + 7 ≈ 7,693."]},
+ {g:"g5",q:"g(x) = ∫₁ˣ (t³ + 1) dt. Quanto vale g′(2)?",p:[["g′(2)", 9]],s:["TFC parte 1: g′(x) = x³ + 1.", "g′(2) = 8 + 1 = 9."]},
+ {g:"g6",q:"Calcule ∫₀¹ cos(πt/2) dt.",p:[["valor", "2/π"]],s:["u = πt/2 → du = (π/2) dt → dt = (2/π) du. Limites: 0 e π/2.", "(2/π) ∫₀<sup>π/2</sup> cos u du = (2/π)(sen(π/2) − 0) = 2/π ≈ 0,637."]},
+ {g:"g6",q:"Calcule ∫₀¹ ∛(1 + 7x) dx.",p:[["valor", "45/28"]],s:["u = 1 + 7x → du = 7 dx. Limites: 1 e 8.", "(1/7) ∫₁⁸ u<sup>1/3</sup> du = (1/7) · (3/4) u<sup>4/3</sup> |₁⁸ = (3/28)(16 − 1) = 45/28."]},
+ {g:"g6",q:"Calcule ∫₁² x√(x − 1) dx.",p:[["valor", "16/15"]],s:["u = x − 1 → x = u + 1, dx = du. Limites: 0 e 1.", "∫₀¹ (u + 1)u<sup>1/2</sup> du = ∫₀¹ (u<sup>3/2</sup> + u<sup>1/2</sup>) du = 2/5 + 2/3 = 16/15."]},
+ {g:"g6",q:"Calcule ∫ de e a e⁴ de dx/(x√(ln x)).",p:[["valor", 2]],s:["u = ln x → du = dx/x. Limites: ln e = 1 e ln e⁴ = 4.", "∫₁⁴ u<sup>−1/2</sup> du = 2√u |₁⁴ = 4 − 2 = 2."]},
+ {g:"g6",q:"Calcule ∫₀¹ x e<sup>x²</sup> dx. (pode digitar e)",p:[["valor", "(e-1)/2"]],s:["u = x² → du = 2x dx → x dx = du/2. Limites: 0 e 1.", "(1/2) ∫₀¹ eᵘ du = (e − 1)/2 ≈ 0,859."]},
+ {g:"g7",q:"Calcule ∫₀^π x sen x dx.",p:[["valor", "π"]],s:["Partes (LIATE): u = x, dv = sen x dx → du = dx, v = −cos x.", "Primitiva: −x cos x + sen x.", "F(π) − F(0) = (−π · (−1) + 0) − 0 = π."]},
+ {g:"g7",q:"Calcule ∫₁³ r³ ln r dr. (pode digitar ln)",p:[["valor", "81/4*ln(3)-5"]],s:["L antes de A: u = ln r, dv = r³ dr → du = dr/r, v = r⁴/4.", "(r⁴/4) ln r − ∫ r³/4 dr = (r⁴/4) ln r − r⁴/16.", "De 1 a 3: (81/4) ln 3 − 81/16 + 1/16 = (81/4) ln 3 − 5 ≈ 17,25."]},
+ {g:"g7",q:"Calcule ∫₀¹ y e<sup>−2y</sup> dy.",p:[["valor", "1/4-3/4*e^(-2)"]],s:["u = y, dv = e<sup>−2y</sup> dy → v = −e<sup>−2y</sup>/2.", "Primitiva: −(y/2)e<sup>−2y</sup> − e<sup>−2y</sup>/4.", "De 0 a 1: (−1/2 − 1/4)e<sup>−2</sup> + 1/4 = 1/4 − (3/4)e<sup>−2</sup> ≈ 0,1485."]},
+ {g:"g7",q:"f(1) = 2, f(4) = 7, f′(1) = 5, f′(4) = 3 (f″ contínua). Calcule ∫₁⁴ x f″(x) dx.",p:[["valor", 2]],s:["u = x, dv = f″(x) dx → du = dx, v = f′(x).", "x f′(x) |₁⁴ − ∫₁⁴ f′(x) dx = (4 · 3 − 1 · 5) − (f(4) − f(1)).", "= 7 − (7 − 2) = 2."]},
+ {g:"g7",q:"v(t) = t² e<sup>−t</sup> m/s. Que distância a partícula percorre nos 2 primeiros segundos?",p:[["distância (m)", "2-10*e^(-2)"]],s:["Distância = ∫₀² t² e<sup>−t</sup> dt (v ≥ 0). Partes duas vezes: primitiva −e<sup>−t</sup>(t² + 2t + 2).", "De 0 a 2: −e<sup>−2</sup>(4 + 4 + 2) + 2 = 2 − 10e<sup>−2</sup> ≈ 0,647 m."]},
+ {g:"g8",q:"(x − 9)/((x + 5)(x − 2)) = A/(x + 5) + B/(x − 2). Ache A e B.",p:[["A", 2], ["B", -1]],s:["x − 9 = A(x − 2) + B(x + 5).", "x = −5: −14 = −7A → A = 2. x = 2: −7 = 7B → B = −1.", "∫ = 2 ln |x + 5| − ln |x − 2| + C."]},
+ {g:"g8",q:"(5x + 1)/((2x + 1)(x − 1)) = A/(2x + 1) + B/(x − 1). Ache A e B.",p:[["A", 1], ["B", 2]],s:["5x + 1 = A(x − 1) + B(2x + 1).", "x = 1: 6 = 3B → B = 2. x = −1/2: −3/2 = −(3/2)A → A = 1."]},
+ {g:"g8",q:"Calcule ∫₀¹ 2/(2x² + 3x + 1) dx. (pode digitar ln)",p:[["valor", "2*ln(3/2)"]],s:["2x² + 3x + 1 = (2x + 1)(x + 1). 2/((2x + 1)(x + 1)) = 4/(2x + 1) − 2/(x + 1).", "Primitiva: 2 ln |2x + 1| − 2 ln |x + 1|.", "De 0 a 1: 2 ln 3 − 2 ln 2 = 2 ln(3/2) ≈ 0,811."]},
+ {g:"g8",q:"Calcule ∫₃⁴ (x³ − 2x² − 4)/(x³ + 2x²) dx. (pode digitar ln)",p:[["valor", "7/6+ln(2/3)"]],s:["Graus iguais: divida. = 1 + (−4x² − 4)/(x²(x + 2)).", "(−4x² − 4)/(x²(x + 2)) = A/x + B/x² + C/(x + 2): B = −2 (x = 0), C = −5 (x = −2), A = 1.", "∫₃⁴ [1 + 1/x − 2/x² − 5/(x + 2)] dx = 1 + ln(4/3) + 2(1/4 − 1/3) − 5 ln(6/5) = 7/6 + ln(2/3) ≈ 0,761."]},
+ {g:"g9",q:"Área entre y = 12 − x² e y = x² − 6.",p:[["área", 72]],s:["Interseções: 12 − x² = x² − 6 → x² = 9 → x = ±3.", "∫₋₃³ [(12 − x²) − (x² − 6)] dx = ∫₋₃³ (18 − 2x²) dx = 108 − 36 = 72."]},
+ {g:"g9",q:"Área entre y = x e y = x².",p:[["área", "1/6"]],s:["Interseções x = 0 e 1; y = x em cima.", "∫₀¹ (x − x²) dx = 1/2 − 1/3 = 1/6."]},
+ {g:"g9",q:"Área entre y = √x, y = x/2 e x = 9.",p:[["área", "59/12"]],s:["As curvas se cruzam em x = 0 e x = 4: quem está em cima troca!", "De 0 a 4 (√x em cima): ∫ (√x − x/2) = 16/3 − 4 = 4/3.", "De 4 a 9 (x/2 em cima): ∫ (x/2 − √x) = 65/4 − 38/3 = 43/12. Total: 16/12 + 43/12 = 59/12."]},
+ {g:"g9",q:"Volume: y = 1/x, x = 1, x = 2, y = 0, girando em torno do eixo x.",p:[["volume", "π/2"]],s:["Disco de raio 1/x.", "π∫₁² x⁻² dx = π[−1/x]₁² = π(−1/2 + 1) = π/2."]},
+ {g:"g9",q:"Volume: y = 2 − x/2, y = 0, x = 1, x = 2, em torno do eixo x.",p:[["volume", "19π/12"]],s:["Disco de raio 2 − x/2.", "π∫₁² (2 − x/2)² dx = π∫₁² (4 − 2x + x²/4) dx = π(4 − 3 + 7/12) = 19π/12."]},
+ {g:"g9",q:"Cascas: y = 1/x, y = 0, x = 1, x = 2, em torno do eixo y.",p:[["volume", "2π"]],s:["Raio x, altura 1/x.", "2π∫₁² x · (1/x) dx = 2π · 1 = 2π."]},
+ {g:"g9",q:"Cascas: y = x² e y = 6x − 2x², em torno do eixo y.",p:[["volume", "8π"]],s:["Interseções: x² = 6x − 2x² → 3x² = 6x → x = 0 e 2.", "Raio x, altura 6x − 3x². 2π∫₀² (6x² − 3x³) dx = 2π(16 − 12) = 8π."]},
+ {g:"g9",q:"Cascas: y = x³, y = 0, x = 1, em torno da reta y = 1.",p:[["volume", "5π/14"]],s:["Eixo horizontal → cascas em y: x vai de ∛y até 1.", "Raio 1 − y, altura 1 − y<sup>1/3</sup>. 2π∫₀¹ (1 − y)(1 − y<sup>1/3</sup>) dy.", "= 2π(1 − 3/4 − 1/2 + 3/7) = 2π · 5/28 = 5π/14."]},
+ {g:"g10",q:"Calcule ∬ (6x²y − 2x) dA em R = [1, 4] × [0, 2].",p:[["valor", 222]],s:["∫₀² ∫₁⁴ (6x²y − 2x) dx dy. De dentro: [2x³y − x²]₁⁴ = 126y − 15.", "De fora: ∫₀² (126y − 15) dy = 252 − 30 = 222."]},
+ {g:"g10",q:"Calcule ∬ (x + y) dA em R = [0, 2] × [0, 3].",p:[["valor", 15]],s:["De dentro (em x): [x²/2 + xy]₀² = 2 + 2y.", "De fora: ∫₀³ (2 + 2y) dy = 6 + 9 = 15."]},
+ {g:"g10",q:"Calcule ∬<sub>D</sub> y dA, D: 0 ≤ x ≤ 1, x² ≤ y ≤ x.",p:[["valor", "1/15"]],s:["De dentro: [y²/2] de x² a x = (x² − x⁴)/2.", "De fora: (1/2)(1/3 − 1/5) = 1/15."]},
+ {g:"g10",q:"Volume sob z = 2x + y sobre o triângulo 0 ≤ x ≤ 1, 0 ≤ y ≤ x.",p:[["volume", "5/6"]],s:["De dentro: [2xy + y²/2]₀ˣ = 2x² + x²/2 = (5/2)x².", "De fora: (5/2) · (1/3) = 5/6."]},
+ {g:"g10",q:"Calcule ∫₀¹ ∫ₓ¹ sen(y²) dy dx invertendo a ordem. (pode digitar cos)",p:[["valor", "(1-cos(1))/2"]],s:["Região: 0 ≤ y ≤ 1, 0 ≤ x ≤ y.", "∫₀¹ y sen(y²) dy = (1/2)(1 − cos 1) ≈ 0,2298."]},
+ {g:"g10",q:"Calcule ∫₀² ∫ de y/2 a 1 de e<sup>x²</sup> dx dy invertendo a ordem.",p:[["valor", "e-1"]],s:["Região: 0 ≤ x ≤ 1, 0 ≤ y ≤ 2x.", "∫₀¹ ∫₀<sup>2x</sup> e<sup>x²</sup> dy dx = ∫₀¹ 2x e<sup>x²</sup> dx = e − 1 ≈ 1,718."]}
 ];
 function tEval(v){ /* calculadora pequena, sem eval: + − × ÷ ^ ( ) π √ */
-  const s=String(v).trim().toLowerCase().replace(/−/g,'-').replace(/,/g,'.').replace(/·|×/g,'*').replace(/÷/g,'/').replace(/\s+/g,'').replace(/sqrt/g,'√').replace(/pi/g,'π');
-  if(!s||/[^0-9.+\-*/()^π√]/.test(s)) return NaN; let i=0;
+  const s=String(v).trim().toLowerCase().replace(/−/g,'-').replace(/,/g,'.').replace(/·|×/g,'*').replace(/÷/g,'/').replace(/\s+/g,'').replace(/sqrt/g,'√').replace(/pi/g,'π').replace(/sin/g,'sen');
+  if(!s||/[^0-9.+\-*/()^π√lnsecoe]/.test(s)) return NaN; let i=0; const FUN={ln:Math.log,sen:Math.sin,cos:Math.cos};
   const pk=()=>s[i], num=()=>{ const m=/^\d*\.?\d+/.exec(s.slice(i)); if(!m) throw 0; i+=m[0].length; return +m[0] };
-  const ini=c=>c&&(/[0-9.(π√]/.test(c));
-  function prim(){ const c=pk(); if(c==='('){ i++; const r=soma(); if(pk()!==')') throw 0; i++; return r } if(c==='π'){ i++; return Math.PI } if(c==='√'){ i++; return Math.sqrt(pot()) } if(c==='-'){ i++; return -pot() } if(c==='+'){ i++; return pot() } return num() }
+  const ini=c=>c&&(/[0-9.(π√lsce]/.test(c));
+  function prim(){ const c=pk(); for(const k in FUN){ if(s.startsWith(k,i)){ i+=k.length; return FUN[k](pot()) } } if(c==='e'){ i++; return Math.E } if(c==='('){ i++; const r=soma(); if(pk()!==')') throw 0; i++; return r } if(c==='π'){ i++; return Math.PI } if(c==='√'){ i++; return Math.sqrt(pot()) } if(c==='-'){ i++; return -pot() } if(c==='+'){ i++; return pot() } return num() }
   function pot(){ const b=prim(); if(pk()==='^'){ i++; return Math.pow(b,un()) } return b }
   function un(){ if(pk()==='-'){ i++; return -un() } return pot() }
   function prod(){ let r=un(); for(;;){ const c=pk(); if(c==='*'||c==='/'){ i++; const d=un(); r=c==='*'?r*d:r/d } else if(ini(c)) r*=un(); else return r } }
   function soma(){ let r=prod(); while(pk()==='+'||pk()==='-'){ const c=s[i++]; const d=prod(); r=c==='+'?r+d:r-d } return r }
   try{ const r=soma(); return i===s.length&&isFinite(r)?r:NaN }catch(e){ return NaN } }
+TREINO.forEach(e=>e.p.forEach(p=>{ if(typeof p[1]==='string'&&!p[2]) p[1]=tEval(p[1]) }));
 let tst={}; try{ tst=JSON.parse(localStorage.getItem('calc2-treino')||'{}') }catch(e){}
 function tSave(){ try{ localStorage.setItem('calc2-treino',JSON.stringify(tst)) }catch(e){} }
 function renderTreino(){ let n=0;
@@ -1133,7 +1750,7 @@ document.addEventListener('click',ev=>{ const a=ev.target.closest('a.btreino'); 
 window.treinoGo=function(){ let g=null; try{ g=sessionStorage.getItem('calc2-tgo'); sessionStorage.removeItem('calc2-tgo') }catch(e){} if(g){ const el=document.getElementById('t-'+g); if(el) requestAnimationFrame(()=>el.scrollIntoView({block:'start'})) } }
 renderTreino();
 </script>
-<script src="../../dados/quadros-calc2.js?v=12"></script>
+<script src="../../dados/quadros-calc2.js?v=15"></script>
 <script src="../../js/quadro.js?v=8" data-materia="calc2"></script>
 </body>
 </html>
