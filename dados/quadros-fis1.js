@@ -311,6 +311,10 @@
       '#Leitura | o sinal', '− → o conjunto segue no sentido do «b|caminhão»', { c: [['*Δv do carro', '+100 → −67,4', '«r|≈ 167 km/h»'], ['*Δv do caminhão', '−80 → −67,4', '«g|≈ 12,6 km/h»']] },
       '~ mesmo impulso nos dois (3ª lei); quem tem pouca massa muda muito de velocidade',
       '=V ≈ 18,7 m/s ≈ 67,4 km/h no sentido do caminhão'] },
+  'fis-c5': { t: 'Recuo do canhão', r: 'Receita: tudo parado → P₀ = 0 → explosão é força interna → P_f = 0 → isole v_c',
+    b: [SV(340, 90, '<rect x="130" y="40" width="80" height="26" rx="6" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="150" cy="74" r="10" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="190" cy="74" r="10" fill="none" stroke="currentColor" stroke-width="2"/>' + SETA(225, 50, 320, 50, B) + TX(245, 38, 'bala 1 kg · 120 m/s', B, 12) + SETA(120, 50, 40, 50, R) + TX(30, 38, 'canhão 500 kg', R, 12)),
+      '#Antes | tudo parado', 'P₀ = m_c · 0 + m_b · 0 = «b|0»', '#Conservação | P₀ = P_f', '0 = m_c · v_c + m_b · v_b', 'm_b · v_b = − m_c · v_c',
+      '#Números | 1 kg · 120 m/s · 500 kg', '1 · 120 = − 500 · v_c', 'v_c = − 120 / 500 = «o|−0,24 m/s»', '~ − = para trás, contra a bala: é o coice', '=o canhão recua a 0,24 m/s'] },
   'fis-c3': { t: 'Colisão elástica, alvo parado', r: 'Receita: fórmulas da elástica com v₂ᵢ = 0 → confira momento e energia',
     b: ['#Velocidades | elástica 1D', 'v₁f = (1 − 2)/(1 + 2) · 6,0 = «o|−2,0 m/s»', 'v₂f = 2 · 1/(1 + 2) · 6,0 = «o|+4,0 m/s»',
       '#Confere | momento e energia', { c: [['*momento', 'antes 1 · 6 = 6', 'depois 1 · (−2) + 2 · 4 = 6 «g|✓»'], ['*energia', 'antes ½ · 1 · 36 = 18 J', 'depois 2 + 16 = 18 J «g|✓»']] }, '=v₁ = −2,0 m/s (volta) · v₂ = +4,0 m/s'] }
