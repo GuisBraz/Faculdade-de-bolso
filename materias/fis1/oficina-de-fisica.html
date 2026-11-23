@@ -87,6 +87,8 @@ main{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-lef
 .legend{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.93rem;border-top:1px dashed var(--line);padding-top:10px;margin:0}
 .legend dt{font-family:var(--f-math);font-style:italic;font-size:1.05rem;color:var(--c1);white-space:nowrap}
 .legend dd{margin:0;color:var(--ink2)}
+svg.fig{display:block;width:100%;max-width:560px;height:auto;margin:16px auto;color:var(--ink)}
+.fx .eq.sl5{font-size:1.25rem;padding:3px 0}
 .fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em}
 .fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .25em .05em}
 .fr>span:last-child{padding:.05em .25em 0}
@@ -259,21 +261,38 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
   <div class="hwrap">
     <div class="brand">
       <div style="display:flex;align-items:center;gap:10px;min-width:0"><a href="../../index.html#m-fis1" style="font-size:.8rem;font-weight:700;color:var(--ink2);text-decoration:none;margin-right:6px" aria-label="Voltar para a Faculdade de Bolso">← Hub</a><a href="#inicio"><svg class="logo" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><rect x="7" y="9" width="9" height="9" fill="none" stroke="currentColor" stroke-width="2"/><path d="M16 13.5h6" stroke="var(--c1)" stroke-width="2.4" stroke-linecap="round"/><path d="M19.5 11l2.5 2.5-2.5 2.5" fill="none" stroke="var(--c1)" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>Oficina de Física</a></div>
-      <div class="prog"><span id="progtxt">0/10</span><div class="bar"><i id="progbar"></i></div></div>
+      <div class="prog"><span id="progtxt">0/28</span><div class="bar"><i id="progbar"></i></div></div>
     </div>
     <nav id="nav">
       <a href="#inicio">Início</a>
-      <a href="#forcas" data-m="forcas">1 · Forças</a>
-      <a href="#newton" data-m="newton">2 · Leis de Newton</a>
-      <a href="#aplic" data-m="aplic">3 · Aplicações</a>
-      <a href="#atrito" data-m="atrito">4 · Atrito</a>
-      <a href="#arrasto" data-m="arrasto">5 · Arrasto</a>
-      <a href="#circular" data-m="circular">6 · Circular</a>
-      <a href="#potencial" data-m="potencial">7 · Energia potencial</a>
-      <a href="#conserva" data-m="conserva">8 · Conservação</a>
-      <a href="#mola" data-m="mola">9 · Massa-mola</a>
-      <a href="#curva" data-m="curva">10 · Curva de U</a>
-      <a href="#termica" data-m="termica">11 · Energia térmica</a>
+      <a href="#unidades" data-m="unidades">1.1 · Unidades</a>
+      <a href="#posicao" data-m="posicao">1.2 · Posição</a>
+      <a href="#velinst" data-m="velinst">1.3 · Velocidade</a>
+      <a href="#acel" data-m="acel">1.4 · Aceleração</a>
+      <a href="#muv" data-m="muv">1.5 · a constante</a>
+      <a href="#queda" data-m="queda">1.6 · Queda livre</a>
+      <a href="#graficos" data-m="graficos">1.7 · Gráficos</a>
+      <a href="#vetores" data-m="vetores">1.8 · Vetores</a>
+      <a href="#unitarios" data-m="unitarios">1.9 · î ĵ k̂</a>
+      <a href="#produtos" data-m="produtos">1.10 · Produtos</a>
+      <a href="#mov2d" data-m="mov2d">1.11 · Movimento 2D</a>
+      <a href="#projetil" data-m="projetil">1.12 · Projéteis</a>
+      <a href="#mcu" data-m="mcu">1.13 · Circular uniforme</a>
+      <a href="#relativo" data-m="relativo">1.14 · Relativo</a>
+      <a href="#forcas" data-m="forcas">2.1 · Forças</a>
+      <a href="#newton" data-m="newton">2.2 · Leis de Newton</a>
+      <a href="#aplic" data-m="aplic">2.3 · Aplicações</a>
+      <a href="#atrito" data-m="atrito">2.4 · Atrito</a>
+      <a href="#arrasto" data-m="arrasto">2.5 · Arrasto</a>
+      <a href="#circular" data-m="circular">2.6 · Circular</a>
+      <a href="#trabalho" data-m="trabalho">2.7 · Trabalho</a>
+      <a href="#wpeso" data-m="wpeso">2.8 · Peso e mola</a>
+      <a href="#wvar" data-m="wvar">2.9 · Potência</a>
+      <a href="#potencial" data-m="potencial">2.10 · Energia potencial</a>
+      <a href="#conserva" data-m="conserva">2.11 · Conservação</a>
+      <a href="#mola" data-m="mola">2.12 · Massa-mola</a>
+      <a href="#curva" data-m="curva">2.13 · Curva de U</a>
+      <a href="#termica" data-m="termica">2.14 · Energia térmica</a>
       <a href="#lab">Laboratório</a>
       <a href="#problemas">Problemas resolvidos</a>
       <a href="#quiz">Quiz</a>
@@ -288,16 +307,16 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 <section class="view" id="v-inicio">
   <div class="hero">
     <div>
-      <div class="eyebrow">Física I · Halliday, capítulos 5, 6 e 8</div>
+      <div class="eyebrow">Física I · Halliday, capítulos 2 a 8</div>
       <h1>Nada se mexe <em>sem um motivo</em>. O motivo é a força.</h1>
-      <p class="lede">Força e Movimento I e II e Energia Potencial do zero: leis de Newton, peso, normal, tração, atrito, arrasto, movimento circular, energia potencial e conservação da energia. Cada fórmula explicada, simuladores para mexer, problemas resolvidos passo a passo e quiz.</p>
-      <div class="btns"><a class="btn" href="#forcas" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lab'">Abrir o laboratório</button></div>
+      <p class="lede">Do zero até a energia, na ordem certa para aprender. <b>Módulo 1</b>: movimento em linha reta, vetores e movimento no plano (capítulos 2, 3 e 4). <b>Módulo 2</b>: forças, leis de Newton, atrito, trabalho, energia e potência (capítulos 5 a 8). Cada fórmula explicada letra por letra, simuladores, exemplos com "Ver no quadro" e quiz.</p>
+      <div class="btns"><a class="btn" href="#unidades" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lab'">Abrir o laboratório</button></div>
     </div>
     <div class="cv sim" id="heroSim" style="aspect-ratio:1/1"><canvas></canvas><div class="lbl">plano inclinado ao vivo</div></div>
   </div>
 
   <h3 style="margin-top:0">A trilha</h3>
-  <p class="read">Os módulos 1 a 3 são o capítulo 5, os módulos 4 a 6 são o capítulo 6 e os módulos 7 a 11 são o capítulo 8 (energia), com o módulo 9 (massa-mola) vindo direto da aula. Marque cada um como estudado no final da página.</p>
+  <p class="read">Módulo 1 (aulas 1.1 a 1.14): capítulos 2, 3 e 4. Módulo 2 (aulas 2.1 a 2.14): capítulos 5 e 6, depois o 7 (trabalho) e o 8 (energia). Marque cada aula como estudada no final da página.</p>
   <div class="trail" id="trail"></div>
 
   <h3>O método que resolve quase tudo</h3>
@@ -310,9 +329,490 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
   </ol>
 </section>
 
+<!-- ============ M1 · UNIDADES ============ -->
+<section class="view read" id="v-unidades" hidden>
+  <div class="eyebrow">Módulo 1 · Antes de tudo</div>
+  <h2>Medidas e unidades: a língua da física</h2>
+  <p class="lede">Em física, um número sozinho não diz nada. "5" pode ser 5 metros, 5 segundos ou 5 quilos. Toda resposta é <b>número + unidade</b>: "5 m/s" já conta uma história.</p>
+
+  <h3>O Sistema Internacional (SI)</h3>
+  <p>Para todo mundo falar a mesma língua, existe um conjunto oficial de unidades, o <b>SI</b>. Três delas são a base de toda a mecânica; o resto é montado a partir delas.</p>
+  <div class="tbl"><table><tr><th>Grandeza</th><th>Unidade</th><th>Símbolo</th><th>Para ter ideia</th></tr>
+    <tr><td>comprimento</td><td>metro</td><td>m</td><td>um passo largo</td></tr>
+    <tr><td>tempo</td><td>segundo</td><td>s</td><td>"um mil e um"</td></tr>
+    <tr><td>massa</td><td>quilograma</td><td>kg</td><td>1 litro de água</td></tr>
+    <tr><td>velocidade</td><td>metro por segundo</td><td>m/s</td><td>andar rápido ≈ 1,5 m/s</td></tr>
+    <tr><td>aceleração</td><td>metro por segundo ao quadrado</td><td>m/s²</td><td>a gravidade: 9,8 m/s²</td></tr>
+    <tr><td>força</td><td>newton</td><td>N = kg·m/s²</td><td>uma maçã pesa ≈ 1 N</td></tr>
+    <tr><td>energia e trabalho</td><td>joule</td><td>J = N·m</td><td>erguer uma maçã 1 m</td></tr>
+    <tr><td>potência</td><td>watt</td><td>W = J/s</td><td>lâmpada LED ≈ 10 W</td></tr></table></div>
+
+  <h3>Prefixos: o "atalho" dos números grandes e pequenos</h3>
+  <div class="tbl"><table><tr><th>Prefixo</th><th>Símbolo</th><th>Vale</th><th>Exemplo</th></tr>
+    <tr><td>mega</td><td>M</td><td>10⁶ = 1 000 000</td><td>1 MJ = 1 000 000 J</td></tr>
+    <tr><td>quilo</td><td>k</td><td>10³ = 1 000</td><td>1 km = 1 000 m</td></tr>
+    <tr><td>centi</td><td>c</td><td>10⁻² = 0,01</td><td>1 cm = 0,01 m</td></tr>
+    <tr><td>mili</td><td>m</td><td>10⁻³ = 0,001</td><td>1 mm = 0,001 m</td></tr>
+    <tr><td>micro</td><td>μ</td><td>10⁻⁶</td><td>1 μm = 0,000 001 m</td></tr></table></div>
+
+  <h3>Converter unidades: multiplicar por "1"</h3>
+  <p>O truque é escrever a equivalência como uma fração que vale 1 (em cima e embaixo a mesma coisa) e multiplicar. A unidade que você não quer se cancela, como num número.</p>
+  <div class="fx"><span class="tag">Fórmula 0.1 · fator de conversão</span>
+    <div class="eq">72 <span class="m">km/h</span> × <span class="fr"><span>1000 m</span><span>1 km</span></span> × <span class="fr"><span>1 h</span><span>3600 s</span></span> = 20 m/s</div>
+    <dl class="legend"><dt>1000 m / 1 km</dt><dd>vale 1, porque 1000 m e 1 km são a mesma distância. O "km" de cima corta com o "km" de baixo</dd><dt>1 h / 3600 s</dt><dd>vale 1 também (1 hora = 60 × 60 = 3600 segundos)</dd><dt>atalho</dt><dd><b>km/h ÷ 3,6 = m/s</b> &nbsp;e&nbsp; <b>m/s × 3,6 = km/h</b></dd></dl></div>
+  <div class="cuid"><span class="k">Pegadinha</span>Em área e volume o fator vai <b>ao quadrado</b> ou <b>ao cubo</b>. 1 m = 100 cm, mas 1 m² = 100 × 100 = 10 000 cm² e 1 m³ = 1 000 000 cm³.</div>
+
+  <h3>Notação científica e quantos algarismos usar</h3>
+  <p>Números muito grandes ou muito pequenos ficam mais fáceis assim: 0,00052 m = <b>5,2 × 10⁻⁴ m</b> (a vírgula andou 4 casas para a direita, então o expoente é −4). Na resposta, use mais ou menos <b>a mesma quantidade de algarismos dos dados</b>: se o problema dá "2,5 m" e "3,0 s", responda com 2 ou 3 algarismos, não com 8.</p>
+  <div class="ofi"><span class="k">Na oficina</span>No desenho técnico tudo vem em milímetros. Antes de usar numa fórmula de física, passe para metro: 1 250 mm = 1,25 m. Esquecer isso é o erro número 1 em prova.</div>
+
+  <div class="ex" data-ex data-q="fis-u1"><div class="q">Exemplo: um carro anda a 108 km/h. Quanto é isso em m/s?</div>
+    <ol><li>Equivalências: 1 km = 1000 m e 1 h = 3600 s.</li><li>Multiplique pelas frações que valem 1: 108 × 1000 m ÷ 3600 s.</li><li>108 000 ÷ 3600 = 30 m/s. Pelo atalho: 108 ÷ 3,6 = 30 m/s.</li></ol>
+    <div class="ans">108 km/h = 30 m/s</div></div>
+  <div class="ex" data-ex data-q="fis-u2"><div class="q">Exemplo: uma chapa tem 2,5 m² de área. Quanto é isso em cm²?</div>
+    <ol><li>1 m = 100 cm.</li><li>Área é comprimento × comprimento, então 1 m² = 100 cm × 100 cm = 10 000 cm².</li><li>2,5 × 10 000 = 25 000 cm² = 2,5 × 10⁴ cm².</li></ol>
+    <div class="ans">2,5 m² = 25 000 cm² (2,5 × 10⁴ cm²)</div></div>
+  <div class="done-btn" data-done="unidades"></div>
+</section>
+
+<!-- ============ M1 · POSIÇÃO ============ -->
+<section class="view read" id="v-posicao" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 2-1</div>
+  <h2>Posição, deslocamento e velocidade média</h2>
+  <p class="lede">O capítulo 2 estuda o movimento mais simples que existe: em <b>linha reta</b>. Para descrever onde o objeto está, a física usa uma régua imaginária, o <b>eixo x</b>.</p>
+
+  <h3>Posição x</h3>
+  <p>Escolha um ponto para ser o zero (a <b>origem</b>) e um lado para ser o positivo. A posição <b>x</b> é a leitura dessa régua. Posição negativa não tem nada de errado: só quer dizer "do outro lado da origem".</p>
+  <svg class="fig" viewBox="0 0 520 110" role="img" aria-label="Eixo x com a origem no zero, um carrinho em x = 5 m e outro em x = −3 m">
+    <line x1="20" y1="70" x2="500" y2="70" stroke="currentColor" stroke-width="2"/><path d="M500 70l-10-5v10z" fill="currentColor"/>
+    <g font-family="JetBrains Mono, monospace" font-size="12" fill="currentColor" text-anchor="middle">
+      <line x1="80" y1="64" x2="80" y2="76" stroke="currentColor"/><text x="80" y="92">−6</text>
+      <line x1="140" y1="64" x2="140" y2="76" stroke="currentColor"/><text x="140" y="92">−3</text>
+      <line x1="200" y1="64" x2="200" y2="76" stroke="currentColor" stroke-width="2.5"/><text x="200" y="92" font-weight="700">0</text>
+      <line x1="260" y1="64" x2="260" y2="76" stroke="currentColor"/><text x="260" y="92">3</text>
+      <line x1="320" y1="64" x2="320" y2="76" stroke="currentColor"/><text x="320" y="92">6</text>
+      <line x1="380" y1="64" x2="380" y2="76" stroke="currentColor"/><text x="380" y="92">9</text>
+      <text x="490" y="92">x (m)</text><text x="200" y="108" font-size="11">origem</text></g>
+    <rect x="286" y="44" width="28" height="16" rx="3" fill="var(--c1)"/><text x="300" y="36" text-anchor="middle" font-size="12" font-family="JetBrains Mono, monospace" fill="var(--c1)">x = 5 m</text>
+    <rect x="126" y="44" width="28" height="16" rx="3" fill="var(--c2)"/><text x="140" y="36" text-anchor="middle" font-size="12" font-family="JetBrains Mono, monospace" fill="var(--c2)">x = −3 m</text>
+  </svg>
+  <p>Mais uma simplificação: o objeto é tratado como um <b>ponto</b> (uma "partícula"). O tamanho do carro não importa, só onde ele está.</p>
+
+  <h3>Deslocamento Δx</h3>
+  <div class="fx"><span class="tag">Fórmula 2.1 · deslocamento</span>
+    <div class="eq">Δ<i>x</i> = <i>x</i><sub>2</sub> − <i>x</i><sub>1</sub></div>
+    <dl class="legend"><dt>Δ</dt><dd>letra grega "delta": quer dizer <b>variação</b>, sempre <b>final − inicial</b></dd><dt>x₁, x₂</dt><dd>posição no começo e no fim</dd><dt>sinal</dt><dd>Δx positivo: terminou mais para o lado +. Negativo: mais para o lado −</dd></dl></div>
+  <div class="cuid"><span class="k">Deslocamento não é distância percorrida</span>Ande 5 m para a frente e volte 5 m: você <b>percorreu</b> 10 m, mas o <b>deslocamento</b> é zero, porque terminou onde começou. O deslocamento só olha o começo e o fim.</div>
+
+  <h3>Velocidade média</h3>
+  <div class="fx"><span class="tag">Fórmula 2.2 · velocidade média</span>
+    <div class="eq"><i>v</i><sub>méd</sub> = <span class="fr"><span>Δ<i>x</i></span><span>Δ<i>t</i></span></span> = <span class="fr"><span><i>x</i><sub>2</sub> − <i>x</i><sub>1</sub></span><span><i>t</i><sub>2</sub> − <i>t</i><sub>1</sub></span></span></div>
+    <dl class="legend"><dt>v<sub>méd</sub></dt><dd>"quantos metros de deslocamento por segundo", em m/s. Tem sinal: o sinal diz o sentido</dd><dt>Δt</dt><dd>quanto tempo passou</dd><dt>no gráfico</dt><dd>num gráfico x × t, é a <b>inclinação</b> da reta que liga os dois pontos</dd></dl></div>
+
+  <h3>Rapidez média</h3>
+  <div class="fx"><span class="tag">Fórmula 2.3 · rapidez (velocidade escalar) média</span>
+    <div class="eq"><i>s</i><sub>méd</sub> = <span class="fr"><span>distância total percorrida</span><span>Δ<i>t</i></span></span></div>
+    <dl class="legend"><dt>s<sub>méd</sub></dt><dd>usa a distância de verdade (com idas e voltas), então é <b>sempre positiva</b></dd><dt>diferença</dt><dd>quando o objeto não volta, as duas dão o mesmo número; quando volta, a rapidez fica maior</dd></dl></div>
+
+  <div class="ex" data-ex data-q="fis-p1"><div class="q">Exemplo: um operador empurra um carrinho 12 m para a frente em 8,0 s e depois volta 4,0 m em 4,0 s. Qual o deslocamento, a velocidade média e a rapidez média?</div>
+    <ol><li>Eixo: origem onde ele começou, frente = positivo. x₁ = 0; ida até x = 12 m; volta até x₂ = 12 − 4 = 8 m.</li><li>Deslocamento: Δx = 8 − 0 = 8,0 m.</li><li>Tempo total: Δt = 8,0 + 4,0 = 12 s.</li><li>Velocidade média: 8,0 ÷ 12 = 0,67 m/s.</li><li>Distância percorrida: 12 + 4 = 16 m → rapidez média: 16 ÷ 12 = 1,3 m/s.</li></ol>
+    <div class="ans">Δx = 8,0 m · v<sub>méd</sub> ≈ 0,67 m/s · s<sub>méd</sub> ≈ 1,3 m/s</div></div>
+  <div class="ex" data-ex data-q="fis-p2"><div class="q">Exemplo: um carro está em x₁ = −3,0 m no instante t₁ = 1,0 s e em x₂ = 15 m no instante t₂ = 4,0 s. Qual o deslocamento e a velocidade média?</div>
+    <ol><li>Δx = x₂ − x₁ = 15 − (−3,0) = 18 m (menos com menos vira mais).</li><li>Δt = 4,0 − 1,0 = 3,0 s.</li><li>v<sub>méd</sub> = 18 ÷ 3,0 = 6,0 m/s, positiva: andou no sentido +x.</li></ol>
+    <div class="ans">Δx = 18 m · v<sub>méd</sub> = 6,0 m/s</div></div>
+  <div class="done-btn" data-done="posicao"></div>
+</section>
+
+<!-- ============ M1 · VELOCIDADE INSTANTÂNEA ============ -->
+<section class="view read" id="v-velinst" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 2-2</div>
+  <h2>Velocidade instantânea: a velocidade "agora"</h2>
+  <p class="lede">A velocidade média resume a viagem inteira. O velocímetro mostra outra coisa: a velocidade <b>naquele instante</b>. É essa que a física chama simplesmente de <b>velocidade</b>.</p>
+
+  <h3>A ideia: diminuir o intervalo até virar um instante</h3>
+  <p>Calcule a velocidade média num intervalo de 1 s, depois de 0,1 s, depois de 0,001 s… Quanto menor o intervalo, mais o valor se aproxima da velocidade naquele exato momento. No gráfico x × t, a reta entre dois pontos vira a <b>reta tangente</b> (a que só "encosta" na curva).</p>
+  <div class="fx"><span class="tag">Fórmula 2.4 · velocidade instantânea</span>
+    <div class="eq"><i>v</i> = lim<sub>Δ<i>t</i>→0</sub> <span class="fr"><span>Δ<i>x</i></span><span>Δ<i>t</i></span></span> = <span class="fr"><span>d<i>x</i></span><span>d<i>t</i></span></span></div>
+    <dl class="legend"><dt>lim</dt><dd>"limite": o valor de que Δx/Δt se aproxima quando Δt fica quase zero</dd><dt>dx/dt</dt><dd>a <b>derivada</b> de x em relação ao tempo: a taxa com que a posição muda</dd><dt>no gráfico</dt><dd>inclinação da reta tangente ao gráfico x × t naquele instante</dd></dl></div>
+
+  <h3>Como derivar: o mínimo que você precisa</h3>
+  <p>Em Física I quase toda posição vem como um polinômio em t. Para derivar, use a <b>regra do tombo</b>: o expoente desce multiplicando e diminui 1.</p>
+  <div class="fx"><span class="tag">Fórmula 2.5 · regra do tombo</span>
+    <div class="eq"><span class="fr"><span>d</span><span>d<i>t</i></span></span>(<i>c</i> · <i>t</i><sup><i>n</i></sup>) = <i>c</i> · <i>n</i> · <i>t</i><sup><i>n</i>−1</sup> &nbsp;&nbsp;&nbsp; <span class="fr"><span>d</span><span>d<i>t</i></span></span>(constante) = 0</div>
+    <dl class="legend"><dt>c</dt><dd>número que multiplica (fica)</dd><dt>n</dt><dd>expoente: desce e depois vira n − 1</dd><dt>constante</dt><dd>um número sozinho não muda com o tempo, então a derivada é 0</dd></dl></div>
+  <div class="tbl"><table><tr><th>x(t)</th><th>v(t) = dx/dt</th><th>por quê</th></tr>
+    <tr><td>5</td><td>0</td><td>constante: parado</td></tr>
+    <tr><td>3t</td><td>3</td><td>t¹ → 1 · t⁰ = 1</td></tr>
+    <tr><td>4t²</td><td>8t</td><td>o 2 desce: 4 · 2 · t¹</td></tr>
+    <tr><td>2t³</td><td>6t²</td><td>o 3 desce: 2 · 3 · t²</td></tr>
+    <tr><td>3t² − 12t + 2</td><td>6t − 12</td><td>deriva termo a termo</td></tr></table></div>
+
+  <h3>Lendo o gráfico x × t</h3>
+  <svg class="fig" viewBox="0 0 520 220" role="img" aria-label="Gráfico x por t em forma de vale: descendo a velocidade é negativa, no fundo é zero e subindo é positiva">
+    <line x1="40" y1="190" x2="500" y2="190" stroke="currentColor" stroke-width="1.6"/><line x1="40" y1="190" x2="40" y2="14" stroke="currentColor" stroke-width="1.6"/>
+    <text x="492" y="208" font-size="12" font-family="JetBrains Mono, monospace" fill="currentColor">t</text><text x="12" y="22" font-size="12" font-family="JetBrains Mono, monospace" fill="currentColor">x</text>
+    <path d="M60 40 Q 250 300 460 40" fill="none" stroke="var(--c3)" stroke-width="3"/>
+    <line x1="80" y1="40" x2="170" y2="150" stroke="var(--bad)" stroke-width="2" stroke-dasharray="6 4"/>
+    <line x1="200" y1="170" x2="320" y2="170" stroke="var(--ok)" stroke-width="2" stroke-dasharray="6 4"/>
+    <line x1="350" y1="150" x2="440" y2="40" stroke="var(--c2)" stroke-width="2" stroke-dasharray="6 4"/>
+    <g font-size="12.5" font-family="JetBrains Mono, monospace"><text x="96" y="112" fill="var(--bad)">v &lt; 0</text><text x="226" y="160" fill="var(--ok)">v = 0 (vira)</text><text x="400" y="112" fill="var(--c2)">v &gt; 0</text></g>
+  </svg>
+  <ul><li>Curva <b>subindo</b> → x aumenta → <b>v positiva</b>.</li><li>Curva <b>descendo</b> → <b>v negativa</b>.</li><li>No <b>topo ou no fundo</b> (tangente deitada) → <b>v = 0</b>: o objeto para por um instante e muda de sentido.</li><li>Quanto <b>mais inclinada</b>, maior a velocidade. A <b>rapidez</b> é o valor sem sinal: |v|.</li></ul>
+
+  <div class="ex" data-ex data-q="fis-v1"><div class="q">Exemplo: a posição de um elevador de carga é x(t) = 3t² − 12t + 2 (x em metros, t em segundos). Qual a velocidade em t = 1 s e em t = 3 s? Em que instante ele para?</div>
+    <ol><li>Derive termo a termo: 3t² → 6t; −12t → −12; 2 → 0. Então v(t) = 6t − 12.</li><li>t = 1 s: v = 6 · 1 − 12 = −6 m/s (andando no sentido negativo).</li><li>t = 3 s: v = 6 · 3 − 12 = +6 m/s (andando no sentido positivo).</li><li>Parar é v = 0: 6t − 12 = 0 → t = 2 s. É o fundo do "vale" do gráfico, onde ele inverte o sentido.</li></ol>
+    <div class="ans">v(1) = −6 m/s · v(3) = +6 m/s · para em t = 2 s</div></div>
+  <div class="ex" data-ex data-q="fis-v2"><div class="q">Exemplo: um objeto tem posição x(t) = 2t³ (m, s). Compare a velocidade média entre t = 1 s e t = 2 s com a velocidade instantânea em t = 2 s.</div>
+    <ol><li>Posições: x(1) = 2 · 1³ = 2 m; x(2) = 2 · 2³ = 16 m.</li><li>Média: (16 − 2) ÷ (2 − 1) = 14 m/s.</li><li>Instantânea: v(t) = 6t² → v(2) = 6 · 4 = 24 m/s.</li><li>São diferentes porque o objeto está acelerando: no fim do intervalo ele já anda bem mais rápido que a média.</li></ol>
+    <div class="ans">v<sub>méd</sub> = 14 m/s · v(2) = 24 m/s</div></div>
+  <div class="done-btn" data-done="velinst"></div>
+</section>
+
+<!-- ============ M1 · ACELERAÇÃO ============ -->
+<section class="view read" id="v-acel" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 2-3</div>
+  <h2>Aceleração: o quanto a velocidade muda</h2>
+  <p class="lede">Velocidade diz quão rápido a <b>posição</b> muda. Aceleração diz quão rápido a <b>velocidade</b> muda. É a mesma ideia, um degrau acima.</p>
+
+  <div class="fx"><span class="tag">Fórmula 2.6 · aceleração média e instantânea</span>
+    <div class="eq"><i>a</i><sub>méd</sub> = <span class="fr"><span>Δ<i>v</i></span><span>Δ<i>t</i></span></span> &nbsp;&nbsp;&nbsp; <i>a</i> = <span class="fr"><span>d<i>v</i></span><span>d<i>t</i></span></span> = <span class="fr"><span>d²<i>x</i></span><span>d<i>t</i>²</span></span></div>
+    <dl class="legend"><dt>unidade</dt><dd>m/s² = "m/s a cada segundo". a = 3 m/s² quer dizer que a velocidade muda 3 m/s a cada segundo</dd><dt>dv/dt</dt><dd>derive a velocidade (mesma regra do tombo)</dd><dt>d²x/dt²</dt><dd>derive a posição <b>duas vezes</b></dd><dt>no gráfico</dt><dd>inclinação do gráfico v × t</dd></dl></div>
+
+  <h3>Acelerando ou freando? O sinal engana</h3>
+  <p>Aceleração negativa <b>não</b> quer dizer "freando". O sinal só diz para que lado a aceleração aponta. O que decide se o objeto ganha ou perde rapidez é <b>comparar o sinal de a com o de v</b>.</p>
+  <div class="tbl"><table><tr><th>v</th><th>a</th><th>o que acontece</th></tr>
+    <tr><td>+</td><td>+</td><td>fica <b>mais rápido</b> (para a frente)</td></tr>
+    <tr><td>+</td><td>−</td><td><b>freando</b></td></tr>
+    <tr><td>−</td><td>−</td><td>fica <b>mais rápido</b> (para trás)</td></tr>
+    <tr><td>−</td><td>+</td><td><b>freando</b></td></tr></table></div>
+  <div class="cuid"><span class="k">Regra de bolso</span><b>Mesmo sinal</b>: ganha rapidez. <b>Sinais opostos</b>: perde rapidez. Um carro de ré (v negativa) que freia tem aceleração <b>positiva</b>.</div>
+  <div class="ofi"><span class="k">Unidade "g"</span>Aceleração às vezes é dada em "g": 1 g = 9,8 m/s², a aceleração da gravidade. Um carro esportivo que acelera a 4,9 m/s² está a 0,5 g.</div>
+
+  <div class="ex" data-ex data-q="fis-a1"><div class="q">Exemplo: para o elevador com x(t) = 3t² − 12t + 2, qual a aceleração? Em t = 1 s ele está acelerando ou freando? E em t = 3 s?</div>
+    <ol><li>Da aula anterior, v(t) = 6t − 12. Derive de novo: a = 6 m/s² (constante, não depende de t).</li><li>t = 1 s: v = −6 m/s e a = +6 m/s². Sinais opostos → está <b>freando</b>.</li><li>t = 3 s: v = +6 m/s e a = +6 m/s². Mesmo sinal → está <b>acelerando</b>.</li><li>Faz sentido: ele vinha para trás, parou em t = 2 s e voltou ganhando velocidade para a frente.</li></ol>
+    <div class="ans">a = 6 m/s² · em t = 1 s freando · em t = 3 s acelerando</div></div>
+  <div class="ex" data-ex data-q="fis-a2"><div class="q">Exemplo: um carro vai de 0 a 100 km/h em 10 s. Qual a aceleração média, em m/s² e em g?</div>
+    <ol><li>Passe para m/s: 100 ÷ 3,6 = 27,8 m/s.</li><li>a<sub>méd</sub> = Δv ÷ Δt = (27,8 − 0) ÷ 10 = 2,78 m/s².</li><li>Em g: 2,78 ÷ 9,8 = 0,28 g.</li></ol>
+    <div class="ans">a<sub>méd</sub> ≈ 2,8 m/s² ≈ 0,28 g</div></div>
+  <div class="done-btn" data-done="acel"></div>
+</section>
+
+<!-- ============ M1 · ACELERAÇÃO CONSTANTE ============ -->
+<section class="view read" id="v-muv" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 2-4</div>
+  <h2>Aceleração constante: as 5 equações</h2>
+  <p class="lede">Quando a aceleração não muda (um carro freando com o pedal firme, uma peça caindo), dá para prever tudo do movimento com 5 equações. Elas são o coração do capítulo 2.</p>
+
+  <h3>Os 5 personagens</h3>
+  <p>Todo problema de aceleração constante gira em torno de 5 grandezas: <b>x − x₀</b> (deslocamento), <b>v₀</b> (velocidade no começo), <b>v</b> (velocidade no fim), <b>a</b> (aceleração) e <b>t</b> (tempo). Cada equação usa 4 delas e <b>deixa uma de fora</b>.</p>
+  <div class="fx"><span class="tag">Fórmula 2.7 · as 5 equações (a constante)</span>
+    <div class="eq sl5">① <i>v</i> = <i>v</i><sub>0</sub> + <i>a t</i></div>
+    <div class="eq sl5">② <i>x</i> − <i>x</i><sub>0</sub> = <i>v</i><sub>0</sub><i>t</i> + ½ <i>a t</i>²</div>
+    <div class="eq sl5">③ <i>v</i>² = <i>v</i><sub>0</sub>² + 2<i>a</i>(<i>x</i> − <i>x</i><sub>0</sub>)</div>
+    <div class="eq sl5">④ <i>x</i> − <i>x</i><sub>0</sub> = ½ (<i>v</i><sub>0</sub> + <i>v</i>) <i>t</i></div>
+    <div class="eq sl5">⑤ <i>x</i> − <i>x</i><sub>0</sub> = <i>v t</i> − ½ <i>a t</i>²</div>
+    <dl class="legend"><dt>x − x₀</dt><dd>deslocamento (posição final − inicial)</dd><dt>v₀ e v</dt><dd>velocidade no começo e no fim do trecho</dd><dt>a</dt><dd>aceleração, a mesma o tempo todo</dd><dt>t</dt><dd>tempo do trecho (começando em 0)</dd></dl></div>
+  <div class="tbl"><table><tr><th>Equação</th><th>não tem…</th><th>use quando…</th></tr>
+    <tr><td>① v = v₀ + at</td><td>x − x₀</td><td>a distância não aparece no problema</td></tr>
+    <tr><td>② x − x₀ = v₀t + ½at²</td><td>v</td><td>a velocidade final não aparece</td></tr>
+    <tr><td>③ v² = v₀² + 2a(x − x₀)</td><td>t</td><td>o tempo não aparece (muito usada!)</td></tr>
+    <tr><td>④ x − x₀ = ½(v₀ + v)t</td><td>a</td><td>a aceleração não aparece</td></tr>
+    <tr><td>⑤ x − x₀ = vt − ½at²</td><td>v₀</td><td>a velocidade inicial não aparece</td></tr></table></div>
+
+  <h3>Receita</h3>
+  <ol class="recipe"><li><span><b>Desenhe o eixo</b> e escolha o sentido positivo (normalmente o do movimento).</span></li><li><span><b>Liste os 5</b>: x − x₀, v₀, v, a, t. Marque os 3 que o problema dá e o que ele pede.</span></li><li><span>Sobrou <b>um que não aparece</b>? Use a equação que <b>não tem</b> ele.</span></li><li><span><b>Resolva</b> e confira o sinal pelo eixo.</span></li></ol>
+  <div class="cuid"><span class="k">Frases que viram número</span>"Parte do repouso" → <b>v₀ = 0</b>. "Até parar" → <b>v = 0</b>. "Freia" → a tem <b>sinal oposto</b> ao de v. "Velocidade constante" → <b>a = 0</b>.</div>
+
+  <h3>Simulador: mexa em v₀ e a</h3>
+  <div class="cv sim" id="muvSim" style="aspect-ratio:16/9;max-height:560px"><canvas></canvas></div>
+  <div class="simctl" id="muvCtl"></div>
+  <div class="btns" style="margin-top:4px"><button type="button" id="muvGo">Andar</button><button type="button" class="ghost" id="muvReset">Reiniciar</button></div>
+  <p class="hint" style="font-size:.9rem;color:var(--ink2)">Em cima, o carrinho na pista; embaixo, os gráficos x × t (parábola) e v × t (reta). Coloque v₀ positivo e a negativo para ver ele frear, parar e voltar.</p>
+
+  <div class="ex" data-ex data-q="fis-m1"><div class="q">Exemplo: um carro a 20 m/s freia com desaceleração constante de 5,0 m/s² até parar. Quanto tempo leva e qual a distância de frenagem?</div>
+    <ol><li>Eixo + no sentido do movimento. Dados: v₀ = 20 m/s, v = 0 (parou), a = −5,0 m/s² (freia: sinal oposto ao de v).</li><li>Tempo (a distância não entra): eq. ① 0 = 20 + (−5,0)t → t = 20 ÷ 5,0 = 4,0 s.</li><li>Distância (o tempo não entra): eq. ③ 0² = 20² + 2(−5,0)(x − x₀) → 0 = 400 − 10(x − x₀) → x − x₀ = 40 m.</li><li>Conferindo com a eq. ④: ½(20 + 0) · 4,0 = 40 m ✓.</li></ol>
+    <div class="ans">t = 4,0 s · distância de frenagem = 40 m</div></div>
+  <div class="ex" data-ex data-q="fis-m2"><div class="q">Exemplo: uma empilhadeira parte do repouso e acelera a 1,5 m/s² durante 6,0 s. Que velocidade ela atinge e quanto anda nesse tempo?</div>
+    <ol><li>Dados: v₀ = 0 (repouso), a = 1,5 m/s², t = 6,0 s.</li><li>Velocidade: eq. ① v = 0 + 1,5 · 6,0 = 9,0 m/s.</li><li>Distância: eq. ② x − x₀ = 0 · 6,0 + ½ · 1,5 · 6,0² = 0,75 · 36 = 27 m.</li></ol>
+    <div class="ans">v = 9,0 m/s · andou 27 m</div></div>
+  <div class="done-btn" data-done="muv"></div>
+</section>
+
+<!-- ============ M1 · QUEDA LIVRE ============ -->
+<section class="view read" id="v-queda" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 2-5</div>
+  <h2>Queda livre: aceleração constante para baixo</h2>
+  <p class="lede">Sem a resistência do ar, <b>tudo cai com a mesma aceleração</b>, seja uma marreta ou uma porca: g = 9,8 m/s². Então queda livre é só um caso das 5 equações.</p>
+
+  <div class="fx"><span class="tag">Fórmula 2.8 · queda livre</span>
+    <div class="eq"><i>a</i> = −<i>g</i> = −9,8 m/s² &nbsp;&nbsp;(eixo <i>y</i> para cima)</div>
+    <dl class="legend"><dt>g</dt><dd>aceleração da gravidade perto da Terra, sempre positiva: 9,8 m/s²</dd><dt>−g</dt><dd>com o eixo y apontando para cima, a aceleração aponta para baixo, então leva sinal de menos</dd><dt>equações</dt><dd>as mesmas 5 da aula anterior, trocando x por y e a por −g</dd></dl></div>
+
+  <h3>O que acontece numa bola jogada para cima</h3>
+  <ul><li><b>Subindo</b>: a velocidade diminui 9,8 m/s a cada segundo.</li><li><b>No ponto mais alto</b>: v = 0 por um instante.</li><li><b>Descendo</b>: ganha 9,8 m/s a cada segundo.</li><li>Ela leva o <b>mesmo tempo para subir e para descer</b>, e passa pelo ponto de lançamento com a <b>mesma rapidez</b> com que saiu (só que para baixo).</li></ul>
+  <div class="cuid"><span class="k">Pegadinha clássica</span>No ponto mais alto a <b>velocidade</b> é zero, mas a <b>aceleração não</b>: continua −9,8 m/s². Se fosse zero, a bola ficaria parada lá em cima para sempre.</div>
+
+  <div class="ex" data-ex data-q="fis-q1"><div class="q">Exemplo: uma chave cai (parte do repouso) do alto de um andaime a 20 m do chão. Quanto tempo leva até o chão e com que velocidade chega?</div>
+    <ol><li>Eixo y para cima, origem no andaime. Dados: v₀ = 0, a = −9,8 m/s², y − y₀ = −20 m (terminou 20 m abaixo).</li><li>Tempo (v não aparece): eq. ② −20 = 0 · t + ½(−9,8)t² → −20 = −4,9t² → t² = 4,08 → t = 2,0 s.</li><li>Velocidade (t não precisa): eq. ③ v² = 0 + 2(−9,8)(−20) = 392 → v = −19,8 m/s.</li><li>O sinal negativo é porque está descendo. Rapidez ≈ 20 m/s (≈ 71 km/h).</li></ol>
+    <div class="ans">t ≈ 2,0 s · v ≈ 19,8 m/s para baixo</div></div>
+  <div class="ex" data-ex data-q="fis-q2"><div class="q">Exemplo: uma bola é jogada para cima a 12 m/s. Até que altura ela sobe e quanto tempo fica no ar (até voltar à mão)?</div>
+    <ol><li>Eixo y para cima. v₀ = 12 m/s, a = −9,8 m/s². No topo, v = 0.</li><li>Altura (t não aparece): eq. ③ 0 = 12² + 2(−9,8)h → 19,6h = 144 → h = 7,3 m.</li><li>Tempo de subida: eq. ① 0 = 12 − 9,8t → t = 1,22 s.</li><li>A descida leva o mesmo tempo: no ar, 2 × 1,22 = 2,4 s.</li></ol>
+    <div class="ans">sobe 7,3 m · fica 2,4 s no ar</div></div>
+  <div class="done-btn" data-done="queda"></div>
+</section>
+
+<!-- ============ M1 · GRÁFICOS ============ -->
+<section class="view read" id="v-graficos" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 2-6</div>
+  <h2>Gráficos: inclinação e área</h2>
+  <p class="lede">Muitos problemas dão o movimento num gráfico em vez de uma fórmula. Duas leituras resolvem quase tudo: a <b>inclinação</b> e a <b>área</b> embaixo da curva.</p>
+
+  <div class="tbl"><table><tr><th>Gráfico</th><th>a inclinação dá…</th><th>a área embaixo dá…</th></tr>
+    <tr><td>x × t</td><td>a velocidade v</td><td>(não se usa)</td></tr>
+    <tr><td>v × t</td><td>a aceleração a</td><td>o deslocamento Δx</td></tr>
+    <tr><td>a × t</td><td>(não se usa)</td><td>a variação de velocidade Δv</td></tr></table></div>
+
+  <div class="fx"><span class="tag">Fórmula 2.9 · área = integral</span>
+    <div class="eq">Δ<i>x</i> = ∫ <i>v</i> d<i>t</i> &nbsp;&nbsp;&nbsp; Δ<i>v</i> = ∫ <i>a</i> d<i>t</i></div>
+    <dl class="legend"><dt>∫</dt><dd>integral: é a soma de "fatias" v · dt. Na prática, <b>a área entre a curva e o eixo t</b></dd><dt>por quê</dt><dd>se a velocidade fosse constante, Δx = v · t, que é a área de um retângulo de altura v e base t. Com v variando, somam-se retângulos fininhos</dd><dt>sinal</dt><dd>área <b>abaixo</b> do eixo t conta como negativa (andou para trás)</dd></dl></div>
+
+  <svg class="fig" viewBox="0 0 520 210" role="img" aria-label="Gráfico v por t em forma de trapézio: sobe de 0 a 2 m/s em 4 s, fica em 2 m/s até 14 s e cai a 0 em 16 s; a área embaixo é o deslocamento">
+    <line x1="40" y1="170" x2="500" y2="170" stroke="currentColor" stroke-width="1.6"/><line x1="40" y1="170" x2="40" y2="20" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M40 170 L140 60 L390 60 L440 170 Z" fill="var(--c2)" fill-opacity=".18" stroke="none"/>
+    <path d="M40 170 L140 60 L390 60 L440 170" fill="none" stroke="var(--c2)" stroke-width="3"/>
+    <g font-family="JetBrains Mono, monospace" font-size="12" fill="currentColor"><text x="490" y="190">t (s)</text><text x="8" y="26">v</text><text x="10" y="64">2</text><text x="136" y="190">4</text><text x="380" y="190">14</text><text x="432" y="190">16</text>
+    <text x="70" y="150">4 m</text><text x="240" y="120">20 m</text><text x="404" y="150">2 m</text></g>
+    <line x1="140" y1="60" x2="140" y2="170" stroke="currentColor" stroke-dasharray="3 4" opacity=".5"/><line x1="390" y1="60" x2="390" y2="170" stroke="currentColor" stroke-dasharray="3 4" opacity=".5"/>
+  </svg>
+
+  <div class="ex" data-ex data-q="fis-g1"><div class="q">Exemplo: o gráfico v × t acima é de uma ponte rolante. Ela acelera de 0 a 2,0 m/s em 4,0 s, anda a 2,0 m/s até t = 14 s e freia até parar em t = 16 s. Quanto ela andou? Qual a aceleração em cada trecho?</div>
+    <ol><li>Área = deslocamento. Divida em 3 figuras simples.</li><li>Triângulo da arrancada: ½ · 4,0 · 2,0 = 4,0 m.</li><li>Retângulo do meio: (14 − 4,0) · 2,0 = 20 m.</li><li>Triângulo da frenagem: ½ · 2,0 · 2,0 = 2,0 m. Total: 4,0 + 20 + 2,0 = 26 m.</li><li>Acelerações = inclinações: arrancada 2,0 ÷ 4,0 = 0,50 m/s²; meio 0 (reta deitada); frenagem (0 − 2,0) ÷ 2,0 = −1,0 m/s².</li></ol>
+    <div class="ans">andou 26 m · a = 0,50 m/s², 0 e −1,0 m/s²</div></div>
+  <div class="done-btn" data-done="graficos"></div>
+</section>
+
+<!-- ============ M1 · VETORES ============ -->
+<section class="view read" id="v-vetores" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 3-1</div>
+  <h2>Vetores: setas com tamanho e direção</h2>
+  <p class="lede">No capítulo 2 o movimento era numa reta, e o sinal (+ ou −) bastava para dizer o sentido. No plano isso não basta: "andei 5 m" não diz para onde. Para isso servem os <b>vetores</b>.</p>
+
+  <h3>Escalar × vetor</h3>
+  <div class="tbl"><table><tr><th>Escalar (só um número)</th><th>Vetor (número + direção + sentido)</th></tr>
+    <tr><td>massa, tempo, temperatura</td><td>deslocamento, velocidade, aceleração</td></tr>
+    <tr><td>distância percorrida, rapidez</td><td>força</td></tr>
+    <tr><td>energia, trabalho</td><td>(peso, normal, tração…)</td></tr></table></div>
+  <p>Um vetor é desenhado como uma <b>seta</b>: o comprimento é o <b>módulo</b> (o tamanho), a reta em que ela está é a <b>direção</b> e a ponta mostra o <b>sentido</b>. Escreve-se com uma setinha em cima: <i>a</i>⃗. Sem a seta, <i>a</i> é só o módulo.</p>
+
+  <h3>Somar vetores desenhando</h3>
+  <p>Coloque a <b>cauda do segundo na ponta do primeiro</b>. A soma (a <b>resultante</b>) é a seta que vai da cauda do primeiro até a ponta do último. A ordem não importa. Para <b>subtrair</b>, some o vetor ao contrário: <i>a</i>⃗ − <i>b</i>⃗ = <i>a</i>⃗ + (−<i>b</i>⃗).</p>
+
+  <h3>Componentes: trocar uma seta torta por duas retas</h3>
+  <svg class="fig" viewBox="0 0 520 220" role="img" aria-label="Vetor a inclinado de um ângulo theta com o eixo x, com a componente ax no eixo x e ay no eixo y">
+    <line x1="50" y1="190" x2="480" y2="190" stroke="currentColor" stroke-width="1.6"/><line x1="50" y1="190" x2="50" y2="14" stroke="currentColor" stroke-width="1.6"/>
+    <g font-family="JetBrains Mono, monospace" font-size="13" fill="currentColor"><text x="470" y="208">x</text><text x="30" y="22">y</text></g>
+    <line x1="50" y1="190" x2="330" y2="50" stroke="var(--c1)" stroke-width="3.4"/><path d="M330 50l-15 1 8 13z" fill="var(--c1)"/>
+    <line x1="50" y1="190" x2="330" y2="190" stroke="var(--c2)" stroke-width="3"/><path d="M330 190l-12-6v12z" fill="var(--c2)"/>
+    <line x1="330" y1="190" x2="330" y2="50" stroke="var(--c3)" stroke-width="3" stroke-dasharray="7 5"/>
+    <path d="M110 190 A60 60 0 0 0 104 163" fill="none" stroke="currentColor" stroke-width="1.6"/>
+    <g font-family="JetBrains Mono, monospace" font-size="14" font-weight="700"><text x="170" y="104" fill="var(--c1)">a</text><text x="176" y="210" fill="var(--c2)">aₓ = a cos θ</text><text x="340" y="126" fill="var(--c3)">a<tspan baseline-shift="sub" font-size="72%">y</tspan> = a sen θ</text><text x="118" y="182" fill="currentColor">θ</text></g>
+  </svg>
+  <div class="fx"><span class="tag">Fórmula 3.1 · componentes</span>
+    <div class="eq"><i>a</i><sub>x</sub> = <i>a</i> cos <i>θ</i> &nbsp;&nbsp;&nbsp; <i>a</i><sub>y</sub> = <i>a</i> sen <i>θ</i></div>
+    <dl class="legend"><dt>a</dt><dd>módulo do vetor (tamanho da seta)</dd><dt>θ</dt><dd>ângulo medido <b>a partir do eixo +x</b>, girando no sentido anti-horário</dd><dt>aₓ, a<sub>y</sub></dt><dd>a "sombra" da seta em cada eixo, <b>com sinal</b>: para a esquerda ou para baixo é negativa</dd></dl></div>
+  <div class="fx"><span class="tag">Fórmula 3.2 · voltar das componentes para a seta</span>
+    <div class="eq"><i>a</i> = <span class="rt"><span><i>a</i><sub>x</sub>² + <i>a</i><sub>y</sub>²</span></span> &nbsp;&nbsp;&nbsp; tg <i>θ</i> = <span class="fr"><span><i>a</i><sub>y</sub></span><span><i>a</i><sub>x</sub></span></span></div>
+    <dl class="legend"><dt>a</dt><dd>Pitágoras: a seta é a hipotenusa, as componentes são os catetos</dd><dt>θ</dt><dd>use arctg na calculadora, mas <b>confira o quadrante</b> (veja abaixo)</dd></dl></div>
+  <div class="cuid"><span class="k">Pegadinha do arctg</span>A calculadora só devolve ângulos entre −90° e +90°. Se <b>aₓ for negativo</b> (seta apontando para a esquerda), <b>some 180°</b> ao resultado. Sempre faça um rascunho da seta para ver em que quadrante ela está.</div>
+
+  <div class="ex" data-ex data-q="fis-ve1"><div class="q">Exemplo: um cabo puxa uma peça com 500 N, a 30° acima da horizontal. Quais as componentes horizontal e vertical da força?</div>
+    <ol><li>O ângulo é medido a partir da horizontal (+x), então vale a fórmula direto.</li><li>Fₓ = 500 · cos 30° = 500 · 0,866 = 433 N.</li><li>F<sub>y</sub> = 500 · sen 30° = 500 · 0,5 = 250 N.</li><li>Conferindo: √(433² + 250²) = √(187 489 + 62 500) = 500 N ✓.</li></ol>
+    <div class="ans">Fₓ ≈ 433 N · F<sub>y</sub> = 250 N</div></div>
+  <div class="ex" data-ex data-q="fis-ve2"><div class="q">Exemplo: um vetor tem componentes aₓ = −3,0 m e a<sub>y</sub> = 4,0 m. Qual o módulo e o ângulo com o eixo +x?</div>
+    <ol><li>Módulo: a = √((−3,0)² + 4,0²) = √(9 + 16) = √25 = 5,0 m.</li><li>Calculadora: arctg(4,0 ÷ −3,0) = −53,1°.</li><li>Mas aₓ é negativo e a<sub>y</sub> positivo: a seta aponta para cima e para a esquerda (2º quadrante). −53,1° está no 4º quadrante, errado.</li><li>Some 180°: −53,1° + 180° = 126,9°.</li></ol>
+    <div class="ans">a = 5,0 m · θ ≈ 127° a partir de +x</div></div>
+  <div class="done-btn" data-done="vetores"></div>
+</section>
+
+<!-- ============ M1 · VETORES UNITÁRIOS ============ -->
+<section class="view read" id="v-unitarios" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 3-2</div>
+  <h2>Vetores unitários e soma por componentes</h2>
+  <p class="lede">Desenhar setas é ótimo para entender, mas é ruim para calcular. O jeito certo de somar vetores é <b>componente com componente</b>, e para escrever isso existem os vetores unitários.</p>
+
+  <h3>î, ĵ e k̂</h3>
+  <p>São setas de tamanho <b>1</b> que só servem para apontar: <b>î</b> aponta para +x, <b>ĵ</b> para +y e <b>k̂</b> para +z. Assim qualquer vetor vira "tanto para x, tanto para y, tanto para z".</p>
+  <div class="fx"><span class="tag">Fórmula 3.3 · vetor em componentes</span>
+    <div class="eq"><i>a</i>⃗ = <i>a</i><sub>x</sub> î + <i>a</i><sub>y</sub> ĵ + <i>a</i><sub>z</sub> k̂</div>
+    <dl class="legend"><dt>aₓ î</dt><dd>"andar aₓ na direção x"</dd><dt>exemplo</dt><dd>(3 m)î − (2 m)ĵ = 3 m para a direita e 2 m para baixo</dd></dl></div>
+
+  <h3>Somar e subtrair</h3>
+  <div class="fx"><span class="tag">Fórmula 3.4 · soma por componentes</span>
+    <div class="eq"><i>r</i>⃗ = <i>a</i>⃗ + <i>b</i>⃗ &nbsp;⇒&nbsp; <i>r</i><sub>x</sub> = <i>a</i><sub>x</sub> + <i>b</i><sub>x</sub> &nbsp; <i>r</i><sub>y</sub> = <i>a</i><sub>y</sub> + <i>b</i><sub>y</sub> &nbsp; <i>r</i><sub>z</sub> = <i>a</i><sub>z</sub> + <i>b</i><sub>z</sub></div>
+    <dl class="legend"><dt>regra</dt><dd>some î com î, ĵ com ĵ, k̂ com k̂. <b>Nunca</b> some um x com um y</dd><dt>subtrair</dt><dd>a mesma coisa com sinal de menos: dₓ = aₓ − bₓ…</dd><dt>receita</dt><dd>1) decomponha cada vetor · 2) some por eixo · 3) se pedirem, volte para módulo e ângulo (Fórmula 3.2)</dd></dl></div>
+
+  <div class="ex" data-ex data-q="fis-un1"><div class="q">Exemplo: a⃗ = (4,0 m)î − (3,0 m)ĵ e b⃗ = (−1,0 m)î + (7,0 m)ĵ. Calcule r⃗ = a⃗ + b⃗ (com módulo e ângulo) e d⃗ = a⃗ − b⃗.</div>
+    <ol><li>Soma em x: 4,0 + (−1,0) = 3,0 m. Soma em y: −3,0 + 7,0 = 4,0 m. Então r⃗ = (3,0 m)î + (4,0 m)ĵ.</li><li>Módulo: √(3,0² + 4,0²) = 5,0 m. Ângulo: arctg(4,0 ÷ 3,0) = 53,1° (aₓ positivo, não precisa corrigir).</li><li>Subtração em x: 4,0 − (−1,0) = 5,0 m. Em y: −3,0 − 7,0 = −10 m. Então d⃗ = (5,0 m)î − (10 m)ĵ.</li></ol>
+    <div class="ans">r⃗ = 3,0î + 4,0ĵ (5,0 m a 53°) · d⃗ = 5,0î − 10ĵ (m)</div></div>
+  <div class="ex" data-ex data-q="fis-un2"><div class="q">Exemplo: um robô de inspeção anda 10 m para o leste e depois 8,0 m numa direção 30° ao norte do oeste. Qual o deslocamento total (módulo e direção)? Use leste = +x e norte = +y.</div>
+    <ol><li>1º trecho: d⃗₁ = (10 m)î + 0ĵ.</li><li>2º trecho: "30° ao norte do oeste" é uma seta para a esquerda, levantada 30°. Componentes: x = −8,0 cos 30° = −6,93 m; y = +8,0 sen 30° = +4,0 m.</li><li>Soma: x = 10 − 6,93 = 3,07 m; y = 0 + 4,0 = 4,0 m.</li><li>Módulo: √(3,07² + 4,0²) = √(9,4 + 16) = 5,0 m. Ângulo: arctg(4,0 ÷ 3,07) = 52,5° ao norte do leste.</li></ol>
+    <div class="ans">deslocamento ≈ 5,0 m a 52° ao norte do leste</div></div>
+  <div class="done-btn" data-done="unitarios"></div>
+</section>
+
+<!-- ============ M1 · PRODUTOS ============ -->
+<section class="view read" id="v-produtos" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 3-3</div>
+  <h2>Multiplicando vetores: escalar e vetorial</h2>
+  <p class="lede">Há três jeitos de "multiplicar" com vetores. Cada um responde a uma pergunta diferente e cada um vai aparecer mais à frente: o produto escalar no <b>trabalho</b> (capítulo 7), o vetorial no <b>torque</b>.</p>
+
+  <h3>1) Número × vetor</h3>
+  <p>Multiplicar um vetor por um número <b>estica ou encolhe</b> a seta. Número negativo também <b>inverte o sentido</b>. Exemplo: 2<i>a</i>⃗ é a mesma seta com o dobro do tamanho; −<i>a</i>⃗ aponta para o lado oposto.</p>
+
+  <h3>2) Produto escalar a⃗ · b⃗ (dá um número)</h3>
+  <p>Pergunta: <b>"quanto um vetor anda junto com o outro?"</b> Se apontam para o mesmo lado, o resultado é grande e positivo; se são perpendiculares, é zero; se apontam para lados opostos, é negativo.</p>
+  <div class="fx"><span class="tag">Fórmula 3.5 · produto escalar</span>
+    <div class="eq"><i>a</i>⃗ · <i>b</i>⃗ = <i>a b</i> cos <i>φ</i> = <i>a</i><sub>x</sub><i>b</i><sub>x</sub> + <i>a</i><sub>y</sub><i>b</i><sub>y</sub> + <i>a</i><sub>z</sub><i>b</i><sub>z</sub></div>
+    <dl class="legend"><dt>φ</dt><dd>ângulo entre as duas setas (encostando as caudas)</dd><dt>resultado</dt><dd>um <b>número</b> (escalar), não uma seta</dd><dt>perpendiculares</dt><dd>cos 90° = 0 → a⃗ · b⃗ = 0. Por isso î · ĵ = 0 e î · î = 1</dd><dt>truque</dt><dd>igualando as duas formas você acha o <b>ângulo entre dois vetores</b>: cos φ = (a⃗ · b⃗) / (a b)</dd></dl></div>
+
+  <h3>3) Produto vetorial a⃗ × b⃗ (dá um vetor)</h3>
+  <p>Pergunta: <b>"quanto os dois vetores estão 'atravessados' um em relação ao outro?"</b> O resultado é uma seta <b>perpendicular aos dois</b>.</p>
+  <div class="fx"><span class="tag">Fórmula 3.6 · produto vetorial</span>
+    <div class="eq">|<i>a</i>⃗ × <i>b</i>⃗| = <i>a b</i> sen <i>φ</i> &nbsp;&nbsp;&nbsp; î × ĵ = k̂ &nbsp; ĵ × k̂ = î &nbsp; k̂ × î = ĵ</div>
+    <dl class="legend"><dt>módulo</dt><dd>máximo quando são perpendiculares (sen 90° = 1); zero quando são paralelos</dd><dt>direção</dt><dd><b>regra da mão direita</b>: dedos apontam em a⃗, dobre-os em direção a b⃗; o polegar mostra a⃗ × b⃗</dd><dt>ordem importa</dt><dd>b⃗ × a⃗ = −(a⃗ × b⃗): inverte o sentido</dd><dt>no plano xy</dt><dd>a⃗ × b⃗ = (aₓb<sub>y</sub> − a<sub>y</sub>bₓ) k̂</dd></dl></div>
+  <div class="ofi"><span class="k">Já viu isso em GAAL</span>É exatamente o mesmo produto escalar e vetorial da Oficina de GAAL. Em física eles ganham significado: produto escalar = "quanto da força está na direção do movimento"; produto vetorial = "quanto a força faz girar".</div>
+
+  <div class="ex" data-ex data-q="fis-pr1"><div class="q">Exemplo: a⃗ = 1î + 2ĵ + 2k̂ e b⃗ = 4î + 0ĵ + 3k̂. Qual o produto escalar e o ângulo entre os vetores?</div>
+    <ol><li>Produto escalar por componentes: 1 · 4 + 2 · 0 + 2 · 3 = 4 + 0 + 6 = 10.</li><li>Módulos: a = √(1 + 4 + 4) = 3; b = √(16 + 0 + 9) = 5.</li><li>cos φ = 10 ÷ (3 · 5) = 0,667.</li><li>φ = arccos 0,667 = 48,2°.</li></ol>
+    <div class="ans">a⃗ · b⃗ = 10 · φ ≈ 48°</div></div>
+  <div class="ex" data-ex data-q="fis-pr2"><div class="q">Exemplo: a⃗ = 2î + 1ĵ e b⃗ = −1î + 3ĵ. Calcule a⃗ × b⃗ e confira o ângulo entre eles pelos dois produtos.</div>
+    <ol><li>Os dois estão no plano xy, então o resultado aponta em z: (aₓb<sub>y</sub> − a<sub>y</sub>bₓ) k̂ = (2 · 3 − 1 · (−1)) k̂ = 7k̂.</li><li>Módulos: a = √5 ≈ 2,24; b = √10 ≈ 3,16; a · b = √50 ≈ 7,07.</li><li>Pelo vetorial: sen φ = 7 ÷ 7,07 = 0,990.</li><li>Pelo escalar: a⃗ · b⃗ = 2 · (−1) + 1 · 3 = 1 → cos φ = 1 ÷ 7,07 = 0,141 → φ = 81,9°. E sen 81,9° = 0,990 ✓ — os dois concordam.</li></ol>
+    <div class="ans">a⃗ × b⃗ = 7k̂ · φ ≈ 82°</div></div>
+  <div class="done-btn" data-done="produtos"></div>
+</section>
+
+<!-- ============ M1 · MOVIMENTO 2D ============ -->
+<section class="view read" id="v-mov2d" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 4-1 a 4-3</div>
+  <h2>Movimento em duas e três dimensões</h2>
+  <p class="lede">Agora o objeto pode andar em curva. A grande ideia do capítulo 4: <b>tudo do capítulo 2 continua valendo, só que para cada eixo separado</b>. Os vetores do capítulo 3 juntam os eixos de novo.</p>
+
+  <div class="fx"><span class="tag">Fórmula 4.1 · posição e deslocamento</span>
+    <div class="eq"><i>r</i>⃗ = <i>x</i> î + <i>y</i> ĵ + <i>z</i> k̂ &nbsp;&nbsp;&nbsp; Δ<i>r</i>⃗ = <i>r</i>⃗<sub>2</sub> − <i>r</i>⃗<sub>1</sub></div>
+    <dl class="legend"><dt>r⃗</dt><dd>vetor posição: a seta que vai da origem até o objeto</dd><dt>Δr⃗</dt><dd>deslocamento: Δx î + Δy ĵ + Δz k̂ (cada eixo tem seu Δ)</dd></dl></div>
+  <div class="fx"><span class="tag">Fórmula 4.2 · velocidade</span>
+    <div class="eq"><i>v</i>⃗<sub>méd</sub> = <span class="fr"><span>Δ<i>r</i>⃗</span><span>Δ<i>t</i></span></span> &nbsp;&nbsp;&nbsp; <i>v</i>⃗ = <span class="fr"><span>d<i>r</i>⃗</span><span>d<i>t</i></span></span> = <i>v</i><sub>x</sub> î + <i>v</i><sub>y</sub> ĵ + <i>v</i><sub>z</sub> k̂</div>
+    <dl class="legend"><dt>vₓ</dt><dd>= dx/dt (derive só o x), e igual para y e z</dd><dt>direção</dt><dd>a velocidade é sempre <b>tangente à trajetória</b>, apontando para onde o objeto vai</dd></dl></div>
+  <div class="fx"><span class="tag">Fórmula 4.3 · aceleração</span>
+    <div class="eq"><i>a</i>⃗ = <span class="fr"><span>d<i>v</i>⃗</span><span>d<i>t</i></span></span> = <i>a</i><sub>x</sub> î + <i>a</i><sub>y</sub> ĵ + <i>a</i><sub>z</sub> k̂</div>
+    <dl class="legend"><dt>aₓ</dt><dd>= dvₓ/dt, e igual para os outros eixos</dd><dt>o que ela faz</dt><dd>a parte de a⃗ <b>ao longo</b> de v⃗ muda a rapidez; a parte <b>perpendicular</b> a v⃗ muda a direção (faz curvar)</dd></dl></div>
+  <div class="cuid"><span class="k">Curva = aceleração</span>Mesmo com o velocímetro parado em 60 km/h, quem faz uma curva está acelerando, porque a <b>direção</b> da velocidade muda. Isso aparece forte no movimento circular, duas aulas à frente.</div>
+
+  <div class="ex" data-ex data-q="fis-2d1"><div class="q">Exemplo: um drone tem posição r⃗(t) = (2t²) î + (8t − t²) ĵ (metros, t em segundos). Em t = 2 s, qual a posição, a velocidade e a aceleração (módulo e ângulo)?</div>
+    <ol><li>Posição em t = 2: x = 2 · 4 = 8 m; y = 16 − 4 = 12 m → r⃗ = 8î + 12ĵ (m).</li><li>Velocidade: derive cada eixo. vₓ = 4t; v<sub>y</sub> = 8 − 2t. Em t = 2: vₓ = 8, v<sub>y</sub> = 4 → v⃗ = 8î + 4ĵ (m/s).</li><li>|v| = √(64 + 16) = 8,9 m/s; ângulo arctg(4 ÷ 8) = 26,6° acima de +x.</li><li>Aceleração: derive de novo. aₓ = 4; a<sub>y</sub> = −2 → a⃗ = 4î − 2ĵ (m/s²), constante. |a| = √20 = 4,5 m/s², a 26,6° abaixo de +x.</li></ol>
+    <div class="ans">r⃗ = 8î + 12ĵ m · v⃗ = 8î + 4ĵ m/s (8,9 m/s a 27°) · a⃗ = 4î − 2ĵ m/s² (4,5 m/s² a −27°)</div></div>
+  <div class="ex" data-ex data-q="fis-2d2"><div class="q">Exemplo: para o mesmo drone, qual a velocidade média entre t = 0 e t = 2 s?</div>
+    <ol><li>Posições: r⃗(0) = 0î + 0ĵ; r⃗(2) = 8î + 12ĵ (m).</li><li>Deslocamento: Δr⃗ = 8î + 12ĵ (m).</li><li>v⃗<sub>méd</sub> = Δr⃗ ÷ Δt = (8î + 12ĵ) ÷ 2 = 4î + 6ĵ (m/s), módulo √(16 + 36) = 7,2 m/s.</li></ol>
+    <div class="ans">v⃗<sub>méd</sub> = 4î + 6ĵ m/s (≈ 7,2 m/s)</div></div>
+  <div class="done-btn" data-done="mov2d"></div>
+</section>
+
+<!-- ============ M1 · PROJÉTEIS ============ -->
+<section class="view read" id="v-projetil" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 4-4</div>
+  <h2>Lançamento de projéteis</h2>
+  <p class="lede">Uma bola chutada, o jato de uma mangueira, as faíscas de uma esmerilhadeira: depois de soltos, <b>só a gravidade</b> age sobre eles (desprezando o ar). O caminho é sempre uma parábola.</p>
+
+  <h3>A ideia que resolve tudo: dois movimentos independentes</h3>
+  <div class="tbl"><table><tr><th>Horizontal (x)</th><th>Vertical (y)</th></tr>
+    <tr><td>nenhuma força → <b>a = 0</b></td><td>gravidade → <b>a = −g</b></td></tr>
+    <tr><td>velocidade <b>constante</b> o tempo todo</td><td>é uma <b>queda livre</b> (aula 6)</td></tr>
+    <tr><td>x − x₀ = v₀ₓ t</td><td>as 5 equações com a = −g</td></tr></table></div>
+  <p>Os dois movimentos <b>não se atrapalham</b>: uma bala atirada na horizontal e uma bala solta da mesma altura chegam ao chão <b>ao mesmo tempo</b>. O que liga os dois eixos é o <b>tempo t</b>, que é o mesmo nos dois.</p>
+
+  <div class="fx"><span class="tag">Fórmula 4.4 · decompor a velocidade de lançamento</span>
+    <div class="eq"><i>v</i><sub>0x</sub> = <i>v</i><sub>0</sub> cos <i>θ</i><sub>0</sub> &nbsp;&nbsp;&nbsp; <i>v</i><sub>0y</sub> = <i>v</i><sub>0</sub> sen <i>θ</i><sub>0</sub></div>
+    <dl class="legend"><dt>v₀</dt><dd>rapidez com que sai</dd><dt>θ₀</dt><dd>ângulo de lançamento acima da horizontal</dd></dl></div>
+  <div class="fx"><span class="tag">Fórmula 4.5 · equações do projétil</span>
+    <div class="eq sl5"><i>x</i> − <i>x</i><sub>0</sub> = <i>v</i><sub>0x</sub> <i>t</i></div>
+    <div class="eq sl5"><i>y</i> − <i>y</i><sub>0</sub> = <i>v</i><sub>0y</sub> <i>t</i> − ½ <i>g t</i>²</div><div class="eq sl5"><i>v</i><sub>y</sub> = <i>v</i><sub>0y</sub> − <i>g t</i></div><div class="eq sl5"><i>v</i><sub>y</sub>² = <i>v</i><sub>0y</sub>² − 2<i>g</i>(<i>y</i> − <i>y</i><sub>0</sub>)</div>
+    <dl class="legend"><dt>x</dt><dd>só uma equação: velocidade constante</dd><dt>y</dt><dd>queda livre com velocidade inicial v₀y</dd><dt>no topo</dt><dd>v<sub>y</sub> = 0 (mas vₓ continua!)</dd></dl></div>
+  <div class="fx"><span class="tag">Fórmula 4.6 · alcance e altura máxima (sai e cai na mesma altura)</span>
+    <div class="eq"><i>R</i> = <span class="fr"><span><i>v</i><sub>0</sub>² sen 2<i>θ</i><sub>0</sub></span><span><i>g</i></span></span> &nbsp;&nbsp;&nbsp; <i>H</i> = <span class="fr"><span><i>v</i><sub>0y</sub>²</span><span>2<i>g</i></span></span></div>
+    <dl class="legend"><dt>R</dt><dd>alcance horizontal: distância até cair na <b>mesma altura</b> de onde saiu</dd><dt>45°</dt><dd>sen 2θ é máximo (= 1) em θ = 45°: é o ângulo de maior alcance</dd><dt>H</dt><dd>quanto sobe acima do ponto de lançamento</dd><dt>cuidado</dt><dd>se sai de uma altura e cai no chão (alturas diferentes), <b>não</b> use R: resolva com as equações</dd></dl></div>
+
+  <h3>Receita</h3>
+  <ol class="recipe"><li><span><b>Decomponha</b> v₀ em v₀ₓ e v₀y.</span></li><li><span>Faça <b>duas colunas</b>: x (velocidade constante) e y (queda livre).</span></li><li><span>Ache <b>t</b> no eixo que tem informação suficiente (quase sempre o y: "até cair no chão", "até o topo").</span></li><li><span>Use esse <b>t</b> no outro eixo.</span></li></ol>
+
+  <h3>Simulador de lançamento</h3>
+  <div class="cv sim" id="projSim" style="aspect-ratio:2/1"><canvas></canvas></div>
+  <div class="simctl" id="projCtl"></div>
+  <div class="btns" style="margin-top:4px"><button type="button" id="projGo">Lançar</button></div>
+  <div class="out simout" id="projOut"></div>
+
+  <div class="ex" data-ex data-q="fis-pj1"><div class="q">Exemplo: uma peça escorrega da borda de uma bancada de 1,25 m de altura com velocidade horizontal de 3,0 m/s. Quanto tempo leva até o chão e a que distância da bancada ela cai?</div>
+    <ol><li>Lançamento horizontal: v₀ₓ = 3,0 m/s e v₀y = 0. Eixo y para cima, origem na borda: cai até y − y₀ = −1,25 m.</li><li>Eixo y (queda livre): −1,25 = 0 · t − ½ · 9,8 · t² → 4,9t² = 1,25 → t² = 0,255 → t = 0,505 s.</li><li>Eixo x (velocidade constante) com o mesmo t: x = 3,0 · 0,505 = 1,52 m.</li></ol>
+    <div class="ans">t ≈ 0,51 s · cai a ≈ 1,5 m da bancada</div></div>
+  <div class="ex" data-ex data-q="fis-pj2"><div class="q">Exemplo: uma bola é chutada do chão a 20 m/s, a 30° acima da horizontal. Qual a altura máxima, o tempo de voo e o alcance?</div>
+    <ol><li>Decomponha: v₀ₓ = 20 cos 30° = 17,3 m/s; v₀y = 20 sen 30° = 10 m/s.</li><li>Altura máxima (v<sub>y</sub> = 0 no topo): H = 10² ÷ (2 · 9,8) = 100 ÷ 19,6 = 5,1 m.</li><li>Tempo até o topo: 0 = 10 − 9,8t → 1,02 s. Sobe e desce no mesmo tempo: voo = 2,04 s.</li><li>Alcance: x = 17,3 · 2,04 = 35,3 m. Pela fórmula: 20² · sen 60° ÷ 9,8 = 35,3 m ✓.</li></ol>
+    <div class="ans">H ≈ 5,1 m · voo ≈ 2,0 s · alcance ≈ 35 m</div></div>
+  <div class="done-btn" data-done="projetil"></div>
+</section>
+
+<!-- ============ M1 · MCU ============ -->
+<section class="view read" id="v-mcu" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 4-5</div>
+  <h2>Movimento circular uniforme</h2>
+  <p class="lede">Um ponto na borda de um disco de corte gira com rapidez constante. Parece que não há aceleração, mas há, e muito grande: a direção da velocidade muda o tempo todo.</p>
+
+  <svg class="fig" viewBox="0 0 520 240" role="img" aria-label="Círculo com um ponto na borda: a velocidade é tangente ao círculo e a aceleração aponta para o centro">
+    <circle cx="200" cy="120" r="90" fill="none" stroke="currentColor" stroke-width="2" stroke-dasharray="5 5"/>
+    <circle cx="200" cy="120" r="4" fill="currentColor"/>
+    <circle cx="200" cy="30" r="8" fill="var(--c3)"/>
+    <line x1="200" y1="30" x2="300" y2="30" stroke="var(--c2)" stroke-width="3.4"/><path d="M300 30l-13-6v12z" fill="var(--c2)"/>
+    <line x1="200" y1="38" x2="200" y2="96" stroke="var(--c1)" stroke-width="3.4"/><path d="M200 96l-6-13h12z" fill="var(--c1)"/>
+    <line x1="200" y1="120" x2="290" y2="120" stroke="currentColor" stroke-width="1.4"/>
+    <g font-family="JetBrains Mono, monospace" font-size="14" font-weight="700"><text x="270" y="22" fill="var(--c2)">v⃗ (tangente)</text><text x="208" y="76" fill="var(--c1)">a⃗ (para o centro)</text><text x="236" y="138" fill="currentColor">r</text></g>
+    <g font-family="JetBrains Mono, monospace" font-size="13" fill="currentColor"><text x="330" y="100">• |v⃗| constante</text><text x="330" y="124">• direção de v⃗ muda</text><text x="330" y="148">• a⃗ sempre ⟂ v⃗</text></g>
+  </svg>
+  <div class="fx"><span class="tag">Fórmula 4.7 · aceleração centrípeta e período</span>
+    <div class="eq"><i>a</i> = <span class="fr"><span><i>v</i>²</span><span><i>r</i></span></span> &nbsp;&nbsp;&nbsp; <i>T</i> = <span class="fr"><span>2π<i>r</i></span><span><i>v</i></span></span></div>
+    <dl class="legend"><dt>a</dt><dd>aceleração <b>centrípeta</b> ("que aponta para o centro"); só muda a direção, não a rapidez</dd><dt>v</dt><dd>rapidez (constante)</dd><dt>r</dt><dd>raio da circunferência</dd><dt>T</dt><dd>período: tempo de uma volta (o caminho de uma volta, 2πr, dividido pela rapidez)</dd><dt>rpm</dt><dd>rotações por minuto: frequência f = rpm ÷ 60 (voltas por segundo) e T = 1/f</dd></dl></div>
+  <div class="cuid"><span class="k">Por que v²/r</span>Dobrar a rapidez <b>quadruplica</b> a aceleração (v²): a seta de velocidade é maior e também gira mais rápido. Raio menor (curva mais fechada) também aumenta a aceleração. No capítulo 6 (Módulo 2, "Movimento circular") você vê <b>qual força</b> produz essa aceleração.</div>
+
+  <div class="ex" data-ex data-q="fis-c1"><div class="q">Exemplo: um disco de corte de 230 mm de diâmetro gira a 6 600 rpm. Qual a rapidez de um ponto na borda e a aceleração centrípeta dele?</div>
+    <ol><li>Raio em metros: r = 230 ÷ 2 = 115 mm = 0,115 m.</li><li>Frequência: 6 600 ÷ 60 = 110 voltas por segundo → T = 1 ÷ 110 = 0,00909 s.</li><li>Rapidez: v = 2πr ÷ T = 2π · 0,115 · 110 = 79,5 m/s (≈ 286 km/h).</li><li>Aceleração: a = v² ÷ r = 79,5² ÷ 0,115 = 6 320 ÷ 0,115 ≈ 55 000 m/s² ≈ 5 600 g.</li></ol>
+    <div class="ans">v ≈ 79 m/s · a ≈ 5,5 × 10⁴ m/s² (≈ 5 600 g)</div></div>
+  <div class="ex" data-ex data-q="fis-c2"><div class="q">Exemplo: um carro faz uma curva de 50 m de raio a 72 km/h, com rapidez constante. Qual a aceleração centrípeta?</div>
+    <ol><li>72 km/h ÷ 3,6 = 20 m/s.</li><li>a = v² ÷ r = 400 ÷ 50 = 8,0 m/s².</li><li>Em g: 8,0 ÷ 9,8 = 0,82 g, apontando para o centro da curva.</li></ol>
+    <div class="ans">a = 8,0 m/s² (≈ 0,82 g) para o centro</div></div>
+  <div class="done-btn" data-done="mcu"></div>
+</section>
+
+<!-- ============ M1 · RELATIVO ============ -->
+<section class="view read" id="v-relativo" hidden>
+  <div class="eyebrow">Módulo 1 · Capítulo 4-6 e 4-7</div>
+  <h2>Movimento relativo: depende de quem olha</h2>
+  <p class="lede">Dentro do ônibus, o colega sentado está parado para você e a 60 km/h para quem está na calçada. Os dois estão certos: velocidade sempre é medida <b>em relação a alguém</b> (um referencial).</p>
+
+  <div class="fx"><span class="tag">Fórmula 4.8 · velocidade relativa</span>
+    <div class="eq"><i>v</i>⃗<sub>PA</sub> = <i>v</i>⃗<sub>PB</sub> + <i>v</i>⃗<sub>BA</sub></div>
+    <dl class="legend"><dt>v<sub>PA</sub></dt><dd>velocidade de <b>P</b> vista por <b>A</b> (leia o índice: "P em relação a A")</dd><dt>v<sub>PB</sub></dt><dd>velocidade de P vista por B</dd><dt>v<sub>BA</sub></dt><dd>velocidade de B vista por A</dd><dt>truque</dt><dd>os índices "de dentro" se cancelam: P<s>B</s> + <s>B</s>A → PA</dd><dt>inverter</dt><dd>v<sub>AB</sub> = −v<sub>BA</sub> (se o trem anda para a frente em relação a você, você anda para trás em relação ao trem)</dd></dl></div>
+  <p>Em uma dimensão é só somar com sinal. Em duas dimensões a soma é <b>de vetores</b> (componente com componente, aula 9). E se B anda com velocidade constante, os dois observadores medem a <b>mesma aceleração</b> para P.</p>
+  <div class="ofi"><span class="k">Na oficina</span>A ponte rolante anda para um lado e o carro-guincho anda sobre ela para o outro. A velocidade do gancho em relação ao galpão é a soma das duas (com sinal).</div>
+
+  <div class="ex" data-ex data-q="fis-r1"><div class="q">Exemplo: um operador anda a 1,5 m/s para a frente dentro de um trem que vai a 20 m/s. Qual a velocidade dele vista por quem está na plataforma? E se ele andar para trás?</div>
+    <ol><li>P = operador, B = trem, A = plataforma. Frente = positivo.</li><li>Para a frente: v<sub>PA</sub> = v<sub>PB</sub> + v<sub>BA</sub> = 1,5 + 20 = 21,5 m/s.</li><li>Para trás: v<sub>PB</sub> = −1,5 m/s → v<sub>PA</sub> = −1,5 + 20 = 18,5 m/s (ainda para a frente, só que mais devagar).</li></ol>
+    <div class="ans">21,5 m/s andando para a frente · 18,5 m/s andando para trás</div></div>
+  <div class="ex" data-ex data-q="fis-r2"><div class="q">Exemplo: um barco atravessa um rio de 80 m de largura. O motor dá 4,0 m/s em relação à água, com a proa apontada direto para a outra margem (norte). A correnteza vai para o leste a 3,0 m/s. Qual a velocidade do barco vista da margem, quanto tempo leva e quanto ele desce o rio?</div>
+    <ol><li>P = barco, B = água, A = margem. Leste = +x, norte = +y.</li><li>v⃗<sub>PB</sub> = 0î + 4,0ĵ (motor); v⃗<sub>BA</sub> = 3,0î + 0ĵ (correnteza). Soma: v⃗<sub>PA</sub> = 3,0î + 4,0ĵ (m/s).</li><li>Módulo: √(9 + 16) = 5,0 m/s, a arctg(4,0 ÷ 3,0) = 53° do leste para o norte.</li><li>Tempo: só a parte norte atravessa o rio. t = 80 ÷ 4,0 = 20 s.</li><li>Enquanto isso a correnteza o leva para o leste: 3,0 · 20 = 60 m rio abaixo.</li></ol>
+    <div class="ans">5,0 m/s a 53° do leste · atravessa em 20 s · desce 60 m</div></div>
+  <div class="done-btn" data-done="relativo"></div>
+</section>
+
 <!-- ============ 1 FORÇAS ============ -->
 <section class="view read" id="v-forcas" hidden>
-  <div class="eyebrow">Módulo 1 · Capítulo 5-1</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 5-1</div>
   <h2>Força é um vetor: tem tamanho, direção e sentido</h2>
   <p class="lede">Empurrar uma caixa com 50 N para a direita é diferente de empurrar com 50 N para cima. Por isso forças se somam como setas, não como números comuns.</p>
 
@@ -386,7 +886,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 
 <!-- ============ 3 APLICAÇÕES ============ -->
 <section class="view read" id="v-aplic" hidden>
-  <div class="eyebrow">Módulo 3 · Capítulo 5-2 e 5-3</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 5-2 e 5-3</div>
   <h2>As forças especiais e onde elas aparecem</h2>
   <p class="lede">Quase toda questão usa as mesmas quatro forças. Conhecendo bem cada uma, o diagrama de corpo livre sai sozinho.</p>
 
@@ -446,7 +946,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 
 <!-- ============ 4 ATRITO ============ -->
 <section class="view read" id="v-atrito" hidden>
-  <div class="eyebrow">Módulo 4 · Capítulo 6-1</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 6-1</div>
   <h2>Atrito: a força que só aparece quando precisa</h2>
   <p class="lede">Atrito estático segura o corpo parado e cresce até um limite. Passou do limite, o corpo escorrega e entra o atrito cinético, que é menor e constante.</p>
 
@@ -525,7 +1025,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 
 <!-- ============ 5 ARRASTO ============ -->
 <section class="view read" id="v-arrasto" hidden>
-  <div class="eyebrow">Módulo 5 · Capítulo 6-2</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 6-2</div>
   <h2>Arrasto e velocidade terminal</h2>
   <p class="lede">O ar também é atrito. Quanto mais rápido você vai, mais ele empurra para trás, até que o empurrão iguala o peso e a velocidade para de crescer.</p>
 
@@ -591,7 +1091,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 
 <!-- ============ 6 CIRCULAR ============ -->
 <section class="view read" id="v-circular" hidden>
-  <div class="eyebrow">Módulo 6 · Capítulo 6-3</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 6-3</div>
   <h2>Movimento circular uniforme</h2>
   <p class="lede">Fazer uma curva com velocidade constante ainda é acelerar: a direção da velocidade muda o tempo todo. Essa aceleração aponta para o centro.</p>
 
@@ -620,14 +1120,118 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
   <div class="done-btn" data-done="circular"></div>
 </section>
 
+<!-- ============ M2 · CAP 7 · TRABALHO E ENERGIA CINÉTICA ============ -->
+<section class="view read" id="v-trabalho" hidden>
+  <div class="eyebrow">Módulo 2 · Capítulo 7-1 a 7-3</div>
+  <h2>Energia cinética e trabalho</h2>
+  <p class="lede">Até aqui você resolveu movimento com forças e acelerações. O capítulo 7 abre um caminho mais curto: <b>energia</b>. Em vez de acompanhar o movimento instante por instante, você compara o começo com o fim.</p>
+
+  <h3>Energia cinética: a energia do movimento</h3>
+  <div class="fx"><span class="tag">Fórmula 7.1 · energia cinética</span>
+    <div class="eq"><i>K</i> = ½ <i>m v</i>²</div>
+    <dl class="legend"><dt>K</dt><dd>energia cinética, em joules (J = kg·m²/s²)</dd><dt>m</dt><dd>massa (kg)</dd><dt>v</dt><dd>rapidez (m/s). Como está ao quadrado, K <b>nunca é negativa</b> e não depende do sentido</dd><dt>v²</dt><dd>dobrar a velocidade <b>quadruplica</b> a energia: um carro a 144 km/h tem 4 vezes a energia que tem a 72 km/h (e precisa de 4 vezes a distância para frear)</dd></dl></div>
+
+  <h3>Trabalho: energia que uma força põe ou tira</h3>
+  <p>Quando uma força empurra um objeto <b>ao longo de um deslocamento</b>, ela transfere energia para ele (ou tira dele). Essa energia transferida se chama <b>trabalho</b>. Só conta a parte da força que está <b>na direção do movimento</b>.</p>
+  <div class="fx"><span class="tag">Fórmula 7.2 · trabalho de uma força constante</span>
+    <div class="eq"><i>W</i> = <i>F d</i> cos <i>φ</i> = <i>F</i>⃗ · <i>d</i>⃗</div>
+    <dl class="legend"><dt>W</dt><dd>trabalho, em joules (1 J = 1 N · 1 m)</dd><dt>F</dt><dd>módulo da força (N), constante no trecho</dd><dt>d</dt><dd>módulo do deslocamento (m)</dd><dt>φ</dt><dd>ângulo <b>entre a força e o deslocamento</b></dd><dt>F cos φ</dt><dd>é o "pedaço" da força que está na direção do movimento. É o produto escalar da aula 10</dd></dl></div>
+  <div class="tbl"><table><tr><th>Ângulo φ</th><th>Trabalho</th><th>Exemplo</th></tr>
+    <tr><td>0° (força a favor)</td><td>W = +Fd (máximo)</td><td>empurrar o carrinho para a frente</td></tr>
+    <tr><td>entre 0° e 90°</td><td>positivo</td><td>puxar por uma corda inclinada</td></tr>
+    <tr><td>90° (força de lado)</td><td><b>zero</b></td><td>normal e peso num piso horizontal</td></tr>
+    <tr><td>entre 90° e 180°</td><td>negativo</td><td>força que "segura" o movimento</td></tr>
+    <tr><td>180° (força contra)</td><td>W = −Fd</td><td>atrito cinético</td></tr></table></div>
+  <div class="cuid"><span class="k">Trabalho de física não é cansaço</span>Segurar uma peça pesada parada cansa, mas o trabalho é <b>zero</b>: não há deslocamento (d = 0). E carregar a peça andando no plano também dá trabalho zero da sua força vertical, porque ela é perpendicular ao movimento.</div>
+
+  <h3>Teorema do trabalho e energia cinética</h3>
+  <div class="fx"><span class="tag">Fórmula 7.3 · trabalho total = variação da energia cinética</span>
+    <div class="eq"><i>W</i><sub>total</sub> = Δ<i>K</i> = <i>K</i><sub>f</sub> − <i>K</i><sub>i</sub></div>
+    <dl class="legend"><dt>W<sub>total</sub></dt><dd>soma dos trabalhos de <b>todas</b> as forças (ou o trabalho da força resultante)</dd><dt>positivo</dt><dd>o objeto termina mais rápido</dd><dt>negativo</dt><dd>termina mais devagar</dd><dt>zero</dt><dd>a rapidez não muda</dd></dl></div>
+
+  <div class="ex" data-ex data-q="fis-t1"><div class="q">Exemplo: um carrinho de 40 kg é puxado por 6,0 m num piso horizontal por uma corda com 120 N, a 30° acima da horizontal. O atrito vale 50 N. Qual o trabalho de cada força e o trabalho total?</div>
+    <ol><li>O deslocamento é horizontal, para a frente. Veja o ângulo de cada força com ele.</li><li>Corda (φ = 30°): W = 120 · 6,0 · cos 30° = 720 · 0,866 = 624 J.</li><li>Atrito (contra o movimento, φ = 180°): W = 50 · 6,0 · cos 180° = −300 J.</li><li>Peso e normal (verticais, φ = 90°): W = 0 cada.</li><li>Total: 624 − 300 + 0 + 0 = 324 J.</li></ol>
+    <div class="ans">W<sub>corda</sub> ≈ 624 J · W<sub>atrito</sub> = −300 J · W<sub>P</sub> = W<sub>N</sub> = 0 · total ≈ 324 J</div></div>
+  <div class="ex" data-ex data-q="fis-t2"><div class="q">Exemplo: o carrinho do exemplo anterior partiu do repouso. Com que velocidade ele termina os 6,0 m?</div>
+    <ol><li>Teorema: W<sub>total</sub> = K<sub>f</sub> − K<sub>i</sub>.</li><li>Partiu do repouso: K<sub>i</sub> = 0. Então K<sub>f</sub> = 324 J.</li><li>½ · 40 · v² = 324 → 20v² = 324 → v² = 16,2 → v = 4,0 m/s.</li></ol>
+    <div class="ans">v ≈ 4,0 m/s</div></div>
+  <div class="done-btn" data-done="trabalho"></div>
+</section>
+
+<!-- ============ M2 · CAP 7 · TRABALHO DO PESO E DA MOLA ============ -->
+<section class="view read" id="v-wpeso" hidden>
+  <div class="eyebrow">Módulo 2 · Capítulo 7-4 e 7-5</div>
+  <h2>Trabalho do peso e da força da mola</h2>
+  <p class="lede">Duas forças aparecem em quase todo problema de energia: o <b>peso</b> e a <b>força da mola</b>. Cada uma tem um "atalho" para o trabalho, e esses atalhos viram a energia potencial do capítulo 8.</p>
+
+  <h3>Trabalho do peso</h3>
+  <div class="fx"><span class="tag">Fórmula 7.4 · trabalho do peso</span>
+    <div class="eq"><i>W</i><sub>P</sub> = <i>m g d</i> cos <i>φ</i> &nbsp;&nbsp;&nbsp; subindo <i>h</i>: <i>W</i><sub>P</sub> = −<i>m g h</i> &nbsp;&nbsp; descendo <i>h</i>: <i>W</i><sub>P</sub> = +<i>m g h</i></div>
+    <dl class="legend"><dt>P = mg</dt><dd>o peso, sempre para baixo</dd><dt>subindo</dt><dd>peso para baixo, movimento para cima: φ = 180°, trabalho negativo (o peso "tira" energia)</dd><dt>descendo</dt><dd>φ = 0°, trabalho positivo (o peso "dá" energia)</dd><dt>h</dt><dd>só importa a <b>diferença de altura</b>, não o caminho</dd></dl></div>
+  <p><b>Erguer ou abaixar algo devagar</b> (começa e termina parado): ΔK = 0, então o trabalho de quem ergue é o oposto do trabalho do peso: <b>W<sub>aplicada</sub> = −W<sub>P</sub></b>. Para subir h, quem ergue faz +mgh.</p>
+
+  <h3>Força da mola: lei de Hooke</h3>
+  <div class="fx"><span class="tag">Fórmula 7.5 · lei de Hooke</span>
+    <div class="eq"><i>F</i><sub>x</sub> = −<i>k x</i></div>
+    <dl class="legend"><dt>x</dt><dd>quanto a ponta da mola saiu da posição <b>relaxada</b> (x = 0): positivo esticada, negativo comprimida</dd><dt>k</dt><dd>constante elástica (N/m): quanto mais dura a mola, maior</dd><dt>sinal −</dt><dd>a força é sempre <b>contra</b> a deformação: puxa de volta quando esticada, empurra quando comprimida (força "restauradora")</dd></dl></div>
+
+  <h3>Trabalho da mola</h3>
+  <p>A força da mola <b>não é constante</b>: começa em zero e cresce até kx. Então não dá para usar F·d direto. Como ela cresce em linha reta, a força <b>média</b> no trecho é a metade, ½kx, e o trabalho é média × distância = ½kx · x = <b>½kx²</b> (é a área do triângulo no gráfico F × x).</p>
+  <div class="fx"><span class="tag">Fórmula 7.6 · trabalho da força da mola</span>
+    <div class="eq"><i>W</i><sub>mola</sub> = ½ <i>k x</i><sub>i</sub>² − ½ <i>k x</i><sub>f</sub>²</div>
+    <dl class="legend"><dt>xᵢ, x<sub>f</sub></dt><dd>deformação no começo e no fim</dd><dt>positivo</dt><dd>quando a mola <b>volta</b> para perto do relaxado (ela empurra a favor)</dd><dt>negativo</dt><dd>quando você deforma mais a mola (ela resiste)</dd><dt>saindo do relaxado</dt><dd>xᵢ = 0 → W<sub>mola</sub> = −½kx²</dd></dl></div>
+  <div class="cuid"><span class="k">Pegadinha de unidade</span>k costuma vir em N/cm. Passe para N/m (× 100) e x para metros antes de usar ½kx², senão a resposta sai em "N·cm".</div>
+
+  <div class="ex" data-ex data-q="fis-w1"><div class="q">Exemplo: uma ponte rolante levanta uma peça de 200 kg a 3,0 m de altura, partindo e terminando parada. Qual o trabalho do peso e o trabalho do cabo?</div>
+    <ol><li>Peso: P = 200 · 9,8 = 1 960 N, para baixo.</li><li>A peça sobe 3,0 m: W<sub>P</sub> = −mgh = −1 960 · 3,0 = −5 880 J.</li><li>Parte e termina parada: ΔK = 0 → W<sub>cabo</sub> + W<sub>P</sub> = 0.</li><li>W<sub>cabo</sub> = +5 880 J ≈ 5,9 kJ.</li></ol>
+    <div class="ans">W<sub>P</sub> = −5,9 kJ · W<sub>cabo</sub> = +5,9 kJ</div></div>
+  <div class="ex" data-ex data-q="fis-w2"><div class="q">Exemplo: um bloco de 0,50 kg desliza a 2,0 m/s num piso sem atrito e bate numa mola de k = 200 N/m. Quanto a mola encolhe até o bloco parar?</div>
+    <ol><li>Só a mola faz trabalho na horizontal (peso e normal são perpendiculares, sem atrito).</li><li>Teorema: W<sub>mola</sub> = K<sub>f</sub> − K<sub>i</sub>. A mola começa relaxada e termina com deformação x: W<sub>mola</sub> = −½kx².</li><li>K<sub>i</sub> = ½ · 0,50 · 2,0² = 1,0 J; K<sub>f</sub> = 0 (parou).</li><li>−½ · 200 · x² = 0 − 1,0 → 100x² = 1,0 → x² = 0,010 → x = 0,10 m.</li></ol>
+    <div class="ans">a mola encolhe 0,10 m (10 cm)</div></div>
+  <div class="done-btn" data-done="wpeso"></div>
+</section>
+
+<!-- ============ M2 · CAP 7 · FORÇA VARIÁVEL E POTÊNCIA ============ -->
+<section class="view read" id="v-wvar" hidden>
+  <div class="eyebrow">Módulo 2 · Capítulo 7-6 e 7-7</div>
+  <h2>Força variável e potência</h2>
+  <p class="lede">Duas últimas peças do capítulo 7: como calcular o trabalho quando a força muda pelo caminho, e quão <b>rápido</b> o trabalho é feito (potência).</p>
+
+  <h3>Trabalho de uma força que varia: a área do gráfico</h3>
+  <div class="fx"><span class="tag">Fórmula 7.7 · trabalho de força variável</span>
+    <div class="eq"><i>W</i> = ∫<sub><i>x</i>ᵢ</sub><sup><i>x</i>_f</sup> <i>F</i>(<i>x</i>) d<i>x</i> = área sob o gráfico <i>F</i> × <i>x</i></div>
+    <dl class="legend"><dt>ideia</dt><dd>corte o caminho em pedacinhos dx; em cada um a força é quase constante, e o trabalho é F · dx. Somando todos, sai a área</dd><dt>no gráfico</dt><dd>quebre a área em retângulos e triângulos</dd><dt>com fórmula</dt><dd>integre F(x). Regra (o contrário do tombo): ∫ c · xⁿ dx = c · xⁿ⁺¹ / (n + 1)</dd><dt>sinal</dt><dd>área abaixo do eixo x conta negativa</dd></dl></div>
+  <svg class="fig" viewBox="0 0 520 200" role="img" aria-label="Gráfico F por x: a força vale 10 N de 0 a 2 m e cai em linha reta até 0 em 4 m; a área sombreada é o trabalho">
+    <line x1="40" y1="170" x2="500" y2="170" stroke="currentColor" stroke-width="1.6"/><line x1="40" y1="170" x2="40" y2="20" stroke="currentColor" stroke-width="1.6"/>
+    <path d="M40 170 L40 60 L210 60 L380 170 Z" fill="var(--c1)" fill-opacity=".18"/><path d="M40 60 L210 60 L380 170" fill="none" stroke="var(--c1)" stroke-width="3"/>
+    <g font-family="JetBrains Mono, monospace" font-size="12" fill="currentColor"><text x="488" y="190">x (m)</text><text x="8" y="26">F</text><text x="10" y="64">10</text><text x="205" y="190">2</text><text x="374" y="190">4</text><text x="104" y="124">20 J</text><text x="246" y="140">10 J</text></g>
+    <line x1="210" y1="60" x2="210" y2="170" stroke="currentColor" stroke-dasharray="3 4" opacity=".5"/>
+  </svg>
+
+  <h3>Potência: a rapidez do trabalho</h3>
+  <p>Dois motores podem erguer a mesma peça à mesma altura (mesmo trabalho), mas o mais potente faz isso <b>mais rápido</b>.</p>
+  <div class="fx"><span class="tag">Fórmula 7.8 · potência</span>
+    <div class="eq"><i>P</i><sub>méd</sub> = <span class="fr"><span><i>W</i></span><span>Δ<i>t</i></span></span> &nbsp;&nbsp;&nbsp; <i>P</i> = <span class="fr"><span>d<i>W</i></span><span>d<i>t</i></span></span> = <i>F v</i> cos <i>φ</i> = <i>F</i>⃗ · <i>v</i>⃗</div>
+    <dl class="legend"><dt>unidade</dt><dd>watt: 1 W = 1 J/s. 1 cv ≈ 1 hp ≈ 746 W</dd><dt>F v cos φ</dt><dd>potência instantânea: força × velocidade (só a parte da força na direção do movimento)</dd><dt>kWh</dt><dd>quilowatt-<b>hora</b> é energia, não potência: 1 kWh = 1 000 W × 3 600 s = 3,6 × 10⁶ J</dd></dl></div>
+  <div class="ofi"><span class="k">Notação</span>Aqui o "P" é de <b>potência</b>. No resto da oficina P é o peso; quando os dois aparecem juntos, olhe a unidade: W (watt) é potência, N (newton) é peso.</div>
+
+  <div class="ex" data-ex data-q="fis-f1"><div class="q">Exemplo: a força sobre uma peça vale 10 N de x = 0 a x = 2,0 m e depois cai em linha reta até zero em x = 4,0 m (gráfico acima). Qual o trabalho de 0 a 4,0 m? E se a força fosse F(x) = 3x² (N, x em m), qual o trabalho de 0 a 2,0 m?</div>
+    <ol><li>Gráfico: retângulo de 0 a 2 m → 10 · 2,0 = 20 J.</li><li>Triângulo de 2 a 4 m → ½ · 2,0 · 10 = 10 J. Total: 30 J.</li><li>Com fórmula: W = ∫₀² 3x² dx. A integral de 3x² é 3 · x³/3 = x³.</li><li>Aplicando os limites: 2,0³ − 0³ = 8,0 J.</li></ol>
+    <div class="ans">pelo gráfico: 30 J · com F = 3x²: 8,0 J</div></div>
+  <div class="ex" data-ex data-q="fis-f2"><div class="q">Exemplo: um guincho ergue 500 kg a 12 m de altura em 20 s, com velocidade constante. Qual a potência do guincho, em watts e em cv?</div>
+    <ol><li>Velocidade constante: a força do cabo é igual ao peso, F = 500 · 9,8 = 4 900 N.</li><li>Trabalho do cabo: W = F · d = 4 900 · 12 = 58 800 J.</li><li>Potência: P = W ÷ Δt = 58 800 ÷ 20 = 2 940 W.</li><li>Conferindo com F · v: v = 12 ÷ 20 = 0,60 m/s → 4 900 · 0,60 = 2 940 W ✓. Em cv: 2 940 ÷ 746 ≈ 3,9 cv.</li></ol>
+    <div class="ans">P ≈ 2,9 kW ≈ 3,9 cv</div></div>
+  <div class="done-btn" data-done="wvar"></div>
+</section>
+
 <!-- ============ 7 ENERGIA POTENCIAL ============ -->
 <section class="view read" id="v-potencial" hidden>
-  <div class="eyebrow">Módulo 7 · Capítulo 8-1</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 8-1</div>
   <h2>Energia potencial: energia guardada pela posição</h2>
   <p class="lede">Uma peça pendurada na ponte rolante "guarda" energia: se o cabo soltar, ela vira velocidade. Essa energia armazenada pela posição (ou pela deformação de uma mola) é a energia potencial.</p>
 
-  <h3>Antes: trabalho e energia cinética (capítulo 7)</h3>
-  <p>O capítulo 8 usa duas ideias do 7. Em resumo:</p>
+  <h3>Lembrete do capítulo 7</h3>
+  <p>O capítulo 8 usa duas ideias das aulas de trabalho (<a href="#trabalho">Energia cinética e trabalho</a>). Em resumo:</p>
   <div class="fx"><span class="tag">Base · capítulo 7</span>
     <div class="eq"><i>K</i> = ½ <i>m v</i>² &nbsp;&nbsp;&nbsp; <i>W</i> = <i>F d</i> cos <i>φ</i> &nbsp;&nbsp;&nbsp; <i>W</i><sub>res</sub> = Δ<i>K</i></div>
     <dl class="legend"><dt>K</dt><dd>energia cinética (J), a energia do movimento</dd><dt>W</dt><dd>trabalho (J) de uma força constante ao longo de um deslocamento d; φ é o ângulo entre força e deslocamento</dd><dt>W<sub>res</sub> = ΔK</dt><dd>teorema do trabalho e energia cinética: o trabalho total muda a energia cinética</dd><dt>1 J</dt><dd>1 N·m = 1 kg·m²/s²</dd></dl>
@@ -668,7 +1272,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 
 <!-- ============ 8 CONSERVAÇÃO ============ -->
 <section class="view read" id="v-conserva" hidden>
-  <div class="eyebrow">Módulo 8 · Capítulo 8-2</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 8-2</div>
   <h2>Conservação da energia mecânica</h2>
   <p class="lede">Sem atrito e sem arrasto, a energia só troca de forma: potencial vira cinética e cinética vira potencial. A soma das duas não muda. Esse é o atalho mais poderoso da mecânica.</p>
 
@@ -791,7 +1395,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 
 <!-- ============ 10 CURVA DE EP ============ -->
 <section class="view read" id="v-curva" hidden>
-  <div class="eyebrow">Módulo 10 · Capítulo 8-3</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 8-3</div>
   <h2>Lendo uma curva de energia potencial</h2>
   <p class="lede">O gráfico U(x) é um mapa: mostra para onde a força empurra, onde o corpo para e volta, e onde ele pode ficar em equilíbrio.</p>
 
@@ -821,7 +1425,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 
 <!-- ============ 10 ENERGIA TÉRMICA E CONSERVAÇÃO GERAL ============ -->
 <section class="view read" id="v-termica" hidden>
-  <div class="eyebrow">Módulo 11 · Capítulo 8-4 e 8-5</div>
+  <div class="eyebrow">Módulo 2 · Capítulo 8-4 e 8-5</div>
   <h2>Atrito, energia térmica e a conservação de tudo</h2>
   <p class="lede">Com atrito a energia mecânica diminui, mas não some: vira calor nas superfícies. Contando todas as formas, a energia total sempre se conserva.</p>
 
@@ -962,6 +1566,66 @@ function arrow(x,x0,y0,dx,dy,col,lbl,wd=2.6){ const L=Math.hypot(dx,dy); if(L<2)
 function controls(el,spec,onch){ el.innerHTML=spec.map(s=>'<label><span>'+s.l+': <b data-v="'+s.k+'"></b></span><input type="range" min="'+s.min+'" max="'+s.max+'" step="'+s.st+'" value="'+s.v+'" data-k="'+s.k+'" aria-label="'+s.l+'"></label>').join('');
   const val={}; const upd=()=>{ el.querySelectorAll('input').forEach(i=>{ val[i.dataset.k]=+i.value; const s=spec.find(z=>z.k===i.dataset.k); el.querySelector('[data-v="'+s.k+'"]').textContent=dec(+i.value,s.d??2)+(s.u||'') }); onch(val) };
   el.addEventListener('input',upd); upd(); return val }
+
+
+/* ===== módulo 1: MUV (carrinho + gráficos x×t e v×t) ===== */
+function MuvSim(box,ctlEl,goBtn,resetBtn){ const TT=8; let p={v0:6,a:-1.5}, t=0, run=false, last=0;
+  const X=tt=>p.v0*tt+.5*p.a*tt*tt, V=tt=>p.v0+p.a*tt;
+  const cv=new Cv(box,(x,w,h)=>{ const n=120; let xmin=0,xmax=0; for(let i=0;i<=n;i++){ const v=X(i/n*TT); xmin=Math.min(xmin,v); xmax=Math.max(xmax,v) } if(xmax-xmin<1){ xmax+=.5; xmin-=.5 }
+    const vmax=Math.max(Math.abs(p.v0),Math.abs(V(TT)),1);
+    /* pista */
+    const L=40, R=w-30, ty=46, sx=v=>L+(v-xmin)/(xmax-xmin)*(R-L);
+    x.strokeStyle=tok('ink'); x.lineWidth=2; x.beginPath(); x.moveTo(L-10,ty+14); x.lineTo(R+10,ty+14); x.stroke();
+    x.fillStyle=tok('ink2'); x.font='11px "JetBrains Mono", monospace'; x.textAlign='center';
+    const st=Math.max(1,Math.ceil((xmax-xmin)/8)); for(let k=Math.ceil(xmin/st)*st;k<=xmax;k+=st){ x.fillRect(sx(k)-.5,ty+10,1,8); x.fillText(dec(k,0),sx(k),ty+30) }
+    x.fillText('x (m)',R+4,ty+44); x.textAlign='left';
+    const cx=sx(X(t)); x.fillStyle=tok('c1'); x.fillRect(cx-14,ty-4,28,16); x.fillStyle=tok('ink'); x.beginPath(); x.arc(cx-8,ty+13,3.5,0,7); x.arc(cx+8,ty+13,3.5,0,7); x.fill();
+    const vv=V(t), aa=p.a; if(Math.abs(vv)>.05) arrow(x,cx,ty-14,Math.sign(vv)*Math.min(70,14+Math.abs(vv)*5),0,tok('c2'),'v');
+    if(Math.abs(aa)>.05) arrow(x,cx,ty-30,Math.sign(aa)*Math.min(70,14+Math.abs(aa)*10),0,tok('c3'),'a');
+    /* gráficos */
+    const gy=ty+64, gh=h-gy-34, gw=(w-L-50)/2;
+    const graf=(gx,tit,f,fmin,fmax,col)=>{ const sy=v=>gy+gh-(v-fmin)/(fmax-fmin)*gh, st2=t2=>gx+t2/TT*gw;
+      x.strokeStyle=tok('line'); x.lineWidth=1; x.strokeRect(gx,gy,gw,gh);
+      if(fmin<0&&fmax>0){ x.strokeStyle=tok('ink2'); x.setLineDash([4,4]); x.beginPath(); x.moveTo(gx,sy(0)); x.lineTo(gx+gw,sy(0)); x.stroke(); x.setLineDash([]) }
+      x.strokeStyle=col; x.lineWidth=2.6; x.beginPath(); for(let i=0;i<=n;i++){ const tt=i/n*TT; i?x.lineTo(st2(tt),sy(f(tt))):x.moveTo(st2(tt),sy(f(tt))) } x.stroke();
+      x.fillStyle=col; x.beginPath(); x.arc(st2(t),sy(f(t)),5,0,7); x.fill();
+      x.fillStyle=tok('ink'); x.font='600 12px "JetBrains Mono", monospace'; x.fillText(tit,gx+6,gy+16);
+      x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace'; x.fillText('t (s)',gx+gw-34,gy+gh+14); x.fillText('0',gx-2,gy+gh+14); x.fillText(String(TT),gx+gw-8,gy+gh+26) };
+    graf(L,'x × t  (parábola)',X,xmin,xmax,tok('c1'));
+    graf(L+gw+30,'v × t  (reta: inclinação = a)',V,-vmax*1.1,vmax*1.1,tok('c2'));
+    x.fillStyle=tok('ink'); x.font='600 12px "JetBrains Mono", monospace';
+    x.fillText('t = '+dec(t,1)+' s   x = '+dec(X(t),1)+' m   v = '+dec(V(t),1)+' m/s   '+(Math.abs(V(t))<.05?'parado agora':(Math.sign(V(t))===Math.sign(p.a)||p.a===0?(p.a===0?'velocidade constante':'ganhando rapidez'):'perdendo rapidez')),L,h-8) });
+  const step=tm=>{ const dt=Math.min(.05,(tm-last)/1000||0); last=tm; if(run&&box.offsetParent){ t+=dt; if(t>=TT){ t=TT; run=false; goBtn.textContent='Andar' } cv.draw() } proxQuadro(step,box) }; requestAnimationFrame(step);
+  goBtn.onclick=()=>{ if(t>=TT)t=0; run=!run; goBtn.textContent=run?'Pausar':'Andar' };
+  resetBtn.onclick=()=>{ t=0; run=false; goBtn.textContent='Andar'; cv.draw() };
+  controls(ctlEl,[{k:'v0',l:'velocidade inicial v₀',min:-10,max:10,st:.5,v:p.v0,d:1,u:' m/s'},{k:'a',l:'aceleração a',min:-4,max:4,st:.25,v:p.a,d:2,u:' m/s²'}],val=>{ p={...p,...val}; t=0; run=false; goBtn.textContent='Andar'; cv.draw() });
+  return cv }
+
+/* ===== módulo 1: lançamento de projéteis ===== */
+function ProjSim(box,ctlEl,goBtn,outEl){ let p={v0:18,th:40,h0:0}, t=0, run=false, last=0, rastros=[];
+  const voo=()=>{ const vy=p.v0*Math.sin(rad(p.th)); return (vy+Math.sqrt(vy*vy+2*G*p.h0))/G };
+  const pos=tt=>({x:p.v0*Math.cos(rad(p.th))*tt, y:p.h0+p.v0*Math.sin(rad(p.th))*tt-.5*G*tt*tt});
+  const cv=new Cv(box,(x,w,h)=>{ const T=voo(), vx=p.v0*Math.cos(rad(p.th)), vy0=p.v0*Math.sin(rad(p.th)), H=p.h0+vy0*vy0/(2*G), R=vx*T;
+    const L=44, B=h-30, sc=Math.min((w-L-30)/Math.max(R,10), (B-24)/Math.max(H,5)), sx=v=>L+v*sc, sy=v=>B-v*sc;
+    x.strokeStyle=tok('line'); x.lineWidth=1; x.fillStyle=tok('ink2'); x.font='10px "JetBrains Mono", monospace';
+    const st=[1,2,5,10,20,50].find(s=>s*sc>36)||50;
+    for(let k=0;sx(k)<w-10;k+=st){ x.beginPath(); x.moveTo(sx(k),B); x.lineTo(sx(k),24); x.stroke(); x.fillText(String(k),sx(k)-4,B+14) }
+    for(let k=st;sy(k)>20;k+=st){ x.beginPath(); x.moveTo(L,sy(k)); x.lineTo(w-10,sy(k)); x.stroke(); x.fillText(String(k),L-24,sy(k)+3) }
+    x.fillText('x (m)',w-46,B+26); x.fillText('y (m)',4,18);
+    x.strokeStyle=tok('ink'); x.lineWidth=2; x.beginPath(); x.moveTo(L-6,B); x.lineTo(w-10,B); x.stroke();
+    if(p.h0>0){ x.fillStyle=tok('line'); x.fillRect(L-20,sy(p.h0),20,B-sy(p.h0)) }
+    rastros.forEach(r=>{ x.strokeStyle=tok('ink2'); x.globalAlpha=.35; x.lineWidth=1.5; x.beginPath(); r.forEach((q,i)=>i?x.lineTo(sx(q.x),sy(q.y)):x.moveTo(sx(q.x),sy(q.y))); x.stroke(); x.globalAlpha=1 });
+    x.strokeStyle=tok('c1'); x.lineWidth=2.6; x.setLineDash([6,5]); x.beginPath(); for(let i=0;i<=100;i++){ const q=pos(i/100*T); i?x.lineTo(sx(q.x),sy(q.y)):x.moveTo(sx(q.x),sy(q.y)) } x.stroke(); x.setLineDash([]);
+    const tp=vy0/G; if(tp>0&&tp<T){ const q=pos(tp); x.strokeStyle=tok('ok'); x.setLineDash([3,4]); x.beginPath(); x.moveTo(sx(q.x),sy(q.y)); x.lineTo(sx(q.x),B); x.stroke(); x.setLineDash([]); x.fillStyle=tok('ok'); x.font='600 11px "JetBrains Mono", monospace'; x.fillText('H = '+dec(H,1)+' m',sx(q.x)+6,sy(q.y)-8) }
+    const q=pos(t), vyt=vy0-G*t, k=3.2; x.fillStyle=tok('c3'); x.beginPath(); x.arc(sx(q.x),sy(q.y),7,0,7); x.fill();
+    arrow(x,sx(q.x),sy(q.y),vx*k,0,tok('c2'),'vₓ',2.2); if(Math.abs(vyt)>.2) arrow(x,sx(q.x),sy(q.y),0,-vyt*k,tok('ok'),'v_y',2.2);
+    x.fillStyle=tok('ink'); x.font='600 12px "JetBrains Mono", monospace'; x.fillText('t = '+dec(t,2)+' s · vₓ = '+dec(vx,1)+(w>560?' m/s (constante)':'')+' · v_y = '+dec(vyt,1)+(w>560?' m/s':''),L,16) });
+  const out=()=>{ const T=voo(), vx=p.v0*Math.cos(rad(p.th)), vy0=p.v0*Math.sin(rad(p.th));
+    outEl.innerHTML='<ol><li>v₀ₓ = '+dec(p.v0,1)+' · cos '+p.th+'° = <b>'+dec(vx,2)+' m/s</b> · v₀y = '+dec(p.v0,1)+' · sen '+p.th+'° = <b>'+dec(vy0,2)+' m/s</b></li><li>Altura máxima: '+dec(p.h0,1)+' + v₀y²/2g = <b>'+dec(p.h0+vy0*vy0/(2*G),2)+' m</b></li><li>Tempo de voo (até y = 0): <b>'+dec(T,2)+' s</b></li><li>Alcance: v₀ₓ · t = <b>'+dec(vx*T,2)+' m</b>'+(p.h0===0?' (fórmula R = v₀² sen 2θ / g = '+dec(p.v0*p.v0*Math.sin(2*rad(p.th))/G,2)+' m)':'')+'</li></ol>' };
+  const step=tm=>{ const dt=Math.min(.05,(tm-last)/1000||0); last=tm; if(run&&box.offsetParent){ t+=dt; const T=voo(); if(t>=T){ t=T; run=false; goBtn.textContent='Lançar'; const r=[]; for(let i=0;i<=60;i++) r.push(pos(i/60*T)); rastros.push(r); if(rastros.length>3) rastros.shift() } cv.draw() } proxQuadro(step,box) }; requestAnimationFrame(step);
+  goBtn.onclick=()=>{ t=0; run=true; goBtn.textContent='Voando…' };
+  controls(ctlEl,[{k:'v0',l:'velocidade de lançamento v₀',min:2,max:30,st:.5,v:p.v0,d:1,u:' m/s'},{k:'th',l:'ângulo θ₀',min:0,max:90,st:1,v:p.th,d:0,u:'°'},{k:'h0',l:'altura de lançamento',min:0,max:20,st:.5,v:p.h0,d:1,u:' m'}],val=>{ p={...p,...val}; t=0; run=false; goBtn.textContent='Lançar'; out(); cv.draw() });
+  return cv }
 
 /* ===== simulador: plano inclinado ===== */
 function inclinePhys(v){ const th=rad(v.th), m=v.m, P=m*G, N=P*Math.cos(th), Ppar=P*Math.sin(th), drive=v.F-Ppar, fsmax=v.us*N;
@@ -1112,7 +1776,21 @@ const QUIZ=[
  ['Um carro faz uma curva plana com velocidade constante. A aceleração dele é…',['zero','para fora da curva','para o centro da curva','para frente'],2,'A direção da velocidade muda: aceleração centrípeta v²/R, para o centro.'],
  ['Num carro fazendo curva plana, quem fornece a força centrípeta?',['a força centrífuga','o atrito estático dos pneus','o peso','o motor'],1,'É o atrito estático (o pneu não está escorregando de lado). Força centrífuga não existe no referencial do chão.'],
  ['Na curva plana, dobrar o raio permite uma velocidade máxima…',['2 vezes maior','√2 vezes maior','4 vezes maior','igual'],1,'v_máx = √(μs g R): dobrar R multiplica v por √2 ≈ 1,41.'],
- ['No topo de um loop, na velocidade mínima, a força normal vale…',['mg','2mg','zero','mv²/R + mg'],2,'No limite o trilho deixa de empurrar: só o peso faz a centrípeta, mg = mv²/R.']
+ ['No topo de um loop, na velocidade mínima, a força normal vale…',['mg','2mg','zero','mv²/R + mg'],2,'No limite o trilho deixa de empurrar: só o peso faz a centrípeta, mg = mv²/R.'],
+ ["Ande 5 m para a frente e volte 5 m. Qual o deslocamento e a distância percorrida?", ["0 e 10 m", "10 m e 0", "10 m e 10 m", "5 m e 10 m"], 0, "Deslocamento só olha começo e fim (terminou onde começou: 0). A distância soma tudo o que andou: 10 m."],
+ ["x(t) = 4t² − 8t. Em que instante a velocidade é zero?", ["nunca", "t = 1 s", "t = 2 s", "t = 0"], 1, "v = dx/dt = 8t − 8. Zero em t = 1 s."],
+ ["Um carro de ré (v negativa) com aceleração positiva está…", ["parado", "acelerando para a frente", "freando", "acelerando para trás"], 2, "Sinais opostos de v e a → perde rapidez, está freando."],
+ ["Num problema de aceleração constante o tempo não é dado nem pedido. Qual equação usar?", ["v = v₀ + at", "x − x₀ = v₀t + ½at²", "x − x₀ = ½(v₀ + v)t", "v² = v₀² + 2a(x − x₀)"], 3, "É a única das 5 que não tem t."],
+ ["No ponto mais alto de uma bola jogada para cima…", ["v = 0 e a = −9,8 m/s²", "v = 0 e a = 0", "v máxima e a = 0", "v = 0 e a = +9,8 m/s²"], 0, "A velocidade zera por um instante, mas a gravidade continua puxando: a = −g."],
+ ["A área sob o gráfico v × t dá…", ["o tempo", "o deslocamento", "a aceleração", "a velocidade média"], 1, "Δx = ∫ v dt: área sob v × t."],
+ ["aₓ = −4 e a<sub>y</sub> = 3. A calculadora dá arctg(3/−4) = −36,9°. O ângulo certo é…", ["36,9°", "216,9°", "143,1°", "−36,9°"], 2, "aₓ negativo: some 180°. −36,9° + 180° = 143,1° (2º quadrante)."],
+ ["Se a⃗ · b⃗ = 0 (e nenhum é nulo), os vetores são…", ["paralelos", "opostos", "iguais", "perpendiculares"], 3, "a b cos φ = 0 → cos φ = 0 → φ = 90°."],
+ ["Um projétil no ponto mais alto da trajetória tem…", ["só velocidade horizontal", "velocidade zero", "só velocidade vertical", "aceleração zero"], 0, "No topo v<sub>y</sub> = 0, mas vₓ continua a mesma de sempre; a aceleração é −g."],
+ ["Em que ângulo o alcance é máximo (sai e cai na mesma altura)?", ["90°", "45°", "30°", "60°"], 1, "R = v₀² sen 2θ / g é máximo quando sen 2θ = 1, ou seja, θ = 45°."],
+ ["Dobrando a rapidez num movimento circular de mesmo raio, a aceleração centrípeta…", ["cai pela metade", "não muda", "quadruplica", "dobra"], 2, "a = v²/r: v dobra → v² fica 4 vezes maior."],
+ ["Qual força não faz trabalho num carrinho empurrado num piso horizontal?", ["o atrito", "a força de quem empurra", "todas fazem", "a normal"], 3, "A normal é perpendicular ao deslocamento: cos 90° = 0."],
+ ["Uma mola sai do relaxado e é comprimida x. O trabalho feito PELA mola é…", ["−½kx²", "+½kx²", "−kx²", "zero"], 0, "W<sub>mola</sub> = ½kxᵢ² − ½kx<sub>f</sub>² com xᵢ = 0 → −½kx² (a mola resiste)."],
+ ["1 kWh é unidade de…", ["corrente", "energia", "potência", "força"], 1, "kW × h = potência × tempo = energia: 3,6 × 10⁶ J."]
 ];
 
 /* ===== quiz ===== */
@@ -1121,10 +1799,10 @@ function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHT
   box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i], bs=c.querySelectorAll('button');
     const show=j=>{ bs.forEach((b,k)=>{ b.disabled=true; if(k===q[2])b.classList.add('right'); else if(k===j)b.classList.add('wrong') }); const w=c.querySelector('.why'); w.hidden=false; w.innerHTML=(j===q[2]?'<b style="color:var(--ok)">Certo!</b> ':'<b style="color:var(--bad)">Quase.</b> ')+q[3] };
     bs.forEach(b=>b.onclick=()=>{ qa[i]=+b.dataset.j; show(qa[i]); score(); save() }); if(qa[i]!==undefined)show(qa[i]) }); score() }
-function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · pronto para a prova!':ok>=9?' · quase lá':' · revise os módulos'):'') }
+function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=QUIZ.length*.8?' · pronto para a prova!':ok>=QUIZ.length*.6?' · quase lá':' · revise os módulos'):'') }
 
 /* ===== progresso ===== */
-const MODS=[['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops'],['potencial','Energia potencial','U = mgy, U = ½kx² e forças conservativas'],['conserva','Conservação da energia','K + U constante, tobogãs e molas'],['mola','Sistema massa-mola','Lei de Hooke, ciclo −xm ↔ +xm, v máx em x0'],['curva','Curva de energia potencial','Retorno, equilíbrio e F = −dU/dx'],['termica','Energia térmica e potência','Atrito, ΔEt e P = ΔE/Δt']];
+const MODS=[['unidades','Medidas e unidades','SI, prefixos e conversão'],['posicao','Posição e deslocamento','Δx, velocidade e rapidez médias'],['velinst','Velocidade instantânea','v = dx/dt e a regra do tombo'],['acel','Aceleração','a = dv/dt e o sinal que engana'],['muv','Aceleração constante','As 5 equações e a receita'],['queda','Queda livre','a = −g e a bola jogada para cima'],['graficos','Gráficos','Inclinação e área'],['vetores','Vetores','Componentes, módulo e ângulo'],['unitarios','Vetores unitários','î, ĵ, k̂ e soma por componentes'],['produtos','Produtos de vetores','Escalar e vetorial'],['mov2d','Movimento em 2D e 3D','r⃗, v⃗ e a⃗ por eixo'],['projetil','Projéteis','Dois movimentos independentes'],['mcu','Movimento circular uniforme','a = v²/r e o período'],['relativo','Movimento relativo','A velocidade depende de quem olha'],['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops'],['trabalho','Energia cinética e trabalho','K = ½mv², W = Fd cos φ e W = ΔK'],['wpeso','Trabalho do peso e da mola','−mgh, Hooke e ½kx²'],['wvar','Força variável e potência','Área do gráfico e P = W/Δt'],['potencial','Energia potencial','U = mgy, U = ½kx² e forças conservativas'],['conserva','Conservação da energia','K + U constante, tobogãs e molas'],['mola','Sistema massa-mola','Lei de Hooke, ciclo −xm ↔ +xm, v máx em x0'],['curva','Curva de energia potencial','Retorno, equilíbrio e F = −dU/dx'],['termica','Energia térmica e potência','Atrito, ΔEt e P = ΔE/Δt']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('fis-done')||'{}'); qa=JSON.parse(localStorage.getItem('fis-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('fis-done',JSON.stringify(done)); localStorage.setItem('fis-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -1137,7 +1815,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getEl
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ===== rotas ===== */
-const VIEWS=['inicio','forcas','newton','aplic','atrito','arrasto','circular','potencial','conserva','mola','curva','termica','lab','problemas','quiz','cola'];
+const VIEWS=['inicio','unidades','posicao','velinst','acel','muv','queda','graficos','vetores','unitarios','produtos','mov2d','projetil','mcu','relativo','forcas','newton','aplic','atrito','arrasto','circular','trabalho','wpeso','wvar','potencial','conserva','mola','curva','termica','lab','problemas','quiz','cola'];
 let sims=[];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
@@ -1352,6 +2030,8 @@ sims=[somaCv,dragCv,
   CurveSim(document.getElementById('labCurve'),document.getElementById('labCurveCtl'),document.getElementById('labCurveOut'))];
 sims.push(SpringSim(document.getElementById('springSim'),document.getElementById('springCtl'),document.getElementById('springGo'),document.getElementById('springOut'),[...document.querySelectorAll('[data-sp]')]),
   UTrackSim(document.getElementById('uTrack'),document.getElementById('uTrackGo'),document.getElementById('uTrackMu')));
+sims.push(MuvSim(document.getElementById('muvSim'),document.getElementById('muvCtl'),document.getElementById('muvGo'),document.getElementById('muvReset')),
+  ProjSim(document.getElementById('projSim'),document.getElementById('projCtl'),document.getElementById('projGo'),document.getElementById('projOut')));
 renderQuiz(); renderProg();
 addEventListener('hashchange',route); route();
 const redraw=()=>sims.forEach(s=>s&&s.draw());
@@ -1370,6 +2050,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="fis1"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
+<script src="../../dados/quadros-fis1.js?v=2"></script>
 <script src="../../js/quadro.js?v=8" data-materia="fis1"></script>
 </body>
 </html>

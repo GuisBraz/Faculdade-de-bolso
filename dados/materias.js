@@ -103,11 +103,13 @@ window.FACULDADE = {
           ] },
         { id: "fis1", sigla: "Física I", nome: "Física I", ch: 60, icone: "fisica", area: "f", arquivos: [
             {
-              titulo: "Oficina de Física · Força, Movimento e Energia",
+              titulo: "Oficina de Física · Movimento, Força e Energia",
               tipo: "site",
               caminho: "materias/fis1/oficina-de-fisica.html",
               ciclo: "2ª Prova", ate: "2026-11-04",
               atualizacoes: [
+                { data: "2026-11-23", texto: "Novo Módulo 1 (capítulos 2, 3 e 4) com 14 aulas do zero: unidades, posição, velocidade, aceleração, as 5 equações, queda livre, gráficos, vetores, produtos, movimento 2D, projéteis, circular uniforme e relativo. Simuladores de aceleração constante e de projéteis." },
+                { data: "2026-11-23", texto: "Módulo 2 completo até o capítulo 8: entrou o capítulo 7 (energia cinética e trabalho, trabalho do peso e da mola, força variável e potência). Todos os 33 exemplos novos com Ver no quadro e 14 perguntas novas no quiz." },
             { data: "2026-11-08", texto: "Novo laboratório-jogo Oficina de Newton: rampa, máquina de Atwood, mola, puxão e pêndulo com diagrama de corpo livre ao vivo, missões e álbum." },
                 { data: "2026-10-28", texto: "Criada com os capítulos 5 e 6 (Força e Movimento I e II)." },
                 { data: "2026-10-28", texto: "Incluído o capítulo 8 (Energia Potencial e Conservação da Energia)." },
