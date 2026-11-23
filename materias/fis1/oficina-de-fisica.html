@@ -1646,6 +1646,9 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
   <div class="ex" data-ex data-q="fis-c3"><div class="q">Uma bola de 1,0 kg a 6,0 m/s bate de frente, elasticamente, numa bola de 2,0 kg parada. Velocidades depois?</div>
     <ol><li>Elástica e alvo parado: use as fórmulas 12.9.</li><li>v₁f = (1,0 − 2,0)/(3,0) · 6,0 = −2,0 m/s (volta).</li><li>v₂f = 2 · 1,0/3,0 · 6,0 = +4,0 m/s.</li><li>Confere momento: 1,0·6,0 = 6,0 · depois 1,0·(−2,0) + 2,0·4,0 = 6,0 ✓</li><li>Confere energia: antes ½·1·36 = 18 J · depois ½·1·4 + ½·2·16 = 2 + 16 = 18 J ✓</li></ol>
     <div class="ans">v₁f = −2,0 m/s · v₂f = +4,0 m/s</div></div>
+  <div class="ex" data-ex data-q="fis-c4"><div class="q">Da aula · 23/11: um carro de 1,5 t a 100 km/h colide frontalmente com um caminhão carregado, de massa total 20 t, que viaja em sentido contrário a 80 km/h. Após a colisão os dois permanecem juntos. Calcule a velocidade final do conjunto.</div>
+    <ol><li>Saem juntos → colisão completamente inelástica. Sentido +: o do carro. Então o caminhão vai a −80 km/h.</li><li>Massas em kg: carro 1 500 kg · caminhão 20 000 kg · total 21 500 kg. Velocidades em m/s (÷ 3,6): carro +27,78 · caminhão −22,22.</li><li>Momento antes: 1 500 · 27,78 + 20 000 · (−22,22) = 41 667 − 444 444 = −402 778 kg·m/s.</li><li>P antes = P depois: V = −402 778 / 21 500 ≈ −18,7 m/s ≈ −67,4 km/h. O sinal − diz: o conjunto anda no sentido em que o caminhão vinha.</li><li>Atalho: como as unidades se cancelam na fração, dá para fazer em t e km/h direto: V = (1,5 · 100 − 20 · 80)/21,5 = −1 450/21,5 ≈ −67,4 km/h.</li><li>Por que o carro leva a pior: a velocidade dele muda de +100 para −67,4 km/h (Δv ≈ 167 km/h), e a do caminhão só de −80 para −67,4 (Δv ≈ 12,6 km/h). O impulso é o mesmo nos dois (3ª lei), mas o carro tem pouca massa.</li></ol>
+    <div class="ans">V ≈ 18,7 m/s ≈ 67,4 km/h, no sentido do caminhão</div></div>
   <div class="calc" data-calc="colisao"><h4>Simulador de colisão em 1D</h4><p class="hint">Velocidades com sinal (+ para a direita). Escolha o tipo.</p>
     <div class="fields"><label>m₁ (kg) <input type="text" id="co-m1" value="1"></label><label>v₁ antes (m/s) <input type="text" id="co-v1" value="6"></label><label>m₂ (kg) <input type="text" id="co-m2" value="2"></label><label>v₂ antes (m/s) <input type="text" id="co-v2" value="0"></label>
       <label>tipo <select id="co-t"><option value="e">elástica</option><option value="c">completamente inelástica</option><option value="i">inelástica (e = 0,5)</option></select></label></div>
@@ -2262,7 +2265,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="fis1"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-fis1.js?v=3"></script>
+<script src="../../dados/quadros-fis1.js?v=4"></script>
 <script src="../../js/quadro.js?v=8" data-materia="fis1"></script>
 </body>
 </html>
