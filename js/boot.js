@@ -18,7 +18,7 @@ let hubIniciado=null;
 const iniciarHub=()=>{ if(hubIniciado) return hubIniciado; tirarAviso(); return hubIniciado=carregar('js/hub.js') };
 /* nunca deixar a tela em branco: aviso de carregamento, limite de tempo para a rede e um "plano B" */
 const limite=(p,ms,reserva)=>Promise.race([Promise.resolve(p).catch(()=>reserva),new Promise(ok=>setTimeout(()=>ok(reserva),ms))]);
-const TEMPO={sessao:5000,consulta:5000,total:12000};
+const TEMPO={sessao:4000,consulta:3500,total:10000};
 let aviso=null;
 function porAviso(){ if(aviso||!document.body) return; aviso=document.createElement('div'); aviso.id='bootAviso'; aviso.setAttribute('role','status');
   aviso.style.cssText='position:fixed;inset:0;display:grid;place-items:center;z-index:50;pointer-events:none;font:600 15px system-ui,sans-serif;color:#C9D4E3';
@@ -48,7 +48,11 @@ carregar(CFG.lib||'js/vendor/supabase-2.117.3.js').then(()=>{
   const sb=window.supabase.createClient(CFG.url,CFG.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   window.FDB_SB=sb;
   const sessaoGuardada=()=>{ try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^sb-.*-auth-token$/.test(k)){ const v=JSON.parse(localStorage.getItem(k)); if(v&&v.user) return v.user } } }catch(e){} return null };
-  limite(sb.auth.getSession(),TEMPO.sessao,'tempo').then(r=>{ if(r==='tempo'||!r){ const u=sessaoGuardada(); return u?entrar(u):publico() } const s=r.data&&r.data.session; if(s) entrar(s.user); else publico() });
+  /* caminho rápido: já entrou antes neste aparelho → abre o hub na hora com a cópia guardada
+     e confere a conta em segundo plano (se algo mudou, aparece um aviso para atualizar) */
+  const u0=sessaoGuardada(), cp0=(()=>{ try{ return JSON.parse(localStorage.getItem(CACHE_PAPEL)||'null') }catch(e){ return null } })();
+  if(u0&&cp0&&cp0.uid===u0.id) Promise.resolve().then(()=>entrarRapido(u0,cp0.papel)); /* microtarefa: roda depois que todas as funções abaixo existirem */
+  else limite(sb.auth.getSession(),TEMPO.sessao,'tempo').then(r=>{ if(r==='tempo'||!r){ const u=sessaoGuardada(); return u?entrar(u):publico() } const s=r.data&&r.data.session; if(s) entrar(s.user); else publico() });
   /* sem login: modo estudante público (oficinas do semestre + cartas, progresso só neste aparelho) */
   function publico(){ window.FDB_MODE='visitante'; mostrarLogin(false); const c=$('conta'); c.hidden=false;
     c.innerHTML='<button type="button" id="entrarBtn">Entrar</button>'; $('entrarBtn').onclick=telaLogin; iniciarHub() }
@@ -77,6 +81,31 @@ carregar(CFG.lib||'js/vendor/supabase-2.117.3.js').then(()=>{
     if(/password/i.test(m)&&/(short|least|weak)/i.test(m)) return 'Senha fraca: use pelo menos 8 caracteres, misturando letras e números.'; if(/signups? not allowed|disabled/i.test(m)) return 'Novas contas estão desativadas no momento.'; return m }
 
   /* ----- depois de entrar ----- */
+  function avisoAtualizar(){ if(document.getElementById('fdbAtu')) return; const d=document.createElement('div'); d.id='fdbAtu'; d.setAttribute('role','status');
+    d.style.cssText='position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:60;background:#13233A;color:#fff;border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:10px 14px;font:600 14px system-ui,sans-serif;box-shadow:0 8px 28px rgba(0,0,0,.35);display:flex;gap:12px;align-items:center';
+    d.innerHTML='Sua conta trouxe dados novos.<button type="button" style="background:#F07A2E;color:#fff;border:0;border-radius:8px;padding:6px 12px;font:700 13px system-ui;cursor:pointer">Atualizar</button><button type="button" aria-label="Fechar" style="background:none;border:0;color:#fff;font-size:18px;cursor:pointer;opacity:.7">×</button>';
+    d.querySelectorAll('button')[0].onclick=()=>location.reload(); d.querySelectorAll('button')[1].onclick=()=>d.remove(); document.body.appendChild(d) }
+  function entrarRapido(user,papel){
+    const lerC=k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null') }catch(e){ return null } };
+    const c=lerC(CACHE_P); if(papel==='admin'&&c&&c.uid===user.id) aplicarPrivado(c.rows||[]);
+    window.FDB_MODE=papel==='admin'?'admin':'visitante';
+    mostrarLogin(false); barraConta(user,papel); iniciarHub();
+    /* segundo plano: renova a sessão, confere papel e dados pessoais e sincroniza o progresso */
+    (async()=>{
+      const r=await limite(sb.auth.getSession(),20000,null);
+      if(r&&r.data&&!r.data.session){ [CACHE_P,CACHE_PAPEL].forEach(k=>{ try{ localStorage.removeItem(k) }catch(e){} }); location.reload(); return }
+      const [rp,rv,puxou]=await Promise.all([
+        limite(sb.from('perfis').select('papel').eq('id',user.id).maybeSingle(),20000,null),
+        limite(sb.from('privado').select('chave,valor'),20000,null),
+        limite(sync(user).catch(e=>{ console.warn('sync',e); return false }),20000,false)]);
+      let mudou=!!puxou;
+      if(rp&&rp.data&&rp.data.papel){ if(rp.data.papel!==papel) mudou=true; try{ localStorage.setItem(CACHE_PAPEL,JSON.stringify({uid:user.id,papel:rp.data.papel})) }catch(e){} }
+      if(rv&&!rv.error&&rv.data&&rv.data.length){ const novo=JSON.stringify(rv.data), velho=JSON.stringify((c&&c.rows)||null); if(novo!==velho){ if(papel==='admin') mudou=true; try{ localStorage.setItem(CACHE_P,JSON.stringify({uid:user.id,rows:rv.data})) }catch(e){} } }
+      barraConta(user,(rp&&rp.data&&rp.data.papel)||papel);
+      if(mudou) avisoAtualizar();
+      setInterval(()=>sync(user).then(()=>barraConta(user,papel)).catch(()=>{}),60*1000);
+      document.addEventListener('visibilitychange',()=>{ if(document.visibilityState==='hidden') sync(user).catch(()=>{}); else sync(user).then(()=>barraConta(user,papel)).catch(()=>{}) });
+    })() }
   async function entrar(user){ msg('Carregando…');
     const lerC=k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null') }catch(e){ return null } }, gravarC=(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)) }catch(e){} };
     const cp=lerC(CACHE_PAPEL); let papel=(cp&&cp.uid===user.id&&cp.papel)||'visitante';
@@ -116,19 +145,20 @@ carregar(CFG.lib||'js/vendor/supabase-2.117.3.js').then(()=>{
     if(r&&l&&typeof r==='object'&&typeof l==='object') return {...r,...l}; return l }
   let rodando=null;
   function sync(user){ if(rodando) return rodando; rodando=(async()=>{
-    let meta={}; try{ meta=JSON.parse(lsGet(META)||'{}') }catch(e){}
+    let puxou=false; let meta={}; try{ meta=JSON.parse(lsGet(META)||'{}') }catch(e){}
     if(meta.uid&&meta.uid!==user.id){ limparLocal(); meta={} } meta.uid=user.id; meta.snap=meta.snap||{}; meta.rts=meta.rts||{};
     const {data,error}=await sb.from('estado').select('chave,valor,atualizado'); if(error) throw error;
     const R={}; (data||[]).forEach(r=>R[r.chave]=r);
     const envio=[]; const todos=new Set([...chaves(),...Object.keys(R).filter(k=>SYNC.test(k))]);
     todos.forEach(k=>{ const L=lsGet(k), r=R[k], sujo=L!=null&&hash(L)!==meta.snap[k], mudou=!!r&&r.atualizado!==meta.rts[k];
-      if(r&&!sujo){ if(mudou||L==null){ const v=JSON.stringify(r.valor); lsSet(k,v); meta.snap[k]=hash(v); meta.rts[k]=r.atualizado; if(k==='fdb-anki'&&window.FDB_ANKI) FDB_ANKI.substituir(r.valor) } }
+      if(r&&!sujo){ if(mudou||L==null){ const v=JSON.stringify(r.valor); if(v!==L) puxou=true; lsSet(k,v); meta.snap[k]=hash(v); meta.rts[k]=r.atualizado; if(k==='fdb-anki'&&window.FDB_ANKI) FDB_ANKI.substituir(r.valor) } }
       else if(sujo){ let v; try{ v=JSON.parse(L) }catch(e){ return }
-        if(r&&mudou){ v=juntar(k,r.valor,v); const s=JSON.stringify(v); lsSet(k,s); if(k==='fdb-anki'&&window.FDB_ANKI) FDB_ANKI.substituir(v) }
+        if(r&&mudou){ v=juntar(k,r.valor,v); const s=JSON.stringify(v); if(s!==L) puxou=true; lsSet(k,s); if(k==='fdb-anki'&&window.FDB_ANKI) FDB_ANKI.substituir(v) }
         envio.push({usuario:user.id,chave:k,valor:v,atualizado:new Date().toISOString()}) } });
     if(envio.length){ const {data:up,error:e2}=await sb.from('estado').upsert(envio,{onConflict:'usuario,chave'}).select('chave,valor,atualizado'); if(e2) throw e2;
       (up||[]).forEach(r=>{ meta.rts[r.chave]=r.atualizado; meta.snap[r.chave]=hash(lsGet(r.chave)||JSON.stringify(r.valor)) }) }
     lsSet(META,JSON.stringify(meta)); ultimo=new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+    return puxou;
   })().finally(()=>{ rodando=null }); return rodando }
 }).catch(e=>{ console.error(e); window.FDB_MODE='local'; $('app').hidden=false; document.querySelector('.topbar').hidden=false;
   iniciarHub() });
