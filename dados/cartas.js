@@ -620,4 +620,18 @@ window.FDB_CARTAS = [
   { id:"ingl-tec-shop-drawing", m:"ingl", lang:"en", u:"tecnico", t:"Inglês técnico", f:"shop drawing", v:"desenho de fabricação" },
   { id:"ingl-tec-nesting", m:"ingl", lang:"en", u:"tecnico", t:"Inglês técnico", f:"nesting", v:"aninhamento (encaixe de peças na chapa)" },
   /* ===== FIM INGLÊS ===== */
+  { id:"dt1-001", m:"dt1", t:"Coordenadas", f:"O que é coordenada absoluta?", v:"X,Y medidos a partir da origem 0,0. Ex.: 40,10." },
+  { id:"dt1-002", m:"dt1", t:"Coordenadas", f:"O que significa o @?", v:"Relativo ao último ponto: @ΔX,ΔY anda ΔX para o lado e ΔY para cima." },
+  { id:"dt1-003", m:"dt1", t:"Coordenadas", f:"Como é a coordenada polar?", v:"@distância<ângulo. Ângulo a partir do eixo X (0° à direita), sentido anti-horário." },
+  { id:"dt1-004", m:"dt1", t:"Coordenadas", f:"Qual o separador decimal no AutoCAD?", v:"Ponto (5.6). A vírgula separa X de Y." },
+  { id:"dt1-005", m:"dt1", t:"Desenho", f:"POLYGON inscrito × circunscrito?", v:"I: raio até o vértice. C: raio até o meio do lado (para sextavado pela chave, raio = chave ÷ 2)." },
+  { id:"dt1-006", m:"dt1", t:"Precisão", f:"Teclas F3, F7, F8 e F12?", v:"F3 OSNAP · F7 GRID · F8 ORTHO · F12 Dynamic Input." },
+  { id:"dt1-007", m:"dt1", t:"Precisão", f:"Para que serve o FROM?", v:"Começar um ponto a um deslocamento (@ΔX,ΔY) de um ponto base, sem linha auxiliar." },
+  { id:"dt1-008", m:"dt1", t:"Modificar", f:"OFFSET, TRIM e EXTEND fazem o quê?", v:"OFFSET: cópia paralela a uma distância. TRIM: corta o pedaço entre fronteiras. EXTEND: prolonga até a próxima fronteira." },
+  { id:"dt1-009", m:"dt1", t:"Layers", f:"O que é ByLayer?", v:"A propriedade (cor, tipo, espessura) vem do layer; mudar o layer muda todos os objetos dele." },
+  { id:"dt1-010", m:"dt1", t:"Layers", f:"O que o LTSCALE controla?", v:"O tamanho dos traços dos tipos de linha (centro, tracejada) no arquivo inteiro." },
+  { id:"dt1-011", m:"dt1", t:"Hachura", f:"ANSI31, ANSI32 e ANSI33?", v:"31: ferro fundido / geral · 32: aço · 33: bronze, latão, cobre." },
+  { id:"dt1-012", m:"dt1", t:"Escalas", f:"Como achar a escala do viewport?", v:"XP = 1/n. Em 1:10: Z ↵ 0.1XP." },
+  { id:"dt1-013", m:"dt1", t:"Escalas", f:"Altura de texto no model sem annotative?", v:"h_model = h_papel × n (2,5 mm em 1:10 → 25)." },
+  { id:"dt1-014", m:"dt1", t:"Caldeiraria", f:"Comprimento planificado de uma virola?", v:"π × diâmetro médio, com Dm = Dext − espessura." },
 ];

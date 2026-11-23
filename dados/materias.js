@@ -43,7 +43,17 @@ window.FACULDADE = {
       numero: 1, ch: 285,
       materias: [
         { id: "soc", sigla: "Sociologia", nome: "Introdução à Sociologia", ch: 30, icone: "pessoas", area: "h", arquivos: [] },
-        { id: "dt1", sigla: "Desenho I", nome: "Desenho Técnico I", ch: 60, icone: "desenho", area: "d", arquivos: [] },
+        { id: "dt1", sigla: "Desenho I", nome: "Desenho Técnico I", ch: 60, icone: "desenho", area: "d", arquivos: [
+            {
+              titulo: "Oficina de AutoCAD · do iniciante ao avançado",
+              tipo: "site",
+              caminho: "materias/desenho/oficina-de-autocad.html",
+              data: "2026-11-23",
+              atualizacoes: [
+                { data: "2026-11-23", texto: "Oficina criada a partir dos slides de Desenho Assistido por Computador (1ª parte e 2ª etapa): 17 aulas em 3 módulos (iniciante, intermediário, avançado), simulador de AutoCAD com linha de comando, os 8 exercícios de coordenadas dos slides como desafios que se conferem sozinhos, quadros resolvidos, calculadoras de escala da folha e de planificação, quiz e cola." }
+              ]
+            }
+          ] },
         { id: "cm1", sigla: "Materiais I", nome: "Ciência dos Materiais I", ch: 30, icone: "materiais", area: "m", arquivos: [] },
         { id: "ieng", sigla: "Intro Eng.", nome: "Introdução à Engenharia", ch: 30, icone: "engrenagem", area: "e", arquivos: [] },
         { id: "calc1", sigla: "Cálculo I", nome: "Cálculo I", ch: 75, icone: "calculo", area: "a", arquivos: [] },

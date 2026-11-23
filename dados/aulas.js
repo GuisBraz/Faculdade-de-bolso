@@ -125,6 +125,30 @@ window.FDB_AULAS = {
     temas: { 1: "Estrutura atômica e tabela periódica", 2: "Ligações químicas, geometria e forças intermoleculares", 3: "Reações, estequiometria, soluções e eletroquímica" },
     sobre: "Química Geral estuda a matéria e as suas transformações: do que as coisas são feitas, como os átomos se combinam e quanto de cada substância reage. Na engenharia ela aparece na corrosão, na soldagem, na combustão, no tratamento de água e na escolha de materiais.",
     lab_nome: "Laboratório de descobertas", lab_desc: "Junte átomos da tabela periódica e descubra 325 substâncias reais.", lab_estrela: true },
+  dt1: { pag: "materias/desenho/oficina-de-autocad.html", simbolo: "⌖", lista: "treino1", lab: "lab", quiz: "quiz", cola: "cola",
+    modulos: { 1: [
+      ["tela", "A tela do AutoCAD", "Regiões, mouse, linha de comando e seleção"],
+      ["coord", "Coordenadas", "Absolutas, relativas @ e polares @d<θ"],
+      ["desenho", "Comandos de desenho", "LINE, PLINE, CIRCLE, REC, POLYGON"],
+      ["precisao", "Ferramentas de precisão", "Teclas F, OSNAP, FROM e M2P"],
+      ["treino1", "Treino 1", "Os desenhos de coordenadas dos slides no simulador"]
+    ], 2: [
+      ["modificar", "Comandos de modificação", "OFFSET, TRIM, MIRROR, FILLET, ARRAY e SCALE com referência"],
+      ["layers", "Layers", "O padrão da professora, ByLayer e LTSCALE"],
+      ["hachura", "Hachuras", "Padrões ANSI por material e áreas fechadas"],
+      ["cotas", "Cotas e texto", "Tipos de cota, NBR 10126 e tamanho no papel"],
+      ["vistas", "Vistas no CAD", "1º diedro com XLINE e desenho isométrico"],
+      ["treino2", "Treino 2", "Desafios que pedem modificação"]
+    ], 3: [
+      ["blocos", "Blocos e atributos", "Biblioteca, blocos dinâmicos e lista de materiais"],
+      ["layout", "Escalas e impressão", "Layout, viewport, annotative e as fórmulas da folha"],
+      ["parametrico", "Desenho paramétrico", "Restrições, fórmulas, campos e 'CAL"],
+      ["caldeiraria", "Caldeiraria no CAD", "Planificação de virola, cone e cotovelo"],
+      ["automacao", "Automação", "Atalhos próprios, scripts e AutoLISP"],
+      ["produtividade", "Fluxo profissional", "QSELECT, XREF, OVERKILL e template"]
+    ] },
+    temas: { 1: "Iniciante: primeiro contato e coordenadas", 2: "Intermediário: modificar, layers, hachura, cotas e vistas", 3: "Avançado: blocos, escalas, paramétrico, caldeiraria e automação" },
+    sobre: "Desenho Técnico I passa do esquadro para o CAD: a representação gráfica 2D de peças no AutoCAD, com coordenadas, comandos de desenho e modificação, layers, hachuras e cotas. É a base de todo desenho de fabricação que o engenheiro mecânico lê e produz." },
   cm2: { pag: "materias/materiais/oficina-de-materiais.html", simbolo: "◈", lista: null, lab: null, quiz: "quiz", cola: "cola", unico: true,
     modulos: { 1: [
       ["ceramicos", "Materiais cerâmicos", "Propriedades e classificação pela aplicação"],

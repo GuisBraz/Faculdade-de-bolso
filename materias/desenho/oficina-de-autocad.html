@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' data: https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' data: blob: https:; connect-src 'self' https://*.supabase.co wss://*.supabase.co; frame-src https://open.spotify.com https://www.youtube.com; worker-src 'self' blob:; manifest-src 'self'; base-uri 'self'; form-action 'self'; object-src 'none'">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Oficina de AutoCAD · Desenho I</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@500;600;700;800&amp;family=Inter:wght@400;500;600;700&amp;family=Caveat:wght@500;700&amp;family=JetBrains+Mono:wght@400;600&amp;family=STIX+Two+Text:ital,wght@0,500;1,500&amp;display=swap">
+<link rel="icon" type="image/png" href="../../icons/logo-favicon-64.png">
+<meta name="claude:viewport-fit-sides" content="cover">
+<style>
+/* Oficina de AutoCAD (Desenho Técnico I): mesma base visual das oficinas */
+:root{
+  --paper:#EEF2F5; --sheet:#FFFFFF; --ink:#13233A; --ink2:#4B5C71; --line:#CFD9E2; --grid:rgba(19,35,58,.055);
+  --c1:#D9531A; --c2:#0C8587; --c3:#6447BE; --ok:#2A7F3E; --bad:#BF3328; --hl:rgba(217,83,26,.10); --hl2:rgba(12,133,135,.10);
+  --f-disp:"Bricolage Grotesque", "Trebuchet MS", system-ui, sans-serif, "Cambria Math", "STIX Two Text";
+  --f-body:"Atkinson Hyperlegible", "Segoe UI", system-ui, sans-serif, "Cambria Math", "STIX Two Text", "Segoe UI Symbol";
+  --f-mono:"JetBrains Mono", ui-monospace, Consolas, monospace, "Cambria Math", "STIX Two Text";
+  --f-math:"STIX Two Text", "Cambria Math", "Times New Roman", serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#0B1624; --sheet:#112034; --ink:#E4EDF6; --ink2:#9BAFC4; --line:#24384F; --grid:rgba(140,185,230,.07);
+  --c1:#FF7B3F; --c2:#3CC6C8; --c3:#A88CFF; --ok:#5DC46F; --bad:#FF6E61; --hl:rgba(255,123,63,.13); --hl2:rgba(60,198,200,.12); color-scheme:dark}
+
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+body{margin:0}
+img{max-width:100%}
+:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+body{background:var(--paper);color:var(--ink);font:16px/1.6 var(--f-body);
+  background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size:24px 24px;}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--sheet)}
+h1,h2,h3{font-family:var(--f-disp);line-height:1.15;text-wrap:balance;margin:0}
+h2{font-size:clamp(1.7rem,5vw,2.4rem);font-weight:800;letter-spacing:-.01em}
+h3{font-size:1.25rem;font-weight:700;margin-top:2.2rem}
+p{margin:.6rem 0}
+a{color:var(--c2)}
+i.m,.m{font-family:var(--f-math);font-style:italic}
+:focus-visible{outline:2.5px solid var(--c1);outline-offset:2px}
+
+/* header */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--sheet);border-bottom:1px solid var(--line)}
+.hwrap{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:10px 0}
+.brand{display:flex;align-items:center;gap:10px;justify-content:space-between}
+.brand a{font-family:var(--f-disp);font-weight:800;font-size:1.15rem;color:var(--ink);text-decoration:none;display:flex;align-items:center;gap:8px}
+.logo{width:26px;height:26px}
+.prog{font-family:var(--f-mono);font-size:.75rem;color:var(--ink2);display:flex;align-items:center;gap:8px}
+.bar{width:90px;height:6px;border-radius:3px;background:var(--line);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c2);width:0;transition:width .4s}
+nav{display:flex;gap:4px;overflow-x:auto;padding-block:8px;scrollbar-width:none}
+nav::-webkit-scrollbar{display:none}
+nav a{flex:none;font-size:.86rem;font-weight:700;text-decoration:none;color:var(--ink2);padding:6px 11px;border-radius:999px;border:1px solid transparent;white-space:nowrap}
+nav a:hover{color:var(--ink);border-color:var(--line)}
+nav a.on{background:var(--ink);color:var(--sheet)}
+nav a .dn{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--ok);margin-left:5px;vertical-align:middle}
+
+main{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 80px}
+.view{display:block}
+.read{max-width:700px}
+.eyebrow{font-family:var(--f-mono);font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c1);font-weight:600}
+.lede{font-size:1.12rem;color:var(--ink2);max-width:62ch}
+
+/* hero */
+.hero{display:grid;grid-template-columns:1.1fr 1fr;gap:28px;align-items:center;margin-bottom:36px}
+.hero h1{font-size:clamp(2.2rem,7vw,3.9rem);font-weight:800;letter-spacing:-.025em}
+.hero h1 em{font-style:normal;color:var(--c1)}
+.hero .cv{aspect-ratio:1/1;max-width:100%}
+@media (max-width:720px){.hero{grid-template-columns:1fr}}
+
+/* trilha */
+.trail{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;margin-top:18px}
+.stop{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;align-items:start;padding:14px 16px;background:var(--sheet);border:1px solid var(--line);border-radius:10px;text-decoration:none;color:var(--ink);transition:transform .15s,border-color .15s}
+.stop:hover{transform:translateY(-2px);border-color:var(--c2)}
+.stop .n{grid-row:span 2;font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:30px;height:30px;border-radius:50%;display:grid;place-items:center;border:1.5px solid var(--ink2);color:var(--ink2)}
+.stop.done .n{background:var(--ok);border-color:var(--ok);color:var(--sheet)}
+.stop b{font-family:var(--f-disp);font-size:1.05rem}
+.stop span{font-size:.88rem;color:var(--ink2);line-height:1.4}
+
+/* blocos */
+.fx{position:relative;background:var(--sheet);border:1.5px solid var(--ink);border-radius:4px;margin:20px 0;padding:30px 18px 16px;overflow-x:auto}
+.fx .tag{position:absolute;top:0;left:0;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:var(--sheet);padding:3px 9px;border-bottom-right-radius:4px}
+.fx .eq{font-family:var(--f-math);font-size:1.45rem;text-align:center;padding:6px 0 10px;white-space:nowrap}
+.fx .eq i{font-style:italic}
+.legend{display:grid;grid-template-columns:auto 1fr;gap:4px 14px;font-size:.93rem;border-top:1px dashed var(--line);padding-top:10px;margin:0}
+.legend dt{font-family:var(--f-math);font-style:italic;font-size:1.05rem;color:var(--c1);white-space:nowrap}
+.legend dd{margin:0;color:var(--ink2)}
+.fr{display:inline-flex;flex-direction:column;vertical-align:middle;text-align:center;margin:0 .15em}
+.fr>span:first-child{border-bottom:1.5px solid currentColor;padding:0 .25em .05em}
+.fr>span:last-child{padding:.05em .25em 0}
+.rt{white-space:nowrap}.rt::before{content:"√"}.rt>span{border-top:1.5px solid currentColor;padding:0 .1em}
+.v{position:relative}
+.ofi{background:var(--hl2);border-radius:8px;padding:12px 16px;margin:18px 0}
+.ofi .k,.cuid .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--c2);display:block;margin-bottom:2px}
+.cuid{border:1px solid var(--line);background:var(--sheet);border-radius:8px;padding:12px 16px 12px;margin:18px 0;position:relative;overflow:hidden}
+.cuid::before{content:"";position:absolute;inset:0 0 auto;height:6px;background:repeating-linear-gradient(-45deg,#E8B511 0 8px,#1b1b1b 8px 16px)}
+.cuid .k{color:var(--c1);margin-top:4px}
+ol.recipe{counter-reset:s;list-style:none;padding:0;margin:14px 0;display:grid;gap:8px}
+ol.recipe>li{counter-increment:s;display:grid;grid-template-columns:30px 1fr;gap:10px;align-items:start}
+ol.recipe>li::before{content:counter(s);font-family:var(--f-mono);font-weight:600;font-size:.8rem;width:26px;height:26px;border-radius:50%;background:var(--c1);color:var(--sheet);display:grid;place-items:center;margin-top:1px}
+code,.mono{font-family:var(--f-mono);font-size:.9em}
+.tbl{overflow-x:auto;margin:14px 0}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--sheet)}
+th,td{border:1px solid var(--line);padding:7px 10px;text-align:left;vertical-align:top}
+th{font-family:var(--f-mono);font-size:.72rem;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+
+/* exemplo passo a passo */
+.ex{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:18px 0}
+.ex .q{font-weight:700}
+.ex ol{margin:10px 0 0;padding-left:1.3em;display:grid;gap:8px}
+.ex ol li{padding-left:4px}
+.ex ol li.hid{display:none}
+.ex .ans{display:none;margin-top:10px;padding:8px 12px;background:var(--hl);border-radius:6px;font-weight:700}
+.ex.all .ans{display:block}
+.btns{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
+button,.btn{font:700 .88rem var(--f-body);border-radius:8px;padding:8px 14px;cursor:pointer;border:1.5px solid var(--ink);background:var(--ink);color:var(--sheet)}
+button.ghost{background:transparent;color:var(--ink)}
+button:disabled{opacity:.4;cursor:default}
+button:hover:not(:disabled){filter:brightness(1.1)}
+
+/* calculadoras */
+.calc{background:var(--sheet);border:1.5px solid var(--c2);border-radius:10px;padding:16px;margin:24px 0}
+.calc h4{margin:0 0 4px;font-family:var(--f-disp);font-size:1.1rem;color:var(--c2)}
+.calc .hint{font-size:.85rem;color:var(--ink2);margin:0 0 10px}
+.fields{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:10px}
+.fields label{display:grid;gap:3px;font-size:.8rem;font-weight:700;color:var(--ink2)}
+input[type=text],select{font:500 1rem var(--f-mono);padding:8px 10px;border-radius:6px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:100%;min-width:0}
+input[type=text]:focus{border-color:var(--c2);outline:none}
+.out{margin-top:12px;border-top:1px dashed var(--line);padding-top:10px;font-size:.95rem}
+.out ol{margin:0;padding-left:1.3em;display:grid;gap:5px}
+.out .res{margin-top:8px;font-weight:700;padding:8px 12px;border-radius:6px;background:var(--hl2)}
+.out .err{color:var(--bad);font-weight:700}
+.seg{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px}
+.seg button{background:transparent;color:var(--ink2);border-color:var(--line);font-size:.82rem;padding:6px 11px}
+.seg button.on{background:var(--c2);border-color:var(--c2);color:var(--sheet)}
+.done-btn{margin-top:36px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding-top:18px;border-top:1px solid var(--line)}
+.done-btn button.isdone{background:var(--ok);border-color:var(--ok)}
+
+/* 3D */
+.cv{position:relative;width:100%;border:1px solid var(--line);border-radius:10px;background:var(--sheet);overflow:hidden;touch-action:none}
+.cv canvas{display:block;width:100%;height:100%;cursor:grab}
+.cv .ctl{position:absolute;right:8px;bottom:8px;display:flex;gap:6px}
+.cv .ctl button{padding:4px 10px;font-size:.85rem;background:var(--sheet);color:var(--ink);border-color:var(--line)}
+.cv .lbl{position:absolute;left:10px;top:8px;font-family:var(--f-mono);font-size:.7rem;color:var(--ink2)}
+.labgrid{display:grid;grid-template-columns:1.4fr 1fr;gap:18px;align-items:start}
+.labgrid .cv{aspect-ratio:4/3.4}
+@media (max-width:760px){.labgrid{grid-template-columns:1fr}}
+.presets{display:flex;flex-wrap:wrap;gap:6px}
+.presets button{font-size:.8rem;padding:6px 10px;background:transparent;color:var(--ink);border-color:var(--line)}
+.objlist{list-style:none;padding:0;margin:10px 0;display:grid;gap:6px;font-size:.88rem}
+.objlist li{display:flex;align-items:center;gap:8px;background:var(--paper);border-radius:6px;padding:6px 8px}
+.objlist li .sw{width:12px;height:12px;border-radius:3px;flex:none}
+.objlist li span{flex:1;min-width:0;font-family:var(--f-mono);font-size:.8rem;overflow-wrap:anywhere}
+.objlist li button{padding:2px 8px;font-size:.75rem;background:transparent;color:var(--bad);border-color:var(--line)}
+.inline-cv{aspect-ratio:16/10;margin:16px 0}
+
+/* fluxograma */
+.flow{display:grid;gap:10px;margin:16px 0}
+.node{background:var(--sheet);border:1.5px solid var(--ink);border-radius:8px;padding:10px 14px}
+.node b{font-family:var(--f-disp)}
+.branch{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.leaf{border-radius:8px;padding:10px 12px;font-size:.92rem;border:1.5px solid var(--line);background:var(--sheet)}
+.leaf b{display:block;font-family:var(--f-disp);font-size:1rem}
+.leaf.a b{color:var(--c1)}.leaf.b b{color:var(--c2)}.leaf.c b{color:var(--c3)}
+.arrow{text-align:center;font-family:var(--f-mono);color:var(--ink2);font-size:.8rem}
+@media (max-width:520px){.branch{grid-template-columns:1fr}}
+
+/* lista */
+.qitem{background:var(--sheet);border:1px solid var(--line);border-radius:10px;margin:12px 0;overflow:hidden}
+.qitem summary{cursor:pointer;padding:14px 16px;display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;list-style:none}
+.qitem summary::-webkit-details-marker{display:none}
+.qitem summary .qn{font-family:var(--f-mono);font-weight:600;font-size:.8rem;background:var(--ink);color:var(--sheet);border-radius:5px;padding:2px 8px;margin-top:2px}
+.qitem[open] summary{border-bottom:1px dashed var(--line)}
+.qitem .body{padding:6px 16px 16px}
+.qitem .tagt{font-family:var(--f-mono);font-size:.72rem;color:var(--c2);margin-top:4px;display:block}
+.part{margin-top:14px}
+.part h5{margin:0;font-family:var(--f-disp);font-size:1rem}
+
+/* quiz */
+.qz{background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:16px;margin:14px 0}
+.qz .opts{display:grid;gap:8px;margin-top:10px}
+.qz .opts button{text-align:left;background:var(--paper);color:var(--ink);border:1.5px solid var(--line);font-weight:400}
+.qz .opts button.right{border-color:var(--ok);background:color-mix(in srgb,var(--ok) 14%,var(--sheet))}
+.qz .opts button.wrong{border-color:var(--bad);background:color-mix(in srgb,var(--bad) 12%,var(--sheet))}
+.qz .why{margin-top:10px;font-size:.93rem;color:var(--ink2)}
+.score{position:sticky;top:calc(env(safe-area-inset-top,0px) + 96px);z-index:5;display:flex;justify-content:space-between;align-items:center;gap:10px;background:var(--ink);color:var(--sheet);border-radius:10px;padding:10px 16px;font-family:var(--f-mono);font-size:.9rem}
+.score button{background:var(--sheet);color:var(--ink);border-color:var(--sheet);padding:4px 10px;font-size:.8rem}
+
+/* cola */
+.cola{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.cola .fx{margin:0}
+.cola .fx .eq{font-size:1.2rem}
+.cola p{font-size:.85rem;color:var(--ink2);margin:6px 0 0}
+
+/* demo escalar */
+.dot2d{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:14px;margin:18px 0}
+.dot2d canvas{width:200px;height:200px;max-width:100%}
+.dot2d input[type=range]{width:100%;accent-color:var(--c1)}
+.verdict{font-family:var(--f-disp);font-size:1.2rem;font-weight:700}
+@media (max-width:520px){.dot2d{grid-template-columns:1fr;justify-items:center}}
+/* ===== widgets: produtos e retas ===== */
+.wid{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:16px;margin:18px 0}
+.wid h4{margin:0 0 4px;font-family:var(--f-disp)}
+.wid .sub{margin:0 0 12px;color:var(--ink2);font-size:.92rem}
+.wgrid{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:16px;align-items:start}
+.wgrid .cv{aspect-ratio:4/3.2}
+@media (max-width:760px){.wgrid{grid-template-columns:1fr}}
+.wctl label{display:block;font-family:var(--f-mono);font-size:.78rem;color:var(--ink2);margin:8px 0 2px}
+.wctl input[type=range]{width:100%;accent-color:var(--c1)}
+.wctl .row{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.wout{font-family:var(--f-mono);font-size:.88rem;line-height:1.7;background:var(--paper,transparent);border:1px dashed var(--line);border-radius:8px;padding:10px 12px;margin-top:10px}
+.wout b{font-family:var(--f-body)}
+.wout .big{font-family:var(--f-disp);font-size:1.15rem;font-weight:700}
+.chip3{display:inline-block;padding:1px 8px;border-radius:999px;font-weight:700;font-size:.78rem}
+.mesa{border-collapse:separate;border-spacing:4px;margin:6px 0;font-family:var(--f-mono);font-size:1rem}
+.mesa td{min-width:44px;text-align:center;padding:6px 4px;border-radius:6px;background:color-mix(in srgb,var(--line) 45%,transparent);transition:background .2s,color .2s,opacity .2s}
+.mesa td.h{background:none;color:var(--ink2);font-size:.75rem;min-width:26px}
+.mesa td.on1{background:var(--c1);color:#fff}
+.mesa td.on2{background:var(--c3);color:#fff}
+.mesa td.off{opacity:.28}
+.mesa td.p{background:color-mix(in srgb,var(--c2) 18%,transparent);color:var(--ink);font-weight:700}
+.fields3{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px 12px}
+.fields3 label{font-family:var(--f-mono);font-size:.78rem;color:var(--ink2)}
+.fields3 input{width:100%}
+.analog{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,210px),1fr));gap:10px;margin:14px 0}
+.analog button{all:unset;cursor:pointer;display:block;border:1.5px solid var(--line);border-radius:10px;padding:12px 14px;background:var(--sheet);transition:border-color .15s,transform .15s}
+.analog button:hover{transform:translateY(-2px)}
+.analog button[aria-pressed=true]{border-color:var(--c1);box-shadow:0 0 0 3px color-mix(in srgb,var(--c1) 18%,transparent)}
+.analog .em{font-size:1.6rem;line-height:1}
+.analog b{display:block;margin:4px 0 2px;font-family:var(--f-disp)}
+.analog span{font-size:.86rem;color:var(--ink2)}
+.cheque{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;font-size:.92rem;margin-top:8px}
+.cheque i{font-style:normal}
+.jogo .opts{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.jogo .fb{margin-top:10px;font-size:.93rem}
+.dinch{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 12px}
+.dinch button{font-size:.82rem;padding:6px 10px}
+.mesa td.q{background:transparent;border:1.5px dashed var(--line);color:var(--ink2)}
+.din .enun{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c2);border-radius:6px;padding:8px 12px;line-height:1.5}
+.din .enun .k{display:block;font-family:var(--f-mono);font-size:.66rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:2px}
+.wout .big{font-size:1.1rem}
+footer{max-width:960px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 30px;color:var(--ink2);font-size:.8rem;font-family:var(--f-mono)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+
+
+/* escala fluida: acompanha a resolução de cada tela e usa a largura toda */
+html{font-size:clamp(15px,calc(9.5px + .48vw),19px)}
+body{font-size:1rem}
+:root{--gut:clamp(16px,3vw,64px)}
+.hwrap,main,footer{max-width:1760px!important;padding-left:max(var(--gut),env(safe-area-inset-left,0px))!important;padding-right:max(var(--gut),env(safe-area-inset-right,0px))!important}
+.view.read{max-width:none}
+.view.read>p,.view.read>ul,.view.read>ol,.view.read>h2,.view.read>h3,p.read,ol.read{max-width:82ch}
+.lede{max-width:72ch}
+.cv.sim{max-height:82vh}
+.hero .cv{max-height:72vh;justify-self:center}
+@media (min-width:1200px){nav{flex-wrap:wrap;overflow:visible}}
+.aula{background:var(--sheet);border:1.5px solid var(--c1);border-radius:10px;padding:14px 16px;margin:22px 0;position:relative}
+.aula .k{font-family:var(--f-mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;font-weight:600;color:var(--sheet);background:var(--c1);padding:3px 8px;border-radius:4px;display:inline-block;margin-bottom:4px}
+.casos{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,300px),1fr));gap:14px;margin:12px 0}
+.casos figure{margin:0;border:1px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--paper)}
+.casos svg{width:100%;height:auto;max-height:230px;display:block;margin:0 auto}
+.casos figcaption{font-size:.88rem;color:var(--ink2);margin-top:6px}
+.qitem .enun{background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c2);border-radius:6px;padding:10px 14px;margin:12px 0 4px;line-height:1.55}
+.qitem .enun .k{display:block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:4px}
+.qitem h5.item{font-weight:600;line-height:1.45;max-width:90ch}
+/* ===== árvores de classificação (como no quadro) ===== */
+.arv{overflow-x:auto;padding:6px 0 10px;margin:14px 0}
+.arv .ul{display:flex;justify-content:center;padding-top:18px;position:relative}
+.arv>.ul{padding-top:0;width:max-content;min-width:100%;margin:0 auto}
+.arv .li{display:flex;flex-direction:column;align-items:center;position:relative;padding:18px 5px 0}
+.arv .li::before,.arv .li::after{content:"";position:absolute;top:0;width:50%;height:18px;border-top:2px solid var(--ink2)}
+.arv .li::before{right:50%}.arv .li::after{left:50%;border-left:2px solid var(--ink2)}
+.arv .li:only-child::before{display:none}.arv .li:only-child::after{border-top:0}
+.arv .li:first-child::before,.arv .li:last-child::after{border-top:0}.arv .li:last-child::after{border-left:0}.arv .li:last-child::before{border-right:2px solid var(--ink2);border-radius:0 6px 0 0}.arv .li:first-child::after{border-radius:6px 0 0 0}
+.arv .ul .ul::before{content:"";position:absolute;top:0;left:50%;height:18px;border-left:2px solid var(--ink2)}
+.arv>.ul>.li{padding-top:0}.arv>.ul>.li::before,.arv>.ul>.li::after{display:none}
+.arv .nd{display:inline-block;max-width:140px;padding:7px 10px;border-radius:10px;background:var(--sheet);border:1.5px solid var(--line);font-weight:700;font-size:.86rem;text-align:center;line-height:1.25;cursor:pointer;color:var(--ink);font-family:inherit}
+.arv .nd.raiz{background:var(--ink);color:var(--sheet);border-color:var(--ink);font-size:1rem;max-width:none}
+.arv .nd.on{border-color:var(--c1);box-shadow:0 0 0 3px var(--hl)}
+.arv-o{min-height:64px}
+@media (max-width:700px){.arv{overflow:visible}.arv>.ul{width:auto}
+  .arv .ul{display:block;padding:0 0 0 16px;margin:0 0 0 12px;border-left:2px solid var(--ink2)}.arv>.ul{border:0;margin:0;padding:0}.arv .ul .ul::before{display:none}
+  .arv .li{display:block;padding:5px 0 0 0}.arv .li::after{display:none}
+  .arv .li::before{display:block!important;content:"";position:absolute;left:-16px;top:22px;width:14px;height:0;border:0!important;border-top:2px solid var(--ink2)!important;border-radius:0!important}
+  .arv>.ul>.li::before{display:none!important}.arv .nd{text-align:left;max-width:none}}
+.cartoes{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:10px;margin:14px 0}
+.cartoes>div{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cartoes .em{font-size:1.5rem}.cartoes b{display:block;font-family:var(--f-disp);margin:2px 0}.cartoes span{color:var(--ink2);font-size:.92rem;line-height:1.45}
+.prop{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;margin:14px 0}
+.prop div{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:10px;text-align:center}.prop b{display:block;font-size:1.4rem}.prop span{font-size:.85rem;color:var(--ink2)}
+.rm{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:14px;align-items:start}@media (max-width:640px){.rm{grid-template-columns:1fr}}
+.rm label{display:block;font-weight:700;font-size:.9rem;margin:8px 0 2px}.rm label b{color:var(--c1)}.rm input[type=range]{width:100%}
+#rmCv{width:100%;aspect-ratio:4/3;max-height:320px;display:block;background:var(--paper);border-radius:10px}
+
+/* ---------- Desenho I · AutoCAD ---------- */
+.cad-why{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:18px 0}
+.cad-why>div,.m1-like>div{display:grid;gap:4px;background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.cad-why span,.m1-like span{color:var(--ink2);font-size:.93rem}
+.m1-like{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:10px;margin:14px 0}
+.cad-prompt{font:500 .92rem var(--f-mono);background:#1A1F25;color:#DCE3EA;border-radius:10px;padding:12px 14px;margin:12px 0;overflow-x:auto;line-height:1.6}
+.cad-prompt .k{color:#F5C542;font-weight:700}.cad-prompt .op{color:#7FC4FF}.cad-prompt b{color:#7FE0A0}
+.cad-code{font:500 .8rem/1.55 var(--f-mono);background:#1A1F25;color:#DCE3EA;border-radius:10px;padding:12px 14px;margin:12px 0;overflow-x:auto;white-space:pre}
+.cad-leg{margin:6px 0 14px}
+.cad-sel{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.cad-sel>div{display:grid;gap:4px;border-radius:10px;padding:12px 14px}.cad-sel span{font-size:.92rem}
+.cad-sel .w{background:rgba(52,120,246,.12);border:2px solid #3478F6}.cad-sel .c{background:rgba(46,160,90,.12);border:2px dashed #2EA05A}
+.cad-quad{display:grid;grid-template-columns:1fr 1fr;max-width:420px;margin:12px auto;border-radius:12px;overflow:hidden;border:1px solid var(--line);text-align:center;font-size:.9rem}
+.cad-quad>div{padding:16px 8px}.cad-quad .q1{background:rgba(30,98,201,.12);border-left:2px solid var(--ink);border-bottom:2px solid var(--ink)}.cad-quad .q2{border-bottom:2px solid var(--ink)}.cad-quad .q3{}.cad-quad .q4{border-left:2px solid var(--ink)}
+.cad-rosa{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:12px;margin:12px 0;color:var(--ink)}.cad-rosa>div{flex:1;min-width:200px}
+.cad-pol{background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:10px;margin:12px 0;color:var(--ink);text-align:center}
+.cad-cvt{display:flex;gap:14px;align-items:center;flex-wrap:wrap;color:var(--ink)}.cad-cvt input{font:600 1.1rem var(--f-mono);padding:10px 12px;border-radius:10px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink);width:200px}
+.cad-osn{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:6px;margin:12px 0}
+.cad-osn>div{display:grid;grid-template-columns:22px 1fr;column-gap:10px;align-items:center;background:var(--sheet);border:1px solid var(--line);border-radius:10px;padding:8px 10px}.cad-osn span{grid-column:2;font-size:.85rem;color:var(--ink2)}
+.cad-osn i{grid-row:span 2;width:16px;height:16px;border:2.2px solid #D99A00;display:block;box-sizing:border-box}
+.cad-osn i.mid{border:0;width:0;height:0;border-left:9px solid transparent;border-right:9px solid transparent;border-bottom:16px solid #D99A00}
+.cad-osn i.cen,.cad-osn i.qua{border-radius:50%}.cad-osn i.qua{transform:rotate(45deg);border-radius:2px}.cad-osn i.gce{border-radius:50%;box-shadow:inset 0 0 0 3px var(--sheet),inset 0 0 0 6px #D99A00}
+.cad-osn i.nod{border-radius:50%;background:radial-gradient(#D99A00 30%,transparent 32%)}.cad-osn i.int,.cad-osn i.app{border:0;background:linear-gradient(45deg,transparent 44%,#D99A00 44% 56%,transparent 56%),linear-gradient(-45deg,transparent 44%,#D99A00 44% 56%,transparent 56%)}
+.cad-osn i.app{outline:2px solid #D99A00;outline-offset:-2px}.cad-osn i.ext{border:0;border-top:2.2px dotted #D99A00;height:2px;margin-top:7px}
+.cad-osn i.per{border-top:0;border-right:0}.cad-osn i.tan{border-radius:50%;border-top-color:transparent;box-shadow:0 -6px 0 -4px #D99A00}.cad-osn i.nea{border:0;background:linear-gradient(135deg,transparent 30%,#D99A00 30% 40%,transparent 40% 60%,#D99A00 60% 70%,transparent 70%)}
+.cad-osn i.par{border:0;background:linear-gradient(60deg,transparent 30%,#D99A00 30% 40%,transparent 40% 60%,#D99A00 60% 70%,transparent 70%)}.cad-osn i.ins{border-width:2.2px;outline:2.2px solid #D99A00;outline-offset:-8px}
+.cad-help{background:var(--sheet);border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:.88rem;color:var(--ink2);margin:12px 0}
+.cad-cor{display:inline-block;width:12px;height:12px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+.cad-ul{margin:8px 0 14px 20px;display:grid;gap:4px}
+.cad-diedro{display:grid;grid-template-columns:1fr 1fr;gap:8px;max-width:420px;margin:12px auto;text-align:center;font-size:.9rem}
+.cad-diedro>div{border:2px solid var(--ink);border-radius:8px;padding:18px 8px;background:var(--sheet)}.cad-diedro .vf{border-color:var(--c1)}.cad-diedro .vs{grid-column:1}
+.cad-esc{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;margin:10px 0}
+.cad-esc label{display:grid;gap:4px;font-size:.82rem;color:var(--ink2)}.cad-esc input,.cad-esc select{font:600 1rem var(--f-body);padding:9px 10px;border-radius:9px;border:1.5px solid var(--line);background:var(--paper);color:var(--ink)}
+.cad-plg{display:grid;grid-template-columns:minmax(0,300px) 1fr;gap:12px;align-items:center;color:var(--ink)}@media(max-width:620px){.cad-plg{grid-template-columns:1fr}}
+.cad-cap{font-size:.85rem;color:var(--ink2)}
+.dinch{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0}.dinch button{font:600 .88rem var(--f-body);padding:7px 12px;border-radius:999px;border:1.5px solid var(--line);background:var(--sheet);color:var(--ink);cursor:pointer}.dinch button.sel{background:var(--ink);color:var(--sheet);border-color:var(--ink)}
+.wout .c1{color:var(--c1)}.wout .bad{color:var(--bad)}
+.cad-tela{width:100%;max-width:640px;display:block;margin:0 auto;border-radius:10px}
+.cad-n{cursor:pointer}.cad-n circle{fill:#E0601A;stroke:#fff;stroke-width:2}.cad-n text{fill:#fff;font:700 18px sans-serif;pointer-events:none}.cad-n.on circle{fill:#1E62C9}.cad-n:focus{outline:none}.cad-n:focus circle{stroke:#F5C542;stroke-width:3}
+/* simulador */
+.cad{background:#1A1F25;border-radius:14px;overflow:hidden;margin:14px 0;color:#DCE3EA;border:1px solid #0E1216}
+.cad-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:8px 12px;background:#252C34}.cad-tt{font:700 .82rem var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:#AEB8C4;flex:1}
+.cad-ds{font:600 .9rem var(--f-body);padding:6px 8px;border-radius:8px;background:#1A1F25;color:#fff;border:1px solid #3A434E;max-width:100%}
+.cad-dsi{padding:8px 12px;font-size:.86rem;color:#C9D2DB;background:#20262E;border-top:1px solid #2E363F}
+.cad-area{position:relative}.cad-cv{display:block;width:100%;height:clamp(260px,52vh,440px);touch-action:none;cursor:none}
+.cad-ucs{display:none}.cad-dyn{position:absolute;pointer-events:none;background:rgba(30,36,44,.92);border:1px solid #4A5562;color:#fff;font:600 .78rem var(--f-mono);padding:3px 7px;border-radius:5px;white-space:nowrap}
+.cad-log{font:500 .76rem/1.45 var(--f-mono);height:92px;overflow-y:auto;padding:6px 12px;background:#14181D;border-top:1px solid #2E363F;color:#B7C2CE}
+.cad-log .cmd{color:#fff}.cad-log .err{color:#FF8A7A}.cad-log .ok{color:#7FE0A0}
+.cad-cmd{display:flex;align-items:center;gap:8px;padding:6px 12px;background:#0F1317;border-top:1px solid #2E363F}
+.cad-pr{font:600 .78rem var(--f-mono);color:#F5C542;white-space:nowrap;max-width:60%;overflow:hidden;text-overflow:ellipsis}
+.cad-in{flex:1;min-width:80px;font:600 .95rem var(--f-mono);background:#0F1317 !important;box-shadow:none !important;border:0;color:#fff;outline:none;padding:6px 0;text-transform:uppercase}
+.cad-st{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px 10px;background:#252C34}
+.cad-st button{font:600 .74rem var(--f-mono);padding:6px 9px;border-radius:7px;border:1px solid #3A434E;background:#1A1F25;color:#AEB8C4;cursor:pointer}
+.cad-st button.on{background:#1E4E8C;border-color:#5AA9FF;color:#fff}.cad-st .cad-ok{background:#E0601A;border-color:#E0601A;color:#fff}
+.cad-xy{font:600 .76rem var(--f-mono);color:#DCE3EA;min-width:110px}.cad-sp{flex:1}
+.cad-res{padding:10px 12px;font-weight:700;text-align:center;min-height:1em;background:#20262E}.cad-res:empty{display:none}.cad-res.ok{color:#7FE0A0}.cad-res.bad{color:#FF8A7A}
+@media(max-width:560px){.cad-sp{display:none}.cad-pr{max-width:48%}}
+</style>
+<link rel="stylesheet" href="../../css/fdb-v2.css">
+<script src="../../js/tema.js?v=1"></script>
+<script src="../../dados/aulas.js"></script>
+<script src="../../js/fdb-ui.js" defer></script>
+</head>
+<body>
+
+<header>
+  <div class="hwrap">
+    <div class="brand">
+      <div style="display:flex;align-items:center;gap:10px;min-width:0"><a href="../../index.html#m-dt1" style="font-size:.8rem;font-weight:700;color:var(--ink2);text-decoration:none;margin-right:6px" aria-label="Voltar para a Faculdade de Bolso">← Hub</a><a href="#inicio"><svg class="logo" viewBox="0 0 26 26" aria-hidden="true"><rect x="1" y="1" width="24" height="24" rx="5" fill="none" stroke="currentColor" stroke-width="2"/><path d="M13 5l7 4v8l-7 4-7-4V9z" fill="none" stroke="var(--c1)" stroke-width="2.2" stroke-linejoin="round"/></svg>Oficina de AutoCAD</a></div>
+      <div class="prog"><span id="progtxt">0/2</span><div class="bar"><i id="progbar"></i></div></div>
+    </div>
+    <nav id="nav">
+      <a href="#inicio">Início</a>
+      <a href="#tela" data-m="tela">A tela</a>
+      <a href="#coord" data-m="coord">Coordenadas</a>
+      <a href="#desenho" data-m="desenho">Desenhar</a>
+      <a href="#precisao" data-m="precisao">Precisão</a>
+      <a href="#treino1" data-m="treino1">Treino 1</a>
+      <a href="#modificar" data-m="modificar">Modificar</a>
+      <a href="#layers" data-m="layers">Layers</a>
+      <a href="#hachura" data-m="hachura">Hachura</a>
+      <a href="#cotas" data-m="cotas">Cotas</a>
+      <a href="#vistas" data-m="vistas">Vistas</a>
+      <a href="#treino2" data-m="treino2">Treino 2</a>
+      <a href="#blocos" data-m="blocos">Blocos</a>
+      <a href="#layout" data-m="layout">Escalas</a>
+      <a href="#parametrico" data-m="parametrico">Paramétrico</a>
+      <a href="#caldeiraria" data-m="caldeiraria">Caldeiraria</a>
+      <a href="#automacao" data-m="automacao">Automação</a>
+      <a href="#produtividade" data-m="produtividade">Fluxo pro</a>
+      <a href="#lab">Simulador</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#cola">Cola</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+
+<!-- ============ INÍCIO ============ -->
+<section class="view" id="v-inicio">
+<div class="hero" style="display:block">
+  <div class="eyebrow">Desenho Técnico I · CAD</div>
+  <h1 style="font-family:var(--f-disp);font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin:6px 0 10px">AutoCAD do zero ao <em>avançado</em></h1>
+  <p class="lede">Um guia em três módulos. O <b>iniciante</b> é para quem nunca abriu um CAD e segue os slides da professora: a tela, as coordenadas e os primeiros desenhos. O <b>intermediário</b> traz os comandos de modificação, layers, hachuras, cotas e as vistas. O <b>avançado</b> é para quem já desenha: blocos com atributos, escalas e impressão com fórmulas, desenho paramétrico, automação com scripts e LISP, e geometria de caldeiraria no CAD.</p>
+  <div class="btns" style="margin-top:14px"><a class="btn" href="#tela" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lab'">⌨️ Abrir o simulador</button><button class="ghost" onclick="location.hash='treino1'">Exercícios dos slides</button></div>
+</div>
+  <div class="cad-why">
+    <div><b>⌨️ Simulador de verdade</b><span>Uma linha de comando que entende LINE, @50,0, @20&lt;315, OFFSET, TRIM, FILLET… Treine sem ter o AutoCAD aberto, até no celular.</span></div>
+    <div><b>🎯 Os desenhos dos slides</b><span>Os 8 exercícios de coordenadas viram desafios: você desenha e o simulador confere.</span></div>
+    <div><b>🧮 Fórmulas que o curso não dá</b><span>Escala da folha, altura de texto, DIMSCALE, planificação de cilindro e cone, sextavado pela chave.</span></div>
+  </div>
+  <h3>A trilha</h3>
+  <p class="read">Marque cada aula como estudada no fim da página; a barra lá em cima acompanha.</p>
+  <div class="trail" id="trail"></div>
+</section>
+
+<!-- ================= MÓDULO 1 · INICIANTE ================= -->
+<!-- ============ M1 · A TELA ============ -->
+<section class="view read" id="v-tela" hidden>
+  <div class="eyebrow">Módulo 1 · Iniciante</div>
+  <h2>Primeiro contato: a tela e a conversa com o AutoCAD</h2>
+  <p class="lede">CAD quer dizer <b>Computer-Aided Design</b>, desenho assistido por computador. Em vez de régua e esquadro, você diz ao programa <b>onde</b> cada ponto fica, e ele desenha com precisão de milésimo de milímetro. O objetivo da disciplina, nas palavras da professora: entender o desenho técnico em sistemas CAD e dominar a representação gráfica 2D.</p>
+  <h3>A regra de ouro: desenhe em tamanho real</h3>
+  <div class="fx"><span class="tag">Escala no CAD</span><div class="eq">desenho = 1 : 1 (sempre)</div>
+    <dl class="legend"><dt>no papel</dt><dd>você escolhe uma escala (1:5, 1:10…) porque a folha é pequena</dd><dt>no CAD</dt><dd>a área de desenho é infinita: uma chapa de 2 m é desenhada com <b>2000</b> unidades. A escala só aparece na hora de imprimir (Módulo 3)</dd><dt>unidade</dt><dd>em mecânica, 1 unidade = 1 mm. Confira em <b>UNITS</b></dd></dl></div>
+  <h3>As regiões da tela</h3>
+  <p>Toque em cada número do desenho para ver para que serve. São as regiões do slide "Tela Inicial".</p>
+  <div class="wid"><div id="cadTela"></div><div class="wout" id="cadTelaO">Toque num número.</div></div>
+  <h3>O mouse e o teclado</h3>
+  <div class="tbl"><table><tr><th>Ação</th><th>O que faz</th></tr>
+    <tr><td>girar a roda</td><td>zoom (aproxima onde o cursor está)</td></tr>
+    <tr><td>segurar a roda e arrastar</td><td>pan: arrasta a folha, sem mudar nada no desenho</td></tr>
+    <tr><td>duplo clique na roda</td><td>zoom extents: mostra o desenho inteiro (o mesmo que <b>Z ↵ E ↵</b>)</td></tr>
+    <tr><td>botão esquerdo</td><td>clica pontos e seleciona objetos</td></tr>
+    <tr><td><b>Enter</b> ou <b>Espaço</b></td><td>confirma. Com o prompt vazio, <b>repete o último comando</b></td></tr>
+    <tr><td><b>Esc</b></td><td>cancela o comando (aperte 2 vezes para limpar a seleção)</td></tr>
+    <tr><td>Ctrl+Z · Ctrl+S</td><td>desfaz · salva</td></tr></table></div>
+  <h3>Como ler a linha de comando</h3>
+  <p>O AutoCAD trabalha como uma conversa: você dá um comando, ele <b>pergunta</b> o que precisa. Aprenda a ler a pergunta e metade do problema some.</p>
+  <div class="cad-prompt"><span class="k">LINE</span> Specify next point or <span class="op">[Close/Undo]</span>:</div>
+  <dl class="legend cad-leg"><dt>Specify…</dt><dd>o que ele quer agora (um ponto, um número, um objeto)</dd><dt>[ ]</dt><dd>opções. A letra <b>maiúscula</b> é o atalho: digite <b>C</b> para Close, <b>U</b> para Undo</dd><dt>&lt; &gt;</dt><dd>o valor padrão. Tecle Enter para aceitar: <b>Specify radius &lt;10.0000&gt;:</b></dd></dl>
+  <div class="cuid"><span class="k">Português × inglês</span>O AutoCAD pode estar em português (LINHA, CÍRCULO). Os atalhos de uma ou duas letras não mudam se você digitar com sublinhado na frente: <b>_LINE</b>, <b>_L</b> funcionam em qualquer idioma. Aqui usamos os nomes em inglês, que são os do slide e os de qualquer tutorial.</div>
+  <h3>Selecionar objetos: janela azul × janela verde</h3>
+  <div class="cad-sel">
+    <div class="w"><b>Janela (Window)</b><span>Arraste da <b>esquerda para a direita</b>. Fica azul, contorno contínuo. Só pega o que está <b>inteiro dentro</b>.</span></div>
+    <div class="c"><b>Cruzamento (Crossing)</b><span>Arraste da <b>direita para a esquerda</b>. Fica verde, contorno tracejado. Pega tudo que <b>encostar</b> na janela.</span></div>
+  </div>
+  <p>Shift + clique tira um objeto da seleção. Digitar <b>ALL</b> no "Select objects" pega tudo.</p>
+  <h3>Arquivos</h3>
+  <div class="tbl"><table><tr><th>Extensão</th><th>O que é</th></tr><tr><td>.dwg</td><td>o desenho</td></tr><tr><td>.dwt</td><td>template: um .dwg "modelo" com layers, estilos e folha prontos (Módulo 3)</td></tr><tr><td>.dxf</td><td>formato de troca, abre em outros programas e em máquinas de corte (laser, plasma)</td></tr><tr><td>.bak</td><td>cópia de segurança da versão anterior: renomeie para .dwg se perder o arquivo</td></tr></table></div>
+  <div class="ex" data-ex data-q="cad-01"><div class="q">Leia o prompt e diga o que digitar: "CIRCLE Specify radius of circle or [Diameter] &lt;5.0000&gt;:" para fazer um furo de Ø12.</div>
+    <ol><li>Ele está pedindo o <b>raio</b>. O padrão é 5 (entre &lt; &gt;).</li><li>Furo é dado pelo <b>diâmetro</b>. Opção [Diameter]: digite <b>D</b> e Enter.</li><li>Agora ele pergunta "Specify diameter of circle:": digite <b>12</b> e Enter.</li><li>Ou, sem a opção: digite o raio direto, <b>6</b>.</li></ol>
+    <div class="ans">D ↵ 12 ↵ (ou só 6 ↵)</div></div>
+  <div class="done-btn" data-done="tela"></div>
+</section>
+
+<!-- ============ M1 · COORDENADAS ============ -->
+<section class="view read" id="v-coord" hidden>
+  <div class="eyebrow">Módulo 1 · Iniciante</div>
+  <h2>Sistemas de coordenadas</h2>
+  <p class="lede">Clicar "mais ou menos ali" não serve para desenho técnico. Para cada ponto você <b>digita</b> onde ele fica. Existem três jeitos de dizer isso, e eles são a base de tudo que vem depois.</p>
+  <h3>O plano cartesiano do AutoCAD</h3>
+  <p>É o mesmo da matemática: X cresce para a direita, Y para cima, e os quadrantes seguem o padrão (o slide "Configurações"):</p>
+  <div class="cad-quad"><div class="q2">2º quadrante<br><b>(−X, +Y)</b></div><div class="q1">1º quadrante<br><b>(+X, +Y)</b></div><div class="q3">3º quadrante<br><b>(−X, −Y)</b></div><div class="q4">4º quadrante<br><b>(+X, −Y)</b></div></div>
+  <div class="cuid"><span class="k">Decimal é ponto!</span>No AutoCAD a <b>vírgula separa X de Y</b> e o <b>ponto é o decimal</b>. 5,6 é o ponto X = 5, Y = 6. Cinco e seis décimos é <b>5.6</b>.</div>
+
+  <h3>1 · Coordenada absoluta: X,Y</h3>
+  <p>Sempre medida a partir do <b>zero absoluto</b> (0,0), a origem, onde o eixo X cruza o eixo Y. É como marcar pontos num gráfico.</p>
+  <div class="fx"><span class="tag">Absoluta</span><div class="eq">X,Y</div><dl class="legend"><dt>exemplo</dt><dd><b>40,10</b> = 40 para a direita e 10 para cima <b>da origem</b>, não importa onde estava o ponto anterior</dd><dt>quando usar</dt><dd>quando o desenho dá as posições a partir de uma origem (o primeiro ponto, ou desenhos em malha como os do slide)</dd></dl></div>
+  <div class="ex" data-ex data-q="cad-02"><div class="q">Slide 4: desenhe a casinha com coordenadas absolutas. Pontos (0,0), (40,0), (40,10), (30,10), (30,30), (20,50), (10,30), (10,10), (0,10).</div>
+    <ol><li>Command: <b>LINE</b> ↵ (ou L ↵)</li><li>From point: <b>0,0</b> ↵ · To point: <b>40,0</b> ↵ · <b>40,10</b> ↵ · <b>30,10</b> ↵ · <b>30,30</b> ↵</li><li><b>20,50</b> ↵ (o bico do telhado) · <b>10,30</b> ↵ · <b>10,10</b> ↵ · <b>0,10</b> ↵</li><li>Para voltar ao primeiro ponto: <b>C</b> ↵ (Close), ou <b>0,0</b> ↵ e depois Enter vazio para terminar.</li></ol>
+    <div class="ans">9 pontos absolutos + C para fechar</div></div>
+
+  <h3>2 · Coordenada relativa: @X,Y</h3>
+  <p>O <b>@</b> quer dizer "a partir do último ponto". Em vez de dizer onde o ponto fica no mundo, você diz <b>quanto andar</b> em X e em Y. É o jeito mais natural de copiar um desenho cotado, porque as cotas já são distâncias.</p>
+  <div class="fx"><span class="tag">Relativa</span><div class="eq">@ΔX,ΔY</div><dl class="legend"><dt>@</dt><dd>relativo ao último ponto clicado ou digitado</dd><dt>ΔX</dt><dd>+ anda para a direita · − para a esquerda</dd><dt>ΔY</dt><dd>+ sobe · − desce</dd><dt>exemplo</dt><dd><b>@0,20</b> = sobe 20, sem andar para o lado · <b>@-60,0</b> = volta 60 para a esquerda</dd></dl></div>
+  <div class="ex" data-ex data-q="cad-03"><div class="q">Slide 9: desenhe a seta de telhado com coordenadas relativas, a partir de P1.</div>
+    <ol><li>L ↵, clique P1 (ou digite 0,0).</li><li><b>@50,0</b> (P2) · <b>@0,20</b> (P3) · <b>@-60,0</b> (P4): base, subida e o recuo de 60 para a esquerda.</li><li><b>@80,30</b> (P5, o bico) · <b>@80,-30</b> (P6): telhado, 80 para o lado e 30 para cima, depois 30 para baixo.</li><li><b>@-60,0</b> (P7) · <b>@0,-20</b> (P8) · <b>@50,0</b> (P9) · <b>@0,-15</b> (P10) · <b>@-140,0</b> (P11).</li><li>A lista do slide para no P11 com Enter, mas o lado esquerdo (P11 → P1) fica aberto. Feche com <b>C</b> ↵.</li></ol>
+    <div class="ans">10 relativas + C</div></div>
+
+  <h3>3 · Coordenada polar: @distância&lt;ângulo</h3>
+  <p>Para linhas inclinadas, em vez de ΔX e ΔY você dá o <b>comprimento</b> e a <b>direção</b>. O ângulo é sempre medido a partir do eixo 0° (para a direita), no sentido <b>anti-horário</b>.</p>
+  <div class="cad-rosa"><svg viewBox="0 0 200 200" width="190" role="img" aria-label="Ângulos no AutoCAD"><circle cx="100" cy="100" r="70" fill="none" stroke="currentColor" stroke-opacity=".25"/><line x1="100" y1="100" x2="170.0" y2="100.0" stroke="#E0601A" stroke-width="2.5"/><text x="188.0" y="104.0" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">0°</text><line x1="100" y1="100" x2="149.5" y2="50.5" stroke="currentColor" stroke-width="1"/><text x="162.2" y="41.8" text-anchor="middle" font-size="12" font-weight="400" fill="currentColor">45°</text><line x1="100" y1="100" x2="100.0" y2="30.0" stroke="currentColor" stroke-width="2.5"/><text x="100.0" y="16.0" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">90°</text><line x1="100" y1="100" x2="50.5" y2="50.5" stroke="currentColor" stroke-width="1"/><text x="37.8" y="41.8" text-anchor="middle" font-size="12" font-weight="400" fill="currentColor">135°</text><line x1="100" y1="100" x2="30.0" y2="100.0" stroke="currentColor" stroke-width="2.5"/><text x="12.0" y="104.0" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">180°</text><line x1="100" y1="100" x2="50.5" y2="149.5" stroke="currentColor" stroke-width="1"/><text x="37.8" y="166.2" text-anchor="middle" font-size="12" font-weight="400" fill="currentColor">225°</text><line x1="100" y1="100" x2="100.0" y2="170.0" stroke="currentColor" stroke-width="2.5"/><text x="100.0" y="192.0" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">270°</text><line x1="100" y1="100" x2="149.5" y2="149.5" stroke="currentColor" stroke-width="1"/><text x="162.2" y="166.2" text-anchor="middle" font-size="12" font-weight="400" fill="currentColor">315°</text><path d="M135 100 A35 35 0 0 0 100 65" fill="none" stroke="#2A8C46" stroke-width="2.4"/><path d="M100 65 l7 -4 M100 65 l7 4" stroke="#2A8C46" stroke-width="2.4"/><text x="128" y="74" font-size="11" fill="#2A8C46">+</text></svg><div><b>0°</b> direita · <b>90°</b> para cima · <b>180°</b> esquerda · <b>270°</b> para baixo. Ângulo negativo gira no sentido horário: <b>@20&lt;-45</b> é o mesmo que <b>@20&lt;315</b>.</div></div>
+  <div class="fx"><span class="tag">Polar</span><div class="eq">@d&lt;θ</div><dl class="legend"><dt>d</dt><dd>comprimento da linha</dd><dt>&lt;</dt><dd>o sinal de "menor que" separa distância de ângulo</dd><dt>θ</dt><dd>ângulo em graus, a partir do eixo X, anti-horário</dd><dt>sem @</dt><dd><b>30&lt;45</b> é polar absoluta: a 30 da <b>origem</b></dd></dl></div>
+  <div class="ex" data-ex data-q="cad-04"><div class="q">Slide 13: desenhe o "peixe" com coordenadas polares a partir de P1.</div>
+    <ol><li>L ↵, P1. <b>@20&lt;315</b> (P2): desce para a direita, 315° = 45° abaixo do eixo.</li><li><b>@25&lt;0</b> (P3) · <b>@10&lt;300</b> (P4) · <b>@10&lt;240</b> (P5): as duas linhas de 10 formam a ponta de 120°.</li><li><b>@25&lt;180</b> (P6) · <b>@20&lt;225</b> (P7) · <b>@20&lt;90</b> (P8): sobe 20 reto.</li><li>O dentinho: <b>@4&lt;0</b> (P9) · <b>@5.6&lt;90</b> (P10, com ponto decimal!) · <b>@4&lt;180</b> (P11).</li><li><b>C</b> ↵ fecha em P1.</li></ol>
+    <div class="ans">10 polares + Close</div></div>
+
+  <h3>Passando de um tipo para o outro</h3>
+  <p>As cotas do desenho nem sempre vêm do jeito que você quer digitar. A trigonometria do triângulo retângulo resolve:</p>
+  <div class="fx"><span class="tag">Polar → relativa</span><div class="eq" style="font-size:1rem">ΔX = d·cos θ &nbsp;·&nbsp; ΔY = d·sen θ</div><dl class="legend"><dt>exemplo</dt><dd>@20&lt;315 → ΔX = 20·cos 315° = 14,14 · ΔY = 20·sen 315° = −14,14 → @14.142,-14.142</dd></dl></div>
+  <div class="fx"><span class="tag">Relativa → polar</span><div class="eq" style="font-size:1rem">d = √(ΔX² + ΔY²) &nbsp;·&nbsp; θ = atan2(ΔY, ΔX)</div><dl class="legend"><dt>exemplo</dt><dd>@80,30 → d = √(6400 + 900) = 85,44 · θ = 20,56° → @85.44&lt;20.56</dd><dt>atan2</dt><dd>é o arco-tangente que olha os sinais de ΔX e ΔY para acertar o quadrante</dd></dl></div>
+  <div class="wid"><h4>Conversor de coordenadas</h4><p>Digite uma coordenada relativa (@40,30) ou polar (@50&lt;36.87). O conversor mostra a outra forma e desenha.</p>
+    <div class="cad-cvt"><input id="cadCvI" type="text" value="@80,30" autocomplete="off" spellcheck="false" aria-label="Coordenada"><div id="cadCvD"></div></div>
+    <div class="wout" id="cadCvO"></div></div>
+  <h3>Entrada direta de distância</h3>
+  <p>Com o <b>ORTHO</b> ligado (F8), aponte o mouse na direção e digite só o número: <b>50</b> ↵ desenha 50 naquela direção. É o jeito mais rápido para peças retas. No simulador funciona igual.</p>
+  <div class="cuid"><span class="k">Dynamic Input (F12)</span>Com o Dynamic Input ligado, a caixinha perto do cursor já entende o 2º ponto como <b>relativo</b>, mesmo sem o @. Para forçar absoluto nela, use <b>#</b>: <b>#40,10</b>. Na linha de comando lá de baixo vale a regra normal (@ = relativo). Se o seu desenho sair torto, confira isso primeiro.</div>
+  <div class="wid"><h4>Teste aqui: simulador livre</h4><p>Digite <b>L</b>, Enter, e os pontos. Experimente os três tipos de coordenada.</p><div id="cadSimCoord"></div></div>
+  <div class="done-btn" data-done="coord"></div>
+</section>
+
+<!-- ============ M1 · COMANDOS DE DESENHO ============ -->
+<section class="view read" id="v-desenho" hidden>
+  <div class="eyebrow">Módulo 1 · Iniciante</div>
+  <h2>Comandos de desenho</h2>
+  <p class="lede">Com LINE e as coordenadas você já desenha qualquer contorno reto. Os outros comandos de desenho poupam trabalho: um círculo, um retângulo ou um sextavado saem com um comando só.</p>
+  <div class="tbl"><table><tr><th>Comando</th><th>Atalho</th><th>Desenha</th><th>O que ele pergunta</th></tr>
+    <tr><td>LINE</td><td><b>L</b></td><td>segmentos soltos, um por trecho</td><td>pontos, até Enter · C fecha · U desfaz o último</td></tr>
+    <tr><td>PLINE</td><td><b>PL</b></td><td>polilinha: vários trechos num objeto só (pode ter arcos e largura)</td><td>pontos · A muda para arco · C fecha</td></tr>
+    <tr><td>CIRCLE</td><td><b>C</b></td><td>círculo</td><td>centro + raio (ou D + diâmetro) · 2P · 3P · TTR (tangente, tangente, raio)</td></tr>
+    <tr><td>ARC</td><td><b>A</b></td><td>arco</td><td>3 pontos (padrão) ou início, centro, fim (sempre anti-horário)</td></tr>
+    <tr><td>RECTANG</td><td><b>REC</b></td><td>retângulo (é uma polilinha)</td><td>1º canto, canto oposto (@100,60) · Dimensions · Fillet · Chamfer</td></tr>
+    <tr><td>POLYGON</td><td><b>POL</b></td><td>polígono regular de 3 a 1024 lados</td><td>nº de lados, centro, I (inscrito) ou C (circunscrito), raio</td></tr>
+    <tr><td>ELLIPSE</td><td><b>EL</b></td><td>elipse</td><td>eixo e meio-eixo · Isocircle no modo isométrico</td></tr>
+    <tr><td>XLINE</td><td><b>XL</b></td><td>linha infinita de construção</td><td>H, V, Ang, Offset: ótima para alinhar vistas</td></tr>
+    <tr><td>SPLINE</td><td><b>SPL</b></td><td>curva suave por pontos</td><td>pontos de passagem</td></tr>
+    <tr><td>DIVIDE · MEASURE</td><td><b>DIV · ME</b></td><td>marca pontos dividindo um objeto em n partes · a cada x mm</td><td>objeto e número (ou distância)</td></tr></table></div>
+  <div class="cuid"><span class="k">LINE × PLINE</span>Um retângulo feito com LINE são <b>4 objetos</b>; com REC ou PLINE é <b>1 só</b>. Polilinha é melhor para OFFSET (a moldura inteira de uma vez), para medir área e perímetro (LIST) e para máquinas de corte, que gostam de contornos fechados. Para separar em linhas: EXPLODE (X). Para juntar linhas numa polilinha: JOIN (J).</div>
+  <h3>Polígono: inscrito ou circunscrito?</h3>
+  <p>É a pergunta que mais confunde. Pense numa porca sextavada: a <b>chave</b> mede de face a face (o círculo que toca o meio dos lados), e os <b>cantos</b> ficam num círculo maior.</p>
+  <div class="cad-pol"><svg viewBox="0 0 420 200" width="100%" style="max-width:460px" role="img" aria-label="Polígono inscrito e circunscrito"><circle cx="105" cy="95" r="70" fill="none" stroke="#1E62C9" stroke-dasharray="5 4"/><line x1="105" y1="95" x2="105" y2="25" stroke="#E0601A" stroke-width="2.5"/><text x="109" y="61" font-size="12" fill="#E0601A">raio</text><polygon points="105.0,25.0 44.4,60.0 44.4,130.0 105.0,165.0 165.6,130.0 165.6,60.0" fill="rgba(30,98,201,.08)" stroke="currentColor" stroke-width="2"/><circle cx="105" cy="95" r="3" fill="currentColor"/><text x="105" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">Inscribed (I): raio até o vértice</text><circle cx="315" cy="95" r="70" fill="none" stroke="#1E62C9" stroke-dasharray="5 4"/><line x1="315" y1="95" x2="315" y2="25" stroke="#E0601A" stroke-width="2.5"/><text x="319" y="61" font-size="12" fill="#E0601A">raio = chave/2</text><polygon points="395.8,95.0 355.4,25.0 274.6,25.0 234.2,95.0 274.6,165.0 355.4,165.0" fill="rgba(30,98,201,.08)" stroke="currentColor" stroke-width="2"/><circle cx="315" cy="95" r="3" fill="currentColor"/><text x="315" y="192" text-anchor="middle" font-size="12" font-weight="700" fill="currentColor">Circumscribed (C): raio até o meio do lado</text></svg></div>
+  <div class="fx"><span class="tag">Polígono regular</span><div class="eq">R<sub>vértice</sub> = a / cos(180°/n)</div><dl class="legend"><dt>I (inscrito)</dt><dd>o raio que você digita vai até o <b>vértice</b> (R)</dd><dt>C (circunscrito)</dt><dd>o raio que você digita vai até o <b>meio do lado</b> (a, o apótema). Para sextavado pela chave: C e raio = chave ÷ 2</dd><dt>n</dt><dd>número de lados. Sextavado (n = 6): R = a / cos 30° = 1,155·a</dd></dl></div>
+  <div class="ex" data-ex data-q="cad-05"><div class="q">Desenhe a porca M16 vista de cima: sextavado com chave 24 e furo Ø16 no centro, centro em 50,50.</div>
+    <ol><li>POL ↵ · número de lados: <b>6</b> ↵ · centro: <b>50,50</b> ↵</li><li>Opção: <b>C</b> ↵ (circunscrito, porque a chave mede face a face)</li><li>Raio: <b>12</b> ↵ (24 ÷ 2)</li><li>C ↵ · centro: <b>50,50</b> ↵ · <b>D</b> ↵ · <b>16</b> ↵</li><li>Confira os cantos: R = 12 / cos 30° = 13,86 → de canto a canto 27,7 mm.</li></ol>
+    <div class="ans">POL 6, C, raio 12 + círculo Ø16 · cantos a 27,7 mm</div></div>
+  <div class="ex" data-ex data-q="cad-06"><div class="q">Chapa 120 × 80 com canto inferior esquerdo em 0,0 e 4 furos Ø10 a 15 mm das bordas.</div>
+    <ol><li>REC ↵ · 1º canto <b>0,0</b> · outro canto <b>@120,80</b>.</li><li>Centros dos furos: 15 das bordas → (15,15), (105,15), (105,65), (15,65). As contas: 120 − 15 = 105 e 80 − 15 = 65.</li><li>C ↵ <b>15,15</b> ↵ <b>D</b> ↵ <b>10</b> ↵. Depois Enter vazio repete o CIRCLE: <b>105,15</b> ↵ D ↵ 10…</li><li>Mais rápido: faça 1 furo e copie (COPY, Módulo 2) ou use ARRAY retangular de 2 × 2 com distâncias 90 e 50.</li></ol>
+    <div class="ans">REC @120,80 + furos em (15,15), (105,15), (105,65), (15,65)</div></div>
+  <div class="done-btn" data-done="desenho"></div>
+</section>
+
+<!-- ============ M1 · PRECISÃO ============ -->
+<section class="view read" id="v-precisao" hidden>
+  <div class="eyebrow">Módulo 1 · Iniciante</div>
+  <h2>Ferramentas de precisão: barra de status e OSNAP</h2>
+  <p class="lede">Digitar coordenadas resolve quando você sabe os números. Quando precisa ligar no <b>meio</b> de uma linha ou no <b>centro</b> de um furo, quem resolve são os "ímãs" do AutoCAD: a barra de status e o Object Snap.</p>
+  <h3>Os botões da barra de status (e a tecla de cada um)</h3>
+  <div class="tbl"><table><tr><th>Botão</th><th>Tecla</th><th>O que faz</th></tr>
+    <tr><td>Object Snap (OSNAP)</td><td><b>F3</b></td><td>o cursor gruda nos pontos notáveis dos objetos (ponta, meio, centro…)</td></tr>
+    <tr><td>Grid</td><td><b>F7</b></td><td>mostra a malha de fundo (só visual, não imprime)</td></tr>
+    <tr><td>Ortho</td><td><b>F8</b></td><td>trava o cursor na horizontal e na vertical</td></tr>
+    <tr><td>Snap Mode</td><td><b>F9</b></td><td>o cursor anda "aos pulos", de passo em passo da malha</td></tr>
+    <tr><td>Polar Tracking</td><td><b>F10</b></td><td>"ímã" de ângulo: mostra uma guia a cada 90° (ou 45°, 30°, 15°, você escolhe)</td></tr>
+    <tr><td>Object Snap Tracking (OTRACK)</td><td><b>F11</b></td><td>puxa linhas-guia dos pontos de OSNAP para achar alinhamentos</td></tr>
+    <tr><td>Dynamic Input</td><td><b>F12</b></td><td>caixa de entrada junto ao cursor, com dicas. TAB troca de campo (distância ↔ ângulo)</td></tr>
+    <tr><td>Isometric Drafting</td><td>F5 troca o plano</td><td>simula o desenho isométrico (eixos a 120°)</td></tr></table></div>
+  <div class="cuid"><span class="k">ORTHO × POLAR</span>Os dois não ficam ligados ao mesmo tempo: ligar um desliga o outro. ORTHO = só 0°/90°. POLAR = os ângulos que você configurar (clique com o botão direito no ícone para escolher 15°, 30°, 45°).</div>
+  <h3>OSNAP: os pontos notáveis</h3>
+  <div class="cad-osn">
+    <div><i class="end"></i><b>ENDpoint</b><span>ponta de linha, arco ou polilinha</span></div>
+    <div><i class="mid"></i><b>MIDpoint</b><span>ponto médio</span></div>
+    <div><i class="cen"></i><b>CENter</b><span>centro de círculo, arco, elipse</span></div>
+    <div><i class="gce"></i><b>Geometric CEnter</b><span>centro de polígono ou polilinha fechada</span></div>
+    <div><i class="nod"></i><b>NODe</b><span>ponto feito com POINT, DIVIDE, MEASURE</span></div>
+    <div><i class="qua"></i><b>QUAdrant</b><span>os 4 pontos a 0°, 90°, 180°, 270° do círculo</span></div>
+    <div><i class="int"></i><b>INTersection</b><span>cruzamento de dois objetos</span></div>
+    <div><i class="ext"></i><b>EXTension</b><span>continuação imaginária de uma linha</span></div>
+    <div><i class="ins"></i><b>INSert</b><span>ponto de inserção de bloco ou texto</span></div>
+    <div><i class="per"></i><b>PERpendicular</b><span>pé da perpendicular a outro objeto</span></div>
+    <div><i class="tan"></i><b>TANgent</b><span>tangente a círculo ou arco</span></div>
+    <div><i class="nea"></i><b>NEArest</b><span>o ponto mais perto em cima do objeto</span></div>
+    <div><i class="app"></i><b>APParent int.</b><span>cruzamento que só existe "visualmente"</span></div>
+    <div><i class="par"></i><b>PARallel</b><span>desenha paralelo a uma linha existente</span></div>
+  </div>
+  <p><b>Running OSNAP</b> (F3) fica sempre ligado com os tipos marcados (OSNAP ↵ abre a lista). <b>Override</b> vale só para um clique: no meio de um comando digite <b>MID</b>, <b>CEN</b>, <b>PER</b>… ou Shift + botão direito para o menu.</p>
+  <div class="ofi"><span class="k">Configuração que funciona</span>Deixe ligados: Endpoint, Midpoint, Center, Intersection e Extension. Muitos ligados ao mesmo tempo fazem o cursor pular para o ponto errado. Tangent, Perpendicular e Nearest: use como override, quando precisar.</div>
+  <h3>Truques de precisão sem linha auxiliar</h3>
+  <div class="fx"><span class="tag">FROM</span><div class="eq">FROM → ponto base → @ΔX,ΔY</div><dl class="legend"><dt>para</dt><dd>começar um desenho a uma distância de um ponto existente</dd><dt>como</dt><dd>dentro do comando digite <b>FROM</b> (ou <b>FRO</b>), clique o ponto base (com OSNAP) e digite o deslocamento relativo</dd></dl></div>
+  <div class="fx"><span class="tag">M2P</span><div class="eq">M2P → ponto 1 → ponto 2</div><dl class="legend"><dt>para</dt><dd>o ponto <b>no meio de dois pontos</b> (ex.: centro de um retângulo pelos cantos opostos)</dd><dt>como</dt><dd>dentro do comando digite <b>M2P</b> (ou MTP) e clique os dois pontos</dd></dl></div>
+  <div class="ex" data-ex data-q="cad-07"><div class="q">Numa chapa já desenhada, faça um furo Ø20 a 30 mm da borda esquerda e 25 mm da borda de baixo, sem linha auxiliar.</div>
+    <ol><li>C ↵ (CIRCLE). O AutoCAD pergunta o centro.</li><li>Digite <b>FROM</b> ↵. Base point: clique o canto inferior esquerdo (Endpoint).</li><li>&lt;Offset&gt;: <b>@30,25</b> ↵. O centro fica exatamente ali.</li><li>Raio: <b>D</b> ↵ <b>20</b> ↵.</li></ol>
+    <div class="ans">C · FROM · canto · @30,25 · D · 20</div></div>
+  <div class="ex" data-ex data-q="cad-08"><div class="q">Coloque um furo Ø10 bem no centro de uma chapa retangular, de dois jeitos.</div>
+    <ol><li>Jeito 1 (M2P): C ↵, digite <b>M2P</b> ↵, clique um canto e o canto oposto (Endpoint). O centro vai para o meio. Raio 5.</li><li>Jeito 2 (OTRACK, F11 ligado): C ↵, passe o mouse (sem clicar) sobre o meio da borda de baixo e depois sobre o meio da borda lateral. Leve o cursor até onde as duas guias pontilhadas se cruzam e clique.</li><li>Se o retângulo é polilinha, o OSNAP <b>Geometric Center</b> pega o centro direto.</li></ol>
+    <div class="ans">M2P nos cantos opostos · ou OTRACK pelos dois Midpoints · ou Geometric Center</div></div>
+  <div class="done-btn" data-done="precisao"></div>
+</section>
+
+<!-- ============ M1 · TREINO ============ -->
+<section class="view read" id="v-treino1" hidden>
+  <div class="eyebrow">Módulo 1 · Exercícios dos slides</div>
+  <h2>Treino 1: os desenhos da professora</h2>
+  <p class="lede">Os exercícios de coordenadas dos slides viraram desafios. Escolha um, desenhe no simulador e toque em <b>Conferir</b>: ele só diz se confere ou não. Se travar, a resolução de cada um está logo abaixo, passo a passo e no quadro.</p>
+  <div class="cad-help"><b>Comandos do simulador:</b> L · PL · C · REC · POL · E · M · CO · RO · SC · MI · O · TR · EX · F · X · DI · ID · LI · AREA · U · Z. <b>Enter vazio</b> repete o comando · <b>Esc</b> cancela · <b>clique direito</b> = Enter · roda = zoom · arrastar = pan · F3 OSNAP · F8 ORTHO.</div>
+  <div id="cadSimT1"></div>
+  <h3>Resoluções</h3>
+  <div class="ex" data-ex data-q="cad-t1-2"><div class="q">Slide 5: letra M em malha, ponto inicial (3,1). Cada quadradinho vale 1.</div>
+    <ol><li>Leia cada ponto contando quadradinhos a partir da origem: 1 (3,1), 2 (7,1), 3 (7,2), 4 (6,2), 5 (7,3), 6 (7,5), 7 (6,5).</li><li>8 (5,4) é o bico do V · 9 (4,5) · 10 (3,5) · 11 (3,3) · 12 (4,2) · 13 (3,2).</li><li>L ↵ 3,1 ↵ 7,1 ↵ 7,2 ↵ 6,2 ↵ 7,3 ↵ 7,5 ↵ 6,5 ↵ 5,4 ↵ 4,5 ↵ 3,5 ↵ 3,3 ↵ 4,2 ↵ 3,2 ↵ C ↵</li></ol>
+    <div class="ans">13 pontos absolutos + C</div></div>
+  <div class="ex" data-ex data-q="cad-t1-3"><div class="q">Slide 6: letra L em malha, ponto inicial (3,1).</div>
+    <ol><li>Pontos: 1 (3,1), 2 (3,6), 3 (4,6), 4 (4,2), 5 (5,2), 6 (6,3), 7 (7,3), 8 (7,1).</li><li>L ↵ 3,1 ↵ 3,6 ↵ 4,6 ↵ 4,2 ↵ 5,2 ↵ 6,3 ↵ 7,3 ↵ 7,1 ↵ C ↵</li></ol>
+    <div class="ans">8 pontos + C</div></div>
+  <div class="ex" data-ex data-q="cad-t1-4"><div class="q">Slide 7: peça de 80 × 50 com rasgo em V em cima e canto chanfrado, canto inferior esquerdo em X = 25, Y = 15.</div>
+    <ol><li>Monte as posições a partir das cotas. Em cima: 15 reto, desce 10 em 10, fundo de 10, sobe 10 em 10, 15 reto: total 60. A borda direita fica a 80.</li><li>Lado direito: sobe 15, diagonal até 20 para a esquerda e 20 para cima, sobe mais 15 (15 + 20 + 15 = 50).</li><li>Relativas a partir de 25,15: L ↵ 25,15 ↵ @80,0 ↵ @0,15 ↵ @-20,20 ↵ @0,15 ↵ @-15,0 ↵ @-10,-10 ↵ @-10,0 ↵ @-10,10 ↵ @-15,0 ↵ C ↵</li><li>Em absolutas: 25,15 · 105,15 · 105,30 · 85,50 · 85,65 · 70,65 · 60,55 · 50,55 · 40,65 · 25,65.</li></ol>
+    <div class="ans">10 pontos (relativas ou absolutas) + C</div></div>
+  <div class="ex" data-ex data-q="cad-t1-6"><div class="q">Slide 10: peça 2.B com relativas, de P1 a P11.</div>
+    <ol><li>Base de 50 e laterais de 15 + 50 + 15 = 80. Os lados sobem 20 nas diagonais e mais 30 na vertical (total 50).</li><li>L ↵ P1 · <b>@50,0</b> (P2) · <b>@15,20</b> (P3) · <b>@0,30</b> (P4) · <b>@-5,0</b> (P5).</li><li>P5 → P6 desce até a altura 20 e o vão do meio tem 20 de largura, centrado: <b>@-25,-30</b> (P6) · <b>@-20,0</b> (P7) · <b>@-25,30</b> (P8).</li><li><b>@-5,0</b> (P9) · <b>@0,-30</b> (P10) · <b>@15,-20</b> volta ao P1 (ou C).</li></ol>
+    <div class="ans">@50,0 · @15,20 · @0,30 · @-5,0 · @-25,-30 · @-20,0 · @-25,30 · @-5,0 · @0,-30 · C</div></div>
+  <div class="ex" data-ex data-q="cad-t1-8"><div class="q">Slide 18: estrela de 6 pontas, todos os lados com 30, começando na ponta de baixo (bolinha vermelha).</div>
+    <ol><li>Os ângulos internos das pontas são 60°: a estrela é feita de triângulos equiláteros. Cada lado muda de direção em 60° ou 120°.</li><li>L ↵ 0,0 · @30&lt;60 · @30&lt;0 · @30&lt;120 · @30&lt;60 · @30&lt;180 · @30&lt;120</li><li>@30&lt;240 · @30&lt;180 · @30&lt;300 · @30&lt;240 · @30&lt;0 · C</li><li>Confira o padrão: em cada par a 2ª direção é a 1ª menos 60°, e o par seguinte começa 120° adiante.</li></ol>
+    <div class="ans">11 polares de 30 + C</div></div>
+  <div class="cuid"><span class="k">Onde estão os outros</span>Casinha, seta de telhado e peixe estão resolvidos na aula de coordenadas. Os slides 11, 14, 15, 16, 17 e 19 (as três peças, a garrafa, o X, o cachorro e as peças grandes) misturam ângulos e cotas encadeadas: são o treino livre do AutoCAD. Tente sozinho; se quiser, mande a foto que eu confiro.</div>
+  <div class="done-btn" data-done="treino1"></div>
+</section>
+
+<!-- ================= MÓDULO 2 · INTERMEDIÁRIO ================= -->
+<!-- ============ M2 · MODIFICAÇÃO ============ -->
+<section class="view read" id="v-modificar" hidden>
+  <div class="eyebrow">Módulo 2 · Intermediário</div>
+  <h2>Comandos de modificação</h2>
+  <p class="lede">Quem desenha rápido no CAD quase não desenha: <b>modifica</b>. Faz uma linha, copia paralela com OFFSET, corta o que sobra com TRIM, arredonda com FILLET. Este é o conjunto de comandos da 2ª etapa dos slides, mais os que todo projetista usa no dia a dia.</p>
+  <h3>Os comandos do slide</h3>
+  <div class="tbl"><table><tr><th>Comando</th><th>Atalho</th><th>O que faz</th><th>Sequência</th></tr>
+    <tr><td>ERASE</td><td><b>E</b></td><td>apaga (igual à tecla Delete)</td><td>seleciona → Enter</td></tr>
+    <tr><td>EXPLODE</td><td><b>X</b></td><td>desmonta objeto composto (polilinha, bloco, cota, hachura) em partes soltas</td><td>seleciona → Enter</td></tr>
+    <tr><td>SCALE</td><td><b>SC</b></td><td>amplia ou reduz mantendo a proporção</td><td>seleciona → ponto base → fator (2 = dobro, 0.5 = metade)</td></tr>
+    <tr><td>MOVE</td><td><b>M</b></td><td>muda de lugar (não confundir com PAN, que só mexe a vista)</td><td>seleciona → ponto base → 2º ponto (ou @dx,dy)</td></tr>
+    <tr><td>COPY</td><td><b>CO</b> / CP</td><td>copia uma ou várias vezes</td><td>seleciona → base → destinos… → Enter</td></tr>
+    <tr><td>MIRROR</td><td><b>MI</b></td><td>cópia espelhada por uma linha de 2 pontos</td><td>seleciona → 2 pontos do eixo → apagar original? N/Y</td></tr>
+    <tr><td>TRIM</td><td><b>TR</b></td><td>corta o pedaço de um objeto entre "fronteiras"</td><td>clica no pedaço que quer apagar</td></tr>
+    <tr><td>EXTEND</td><td><b>EX</b></td><td>prolonga até encostar na próxima fronteira</td><td>clica perto da ponta que quer esticar</td></tr>
+    <tr><td>OFFSET</td><td><b>O</b></td><td>cópia paralela a uma distância</td><td>distância → objeto → lado</td></tr>
+    <tr><td>ROTATE</td><td><b>RO</b></td><td>gira em torno de um ponto base</td><td>seleciona → base → ângulo (anti-horário +)</td></tr>
+    <tr><td>HATCH</td><td><b>H</b> / BH</td><td>hachura (aula própria, a seguir)</td><td>padrão → clica dentro da área</td></tr></table></div>
+  <div class="cuid"><span class="k">Atalhos certos</span>Os atalhos padrão do AutoCAD (arquivo acad.pgp) são <b>TR</b> para TRIM e <b>EX</b> para EXTEND. A letra <b>O</b> sozinha é o OFFSET. Se no slide aparecer outra letra, é porque o computador do laboratório foi personalizado (Módulo 3 mostra como fazer isso).</div>
+  <h3>Mais 8 que você vai usar toda semana</h3>
+  <div class="tbl"><table><tr><th>Comando</th><th>Atalho</th><th>O que faz</th></tr>
+    <tr><td>FILLET</td><td><b>F</b></td><td>arredonda o canto entre 2 linhas com um raio. <b>Raio 0</b> = fecha o canto em quina viva (corta e estende ao mesmo tempo)</td></tr>
+    <tr><td>CHAMFER</td><td><b>CHA</b></td><td>chanfro: corta o canto com 2 distâncias (ou distância + ângulo)</td></tr>
+    <tr><td>ARRAY</td><td><b>AR</b></td><td>cópias em fileiras (Rectangular), em volta de um centro (Polar) ou ao longo de um caminho (Path)</td></tr>
+    <tr><td>STRETCH</td><td><b>S</b></td><td>estica: selecione com janela <b>verde</b> (crossing) só a parte que deve andar</td></tr>
+    <tr><td>JOIN</td><td><b>J</b></td><td>junta linhas que se tocam numa polilinha</td></tr>
+    <tr><td>BREAK</td><td><b>BR</b></td><td>abre um vão entre dois pontos de um objeto</td></tr>
+    <tr><td>LENGTHEN</td><td><b>LEN</b></td><td>muda o comprimento (DElta, Total, Percent)</td></tr>
+    <tr><td>MATCHPROP</td><td><b>MA</b></td><td>"pincel": copia layer, cor e tipo de linha de um objeto para outros</td></tr></table></div>
+  <h3>O ponto base é tudo</h3>
+  <p>MOVE, COPY, ROTATE e SCALE pedem um <b>ponto base</b>. Ele é a "alça" por onde você segura o objeto. Escolha sempre um ponto com OSNAP (um canto, um centro) e o 2º ponto também: assim a peça cai exatamente no lugar.</p>
+  <h3>Duas fórmulas de quem trabalha com desenho dos outros</h3>
+  <div class="fx"><span class="tag">SCALE com Reference</span><div class="eq">fator = medida certa / medida atual</div><dl class="legend"><dt>quando</dt><dd>um desenho importado (PDF, DXF de fornecedor) chegou fora de escala</dd><dt>como</dt><dd>SC → seleciona tudo → base → <b>R</b> → clica as 2 pontas de uma linha conhecida → digita o comprimento real. O AutoCAD calcula o fator sozinho</dd><dt>exemplo</dt><dd>a cota diz 500 e a linha mede 127 → fator = 500 / 127 = 3,937</dd></dl></div>
+  <div class="fx"><span class="tag">ROTATE com Reference</span><div class="eq">gira = ângulo novo − ângulo atual</div><dl class="legend"><dt>quando</dt><dd>uma peça está inclinada e você quer alinhar uma aresta na horizontal</dd><dt>como</dt><dd>RO → seleciona → base → <b>R</b> → clica as 2 pontas da aresta → digita <b>0</b>. Para alinhar com outra peça use <b>ALIGN</b> (AL)</dd></dl></div>
+  <div class="ex" data-ex data-q="cad-09"><div class="q">Flange: Ø120 externo, furo central Ø60 e 6 furos Ø12 num círculo de furação (PCD) Ø90, centro em 0,0.</div>
+    <ol><li>C ↵ 0,0 ↵ D ↵ 120 ↵ · Enter (repete) 0,0 ↵ D ↵ 60 ↵</li><li>O 1º furo fica no topo do PCD: raio 90 ÷ 2 = 45 → centro em 0,45. C ↵ 0,45 ↵ D ↵ 12 ↵</li><li>ARRAYPOLAR (ou AR ↵ PO): seleciona o furo ↵ · centro <b>0,0</b> ↵ · Items <b>6</b> · Fill angle 360 ↵</li><li>O PCD em si é linha de centro: C ↵ 0,0 ↵ D ↵ 90 ↵ e passe para o layer de centro (Módulo 2, layers).</li><li>Confira: ângulo entre furos = 360° / 6 = 60°.</li></ol>
+    <div class="ans">2 círculos + 1 furo em 0,45 + ARRAYPOLAR de 6</div></div>
+  <div class="ex" data-ex data-q="cad-10"><div class="q">Moldura: chapa 100 × 60 com cantos arredondados R10 e uma janela interna a 10 mm da borda.</div>
+    <ol><li>REC ↵ <b>F</b> ↵ (opção Fillet) raio <b>10</b> ↵ · 1º canto 0,0 · outro <b>@100,60</b>.</li><li>O ↵ <b>10</b> ↵ · clica na chapa · clica <b>dentro</b> dela. A janela sai com 80 × 40 e cantos R0 (o raio interno vira 10 − 10 = 0).</li><li>Sem o REC com Fillet: desenhe o retângulo e use F ↵ R ↵ 10 ↵ e depois <b>P</b> (polyline) para arredondar os 4 cantos de uma vez.</li></ol>
+    <div class="ans">REC com Fillet 10 + OFFSET 10 para dentro</div></div>
+  <div class="ex" data-ex data-q="cad-11"><div class="q">Uma planta veio de PDF e a parede que deveria ter 5000 mm mede 1250. Ajuste a escala do desenho inteiro.</div>
+    <ol><li>SC ↵ · <b>ALL</b> ↵ ↵ · ponto base: uma ponta da parede (Endpoint).</li><li><b>R</b> ↵ (Reference) · clique as duas pontas da parede (o AutoCAD lê 1250).</li><li>Specify new length: <b>5000</b> ↵.</li><li>O fator aplicado foi 5000 / 1250 = 4. Confira com DI (DIST) na parede.</li></ol>
+    <div class="ans">SCALE → Reference → 5000 (fator 4)</div></div>
+  <div class="wid"><h4>Treine no simulador</h4><p>Os comandos MOVE, COPY, ROTATE, SCALE, MIRROR, OFFSET, TRIM, EXTEND, FILLET e EXPLODE funcionam aqui. O treino 2 tem desafios que só saem com eles.</p><a class="btn" href="#treino2" style="text-decoration:none">Ir para o treino 2 →</a></div>
+  <div class="done-btn" data-done="modificar"></div>
+</section>
+
+<!-- ============ M2 · LAYERS ============ -->
+<section class="view read" id="v-layers" hidden>
+  <div class="eyebrow">Módulo 2 · Intermediário</div>
+  <h2>Layers (camadas)</h2>
+  <p class="lede">Imagine o desenho feito em várias folhas de plástico transparente, uma em cima da outra: uma só com o contorno, outra com as linhas de centro, outra com as cotas. Cada folha é um <b>layer</b>. Você liga, desliga, tranca e imprime cada uma separada, e o tipo de linha e a espessura vêm dela.</p>
+  <h3>O gerenciador (LA)</h3>
+  <p>Digite <b>LA</b> ↵ (LAYER) para abrir o Layer Properties Manager. Os botões de cima: <b>New Layer</b> cria · <b>Delete</b> apaga · <b>Current</b> (✓) torna o layer atual: tudo que você desenhar vai para ele. Duplo clique num layer também o torna atual.</p>
+  <div class="tbl"><table><tr><th>Coluna</th><th>O que faz</th></tr>
+    <tr><td>💡 On / Off</td><td>liga e desliga a visibilidade</td></tr>
+    <tr><td>☀ Freeze / Thaw</td><td>congela: some da tela e do menu de seleção, e o arquivo fica mais leve (não é calculado)</td></tr>
+    <tr><td>🔒 Lock / Unlock</td><td>tranca: aparece, mas não deixa modificar. Ótimo para usar de referência</td></tr>
+    <tr><td>Color</td><td>cor do layer. Na impressão, cada cor costuma virar uma espessura (cor = espessura)</td></tr>
+    <tr><td>Linetype</td><td>tipo de linha: Continuous, traço-ponto (centro), tracejada (invisível)</td></tr>
+    <tr><td>Lineweight</td><td>espessura do traço em mm</td></tr>
+    <tr><td>Transparency</td><td>transparência de 0 a 90 (quanto maior, mais transparente)</td></tr>
+    <tr><td>🖨 Plot / Don't plot</td><td>se o layer sai na impressão</td></tr></table></div>
+  <h3>O padrão de layers da professora</h3>
+  <div class="tbl"><table><tr><th>Nome</th><th>Cor</th><th>Aplicação</th><th>Tipo de linha</th><th>Espessura</th></tr>
+    <tr><td><b>Contorno</b></td><td><i class="cad-cor" style="background:#2A2"></i>3 · verde</td><td>contorno visível</td><td>Continuous</td><td>0,5</td></tr>
+    <tr><td><b>Centro</b></td><td><i class="cad-cor" style="background:#E33"></i>1 · vermelha</td><td>linhas de centro e eixos</td><td>ISO dash dot</td><td>0,2</td></tr>
+    <tr><td><b>Cota</b></td><td><i class="cad-cor" style="background:#E33"></i>1 · vermelha</td><td>todas as linhas da cota</td><td>Continuous</td><td>0,2</td></tr>
+    <tr><td><b>Tracejada</b></td><td><i class="cad-cor" style="background:#DD2"></i>2 · amarela</td><td>arestas invisíveis</td><td>ISO dash</td><td>0,2</td></tr>
+    <tr><td><b>Texto</b></td><td><i class="cad-cor" style="background:#2A2"></i>3 · verde</td><td>textos e notas</td><td>Continuous</td><td>0,5</td></tr>
+    <tr><td><b>Simbologia</b></td><td><i class="cad-cor" style="background:#3CE"></i>4 · azul claro</td><td>rugosidade, solda, tolerâncias</td><td>Continuous</td><td>0,2</td></tr>
+    <tr><td><b>Hachura</b></td><td><i class="cad-cor" style="background:#E33"></i>1 · vermelha</td><td>hachuras de corte</td><td>Continuous</td><td>0,2</td></tr>
+    <tr><td><b>Corte</b></td><td><i class="cad-cor" style="background:#D3D"></i>6 · magenta</td><td>linha de plano de corte</td><td>ISO dash dot</td><td>0,5</td></tr>
+    <tr><td><b>Margens/legenda</b></td><td><i class="cad-cor" style="background:#33E"></i>5 · azul</td><td>margem e carimbo</td><td>Continuous</td><td>0,5</td></tr></table></div>
+  <div class="cuid"><span class="k">ByLayer: o segredo do arquivo organizado</span>Deixe a cor, o tipo de linha e a espessura dos <b>objetos</b> em <b>ByLayer</b> (o padrão). Assim quem manda é o layer: troque a cor do layer Centro e todas as linhas de centro mudam juntas. Pintar objeto por objeto é o erro nº 1 de quem está começando.</div>
+  <div class="m1-like">
+    <div><b>Layer 0</b><span>Existe sempre e não pode ser apagado nem renomeado. Use para criar blocos (Módulo 3), não para desenhar.</span></div>
+    <div><b>Defpoints</b><span>Aparece sozinho quando você cota. <b>Nunca imprime</b>: se algo "sumiu" da impressão, ele foi parar aí.</span></div>
+  </div>
+  <h3>Escala do tipo de linha: LTSCALE</h3>
+  <p>A linha de centro aparece contínua? Os tracinhos estão pequenos (ou grandes) demais para o tamanho do desenho. O <b>LTSCALE</b> (escala global do tipo de linha) muda isso para o arquivo inteiro: quanto maior o valor, maiores os traços.</p>
+  <div class="cad-prompt">Command: <b>LTSCALE</b> ↵<br>Enter new linetype scale factor &lt;1.0000&gt;: <b>0.25</b> ↵<br>Regenerating model.</div>
+  <div class="fx"><span class="tag">LTSCALE</span><div class="eq">LTSCALE ≈ n (escala 1:n de impressão)</div><dl class="legend"><dt>imprimindo do Model</dt><dd>desenho que sai em 1:10 → LTSCALE ≈ 10 (os traços ficam do tamanho certo no papel)</dd><dt>imprimindo do Layout</dt><dd>deixe <b>LTSCALE = 1</b>, <b>PSLTSCALE = 1</b> e <b>MSLTSCALE = 1</b>: o AutoCAD ajusta em cada viewport sozinho</dd><dt>CELTSCALE</dt><dd>escala de um objeto só (Properties → Linetype scale)</dd><dt>tipos ISO</dt><dd>os ISO (ISO dash, ISO dash dot) foram feitos para mm: costumam pedir LTSCALE menor que os ACAD_</dd></dl></div>
+  <h3>Atalhos de layer que economizam horas</h3>
+  <div class="tbl"><table><tr><th>Comando</th><th>O que faz</th></tr>
+    <tr><td>LAYMCUR</td><td>torna atual o layer do objeto que você clicar</td></tr>
+    <tr><td>LAYMCH</td><td>manda os objetos selecionados para o layer de outro objeto</td></tr>
+    <tr><td>LAYISO · LAYUNISO</td><td>isola: mostra só o layer do objeto clicado · desfaz</td></tr>
+    <tr><td>LAYOFF · LAYON</td><td>desliga o layer do objeto clicado · liga todos</td></tr>
+    <tr><td>LAYFRZ · LAYTHW</td><td>congela pelo clique · descongela todos</td></tr>
+    <tr><td>LWDISPLAY</td><td>mostra as espessuras na tela (botão "Show lineweight" na barra de status)</td></tr></table></div>
+  <div class="ex" data-ex data-q="cad-12"><div class="q">Monte no AutoCAD o padrão de layers da professora e deixe o Contorno como atual.</div>
+    <ol><li>LA ↵. Clique em New Layer e digite <b>Contorno</b>. Color → 3 (verde). Lineweight → 0.50.</li><li>New Layer <b>Centro</b>: color 1. Linetype → <b>Load…</b> → ISO dash dot → OK. Lineweight 0.20. Repita para Cota, Tracejada (ISO dash), Texto, Simbologia, Hachura, Corte e Margens.</li><li>Duplo clique no Contorno (ou ✓ Current).</li><li>Salve como template (<b>.dwt</b>) para nunca mais refazer (Módulo 3).</li></ol>
+    <div class="ans">9 layers criados · Contorno atual · salvo como .dwt</div></div>
+  <div class="done-btn" data-done="layers"></div>
+</section>
+
+<!-- ============ M2 · HACHURA ============ -->
+<section class="view read" id="v-hachura" hidden>
+  <div class="eyebrow">Módulo 2 · Intermediário</div>
+  <h2>Hachuras</h2>
+  <p class="lede">Hachura é o preenchimento de uma área com um padrão de linhas. No desenho técnico ela mostra onde o plano de <b>corte</b> passou pelo material (seções, cortes, rupturas), e o padrão indica de que material é a peça.</p>
+  <p><b>H</b> ↵ (ou BH, ou Draw → Hatch) abre a aba contextual <b>Hatch Creation</b>. As partes dela:</p>
+  <div class="tbl"><table><tr><th>Item</th><th>O que é</th></tr>
+    <tr><td>Padrão (Pattern)</td><td>os desenhos prontos. Na pasta ANSI estão os padrões técnicos</td></tr>
+    <tr><td>Tipo de preenchimento</td><td>1) <b>Predefined</b>: padrões normalizados (ANSI, ISO, DIN) e texturas · 2) <b>User defined</b>: linhas paralelas ou malha que você define · 3) <b>Custom</b>: padrões criados pelo usuário · 4) <b>Solid</b>: uma cor cheia · 5) <b>Gradient</b>: degradê</td></tr>
+    <tr><td>Cores</td><td>cor da linha da hachura e cor de fundo</td></tr>
+    <tr><td>Scale (escala)</td><td>distância entre as linhas: 1 = real · 1.3 = 30 % mais espaçado · 0.5 = metade</td></tr>
+    <tr><td>Angle (ângulo)</td><td>no ANSI31, 0 já dá as linhas a 45° para a direita. Para inverter o lado use <b>90</b></td></tr></table></div>
+  <h3>Qual padrão para qual material</h3>
+  <div class="tbl"><table><tr><th>Padrão</th><th>Material (descrição do próprio AutoCAD)</th></tr>
+    <tr><td>ANSI31</td><td>ferro fundido, tijolo, pedra · é a hachura "geral" de corte</td></tr>
+    <tr><td>ANSI32</td><td>aço</td></tr>
+    <tr><td>ANSI33</td><td>bronze, latão, cobre</td></tr>
+    <tr><td>ANSI34</td><td>plástico, borracha</td></tr>
+    <tr><td>ANSI35</td><td>tijolo refratário</td></tr>
+    <tr><td>ANSI36</td><td>mármore, ardósia, vidro</td></tr>
+    <tr><td>ANSI37</td><td>chumbo, zinco, magnésio, isolantes</td></tr>
+    <tr><td>ANSI38</td><td>alumínio</td></tr></table></div>
+  <div class="cuid"><span class="k">Alumínio: ANSI36 ou 38?</span>O slide cita ANSI 36 para alumínio. Na lista de padrões do próprio AutoCAD o alumínio aparece como <b>ANSI38</b> (o 36 é mármore e vidro). Na prova, siga o que a professora pedir; na empresa, confira a descrição que aparece quando você passa o mouse no padrão.</div>
+  <h3>Escolhendo a área: Boundaries</h3>
+  <div class="m1-like">
+    <div><b>Pick Points</b><span>Clique <b>dentro</b> da área. O AutoCAD acha o contorno sozinho (fica tracejado). A área tem de estar <b>totalmente fechada</b>: se houver uma brecha, ele dá erro.</span></div>
+    <div><b>Select Objects</b><span>Clique nas <b>linhas</b> que limitam a área. Funciona até em regiões abertas, desde que os objetos escolhidos formem o contorno.</span></div>
+    <div><b>Remove Boundaries</b><span>Tira da hachura um texto, um furo ou uma ilha que ficou dentro da área.</span></div>
+  </div>
+  <div class="ofi"><span class="k">"Valid hatch boundary not found"</span>É a brecha. Use <b>Select Objects</b>, ou feche o contorno (FILLET raio 0 nos cantos, EXTEND, JOIN). Se a brecha for minúscula, a variável <b>HPGAPTOL</b> aceita vãos até o valor que você der.</div>
+  <h3>Regras do desenho técnico (NBR 12298)</h3>
+  <ul class="cad-ul"><li>Linhas finas, a 45° com o contorno principal.</li><li>Peças diferentes no mesmo corte: hachura em direções ou espaçamentos diferentes.</li><li>A mesma peça em vistas diferentes: mesma hachura.</li><li>Não se hachura no corte longitudinal: eixos, parafusos, porcas, pinos, chavetas, nervuras e raios de roda.</li><li>Áreas muito grandes podem ser hachuradas só junto ao contorno.</li></ul>
+  <div class="ex" data-ex data-q="cad-13"><div class="q">Corte de uma bucha de bronze (Ø40 externo, Ø25 interno, 50 de comprimento) montada num eixo de aço Ø25.</div>
+    <ol><li>Vista em corte: a bucha aparece como dois retângulos de 50 × 7,5 (parede = (40 − 25) ÷ 2), um em cima e outro embaixo do eixo.</li><li>Layer Hachura atual. H ↵ · padrão <b>ANSI33</b> (bronze) · Pick Points: clique dentro dos dois retângulos da bucha ↵.</li><li>O eixo de aço <b>não</b> é hachurado: eixo maciço em corte longitudinal fica sem hachura (regra da norma).</li><li>Ajuste Scale até ficar com uns 2 a 3 mm entre linhas no papel.</li></ol>
+    <div class="ans">bucha com ANSI33 · eixo sem hachura</div></div>
+  <div class="done-btn" data-done="hachura"></div>
+</section>
+
+<!-- ============ M2 · COTAS E TEXTO ============ -->
+<section class="view read" id="v-cotas" hidden>
+  <div class="eyebrow">Módulo 2 · Intermediário</div>
+  <h2>Cotas e texto</h2>
+  <p class="lede">Um desenho sem cota não fabrica nada. A boa notícia: como você desenhou em tamanho real, o AutoCAD <b>mede sozinho</b>. Você só diz o que cotar e onde a cota fica.</p>
+  <div class="tbl"><table><tr><th>Comando</th><th>Atalho</th><th>Cota</th></tr>
+    <tr><td>DIM</td><td>DIM</td><td>"cota inteligente": passa o mouse e ele adivinha o tipo (2016 em diante)</td></tr>
+    <tr><td>DIMLINEAR</td><td><b>DLI</b></td><td>horizontal ou vertical</td></tr>
+    <tr><td>DIMALIGNED</td><td><b>DAL</b></td><td>paralela a uma linha inclinada (o comprimento verdadeiro)</td></tr>
+    <tr><td>DIMRADIUS · DIMDIAMETER</td><td><b>DRA · DDI</b></td><td>raio (R) de arcos · diâmetro (Ø) de círculos</td></tr>
+    <tr><td>DIMANGULAR</td><td><b>DAN</b></td><td>ângulo entre 2 linhas</td></tr>
+    <tr><td>DIMBASELINE · DIMCONTINUE</td><td><b>DBA · DCO</b></td><td>cotas a partir da mesma base (em paralelo) · em corrente (em série)</td></tr>
+    <tr><td>QDIM</td><td>QDIM</td><td>cota várias de uma vez</td></tr>
+    <tr><td>MLEADER</td><td><b>MLD</b></td><td>chamada com seta (notas, "4 furos Ø10")</td></tr>
+    <tr><td>DIMSTYLE</td><td><b>D</b></td><td>estilo: tamanho do texto, das setas, casas decimais</td></tr>
+    <tr><td>MTEXT · TEXT</td><td><b>MT · DT</b></td><td>texto em parágrafo · texto de uma linha</td></tr></table></div>
+  <div class="cuid"><span class="k">Nunca digite o número da cota por cima</span>Se você "corrigir" o valor no texto da cota, ela deixa de acompanhar o desenho, e a peça sai errada da fábrica. Se a medida está errada, corrija o <b>desenho</b>.</div>
+  <h3>As regras que mais caem (NBR 10126)</h3>
+  <ul class="cad-ul"><li>Em mecânica a unidade é o milímetro e <b>não se escreve "mm"</b> na cota.</li><li>Linhas de cota e de chamada são <b>finas</b>; a de chamada passa uns 2 mm da linha de cota e não encosta na peça (pequeno afastamento).</li><li>Cada medida aparece <b>uma vez só</b>: nada de cotar duas vezes a mesma coisa.</li><li>Evite cotar em linha tracejada (aresta invisível).</li><li>Cotas menores perto da peça, maiores por fora: as linhas de cota não se cruzam.</li><li>Diâmetro com Ø, raio com R, quadrado com □.</li><li>Texto em cima da linha de cota, legível de baixo ou da direita da folha.</li></ul>
+  <h3>O tamanho certo no papel</h3>
+  <div class="fx"><span class="tag">Texto e cota na folha</span><div class="eq">h<sub>model</sub> = h<sub>papel</sub> × n &nbsp;·&nbsp; DIMSCALE = n</div><dl class="legend"><dt>h<sub>papel</sub></dt><dd>altura que o texto deve ter impresso: 2,5 mm (cotas) · 3,5 mm (notas) · 5 a 7 mm (títulos)</dd><dt>n</dt><dd>escala de impressão 1:n (1:10 → n = 10)</dd><dt>DIMSCALE</dt><dd>multiplica todos os tamanhos do estilo de cota (texto, setas, afastamentos)</dd><dt>exemplo</dt><dd>impressão em 1:5 e texto de 2,5 mm → altura no model = 12,5 e DIMSCALE = 5</dd><dt>melhor ainda</dt><dd>cotas e textos <b>Annotative</b>: a escala do viewport ajusta sozinha (Módulo 3)</dd></dl></div>
+  <div class="ex" data-ex data-q="cad-14"><div class="q">Cote a peça 2.B (slide 10) seguindo a norma.</div>
+    <ol><li>Layer Cota atual. DLI na base: P1 → P2 = <b>50</b>. DCO logo depois para as duas pontas de <b>15</b> (corrente).</li><li>Largura total por fora: DLI de P9 a P4 = <b>80</b>, acima de tudo (a maior por fora).</li><li>Alturas no lado direito: DLI de P2 a P3 = <b>20</b> e DCO até P4 = <b>30</b>.</li><li>O vão de cima (P7–P6 = <b>20</b>), a altura dele (<b>20</b>) e as abas de <b>5</b>.</li><li>Não cote as diagonais: elas já ficam definidas pelos pontos cotados (cotar seria cota repetida).</li></ol>
+    <div class="ans">50 + 15 + 15 · 80 · 20 + 30 · vão 20 · altura 20 · abas 5</div></div>
+  <div class="done-btn" data-done="cotas"></div>
+</section>
+
+<!-- ============ M2 · VISTAS ============ -->
+<section class="view read" id="v-vistas" hidden>
+  <div class="eyebrow">Módulo 2 · Intermediário</div>
+  <h2>Vistas ortográficas e isométrica no CAD</h2>
+  <p class="lede">É aqui que o Desenho Técnico I e o CAD se encontram. No papel você usa esquadro para alinhar as vistas; no AutoCAD o alinhamento sai de linhas de construção e do OTRACK, com precisão total.</p>
+  <h3>A posição das vistas no 1º diedro (Brasil)</h3>
+  <div class="cad-diedro"><div class="vf">Vista <b>frontal</b><br>(a principal)</div><div class="vle">Vista lateral<br><b>esquerda</b></div><div class="vs">Vista <b>superior</b></div></div>
+  <p>No 1º diedro (NBR 10067), a vista superior vai <b>embaixo</b> da frontal e a lateral esquerda vai à <b>direita</b>. As alturas se transferem na horizontal (frontal ↔ lateral) e as larguras na vertical (frontal ↔ superior). A profundidade vai da superior para a lateral girando 90°, com uma linha a 45°.</p>
+  <div class="ofi"><span class="k">O método no AutoCAD</span>
+    <b>1.</b> Desenhe a vista mais completa (quase sempre a frontal) com o layer Contorno.<br>
+    <b>2.</b> <b>XLINE</b> (XL) → H e V passando pelos cantos e centros: são as "linhas de chamada" infinitas, num layer auxiliar que não imprime.<br>
+    <b>3.</b> Monte a superior por baixo, usando as verticais e a profundidade.<br>
+    <b>4.</b> Para a lateral: XLINE <b>Ang 45</b> (ou 135) no canto entre a superior e a lateral. As horizontais da superior batem na 45° e viram verticais na lateral.<br>
+    <b>5.</b> TRIM em tudo que sobra, centros e tracejadas nos layers certos, e apague (ou congele) o layer auxiliar.</div>
+  <div class="cuid"><span class="k">Sem linhas auxiliares</span>Com OSNAP + OTRACK (F11) ligados, passe o mouse num canto da frontal e desça: a guia pontilhada já é a linha de chamada. Para quem pega prática, é o jeito mais rápido.</div>
+  <div class="ex" data-ex data-q="cad-15"><div class="q">Slide 13 da 2ª etapa: suporte em L com aba furada. Frontal de 40 de largura com 30 de altura reta e o topo em meio círculo, chapa de 10, aba de 10 de espessura com ponta arredondada R15 e furo Ø15 a 30 da face de trás.</div>
+    <ol><li>Frontal: REC 0,0 @40,30 · ARC (ou CIRCLE centro 20,30 raio 20 e TRIM a metade de baixo). A faixa da aba (10 de altura) aparece embaixo com as linhas do furo tracejadas.</li><li>Superior (embaixo da frontal, alinhada): retângulo 40 × 20 para a chapa + parte larga da aba; a aba afina para 30 e termina em meio círculo R15 com centro a 30 da face de trás.</li><li>Furo: C no centro da ponta, D 15. Linhas de centro no layer Centro.</li><li>Lateral esquerda (à direita da frontal): o L com espessura 10 na vertical e 10 na base; o furo aparece tracejado. Profundidades levadas pela linha a 45°.</li><li>Cote: 40, 30, 10, 10, 20, 30, Ø15, R15.</li></ol>
+    <div class="ans">frontal + superior + lateral esquerda, alinhadas por XLINE e linha a 45°</div></div>
+  <h3>Isométrica no AutoCAD</h3>
+  <p>Ligue o <b>Isometric Drafting</b> na barra de status (ou ISODRAFT). O cursor fica torto, seguindo os eixos a 30°, 90° e 150° (120° entre eles). <b>F5</b> troca o plano: esquerdo, de cima, direito. Com ORTHO (F8) as linhas andam só nos eixos isométricos.</p>
+  <div class="fx"><span class="tag">Círculo em isométrica</span><div class="eq">EL ↵ I ↵ centro ↵ raio</div><dl class="legend"><dt>Isocircle</dt><dd>a opção <b>I</b> do ELLIPSE só aparece com o modo isométrico ligado. Antes, aperte F5 até o plano do furo</dd><dt>direções</dt><dd>@d&lt;30 · @d&lt;90 · @d&lt;150 · @d&lt;210 · @d&lt;270 · @d&lt;330</dd></dl></div>
+  <div class="cuid"><span class="k">Isométrica não é 3D</span>Ela é um desenho 2D que parece 3D. Não dá para girar nem cotar com DIMLINEAR (use DIMALIGNED e o DIMEDIT → Oblique 30/−30). Para 3D de verdade existe o espaço 3D do AutoCAD (ou o Inventor).</div>
+  <div class="wid"><h4>Desafio da professora (slide 14)</h4><p>A peça isométrica com base 44 + 28 + 20, altura 22 + 16 + 30, rampa de 62 × 36 × 26 e a ponta R32 com furo oblongo R12. Faça as três vistas no 1º diedro. Não há gabarito aqui de propósito: monte no AutoCAD e, se quiser conferir, mande a foto.</p></div>
+  <div class="done-btn" data-done="vistas"></div>
+</section>
+
+<!-- ============ M2 · TREINO ============ -->
+<section class="view read" id="v-treino2" hidden>
+  <div class="eyebrow">Módulo 2 · Exercícios</div>
+  <h2>Treino 2: desenhe modificando</h2>
+  <p class="lede">Três desafios que ficam longos com LINE e curtos com OFFSET, TRIM e MIRROR. O simulador confere só o resultado, então qualquer caminho vale. Toque em Conferir: ele diz se confere ou não.</p>
+  <div id="cadSimT2"></div>
+  <h3>Resoluções</h3>
+  <div class="ex" data-ex data-q="cad-t2-1"><div class="q">Moldura: retângulo 100 × 60 com canto em 0,0 e um retângulo interno a 10 mm de distância.</div>
+    <ol><li>REC ↵ 0,0 ↵ @100,60 ↵</li><li>O ↵ 10 ↵ · clica no retângulo · clica dentro dele · Enter.</li></ol>
+    <div class="ans">REC + OFFSET 10 para dentro</div></div>
+  <div class="ex" data-ex data-q="cad-t2-2"><div class="q">Cruz: contorno de uma cruz de 80 × 80 com braços de 20 de largura, centro em 40,40.</div>
+    <ol><li>REC ↵ 0,30 ↵ @80,20 ↵ (barra horizontal) · REC ↵ 30,0 ↵ @20,80 ↵ (barra vertical).</li><li>X ↵ ALL ↵ ↵ (no simulador o TRIM pede objetos soltos).</li><li>TR ↵ e clique nos 4 pedaços de linha que ficaram <b>dentro</b> do quadrado do meio (2 de cada retângulo). Enter.</li><li>Sobram só as 12 arestas do contorno da cruz.</li></ol>
+    <div class="ans">2 REC + EXPLODE + TRIM dos 4 pedaços de dentro</div></div>
+  <div class="ex" data-ex data-q="cad-t2-3"><div class="q">Peça 2.B por espelho: desenhe só a metade da direita e use MIRROR.</div>
+    <ol><li>A peça é simétrica em relação à vertical x = 25 (meio da base de 50).</li><li>L ↵ 25,0 ↵ 50,0 ↵ 65,20 ↵ 65,50 ↵ 60,50 ↵ 35,20 ↵ 25,20 ↵ Enter.</li><li>MI ↵ ALL ↵ ↵ · 1º ponto do espelho <b>25,0</b> · 2º ponto <b>25,50</b> · Erase source? <b>N</b> ↵.</li></ol>
+    <div class="ans">meia peça + MIRROR em x = 25</div></div>
+  <div class="done-btn" data-done="treino2"></div>
+</section>
+
+<!-- ================= MÓDULO 3 · AVANÇADO ================= -->
+<!-- ============ M3 · BLOCOS ============ -->
+<section class="view read" id="v-blocos" hidden>
+  <div class="eyebrow">Módulo 3 · Avançado</div>
+  <h2>Blocos, atributos e lista de materiais automática</h2>
+  <p class="lede">Bloco é um grupo de objetos salvo com um nome, que você insere quantas vezes quiser. Mude a definição uma vez e <b>todas</b> as cópias mudam. Com atributos, o bloco carrega informação (código, material, peso), e o AutoCAD monta a lista de materiais sozinho.</p>
+  <div class="tbl"><table><tr><th>Comando</th><th>Atalho</th><th>Para que</th></tr>
+    <tr><td>BLOCK</td><td><b>B</b></td><td>cria um bloco dentro do desenho: nome, <b>ponto base</b> e objetos</td></tr>
+    <tr><td>INSERT</td><td><b>I</b></td><td>insere (com escala e rotação)</td></tr>
+    <tr><td>WBLOCK</td><td><b>W</b></td><td>salva o bloco como um .dwg separado, para a biblioteca</td></tr>
+    <tr><td>BEDIT</td><td><b>BE</b></td><td>editor de blocos: muda a definição e cria blocos dinâmicos</td></tr>
+    <tr><td>ATTDEF</td><td><b>ATT</b></td><td>define um atributo (campo de texto variável)</td></tr>
+    <tr><td>EATTEDIT · ATTSYNC</td><td>—</td><td>edita os valores · sincroniza blocos antigos com a definição nova</td></tr>
+    <tr><td>DATAEXTRACTION</td><td><b>DX</b></td><td>extrai blocos e atributos para uma tabela ou planilha (CSV/XLS)</td></tr>
+    <tr><td>COUNT</td><td>—</td><td>conta quantos blocos de cada tipo há (2022 em diante)</td></tr>
+    <tr><td>PURGE</td><td><b>PU</b></td><td>apaga definições sem uso (blocos, layers, estilos) e deixa o arquivo leve</td></tr></table></div>
+  <h3>As 3 regras dos blocos que não dão dor de cabeça</h3>
+  <div class="m1-like">
+    <div><b>1 · Ponto base útil</b><span>Escolha o ponto por onde você vai encaixar: o centro do parafuso, o canto do carimbo. Ponto base no 0,0 "de qualquer jeito" faz o bloco aparecer longe do cursor.</span></div>
+    <div><b>2 · Desenhe no layer 0</b><span>Objetos do bloco no layer 0 com cor ByBlock/ByLayer assumem o layer onde o bloco é <b>inserido</b>. O mesmo parafuso vira contorno numa vista e tracejado em outra.</span></div>
+    <div><b>3 · Nome que se encontra</b><span>PARAF-M12x40, VALV-ESF-2POL. Nome claro é o que permite contar e extrair a lista depois.</span></div>
+  </div>
+  <h3>Blocos dinâmicos</h3>
+  <p>No BEDIT você adiciona <b>parâmetros</b> (linear, rotação, flip, visibility, lookup) e <b>ações</b> (stretch, move, scale, array). Um só bloco "Parafuso" pode virar M8, M10 ou M12 numa lista (lookup) e ter o comprimento esticado com uma alça. A biblioteca fica 10 vezes menor.</p>
+  <h3>Lista de materiais saindo do desenho</h3>
+  <div class="ofi"><span class="k">Fluxo</span><b>1.</b> Crie o bloco com atributos: CODIGO, DESCRICAO, MATERIAL, PESO_UN.<br><b>2.</b> Insira e preencha (ou use EATTEDIT).<br><b>3.</b> DATAEXTRACTION → escolha os blocos → marque os atributos → saída numa <b>tabela</b> no desenho e/ou num <b>.xlsx/.csv</b>.<br><b>4.</b> A contagem (quantidade) vem sozinha. Atualizou o desenho? Clique com o direito na tabela → Update Table Data Links.</div>
+  <div class="ex" data-ex data-q="cad-16"><div class="q">Crie um carimbo (legenda) com atributos para nº do desenho, título, escala e data, e deixe a data automática.</div>
+    <ol><li>Desenhe o carimbo no layer 0 (linhas e textos fixos: "TÍTULO", "ESCALA"…).</li><li>ATT ↵ para cada campo: Tag <b>NUM</b>, Prompt "Número do desenho", Default vazio. Posicione. Repita TITULO e ESCALA.</li><li>DATA: no ATTDEF, clique no botão <b>Insert field</b> → Date → formato dd/MM/yyyy. Vira um campo que se atualiza sozinho.</li><li>B ↵ nome <b>CARIMBO-A4</b> · ponto base no canto inferior direito (o canto que encosta na margem) · selecione tudo · OK.</li><li>WBLOCK para levar para todos os projetos.</li></ol>
+    <div class="ans">bloco CARIMBO-A4 com 3 atributos + campo de data</div></div>
+  <div class="done-btn" data-done="blocos"></div>
+</section>
+
+<!-- ============ M3 · LAYOUT E ESCALAS ============ -->
+<section class="view read" id="v-layout" hidden>
+  <div class="eyebrow">Módulo 3 · Avançado</div>
+  <h2>Layout, escalas e impressão: as fórmulas</h2>
+  <p class="lede">Você desenhou tudo em 1:1 no <b>Model</b>. A folha de papel fica no <b>Layout</b> (Paper Space), em tamanho real de papel, e cada <b>viewport</b> é uma "janela" que mostra o model numa escala. É assim que uma peça de 2 m cabe numa A3 com cotas de 2,5 mm.</p>
+  <h3>Model × Layout</h3>
+  <div class="m1-like">
+    <div><b>Model space</b><span>Onde fica a peça, em 1:1 (mm reais). Um só para o arquivo.</span></div>
+    <div><b>Layout (paper space)</b><span>A folha: A4, A3… em mm de papel. Margem, carimbo e notas ficam aqui, em 1:1 do papel. Pode ter vários layouts (uma folha por peça).</span></div>
+    <div><b>Viewport</b><span>Janela no layout que mostra o model. Escala do viewport = escala do desenho. Trave depois de ajustar (Display Locked = Yes).</span></div>
+  </div>
+  <h3>As escalas da norma (NBR 8196)</h3>
+  <p>Redução: <b>1:2 · 1:5 · 1:10</b> e esses × 10, × 100 (1:20, 1:50, 1:100…). Natural: <b>1:1</b>. Ampliação: <b>2:1 · 5:1 · 10:1</b>. Escalas como 1:2,5 e 1:3 existem no uso, mas a norma prefere essas.</p>
+  <h3>As fórmulas</h3>
+  <div class="fx"><span class="tag">Escolher a escala</span><div class="eq">n ≥ máx( L<sub>peça</sub> / L<sub>útil</sub> ; H<sub>peça</sub> / H<sub>útil</sub> )</div><dl class="legend"><dt>L, H da peça</dt><dd>tamanho do conjunto de vistas (com folga para cotas, uns 20 a 30 % a mais)</dd><dt>L, H úteis</dt><dd>área da folha dentro das margens e fora do carimbo</dd><dt>depois</dt><dd>arredonde n <b>para cima</b> até a próxima escala da norma</dd></dl></div>
+  <div class="fx"><span class="tag">Escala do viewport</span><div class="eq">XP = 1 / n</div><dl class="legend"><dt>1:10</dt><dd>dentro do viewport, digite <b>Z ↵ 0.1XP ↵</b> · ou escolha 1:10 na lista de escalas do viewport</dd><dt>2:1</dt><dd>Z ↵ 2XP ↵</dd></dl></div>
+  <div class="fx"><span class="tag">Annotative</span><div class="eq">h<sub>model</sub> = h<sub>papel</sub> × n</div><dl class="legend"><dt>sem annotative</dt><dd>texto 2,5 mm numa vista 1:10 → escreva com altura 25 no model, DIMSCALE = 10</dd><dt>com annotative</dt><dd>texto e estilo de cota marcados <b>Annotative</b>: defina a altura de papel (2,5) uma vez e o AutoCAD multiplica pela escala do viewport</dd><dt>tipos de linha</dt><dd>LTSCALE 1 · PSLTSCALE 1 · MSLTSCALE 1</dd></dl></div>
+  <div class="wid"><h4>Calculadora de folha e escala</h4><p>Digite o tamanho do conjunto de vistas e escolha a folha. Ela acha a escala da norma e os valores para configurar o AutoCAD.</p>
+    <div class="cad-esc"><label>Largura do desenho (mm)<input id="cadEsL" type="text" inputmode="decimal" value="1800"></label><label>Altura do desenho (mm)<input id="cadEsH" type="text" inputmode="decimal" value="650"></label>
+      <label>Folha<select id="cadEsF"><option value="A4">A4 · 297 × 210</option><option value="A3" selected>A3 · 420 × 297</option><option value="A2">A2 · 594 × 420</option><option value="A1">A1 · 841 × 594</option><option value="A0">A0 · 1189 × 841</option></select></label>
+      <label>Folga para cotas<select id="cadEsG"><option value="1.2">20 %</option><option value="1.3" selected>30 %</option><option value="1.5">50 %</option></select></label></div>
+    <div class="wout" id="cadEsO"></div></div>
+  <h3>Tamanhos de folha (NBR 10068)</h3>
+  <div class="tbl"><table><tr><th>Folha</th><th>mm</th><th>Margem esquerda</th><th>Demais margens</th></tr>
+    <tr><td>A0</td><td>841 × 1189</td><td>25</td><td>10</td></tr><tr><td>A1</td><td>594 × 841</td><td>25</td><td>10</td></tr><tr><td>A2</td><td>420 × 594</td><td>25</td><td>7</td></tr><tr><td>A3</td><td>297 × 420</td><td>25</td><td>7</td></tr><tr><td>A4</td><td>210 × 297</td><td>25</td><td>7</td></tr></table></div>
+  <p class="cad-cap">A margem esquerda maior (25) é para furar e arquivar. Cada folha é a metade da anterior: A0 tem 1 m² e a proporção 1 : √2.</p>
+  <h3>Impressão: cor = espessura</h3>
+  <div class="m1-like">
+    <div><b>CTB (color-dependent)</b><span>A tabela diz: cor 3 (verde) imprime preto 0,5 · cor 1 (vermelha) preto 0,2… É a lógica da tabela de layers do Módulo 2. <b>monochrome.ctb</b> imprime tudo preto.</span></div>
+    <div><b>STB (named)</b><span>Estilo com nome, atribuído ao layer. Mais flexível, menos usado em mecânica.</span></div>
+    <div><b>PUBLISH</b><span>Imprime vários layouts (de vários arquivos) de uma vez num PDF de várias folhas. Com "Load all sheets" e DWG To PDF.pc3.</span></div>
+  </div>
+  <div class="ex" data-ex data-q="cad-17"><div class="q">Um conjunto de vistas ocupa 1800 × 650 mm. Imprima numa A3 com texto de 2,5 mm.</div>
+    <ol><li>Área útil da A3 (paisagem 420 × 297, margens 25 e 7 e carimbo de uns 50 de altura): ≈ 388 × 233.</li><li>Com 30 % de folga para cotas: 2340 × 845. Razões: 2340 / 388 = 6,0 e 845 / 233 = 3,6 → n ≥ 6,0.</li><li>Próxima escala da norma acima de 6: <b>1:10</b>.</li><li>Viewport: Z ↵ 0.1XP ↵. Texto: annotative 2,5, ou 25 no model; DIMSCALE = 10.</li></ol>
+    <div class="ans">1:10 · 0.1XP · texto 25 no model (ou annotative 2,5)</div></div>
+  <div class="done-btn" data-done="layout"></div>
+</section>
+
+<!-- ============ M3 · PARAMÉTRICO E CÁLCULO ============ -->
+<section class="view read" id="v-parametrico" hidden>
+  <div class="eyebrow">Módulo 3 · Avançado</div>
+  <h2>Desenho paramétrico, campos e a calculadora escondida</h2>
+  <p class="lede">O AutoCAD tem um lado pouco usado nas aulas: dá para prender a geometria com <b>restrições</b> e controlar as medidas por <b>fórmulas</b>, como num programa paramétrico (Inventor, SolidWorks). Muda um número e a peça se redesenha.</p>
+  <h3>Restrições geométricas (aba Parametric)</h3>
+  <div class="tbl"><table><tr><th>Restrição</th><th>Comando</th><th>Prende</th></tr>
+    <tr><td>Coincident</td><td>GCCOINCIDENT</td><td>dois pontos juntos</td></tr><tr><td>Horizontal · Vertical</td><td>GCHORIZONTAL · GCVERTICAL</td><td>a direção da linha</td></tr>
+    <tr><td>Parallel · Perpendicular</td><td>GCPARALLEL · GCPERPENDICULAR</td><td>relação entre duas linhas</td></tr><tr><td>Tangent</td><td>GCTANGENT</td><td>arco/linha tangentes</td></tr>
+    <tr><td>Equal</td><td>GCEQUAL</td><td>mesmo comprimento ou mesmo raio</td></tr><tr><td>Symmetric</td><td>GCSYMMETRIC</td><td>simetria em relação a uma linha</td></tr>
+    <tr><td>Fix</td><td>GCFIX</td><td>trava um ponto no lugar</td></tr><tr><td>Auto</td><td>AUTOCONSTRAIN</td><td>aplica as óbvias de uma vez</td></tr></table></div>
+  <h3>Restrições dimensionais e fórmulas</h3>
+  <p>DCLINEAR, DCALIGNED, DCRADIUS, DCDIAMETER, DCANGULAR criam cotas que <b>mandam</b> no desenho (d1, d2…). No <b>PARAMETERS</b> (Parameters Manager) você renomeia e escreve expressões:</p>
+  <div class="cad-prompt">largura = 120<br>altura = largura * 0.6<br>furo = largura / 8<br>borda = furo * 1.5</div>
+  <p>Troque <b>largura</b> para 200 e a chapa, os furos e a posição deles se recalculam. Aceita + − * / ^, sqrt(), sin(), cos(), pi, round()… É uma "família de peças" num arquivo só.</p>
+  <h3>Campos (FIELD): texto que se atualiza</h3>
+  <p>Um texto pode mostrar uma propriedade viva: a <b>área</b> de uma polilinha, o comprimento de uma linha, o nome do arquivo, a data, a escala do viewport. Em MTEXT clique com o direito → Insert Field → Object → escolha o objeto → Area. Mudou a peça? Comando <b>REGEN</b> (ou UPDATEFIELD) e o número acompanha.</p>
+  <h3>A calculadora geométrica: 'CAL</h3>
+  <p>Dentro de qualquer comando, digite <b>'CAL</b> (com apóstrofo, transparente) e escreva uma expressão com pontos de OSNAP:</p>
+  <div class="tbl"><table><tr><th>Expressão</th><th>Devolve</th></tr>
+    <tr><td>(end + end) / 2</td><td>o meio entre duas pontas que você clicar</td></tr>
+    <tr><td>mee</td><td>atalho do mesmo: meio entre 2 endpoints</td></tr>
+    <tr><td>cen + [0,25]</td><td>o centro de um círculo deslocado 25 para cima</td></tr>
+    <tr><td>rad</td><td>o raio de um arco ou círculo clicado</td></tr>
+    <tr><td>dist(end, end)</td><td>distância entre duas pontas</td></tr>
+    <tr><td>cvunit(1, "inch", "mm")</td><td>converte unidades: 25.4</td></tr>
+    <tr><td>pld(cen, end, 15)</td><td>ponto a 15 de um ponto, na direção de outro</td></tr></table></div>
+  <p>Para contas comuns, <b>QUICKCALC</b> (Ctrl+8) abre a calculadora com conversão de unidades, e o resultado pode ir direto para o prompt.</p>
+  <div class="ex" data-ex data-q="cad-18"><div class="q">Faça uma chapa paramétrica: largura L, altura 0,6·L, 4 furos de diâmetro L/8 a 1,5 furo das bordas. Teste com L = 120 e L = 200.</div>
+    <ol><li>REC qualquer, AUTOCONSTRAIN (prende horizontal, vertical, paralelos). GCFIX no canto inferior esquerdo.</li><li>DCLINEAR na largura → renomeie para <b>L</b> = 120. DCLINEAR na altura → expressão <b>L*0.6</b>.</li><li>Um círculo: DCDIAMETER = <b>L/8</b>. Posição: DCLINEAR horizontal e vertical até o canto = <b>1.5*L/8</b>.</li><li>Copie o furo e use GCEQUAL + cotas iguais para os outros 3 (ou ARRAY associativo).</li><li>PARAMETERS → L = 200: chapa 200 × 120, furos Ø25 a 37,5 das bordas. Com L = 120: 120 × 72, furos Ø15 a 22,5.</li></ol>
+    <div class="ans">L = 120 → 120 × 72, Ø15 a 22,5 · L = 200 → 200 × 120, Ø25 a 37,5</div></div>
+  <div class="done-btn" data-done="parametrico"></div>
+</section>
+
+<!-- ============ M3 · CALDEIRARIA ============ -->
+<section class="view read" id="v-caldeiraria" hidden>
+  <div class="eyebrow">Módulo 3 · Avançado</div>
+  <h2>Geometria de caldeiraria no CAD: planificação</h2>
+  <p class="lede">A chapa sai plana da máquina de corte e vira cilindro, cone ou curva na calandra. O desenho que vai para o corte é a <b>planificação</b>: o contorno da chapa aberta. Algumas fórmulas e dois métodos de CAD resolvem os casos mais comuns sem software específico.</p>
+  <h3>A regra que todo mundo erra: o diâmetro médio</h3>
+  <div class="fx"><span class="tag">Linha neutra</span><div class="eq">D<sub>m</sub> = D<sub>ext</sub> − t &nbsp;=&nbsp; D<sub>int</sub> + t</div><dl class="legend"><dt>por quê</dt><dd>ao calandrar, a face de fora estica e a de dentro encolhe. Quem mantém o comprimento é a linha do meio da espessura</dd><dt>t</dt><dd>espessura da chapa</dd><dt>erro típico</dt><dd>planificar pelo diâmetro externo: a virola fecha "sobrando" π·t (em 12,5 mm de chapa, quase 40 mm!)</dd></dl></div>
+  <h3>Cilindro (virola)</h3>
+  <div class="fx"><span class="tag">Planificação do cilindro</span><div class="eq">comprimento = π · D<sub>m</sub> &nbsp;·&nbsp; largura = altura H</div><dl class="legend"><dt>resultado</dt><dd>um retângulo π·D<sub>m</sub> × H</dd><dt>no CAD</dt><dd>REC 0,0 → @(π·Dm),H. Use <b>'CAL</b> no prompt: @'cal pi*987.5 … ou a própria calculadora abaixo</dd></dl></div>
+  <h3>Cone (redução concêntrica)</h3>
+  <div class="fx"><span class="tag">Planificação do cone</span><div class="eq">g = √( h² + ((D − d)/2)² ) &nbsp;·&nbsp; R = D·g / (D − d) &nbsp;·&nbsp; θ = 180°·D / R</div><dl class="legend"><dt>D, d</dt><dd>diâmetros <b>médios</b> da boca maior e da menor</dd><dt>h</dt><dd>altura do cone (entre as bocas)</dd><dt>g</dt><dd>geratriz: comprimento da lateral inclinada</dd><dt>R, r</dt><dd>raio maior e menor do setor de coroa planificado · r = R − g</dd><dt>θ</dt><dd>ângulo do setor. Se passar de 360°, a planificação sai em 2 ou mais partes</dd></dl></div>
+  <div class="wid"><h4>Calculadora de planificação</h4>
+    <div class="dinch" id="cadPlT"><button data-t="cil" class="sel">Cilindro</button><button data-t="cone">Cone</button></div>
+    <div class="cad-esc" id="cadPlI"></div>
+    <div class="cad-plg"><div id="cadPlD"></div><div class="wout" id="cadPlO"></div></div></div>
+  <h3>Dois métodos de CAD para o resto</h3>
+  <div class="m1-like">
+    <div><b>Verdadeira grandeza com ROTATE/ALIGN</b><span>Uma aresta inclinada nas duas vistas não mostra o tamanho real. Gire a vista (ROTATE com Reference) até a aresta ficar paralela ao papel, ou use DIST com as 3 coordenadas: d = √(ΔX² + ΔY² + ΔZ²).</span></div>
+    <div><b>Linhas de geratriz com DIVIDE</b><span>Para peças que não são cilindro nem cone reto (boca de lobo, cotovelo em gomos): DIVIDE a boca em 12 ou 24 partes, meça cada geratriz e transfira para a planificação com OFFSET/COPY; ligue os pontos com SPLINE.</span></div>
+  </div>
+  <div class="fx"><span class="tag">Cotovelo em gomos</span><div class="eq">α = A / (2·c)</div><dl class="legend"><dt>A</dt><dd>ângulo total do cotovelo (90° na curva comum)</dd><dt>c</dt><dd>número de cortes (soldas) entre os gomos</dd><dt>α</dt><dd>inclinação de cada corte em relação à seção reta. Curva de 90° com 2 meios-gomos nas pontas + 2 gomos inteiros = 3 cortes → α = 90 / 6 = 15°</dd></dl></div>
+  <div class="ex" data-ex data-q="cad-19"><div class="q">Virola de Ø externo 1000, chapa 12,5 mm, altura 1500. Qual o retângulo de corte?</div>
+    <ol><li>Diâmetro médio: D<sub>m</sub> = 1000 − 12,5 = 987,5 mm.</li><li>Comprimento: π × 987,5 = 3102,3 mm.</li><li>Retângulo de corte: 3102,3 × 1500.</li><li>Se planificasse pelo externo: π × 1000 = 3141,6 → 39,3 mm a mais (exatamente π × t).</li></ol>
+    <div class="ans">3102,3 × 1500 mm</div></div>
+  <div class="ex" data-ex data-q="cad-20"><div class="q">Redução concêntrica: boca maior Ø 600, boca menor Ø 300 (diâmetros médios), altura 400. Planifique.</div>
+    <ol><li>(D − d)/2 = 150. Geratriz g = √(400² + 150²) = √(160000 + 22500) = 427,2 mm.</li><li>Raio maior R = D·g/(D − d) = 600 × 427,2 / 300 = 854,4 mm. Raio menor r = R − g = 427,2 mm.</li><li>Ângulo θ = 180° × 600 / 854,4 = 126,4°.</li><li>No CAD: C ↵ 0,0 ↵ 854.4 · C ↵ 0,0 ↵ 427.2 · L de 0,0 até @900&lt;90 e outra até @900&lt;(90 + 126.4) · TRIM o que sobra.</li><li>Confira o arco: comprimento do arco maior = R·θ(rad) = 854,4 × 2,206 = 1885 = π × 600 ✓</li></ol>
+    <div class="ans">coroa com R = 854,4 · r = 427,2 · θ = 126,4°</div></div>
+  <div class="done-btn" data-done="caldeiraria"></div>
+</section>
+
+<!-- ============ M3 · AUTOMAÇÃO ============ -->
+<section class="view read" id="v-automacao" hidden>
+  <div class="eyebrow">Módulo 3 · Avançado</div>
+  <h2>Automação: atalhos próprios, scripts e AutoLISP</h2>
+  <p class="lede">Tudo o que você digita na linha de comando pode ser gravado e repetido. É a diferença entre fazer 40 folhas na mão e mandar o AutoCAD fazer enquanto você toma café.</p>
+  <h3>Nível 1 · Seus próprios atalhos (acad.pgp)</h3>
+  <p>Os atalhos L, C, TR… estão num arquivo de texto, o <b>acad.pgp</b>. Comando <b>ALIASEDIT</b> (Express Tools) ou Manage → Edit Aliases abre o arquivo. Cada linha é <b>atalho, *COMANDO</b>:</p>
+  <div class="cad-prompt">DD, *DIMLINEAR<br>OO, *OVERKILL<br>LL, *LAYMCUR</div>
+  <p>Salve e digite <b>REINIT</b> (marque PGP file) para valer na hora.</p>
+  <h3>Nível 2 · Script (.scr): uma lista de comandos</h3>
+  <p>Script é um arquivo de texto com exatamente o que você digitaria, uma resposta por linha (Enter = quebra de linha, espaço também conta). <b>SCRIPT</b> (SCR) roda. Este desenha a chapa da aula de desenho com os 4 furos:</p>
+  <div class="cad-prompt">_RECTANG 0,0 @120,80<br>_CIRCLE 15,15 _D 10<br>_CIRCLE 105,15 _D 10<br>_CIRCLE 105,65 _D 10<br>_CIRCLE 15,65 _D 10<br>_ZOOM _E</div>
+  <div class="ofi"><span class="k">Script em lote, sem abrir o AutoCAD</span>O <b>AutoCAD Core Console</b> (accoreconsole.exe, na pasta de instalação) roda um script num .dwg sem interface: <b>accoreconsole.exe /i peca.dwg /s plotar.scr</b>. Num .bat com um laço sobre a pasta, ele imprime ou converte dezenas de desenhos sozinho (DWG → PDF, purge em massa, troca de carimbo).</div>
+  <h3>Nível 3 · AutoLISP: comandos novos</h3>
+  <p>AutoLISP é a linguagem embutida. Um arquivo .lsp carregado com <b>APPLOAD</b> (ou arrastado para a tela) cria comandos novos. Este cria o comando <b>FURO</b>: pede o centro e o diâmetro e desenha o círculo com as duas linhas de centro no layer Centro.</p>
+  <pre class="cad-code">(defun c:FURO (/ c d r e)
+  (setq c (getpoint "\nCentro do furo: ")
+        d (getdist c "\nDiâmetro: ")
+        r (/ d 2.0)
+        e (* r 1.25))                     ; centro passa 25 % do furo
+  (command "_.CIRCLE" c r)
+  (if (tblsearch "LAYER" "Centro")
+    (setvar "CLAYER" "Centro"))
+  (command "_.LINE" (polar c 0 e) (polar c pi e) "")
+  (command "_.LINE" (polar c (/ pi 2) e) (polar c (* 1.5 pi) e) "")
+  (princ))</pre>
+  <p>E este soma a área de todas as polilinhas fechadas selecionadas, útil para peso de chapa (área × espessura × 7,85 g/cm³ para aço):</p>
+  <pre class="cad-code">(defun c:AREATOT (/ ss i tot ent)
+  (setq ss (ssget '((0 . "LWPOLYLINE,CIRCLE"))) tot 0.0 i 0)
+  (repeat (sslength ss)
+    (setq ent (ssname ss i) i (1+ i))
+    (command "_.AREA" "_O" ent)
+    (setq tot (+ tot (getvar "AREA"))))
+  (princ (strcat "\nÁrea total = " (rtos tot 2 2) " mm²"))
+  (princ))</pre>
+  <div class="cuid"><span class="k">Segurança</span>Só carregue .lsp, .fas e .vlx de quem você confia: eles rodam com acesso ao seu computador. O AutoCAD avisa quando um arquivo vem de fora das pastas confiáveis (TRUSTEDPATHS).</div>
+  <h3>Nível 4 · Gravar sem programar</h3>
+  <p><b>ACTRECORD</b> (Action Recorder, aba Manage) grava o que você faz e salva como macro .actm; <b>ACTSTOP</b> para. Bom para sequências repetitivas sem lógica (abrir layers, mudar estilo, plotar).</p>
+  <div class="ex" data-ex data-q="cad-21"><div class="q">Crie o atalho "FF" para FILLET com raio 0 (fechar cantos), sem LISP.</div>
+    <ol><li>No CUI (comando CUI), crie um comando novo com a macro: <b>^C^C_FILLET _R 0 ;_FILLET</b></li><li>^C^C cancela o que estiver rodando; ; é Enter; _R 0 define o raio; o segundo _FILLET já começa pedindo as linhas.</li><li>Arraste para a ribbon ou atribua a um atalho de teclado (Keyboard Shortcuts).</li><li>Alternativa em LISP de 1 linha: (defun c:FF () (command "_.FILLET" "_R" 0 "_.FILLET"))</li></ol>
+    <div class="ans">macro ^C^C_FILLET _R 0 ;_FILLET</div></div>
+  <div class="done-btn" data-done="automacao"></div>
+</section>
+
+<!-- ============ M3 · PRODUTIVIDADE ============ -->
+<section class="view read" id="v-produtividade" hidden>
+  <div class="eyebrow">Módulo 3 · Avançado</div>
+  <h2>Fluxo profissional: seleção inteligente, referências e arquivos limpos</h2>
+  <p class="lede">Os comandos que separam quem "sabe AutoCAD" de quem entrega projeto: achar e mudar centenas de objetos de uma vez, montar conjuntos com referências externas e manter o arquivo leve e sem erro.</p>
+  <h3>Selecionar como especialista</h3>
+  <div class="tbl"><table><tr><th>Comando</th><th>O que faz</th></tr>
+    <tr><td>QSELECT</td><td>seleciona por propriedade: todos os círculos com raio = 5, todo texto com altura 2,5, tudo no layer Cota</td></tr>
+    <tr><td>SELECTSIMILAR</td><td>clique um objeto → seleciona todos parecidos (mesmo tipo e layer)</td></tr>
+    <tr><td>FILTER</td><td>filtros salvos com condições combinadas (E, OU)</td></tr>
+    <tr><td>Ctrl+1 (Properties)</td><td>muda de uma vez layer, cor, raio, altura de texto de tudo que está selecionado</td></tr>
+    <tr><td>Previous (P)</td><td>no "Select objects", P pega de novo a última seleção</td></tr></table></div>
+  <h3>Referências externas (XREF)</h3>
+  <p><b>XATTACH</b> anexa outro .dwg como referência: ele aparece no seu desenho, mas continua sendo um arquivo separado. Se o colega atualiza o arquivo da base do equipamento, o seu conjunto mostra a mudança ao recarregar (XREF → Reload). Use <b>Overlay</b> para não levar referências em cadeia, e caminho relativo para a pasta do projeto poder mudar de lugar. Na hora de mandar para fora: <b>ETRANSMIT</b> empacota tudo (xrefs, fontes, CTB) num .zip.</p>
+  <h3>Arquivo limpo e saudável</h3>
+  <div class="tbl"><table><tr><th>Comando</th><th>Quando</th></tr>
+    <tr><td>OVERKILL</td><td>apaga linhas duplicadas e sobrepostas (comum em DXF importado). Máquina de corte agradece: não corta duas vezes no mesmo lugar</td></tr>
+    <tr><td>PURGE (PU)</td><td>remove blocos, layers e estilos sem uso</td></tr>
+    <tr><td>AUDIT</td><td>verifica e corrige erros internos do arquivo</td></tr>
+    <tr><td>RECOVER</td><td>abre um arquivo que não abre (corrompido)</td></tr>
+    <tr><td>DWGCOMPARE</td><td>compara duas revisões e destaca o que mudou (2019 em diante)</td></tr>
+    <tr><td>MEASUREGEOM (MEA)</td><td>mede distância, raio, ângulo e área passando o mouse</td></tr></table></div>
+  <h3>O template (.dwt) da empresa</h3>
+  <p>Monte uma vez um arquivo com: unidades em mm, layers do padrão (Módulo 2), estilos de texto e cota annotative, layouts A4/A3 com margem, carimbo com atributos e a CTB. Salve como <b>.dwt</b> (Save As → Drawing Template). Todo desenho novo nasce padronizado.</p>
+  <div class="ofi"><span class="k">Checklist antes de mandar o desenho</span>□ tudo em 1:1 no model · □ objetos ByLayer · □ nada no Defpoints que deveria sair · □ cotas associativas, sem texto digitado por cima · □ escala do viewport travada e igual à do carimbo · □ OVERKILL + PURGE + AUDIT · □ revisão e data no carimbo · □ PDF conferido antes de enviar.</div>
+  <div class="ex" data-ex data-q="cad-22"><div class="q">Um DXF de 300 peças veio com todos os textos em altura 3,5 e você precisa de 2,5, e com linhas duplicadas. Corrija em menos de 1 minuto.</div>
+    <ol><li>QSELECT → Object type: Text (ou MText) → Property: Height → Operator = → Value 3.5 → OK.</li><li>Ctrl+1 → Height: <b>2.5</b>. Todos mudam juntos.</li><li>OVERKILL ↵ ALL ↵ ↵ → OK: apaga as duplicatas.</li><li>PURGE → Purge All, e AUDIT → Y para corrigir erros.</li></ol>
+    <div class="ans">QSELECT por altura → Properties 2.5 → OVERKILL → PURGE → AUDIT</div></div>
+  <div class="done-btn" data-done="produtividade"></div>
+</section>
+
+<!-- ============ LAB · SIMULADOR LIVRE ============ -->
+<section class="view read" id="v-lab" hidden>
+  <div class="eyebrow">Simulador</div>
+  <h2>Simulador de AutoCAD</h2>
+  <p class="lede">Uma área de desenho livre com linha de comando. Treine coordenadas e comandos de modificação sem precisar do AutoCAD instalado.</p>
+  <div class="cad-help"><b>Comandos:</b> L · PL · C · REC · POL · E · M · CO · RO · SC · MI · O · TR · EX · F · X · DI · ID · LI · AREA · U · Z. Coordenadas: <b>x,y</b> · <b>@dx,dy</b> · <b>@d&lt;ângulo</b> · só um número = distância na direção do cursor. <b>Enter vazio</b> repete · <b>Esc</b> cancela · clique direito = Enter · roda = zoom · arrastar = pan · F3 OSNAP · F7 GRID · F8 ORTHO.</div>
+  <div id="cadSimLab"></div>
+  <div class="cuid"><span class="k">O que o simulador ainda não faz</span>Arcos só aparecem cortando círculos (TRIM) ou com FILLET; TRIM e EXTEND pedem objetos soltos (exploda a polilinha com X). Não há layers, cotas nem hachura: esses você treina no AutoCAD de verdade.</div>
+</section>
+
+<!-- ============ QUIZ ============ -->
+<section class="view read" id="v-quiz" hidden>
+  <div class="eyebrow">Quiz relâmpago</div>
+  <h2>Você está pronto?</h2>
+  <p class="lede">Perguntas dos três módulos. Cada resposta traz a explicação.</p>
+  <div class="score"><span id="scoreTxt">0 de 0 respondidas</span><button id="quizReset">Recomeçar</button></div>
+  <div id="quizBox"></div>
+</section>
+
+<!-- ============ COLA ============ -->
+<section class="view" id="v-cola" hidden>
+  <div class="eyebrow">Revisão de véspera</div>
+  <h2>Tudo numa folha</h2>
+  <div class="cola" style="margin-top:20px">
+    <div class="fx"><span class="tag">Coordenadas</span><div class="eq" style="font-size:1rem">X,Y · @ΔX,ΔY · @d&lt;θ</div><p>absoluta · relativa · polar (θ anti-horário, 0° à direita)</p></div>
+    <div class="fx"><span class="tag">Polar ↔ relativa</span><div class="eq" style="font-size:1rem">ΔX = d·cos θ · ΔY = d·sen θ</div><p>d = √(ΔX² + ΔY²) · decimal é ponto</p></div>
+    <div class="fx"><span class="tag">Desenho</span><div class="eq" style="font-size:.95rem">L · PL · C · A · REC · POL · EL · XL</div><p>Enter repete · Esc cancela · C fecha · U desfaz</p></div>
+    <div class="fx"><span class="tag">Polígono regular</span><div class="eq" style="font-size:1rem">R = a / cos(180°/n)</div><p>I = raio até o vértice · C = até o meio do lado (chave ÷ 2)</p></div>
+    <div class="fx"><span class="tag">Teclas F</span><div class="eq" style="font-size:.95rem">F3 OSNAP · F7 GRID · F8 ORTHO</div><p>F9 SNAP · F10 POLAR · F11 OTRACK · F12 DYN</p></div>
+    <div class="fx"><span class="tag">Modificar</span><div class="eq" style="font-size:.95rem">E · X · SC · M · CO · MI · TR · EX · O · RO</div><p>F fillet · CHA · AR · S stretch · J join · MA</p></div>
+    <div class="fx"><span class="tag">Layers</span><div class="eq" style="font-size:1rem">LA · ByLayer · LTSCALE</div><p>contorno 0,5 · centro/cota/tracejada 0,2 · Defpoints não imprime</p></div>
+    <div class="fx"><span class="tag">Hachura</span><div class="eq" style="font-size:.95rem">ANSI31 geral · 32 aço · 33 bronze</div><p>área fechada · Pick Points ou Select Objects</p></div>
+    <div class="fx"><span class="tag">Escala no papel</span><div class="eq" style="font-size:1rem">XP = 1/n · h<sub>model</sub> = h<sub>papel</sub>·n</div><p>DIMSCALE = n · desenhe sempre em 1:1</p></div>
+    <div class="fx"><span class="tag">Planificação</span><div class="eq" style="font-size:.95rem">π·D<sub>m</sub> · R = D·g/(D − d)</div><p>D<sub>m</sub> = D<sub>ext</sub> − t · θ = 180°·D/R</p></div>
+  </div>
+</section>
+
+</main>
+<footer>Oficina de AutoCAD · material de apoio baseado nas aulas de Desenho Técnico I · Desenho Assistido por Computador (IFMG Campus Betim)<span class="credits" style="display:block;margin-top:6px">Desenvolvido por Guilherme dos Santos Braz — Técnico de processos e estudante de engenharia mecânica · <a href="https://www.linkedin.com/in/guilherme-santos-66b8162a0" target="_blank" rel="noopener">LinkedIn</a></span></footer>
+
+<script>
+const $=id=>document.getElementById(id);
+/* ========= exercícios ========= */
+function exHTML(steps,ans){ return '<ol>'+steps.map((s,i)=>'<li class="'+(i?'hid':'')+'">'+s+'</li>').join('')+'</ol><div class="ans">'+ans+'</div><div class="btns"><button class="nx">Próximo passo</button><button class="ghost al">Ver resolução toda</button></div>' }
+function bindEx(box){ const lis=[...box.querySelectorAll('ol>li')]; const nx=box.querySelector('.nx'),al=box.querySelector('.al');
+  const upd=()=>{ const left=lis.filter(l=>l.classList.contains('hid')).length; nx.textContent=left?'Próximo passo ('+left+')':'Ver resposta'; if(box.classList.contains('all'))nx.disabled=al.disabled=true };
+  nx.onclick=()=>{ const h=lis.find(l=>l.classList.contains('hid')); if(h)h.classList.remove('hid'); else box.classList.add('all'); upd() };
+  al.onclick=()=>{ lis.forEach(l=>l.classList.remove('hid')); box.classList.add('all'); upd() }; upd() }
+function initEx(){ document.querySelectorAll('[data-ex]').forEach(b=>{ const ol=b.querySelector('ol'); const steps=[...ol.children].map(l=>l.innerHTML), ans=b.querySelector('.ans').innerHTML; ol.remove(); b.querySelector('.ans').remove(); b.insertAdjacentHTML('beforeend',exHTML(steps,ans)); bindEx(b) }) }
+/* ========= quiz ========= */
+const QUIZ=[
+ ['No AutoCAD, em que escala se desenha no Model?',['Na escala da folha','Sempre 1:1, em tamanho real','1:10','Depende da peça'],1,'O Model é infinito: desenhe em tamanho real. A escala aparece só na impressão (viewport ou fator de plotagem).'],
+ ['O que significa @30,-10?',['Ponto X = 30, Y = −10 a partir da origem','Andar 30 para a direita e descer 10 a partir do último ponto','Linha de 30 com ângulo −10°','Erro de digitação'],1,'@ = relativo ao último ponto. ΔX = +30 (direita), ΔY = −10 (para baixo).'],
+ ['@20<90 desenha uma linha de 20…',['para a direita','para cima','para a esquerda','para baixo'],1,'Ângulo a partir do eixo X, anti-horário: 0° direita, 90° para cima, 180° esquerda, 270° para baixo.'],
+ ['Como digitar cinco e seis décimos no AutoCAD?',['5,6','5.6','5;6','5:6'],1,'A vírgula separa X de Y. Decimal é ponto: 5.6.'],
+ ['Com o prompt vazio, Enter faz o quê?',['Nada','Repete o último comando','Fecha o arquivo','Desfaz'],1,'Enter ou Espaço com o prompt vazio repetem o último comando: CIRCLE, Enter, Enter…'],
+ ['Janela de seleção arrastada da direita para a esquerda (verde):',['Pega só o que está inteiro dentro','Pega tudo que encostar nela','Apaga os objetos','Só seleciona linhas'],1,'Crossing (verde, tracejada) pega tudo que toca. Da esquerda para a direita (azul) pega só o que está inteiro dentro.'],
+ ['Sextavado com chave 24: qual opção e qual raio no POLYGON?',['I e 24','I e 12','C e 12','C e 24'],2,'Chave = face a face. Circunscrito (C) usa o raio até o meio do lado: 24 ÷ 2 = 12.'],
+ ['Qual tecla liga e desliga o ORTHO?',['F3','F7','F8','F12'],2,'F8 = ORTHO · F3 = OSNAP · F7 = GRID · F12 = Dynamic Input.'],
+ ['Para começar um furo a @30,25 de um canto, sem linha auxiliar:',['OFFSET','FROM','MIRROR','STRETCH'],1,'Dentro do comando: FROM → clica o canto (base) → @30,25.'],
+ ['Qual comando faz uma cópia paralela a uma distância?',['COPY','OFFSET','MIRROR','ARRAY'],1,'OFFSET (O): distância, objeto e lado.'],
+ ['FILLET com raio 0 serve para:',['Apagar a linha','Fechar o canto em quina viva (corta e estende ao mesmo tempo)','Arredondar com raio padrão','Explodir polilinhas'],1,'Com R = 0 o FILLET leva as duas linhas até se encontrarem.'],
+ ['Por que deixar cor e tipo de linha dos objetos em ByLayer?',['Para o arquivo ficar colorido','Para o layer controlar tudo: mudou o layer, muda todo mundo','Porque é obrigatório na impressão','Para travar os objetos'],1,'ByLayer é o que mantém o arquivo organizado e fácil de mudar.'],
+ ['A linha de centro aparece contínua. O que ajustar?',['LWDISPLAY','LTSCALE','DIMSCALE','UNITS'],1,'É a escala do tipo de linha: os traços estão pequenos ou grandes demais para o tamanho do desenho.'],
+ ['O layer que nunca imprime é:',['0','Defpoints','Contorno','Cota'],1,'Defpoints aparece ao cotar e não sai na impressão.'],
+ ['Hachura ANSI32 representa:',['Ferro fundido','Aço','Bronze','Alumínio'],1,'ANSI31 geral/ferro fundido, ANSI32 aço, ANSI33 bronze/latão/cobre.'],
+ ['"Valid hatch boundary not found" quer dizer:',['Padrão errado','A área tem uma brecha: não está fechada','Escala muito grande','Layer travado'],1,'Feche o contorno ou use Select Objects (ou HPGAPTOL para brechas mínimas).'],
+ ['No 1º diedro, a vista superior fica:',['Acima da frontal','Abaixo da frontal','À direita','À esquerda'],1,'1º diedro (Brasil): superior embaixo da frontal, lateral esquerda à direita.'],
+ ['Viewport em 1:20. O que digitar dentro dele?',['Z 20XP','Z 0.05XP','Z 0.5XP','SCALE 20'],1,'XP = 1/n = 1/20 = 0,05.'],
+ ['Texto de 2,5 mm no papel, desenho em 1:10, sem annotative: altura no model?',['2,5','0,25','25','250'],2,'h_model = h_papel × n = 2,5 × 10 = 25.'],
+ ['Virola de Ø externo 600 e chapa 10: comprimento planificado?',['π × 600','π × 590','π × 610','π × 300'],1,'Diâmetro médio = 600 − 10 = 590 → π × 590 = 1853,5 mm.'],
+ ['Para extrair uma lista de materiais dos blocos com atributos:',['PURGE','DATAEXTRACTION','EXPLODE','LIST'],1,'DATAEXTRACTION gera tabela ou planilha com os atributos e a contagem.'],
+ ['O que faz OVERKILL?',['Apaga tudo','Remove linhas duplicadas e sobrepostas','Fecha o AutoCAD','Explode blocos'],1,'Ótimo para DXF importado e para arquivos que vão para a máquina de corte.']];
+let qa={};
+function renderQuiz(){ const box=$('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<div class="qz" data-i="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="opts">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="why" hidden></div></div>').join('');
+  box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i]; const bs=c.querySelectorAll('button');
+    const show=j=>{ bs.forEach((b,k)=>{b.disabled=true; if(k===q[2])b.classList.add('right'); else if(k===j)b.classList.add('wrong')}); const w=c.querySelector('.why'); w.hidden=false; w.innerHTML=(j===q[2]?'<b style="color:var(--ok)">Certo!</b> ':'<b style="color:var(--bad)">Errado.</b> ')+q[3] };
+    bs.forEach(b=>b.onclick=()=>{ const j=+b.dataset.j; qa[i]=j; show(j); score(); save() }); if(qa[i]!==undefined)show(qa[i]) }); score() }
+function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; $('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas' }
+$('quizReset').onclick=()=>{ qa={}; save(); renderQuiz() };
+/* ========= progresso ========= */
+const MODS=[['tela','A tela do AutoCAD','Regiões, mouse, prompt e seleção'],['coord','Coordenadas','Absolutas, relativas @ e polares @d<θ'],['desenho','Comandos de desenho','LINE, CIRCLE, REC, POLYGON…'],['precisao','Precisão','Teclas F, OSNAP, FROM e M2P'],['treino1','Treino 1','Os desenhos dos slides no simulador'],['modificar','Modificar','OFFSET, TRIM, MIRROR, ARRAY…'],['layers','Layers','Padrão da professora e LTSCALE'],['hachura','Hachuras','Padrões ANSI e áreas'],['cotas','Cotas e texto','NBR 10126 e tamanho no papel'],['vistas','Vistas no CAD','1º diedro, XLINE e isométrica'],['treino2','Treino 2','Desafios com modificação'],['blocos','Blocos e atributos','Biblioteca e lista de materiais'],['layout','Escalas e impressão','Layout, viewport e as fórmulas'],['parametrico','Paramétrico','Restrições, fórmulas e \'CAL'],['caldeiraria','Caldeiraria no CAD','Planificação de cilindro e cone'],['automacao','Automação','Atalhos, scripts e AutoLISP'],['produtividade','Fluxo profissional','QSELECT, XREF, limpeza e template']];
+let done={};
+function load(){ try{ done=JSON.parse(localStorage.getItem('dt1-done')||'{}'); qa=JSON.parse(localStorage.getItem('dt1-quiz')||'{}') }catch(e){} }
+function save(){ try{ localStorage.setItem('dt1-done',JSON.stringify(done)); localStorage.setItem('dt1-quiz',JSON.stringify(qa)) }catch(e){} }
+function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; $('progtxt').textContent=n+'/'+MODS.length+' aulas'; $('progbar').style.width=(n/MODS.length*100)+'%';
+  $('trail').innerHTML=MODS.map((m,i)=>'<a class="stop'+(done[m[0]]?' done':'')+'" href="#'+m[0]+'"><span class="n">'+(done[m[0]]?'✓':i+1)+'</span><b>'+m[1]+'</b><span>'+m[2]+'</span></a>').join('')+'<a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
+  document.querySelectorAll('#nav a[data-m]').forEach(a=>{ a.querySelector('.dn')?.remove(); if(done[a.dataset.m])a.insertAdjacentHTML('beforeend','<i class="dn"></i>') });
+  document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
+    d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#quiz">Agora faça o quiz →</a>');
+    d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
+/* ========= rotas ========= */
+const VIEWS=['inicio','tela','coord','desenho','precisao','treino1','modificar','layers','hachura','cotas','vistas','treino2','blocos','layout','parametrico','caldeiraria','automacao','produtividade','lab','quiz','cola'];
+function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
+  VIEWS.forEach(v=>$('v-'+v).hidden=v!==h);
+  document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
+  window.scrollTo(0,0) }
+load(); initEx(); renderQuiz(); renderProg();
+addEventListener('hashchange',route); route();
+addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return; const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){ a.blur(); return }
+  const h=location.hash.slice(1); if(h&&h!=='inicio'){ location.hash='inicio'; return } location.href='../../index.html#m-dt1' });
+</script>
+<script src="../../js/cad-sim.js?v=1"></script>
+<script src="../../js/desenho-cad.js?v=1"></script>
+<script src="../../dados/cartas.js"></script>
+<script src="../../js/anki.js" data-materia="dt1"></script>
+<script src="../../js/aviso.js" defer></script>
+<script src="../../dados/cola-explica.js"></script>
+<script src="../../dados/quadros-dt1.js?v=1"></script>
+<script src="../../js/quadro.js?v=8" data-materia="dt1"></script>
+</body>
+</html>

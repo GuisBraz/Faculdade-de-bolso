@@ -239,5 +239,38 @@ gaal: {
  'estados físicos': { o: 'A informação entre parênteses depois da fórmula.',
   t: [['(s)', 'sólido'], ['(l)', 'líquido (puro)'], ['(g)', 'gasoso'], ['(aq)', 'aquoso: dissolvido em água']],
   d: 'Não entra na conta de massa, mas ajuda a imaginar a reação (bolhas = gás, precipitado = sólido).', e: 'CaCO₃(s) + 2 HCl(aq) → CaCl₂(aq) + H₂O(l) + CO₂(g)' }
+},
+/* ================= DESENHO I · AUTOCAD ================= */
+dt1: {
+ 'coordenadas': { o: 'Os três jeitos de dizer onde fica um ponto no AutoCAD.',
+  t: [['X,Y', 'absoluta: medida a partir da origem 0,0'], ['@ΔX,ΔY', 'relativa: quanto andar a partir do último ponto'], ['@d<θ', 'polar: comprimento e ângulo (0° à direita, anti-horário)']],
+  d: 'Decimal com ponto (5.6). Com Dynamic Input (F12) ligado, o 2º ponto já é relativo; # força absoluto.', e: 'L ↵ 0,0 ↵ @50,0 ↵ @20<90 ↵' },
+ 'polar ↔ relativa': { o: 'Trigonometria do triângulo retângulo para trocar uma forma pela outra.',
+  t: [['ΔX = d·cos θ', 'quanto anda para o lado'], ['ΔY = d·sen θ', 'quanto sobe'], ['d = √(ΔX² + ΔY²)', 'comprimento'], ['θ = atan2(ΔY, ΔX)', 'ângulo no quadrante certo']],
+  d: 'Ângulo negativo gira no sentido horário: <−45 = <315.', e: '@80,30 = @85.44<20.56' },
+ 'desenho': { o: 'Os comandos que criam objetos.',
+  t: [['L / PL', 'linha solta · polilinha (um objeto só)'], ['C / A', 'círculo · arco'], ['REC / POL', 'retângulo · polígono regular'], ['EL / XL', 'elipse · linha infinita de construção']],
+  d: 'Enter vazio repete o último comando; Esc cancela; C fecha; U desfaz o último trecho.', e: 'REC ↵ 0,0 ↵ @120,80 ↵' },
+ 'polígono regular': { o: 'Relação entre o raio até o vértice e o raio até o meio do lado.',
+  t: [['R', 'raio até o vértice (Inscribed)'], ['a', 'apótema: raio até o meio do lado (Circumscribed)'], ['n', 'número de lados']],
+  d: 'Sextavado pela chave: opção C e raio = chave ÷ 2.', e: 'chave 24 → a = 12 → R = 12 / cos 30° = 13,86' },
+ 'teclas f': { o: 'Os liga-desliga da barra de status.',
+  t: [['F3', 'OSNAP'], ['F7', 'GRID'], ['F8', 'ORTHO'], ['F9', 'SNAP'], ['F10', 'POLAR'], ['F11', 'OTRACK'], ['F12', 'Dynamic Input']],
+  d: 'ORTHO e POLAR não ficam ligados juntos.', e: 'F8 + digitar 50 = linha de 50 na direção do mouse' },
+ 'modificar': { o: 'Os comandos que alteram o que já existe.',
+  t: [['E · X', 'apagar · explodir'], ['M · CO', 'mover · copiar (ponto base!)'], ['MI · RO · SC', 'espelhar · girar · escalar'], ['O · TR · EX', 'offset · aparar · estender'], ['F · CHA · AR', 'concordar · chanfrar · array']],
+  d: 'Use sempre OSNAP no ponto base e no destino.', e: 'O ↵ 10 ↵ clica o objeto ↵ clica o lado' },
+ 'layers': { o: 'Camadas que controlam cor, tipo e espessura das linhas.',
+  t: [['LA', 'gerenciador de layers'], ['ByLayer', 'o objeto herda do layer'], ['LTSCALE', 'tamanho dos traços dos tipos de linha'], ['Defpoints', 'layer que não imprime']],
+  d: 'Contorno 0,5 · centro, cota e tracejada 0,2 (padrão da professora).', e: 'LAYMCUR: clica um objeto e o layer dele vira atual' },
+ 'hachura': { o: 'Preenchimento que indica o material cortado.',
+  t: [['ANSI31', 'ferro fundido / uso geral'], ['ANSI32', 'aço'], ['ANSI33', 'bronze, latão, cobre'], ['ANSI38', 'alumínio']],
+  d: 'Área precisa estar fechada; eixos e parafusos em corte longitudinal não se hachuram.', e: 'H ↵ ANSI32 ↵ Pick Points ↵' },
+ 'escala no papel': { o: 'Como o desenho em 1:1 cabe na folha.',
+  t: [['XP = 1/n', 'escala do viewport (1:10 → 0.1XP)'], ['h_model = h_papel·n', 'altura de texto sem annotative'], ['DIMSCALE = n', 'multiplica o estilo de cota']],
+  d: 'Com annotative a escala do viewport ajusta texto e cota sozinha.', e: '1:5 e texto 2,5 → 12,5 no model' },
+ 'planificação': { o: 'O tamanho da chapa aberta, pela linha neutra.',
+  t: [['Dm = Dext − t', 'diâmetro médio'], ['π·Dm', 'comprimento da virola'], ['R = D·g/(D − d)', 'raio maior do cone'], ['θ = 180°·D/R', 'ângulo do setor']],
+  d: 'Planificar pelo diâmetro externo sobra π·t.', e: 'Ø1000 × 12,5 → 3102,3 mm' }
 }
 };
