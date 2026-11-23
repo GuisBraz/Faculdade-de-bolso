@@ -148,8 +148,10 @@ window.FACULDADE = {
               titulo: "Oficina de GAAL",
               tipo: "site",
               caminho: "materias/gaal/oficina-de-gaal.html",
-              ciclo: "2ª Prova", ate: "2026-11-06",
+              ciclo: "3ª Prova", ate: "2026-12-04",
               atualizacoes: [
+                { data: "2026-11-23", texto: "Oficina organizada pelo cronograma em 3 módulos, um por prova. Novo Módulo 1 (1ª prova) com 7 aulas pelos slides da professora: matrizes, escalonamento, inversa e determinante, sistemas lineares (com discussão de parâmetros), vetores em ℝⁿ, produto escalar e ângulo, produto vetorial e misto." },
+                { data: "2026-11-23", texto: "Módulo 3 completo: novas aulas de parábola e elipse, hipérbole e coordenadas e mudança de base (exemplos da aula 11). 33 exemplos novos com Ver no quadro e 14 perguntas novas no quiz." },
                 { data: "2026-11-13", texto: "Varredura de todos os módulos: 14 exemplos novos resolvidos passo a passo, cada um com Ver no quadro (norma, paralelismo, escalar e ângulo, produto misto, reta por dois pontos, ponto na reta, pontos alinhados, plano por 3 pontos, vetorial → geral, reta × plano paralela, reta de interseção de dois planos, distâncias ponto–ponto, entre paralelas e reta–plano) e caixas Por quê? explicando de onde vem cada fórmula." },
                 { data: "2026-11-13", texto: "Base e dimensão aprofundada: as situações do sistema explicadas (existe? depende de gerar; é única? depende de LI), com exemplo resolvido em P₂, tabela de pivôs, modelo 3D das 4 situações e caixas Por quê? nos teoremas e atalhos." },
                 { data: "2026-11-13", texto: "Nova aula Base e dimensão (aula 10): LI e LD, base, coordenadas, dimensão, a receita das variáveis livres e os exemplos 4 a 7 da professora, cada um com Ver no quadro, mais 4 modelos 3D e 5 perguntas no quiz." },

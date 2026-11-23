@@ -71,18 +71,29 @@ window.FDB_AULAS = {
     sobre: "Física I estuda o movimento e as suas causas: forças, as leis de Newton e a energia. É a base de toda a mecânica da engenharia, de estruturas e pontes rolantes a molas, polias, freios e máquinas.",
     lab_nome: "Laboratório de forças", lab_desc: "Plano inclinado ao vivo: mude massa, ângulo e atrito e veja as forças." },
   gaal: { pag: "materias/gaal/oficina-de-gaal.html", simbolo: "⊥", lista: "lista", lab: "lab", quiz: "quiz", cola: "cola",
-    modulos: { 1: [], 2: [
-      ["kit", "Vetores e os 3 produtos", "Escalar, vetorial e misto"],
+    modulos: { 1: [
+      ["matrizes", "Matrizes", "Tipos, operações e produto linha × coluna"],
+      ["escada", "Escalonamento", "Operações elementares e forma escada"],
+      ["inversa", "Inversa e determinante", "[A | I], Sarrus e det ≠ 0"],
+      ["sistemas", "Sistemas lineares", "SPD, SPI, SI e discussão com parâmetros"],
+      ["vetores", "Vetores", "Setas, coordenadas, norma e distância"],
+      ["pescalar", "Produto escalar", "Ângulo, ortogonalidade e o CPF"],
+      ["pvetorial", "Vetorial e misto", "Área do paralelogramo e volume"]
+    ], 2: [
+      ["kit", "Revisão de vetores", "O kit que retas e planos usam"],
       ["retas", "Retas", "Ponto + direção em 4 formas de equação"],
       ["planos", "Planos", "Ponto + normal, e como achar a normal"],
       ["posicoes", "Posições relativas", "Paralelas, concorrentes e reversas"],
       ["angulos", "Ângulos", "Entre retas, planos e reta–plano"],
       ["distancias", "Distâncias", "Ponto, reta e plano"]
     ], 3: [
+      ["conicas", "Parábola e elipse", "Foco, diretriz e soma de distâncias"],
+      ["hiperbole", "Hipérbole", "Diferença de distâncias e assíntotas"],
       ["subespacos", "Subespaços e espaço gerado", "Combinação linear, N(A), C(A) e o nó de barras"],
-      ["base", "Base e dimensão", "LI e LD, base, dimensão e a base de um subespaço"]
+      ["base", "Base e dimensão", "LI e LD, base, dimensão e a base de um subespaço"],
+      ["mudanca", "Mudança de base", "Coordenadas numa base e a matriz M"]
     ] },
-    temas: { 2: "Vetores, retas e planos no espaço", 3: "Subespaços, base e dimensão" },
+    temas: { 1: "Matrizes, sistemas lineares e vetores", 2: "Retas e planos no espaço", 3: "Cônicas, subespaços, base e dimensão" },
     sobre: "Geometria Analítica e Álgebra Linear descreve pontos, vetores, retas e planos no espaço com equações. É a linguagem do CAD 3D, da robótica, da topografia e de qualquer conta que envolva direção e posição.",
     lab_nome: "Laboratório 3D de retas e planos", lab_desc: "Monte retas e planos no espaço e veja interseções, ângulos e distâncias." },
   qg: { pag: "materias/qg/oficina-de-quimica.html", simbolo: "⚗", lista: "ed3", lab: "lab", quiz: "quiz", cola: "cola",

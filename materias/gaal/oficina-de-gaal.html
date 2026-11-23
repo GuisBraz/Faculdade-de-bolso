@@ -316,14 +316,24 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     </div>
     <nav id="nav">
       <a href="#inicio">Início</a>
-      <a href="#kit" data-m="kit">1 · Vetores</a>
-      <a href="#retas" data-m="retas">2 · Retas</a>
-      <a href="#planos" data-m="planos">3 · Planos</a>
-      <a href="#posicoes" data-m="posicoes">4 · Posições</a>
-      <a href="#angulos" data-m="angulos">5 · Ângulos</a>
-      <a href="#distancias" data-m="distancias">6 · Distâncias</a>
-      <a href="#subespacos" data-m="subespacos">7 · Subespaços</a>
-      <a href="#base" data-m="base">8 · Base e dimensão</a>
+      <a href="#matrizes" data-m="matrizes">1.1 · Matrizes</a>
+      <a href="#escada" data-m="escada">1.2 · Escalonamento</a>
+      <a href="#inversa" data-m="inversa">1.3 · Inversa e det</a>
+      <a href="#sistemas" data-m="sistemas">1.4 · Sistemas</a>
+      <a href="#vetores" data-m="vetores">1.5 · Vetores</a>
+      <a href="#pescalar" data-m="pescalar">1.6 · Produto escalar</a>
+      <a href="#pvetorial" data-m="pvetorial">1.7 · Vetorial e misto</a>
+      <a href="#kit" data-m="kit">2.1 · Revisão de vetores</a>
+      <a href="#retas" data-m="retas">2.2 · Retas</a>
+      <a href="#planos" data-m="planos">2.3 · Planos</a>
+      <a href="#posicoes" data-m="posicoes">2.4 · Posições</a>
+      <a href="#angulos" data-m="angulos">2.5 · Ângulos</a>
+      <a href="#distancias" data-m="distancias">2.6 · Distâncias</a>
+      <a href="#conicas" data-m="conicas">3.1 · Parábola e elipse</a>
+      <a href="#hiperbole" data-m="hiperbole">3.2 · Hipérbole</a>
+      <a href="#subespacos" data-m="subespacos">3.3 · Subespaços</a>
+      <a href="#base" data-m="base">3.4 · Base e dimensão</a>
+      <a href="#mudanca" data-m="mudanca">3.5 · Mudança de base</a>
       <a href="#lab">Lab 3D</a>
       <a href="#lista">Lista resolvida</a>
       <a href="#quiz">Quiz</a>
@@ -338,21 +348,21 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
 <section class="view" id="v-inicio">
   <div class="hero">
     <div>
-      <div class="eyebrow">GAAL · Retas e Planos no espaço</div>
+      <div class="eyebrow">GAAL · 3 módulos, um por prova</div>
       <h1>Toda reta é um <em>ponto</em> com vontade de andar.</h1>
-      <p class="lede">Este é o seu ambiente de estudo para a prova: teoria do zero, cada fórmula explicada símbolo por símbolo, calculadoras que mostram a conta inteira, um laboratório 3D e a lista da professora resolvida passo a passo.</p>
-      <div class="btns"><a class="btn" href="#kit" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lista'">Ir direto para a lista</button></div>
+      <p class="lede"><b>Módulo 1</b> (1ª prova): matrizes, escalonamento, determinante, sistemas lineares e vetores com os três produtos. <b>Módulo 2</b> (2ª prova): retas, planos, posições, ângulos e distâncias. <b>Módulo 3</b> (3ª prova): cônicas, subespaços, base, dimensão e mudança de base. Teoria do zero, cada fórmula explicada símbolo por símbolo, exemplos com "Ver no quadro", um laboratório 3D e a lista resolvida.</p>
+      <div class="btns"><a class="btn" href="#matrizes" style="text-decoration:none">Começar do zero</a><button class="ghost" onclick="location.hash='lista'">Ir direto para a lista</button></div>
     </div>
     <div class="cv" id="heroCv"><canvas></canvas><div class="lbl">arraste para girar</div></div>
   </div>
 
   <h3 style="margin-top:0">A trilha</h3>
-  <p class="read">Cada módulo usa o anterior, então a ordem importa. Marque cada um como estudado no final da página; a barra lá em cima acompanha.</p>
+  <p class="read">A trilha segue o cronograma da professora: Módulo 1 até 18/09 (1ª prova em 25/09), Módulo 2 até 30/10 (2ª prova em 06/11) e Módulo 3 até 27/11 (3ª prova em 04/12). Marque cada aula como estudada no final da página.</p>
   <div class="trail" id="trail"></div>
 
   <h3>Plano de ataque para a prova</h3>
   <ol class="recipe read">
-    <li><span><b>Domine as 3 ferramentas</b> do módulo 1 (escalar, vetorial, misto). Quase toda questão da prova é uma delas aplicada no lugar certo.</span></li>
+    <li><span><b>Domine escalonamento e as 3 ferramentas</b> do módulo 1 (escalar, vetorial, misto). Escalonar resolve sistemas, inversas e, no Módulo 3, espaço gerado e base. Quase toda questão da prova é uma delas aplicada no lugar certo.</span></li>
     <li><span><b>Aprenda a "ler" equações</b>: olhou uma reta, tire ponto e vetor diretor. Olhou um plano, tire o vetor normal. Isso é metade da prova.</span></li>
     <li><span><b>Faça o quiz</b> para testar os conceitos antes de partir para contas grandes.</span></li>
     <li><span><b>Resolva a lista sozinho</b>, e só depois abra os passos. Errou? Volte ao módulo indicado na etiqueta da questão.</span></li>
@@ -360,11 +370,281 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   </ol>
 </section>
 
+<!-- ============ M1 · MATRIZES ============ -->
+<section class="view read" id="v-matrizes" hidden>
+  <div class="eyebrow">Módulo 1 · Matrizes</div>
+  <h2>Matrizes: tabelas de números que fazem conta</h2>
+  <p class="lede">Uma matriz é uma <b>tabela retangular de números</b>. Parece pouco, mas ela é a ferramenta que organiza sistemas lineares, transforma figuras no CAD e guarda dados. Nesta aula: os nomes, as operações e o produto de matrizes, que é o mais estranho (e o mais importante).</p>
+
+  <h3>O que é e como se lê</h3>
+  <div class="fx"><span class="tag">Definição 1.1 · matriz m × n</span>
+    <div class="eq"><i>A</i><sub>m×n</sub> = [ <i>a<sub>ij</sub></i> ]</div>
+    <dl class="legend"><dt>m × n</dt><dd>a <b>ordem</b>: m linhas (deitadas) por n colunas (em pé). Lê-se "m por n"</dd><dt>a<sub>ij</sub></dt><dd>o número que está na <b>linha i</b> e na <b>coluna j</b>. Primeiro a linha, depois a coluna, sempre</dd><dt>letra</dt><dd>matrizes têm nome com letra maiúscula: A, B, C</dd></dl></div>
+  <div class="ex" data-ex data-q="mat-ex1"><div class="q">Exemplo 1: na matriz A = <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>0</span><span>−4</span><span>4</span><span>−3</span><span>2</span></span>, qual a ordem e quanto valem a₁₁, a₁₃, a₂₂ e a₂₃?</div>
+    <ol><li>Conte: 2 linhas e 3 colunas → A é 2 × 3.</li><li>a₁₁ (linha 1, coluna 1) = 1. a₁₃ (linha 1, coluna 3) = −4.</li><li>a₂₂ (linha 2, coluna 2) = −3. a₂₃ (linha 2, coluna 3) = 2.</li></ol>
+    <div class="ans">2 × 3 · a₁₁ = 1 · a₁₃ = −4 · a₂₂ = −3 · a₂₃ = 2</div></div>
+
+  <h3>As matrizes que têm nome</h3>
+  <div class="tbl"><table><tr><th>Nome</th><th>Como é</th><th>Exemplo</th></tr>
+    <tr><td>quadrada</td><td>linhas = colunas (ordem n)</td><td><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>3</span><span>−2</span><span>4</span><span>5</span></span></td></tr>
+    <tr><td>nula</td><td>tudo zero</td><td><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>0</span><span>0</span><span>0</span></span></td></tr>
+    <tr><td>linha / coluna</td><td>uma linha só / uma coluna só</td><td><span class="mx" style="grid-template-columns:repeat(3,auto)"><span>3</span><span>0</span><span>−1</span></span> &nbsp; <span class="mx" style="grid-template-columns:repeat(1,auto)"><span>1</span><span>4</span></span></td></tr>
+    <tr><td>diagonal</td><td>quadrada, fora da diagonal tudo 0</td><td><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>7</span><span>0</span><span>0</span><span>−1</span></span></td></tr>
+    <tr><td>identidade I</td><td>diagonal com 1 na diagonal. É o "1" das matrizes: AI = IA = A</td><td><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>0</span><span>1</span></span></td></tr>
+    <tr><td>triangular superior / inferior</td><td>zeros abaixo / acima da diagonal</td><td><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>2</span><span>−1</span><span>0</span><span>3</span></span> &nbsp; <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>5</span><span>0</span><span>7</span><span>−5</span></span></td></tr>
+    <tr><td>simétrica</td><td>a<sub>ij</sub> = a<sub>ji</sub>: um "espelho" pela diagonal</td><td><span class="mx" style="grid-template-columns:repeat(2,auto)"><span>4</span><span>3</span><span>3</span><span>2</span></span></td></tr></table></div>
+
+  <h3>Somar, multiplicar por número e transpor</h3>
+  <div class="fx"><span class="tag">Fórmula 1.2 · operações simples</span>
+    <div class="eq"><i>A</i> + <i>B</i> = [<i>a<sub>ij</sub></i> + <i>b<sub>ij</sub></i>] &nbsp;&nbsp; <i>k</i>·<i>A</i> = [<i>k a<sub>ij</sub></i>] &nbsp;&nbsp; <i>A</i><sup>T</sup> = [<i>a<sub>ji</sub></i>]</div>
+    <dl class="legend"><dt>soma</dt><dd>só com matrizes do <b>mesmo tamanho</b>: soma posição com posição</dd><dt>k · A</dt><dd>multiplica <b>todos</b> os números por k</dd><dt>Aᵀ</dt><dd>transposta: as linhas viram colunas. Uma 3 × 2 vira 2 × 3</dd><dt>propriedades</dt><dd>A + B = B + A · (Aᵀ)ᵀ = A · (A + B)ᵀ = Aᵀ + Bᵀ · A é simétrica ⇔ A = Aᵀ</dd></dl></div>
+  <div class="ex" data-ex data-q="mat-ex2"><div class="q">Exemplos 2 e 4: calcule <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>5</span><span>−1</span><span>4</span><span>0</span><span>2</span><span>5</span></span> + <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>4</span><span>−2</span><span>5</span><span>1</span><span>0</span></span>. E se a matriz <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>2</span><span>y</span><span>x</span><span>4</span><span>5</span><span>3</span><span>z</span><span>6</span></span> é simétrica, quanto vale x + y + z?</div>
+    <ol><li>Soma posição com posição: 5 + 0 = 5, −1 + 4 = 3, 4 + (−2) = 2, 0 + 5 = 5, 2 + 1 = 3, 5 + 0 = 5.</li><li>Resultado: <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>5</span><span>3</span><span>2</span><span>5</span><span>3</span><span>5</span></span>.</li><li>Simétrica: cada número é igual ao seu "espelho" pela diagonal (a<sub>ij</sub> = a<sub>ji</sub>).</li><li>a₂₁ = a₁₂ → x = 2. a₁₃ = a₃₁ → y = 3. a₃₂ = a₂₃ → z = 5.</li><li>x + y + z = 2 + 3 + 5 = 10.</li></ol>
+    <div class="ans">soma = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>5</span><span>3</span><span>2</span><span>5</span><span>3</span><span>5</span></span> · x + y + z = 10</div></div>
+
+  <h3>Produto de matrizes: linha × coluna</h3>
+  <p>O produto <b>não</b> é posição com posição. Cada número do resultado sai de <b>uma linha da primeira</b> "deitada" sobre <b>uma coluna da segunda</b>: multiplica par a par e soma (é o produto escalar da linha com a coluna).</p>
+  <div class="fx"><span class="tag">Fórmula 1.3 · produto AB</span>
+    <div class="eq"><i>A</i><sub>m×<b>n</b></sub> · <i>B</i><sub><b>n</b>×p</sub> = <i>C</i><sub>m×p</sub> &nbsp;&nbsp; <i>c<sub>ij</sub></i> = <i>a</i><sub>i1</sub><i>b</i><sub>1j</sub> + <i>a</i><sub>i2</sub><i>b</i><sub>2j</sub> + ⋯ + <i>a<sub>in</sub>b<sub>nj</sub></i></div>
+    <dl class="legend"><dt>condição</dt><dd>colunas da 1ª = linhas da 2ª (os "n" do meio têm que ser iguais). Senão, <b>não existe</b> o produto</dd><dt>tamanho</dt><dd>o resultado tem as linhas da 1ª e as colunas da 2ª (os "de fora": m × p)</dd><dt>c<sub>ij</sub></dt><dd>linha i da 1ª com coluna j da 2ª</dd></dl></div>
+  <div class="cuid"><span class="k">Cuidado: a ordem importa</span>Em geral <b>AB ≠ BA</b>. Às vezes um dos dois nem existe. Também vale (AB)ᵀ = BᵀAᵀ (inverte a ordem) e AI = IA = A.</div>
+  <div class="pq"><span class="k">Por que um produto tão estranho?</span><p>Porque ele foi feito para <b>encadear transformações</b>. Se B gira uma figura e A estica, AB faz as duas coisas de uma vez. E um sistema linear inteiro cabe em AX = B: cada linha de A "deitada" sobre a coluna X dá o lado esquerdo de uma equação.</p></div>
+  <div class="ex" data-ex data-q="mat-ex5"><div class="q">Exemplo 5: calcule a) <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>2</span><span>1</span><span>4</span><span>2</span><span>5</span><span>3</span></span> · <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span>1</span><span>1</span><span>0</span><span>4</span></span> &nbsp; b) <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>−1</span><span>1</span><span>1</span><span>0</span><span>4</span></span> · <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>2</span><span>1</span><span>4</span><span>2</span><span>5</span><span>3</span></span> &nbsp; c) uma matriz 4 × 2 vezes uma 3 × 3.</div>
+    <ol><li>a) 3 × 2 vezes 2 × 3: os do meio (2 e 2) batem → resultado 3 × 3.</li><li>c₁₁ = linha 1 · coluna 1 = 2·1 + 1·1 = 3; c₁₂ = 2·(−1) + 1·0 = −2; c₁₃ = 2·1 + 1·4 = 6. Repetindo para as outras linhas: <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>3</span><span>−2</span><span>6</span><span>6</span><span>−4</span><span>12</span><span>8</span><span>−5</span><span>17</span></span>.</li><li>b) 2 × 3 vezes 3 × 2 → resultado 2 × 2: c₁₁ = 1·2 + (−1)·4 + 1·5 = 3; c₁₂ = 1·1 + (−1)·2 + 1·3 = 2; c₂₁ = 1·2 + 0·4 + 4·5 = 22; c₂₂ = 1·1 + 0·2 + 4·3 = 13.</li><li>Viu? AB é 3 × 3 e BA é 2 × 2: nem do mesmo tamanho são.</li><li>c) 4 × <b>2</b> vezes <b>3</b> × 3: 2 ≠ 3, o produto não existe.</li></ol>
+    <div class="ans">a) <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>3</span><span>−2</span><span>6</span><span>6</span><span>−4</span><span>12</span><span>8</span><span>−5</span><span>17</span></span> · b) <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>3</span><span>2</span><span>22</span><span>13</span></span> · c) não existe</div></div>
+  <div class="ex" data-ex data-q="mat-ex6"><div class="q">Exemplo 6: se A = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>2</span><span>4</span><span>3</span></span>, calcule A².</div>
+    <ol><li>A² = A · A (não é elevar cada número ao quadrado!).</li><li>c₁₁ = 1·1 + 2·4 = 9; c₁₂ = 1·2 + 2·3 = 8.</li><li>c₂₁ = 4·1 + 3·4 = 16; c₂₂ = 4·2 + 3·3 = 17.</li></ol>
+    <div class="ans">A² = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>9</span><span>8</span><span>16</span><span>17</span></span></div></div>
+  <div class="done-btn" data-done="matrizes"></div>
+</section>
+<!-- ============ M1 · ESCALONAMENTO ============ -->
+<section class="view read" id="v-escada" hidden>
+  <div class="eyebrow">Módulo 1 · Operações elementares</div>
+  <h2>Operações elementares e a forma escada</h2>
+  <p class="lede">Escalonar é "arrumar" uma matriz com três jogadas permitidas, até ela ficar em formato de <b>escada</b>. É a técnica que resolve sistemas, acha inversas e calcula determinantes. Vale treinar até ficar automático.</p>
+
+  <h3>As 3 operações elementares (as jogadas permitidas)</h3>
+  <div class="tbl"><table><tr><th>Operação</th><th>Notação</th><th>O que faz</th></tr>
+    <tr><td>i) trocar duas linhas</td><td>Lᵢ ↔ Lₖ</td><td>só muda a ordem</td></tr>
+    <tr><td>ii) multiplicar uma linha por k ≠ 0</td><td>Lᵢ → k·Lᵢ</td><td>serve para fazer o pivô virar 1</td></tr>
+    <tr><td>iii) somar a uma linha k vezes outra</td><td>Lᵢ → Lᵢ + k·Lⱼ</td><td>serve para <b>zerar</b> números embaixo (ou em cima) do pivô</td></tr></table></div>
+  <p>Se B sai de A por uma sequência dessas jogadas, A e B são <b>linha equivalentes</b> (A ~ B). Num sistema, isso quer dizer: <b>mesmas soluções</b>. Uma <b>matriz elementar</b> é a identidade depois de uma única jogada.</p>
+
+  <h3>A forma escada reduzida: as 4 condições</h3>
+  <ol class="recipe"><li><span>O primeiro número não nulo de cada linha (o <b>pivô</b>) é <b>1</b>.</span></li><li><span>Na coluna de um pivô, <b>todo o resto é zero</b> (em cima e embaixo).</span></li><li><span>Linhas só de zeros ficam <b>lá embaixo</b>.</span></li><li><span>Cada pivô fica <b>mais à direita</b> que o da linha de cima: o desenho é de escada.</span></li></ol>
+  <p class="cen">Toda matriz tem <b>uma única</b> forma escada reduzida.</p>
+  <div class="cuid"><span class="k">Escada × escada reduzida</span>Para resolver sistemas, muitas vezes basta a <b>forma escada</b> (zeros só embaixo dos pivôs) e depois substituir de baixo para cima. A <b>reduzida</b> pede também pivô 1 e zeros em cima: dá mais conta, mas a resposta sai pronta.</div>
+
+  <h3>Receita de escalonar</h3>
+  <ol class="recipe"><li><span><b>Coluna 1:</b> deixe um número não nulo no alto (troque linhas se precisar). Esse é o pivô.</span></li><li><span><b>Zere embaixo dele</b> com Lᵢ → Lᵢ − (número/pivô)·L₁.</span></li><li><span><b>Desça uma linha e ande uma coluna</b>, repita.</span></li><li><span>Para a reduzida: divida cada linha pelo seu pivô e <b>zere em cima</b>, de baixo para cima.</span></li></ol>
+
+  <div class="ex" data-ex data-q="esc-ex8"><div class="q">Exemplo 8: encontre a matriz linha reduzida à forma escada de A = <span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>2</span><span>1</span><span>0</span><span>−1</span><span>0</span><span>3</span><span>5</span><span>1</span><span>−2</span><span>1</span><span>1</span></span>.</div>
+    <ol><li>Zere embaixo do 1 da coluna 1: L₂ → L₂ + L₁ e L₃ → L₃ − L₁. <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span class="pv">1</span><span>2</span><span>1</span><span>0</span><span>0</span><span>2</span><span>4</span><span>5</span><span>0</span><span>−4</span><span>0</span><span>1</span></span></span></li><li>Pivô da coluna 2 vira 1: L₂ → L₂/2 → (0, 1, 2, 5/2). Zere embaixo: L₃ → L₃ + 4L₂ → (0, 0, 8, 11). <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span class="pv">1</span><span>2</span><span>1</span><span>0</span><span>0</span><span class="pv">1</span><span>2</span><span>5/2</span><span>0</span><span>0</span><span>8</span><span>11</span></span></span></li><li>Pivô da coluna 3 vira 1: L₃ → L₃/8 → (0, 0, 1, 11/8).</li><li>Zere em cima (de baixo para cima): L₂ → L₂ − 2L₃ → (0, 1, 0, −1/4). L₁ → L₁ − 2L₂ − L₃ → (1, 0, 0, −7/8).</li></ol>
+    <div class="ans"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span class="pv">1</span><span>0</span><span>0</span><span>−7/8</span><span>0</span><span class="pv">1</span><span>0</span><span>−1/4</span><span>0</span><span>0</span><span class="pv">1</span><span>11/8</span></span></div></div>
+  <div class="ex" data-ex data-q="esc-cond"><div class="q">Exemplo (aula): quais estão na forma escada reduzida? a) <span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>0</span><span>0</span><span>0</span><span>0</span><span>1</span><span>−1</span><span>0</span><span>0</span><span>0</span><span>1</span><span>0</span></span> &nbsp; b) <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>0</span><span>2</span><span>1</span><span>1</span><span>0</span><span>−3</span><span>0</span><span>0</span><span>0</span></span> &nbsp; d) <span class="mx" style="grid-template-columns:repeat(5,auto)"><span>0</span><span>1</span><span>−3</span><span>0</span><span>2</span><span>0</span><span>0</span><span>0</span><span>1</span><span>2</span><span>0</span><span>0</span><span>0</span><span>0</span><span>0</span></span></div>
+    <ol><li>a) A coluna 3 tem o pivô da linha 3, mas tem um −1 em cima dele: falha a <b>2ª condição</b>. Não é.</li><li>b) O primeiro não nulo da linha 1 é 2 (não 1) e o pivô da linha 2 está à esquerda do da linha 1: falham a <b>1ª e a 4ª</b>. Não é.</li><li>d) Pivôs 1, colunas dos pivôs limpas, linha de zeros embaixo, escada para a direita: <b>é</b>.</li></ol>
+    <div class="ans">a) não (2ª) · b) não (1ª e 4ª) · d) sim</div></div>
+  <div class="done-btn" data-done="escada"></div>
+</section>
+<!-- ============ M1 · INVERSA E DETERMINANTE ============ -->
+<section class="view read" id="v-inversa" hidden>
+  <div class="eyebrow">Módulo 1 · Inversa e determinante</div>
+  <h2>Matriz inversa e determinante</h2>
+  <p class="lede">Com números, dividir por 5 é multiplicar por 1/5. Com matrizes não existe divisão: existe a <b>inversa</b>, A⁻¹, que "desfaz" A. E o <b>determinante</b> é um número que diz, de cara, se essa inversa existe.</p>
+
+  <h3>Inversa</h3>
+  <div class="fx"><span class="tag">Definição 2.1 · inversa</span>
+    <div class="eq"><i>A</i> · <i>A</i><sup>−1</sup> = <i>A</i><sup>−1</sup> · <i>A</i> = <i>I</i></div>
+    <dl class="legend"><dt>A</dt><dd>só matriz <b>quadrada</b> pode ter inversa</dd><dt>A⁻¹</dt><dd>a matriz que multiplicada por A dá a identidade (o "1" das matrizes)</dd><dt>nem toda</dt><dd>tem inversa. As que têm são <b>invertíveis</b> (ou inversíveis)</dd><dt>propriedade</dt><dd>(AB)⁻¹ = B⁻¹A⁻¹ (inverte a ordem)</dd></dl></div>
+  <h3>Como calcular: [A | I] → [I | A⁻¹]</h3>
+  <ol class="recipe"><li><span>Escreva A e, do lado, a identidade: <b>[A | I]</b>.</span></li><li><span>Escalone tudo junto (as mesmas operações nos dois lados) até a esquerda virar I.</span></li><li><span>O que sobrou na direita é <b>A⁻¹</b>. Se aparecer uma linha de zeros na esquerda, A <b>não tem</b> inversa.</span></li></ol>
+  <div class="ex" data-ex data-q="inv-ex10"><div class="q">Exemplo 10: obtenha a inversa de A = <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>0</span><span>1</span><span>1</span><span>2</span><span>1</span><span>0</span><span>2</span><span>1</span></span>.</div>
+    <ol><li>Monte [A | I]: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(6,auto)"><span>1</span><span>0</span><span>1</span><span class="ag">1</span><span>0</span><span>0</span><span>1</span><span>2</span><span>1</span><span class="ag">0</span><span>1</span><span>0</span><span>0</span><span>2</span><span>1</span><span class="ag">0</span><span>0</span><span>1</span></span></span></li><li>L₂ → L₂ − L₁: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(6,auto)"><span class="pv">1</span><span>0</span><span>1</span><span class="ag">1</span><span>0</span><span>0</span><span>0</span><span>2</span><span>0</span><span class="ag">−1</span><span>1</span><span>0</span><span>0</span><span>2</span><span>1</span><span class="ag">0</span><span>0</span><span>1</span></span></span></li><li>L₂ → L₂/2; L₃ → L₃ − 2L₂ (com a L₂ já dividida): <span class="mxl"><span class="mx" style="grid-template-columns:repeat(6,auto)"><span class="pv">1</span><span>0</span><span>1</span><span class="ag">1</span><span>0</span><span>0</span><span>0</span><span class="pv">1</span><span>0</span><span class="ag">−1/2</span><span>1/2</span><span>0</span><span>0</span><span>0</span><span class="pv">1</span><span class="ag">1</span><span>−1</span><span>1</span></span></span></li><li>Zere o 1 em cima do pivô da coluna 3: L₁ → L₁ − L₃: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(6,auto)"><span class="pv">1</span><span>0</span><span>0</span><span class="ag">0</span><span>1</span><span>−1</span><span>0</span><span class="pv">1</span><span>0</span><span class="ag">−1/2</span><span>1/2</span><span>0</span><span>0</span><span>0</span><span class="pv">1</span><span class="ag">1</span><span>−1</span><span>1</span></span></span></li><li>A esquerda virou I: a direita é A⁻¹. Confira: A · A⁻¹ = I.</li></ol>
+    <div class="ans">A⁻¹ = <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>0</span><span>1</span><span>−1</span><span>−1/2</span><span>1/2</span><span>0</span><span>1</span><span>−1</span><span>1</span></span></div></div>
+
+  <h3>Determinante</h3>
+  <div class="fx"><span class="tag">Fórmula 2.2 · determinante 2 × 2</span>
+    <div class="eq">det <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>a</span><span>b</span><span>c</span><span>d</span></span> = <i>a d</i> − <i>b c</i></div>
+    <dl class="legend"><dt>ad</dt><dd>produto da diagonal principal (↘)</dd><dt>bc</dt><dd>produto da diagonal secundária (↙), com sinal de menos</dd><dt>atalho da inversa 2 × 2</dt><dd>A⁻¹ = (1/det A) · <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>d</span><span>−b</span><span>−c</span><span>a</span></span>: troca os da diagonal principal e muda o sinal dos outros</dd></dl></div>
+  <div class="fx"><span class="tag">Fórmula 2.3 · regra de Sarrus (3 × 3)</span>
+    <div class="eq" style="font-size:1.05rem">det = <i>a</i>₁₁<i>a</i>₂₂<i>a</i>₃₃ + <i>a</i>₁₂<i>a</i>₂₃<i>a</i>₃₁ + <i>a</i>₁₃<i>a</i>₂₁<i>a</i>₃₂ − (<i>a</i>₁₃<i>a</i>₂₂<i>a</i>₃₁ + <i>a</i>₁₁<i>a</i>₂₃<i>a</i>₃₂ + <i>a</i>₁₂<i>a</i>₂₁<i>a</i>₃₃)</div>
+    <dl class="legend"><dt>como fazer</dt><dd>repita as duas primeiras colunas à direita da matriz</dd><dt>↘ (3 diagonais)</dt><dd>multiplique e <b>conserve</b> o sinal</dd><dt>↙ (3 diagonais)</dt><dd>multiplique e <b>troque</b> o sinal</dd><dt>só 3 × 3</dt><dd>Sarrus não vale para 4 × 4: aí use o escalonamento (abaixo)</dd></dl></div>
+  <div class="ex" data-ex data-q="det-ex12"><div class="q">Exemplo 12: calcule o determinante de a) <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>7</span><span>5</span><span>2</span><span>4</span></span> b) <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>−3</span><span>−8</span><span>−5</span><span>−2</span></span> c) <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>2</span><span>5</span><span>7</span><span>3</span><span>1</span><span>4</span><span>6</span><span>8</span><span>2</span></span></div>
+    <ol><li>a) 7·4 − 5·2 = 28 − 10 = 18.</li><li>b) (−3)(−2) − (−8)(−5) = 6 − 40 = −34.</li><li>c) Sarrus. Diagonais ↘: 2·1·2 + 5·4·6 + 7·3·8 = 4 + 120 + 168 = 292.</li><li>Diagonais ↙: 7·1·6 + 2·4·8 + 5·3·2 = 42 + 64 + 30 = 136.</li><li>det = 292 − 136 = 156.</li></ol>
+    <div class="ans">a) 18 · b) −34 · c) 156</div></div>
+  <h3>Propriedades que economizam conta</h3>
+  <div class="tbl"><table><tr><th>Se…</th><th>então o determinante…</th></tr>
+    <tr><td>uma linha (ou coluna) é toda zero</td><td>é <b>0</b></td></tr>
+    <tr><td>duas linhas são iguais (ou proporcionais)</td><td>é <b>0</b></td></tr>
+    <tr><td>troco duas linhas</td><td><b>muda de sinal</b></td></tr>
+    <tr><td>multiplico uma linha por k</td><td>fica <b>multiplicado por k</b></td></tr>
+    <tr><td>somo a uma linha k vezes outra</td><td><b>não muda</b></td></tr>
+    <tr><td>a matriz é triangular</td><td>é o <b>produto da diagonal</b></td></tr>
+    <tr><td>transponho</td><td>não muda: det Aᵀ = det A</td></tr>
+    <tr><td>multiplico matrizes</td><td>det(AB) = det A · det B</td></tr></table></div>
+  <div class="fx"><span class="tag">Teorema 2.4 · inversa e determinante</span>
+    <div class="eq"><i>A</i> tem inversa &nbsp;⇔&nbsp; det <i>A</i> ≠ 0 &nbsp;&nbsp;&nbsp; det <i>A</i><sup>−1</sup> = 1 / det <i>A</i></div>
+    <dl class="legend"><dt>por quê</dt><dd>A·A⁻¹ = I → det A · det A⁻¹ = det I = 1. Se det A fosse 0, não daria 1</dd><dt>uso</dt><dd>antes de escalonar [A | I], calcule det A: se der 0, nem tente</dd></dl></div>
+  <div class="ex" data-ex data-q="inv-ex9"><div class="q">Exemplo 9: ache a inversa de A = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>2</span><span>3</span><span>1</span><span>4</span></span> pelo atalho 2 × 2.</div>
+    <ol><li>det A = 2·4 − 3·1 = 8 − 3 = 5 ≠ 0: tem inversa.</li><li>Troque os da diagonal principal (2 ↔ 4) e mude o sinal dos outros (3 → −3, 1 → −1).</li><li>Divida tudo pelo det: A⁻¹ = (1/5) · <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>4</span><span>−3</span><span>−1</span><span>2</span></span>.</li></ol>
+    <div class="ans">A⁻¹ = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>4/5</span><span>−3/5</span><span>−1/5</span><span>2/5</span></span></div></div>
+  <div class="pq"><span class="k">Determinante pelo escalonamento (para 4 × 4 ou maior)</span><p>Escalone até ficar triangular, multiplique a diagonal e corrija: cada <b>troca de linhas</b> muda o sinal; cada linha <b>multiplicada por k</b> divide o resultado por k; somar múltiplo de outra linha não muda nada.</p></div>
+  <div class="done-btn" data-done="inversa"></div>
+</section>
+<!-- ============ M1 · SISTEMAS ============ -->
+<section class="view read" id="v-sistemas" hidden>
+  <div class="eyebrow">Módulo 1 · Sistemas lineares</div>
+  <h2>Sistemas lineares: resolver por escalonamento</h2>
+  <p class="lede">Um sistema linear é um conjunto de equações em que as incógnitas aparecem <b>só na potência 1</b>: sem x², sem xy, sem sen x. Resolver é achar os valores que satisfazem <b>todas ao mesmo tempo</b>. E há só três finais possíveis.</p>
+
+  <h3>Geometria: cada equação é uma reta (2D) ou um plano (3D)</h3>
+  <div class="tbl"><table><tr><th>Final</th><th>Sigla</th><th>Com 2 incógnitas (retas)</th><th>Com 3 incógnitas (planos)</th></tr>
+    <tr><td>uma única solução</td><td><b>SPD</b> (possível determinado)</td><td>retas concorrentes</td><td>os planos se cruzam num ponto só</td></tr>
+    <tr><td>infinitas soluções</td><td><b>SPI</b> (possível indeterminado)</td><td>retas coincidentes</td><td>os planos têm uma reta (ou um plano) em comum</td></tr>
+    <tr><td>nenhuma solução</td><td><b>SI</b> (impossível)</td><td>retas paralelas</td><td>planos paralelos, ou se cruzam dois a dois sem ponto comum aos três</td></tr></table></div>
+  <p class="cen">Nunca dá "exatamente 2 soluções": ou 0, ou 1, ou infinitas.</p>
+
+  <h3>Forma matricial e matriz aumentada</h3>
+  <div class="fx"><span class="tag">Fórmula 3.1 · AX = B</span>
+    <div class="eq"><i>A</i> · <i>X</i> = <i>B</i> &nbsp;&nbsp;→&nbsp;&nbsp; [ <i>A</i> | <i>B</i> ]</div>
+    <dl class="legend"><dt>A</dt><dd>matriz dos <b>coeficientes</b> (os números na frente das letras)</dd><dt>X</dt><dd>coluna das <b>incógnitas</b> (x, y, z…)</dd><dt>B</dt><dd>coluna dos <b>termos independentes</b> (o lado direito)</dd><dt>[A | B]</dt><dd>matriz <b>aumentada</b>: cada linha é uma equação, sem escrever as letras</dd></dl></div>
+  <h3>Receita (eliminação de Gauss)</h3>
+  <ol class="recipe"><li><span>Monte a matriz aumentada <b>[A | B]</b>.</span></li><li><span><b>Escalone</b> (as mesmas jogadas da aula anterior): sistemas linha equivalentes têm as mesmas soluções.</span></li><li><span><b>Leia a última linha</b>: (0 0 … 0 | número ≠ 0) → <b>SI</b>. Menos pivôs que incógnitas → sobram <b>variáveis livres</b> → <b>SPI</b>. Um pivô por incógnita → <b>SPD</b>.</span></li><li><span><b>Volte de baixo para cima</b> substituindo (ou leia direto da escada reduzida).</span></li></ol>
+
+  <div class="ex" data-ex data-q="sis-ex1a"><div class="q">Exemplo 1a: classifique e resolva: x + 4y + 3z = 1; 2x + 5y + 4z = 4; x − 3y − 2z = 5.</div>
+    <ol><li>Matriz aumentada: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span>1</span><span>4</span><span>3</span><span class="ag">1</span><span>2</span><span>5</span><span>4</span><span class="ag">4</span><span>1</span><span>−3</span><span>−2</span><span class="ag">5</span></span></span></li><li>L₂ → L₂ − 2L₁ e L₃ → L₃ − L₁: <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span class="pv">1</span><span>4</span><span>3</span><span class="ag">1</span><span>0</span><span>−3</span><span>−2</span><span class="ag">2</span><span>0</span><span>−7</span><span>−5</span><span class="ag">4</span></span></span></li><li>L₃ → L₃ − (7/3)L₂: −5 − (7/3)(−2) = −1/3 e 4 − (7/3)(2) = −2/3. <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span class="pv">1</span><span>4</span><span>3</span><span class="ag">1</span><span>0</span><span class="pv">−3</span><span>−2</span><span class="ag">2</span><span>0</span><span>0</span><span class="pv">−1/3</span><span class="ag">−2/3</span></span></span></li><li>Três pivôs para três incógnitas: <b>SPD</b>. De baixo para cima: −z/3 = −2/3 → z = 2.</li><li>−3y − 2·2 = 2 → y = −2. x + 4(−2) + 3·2 = 1 → x = 3.</li></ol>
+    <div class="ans">SPD: x = 3, y = −2, z = 2</div></div>
+  <div class="ex" data-ex data-q="sis-ex1bc"><div class="q">Exemplos 1b e 1c: classifique b) x + 2y + z + t = 1; x + 3y − z + 2t = 3. c) 2x + 4y = 16; 5x − 2y = 4; 10x − 4y = 3.</div>
+    <ol><li>b) L₂ − L₁: y − 2z + t = 2. São 2 equações para 4 incógnitas: z e t ficam <b>livres</b> (z = s, t = u).</li><li>b) y = 2 + 2s − u; x = 1 − 2y − z − t = −3 − 5s + u. <b>SPI</b>: (x, y, z, t) = (−3 − 5s + u, 2 + 2s − u, s, u).</li><li>c) Das duas primeiras: x + 2y = 8 e 5x − 2y = 4 → somando, 6x = 12 → x = 2, y = 3.</li><li>c) Na terceira: 10·2 − 4·3 = 8 ≠ 3. Escalonando, aparece (0 0 | número ≠ 0): <b>SI</b>.</li></ol>
+    <div class="ans">b) SPI com 2 variáveis livres · c) SI (sem solução)</div></div>
+
+  <h3>Sistema homogêneo (lado direito todo zero)</h3>
+  <p>Se B = 0, o sistema é <b>homogêneo</b> e sempre tem pelo menos a solução nula (0, 0, …, 0). A pergunta é se tem <b>só</b> ela (SPD) ou infinitas (SPI).</p>
+  <div class="ex" data-ex data-q="sis-ex2"><div class="q">Exemplo 2: resolva o sistema homogêneo x + y − z = 0; 3x − 2y + z = 0.</div>
+    <ol><li>Some as duas equações (o z cancela): 4x − y = 0 → y = 4x.</li><li>Da primeira: z = x + y = 5x.</li><li>Escolha z = k como livre: x = k/5 e y = 4k/5.</li><li>Infinitas soluções (SPI), todas múltiplas de (1, 4, 5): é uma reta pela origem.</li></ol>
+    <div class="ans">S = {(k/5, 4k/5, k) | k ∈ ℝ}</div></div>
+  <div class="fx"><span class="tag">Teorema 3.2 · tudo equivalente (A quadrada n × n)</span>
+    <div class="eq" style="font-size:1.05rem">A invertível ⇔ AX = 0 só tem a solução nula ⇔ escada reduzida = I ⇔ AX = B tem solução única ⇔ det A ≠ 0</div>
+    <dl class="legend"><dt>uso</dt><dd>sistema quadrado: calcule o det. ≠ 0 → SPD na hora. = 0 → SPI ou SI (precisa escalonar para saber qual)</dd></dl></div>
+
+  <h3>Discutir um sistema com parâmetros</h3>
+  <p>"Discutir" é dizer para quais valores das letras o sistema é SPD, SPI ou SI. Escalone com as letras dentro e olhe a <b>última linha</b>.</p>
+  <div class="ex" data-ex data-q="sis-ex3"><div class="q">Exemplo 3: discuta x − 2y + pz = 1; x − y − z = 2; −x + 2y − 2z = q em função de p e q.</div>
+    <ol><li>L₂ → L₂ − L₁ e L₃ → L₃ + L₁: (0, 1, −1 − p | 1) e (0, 0, p − 2 | q + 1). <span class="mxl"><span class="mx" style="grid-template-columns:repeat(4,auto)"><span class="pv">1</span><span>−2</span><span>p</span><span class="ag">1</span><span>0</span><span class="pv">1</span><span>−p − 1</span><span class="ag">1</span><span>0</span><span>0</span><span>p − 2</span><span class="ag">q + 1</span></span></span></li><li>A última linha diz: (p − 2)·z = q + 1.</li><li>p ≠ 2: dá para dividir, z = (q + 1)/(p − 2), um pivô por incógnita → <b>SPD</b> (qualquer q).</li><li>p = 2: a linha vira 0·z = q + 1. Se q = −1, fica 0 = 0 (linha some, z livre) → <b>SPI</b>. Se q ≠ −1, fica 0 = número → <b>SI</b>.</li></ol>
+    <div class="ans">p ≠ 2: SPD · p = 2 e q = −1: SPI · p = 2 e q ≠ −1: SI</div></div>
+  <div class="ex" data-ex data-q="sis-ex4"><div class="q">Exemplo 4: discuta x + y + z = 1; 2x + y + kz = 2; x + 2y + z = m em função de k e m.</div>
+    <ol><li>L₂ → L₂ − 2L₁: (0, −1, k − 2 | 0). L₃ → L₃ − L₁: (0, 1, 0 | m − 1).</li><li>L₃ → L₃ + L₂: (0, 0, k − 2 | m − 1).</li><li>k ≠ 2 → <b>SPD</b>. k = 2 e m = 1 → 0 = 0 → <b>SPI</b>. k = 2 e m ≠ 1 → 0 = número → <b>SI</b>.</li></ol>
+    <div class="ans">k ≠ 2: SPD · k = 2 e m = 1: SPI · k = 2 e m ≠ 1: SI</div></div>
+  <div class="done-btn" data-done="sistemas"></div>
+</section>
+<!-- ============ M1 · VETORES ============ -->
+<section class="view read" id="v-vetores" hidden>
+  <div class="eyebrow">Módulo 1 · Vetores</div>
+  <h2>Vetores: do desenho à conta, em qualquer dimensão</h2>
+  <p class="lede">Um vetor é um <b>deslocamento</b>: tem tamanho, direção e sentido, mas não tem lugar fixo. Você pode arrastá-lo para qualquer ponto do espaço sem mudar nada. Nesta aula ele aparece de dois jeitos: como <b>seta</b> (forma geométrica) e como <b>lista de números</b> (forma analítica).</p>
+
+  <h3>Forma geométrica: setas</h3>
+  <p>O vetor AB⃗ é o conjunto de todas as setas com o mesmo <b>tamanho</b>, a mesma <b>direção</b> e o mesmo <b>sentido</b> da seta que vai de A até B. Qualquer uma delas "representa" o vetor.</p>
+  <div class="tbl"><table><tr><th>Operação</th><th>No desenho</th></tr>
+    <tr><td>soma u⃗ + v⃗</td><td>ande u⃗ e depois v⃗ (cauda de v⃗ na ponta de u⃗). A soma é a <b>diagonal do paralelogramo</b></td></tr>
+    <tr><td>número × vetor λu⃗</td><td>mesma direção; tamanho |λ| vezes maior. λ &gt; 1 estica, 0 &lt; λ &lt; 1 encolhe, λ &lt; 0 inverte o sentido, λ = 0 dá o vetor nulo</td></tr></table></div>
+
+  <h3>Forma analítica: coordenadas</h3>
+  <div class="fx"><span class="tag">Fórmula 4.1 · operações por coordenadas</span>
+    <div class="eq"><i>u</i>⃗ + <i>v</i>⃗ = (<i>u</i>₁ + <i>v</i>₁, <i>u</i>₂ + <i>v</i>₂, …) &nbsp;&nbsp; λ<i>u</i>⃗ = (λ<i>u</i>₁, λ<i>u</i>₂, …) &nbsp;&nbsp; <i>AB</i>⃗ = <i>B</i> − <i>A</i></div>
+    <dl class="legend"><dt>soma</dt><dd>coordenada com coordenada</dd><dt>λu⃗</dt><dd>multiplica todas as coordenadas por λ</dd><dt>AB⃗</dt><dd>chegada menos saída</dd><dt>Rⁿ</dt><dd>vale igual em ℝ², ℝ³, ℝ⁴… com n coordenadas: (x₁, x₂, …, xₙ). Não precisa "ver" o espaço para fazer conta nele</dd></dl></div>
+
+  <h3>Norma e distância</h3>
+  <div class="fx"><span class="tag">Fórmula 4.2 · norma e distância</span>
+    <div class="eq">‖<i>u</i>⃗‖ = <span class="rt"><span><i>x</i>₁² + <i>x</i>₂² + ⋯ + <i>x</i>ₙ²</span></span> &nbsp;&nbsp;&nbsp; <i>d</i>(<i>u</i>⃗, <i>v</i>⃗) = ‖<i>u</i>⃗ − <i>v</i>⃗‖</div>
+    <dl class="legend"><dt>‖u⃗‖</dt><dd>norma (módulo, comprimento): Pitágoras com todas as coordenadas</dd><dt>d</dt><dd>distância entre as pontas = norma da diferença</dd><dt>esfera</dt><dd>os pontos a distância r de um centro w: ‖u⃗ − w⃗‖ = r. Em ℝ² é a circunferência</dd></dl></div>
+  <div class="ex" data-ex data-q="vet-dist"><div class="q">Exemplo (aula): calcule a norma de u⃗ = (2, 1, 3, 0) em ℝ⁴ e as distâncias d(u⃗, v⃗) para a) u⃗ = (1, 2, 3), v⃗ = (−1, 2, 4); b) u⃗ = (2, −2, 5, 3), v⃗ = (1, 1, 1, 1).</div>
+    <ol><li>Norma em ℝ⁴: √(2² + 1² + 3² + 0²) = √(4 + 1 + 9 + 0) = √14.</li><li>a) u⃗ − v⃗ = (1 − (−1), 2 − 2, 3 − 4) = (2, 0, −1) → d = √(4 + 0 + 1) = √5.</li><li>b) u⃗ − v⃗ = (1, −3, 4, 2) → d = √(1 + 9 + 16 + 4) = √30.</li></ol>
+    <div class="ans">‖(2, 1, 3, 0)‖ = √14 · a) √5 · b) √30</div></div>
+
+  <h3>Vetores paralelos e coplanares</h3>
+  <div class="fx"><span class="tag">Fórmula 4.3 · paralelismo</span>
+    <div class="eq"><i>u</i>⃗ // <i>v</i>⃗ &nbsp;⇔&nbsp; <i>u</i>⃗ = <i>k v</i>⃗ &nbsp;⇔&nbsp; <span class="fr"><span><i>u</i>₁</span><span><i>v</i>₁</span></span> = <span class="fr"><span><i>u</i>₂</span><span><i>v</i>₂</span></span> = ⋯ = <i>k</i></div>
+    <dl class="legend"><dt>k</dt><dd>o mesmo número em todas as divisões. Se um tem 0 numa posição, o outro também tem que ter</dd><dt>coplanares</dt><dd>três vetores no mesmo plano: um é combinação dos outros dois. Teste rápido no produto misto (aula de produto vetorial e misto)</dd></dl></div>
+
+  <div class="ex" data-ex data-q="vet-prat"><div class="q">Praticando (aula): 1) ache x e y para (x + 1, 4) = (5, 2y − 6). 2) ache a e b com w⃗ = a·u⃗ + b·v⃗, sendo u⃗ = (1, 2), v⃗ = (4, −2), w⃗ = (−1, 8). 3) AB⃗ com A = (4, −2, 1) e B = (3, −2, −1). 4) ‖(2, −1, 3)‖.</div>
+    <ol><li>1) Vetores iguais têm coordenadas iguais: x + 1 = 5 → x = 4; 2y − 6 = 4 → y = 5.</li><li>2) a(1, 2) + b(4, −2) = (−1, 8) → a + 4b = −1 e 2a − 2b = 8 (ou a − b = 4). Subtraindo: 5b = −5 → b = −1, a = 3.</li><li>3) AB⃗ = B − A = (3 − 4, −2 − (−2), −1 − 1) = (−1, 0, −2).</li><li>4) √(4 + 1 + 9) = √14.</li></ol>
+    <div class="ans">1) x = 4, y = 5 · 2) a = 3, b = −1 · 3) (−1, 0, −2) · 4) √14</div></div>
+  <div class="ex" data-ex data-q="vet-par12"><div class="q">Exemplos 11 e 12 (aula 5): (−2, 3, −4) e (−4, 6, −8) são paralelos? Ache m e n para que (m + 1, 3, 1) e (4, 2, 2n − 1) sejam paralelos.</div>
+    <ol><li>11) −2/−4 = 3/6 = −4/−8 = 1/2: o mesmo k → paralelos.</li><li>12) A coordenada sem letra fixa o k: 3/2.</li><li>(m + 1)/4 = 3/2 → m + 1 = 6 → m = 5.</li><li>1/(2n − 1) = 3/2 → 2n − 1 = 2/3 → 2n = 5/3 → n = 5/6.</li></ol>
+    <div class="ans">11) sim (k = 1/2) · 12) m = 5 e n = 5/6</div></div>
+  <div class="done-btn" data-done="vetores"></div>
+</section>
+
+<!-- ============ M1 · PRODUTO ESCALAR ============ -->
+<section class="view read" id="v-pescalar" hidden>
+  <div class="eyebrow">Módulo 1 · Produto escalar e ângulo</div>
+  <h2>Produto escalar: medir ângulos com conta</h2>
+  <p class="lede">Já sabemos medir comprimento (a norma). Falta medir <b>ângulo</b>. A professora deduz tudo da <b>lei dos cossenos</b>, e no caminho aparece uma soma simples, u₁v₁ + u₂v₂ + ⋯, que vira a ferramenta mais usada da disciplina: o produto escalar (ou produto interno).</p>
+
+  <h3>De onde vem (a dedução da aula)</h3>
+  <ol class="recipe"><li><span>Dois vetores u⃗ e v⃗ formam um triângulo com lados ‖u⃗‖, ‖v⃗‖ e ‖u⃗ − v⃗‖, e ângulo θ entre os dois primeiros.</span></li><li><span>Lei dos cossenos: ‖u⃗ − v⃗‖² = ‖u⃗‖² + ‖v⃗‖² − 2‖u⃗‖‖v⃗‖ cos θ.</span></li><li><span>Abrindo as coordenadas: ‖u⃗ − v⃗‖² = ‖u⃗‖² + ‖v⃗‖² − 2(u₁v₁ + ⋯ + uₙvₙ).</span></li><li><span>Comparando as duas: <b>u₁v₁ + ⋯ + uₙvₙ = ‖u⃗‖‖v⃗‖ cos θ</b>. Esse número ganha nome.</span></li></ol>
+  <div class="fx"><span class="tag">Fórmula 5.1 · produto escalar e ângulo</span>
+    <div class="eq"><i>u</i>⃗ · <i>v</i>⃗ = <i>u</i>₁<i>v</i>₁ + ⋯ + <i>u</i>ₙ<i>v</i>ₙ = ‖<i>u</i>⃗‖ ‖<i>v</i>⃗‖ cos <i>θ</i> &nbsp;&nbsp;&nbsp; cos <i>θ</i> = <span class="fr"><span><i>u</i>⃗ · <i>v</i>⃗</span><span>‖<i>u</i>⃗‖ ‖<i>v</i>⃗‖</span></span></div>
+    <dl class="legend"><dt>u⃗ · v⃗</dt><dd>multiplica coordenada com coordenada e soma: dá um <b>número</b>, não um vetor</dd><dt>θ</dt><dd>ângulo entre os vetores, de 0° a 180°: θ = arccos(...)</dd><dt>u⃗ · u⃗</dt><dd>= ‖u⃗‖², então ‖u⃗‖ = √(u⃗ · u⃗)</dd><dt>vale em ℝⁿ</dt><dd>a dedução não depende da dimensão</dd></dl></div>
+  <div class="tbl"><table><tr><th>Sinal de u⃗ · v⃗</th><th>cos θ</th><th>Ângulo</th></tr>
+    <tr><td>positivo</td><td>&gt; 0</td><td>agudo (0° ≤ θ &lt; 90°)</td></tr>
+    <tr><td>zero</td><td>= 0</td><td><b>reto</b>: vetores <b>ortogonais</b></td></tr>
+    <tr><td>negativo</td><td>&lt; 0</td><td>obtuso (90° &lt; θ ≤ 180°)</td></tr></table></div>
+
+  <h3>Ortogonalidade e conjunto ortonormal</h3>
+  <p>Dois vetores são <b>ortogonais</b> quando u⃗ · v⃗ = 0. Não precisam se encostar: basta que, arrastando um até o outro, formem 90°. Os vetores canônicos e₁ = (1, 0, …, 0), e₂ = (0, 1, 0, …)… são ortogonais dois a dois e têm norma 1 (são <b>unitários</b>): por isso formam um conjunto <b>ortonormal</b>.</p>
+
+  <div class="ex" data-ex data-q="pe-ex1"><div class="q">Exemplos 1 e 2: a) calcule u⃗ · v⃗ com u⃗ = 3î − 5ĵ + 8k̂ e v⃗ = 4î − 2ĵ − k̂. b) Com u⃗ = (4, 2, −1), v⃗ = (x, 2, 3), A = (4, −1, 2) e B = (3, 2, −1), ache x tal que u⃗ · (v⃗ + BA⃗) = 5.</div>
+    <ol><li>a) 3·4 + (−5)(−2) + 8·(−1) = 12 + 10 − 8 = 14.</li><li>b) BA⃗ = A − B = (1, −3, 3). v⃗ + BA⃗ = (x + 1, −1, 6).</li><li>u⃗ · (x + 1, −1, 6) = 4(x + 1) − 2 − 6 = 4x − 4.</li><li>4x − 4 = 5 → x = 9/4.</li></ol>
+    <div class="ans">a) 14 · b) x = 9/4</div></div>
+  <div class="ex" data-ex data-q="pe-ex3"><div class="q">Exemplos 3, 4 e 5: a) cos θ entre (1, −1, 2) e (2, 0, 1). b) ângulo entre (1, 3, −2) e (4, 2, 5). c) (−2, 0, −4, 1) e (6, 2, −1, 2) são ortogonais?</div>
+    <ol><li>a) u⃗ · v⃗ = 2 + 0 + 2 = 4. ‖u⃗‖ = √6, ‖v⃗‖ = √5. cos θ = 4/√30 ≈ 0,730 (θ ≈ 43°).</li><li>b) u⃗ · v⃗ = 4 + 6 − 10 = 0 → cos θ = 0 → θ = 90°.</li><li>c) (−2)(6) + 0·2 + (−4)(−1) + 1·2 = −12 + 0 + 4 + 2 = −6 ≠ 0 → não são ortogonais (ângulo obtuso).</li></ol>
+    <div class="ans">a) cos θ = 4/√30 · b) 90° · c) não (−6)</div></div>
+  <div class="ofi"><span class="k">Aplicação da aula: os dígitos do CPF</span>Os dois últimos dígitos do CPF são calculados com produto escalar. Para 313.402.809-<b>30</b>: u⃗ = (3, 1, 3, 4, 0, 2, 8, 0, 9) · (10, 9, 8, 7, 6, 5, 4, 3, 2) = 151. Resto de 151 ÷ 11 = 8 → dígito = 11 − 8 = <b>3</b>. Depois, com o 3 no fim, (3, 1, 3, 4, 0, 2, 8, 0, 9, 3) · (11, 10, …, 2) = 187, resto 0 → dígito <b>0</b> (resto 0 ou 1 dá 0).</div>
+  <div class="done-btn" data-done="pescalar"></div>
+</section>
+
+<!-- ============ M1 · PRODUTO VETORIAL E MISTO ============ -->
+<section class="view read" id="v-pvetorial" hidden>
+  <div class="eyebrow">Módulo 1 · Produto vetorial e misto</div>
+  <h2>Produto vetorial (área) e produto misto (volume)</h2>
+  <p class="lede">O produto escalar mede ângulo. Os outros dois produtos medem <b>espaço</b>: o vetorial dá uma seta cujo tamanho é a <b>área</b> do paralelogramo; o misto dá o <b>volume</b> da caixa. Os dois só existem em ℝ³.</p>
+
+  <h3>Produto vetorial</h3>
+  <div class="fx"><span class="tag">Fórmula 6.1 · produto vetorial</span>
+    <div class="eq"><i>u</i>⃗ × <i>v</i>⃗ = det <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>î</span><span>ĵ</span><span>k̂</span><span>x₁</span><span>y₁</span><span>z₁</span><span>x₂</span><span>y₂</span><span>z₂</span></span> = (<i>y</i>₁<i>z</i>₂ − <i>y</i>₂<i>z</i>₁, &nbsp;<i>x</i>₂<i>z</i>₁ − <i>x</i>₁<i>z</i>₂, &nbsp;<i>x</i>₁<i>y</i>₂ − <i>x</i>₂<i>y</i>₁)</div>
+    <dl class="legend"><dt>resultado</dt><dd>um <b>vetor</b>, perpendicular a u⃗ e a v⃗ ao mesmo tempo</dd><dt>sentido</dt><dd>regra da mão direita: dedos de u⃗ para v⃗, o polegar aponta u⃗ × v⃗</dd><dt>como lembrar</dt><dd>para cada coordenada, cubra a coluna dela e faça o "det 2 × 2" do que sobra (a do meio leva o sinal trocado)</dd></dl></div>
+  <div class="tbl"><table><tr><th>Propriedade</th><th>Quer dizer</th></tr>
+    <tr><td>u⃗ × v⃗ = −(v⃗ × u⃗)</td><td>trocar a ordem inverte a seta</td></tr>
+    <tr><td>u⃗ × v⃗ = 0⃗ ⇔ u⃗ e v⃗ paralelos (LD)</td><td>teste de paralelismo e de <b>pontos alinhados</b>: A, B, C colineares ⇔ AB⃗ × AC⃗ = 0⃗</td></tr>
+    <tr><td>‖u⃗ × v⃗‖ = ‖u⃗‖‖v⃗‖ sen θ</td><td>é a <b>área do paralelogramo</b> (base ‖u⃗‖ × altura ‖v⃗‖ sen θ)</td></tr>
+    <tr><td>triângulo</td><td>metade: A = ½‖u⃗ × v⃗‖</td></tr></table></div>
+  <div class="ex" data-ex data-q="vet-ex12"><div class="q">Exemplos 1 e 2: calcule u⃗ × v⃗ para a) u⃗ = (1, 3, 4), v⃗ = (2, 7, −5); b) u⃗ = (1, 0, 2), v⃗ = (2, −3, 4).</div>
+    <ol><li>a) x: 3·(−5) − 4·7 = −15 − 28 = −43. y: 4·2 − 1·(−5) = 8 + 5 = 13. z: 1·7 − 3·2 = 1.</li><li>a) Confira: (−43, 13, 1) · (1, 3, 4) = −43 + 39 + 4 = 0 ✓ (perpendicular).</li><li>b) x: 0·4 − 2·(−3) = 6. y: 2·2 − 1·4 = 0. z: 1·(−3) − 0·2 = −3.</li></ol>
+    <div class="ans">a) (−43, 13, 1) · b) (6, 0, −3)</div></div>
+  <div class="ex" data-ex data-q="vet-area"><div class="q">Exemplos 3 e 4: a) área do paralelogramo de u⃗ = (1, 1, 0) e v⃗ = (0, 1, 3). b) área do triângulo de vértices P = (1, 4, 6), Q = (−2, 5, −1), R = (1, −1, 1).</div>
+    <ol><li>a) u⃗ × v⃗ = (1·3 − 0·1, 0·0 − 1·3, 1·1 − 1·0) = (3, −3, 1). Área = √(9 + 9 + 1) = √19 ≈ 4,36.</li><li>b) Dois lados saindo de P: PQ⃗ = (−3, 1, −7) e PR⃗ = (0, −5, −5).</li><li>PQ⃗ × PR⃗ = (1·(−5) − (−7)(−5), (−7)·0 − (−3)(−5), (−3)(−5) − 1·0) = (−40, −15, 15).</li><li>‖·‖ = √(1600 + 225 + 225) = √2050 = 5√82. Triângulo é metade: (5√82)/2 ≈ 22,6.</li></ol>
+    <div class="ans">a) √19 ≈ 4,36 · b) 5√82/2 ≈ 22,6</div></div>
+
+  <h3>Produto misto</h3>
+  <div class="fx"><span class="tag">Fórmula 6.2 · produto misto e volume</span>
+    <div class="eq">(<i>u</i>⃗ × <i>v</i>⃗) · <i>w</i>⃗ = det <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>u₁</span><span>u₂</span><span>u₃</span><span>v₁</span><span>v₂</span><span>v₃</span><span>w₁</span><span>w₂</span><span>w₃</span></span> &nbsp;&nbsp; <i>V</i> = |(<i>u</i>⃗ × <i>v</i>⃗) · <i>w</i>⃗|</div>
+    <dl class="legend"><dt>resultado</dt><dd>um <b>número</b>: o det dos três vetores em linhas</dd><dt>V</dt><dd>volume do paralelepípedo (área da base ‖u⃗ × v⃗‖ × altura): use o <b>módulo</b></dd><dt>= 0</dt><dd>volume zero: os três são <b>coplanares</b></dd><dt>tetraedro</dt><dd>V = (1/6)·|produto misto|</dd></dl></div>
+  <div class="ex" data-ex data-q="vet-misto"><div class="q">Exemplos 5, 6 e 10: a) volume do paralelepípedo de u⃗ = (1, 0, 2), v⃗ = (2, 1, 1), w⃗ = (−1, 2, 0). b) lados PQ, PR, PS com P = (2, 0, −1), Q = (4, 1, 0), R = (3, −1, 1), S = (2, −2, 2). c) volume do tetraedro de vértices (1, 0, 0), (0, 1, 0), (0, 0, 1) e a origem.</div>
+    <ol><li>a) det = 1(1·0 − 1·2) − 0 + 2(2·2 − 1·(−1)) = −2 + 10 = 8 → V = 8.</li><li>b) PQ⃗ = (2, 1, 1), PR⃗ = (1, −1, 2), PS⃗ = (0, −2, 3). det = 2(−3 + 4) − 1(3 − 0) + 1(−2 − 0) = 2 − 3 − 2 = −3 → V = |−3| = 3.</li><li>c) Os três vetores a partir da origem são e₁, e₂, e₃: det = 1. O tetraedro é 1/6 do paralelepípedo: V = 1/6.</li></ol>
+    <div class="ans">a) 8 · b) 3 · c) 1/6</div></div>
+  <div class="ex" data-ex data-q="vet-copl"><div class="q">Exemplos 7, 8 e 9: a) u⃗ = î + 5ĵ − 2k̂, v⃗ = 3î − ĵ, w⃗ = 5î + 9ĵ − k̂ são coplanares? b) volume com lados AB, AC, AD: A = (1, 0, 1), B = (2, 3, 0), C = (−1, 1, 4), D = (0, 3, 2). c) mostre que (1, 4, −7), (2, −1, 4), (0, −9, 18) são coplanares.</div>
+    <ol><li>a) det das linhas (1, 5, −2), (3, −1, 0), (5, 9, −1) = 1(1 − 0) − 5(−3 − 0) + (−2)(27 + 5) = 1 + 15 − 64 = −48 ≠ 0 → <b>não</b> coplanares.</li><li>b) AB⃗ = (1, 3, −1), AC⃗ = (−2, 1, 3), AD⃗ = (−1, 3, 1). det = 1(1 − 9) − 3(−2 + 3) + (−1)(−6 + 1) = −8 − 3 + 5 = −6 → V = 6.</li><li>c) det = 1(−18 + 36) − 4(36 − 0) + (−7)(−18 − 0) = 18 − 144 + 126 = 0 → coplanares.</li></ol>
+    <div class="ans">a) não (−48) · b) V = 6 · c) det = 0, coplanares</div></div>
+  <div class="done-btn" data-done="pvetorial"></div>
+</section>
+
 <!-- ============ 1 VETORES ============ -->
 <section class="view read" id="v-kit" hidden>
-  <div class="eyebrow">Módulo 1 · O kit de ferramentas</div>
+  <div class="eyebrow">Módulo 2 · Revisão: o kit de vetores</div>
   <h2>Pontos, vetores e os três produtos</h2>
-  <p class="lede">Os slides da professora já assumem que você sabe isso. Sem esse kit, nada do resto faz sentido. Com ele, o resto vira receita.</p>
+  <p class="lede">Revisão rápida do Módulo 1 com tudo o que retas e planos usam: vetor entre pontos, norma, paralelismo e os três produtos. Se algo aqui estiver confuso, volte às aulas 1.5 a 1.7.</p>
 
   <h3>Ponto: um endereço</h3>
   <p>Um ponto <i class="m">P</i> = (<i class="m">x</i>, <i class="m">y</i>, <i class="m">z</i>) é só um lugar no espaço: quanto andar no eixo x, no y e no z, a partir da origem (0, 0, 0). Ele não tem tamanho nem direção.</p>
@@ -552,7 +832,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
 
 <!-- ============ 3 PLANOS ============ -->
 <section class="view read" id="v-planos" hidden>
-  <div class="eyebrow">Módulo 3 · Planos</div>
+  <div class="eyebrow">Módulo 2 · Planos</div>
   <h2>Plano = um ponto + um vetor normal</h2>
   <p class="lede">Um plano é uma chapa infinita. O jeito mais prático de descrevê-lo é dizer um ponto dela e qual é a direção "espetada" perpendicular a ela: o <b>vetor normal</b> <i class="m">n</i>⃗.</p>
   <div class="cv inline-cv" id="planoCv"><canvas></canvas><div class="lbl">plano 2x − 3y + 2z + 11 = 0 e seu normal</div></div>
@@ -618,7 +898,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
 
 <!-- ============ 4 POSIÇÕES ============ -->
 <section class="view read" id="v-posicoes" hidden>
-  <div class="eyebrow">Módulo 4 · Posições relativas</div>
+  <div class="eyebrow">Módulo 2 · Posições relativas</div>
   <h2>Quem cruza com quem?</h2>
   <p class="lede">Dadas duas retas, uma reta e um plano, ou dois planos, a pergunta é sempre a mesma: eles se encontram, são paralelos ou passam um pelo outro sem se tocar?</p>
 
@@ -700,7 +980,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
 
 <!-- ============ 5 ÂNGULOS ============ -->
 <section class="view read" id="v-angulos" hidden>
-  <div class="eyebrow">Módulo 5 · Medidas angulares</div>
+  <div class="eyebrow">Módulo 2 · Medidas angulares</div>
   <h2>Ângulos: sempre entre 0° e 90°</h2>
   <p class="lede">Todo ângulo aqui sai do produto escalar. A única diferença entre os três casos é <b>quais vetores</b> você usa e se a resposta vem pelo cosseno ou pelo seno.</p>
   <div class="cuid"><span class="k">Por que tem módulo |…| na fórmula?</span>Uma reta não tem "frente": v⃗ e −v⃗ descrevem a mesma reta. Sem o módulo você poderia achar 120° em vez de 60°. O módulo garante sempre o <b>menor</b> ângulo, entre 0° e 90°.</div>
@@ -743,7 +1023,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
 
 <!-- ============ 6 DISTÂNCIAS ============ -->
 <section class="view read" id="v-distancias" hidden>
-  <div class="eyebrow">Módulo 6 · Distâncias</div>
+  <div class="eyebrow">Módulo 2 · Distâncias</div>
   <h2>Distância é sempre o caminho mais curto</h2>
   <p class="lede">E o caminho mais curto é sempre <b>perpendicular</b>. As fórmulas abaixo são só jeitos rápidos de medir esse "prumo" sem precisar achar o pé da perpendicular.</p>
 
@@ -804,9 +1084,77 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <div class="done-btn" data-done="distancias"></div>
 </section>
 
+<!-- ============ M3 · PARÁBOLA E ELIPSE ============ -->
+<section class="view read" id="v-conicas" hidden>
+  <div class="eyebrow">Módulo 3 · Cônicas</div>
+  <h2>Cônicas: parábola e elipse</h2>
+  <p class="lede">Corte um cone com um plano: dependendo da inclinação do corte, sai uma <b>elipse</b>, uma <b>parábola</b> ou uma <b>hipérbole</b>. Em geometria analítica cada uma é definida por uma <b>regra de distâncias</b>, e dessa regra sai a equação. Antena parabólica, farol de carro, órbita de planeta e engrenagem elíptica são cônicas.</p>
+
+  <h3>Parábola: mesma distância do foco e da reta</h3>
+  <div class="fx"><span class="tag">Definição 9.1 · parábola</span>
+    <div class="eq"><i>d</i>(<i>P</i>, <i>F</i>) = <i>d</i>(<i>P</i>, <i>d</i>)</div>
+    <dl class="legend"><dt>F</dt><dd>o <b>foco</b> (um ponto)</dd><dt>d</dt><dd>a <b>diretriz</b> (uma reta que não passa por F)</dd><dt>P</dt><dd>qualquer ponto da parábola: fica a mesma distância de F e da reta</dd><dt>V</dt><dd>o <b>vértice</b>: o ponto da parábola no meio do caminho entre F e d</dd><dt>p</dt><dd>parâmetro: distância do foco à diretriz. O foco fica a p/2 do vértice</dd></dl></div>
+  <svg class="fig" viewBox="0 0 340 260" role="img" aria-label="esboço da cônica"><line x1="20.0" y1="157.5" x2="320.0" y2="157.5" stroke="var(--ink2)" stroke-width="1.2"/><line x1="170.0" y1="240.0" x2="170.0" y2="20.0" stroke="var(--ink2)" stroke-width="1.2"/><text x="310.0" y="151.5" font-size="12" fill="var(--ink2)">x</text><text x="176.0" y="32.0" font-size="12" fill="var(--ink2)">y</text><line x1="20.0" y1="212.5" x2="320.0" y2="212.5" stroke="var(--c3)" stroke-width="1.6" stroke-dasharray="6 5"/><path d="M31.5,33.8 L32.9,36.2 L34.3,38.7 L35.7,41.1 L37.1,43.5 L38.5,45.8 L39.8,48.2 L41.2,50.5 L42.6,52.8 L44.0,55.0 L45.4,57.3 L46.8,59.5 L48.2,61.7 L49.5,63.8 L50.9,66.0 L52.3,68.1 L53.7,70.2 L55.1,72.2 L56.5,74.3 L57.8,76.3 L59.2,78.3 L60.6,80.3 L62.0,82.2 L63.4,84.1 L64.8,86.0 L66.2,87.9 L67.5,89.7 L68.9,91.6 L70.3,93.3 L71.7,95.1 L73.1,96.9 L74.5,98.6 L75.8,100.3 L77.2,101.9 L78.6,103.6 L80.0,105.2 L81.4,106.8 L82.8,108.4 L84.2,109.9 L85.5,111.5 L86.9,113.0 L88.3,114.4 L89.7,115.9 L91.1,117.3 L92.5,118.7 L93.8,120.1 L95.2,121.4 L96.6,122.7 L98.0,124.0 L99.4,125.3 L100.8,126.6 L102.2,127.8 L103.5,129.0 L104.9,130.2 L106.3,131.3 L107.7,132.4 L109.1,133.5 L110.5,134.6 L111.8,135.7 L113.2,136.7 L114.6,137.7 L116.0,138.7 L117.4,139.6 L118.8,140.6 L120.2,141.5 L121.5,142.3 L122.9,143.2 L124.3,144.0 L125.7,144.8 L127.1,145.6 L128.5,146.4 L129.8,147.1 L131.2,147.8 L132.6,148.5 L134.0,149.1 L135.4,149.8 L136.8,150.4 L138.2,151.0 L139.5,151.5 L140.9,152.0 L142.3,152.6 L143.7,153.0 L145.1,153.5 L146.5,153.9 L147.8,154.3 L149.2,154.7 L150.6,155.1 L152.0,155.4 L153.4,155.7 L154.8,156.0 L156.2,156.3 L157.5,156.5 L158.9,156.7 L160.3,156.9 L161.7,157.1 L163.1,157.2 L164.5,157.3 L165.8,157.4 L167.2,157.5 L168.6,157.5 L170.0,157.5 L171.4,157.5 L172.8,157.5 L174.2,157.4 L175.5,157.3 L176.9,157.2 L178.3,157.1 L179.7,156.9 L181.1,156.7 L182.5,156.5 L183.8,156.3 L185.2,156.0 L186.6,155.7 L188.0,155.4 L189.4,155.1 L190.8,154.7 L192.2,154.3 L193.5,153.9 L194.9,153.5 L196.3,153.0 L197.7,152.6 L199.1,152.0 L200.5,151.5 L201.8,151.0 L203.2,150.4 L204.6,149.8 L206.0,149.1 L207.4,148.5 L208.8,147.8 L210.2,147.1 L211.5,146.4 L212.9,145.6 L214.3,144.8 L215.7,144.0 L217.1,143.2 L218.5,142.3 L219.8,141.5 L221.2,140.6 L222.6,139.6 L224.0,138.7 L225.4,137.7 L226.8,136.7 L228.2,135.7 L229.5,134.6 L230.9,133.5 L232.3,132.4 L233.7,131.3 L235.1,130.2 L236.5,129.0 L237.8,127.8 L239.2,126.6 L240.6,125.3 L242.0,124.0 L243.4,122.7 L244.8,121.4 L246.2,120.1 L247.5,118.7 L248.9,117.3 L250.3,115.9 L251.7,114.4 L253.1,113.0 L254.5,111.5 L255.8,109.9 L257.2,108.4 L258.6,106.8 L260.0,105.2 L261.4,103.6 L262.8,101.9 L264.2,100.3 L265.5,98.6 L266.9,96.9 L268.3,95.1 L269.7,93.3 L271.1,91.6 L272.5,89.7 L273.8,87.9 L275.2,86.0 L276.6,84.1 L278.0,82.2 L279.4,80.3 L280.8,78.3 L282.2,76.3 L283.5,74.3 L284.9,72.2 L286.3,70.2 L287.7,68.1 L289.1,66.0 L290.5,63.8 L291.8,61.7 L293.2,59.5 L294.6,57.3 L296.0,55.0 L297.4,52.8 L298.8,50.5 L300.2,48.2 L301.5,45.8 L302.9,43.5 L304.3,41.1 L305.7,38.7 L307.1,36.2 L308.5,33.8" fill="none" stroke="var(--c2)" stroke-width="2.6"/><circle cx="170.0" cy="102.5" r="4" fill="var(--c1)"/><text x="178.0" y="98.5" font-size="12" fill="var(--c1)">F(0, 2)</text><circle cx="170.0" cy="157.5" r="4" fill="var(--ink)"/><text x="178.0" y="171.5" font-size="12" fill="var(--ink)">V</text><text x="243.8" y="226.2" font-size="12.5" fill="var(--c3)">diretriz y = −2</text></svg>
+  <div class="tbl"><table><tr><th>Eixo</th><th>Vértice na origem</th><th>Foco</th><th>Diretriz</th><th>Abre para…</th></tr>
+    <tr><td>y (vertical)</td><td>x² = 2py</td><td>(0, p/2)</td><td>y = −p/2</td><td>cima se p &gt; 0, baixo se p &lt; 0</td></tr>
+    <tr><td>x (horizontal)</td><td>y² = 2px</td><td>(p/2, 0)</td><td>x = −p/2</td><td>direita se p &gt; 0, esquerda se p &lt; 0</td></tr>
+    <tr><td>vértice em (h, k)</td><td>(x − h)² = 2p(y − k) &nbsp; ou &nbsp; (y − k)² = 2p(x − h)</td><td colspan="3">mesma coisa, deslocada</td></tr></table></div>
+  <div class="cuid"><span class="k">Notação dos livros</span>Alguns livros escrevem x² = 4cy, com c = distância do <b>vértice</b> ao foco (c = p/2). É a mesma parábola; confira qual letra a professora usa. A variável que aparece <b>sem quadrado</b> diz o eixo: x² = …y → eixo y.</div>
+  <div class="ex" data-ex data-q="con-par1"><div class="q">Exemplo: para a parábola x² = 8y, ache o foco, a diretriz e esboce. Depois ache a equação da parábola de vértice na origem e foco F(3, 0).</div>
+    <ol><li>x² = 2py com 2p = 8 → p = 4. Eixo y (o y está sem quadrado), abre para cima.</li><li>Foco (0, p/2) = (0, 2). Diretriz y = −p/2 = −2. Confira com um ponto: P = (4, 2) está na parábola (16 = 8·2); d(P, F) = 4 e d(P, diretriz) = 2 − (−2) = 4 ✓.</li><li>Foco (3, 0) está no eixo x → forma y² = 2px com p/2 = 3 → p = 6.</li><li>y² = 12x.</li></ol>
+    <div class="ans">x² = 8y: F(0, 2), diretriz y = −2 · foco (3, 0): y² = 12x</div></div>
+  <div class="ex" data-ex data-q="con-par2"><div class="q">Exemplo: identifique o vértice, o foco e a diretriz de y² − 4y − 8x + 28 = 0.</div>
+    <ol><li>Junte o y e complete o quadrado: y² − 4y = (y − 2)² − 4.</li><li>(y − 2)² − 4 − 8x + 28 = 0 → (y − 2)² = 8x − 24 = 8(x − 3).</li><li>Forma (y − k)² = 2p(x − h): vértice (3, 2), 2p = 8 → p = 4, eixo horizontal, abre para a direita.</li><li>Foco: anda p/2 = 2 a partir do vértice → (5, 2). Diretriz: x = 3 − 2 = 1.</li></ol>
+    <div class="ans">V(3, 2) · F(5, 2) · diretriz x = 1</div></div>
+
+  <h3>Elipse: soma das distâncias constante</h3>
+  <div class="fx"><span class="tag">Definição 9.2 · elipse</span>
+    <div class="eq"><i>d</i>(<i>P</i>, <i>F</i>₁) + <i>d</i>(<i>P</i>, <i>F</i>₂) = 2<i>a</i></div>
+    <dl class="legend"><dt>F₁, F₂</dt><dd>os dois focos, a distância 2c um do outro</dd><dt>2a</dt><dd>a soma constante = comprimento do <b>eixo maior</b> (de vértice a vértice)</dd><dt>2b</dt><dd>eixo menor</dd><dt>relação</dt><dd><b>a² = b² + c²</b> (a é sempre o maior)</dd><dt>e = c/a</dt><dd>excentricidade, entre 0 e 1: perto de 0, quase um círculo; perto de 1, bem achatada</dd></dl></div>
+  <p class="ln">Jeito de desenhar no chão da oficina: prenda as pontas de um barbante de comprimento 2a em dois pregos (os focos) e corra o giz com o barbante esticado.</p>
+  <svg class="fig" viewBox="0 0 340 260" role="img" aria-label="esboço da cônica"><line x1="20.0" y1="130.0" x2="320.0" y2="130.0" stroke="var(--ink2)" stroke-width="1.2"/><line x1="170.0" y1="240.0" x2="170.0" y2="20.0" stroke="var(--ink2)" stroke-width="1.2"/><text x="310.0" y="124.0" font-size="12" fill="var(--ink2)">x</text><text x="176.0" y="32.0" font-size="12" fill="var(--ink2)">y</text><path d="M285.4,130.0 L285.3,127.4 L285.2,124.8 L284.9,122.2 L284.5,119.7 L284.0,117.1 L283.3,114.5 L282.6,112.0 L281.8,109.5 L280.8,107.0 L279.7,104.5 L278.6,102.1 L277.3,99.6 L275.9,97.2 L274.4,94.9 L272.8,92.5 L271.1,90.3 L269.3,88.0 L267.4,85.8 L265.4,83.6 L263.3,81.5 L261.2,79.4 L258.9,77.4 L256.6,75.4 L254.1,73.5 L251.6,71.7 L249.0,69.9 L246.3,68.1 L243.5,66.4 L240.7,64.8 L237.8,63.3 L234.9,61.8 L231.8,60.3 L228.7,59.0 L225.6,57.7 L222.4,56.5 L219.1,55.4 L215.8,54.3 L212.5,53.3 L209.1,52.4 L205.7,51.5 L202.2,50.8 L198.7,50.1 L195.2,49.5 L191.6,49.0 L188.1,48.5 L184.5,48.2 L180.9,47.9 L177.2,47.7 L173.6,47.5 L170.0,47.5 L166.4,47.5 L162.8,47.7 L159.1,47.9 L155.5,48.2 L151.9,48.5 L148.4,49.0 L144.8,49.5 L141.3,50.1 L137.8,50.8 L134.3,51.5 L130.9,52.4 L127.5,53.3 L124.2,54.3 L120.9,55.4 L117.6,56.5 L114.4,57.7 L111.3,59.0 L108.2,60.3 L105.1,61.8 L102.2,63.3 L99.3,64.8 L96.5,66.4 L93.7,68.1 L91.0,69.9 L88.4,71.7 L85.9,73.5 L83.4,75.4 L81.1,77.4 L78.8,79.4 L76.7,81.5 L74.6,83.6 L72.6,85.8 L70.7,88.0 L68.9,90.3 L67.2,92.5 L65.6,94.9 L64.1,97.2 L62.7,99.6 L61.4,102.1 L60.3,104.5 L59.2,107.0 L58.2,109.5 L57.4,112.0 L56.7,114.5 L56.0,117.1 L55.5,119.7 L55.1,122.2 L54.8,124.8 L54.7,127.4 L54.6,130.0 L54.7,132.6 L54.8,135.2 L55.1,137.8 L55.5,140.3 L56.0,142.9 L56.7,145.5 L57.4,148.0 L58.2,150.5 L59.2,153.0 L60.3,155.5 L61.4,157.9 L62.7,160.4 L64.1,162.8 L65.6,165.1 L67.2,167.5 L68.9,169.7 L70.7,172.0 L72.6,174.2 L74.6,176.4 L76.7,178.5 L78.8,180.6 L81.1,182.6 L83.4,184.6 L85.9,186.5 L88.4,188.3 L91.0,190.1 L93.7,191.9 L96.5,193.6 L99.3,195.2 L102.2,196.7 L105.1,198.2 L108.2,199.7 L111.3,201.0 L114.4,202.3 L117.6,203.5 L120.9,204.6 L124.2,205.7 L127.5,206.7 L130.9,207.6 L134.3,208.5 L137.8,209.2 L141.3,209.9 L144.8,210.5 L148.4,211.0 L151.9,211.5 L155.5,211.8 L159.1,212.1 L162.8,212.3 L166.4,212.5 L170.0,212.5 L173.6,212.5 L177.2,212.3 L180.9,212.1 L184.5,211.8 L188.1,211.5 L191.6,211.0 L195.2,210.5 L198.7,209.9 L202.2,209.2 L205.7,208.5 L209.1,207.6 L212.5,206.7 L215.8,205.7 L219.1,204.6 L222.4,203.5 L225.6,202.3 L228.7,201.0 L231.8,199.7 L234.9,198.2 L237.8,196.7 L240.7,195.2 L243.5,193.6 L246.3,191.9 L249.0,190.1 L251.6,188.3 L254.1,186.5 L256.6,184.6 L258.9,182.6 L261.2,180.6 L263.3,178.5 L265.4,176.4 L267.4,174.2 L269.3,172.0 L271.1,169.7 L272.8,167.5 L274.4,165.1 L275.9,162.8 L277.3,160.4 L278.6,157.9 L279.7,155.5 L280.8,153.0 L281.8,150.5 L282.6,148.0 L283.3,145.5 L284.0,142.9 L284.5,140.3 L284.9,137.8 L285.2,135.2 L285.3,132.6 L285.4,130.0" fill="none" stroke="var(--c2)" stroke-width="2.6"/><circle cx="77.7" cy="130.0" r="4" fill="var(--c1)"/><text x="71.7" y="146.0" font-size="12" fill="var(--c1)">F₁</text><circle cx="262.3" cy="130.0" r="4" fill="var(--c1)"/><text x="256.3" y="146.0" font-size="12" fill="var(--c1)">F₂</text><circle cx="285.4" cy="130.0" r="4" fill="var(--ink)"/><text x="255.4" y="122.0" font-size="12" fill="var(--ink)">A₂ (5, 0)</text><circle cx="170.0" cy="47.5" r="4" fill="var(--ink)"/><text x="176.0" y="41.5" font-size="12" fill="var(--ink)">B₂</text></svg>
+  <div class="fx"><span class="tag">Fórmula 9.3 · equação reduzida da elipse</span>
+    <div class="eq"><span class="fr"><span><i>x</i>²</span><span><i>a</i>²</span></span> + <span class="fr"><span><i>y</i>²</span><span><i>b</i>²</span></span> = 1 &nbsp;(eixo maior em x) &nbsp;&nbsp; <span class="fr"><span><i>x</i>²</span><span><i>b</i>²</span></span> + <span class="fr"><span><i>y</i>²</span><span><i>a</i>²</span></span> = 1 &nbsp;(eixo maior em y)</div>
+    <dl class="legend"><dt>como saber o eixo</dt><dd>o <b>maior denominador</b> é o a², e fica embaixo da letra do eixo maior</dd><dt>centro (h, k)</dt><dd>troque x por x − h e y por y − k</dd><dt>vértices</dt><dd>(±a, 0) no eixo maior; (0, ±b) no menor; focos (±c, 0)</dd></dl></div>
+  <div class="ex" data-ex data-q="con-ell1"><div class="q">Exemplo: para a elipse 9x² + 25y² = 225, ache a, b, c, os vértices, os focos e a excentricidade.</div>
+    <ol><li>Divida tudo por 225 para ter "= 1": x²/25 + y²/9 = 1.</li><li>Maior denominador (25) embaixo do x → eixo maior em x: a² = 25, b² = 9 → a = 5, b = 3.</li><li>c² = a² − b² = 16 → c = 4.</li><li>Vértices (±5, 0) e (0, ±3); focos (±4, 0); e = c/a = 4/5 = 0,8.</li></ol>
+    <div class="ans">a = 5, b = 3, c = 4 · focos (±4, 0) · e = 0,8</div></div>
+  <div class="ex" data-ex data-q="con-ell2"><div class="q">Exemplo: identifique a cônica 4x² + y² − 8x − 4y − 8 = 0: centro, semieixos e focos.</div>
+    <ol><li>Agrupe e complete quadrados: 4(x² − 2x) + (y² − 4y) = 8 → 4[(x − 1)² − 1] + [(y − 2)² − 4] = 8.</li><li>4(x − 1)² + (y − 2)² = 16. Divida por 16: (x − 1)²/4 + (y − 2)²/16 = 1.</li><li>Elipse de centro (1, 2). Maior denominador (16) embaixo do y → eixo maior vertical: a = 4, b = 2.</li><li>c² = 16 − 4 = 12 → c = 2√3. Focos (1, 2 ± 2√3).</li></ol>
+    <div class="ans">elipse: centro (1, 2), a = 4 (vertical), b = 2, focos (1, 2 ± 2√3)</div></div>
+  <div class="done-btn" data-done="conicas"></div>
+</section>
+<!-- ============ M3 · HIPÉRBOLE ============ -->
+<section class="view read" id="v-hiperbole" hidden>
+  <div class="eyebrow">Módulo 3 · Cônicas</div>
+  <h2>Hipérbole: diferença das distâncias constante</h2>
+  <p class="lede">A elipse soma as distâncias aos focos; a hipérbole <b>subtrai</b>. O resultado são dois ramos que se afastam e se aproximam de duas retas, as <b>assíntotas</b>. Aparece em torres de resfriamento, no som de um avião supersônico e no sistema de navegação LORAN.</p>
+  <div class="fx"><span class="tag">Definição 10.1 · hipérbole</span>
+    <div class="eq">| <i>d</i>(<i>P</i>, <i>F</i>₁) − <i>d</i>(<i>P</i>, <i>F</i>₂) | = 2<i>a</i></div>
+    <dl class="legend"><dt>F₁, F₂</dt><dd>focos, a distância 2c</dd><dt>2a</dt><dd>a diferença constante = distância entre os <b>vértices</b> (eixo real)</dd><dt>relação</dt><dd><b>c² = a² + b²</b> (agora c é o maior: ao contrário da elipse)</dd><dt>e = c/a</dt><dd>excentricidade maior que 1</dd></dl></div>
+  <svg class="fig" viewBox="0 0 340 260" role="img" aria-label="esboço da cônica"><line x1="20.0" y1="130.0" x2="320.0" y2="130.0" stroke="var(--ink2)" stroke-width="1.2"/><line x1="170.0" y1="240.0" x2="170.0" y2="20.0" stroke="var(--ink2)" stroke-width="1.2"/><text x="310.0" y="124.0" font-size="12" fill="var(--ink2)">x</text><text x="176.0" y="32.0" font-size="12" fill="var(--ink2)">y</text><line x1="20.0" y1="240.0" x2="320.0" y2="20.0" stroke="var(--c3)" stroke-width="1.6" stroke-dasharray="6 5"/><line x1="20.0" y1="20.0" x2="320.0" y2="240.0" stroke="var(--c3)" stroke-width="1.6" stroke-dasharray="6 5"/><path d="M337.2,239.6 L334.8,237.6 L332.5,235.7 L330.2,233.8 L327.9,231.9 L325.7,230.1 L323.6,228.3 L321.4,226.5 L319.4,224.7 L317.3,223.0 L315.3,221.3 L313.3,219.6 L311.4,217.9 L309.5,216.3 L307.6,214.6 L305.8,213.0 L304.0,211.4 L302.2,209.9 L300.5,208.3 L298.8,206.8 L297.2,205.3 L295.5,203.8 L293.9,202.4 L292.4,200.9 L290.9,199.5 L289.4,198.1 L287.9,196.7 L286.4,195.3 L285.0,194.0 L283.6,192.6 L282.3,191.3 L281.0,190.0 L279.7,188.7 L278.4,187.4 L277.2,186.1 L276.0,184.9 L274.8,183.7 L273.6,182.4 L272.5,181.2 L271.4,180.0 L270.3,178.8 L269.3,177.7 L268.2,176.5 L267.2,175.4 L266.2,174.2 L265.3,173.1 L264.4,172.0 L263.5,170.9 L262.6,169.8 L261.7,168.7 L260.9,167.7 L260.1,166.6 L259.3,165.5 L258.5,164.5 L257.8,163.5 L257.1,162.4 L256.4,161.4 L255.7,160.4 L255.0,159.4 L254.4,158.4 L253.8,157.4 L253.2,156.4 L252.7,155.5 L252.1,154.5 L251.6,153.5 L251.1,152.6 L250.6,151.6 L250.1,150.7 L249.7,149.8 L249.3,148.8 L248.9,147.9 L248.5,147.0 L248.1,146.1 L247.8,145.1 L247.5,144.2 L247.2,143.3 L246.9,142.4 L246.6,141.5 L246.4,140.6 L246.2,139.7 L246.0,138.8 L245.8,137.9 L245.6,137.1 L245.5,136.2 L245.3,135.3 L245.2,134.4 L245.2,133.5 L245.1,132.6 L245.0,131.8 L245.0,130.9 L245.0,130.0 L245.0,129.1 L245.0,128.2 L245.1,127.4 L245.2,126.5 L245.2,125.6 L245.3,124.7 L245.5,123.8 L245.6,122.9 L245.8,122.1 L246.0,121.2 L246.2,120.3 L246.4,119.4 L246.6,118.5 L246.9,117.6 L247.2,116.7 L247.5,115.8 L247.8,114.9 L248.1,113.9 L248.5,113.0 L248.9,112.1 L249.3,111.2 L249.7,110.2 L250.1,109.3 L250.6,108.4 L251.1,107.4 L251.6,106.5 L252.1,105.5 L252.7,104.5 L253.2,103.6 L253.8,102.6 L254.4,101.6 L255.0,100.6 L255.7,99.6 L256.4,98.6 L257.1,97.6 L257.8,96.5 L258.5,95.5 L259.3,94.5 L260.1,93.4 L260.9,92.3 L261.7,91.3 L262.6,90.2 L263.5,89.1 L264.4,88.0 L265.3,86.9 L266.2,85.8 L267.2,84.6 L268.2,83.5 L269.3,82.3 L270.3,81.2 L271.4,80.0 L272.5,78.8 L273.6,77.6 L274.8,76.3 L276.0,75.1 L277.2,73.9 L278.4,72.6 L279.7,71.3 L281.0,70.0 L282.3,68.7 L283.6,67.4 L285.0,66.0 L286.4,64.7 L287.9,63.3 L289.4,61.9 L290.9,60.5 L292.4,59.1 L293.9,57.6 L295.5,56.2 L297.2,54.7 L298.8,53.2 L300.5,51.7 L302.2,50.1 L304.0,48.6 L305.8,47.0 L307.6,45.4 L309.5,43.7 L311.4,42.1 L313.3,40.4 L315.3,38.7 L317.3,37.0 L319.4,35.3 L321.4,33.5 L323.6,31.7 L325.7,29.9 L327.9,28.1 L330.2,26.2 L332.5,24.3 L334.8,22.4 L337.2,20.4" fill="none" stroke="var(--c2)" stroke-width="2.6"/><path d="M2.8,239.6 L5.2,237.6 L7.5,235.7 L9.8,233.8 L12.1,231.9 L14.3,230.1 L16.4,228.3 L18.6,226.5 L20.6,224.7 L22.7,223.0 L24.7,221.3 L26.7,219.6 L28.6,217.9 L30.5,216.3 L32.4,214.6 L34.2,213.0 L36.0,211.4 L37.8,209.9 L39.5,208.3 L41.2,206.8 L42.8,205.3 L44.5,203.8 L46.1,202.4 L47.6,200.9 L49.1,199.5 L50.6,198.1 L52.1,196.7 L53.6,195.3 L55.0,194.0 L56.4,192.6 L57.7,191.3 L59.0,190.0 L60.3,188.7 L61.6,187.4 L62.8,186.1 L64.0,184.9 L65.2,183.7 L66.4,182.4 L67.5,181.2 L68.6,180.0 L69.7,178.8 L70.7,177.7 L71.8,176.5 L72.8,175.4 L73.8,174.2 L74.7,173.1 L75.6,172.0 L76.5,170.9 L77.4,169.8 L78.3,168.7 L79.1,167.7 L79.9,166.6 L80.7,165.5 L81.5,164.5 L82.2,163.5 L82.9,162.4 L83.6,161.4 L84.3,160.4 L85.0,159.4 L85.6,158.4 L86.2,157.4 L86.8,156.4 L87.3,155.5 L87.9,154.5 L88.4,153.5 L88.9,152.6 L89.4,151.6 L89.9,150.7 L90.3,149.8 L90.7,148.8 L91.1,147.9 L91.5,147.0 L91.9,146.1 L92.2,145.1 L92.5,144.2 L92.8,143.3 L93.1,142.4 L93.4,141.5 L93.6,140.6 L93.8,139.7 L94.0,138.8 L94.2,137.9 L94.4,137.1 L94.5,136.2 L94.7,135.3 L94.8,134.4 L94.8,133.5 L94.9,132.6 L95.0,131.8 L95.0,130.9 L95.0,130.0 L95.0,129.1 L95.0,128.2 L94.9,127.4 L94.8,126.5 L94.8,125.6 L94.7,124.7 L94.5,123.8 L94.4,122.9 L94.2,122.1 L94.0,121.2 L93.8,120.3 L93.6,119.4 L93.4,118.5 L93.1,117.6 L92.8,116.7 L92.5,115.8 L92.2,114.9 L91.9,113.9 L91.5,113.0 L91.1,112.1 L90.7,111.2 L90.3,110.2 L89.9,109.3 L89.4,108.4 L88.9,107.4 L88.4,106.5 L87.9,105.5 L87.3,104.5 L86.8,103.6 L86.2,102.6 L85.6,101.6 L85.0,100.6 L84.3,99.6 L83.6,98.6 L82.9,97.6 L82.2,96.5 L81.5,95.5 L80.7,94.5 L79.9,93.4 L79.1,92.3 L78.3,91.3 L77.4,90.2 L76.5,89.1 L75.6,88.0 L74.7,86.9 L73.8,85.8 L72.8,84.6 L71.8,83.5 L70.7,82.3 L69.7,81.2 L68.6,80.0 L67.5,78.8 L66.4,77.6 L65.2,76.3 L64.0,75.1 L62.8,73.9 L61.6,72.6 L60.3,71.3 L59.0,70.0 L57.7,68.7 L56.4,67.4 L55.0,66.0 L53.6,64.7 L52.1,63.3 L50.6,61.9 L49.1,60.5 L47.6,59.1 L46.1,57.6 L44.5,56.2 L42.8,54.7 L41.2,53.2 L39.5,51.7 L37.8,50.1 L36.0,48.6 L34.2,47.0 L32.4,45.4 L30.5,43.7 L28.6,42.1 L26.7,40.4 L24.7,38.7 L22.7,37.0 L20.6,35.3 L18.6,33.5 L16.4,31.7 L14.3,29.9 L12.1,28.1 L9.8,26.2 L7.5,24.3 L5.2,22.4 L2.8,20.4" fill="none" stroke="var(--c2)" stroke-width="2.6"/><circle cx="76.2" cy="130.0" r="4" fill="var(--c1)"/><text x="70.2" y="146.0" font-size="12" fill="var(--c1)">F₁</text><circle cx="263.8" cy="130.0" r="4" fill="var(--c1)"/><text x="257.8" y="146.0" font-size="12" fill="var(--c1)">F₂</text><circle cx="245.0" cy="130.0" r="4" fill="var(--ink)"/><text x="249.0" y="122.0" font-size="12" fill="var(--ink)">A₂</text><circle cx="95.0" cy="130.0" r="4" fill="var(--ink)"/><text x="73.0" y="122.0" font-size="12" fill="var(--ink)">A₁</text><text x="250.6" y="34.7" font-size="12.5" fill="var(--c3)">y = ¾x</text></svg>
+  <div class="fx"><span class="tag">Fórmula 10.2 · equação reduzida e assíntotas</span>
+    <div class="eq"><span class="fr"><span><i>x</i>²</span><span><i>a</i>²</span></span> − <span class="fr"><span><i>y</i>²</span><span><i>b</i>²</span></span> = 1 &nbsp;→&nbsp; <i>y</i> = ± <span class="fr"><span><i>b</i></span><span><i>a</i></span></span> <i>x</i> &nbsp;&nbsp;&nbsp; <span class="fr"><span><i>y</i>²</span><span><i>a</i>²</span></span> − <span class="fr"><span><i>x</i>²</span><span><i>b</i>²</span></span> = 1 &nbsp;→&nbsp; <i>y</i> = ± <span class="fr"><span><i>a</i></span><span><i>b</i></span></span> <i>x</i></div>
+    <dl class="legend"><dt>como saber o eixo</dt><dd>o termo <b>positivo</b> diz o eixo real (onde estão vértices e focos). Aqui não importa qual denominador é maior: a² é sempre o do termo positivo</dd><dt>vértices</dt><dd>(±a, 0) ou (0, ±a)</dd><dt>assíntotas</dt><dd>troque o "= 1" por "= 0" e isole y</dd><dt>centro (h, k)</dt><dd>troque x por x − h e y por y − k</dd></dl></div>
+  <div class="tbl"><table><tr><th></th><th>Elipse</th><th>Hipérbole</th></tr>
+    <tr><td>definição</td><td>soma das distâncias = 2a</td><td>|diferença| = 2a</td></tr>
+    <tr><td>sinal na equação</td><td>+</td><td>−</td></tr>
+    <tr><td>relação</td><td>a² = b² + c²</td><td>c² = a² + b²</td></tr>
+    <tr><td>excentricidade</td><td>0 &lt; e &lt; 1</td><td>e &gt; 1</td></tr>
+    <tr><td>eixo principal</td><td>o do maior denominador</td><td>o do termo positivo</td></tr></table></div>
+  <div class="pq"><span class="k">Reconhecer a cônica pela equação geral Ax² + Cy² + Dx + Ey + F = 0</span><p>Olhe só os coeficientes de x² e y²: <b>mesmo sinal</b> → elipse (se A = C, circunferência); <b>sinais opostos</b> → hipérbole; <b>um deles é zero</b> → parábola. Depois complete os quadrados para achar centro ou vértice.</p></div>
+  <div class="ex" data-ex data-q="con-hip1"><div class="q">Exemplo: para a hipérbole 9x² − 16y² = 144, ache a, b, c, os vértices, os focos, as assíntotas e a excentricidade.</div>
+    <ol><li>Divida por 144: x²/16 − y²/9 = 1. Termo positivo com x → eixo real horizontal.</li><li>a² = 16, b² = 9 → a = 4, b = 3. c² = a² + b² = 25 → c = 5.</li><li>Vértices (±4, 0); focos (±5, 0).</li><li>Assíntotas: x²/16 − y²/9 = 0 → y = ±(3/4)x. Excentricidade e = 5/4 = 1,25.</li></ol>
+    <div class="ans">a = 4, b = 3, c = 5 · focos (±5, 0) · y = ±¾x · e = 1,25</div></div>
+  <div class="ex" data-ex data-q="con-hip2"><div class="q">Exemplo: ache a equação da hipérbole com focos (0, ±5) e vértices (0, ±3). Depois classifique x² − 4y² − 2x − 3 = 0.</div>
+    <ol><li>Focos e vértices no eixo y → forma y²/a² − x²/b² = 1, com a = 3 e c = 5.</li><li>b² = c² − a² = 25 − 9 = 16. Equação: y²/9 − x²/16 = 1.</li><li>Na segunda: x² tem + e y² tem − → <b>hipérbole</b>. Complete: (x − 1)² − 1 − 4y² − 3 = 0 → (x − 1)² − 4y² = 4.</li><li>Divida por 4: (x − 1)²/4 − y²/1 = 1. Centro (1, 0), a = 2, b = 1, c = √5, eixo real horizontal.</li></ol>
+    <div class="ans">y²/9 − x²/16 = 1 · a 2ª é hipérbole de centro (1, 0), a = 2, b = 1</div></div>
+  <div class="done-btn" data-done="hiperbole"></div>
+</section>
+
 <!-- ============ 7 SUBESPAÇOS ============ -->
 <section class="view read" id="v-subespacos" hidden>
-  <div class="eyebrow">Módulo 7 · Subespaços</div>
+  <div class="eyebrow">Módulo 3 · Subespaços</div>
   <h2>Subespaços, combinações lineares e espaço gerado</h2>
   <p class="lede">A pergunta desta aula é de engenharia: <b>que cargas uma estrutura consegue segurar?</b> Para responder, a aula monta quatro ideias, uma em cima da outra: <b>subespaço</b>, <b>espaço gerado</b>, <b>espaço nulo</b> (o que uma matriz apaga) e <b>espaço coluna</b> (o que ela produz).</p>
   <ol class="mapa"><li><b>O problema</b> do nó</li><li><b>Subespaço</b>: o que é e como testar</li><li><b>Espaço gerado</b>: combinações lineares</li><li><b>N(A) e C(A)</b>: um escalonamento, duas respostas</li><li><b>De volta ao nó</b></li></ol>
@@ -952,7 +1300,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
 </section>
 
 <section class="view read" id="v-base" hidden>
-  <div class="eyebrow">Módulo 8 · Base e dimensão</div>
+  <div class="eyebrow">Módulo 3 · Base e dimensão</div>
   <h2>Base e dimensão</h2>
   <p class="lede">No fim da aula de Subespaços, a terceira barra do nó <b>sobrou</b>: u₃ = u₁ + u₂ não acrescentou nenhuma carga nova. Esta aula dá nome a isso e responde a pergunta que fica: <b>qual é o menor conjunto de vetores que descreve um espaço inteiro, e quantos vetores ele tem?</b></p>
   <p class="cen">combinação linear ⇒ geradores ⇒ <b>base</b> ⇒ <b>dimensão</b></p>
@@ -1089,6 +1437,38 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <div class="done-btn" data-done="base"></div>
 </section>
 
+<!-- ============ M3 · COORDENADAS E MUDANÇA DE BASE ============ -->
+<section class="view read" id="v-mudanca" hidden>
+  <div class="eyebrow">Módulo 3 · Base e dimensão, parte 2</div>
+  <h2>Coordenadas numa base e mudança de base</h2>
+  <p class="lede">O mesmo vetor pode ser descrito com <b>números diferentes</b>, dependendo da base que você usa como "régua". É como medir uma peça em milímetros a partir de um canto ou a partir do centro do furo: a peça é a mesma, os números mudam. Mudar de base é traduzir de uma régua para a outra.</p>
+
+  <h3>Coordenadas de um vetor numa base</h3>
+  <div class="fx"><span class="tag">Definição 11.1 · vetor-coordenada</span>
+    <div class="eq"><i>v</i> = <i>a</i>₁<i>v</i>₁ + <i>a</i>₂<i>v</i>₂ + ⋯ + <i>a</i>ₙ<i>v</i>ₙ &nbsp;⇒&nbsp; [<i>v</i>]<sub>B</sub> = (<i>a</i>₁, <i>a</i>₂, …, <i>a</i>ₙ)</div>
+    <dl class="legend"><dt>B</dt><dd>uma base {v₁, …, vₙ} (a ordem dos vetores importa)</dd><dt>a₁ … aₙ</dt><dd>os "pesos" da combinação. Numa base eles são <b>únicos</b> (o sistema é sempre SPD)</dd><dt>[v]<sub>B</sub></dt><dd>as coordenadas de v na base B</dd><dt>canônica</dt><dd>na base {(1, 0), (0, 1)} as coordenadas são os próprios números do vetor</dd></dl></div>
+
+  <h3>A matriz de mudança de base</h3>
+  <div class="fx"><span class="tag">Fórmula 11.2 · da base B para a canônica</span>
+    <div class="eq"><i>v</i> = <i>M</i> · [<i>v</i>]<sub>B</sub> &nbsp;&nbsp;&nbsp; [<i>v</i>]<sub>B</sub> = <i>M</i><sup>−1</sup> · <i>v</i></div>
+    <dl class="legend"><dt>M</dt><dd>matriz cujas <b>colunas</b> são os vetores de B (escritos na canônica)</dd><dt>M · [v]<sub>B</sub></dt><dd>junta os pesos com os vetores: devolve v nas coordenadas normais</dd><dt>M⁻¹</dt><dd>faz o caminho de volta. Existe porque as colunas de uma base são LI (det M ≠ 0)</dd><dt>entre duas bases A e B</dt><dd>passe por canônica: [v]<sub>A</sub> = M<sub>A</sub>⁻¹ · M<sub>B</sub> · [v]<sub>B</sub>. A matriz M<sub>A</sub>⁻¹M<sub>B</sub> é a mudança da base B para a base A</dd></dl></div>
+  <div class="cuid"><span class="k">Erros que mais caem</span>Colocar os vetores da base nas <b>linhas</b> (é nas colunas). E esquecer que achar [v]<sub>B</sub> é sempre <b>resolver um sistema</b>: a₁v₁ + ⋯ + aₙvₙ = v.</div>
+
+  <div class="ex" data-ex data-q="mud-ex1"><div class="q">Ex1 (aula): no ℝ², com A = {(1, 0), (0, 1)} e B = {(2, 0), (1, 3)}, ache as coordenadas de v = (8, 6) nas bases A e B.</div>
+    <ol><li>Na canônica A, as coordenadas são os próprios números: [v]<sub>A</sub> = (8, 6).</li><li>Em B: a(2, 0) + b(1, 3) = (8, 6) → 2a + b = 8 e 3b = 6.</li><li>b = 2 e 2a + 2 = 8 → a = 3. Então [v]<sub>B</sub> = (3, 2).</li><li>Pela matriz: M = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>2</span><span>1</span><span>0</span><span>3</span></span> (colunas = vetores de B), M⁻¹ = (1/6)·<span class="mx" style="grid-template-columns:repeat(2,auto)"><span>3</span><span>−1</span><span>0</span><span>2</span></span>, e M⁻¹(8, 6) = (1/6)(18, 12) = (3, 2) ✓.</li></ol>
+    <div class="ans">[v]<sub>A</sub> = (8, 6) · [v]<sub>B</sub> = (3, 2)</div></div>
+  <div class="ex" data-ex data-q="mud-ex2"><div class="q">Ex2 (aula): v₁ = (1, 2, 3), v₂ = (0, 1, 2), v₃ = (0, 0, 1). a) Mostre que B = {v₁, v₂, v₃} é base do ℝ³. b) Ache [v]<sub>B</sub> para v = (5, 4, 2). c) Ache v sabendo que [v]<sub>B</sub> = (2, −3, 4).</div>
+    <ol><li>a) M = <span class="mx" style="grid-template-columns:repeat(3,auto)"><span>1</span><span>0</span><span>0</span><span>2</span><span>1</span><span>0</span><span>3</span><span>2</span><span>1</span></span> é triangular: det = 1·1·1 = 1 ≠ 0 → os três são LI. Três vetores LI no ℝ³ (dimensão 3) formam base.</li><li>b) a(1, 2, 3) + b(0, 1, 2) + c(0, 0, 1) = (5, 4, 2): a = 5; 2a + b = 4 → b = −6; 3a + 2b + c = 2 → 15 − 12 + c = 2 → c = −1.</li><li>c) Agora é só montar: v = 2v₁ − 3v₂ + 4v₃ = (2, 4, 6) − (0, 3, 6) + (0, 0, 4) = (2, 1, 4).</li></ol>
+    <div class="ans">a) det = 1 ≠ 0 · b) [v]<sub>B</sub> = (5, −6, −1) · c) v = (2, 1, 4)</div></div>
+  <div class="ex" data-ex data-q="mud-ex3"><div class="q">Ex3 (aula): no ℝ⁴, S₁ = {(a, b, c, d) | a + b + c = 0} e S₂ = {(a, b, c, d) | a − 2b = 0 e c = 3d}. Ache uma base e a dimensão de cada um.</div>
+    <ol><li>S₁: isole a = −b − c; b, c e d ficam livres. (−b − c, b, c, d) = b(−1, 1, 0, 0) + c(−1, 0, 1, 0) + d(0, 0, 0, 1).</li><li>Três vetores LI (cada um tem o 1 da sua variável livre) → base de S₁, dim S₁ = 3.</li><li>S₂: a = 2b e c = 3d; b e d livres. (2b, b, 3d, d) = b(2, 1, 0, 0) + d(0, 0, 3, 1) → dim S₂ = 2.</li><li>Regra: <b>dimensão = número de variáveis livres</b> = número de coordenadas − número de equações independentes.</li></ol>
+    <div class="ans">S₁: {(−1, 1, 0, 0), (−1, 0, 1, 0), (0, 0, 0, 1)}, dim 3 · S₂: {(2, 1, 0, 0), (0, 0, 3, 1)}, dim 2</div></div>
+  <div class="ex" data-ex data-q="mud-ex5"><div class="q">Ex4 e Ex5 (aula): a) escreva v = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>8</span><span>0</span><span>5</span></span> como combinação de v₁ = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>1</span><span>0</span><span>1</span><span>1</span></span>, v₂ = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>−1</span><span>2</span><span>0</span><span>1</span></span>, v₃ = <span class="mx" style="grid-template-columns:repeat(2,auto)"><span>0</span><span>−1</span><span>2</span><span>1</span></span>. b) Com A = {(−1, 3, −1), (1, −2, 4)}, ache G(A) e o k para (5, k, 11) ∈ G(A).</div>
+    <ol><li>a) a·v₁ + b·v₂ + c·v₃ = v, posição por posição: a − b = 1; 2b − c = 8; a + 2c = 0; a + b + c = 5.</li><li>a) Da 3ª, a = −2c; da 1ª, b = a − 1 = −2c − 1; na 2ª: −4c − 2 − c = 8 → c = −2, a = 4, b = 3. Confere na 4ª: 4 + 3 − 2 = 5 ✓. v = 4v₁ + 3v₂ − 2v₃.</li><li>b) G(A) é um plano pela origem com normal v₁ × v₂ = (3·4 − (−1)(−2), (−1)(1) − (−1)(4), (−1)(−2) − 3·1) = (10, 3, −1).</li><li>G(A) = {(x, y, z) | 10x + 3y − z = 0}. Para (5, k, 11): 50 + 3k − 11 = 0 → k = −13.</li></ol>
+    <div class="ans">a) v = 4v₁ + 3v₂ − 2v₃ · b) 10x + 3y − z = 0 e k = −13</div></div>
+  <div class="done-btn" data-done="mudanca"></div>
+</section>
+
 <!-- ============ LAB ============ -->
 <section class="view" id="v-lab" hidden>
   <div class="eyebrow">Laboratório 3D</div>
@@ -1138,6 +1518,10 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <h2>Todas as fórmulas numa folha</h2>
   <p class="lede read">Cada carimbo diz quando usar. Tire um print desta tela para revisar no ônibus.</p>
   <div class="cola" style="margin-top:20px">
+    <div class="fx"><span class="tag">Matrizes</span><div class="eq">A<sub>m×n</sub>·B<sub>n×p</sub> = C<sub>m×p</sub></div><p>linha × coluna · AB ≠ BA · (AB)ᵀ = BᵀAᵀ</p></div>
+    <div class="fx"><span class="tag">Determinante</span><div class="eq">ad − bc · Sarrus</div><p>A⁻¹ existe ⇔ det A ≠ 0 · [A | I] → [I | A⁻¹]</p></div>
+    <div class="fx"><span class="tag">Sistemas</span><div class="eq">[A | B] → escada</div><p>(0…0 | ≠ 0): SI · livres: SPI · um pivô por incógnita: SPD</p></div>
+    <div class="fx"><span class="tag">Ângulo</span><div class="eq">cos θ = u⃗·v⃗ / (‖u⃗‖‖v⃗‖)</div><p>‖u⃗‖ = √(u⃗·u⃗) · área = ‖u⃗ × v⃗‖ (triângulo ÷ 2) · tetraedro = |misto| ÷ 6</p></div>
     <div class="fx"><span class="tag">Vetor AB</span><div class="eq"><i>AB</i>⃗ = <i>B</i> − <i>A</i></div><p>chegada menos saída</p></div>
     <div class="fx"><span class="tag">Escalar</span><div class="eq"><i>u</i>⃗·<i>v</i>⃗ = <i>u</i>₁<i>v</i>₁+<i>u</i>₂<i>v</i>₂+<i>u</i>₃<i>v</i>₃</div><p>= 0 ⇔ perpendiculares</p></div>
     <div class="fx"><span class="tag">Vetorial</span><div class="eq" style="font-size:1rem"><i>u</i>⃗×<i>v</i>⃗ = (<i>u</i>₂<i>v</i>₃−<i>u</i>₃<i>v</i>₂, <i>u</i>₃<i>v</i>₁−<i>u</i>₁<i>v</i>₃, <i>u</i>₁<i>v</i>₂−<i>u</i>₂<i>v</i>₁)</div><p>vetor ⊥ aos dois · norma = área · = 0⃗ ⇔ paralelos</p></div>
@@ -1158,6 +1542,9 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
     <div class="fx"><span class="tag">Espaço gerado</span><div class="eq" style="font-size:1.05rem">[ <i>v</i>₁,…,<i>v</i><sub>k</sub> ] → escalone [<i>v</i>₁ … <i>v</i><sub>k</sub> | (x,y,z)]</div><p>linha "0 = expressão" → expressão = 0 é a equação</p></div>
     <div class="fx"><span class="tag">N(A) e C(A)</span><div class="eq" style="font-size:1.05rem">livres → N(<i>A</i>) · pivôs → C(<i>A</i>)</div><p>cada livre gera um vetor · colunas da A ORIGINAL</p></div>
     <div class="fx"><span class="tag">AX = b</span><div class="eq"><i>X</i> = <i>X<sub>p</sub></i> + <i>X<sub>h</sub></i></div><p>existe ⇔ b ∈ C(A) · única ⇔ N(A) = {0}</p></div>
+    <div class="fx"><span class="tag">Parábola</span><div class="eq">x² = 2py · y² = 2px</div><p>foco a p/2 do vértice, diretriz do outro lado</p></div>
+    <div class="fx"><span class="tag">Elipse e hipérbole</span><div class="eq">x²/a² ± y²/b² = 1</div><p>elipse: a² = b² + c² · hipérbole: c² = a² + b², assíntotas y = ±(b/a)x</p></div>
+    <div class="fx"><span class="tag">Mudança de base</span><div class="eq">v = M·[v]<sub>B</sub></div><p>colunas de M = vetores de B · [v]<sub>B</sub> = M⁻¹v</p></div>
   </div>
 </section>
 
@@ -1506,17 +1893,31 @@ const QUIZ=[
  ['Distância entre os planos x + y + z = 1 e x + y + z = 4:',['3','√3','1','3√3'],1,'Ponto (1, 0, 0) no 1º. No 2º: |1 − 4|/√3 = 3/√3 = √3.'],
  ['Uma reta paralela aos planos π₁ e π₂ (concorrentes) tem diretor…',['n⃗₁ + n⃗₂','n⃗₁ · n⃗₂','n⃗₁ × n⃗₂','n⃗₁'],2,'Precisa ser perpendicular às duas normais ao mesmo tempo: é exatamente o que o vetorial entrega (Lista Q8).'],
  ['Em (x − 1)/2 = y = (z + 3)/(−1), o ponto e o diretor são…',['(1, 0, −3) e (2, 1, −1)','(1, 0, 3) e (2, 0, −1)','(−1, 0, 3) e (2, 1, 1)','(2, 1, −1) e (1, 0, −3)'],0,'"z + 3" significa z − (−3). "y" sozinho é (y − 0)/1.'],
- ['O ponto (7, 4, −7) está em x = 3 + 2t, y = 2t, z = −5 − t?',['Sim, com t = 2','Não','Sim, com t = 4','Só se t = −2'],0,'7 = 3 + 2t → t = 2; 4 = 2t → t = 2; −7 = −5 − t → t = 2. Mesmo t nas três (Exemplo 2 da aula).']
+ ['O ponto (7, 4, −7) está em x = 3 + 2t, y = 2t, z = −5 − t?',['Sim, com t = 2','Não','Sim, com t = 4','Só se t = −2'],0,'7 = 3 + 2t → t = 2; 4 = 2t → t = 2; −7 = −5 − t → t = 2. Mesmo t nas três (Exemplo 2 da aula).'],
+ ["A (2 × 3) vezes B (3 × 4) dá uma matriz de que tamanho?", ["2 × 4", "3 × 3", "2 × 3", "não existe"], 0, "Os do meio (3 e 3) batem; o resultado tem os de fora: 2 × 4."],
+ ["Em geral, para matrizes A e B quadradas…", ["AB = AᵀB", "AB ≠ BA", "AB = BA sempre", "AB = 0"], 1, "O produto de matrizes não é comutativo."],
+ ["Qual operação NÃO muda o determinante?", ["multiplicar uma linha por 3", "trocar duas colunas", "somar a uma linha k vezes outra", "trocar duas linhas"], 2, "Trocar linhas (ou colunas) muda o sinal; multiplicar por k multiplica o det por k."],
+ ["Uma matriz quadrada A tem inversa quando…", ["det A = 0", "A é simétrica", "A tem um zero na diagonal", "det A ≠ 0"], 3, "Teorema: A invertível ⇔ det A ≠ 0."],
+ ["Escalonando, a última linha ficou (0 0 0 | 5). O sistema é…", ["SI", "SPD", "SPI", "homogêneo"], 0, "0 = 5 é impossível: sistema impossível."],
+ ["Um sistema homogêneo…", ["sempre é SPD", "sempre tem a solução nula", "nunca tem solução", "sempre é SPI"], 1, "X = 0 sempre satisfaz AX = 0."],
+ ["u⃗ · v⃗ < 0 quer dizer que o ângulo entre eles é…", ["reto", "zero", "obtuso", "agudo"], 2, "cos θ < 0 → 90° < θ ≤ 180°."],
+ ["‖u⃗ × v⃗‖ é…", ["o volume da caixa", "o ângulo entre eles", "sempre zero", "a área do paralelogramo de u⃗ e v⃗"], 3, "‖u⃗ × v⃗‖ = ‖u⃗‖‖v⃗‖ sen θ = base × altura."],
+ ["O produto misto de três vetores deu 0. Eles são…", ["coplanares", "ortogonais", "paralelos dois a dois", "LI"], 0, "Volume zero: estão no mesmo plano."],
+ ["Na elipse x²/9 + y²/25 = 1, o eixo maior fica…", ["não tem eixo maior", "no eixo y", "no eixo x", "nas duas direções"], 1, "O maior denominador (25) está embaixo do y."],
+ ["Na hipérbole, a relação entre a, b e c é…", ["c = a + b", "b² = a² + c²", "c² = a² + b²", "a² = b² + c²"], 2, "Na hipérbole c é o maior; na elipse é a² = b² + c²."],
+ ["A equação 3x² − 5y² + 2x − 7 = 0 representa…", ["uma elipse", "uma parábola", "uma circunferência", "uma hipérbole"], 3, "Coeficientes de x² e y² com sinais opostos."],
+ ["Para achar as coordenadas de v numa base B você…", ["resolve o sistema a₁v₁ + ⋯ + aₙvₙ = v", "multiplica v pela base", "soma os vetores da base", "calcula o det da base"], 0, "As coordenadas são os pesos da combinação, únicos numa base."],
+ ["A matriz M de mudança da base B para a canônica tem…", ["as coordenadas de v", "os vetores de B nas colunas", "os vetores de B nas linhas", "1 na diagonal"], 1, "v = M·[v]_B com as colunas de M = vetores de B."]
 ];
 let qa={};
 function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHTML=QUIZ.map((q,i)=>'<div class="qz" data-i="'+i+'"><b>'+(i+1)+'. '+q[0]+'</b><div class="opts">'+q[1].map((o,j)=>'<button data-j="'+j+'">'+o+'</button>').join('')+'</div><div class="why" hidden></div></div>').join('');
   box.querySelectorAll('.qz').forEach(c=>{ const i=+c.dataset.i,q=QUIZ[i]; const bs=c.querySelectorAll('button');
     const show=j=>{ bs.forEach((b,k)=>{b.disabled=true; if(k===q[2])b.classList.add('right'); else if(k===j)b.classList.add('wrong')}); const w=c.querySelector('.why'); w.hidden=false; w.innerHTML=(j===q[2]?'<b style="color:var(--ok)">Certo!</b> ':'<b style="color:var(--bad)">Quase.</b> ')+q[3] };
     bs.forEach(b=>b.onclick=()=>{ const j=+b.dataset.j; qa[i]=j; show(j); score(); save() }); if(qa[i]!==undefined)show(qa[i]) }); score() }
-function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=12?' · pronto para a prova!':ok>=9?' · quase lá':' · revise os módulos'):'') }
+function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=QUIZ.length*.8?' · pronto para a prova!':ok>=QUIZ.length*.6?' · quase lá':' · revise os módulos'):'') }
 
 /* ========= progresso ========= */
-const MODS=[['kit','Vetores e os 3 produtos','A base de tudo: escalar, vetorial e misto'],['retas','Retas','Ponto + direção em 4 formas de equação'],['planos','Planos','Ponto + normal, e como achar a normal'],['posicoes','Posições relativas','O fluxograma que decide quem cruza com quem'],['angulos','Ângulos','cos, cos e o seno da reta–plano'],['distancias','Distâncias','Área ÷ base, volume ÷ área, e o prumo'],['subespacos','Subespaços','Espaço gerado, N(A) e C(A)'],['base','Base e dimensão','LI e LD, base, dimensão e a receita das livres']];
+const MODS=[['matrizes','Matrizes','Tipos, operações e produto linha × coluna'],['escada','Escalonamento','Operações elementares e forma escada'],['inversa','Inversa e determinante','[A | I], Sarrus e det ≠ 0'],['sistemas','Sistemas lineares','SPD, SPI, SI e discussão com parâmetros'],['vetores','Vetores','Setas, coordenadas, norma e distância em ℝⁿ'],['pescalar','Produto escalar','Ângulo, ortogonalidade e o CPF'],['pvetorial','Vetorial e misto','Área do paralelogramo e volume'],['kit','Revisão de vetores','O kit que retas e planos usam'],['retas','Retas','Ponto + direção em 4 formas de equação'],['planos','Planos','Ponto + normal, e como achar a normal'],['posicoes','Posições relativas','O fluxograma que decide quem cruza com quem'],['angulos','Ângulos','cos, cos e o seno da reta–plano'],['distancias','Distâncias','Área ÷ base, volume ÷ área, e o prumo'],['conicas','Parábola e elipse','Foco, diretriz e soma de distâncias'],['hiperbole','Hipérbole','Diferença de distâncias e assíntotas'],['subespacos','Subespaços','Espaço gerado, N(A) e C(A)'],['base','Base e dimensão','LI e LD, base, dimensão e a receita das livres'],['mudanca','Mudança de base','Coordenadas numa base e a matriz M']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('gaal-done')||'{}'); qa=JSON.parse(localStorage.getItem('gaal-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('gaal-done',JSON.stringify(done)); localStorage.setItem('gaal-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -1529,7 +1930,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getEl
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ========= rotas ========= */
-const VIEWS=['inicio','kit','retas','planos','posicoes','angulos','distancias','subespacos','base','lab','lista','quiz','cola'];
+const VIEWS=['inicio','matrizes','escada','inversa','sistemas','vetores','pescalar','pvetorial','kit','retas','planos','posicoes','angulos','distancias','conicas','hiperbole','subespacos','base','mudanca','lab','lista','quiz','cola'];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
@@ -1697,7 +2098,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="gaal"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-gaal.js?v=12"></script>
+<script src="../../dados/quadros-gaal.js?v=13"></script>
 <script src="../../js/quadro.js?v=8" data-materia="gaal"></script>
 </body>
 </html>
