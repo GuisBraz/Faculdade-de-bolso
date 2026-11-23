@@ -124,6 +124,7 @@ window.FACULDADE = {
               caminho: "materias/fis1/oficina-de-fisica.html",
               ciclo: "2ª Prova", ate: "2026-11-04",
               atualizacoes: [
+                { data: "2026-11-23", texto: "Módulo 3 (cap. 9) com a aula de 23/11: momento linear (p = mv, F = dp/dt, sistema de partículas e centro de massa), colisão e impulso (J = ∫F dt = Δp e a área do gráfico F × t) e os tipos de colisão. 9 exemplos no quadro, calculadoras de impulso e de colisão, problemas, quiz e cola." },
                 { data: "2026-11-23", texto: "Novo Módulo 1 (capítulos 2, 3 e 4) com 14 aulas do zero: unidades, posição, velocidade, aceleração, as 5 equações, queda livre, gráficos, vetores, produtos, movimento 2D, projéteis, circular uniforme e relativo. Simuladores de aceleração constante e de projéteis." },
                 { data: "2026-11-23", texto: "Módulo 2 completo até o capítulo 8: entrou o capítulo 7 (energia cinética e trabalho, trabalho do peso e da mola, força variável e potência). Todos os 33 exemplos novos com Ver no quadro e 14 perguntas novas no quiz." },
             { data: "2026-11-08", texto: "Novo laboratório-jogo Oficina de Newton: rampa, máquina de Atwood, mola, puxão e pêndulo com diagrama de corpo livre ao vivo, missões e álbum." },

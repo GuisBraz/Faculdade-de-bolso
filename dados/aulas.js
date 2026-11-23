@@ -66,8 +66,12 @@ window.FDB_AULAS = {
       ["mola", "Sistema massa-mola", "Lei de Hooke e o ciclo da mola"],
       ["curva", "Curva de energia potencial", "Retorno, equilíbrio e F = −dU/dx"],
       ["termica", "Energia térmica e potência", "Atrito, ΔEt e P = ΔE/Δt"]
-    ], 3: [] },
-    temas: { 1: "Movimento em linha reta, vetores e movimento no plano (cap. 2, 3 e 4)", 2: "Força, trabalho e energia (cap. 5 a 8)" },
+    ], 3: [
+      ["momento", "Momento linear", "p = mv, F = dp/dt e o sistema de partículas"],
+      ["impulso", "Colisão e impulso", "J = ∫F dt = Δp e a área do gráfico F × t"],
+      ["colisoes", "Colisões", "Elástica, inelástica e completamente inelástica"]
+    ] },
+    temas: { 1: "Movimento em linha reta, vetores e movimento no plano (cap. 2, 3 e 4)", 2: "Força, trabalho e energia (cap. 5 a 8)", 3: "Centro de massa e momento linear (cap. 9)" },
     sobre: "Física I estuda o movimento e as suas causas: forças, as leis de Newton e a energia. É a base de toda a mecânica da engenharia, de estruturas e pontes rolantes a molas, polias, freios e máquinas.",
     lab_nome: "Laboratório de forças", lab_desc: "Plano inclinado ao vivo: mude massa, ângulo e atrito e veja as forças." },
   gaal: { pag: "materias/gaal/oficina-de-gaal.html", simbolo: "⊥", lista: "lista", lab: "lab", quiz: "quiz", cola: "cola",

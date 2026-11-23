@@ -275,7 +275,36 @@
       '#Potência média | P = W / Δt', 'P = 58 800 ÷ 20 = «o|2 940 W»',
       '#Conferir | P = F · v', 'v = 12 ÷ 20 = 0,60 m/s → 4 900 · 0,60 = 2 940 W «g|✓»',
       '#Em cv | ÷ 746', '2 940 ÷ 746 ≈ «o|3,9 cv»',
-      '=P ≈ 2,9 kW ≈ 3,9 cv'] }
+      '=P ≈ 2,9 kW ≈ 3,9 cv'] },
+  /* ---------- Módulo 3 · cap. 9 ---------- */
+  'fis-p1': { t: 'Bola de beisebol × caminhão', r: 'Receita: p = m·v para cada um → massa em kg → compare',
+    b: ['#Fórmula | p = m·v', { c: [['*bola', 'm = 0,145 kg · v = 40 m/s', 'p = 0,145 · 40', '«o|p = 5,8 kg·m/s»'], ['*caminhão', 'm = 10 t = «b|10 000 kg»', 'p = 10 000 · 0,58', '«o|p = 5 800 kg·m/s»']] },
+      '#Para empatar | v = p / m', 'v = 5,8 / 10 000 = «b|0,00058 m/s»', '~ meio milímetro por segundo: momento = massa em movimento',
+      '=caminhão tem 1 000 × mais momento'] },
+  'fis-p2': { t: 'Dois carrinhos no trilho', r: 'Receita: escolha o sentido + → p = m·v com sinal → soma → v_cm = P / M',
+    b: [SV(340, 90, SETA(60, 45, 140, 45, B) + TX(40, 30, 'm₁ = 2,0 kg', B, 13) + TX(70, 70, '+3,0 m/s', B, 13) + SETA(300, 45, 240, 45, R) + TX(230, 30, 'm₂ = 3,0 kg', R, 13) + TX(238, 70, '−1,0 m/s', R, 13)),
+      '#Sentido | + para a direita', { c: [['*carrinho 1', 'p₁ = 2,0 · (+3,0)', '«b|+6,0 kg·m/s»'], ['*carrinho 2', 'p₂ = 3,0 · (−1,0)', '«b|−3,0 kg·m/s»']] },
+      '#Soma vetorial | P = p₁ + p₂', 'P = 6,0 − 3,0 = «o|+3,0 kg·m/s»', '#Centro de massa | v_cm = P / M', 'M = 5,0 kg → v_cm = 3,0 / 5,0 = «o|0,60 m/s»', '=P = +3,0 kg·m/s · v_cm = 0,60 m/s →'] },
+  'fis-p3': { t: 'Força pela derivada do momento', r: 'Receita: F = dp/dt → derive p(t) → substitua o t',
+    b: ['#2ª lei | F = dp/dt', 'p(t) = 4t² + 2', '#Derivada | regra do tombo', 'd(4t²)/dt = 8t · d(2)/dt = 0', 'F(t) = «b|8t»', '#Em t = 3 s | substitui', 'F = 8 · 3 = «o|24 N»', '=F = 24 N'] },
+  'fis-i1': { t: 'Chute: impulso e força média', r: 'Receita: sentido + → Δp = m(v_f − v_i) com sinais → J = Δp → F_méd = J / Δt',
+    b: [SV(340, 80, SETA(150, 30, 60, 30, R) + TX(70, 20, 'chega: 10 m/s', R, 13) + SETA(190, 58, 300, 58, B) + TX(210, 76, 'sai: 15 m/s', B, 13)),
+      '#Sinais | + = sentido da saída', 'v_i = «r|−10 m/s» · v_f = «b|+15 m/s»', '#Variação do momento | Δp = m(v_f − v_i)', 'Δp = 0,45 · (15 − (−10))', '= 0,45 · 25 = «o|11,25 kg·m/s»'.replace('= ', '→ '),
+      '#Impulso | J = Δp', 'J = «o|11,25 N·s»', '#Força média | F_méd = J / Δt', 'F_méd = 11,25 / 0,020 = «o|≈ 563 N»', '~ o − − vira +: é o erro mais comum', '=J ≈ 11,3 N·s · F_méd ≈ 563 N'] },
+  'fis-i2': { t: 'Tacada: impulso pela área', r: 'Receita: J = área sob F × t → J = Δp → isole v',
+    b: [SV(320, 150, '<path d="M40 20 V125 H300" fill="none" stroke="currentColor" stroke-width="2"/><path d="M40 125 L110 30 L250 125 Z" fill="rgba(192,57,43,.18)" stroke="' + B + '" stroke-width="3"/>' + TX(118, 26, '1 200 N', R, 13) + TX(100, 145, '1 ms', 'currentColor', 12) + TX(240, 145, '3 ms', 'currentColor', 12) + TX(130, 105, 'J', R, 18)),
+      '#Área | triângulo', 'J = ½ · base · altura', 'J = ½ · 0,0030 · 1 200 = «o|1,8 N·s»', '#Momento | J = Δp', '1,8 = 0,060 · v_f − 0', 'v_f = 1,8 / 0,060 = «o|30 m/s»', '=v ≈ 30 m/s (108 km/h)'] },
+  'fis-i3': { t: 'Impulso de força variável: integral', r: 'Receita: J = ∫F dt nos limites → J = Δp → isole v',
+    b: ['#Integral | J = ∫₀² 300t dt', '= 300 · [t²/2]₀²'.replace('= ', '→ '), '300 · (4/2 − 0) = «o|600 N·s»', '#Momento | J = m v_f − 0', '600 = 5,0 · v_f → «o|v_f = 120 m/s»', '#Confere | área do gráfico', 'triângulo: ½ · 2 · 600 = 600 «g|✓»', '=J = 600 N·s · v = 120 m/s'] },
+  'fis-c1': { t: 'Vagões engatando', r: 'Receita: saem juntos → completamente inelástica → P antes = P depois → V → compare K',
+    b: ['#Tipo | engatam', '«r|completamente inelástica»: saem juntos', '#Momento | P antes = P depois', '10 000 · 2,0 + 0 = 20 000 · V', 'V = 20 000 / 20 000 = «o|1,0 m/s»',
+      '#Energia | K = ½mv²', { c: [['*antes', '½ · 10 000 · 2,0²', '«b|20 000 J»'], ['*depois', '½ · 20 000 · 1,0²', '«b|10 000 J»']] }, 'perdeu «r|10 000 J»: metade', '=V = 1,0 m/s · perde 50 % de K'] },
+  'fis-c2': { t: 'Bala no bloco', r: 'Receita: bala fica dentro → V = (m₁v₁ + m₂v₂)/(m₁ + m₂) → compare K',
+    b: ['#Momento | completamente inelástica', 'V = (0,010 · 400 + 0) / (0,010 + 2,0)', 'V = 4,0 / 2,01 = «o|1,99 m/s»', '#Energia | quase toda vai embora',
+      { c: [['*antes', '½ · 0,010 · 400²', '«b|800 J»'], ['*depois', '½ · 2,01 · 1,99²', '«b|≈ 3,98 J»']] }, 'sobra 0,5 % → «r|99,5 % perdido»', '~ é o pêndulo balístico', '=V ≈ 1,99 m/s'] },
+  'fis-c3': { t: 'Colisão elástica, alvo parado', r: 'Receita: fórmulas da elástica com v₂ᵢ = 0 → confira momento e energia',
+    b: ['#Velocidades | elástica 1D', 'v₁f = (1 − 2)/(1 + 2) · 6,0 = «o|−2,0 m/s»', 'v₂f = 2 · 1/(1 + 2) · 6,0 = «o|+4,0 m/s»',
+      '#Confere | momento e energia', { c: [['*momento', 'antes 1 · 6 = 6', 'depois 1 · (−2) + 2 · 4 = 6 «g|✓»'], ['*energia', 'antes ½ · 1 · 36 = 18 J', 'depois 2 + 16 = 18 J «g|✓»']] }, '=v₁ = −2,0 m/s (volta) · v₂ = +4,0 m/s'] }
   };
 
   /* x_y → x com índice (no SVG vira tspan) */

@@ -250,6 +250,9 @@ body{font-size:1rem}
 ol.rec2>li{grid-template-columns:30px minmax(0,1fr)}
 .rec2 .rf{display:block;font-family:var(--f-math);font-size:1.08rem;background:var(--sheet);border:1px solid var(--line);border-left:3px solid var(--c1);border-radius:4px;padding:6px 10px;margin:6px 0;overflow-x:auto;white-space:nowrap}
 ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
+.m1-def{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:10px;margin:14px 0}.m1-def>div{display:grid;gap:4px;background:var(--sheet);border:1px solid var(--line);border-radius:12px;padding:12px 14px}.m1-def span{color:var(--ink2);font-size:.93rem}
+.vt{font-family:var(--f-math);font-style:italic}
+.m3-graf{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;margin:14px 0;color:var(--ink)}.m3-graf svg{width:100%;height:auto;background:var(--sheet);border:1px solid var(--line);border-radius:12px}
 </style>
 <link rel="stylesheet" href="../../css/fdb-v2.css">
 <script src="../../js/tema.js?v=1"></script>
@@ -293,6 +296,9 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
       <a href="#mola" data-m="mola">2.12 · Massa-mola</a>
       <a href="#curva" data-m="curva">2.13 · Curva de U</a>
       <a href="#termica" data-m="termica">2.14 · Energia térmica</a>
+      <a href="#momento" data-m="momento">3.1 · Momento linear</a>
+      <a href="#impulso" data-m="impulso">3.2 · Impulso</a>
+      <a href="#colisoes" data-m="colisoes">3.3 · Colisões</a>
       <a href="#lab">Laboratório</a>
       <a href="#problemas">Problemas resolvidos</a>
       <a href="#quiz">Quiz</a>
@@ -1045,7 +1051,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
   </div>
   <div class="fx"><span class="tag">Fórmula 5.2 · velocidade terminal</span>
     <div class="eq"><i>v<sub>t</sub></i> = <span class="rt"><span><span class="fr"><span>2<i>P</i></span><span><i>C ρ A</i></span></span></span></span></div>
-    <dl class="legend"><dt>de onde vem</dt><dd>na velocidade terminal a resultante é zero: D = P. Basta isolar v</dd><dt>P</dt><dd>peso do corpo, P = mg (o Halliday escreve P: é a mesma coisa)</dd></dl>
+    <dl class="legend"><dt>de onde vem</dt><dd>dp/dt = F ⇒ dp = F dt ⇒ ∫dp = ∫F dt ⇒ Δp = J (tudo vetor)</dd><dt>P</dt><dd>peso do corpo, P = mg (o Halliday escreve P: é a mesma coisa)</dd></dl>
   </div>
   <h3>O que é a velocidade terminal</h3>
   <p>É a velocidade máxima que um corpo atinge caindo (ou se movendo) num fluido. A partir dela ele <b>para de acelerar</b> e segue com velocidade constante.</p>
@@ -1476,6 +1482,153 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
   <div class="done-btn" data-done="termica"></div>
 </section>
 
+<!-- ================= MÓDULO 3 · CAP. 9 ================= -->
+<!-- ============ 3.1 MOMENTO LINEAR ============ -->
+<section class="view read" id="v-momento" hidden>
+  <div class="eyebrow">Módulo 3 · Capítulo 9-2 e 9-3</div>
+  <h2>Momento linear</h2>
+  <p class="lede">Um carrinho de supermercado e um caminhão, os dois a 10 km/h: qual é mais difícil de parar? A resposta mistura massa e velocidade numa grandeza só, o <b>momento linear</b> (também chamado de quantidade de movimento).</p>
+
+  <h3>A definição</h3>
+  <div class="fx"><span class="tag">Fórmula 12.1 · momento linear</span>
+    <div class="eq"><i>p</i>⃗ = <i>m</i> · <i>v</i>⃗</div>
+    <dl class="legend"><dt><span class="vt">p⃗</span></dt><dd>momento linear: um <b>vetor</b>, com a mesma direção e sentido da velocidade</dd><dt>m</dt><dd>massa (kg)</dd><dt><span class="vt">v⃗</span></dt><dd>velocidade (m/s)</dd><dt>unidade</dt><dd>kg·m/s (que é o mesmo que N·s)</dd></dl>
+  </div>
+  <div class="ofi"><span class="k">Por que importa</span>Velocidade sozinha não diz quanto "esforço" é preciso para parar um corpo. Uma bola de beisebol a 40 m/s tem p ≈ 5,8 kg·m/s. Um caminhão de 10 t tem o mesmo momento andando a apenas 0,58 m/s, devagarzinho. Momento é "massa em movimento".</div>
+  <div class="cuid"><span class="k">Notação</span>Neste módulo a letra <b>p</b> (e <b>P</b> maiúsculo, para o sistema) é o <b>momento linear</b>, como a professora escreve no quadro. Para não confundir, o peso aqui aparece sempre como <b>m·g</b>.</div>
+
+  <h3>A 2ª Lei de Newton escrita com o momento</h3>
+  <p>Newton escreveu a 2ª lei assim, e não como F = m·a. A força resultante é a <b>rapidez com que o momento muda</b>:</p>
+  <div class="fx"><span class="tag">Fórmula 12.2 · 2ª lei com o momento</span>
+    <div class="eq"><i>F</i>⃗<sub>R</sub> = <span class="fr"><span><i>dp</i>⃗</span><span><i>dt</i></span></span></div>
+    <dl class="legend"><dt>massa constante</dt><dd><i>F</i>⃗<sub>R</sub> = d(m·<span class="vt">v⃗</span>)/dt = m·d<span class="vt">v⃗</span>/dt = <b>m·<span class="vt">a⃗</span></b>: a lei que você já conhece</dd><dt>vantagem</dt><dd>vale também quando a massa muda (foguete queimando combustível, esteira recebendo areia)</dd></dl>
+  </div>
+  <div class="aula"><span class="k">Da aula · 23/11</span>
+    <p>No quadro: <b><span class="vt">F⃗</span>R = d<span class="vt">p⃗</span>/dt ⇒ <span class="vt">F⃗</span>R = d(m·<span class="vt">v⃗</span>)/dt ⇒ <span class="vt">F⃗</span>R = m·d<span class="vt">v⃗</span>/dt ⇒ <span class="vt">F⃗</span>R = m·<span class="vt">a⃗</span></b>. A massa sai da derivada porque é constante (regra da constante do Cálculo), e d<span class="vt">v⃗</span>/dt é a aceleração.</p>
+  </div>
+
+  <h3>Momento de um sistema de partículas</h3>
+  <p>Num sistema com várias partículas (as peças de um conjunto, os vagões de um trem), o momento total é a <b>soma vetorial</b> de todos:</p>
+  <div class="fx"><span class="tag">Fórmula 12.3 · momento do sistema</span>
+    <div class="eq"><i>P</i>⃗ = <i>p</i>⃗<sub>1</sub> + <i>p</i>⃗<sub>2</sub> + … + <i>p</i>⃗<sub><i>n</i></sub></div><div class="eq">= <i>m</i><sub>1</sub><i>v</i>⃗<sub>1</sub> + … + <i>m<sub>n</sub>v</i>⃗<sub><i>n</i></sub> = <i>M</i> · <i>v</i>⃗<sub>cm</sub></div>
+    <dl class="legend"><dt>M</dt><dd>massa total do sistema: m₁ + m₂ + … + mₙ</dd><dt><span class="vt">v⃗</span><sub>cm</sub></dt><dd>velocidade do <b>centro de massa</b>, o ponto que se move como se toda a massa estivesse nele</dd><dt>centro de massa</dt><dd>x<sub>cm</sub> = (m₁x₁ + m₂x₂ + …)/M: a "média das posições" pesada pelas massas</dd></dl>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 12.4 · 2ª lei para o sistema</span>
+    <div class="eq"><span class="fr"><span><i>dP</i>⃗</span><span><i>dt</i></span></span> = <i>M</i> · <i>a</i>⃗<sub>cm</sub> = <i>F</i>⃗<sub>R</sub></div>
+    <dl class="legend"><dt><span class="vt">F⃗</span><sub>R</sub></dt><dd>só as forças <b>externas</b> ao sistema. As internas (uma peça empurrando a outra) se cancelam aos pares pela 3ª lei</dd></dl>
+  </div>
+  <div class="aula"><span class="k">Da aula · 23/11 · as frases do quadro</span>
+    <p><b>"O momento linear de um sistema de partículas é o produto da massa total do sistema pela velocidade do centro de massa."</b></p>
+    <p><b>"A taxa de variação com o tempo do momento linear de uma partícula ou de um sistema de partículas é igual à força resultante."</b></p>
+    <p style="font-size:.9rem;color:var(--ink2)">A conta do quadro: <span class="vt">P⃗</span> = M·<span class="vt">v⃗</span>cm ⇒ d<span class="vt">P⃗</span>/dt = M·d<span class="vt">v⃗</span>cm/dt ⇒ d<span class="vt">P⃗</span>/dt = M·<span class="vt">a⃗</span>cm, logo d<span class="vt">P⃗</span>/dt = <span class="vt">F⃗</span>R.</p>
+  </div>
+
+  <div class="ex" data-ex data-q="fis-p1"><div class="q">Compare o momento de uma bola de beisebol de 0,145 kg a 40 m/s com o de um caminhão de 10 t a 0,58 m/s.</div>
+    <ol><li>Bola: p = m·v = 0,145 · 40 = 5,8 kg·m/s.</li><li>Caminhão: m = 10 t = 10 000 kg → p = 10 000 · 0,58 = 5 800 kg·m/s.</li><li>Opa: o caminhão tem <b>mil vezes</b> mais. Para ter os mesmos 5,8 kg·m/s ele precisaria andar a 5,8 / 10 000 = 0,00058 m/s (meio milímetro por segundo).</li></ol>
+    <div class="ans">bola 5,8 kg·m/s · caminhão 5 800 kg·m/s</div></div>
+  <div class="ex" data-ex data-q="fis-p2"><div class="q">Dois carrinhos num trilho: m₁ = 2,0 kg a +3,0 m/s e m₂ = 3,0 kg a −1,0 m/s. Qual o momento total e a velocidade do centro de massa?</div>
+    <ol><li>Escolha o sentido +: para a direita. O sinal da velocidade já carrega o sentido.</li><li>p₁ = 2,0 · (+3,0) = +6,0 kg·m/s · p₂ = 3,0 · (−1,0) = −3,0 kg·m/s.</li><li>P = +6,0 − 3,0 = +3,0 kg·m/s.</li><li>M = 5,0 kg → v<sub>cm</sub> = P/M = 3,0/5,0 = +0,60 m/s.</li></ol>
+    <div class="ans">P = +3,0 kg·m/s · v<sub>cm</sub> = 0,60 m/s para a direita</div></div>
+  <div class="ex" data-ex data-q="fis-p3"><div class="q">O momento de um corpo varia como p(t) = 4t² + 2 (em kg·m/s, t em s). Qual a força resultante em t = 3 s?</div>
+    <ol><li>F = dp/dt: derive p(t).</li><li>d(4t²)/dt = 8t · d(2)/dt = 0 → F(t) = 8t.</li><li>Em t = 3 s: F = 8 · 3 = 24 N.</li></ol>
+    <div class="ans">F = 24 N</div></div>
+  <div class="done-btn" data-done="momento"></div>
+</section>
+
+<!-- ============ 3.2 IMPULSO ============ -->
+<section class="view read" id="v-impulso" hidden>
+  <div class="eyebrow">Módulo 3 · Capítulo 9-4</div>
+  <h2>Colisão e impulso</h2>
+  <p class="lede">Martelo no prego, taco na bola, prensa estampando: forças <b>enormes</b> que duram <b>milésimos de segundo</b>. Medir a força em cada instante é quase impossível. O que dá para medir é o efeito total dela: o <b>impulso</b>.</p>
+  <div class="aula"><span class="k">Da aula · 23/11 · impulso</span>
+    <p>Força de <b>curta duração</b> · de <b>módulo elevado</b> · que provoca uma <b>mudança brusca no momento linear</b> do corpo.</p>
+  </div>
+
+  <h3>De onde sai a fórmula</h3>
+  <p>A conta do quadro é a 2ª lei "espalhada" no tempo: passe o dt para o outro lado e integre do começo ao fim da colisão.</p>
+  <div class="fx"><span class="tag">Fórmula 12.5 · impulso</span>
+    <div class="eq"><i>J</i>⃗ = ∫<sub><i>t</i>₀</sub><sup><i>t</i><sub>f</sub></sup> <i>F</i>⃗ <i>dt</i> = Δ<i>p</i>⃗</div>
+    <dl class="legend"><dt><span class="vt">J⃗</span></dt><dd>impulso: vetor, na direção da força. Unidade N·s = kg·m/s</dd><dt>de onde vem</dt><dd>d<span class="vt">p⃗</span>/dt = <span class="vt">F⃗</span> ⇒ d<span class="vt">p⃗</span> = <span class="vt">F⃗</span> dt ⇒ ∫d<span class="vt">p⃗</span> = ∫<span class="vt">F⃗</span> dt ⇒ Δ<span class="vt">p⃗</span> = <span class="vt">J⃗</span></dd><dt>teorema</dt><dd>o impulso é igual à <b>variação do momento</b>: p<sub>f</sub> − p<sub>i</sub></dd></dl>
+  </div>
+  <h3>Impulso é a área do gráfico F × t</h3>
+  <div class="m3-graf">
+    <svg viewBox="0 0 300 180" role="img" aria-label="Força constante: impulso é a área do retângulo"><defs><pattern id="hj1" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#C0392B" stroke-width="2"/></pattern></defs>
+      <path d="M40 20 V150 H280" fill="none" stroke="currentColor" stroke-width="2"/><text x="28" y="22" font-size="13" fill="currentColor">F</text><text x="276" y="168" font-size="13" fill="currentColor">t</text>
+      <rect x="40" y="60" width="200" height="90" fill="url(#hj1)" fill-opacity=".55"/><line x1="40" y1="60" x2="240" y2="60" stroke="#1E62C9" stroke-width="3"/><text x="140" y="112" text-anchor="middle" font-size="15" font-weight="700" fill="#C0392B">A = J</text>
+      <text x="150" y="176" text-anchor="middle" font-size="12" fill="currentColor">força constante ou média: J = F·Δt</text></svg>
+    <svg viewBox="0 0 300 180" role="img" aria-label="Força variável: impulso é a área sob a curva"><defs><pattern id="hj2" width="10" height="10" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="10" stroke="#C0392B" stroke-width="2"/></pattern></defs>
+      <path d="M40 20 V150 H280" fill="none" stroke="currentColor" stroke-width="2"/><text x="28" y="22" font-size="13" fill="currentColor">F</text><text x="276" y="168" font-size="13" fill="currentColor">t</text>
+      <path d="M40 135 C90 130 120 40 170 35 C210 32 225 120 260 148 L260 150 L40 150 Z" fill="url(#hj2)" fill-opacity=".55"/><path d="M40 135 C90 130 120 40 170 35 C210 32 225 120 260 148" fill="none" stroke="#1E62C9" stroke-width="3"/><text x="160" y="110" text-anchor="middle" font-size="15" font-weight="700" fill="#C0392B">J</text>
+      <text x="150" y="176" text-anchor="middle" font-size="12" fill="currentColor">força variável: J = ∫F dt</text></svg>
+  </div>
+  <div class="fx"><span class="tag">Fórmula 12.6 · força média</span>
+    <div class="eq"><i>J</i> = <i>F</i><sub>méd</sub> · Δ<i>t</i> &nbsp;⇒&nbsp; <i>F</i><sub>méd</sub> = <span class="fr"><span>Δ<i>p</i></span><span>Δ<i>t</i></span></span></div>
+    <dl class="legend"><dt>F<sub>méd</sub></dt><dd>a força constante que, no mesmo Δt, daria a mesma área (o mesmo impulso) que a força de verdade</dd><dt>truque de engenharia</dt><dd>mesmo Δp com Δt <b>maior</b> → força <b>menor</b>. É o airbag, o para-choque, a luva do goleiro, a borracha no batente da prensa</dd></dl>
+  </div>
+  <div class="ex" data-ex data-q="fis-i1"><div class="q">Uma bola de 0,45 kg chega no pé do jogador a 10 m/s e volta, no sentido contrário, a 15 m/s. O contato dura 0,020 s. Qual o impulso e a força média do chute?</div>
+    <ol><li>Sentido +: para onde a bola <b>sai</b>. Então v<sub>i</sub> = −10 m/s e v<sub>f</sub> = +15 m/s.</li><li>Δp = m(v<sub>f</sub> − v<sub>i</sub>) = 0,45 · (15 − (−10)) = 0,45 · 25 = 11,25 kg·m/s.</li><li>J = Δp = 11,25 N·s (no sentido da saída).</li><li>F<sub>méd</sub> = J/Δt = 11,25 / 0,020 ≈ 563 N, uns 57 kg "apoiados" na bola por 2 centésimos de segundo.</li></ol>
+    <div class="ans">J ≈ 11,3 N·s · F<sub>méd</sub> ≈ 563 N</div></div>
+  <div class="ex" data-ex data-q="fis-i2"><div class="q">Numa tacada, a força numa bola de tênis de 60 g, inicialmente parada, sobe em linha reta de 0 a 1 200 N em 1,0 ms e volta a 0 em mais 2,0 ms. Com que velocidade a bola sai?</div>
+    <ol><li>O gráfico F × t é um triângulo: base 3,0 ms = 0,0030 s, altura 1 200 N.</li><li>J = área = ½ · 0,0030 · 1 200 = 1,8 N·s.</li><li>J = Δp = m·v<sub>f</sub> − 0 → v<sub>f</sub> = 1,8 / 0,060 = 30 m/s (108 km/h).</li></ol>
+    <div class="ans">v ≈ 30 m/s</div></div>
+  <div class="ex" data-ex data-q="fis-i3"><div class="q">Uma força F(t) = 300t (N) age num bloco de 5,0 kg parado, de t = 0 a t = 2,0 s. Qual a velocidade final?</div>
+    <ol><li>Força variável: J = ∫F dt.</li><li>J = ∫₀² 300t dt = 300 · [t²/2]₀² = 300 · 2 = 600 N·s.</li><li>J = Δp = 5,0 · v<sub>f</sub> → v<sub>f</sub> = 600 / 5,0 = 120 m/s.</li><li>Confira pelo gráfico: reta de 0 a 600 N em 2 s → triângulo ½ · 2 · 600 = 600 ✓</li></ol>
+    <div class="ans">J = 600 N·s · v = 120 m/s</div></div>
+  <div class="calc" data-calc="impulso"><h4>Calculadora de impulso</h4><p class="hint">Use sinais: + num sentido, − no contrário.</p>
+    <div class="fields"><label>massa (kg) <input type="text" id="im-m" value="0.45"></label><label>v inicial (m/s) <input type="text" id="im-vi" value="-10"></label><label>v final (m/s) <input type="text" id="im-vf" value="15"></label><label>tempo de contato (s) <input type="text" id="im-t" value="0.02"></label></div>
+    <div class="out"></div></div>
+  <div class="done-btn" data-done="impulso"></div>
+</section>
+
+<!-- ============ 3.3 COLISÕES ============ -->
+<section class="view read" id="v-colisoes" hidden>
+  <div class="eyebrow">Módulo 3 · Capítulo 9-5 a 9-7</div>
+  <h2>Colisões</h2>
+  <p class="lede">Numa batida, cada corpo dá no outro um impulso igual e contrário (3ª lei). Por isso, somando os dois, o momento do sistema não muda. O que muda de uma colisão para outra é o destino da <b>energia cinética</b>: é isso que separa os tipos de colisão.</p>
+  <div class="aula"><span class="k">Da aula · 23/11 · tipos de colisões</span>
+    <p><b>Colisão elástica:</b> a energia cinética se conserva, K = constante.</p>
+    <p><b>Colisão inelástica:</b> K não se conserva.</p>
+    <p><b>Colisão completamente inelástica:</b> os corpos permanecem juntos após a colisão.</p>
+  </div>
+  <div class="m1-def">
+    <div><b style="color:var(--ok)">Elástica</b><span>K antes = K depois. Bolas de bilhar, bolinhas de aço do pêndulo de Newton (quase).</span></div>
+    <div><b style="color:var(--c1)">Inelástica</b><span>Parte de K vira calor, som e deformação. Quase toda batida real: bola de futebol no chão, carro batendo.</span></div>
+    <div><b style="color:var(--bad)">Completamente inelástica</b><span>Saem grudados, com a mesma velocidade. É a que <b>mais perde</b> K. Vagões engatando, bala cravando num bloco.</span></div>
+  </div>
+
+  <h3>A ferramenta: conservação do momento</h3>
+  <div class="fx"><span class="tag">Fórmula 12.7 · conservação do momento linear</span>
+    <div class="eq"><i>P</i>⃗<sub>antes</sub> = <i>P</i>⃗<sub>depois</sub></div><div class="eq" style="font-size:1.05rem"><i>m</i>₁<i>v</i>₁ᵢ + <i>m</i>₂<i>v</i>₂ᵢ = <i>m</i>₁<i>v</i>₁<sub>f</sub> + <i>m</i>₂<i>v</i>₂<sub>f</sub></div>
+    <dl class="legend"><dt>quando vale</dt><dd>quando a força externa resultante é zero (ou desprezível durante o choque, que é muito curto): <span class="vt">F⃗</span>R = d<span class="vt">P⃗</span>/dt = 0 ⇒ <span class="vt">P⃗</span> constante</dd><dt>vale em todas</dt><dd>elástica, inelástica e completamente inelástica: <b>o momento sempre se conserva</b>; a energia cinética, só na elástica</dd></dl>
+  </div>
+  <div class="cuid"><span class="k">A pegadinha</span>"Inelástica" não quer dizer que o momento se perde. Quem se perde é a energia cinética. O momento total do sistema continua o mesmo em qualquer colisão (sem força externa).</div>
+
+  <h3>Completamente inelástica: uma equação resolve</h3>
+  <div class="fx"><span class="tag">Fórmula 12.8 · saem juntos</span>
+    <div class="eq"><i>V</i> = <span class="fr"><span><i>m</i>₁<i>v</i>₁ᵢ + <i>m</i>₂<i>v</i>₂ᵢ</span><span><i>m</i>₁ + <i>m</i>₂</span></span></div>
+    <dl class="legend"><dt>V</dt><dd>velocidade comum depois do choque (é a própria v<sub>cm</sub>)</dd></dl>
+  </div>
+  <h3>Elástica em 1D, com o alvo parado</h3>
+  <div class="fx"><span class="tag">Fórmula 12.9 · elástica, v₂ᵢ = 0</span>
+    <div class="eq"><i>v</i>₁<sub>f</sub> = <span class="fr"><span><i>m</i>₁ − <i>m</i>₂</span><span><i>m</i>₁ + <i>m</i>₂</span></span> <i>v</i>₁ᵢ</div><div class="eq"><i>v</i>₂<sub>f</sub> = <span class="fr"><span>2<i>m</i>₁</span><span><i>m</i>₁ + <i>m</i>₂</span></span> <i>v</i>₁ᵢ</div>
+    <dl class="legend"><dt>massas iguais</dt><dd>v₁f = 0 e v₂f = v₁ᵢ: trocam de velocidade (bilhar)</dd><dt>alvo pesado</dt><dd>m₂ ≫ m₁: a bolinha volta com quase a mesma velocidade (bola na parede)</dd><dt>projétil pesado</dt><dd>m₁ ≫ m₂: o pesado quase não freia e o leve sai com quase 2·v₁ᵢ</dd></dl>
+  </div>
+  <div class="ex" data-ex data-q="fis-c1"><div class="q">Um vagão de 10 t a 2,0 m/s engata num vagão igual, parado. Com que velocidade seguem e quanta energia cinética se perde?</div>
+    <ol><li>Engatam = saem juntos → completamente inelástica.</li><li>Momento antes: 10 000 · 2,0 + 10 000 · 0 = 20 000 kg·m/s.</li><li>Depois: (10 000 + 10 000)·V = 20 000 → V = 1,0 m/s.</li><li>K antes = ½ · 10 000 · 2,0² = 20 000 J · K depois = ½ · 20 000 · 1,0² = 10 000 J.</li><li>Perdeu 10 000 J: metade, que virou deformação nos engates, calor e o barulho do "clanc".</li></ol>
+    <div class="ans">V = 1,0 m/s · perde 10 kJ (50 % de K)</div></div>
+  <div class="ex" data-ex data-q="fis-c2"><div class="q">Uma bala de 10 g a 400 m/s crava num bloco de madeira de 2,0 kg parado sobre um piso liso. Qual a velocidade do conjunto? Que fração de K se perde?</div>
+    <ol><li>Bala fica dentro → completamente inelástica.</li><li>V = (0,010 · 400 + 2,0 · 0)/(0,010 + 2,0) = 4,0 / 2,01 ≈ 1,99 m/s.</li><li>K antes = ½ · 0,010 · 400² = 800 J · K depois = ½ · 2,01 · 1,99² ≈ 3,98 J.</li><li>Sobra só 0,5 %: 99,5 % virou calor e madeira rasgada. É o princípio do pêndulo balístico, que mede a velocidade de projéteis.</li></ol>
+    <div class="ans">V ≈ 1,99 m/s · perde ≈ 99,5 % de K</div></div>
+  <div class="ex" data-ex data-q="fis-c3"><div class="q">Uma bola de 1,0 kg a 6,0 m/s bate de frente, elasticamente, numa bola de 2,0 kg parada. Velocidades depois?</div>
+    <ol><li>Elástica e alvo parado: use as fórmulas 12.9.</li><li>v₁f = (1,0 − 2,0)/(3,0) · 6,0 = −2,0 m/s (volta).</li><li>v₂f = 2 · 1,0/3,0 · 6,0 = +4,0 m/s.</li><li>Confere momento: 1,0·6,0 = 6,0 · depois 1,0·(−2,0) + 2,0·4,0 = 6,0 ✓</li><li>Confere energia: antes ½·1·36 = 18 J · depois ½·1·4 + ½·2·16 = 2 + 16 = 18 J ✓</li></ol>
+    <div class="ans">v₁f = −2,0 m/s · v₂f = +4,0 m/s</div></div>
+  <div class="calc" data-calc="colisao"><h4>Simulador de colisão em 1D</h4><p class="hint">Velocidades com sinal (+ para a direita). Escolha o tipo.</p>
+    <div class="fields"><label>m₁ (kg) <input type="text" id="co-m1" value="1"></label><label>v₁ antes (m/s) <input type="text" id="co-v1" value="6"></label><label>m₂ (kg) <input type="text" id="co-m2" value="2"></label><label>v₂ antes (m/s) <input type="text" id="co-v2" value="0"></label>
+      <label>tipo <select id="co-t"><option value="e">elástica</option><option value="c">completamente inelástica</option><option value="i">inelástica (e = 0,5)</option></select></label></div>
+    <div class="out"></div></div>
+  <div class="done-btn" data-done="colisoes"></div>
+</section>
+
 <!-- ============ LAB ============ -->
 <section class="view" id="v-lab" hidden>
   <div class="eyebrow">Laboratório</div>
@@ -1510,7 +1663,7 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
 <!-- ============ COLA ============ -->
 <section class="view" id="v-cola" hidden>
   <div class="eyebrow">Revisão de véspera</div>
-  <h2>Capítulos 5, 6 e 8 numa folha</h2>
+  <h2>Capítulos 5, 6, 8 e 9 numa folha</h2>
   <p class="lede read">g = 9,8 m/s². Tire um print desta tela.</p>
   <div class="cola" style="margin-top:20px">
     <div class="fx"><span class="tag">2ª lei</span><div class="eq">Σ<i>F</i>⃗ = <i>m</i><i>a</i>⃗</div><p>em cada eixo: ΣF<sub>x</sub> = ma<sub>x</sub>, ΣF<sub>y</sub> = ma<sub>y</sub></p></div>
@@ -1538,6 +1691,9 @@ ol.mini{margin:8px 0 0;padding-left:20px;display:grid;gap:3px}
     <div class="fx"><span class="tag">Curva de U(x)</span><div class="eq"><i>F</i> = −<i>dU</i>/<i>dx</i>, &nbsp;<i>K</i> = <i>E</i> − <i>U</i></div><p>retorno: U = E · vale estável · morro instável</p></div>
     <div class="fx"><span class="tag">Com atrito</span><div class="eq"><i>W</i> = Δ<i>E</i><sub>mec</sub> + Δ<i>E</i><sub>t</sub></div><p>ΔE<sub>t</sub> = f<sub>k</sub>d</p></div>
     <div class="fx"><span class="tag">Potência</span><div class="eq"><i>P</i> = Δ<i>E</i>/Δ<i>t</i></div><p>1 W = 1 J/s · 1 cv ≈ 735 W</p></div>
+    <div class="fx"><span class="tag">Momento linear</span><div class="eq"><i>p</i>⃗ = <i>m</i><i>v</i>⃗ &nbsp; <i>F</i>⃗<sub>R</sub> = <i>dp</i>⃗/<i>dt</i></div><p>sistema: P⃗ = M·v⃗<sub>cm</sub></p></div>
+    <div class="fx"><span class="tag">Impulso</span><div class="eq"><i>J</i>⃗ = ∫<i>F</i>⃗ <i>dt</i> = Δ<i>p</i>⃗</div><p>área sob F × t · constante: J = F·Δt</p></div>
+    <div class="fx"><span class="tag">Colisões</span><div class="eq"><i>m</i>₁<i>v</i>₁ᵢ + <i>m</i>₂<i>v</i>₂ᵢ = <i>m</i>₁<i>v</i>₁<sub>f</sub> + <i>m</i>₂<i>v</i>₂<sub>f</sub></div><p>elástica: K igual · grudados: V = P/(m₁ + m₂)</p></div>
   </div>
 </section>
 
@@ -1802,7 +1958,7 @@ function renderQuiz(){ const box=document.getElementById('quizBox'); box.innerHT
 function score(){ const n=Object.keys(qa).length, ok=Object.entries(qa).filter(([i,j])=>QUIZ[i][2]===j).length; document.getElementById('scoreTxt').textContent=ok+' certas · '+n+' de '+QUIZ.length+' respondidas'+(n===QUIZ.length?(ok>=QUIZ.length*.8?' · pronto para a prova!':ok>=QUIZ.length*.6?' · quase lá':' · revise os módulos'):'') }
 
 /* ===== progresso ===== */
-const MODS=[['unidades','Medidas e unidades','SI, prefixos e conversão'],['posicao','Posição e deslocamento','Δx, velocidade e rapidez médias'],['velinst','Velocidade instantânea','v = dx/dt e a regra do tombo'],['acel','Aceleração','a = dv/dt e o sinal que engana'],['muv','Aceleração constante','As 5 equações e a receita'],['queda','Queda livre','a = −g e a bola jogada para cima'],['graficos','Gráficos','Inclinação e área'],['vetores','Vetores','Componentes, módulo e ângulo'],['unitarios','Vetores unitários','î, ĵ, k̂ e soma por componentes'],['produtos','Produtos de vetores','Escalar e vetorial'],['mov2d','Movimento em 2D e 3D','r⃗, v⃗ e a⃗ por eixo'],['projetil','Projéteis','Dois movimentos independentes'],['mcu','Movimento circular uniforme','a = v²/r e o período'],['relativo','Movimento relativo','A velocidade depende de quem olha'],['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops'],['trabalho','Energia cinética e trabalho','K = ½mv², W = Fd cos φ e W = ΔK'],['wpeso','Trabalho do peso e da mola','−mgh, Hooke e ½kx²'],['wvar','Força variável e potência','Área do gráfico e P = W/Δt'],['potencial','Energia potencial','U = mgy, U = ½kx² e forças conservativas'],['conserva','Conservação da energia','K + U constante, tobogãs e molas'],['mola','Sistema massa-mola','Lei de Hooke, ciclo −xm ↔ +xm, v máx em x0'],['curva','Curva de energia potencial','Retorno, equilíbrio e F = −dU/dx'],['termica','Energia térmica e potência','Atrito, ΔEt e P = ΔE/Δt']];
+const MODS=[['unidades','Medidas e unidades','SI, prefixos e conversão'],['posicao','Posição e deslocamento','Δx, velocidade e rapidez médias'],['velinst','Velocidade instantânea','v = dx/dt e a regra do tombo'],['acel','Aceleração','a = dv/dt e o sinal que engana'],['muv','Aceleração constante','As 5 equações e a receita'],['queda','Queda livre','a = −g e a bola jogada para cima'],['graficos','Gráficos','Inclinação e área'],['vetores','Vetores','Componentes, módulo e ângulo'],['unitarios','Vetores unitários','î, ĵ, k̂ e soma por componentes'],['produtos','Produtos de vetores','Escalar e vetorial'],['mov2d','Movimento em 2D e 3D','r⃗, v⃗ e a⃗ por eixo'],['projetil','Projéteis','Dois movimentos independentes'],['mcu','Movimento circular uniforme','a = v²/r e o período'],['relativo','Movimento relativo','A velocidade depende de quem olha'],['forcas','Forças e vetores','Decompor e somar forças'],['newton','Leis de Newton','Inércia, F = ma, ação e reação'],['aplic','Aplicações','Peso, normal, tração, rampa, polia'],['atrito','Atrito','Estático, cinético e o ângulo crítico'],['arrasto','Arrasto','Velocidade terminal'],['circular','Movimento circular','Curvas e loops'],['trabalho','Energia cinética e trabalho','K = ½mv², W = Fd cos φ e W = ΔK'],['wpeso','Trabalho do peso e da mola','−mgh, Hooke e ½kx²'],['wvar','Força variável e potência','Área do gráfico e P = W/Δt'],['potencial','Energia potencial','U = mgy, U = ½kx² e forças conservativas'],['conserva','Conservação da energia','K + U constante, tobogãs e molas'],['mola','Sistema massa-mola','Lei de Hooke, ciclo −xm ↔ +xm, v máx em x0'],['curva','Curva de energia potencial','Retorno, equilíbrio e F = −dU/dx'],['termica','Energia térmica e potência','Atrito, ΔEt e P = ΔE/Δt'],['momento','Momento linear','p = mv, F = dp/dt e o sistema de partículas'],['impulso','Colisão e impulso','J = ∫F dt = Δp e a área do gráfico'],['colisoes','Colisões','Elástica, inelástica, completamente inelástica']];
 let done={};
 function load(){ try{ done=JSON.parse(localStorage.getItem('fis-done')||'{}'); qa=JSON.parse(localStorage.getItem('fis-quiz')||'{}') }catch(e){} }
 function save(){ try{ localStorage.setItem('fis-done',JSON.stringify(done)); localStorage.setItem('fis-quiz',JSON.stringify(qa)) }catch(e){} }
@@ -1815,7 +1971,7 @@ function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getEl
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ===== rotas ===== */
-const VIEWS=['inicio','unidades','posicao','velinst','acel','muv','queda','graficos','vetores','unitarios','produtos','mov2d','projetil','mcu','relativo','forcas','newton','aplic','atrito','arrasto','circular','trabalho','wpeso','wvar','potencial','conserva','mola','curva','termica','lab','problemas','quiz','cola'];
+const VIEWS=['inicio','unidades','posicao','velinst','acel','muv','queda','graficos','vetores','unitarios','produtos','mov2d','projetil','mcu','relativo','forcas','newton','aplic','atrito','arrasto','circular','trabalho','wpeso','wvar','potencial','conserva','mola','curva','termica','momento','impulso','colisoes','lab','problemas','quiz','cola'];
 let sims=[];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
@@ -2012,6 +2168,37 @@ document.querySelectorAll('#probBox .part').forEach(bindEx);
 window.FDB_QLISTA={sel:'#probBox',itens:PROBS.map(p=>({titulo:'Problema '+p.n,tag:'Problema · '+p.m,enun:p.q,secoes:[{passos:p.s,resp:p.a}]}))};
 somaCv=new Cv(document.getElementById('somaCv'),drawSoma);
 dragCv=new Cv(document.getElementById('dragCv'),drawDrag);
+
+/* ===== Módulo 3 · momento, impulso e colisões ===== */
+Object.assign(CALCS,{
+ impulso(){ const m=num('im-m'), vi=num('im-vi'), vf=num('im-vf'), t=num('im-t'); if(m<=0||t<=0) throw new Error('Massa e tempo precisam ser positivos.');
+  const pi=m*vi, pf=m*vf, J=pf-pi, F=J/t;
+  return [['p inicial = m·v<sub>i</sub> = '+dec(m)+' · '+dec(vi)+' = '+dec(pi)+' kg·m/s','p final = m·v<sub>f</sub> = '+dec(m)+' · '+dec(vf)+' = '+dec(pf)+' kg·m/s','J = Δp = p<sub>f</sub> − p<sub>i</sub> = '+dec(J)+' N·s','F<sub>méd</sub> = J / Δt = '+dec(J)+' / '+dec(t,4)+' = '+dec(F,1)+' N'],'J = '+dec(J)+' N·s · F<sub>méd</sub> = '+dec(F,1)+' N'] },
+ colisao(){ const m1=num('co-m1'), v1=num('co-v1'), m2=num('co-m2'), v2=num('co-v2'), t=document.getElementById('co-t').value; if(m1<=0||m2<=0) throw new Error('Massas precisam ser positivas.');
+  const e=t==='e'?1:t==='c'?0:.5, P=m1*v1+m2*v2, M=m1+m2, f1=(P+m2*e*(v2-v1))/M, f2=(P+m1*e*(v1-v2))/M, Ki=.5*m1*v1*v1+.5*m2*v2*v2, Kf=.5*m1*f1*f1+.5*m2*f2*f2;
+  const st=['Momento antes: '+dec(m1)+'·'+dec(v1)+' + '+dec(m2)+'·'+dec(v2)+' = '+dec(P)+' kg·m/s (se conserva)'];
+  if(t==='c') st.push('Saem juntos: V = P / (m₁ + m₂) = '+dec(P)+' / '+dec(M)+' = '+dec(f1)+' m/s');
+  else st.push((t==='e'?'Elástica (K se conserva): ':'Inelástica com coeficiente de restituição 0,5: ')+'v₁ depois = '+dec(f1)+' m/s · v₂ depois = '+dec(f2)+' m/s','Confere o momento: '+dec(m1*f1+m2*f2)+' kg·m/s ✓');
+  st.push('K antes = '+dec(Ki)+' J · K depois = '+dec(Kf)+' J'+(Ki>0?' → perdeu '+dec(Ki-Kf)+' J ('+dec((Ki-Kf)/Ki*100,1)+' %)':''));
+  if(v1<=v2) st.push('Atenção: com essas velocidades os corpos nem se encontram.');
+  return [st,(t==='c'?'V = '+dec(f1)+' m/s':'v₁ = '+dec(f1)+' m/s · v₂ = '+dec(f2)+' m/s')+' · ΔK = '+dec(Kf-Ki)+' J'] }
+});
+PROBS.push(
+ {n:'25',m:'momento linear',q:'Um carro de 1 200 kg a 72 km/h e uma moto de 200 kg. A que velocidade a moto teria o mesmo momento linear do carro?',
+  s:['72 km/h ÷ 3,6 = 20 m/s.','p do carro = 1 200 · 20 = 24 000 kg·m/s.','Moto: 200 · v = 24 000 → v = 120 m/s (432 km/h).'],a:'v = 120 m/s'},
+ {n:'26',m:'impulso · força média',q:'Um martelo de 0,80 kg bate num prego a 6,0 m/s e para em 2,0 ms. Qual a força média no prego?',
+  s:['Δp = 0,80 · (0 − 6,0) = −4,8 kg·m/s (sobre o martelo).','O prego recebe o impulso contrário: J = 4,8 N·s.','F<sub>méd</sub> = 4,8 / 0,0020 = 2 400 N.'],a:'F<sub>méd</sub> ≈ 2 400 N'},
+ {n:'27',m:'colisão completamente inelástica',q:'Um carro de 1 000 kg a 15 m/s bate na traseira de outro de 1 500 kg a 5,0 m/s, e saem engatados. Qual a velocidade depois?',
+  s:['P = 1 000 · 15 + 1 500 · 5,0 = 15 000 + 7 500 = 22 500 kg·m/s.','M = 2 500 kg → V = 22 500 / 2 500 = 9,0 m/s.','K antes = 112 500 + 18 750 = 131 250 J · depois = ½ · 2 500 · 81 = 101 250 J → perdeu 30 000 J.'],a:'V = 9,0 m/s · perde 30 kJ'}
+);
+QUIZ.push(
+ ['O momento linear é…',['um escalar, m·v','um vetor, m·v⃗, com o sentido da velocidade','a força vezes a distância','a energia do movimento'],1,'p⃗ = m·v⃗: vetor. O sinal (ou a direção) importa nas contas.'],
+ ['A 2ª lei de Newton na forma original é…',['F = m·v','F = dp/dt','F = p·t','F = ½mv²'],1,'F⃗R = dp⃗/dt; com massa constante vira m·a⃗.'],
+ ['O impulso de uma força variável é…',['a inclinação do gráfico F × t','a área sob o gráfico F × t','F no instante final','sempre zero'],1,'J = ∫F dt = área sob a curva = Δp.'],
+ ['Por que o airbag reduz a força no motorista?',['Diminui a variação de momento','Aumenta o tempo da parada, e F = Δp/Δt diminui','Aumenta a massa','Absorve todo o momento'],1,'O Δp é o mesmo (o carro para de qualquer jeito); com Δt maior, a força média cai.'],
+ ['Em qual colisão os corpos saem grudados?',['Elástica','Inelástica','Completamente inelástica','Nenhuma'],2,'Completamente inelástica: permanecem juntos e é a que mais perde energia cinética.'],
+ ['Numa colisão inelástica, sem forças externas…',['o momento e K se conservam','só o momento total se conserva','só K se conserva','nada se conserva'],1,'Momento total sempre se conserva sem força externa; K só na elástica.']
+);
 document.querySelectorAll('.calc[data-calc]').forEach(b=>{ b.addEventListener('input',()=>runCalc(b)); runCalc(b) });
 const PRE={para:[80,1.0,0.7,1.2],aberto:[80,1.5,40,1.2],gota:[0.0000141,0.6,0.00000707,1.2]};
 document.querySelectorAll('#dragPre button').forEach(b=>b.onclick=()=>{ document.querySelectorAll('#dragPre button').forEach(x=>x.classList.toggle('on',x===b)); const v=PRE[b.dataset.p]; ['dr-m','dr-c','dr-a','dr-r'].forEach((id,i)=>document.getElementById(id).value=String(v[i])); runCalc(document.querySelector('.calc[data-calc="drag"]')) });
@@ -2050,7 +2237,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="fis1"></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js"></script>
-<script src="../../dados/quadros-fis1.js?v=2"></script>
+<script src="../../dados/quadros-fis1.js?v=3"></script>
 <script src="../../js/quadro.js?v=8" data-materia="fis1"></script>
 </body>
 </html>
