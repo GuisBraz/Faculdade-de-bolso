@@ -14,7 +14,17 @@
 const CFG=window.FDB_CONFIG||{};
 const $=id=>document.getElementById(id);
 const carregar=src=>new Promise((ok,erro)=>{ const s=document.createElement('script'); s.src=src; s.onload=ok; s.onerror=()=>erro(new Error('Falha ao carregar '+src)); document.body.appendChild(s) });
-const iniciarHub=()=>carregar('js/hub.js');
+let hubIniciado=null;
+const iniciarHub=()=>{ if(hubIniciado) return hubIniciado; tirarAviso(); return hubIniciado=carregar('js/hub.js') };
+/* nunca deixar a tela em branco: aviso de carregamento, limite de tempo para a rede e um "plano B" */
+const limite=(p,ms,reserva)=>Promise.race([Promise.resolve(p).catch(()=>reserva),new Promise(ok=>setTimeout(()=>ok(reserva),ms))]);
+const TEMPO={sessao:5000,consulta:5000,total:12000};
+let aviso=null;
+function porAviso(){ if(aviso||!document.body) return; aviso=document.createElement('div'); aviso.id='bootAviso'; aviso.setAttribute('role','status');
+  aviso.style.cssText='position:fixed;inset:0;display:grid;place-items:center;z-index:50;pointer-events:none;font:600 15px system-ui,sans-serif;color:#C9D4E3';
+  aviso.innerHTML='<div style="text-align:center"><div style="width:34px;height:34px;margin:0 auto 12px;border:3px solid rgba(255,255,255,.18);border-top-color:#F07A2E;border-radius:50%;animation:bootgira 0.9s linear infinite"></div>Carregando a Faculdade de Bolso…<div id="bootAvisoSub" style="font-weight:400;font-size:13px;opacity:.7;margin-top:6px"></div></div><style>@keyframes bootgira{to{transform:rotate(360deg)}}</style>';
+  document.body.appendChild(aviso) }
+function tirarAviso(){ if(aviso){ aviso.remove(); aviso=null } }
 
 /* app instalável */
 if('serviceWorker' in navigator && location.protocol==='https:') addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
@@ -28,11 +38,17 @@ if(!CFG.url||!CFG.anonKey){
 /* ===== modo com conta ===== */
 const mostrarLogin=on=>{ $('auth').hidden=!on; $('app').hidden=on; document.querySelector('.topbar').hidden=on };
 mostrarLogin(false); $('app').hidden=true; document.querySelector('.topbar').hidden=true;
+porAviso();
+const CACHE_P='fdb-privado-cache', CACHE_PAPEL='fdb-papel-cache';
+/* plano B: se a conta não responder a tempo, abre o hub mesmo assim (o progresso sincroniza depois) */
+setTimeout(()=>{ if(!hubIniciado){ console.warn('boot: Supabase demorou demais, abrindo sem esperar'); window.FDB_MODE=window.FDB_MODE||'local'; $('auth').hidden=true; $('app').hidden=false; document.querySelector('.topbar').hidden=false; iniciarHub() } },TEMPO.total);
+setTimeout(()=>{ const s=document.getElementById('bootAvisoSub'); if(s) s.textContent='A conta está demorando para responder…' },4000);
 
 carregar(CFG.lib||'js/vendor/supabase-2.117.3.js').then(()=>{
   const sb=window.supabase.createClient(CFG.url,CFG.anonKey,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
   window.FDB_SB=sb;
-  sb.auth.getSession().then(({data})=>{ if(data&&data.session) entrar(data.session.user); else publico() });
+  const sessaoGuardada=()=>{ try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(/^sb-.*-auth-token$/.test(k)){ const v=JSON.parse(localStorage.getItem(k)); if(v&&v.user) return v.user } } }catch(e){} return null };
+  limite(sb.auth.getSession(),TEMPO.sessao,'tempo').then(r=>{ if(r==='tempo'||!r){ const u=sessaoGuardada(); return u?entrar(u):publico() } const s=r.data&&r.data.session; if(s) entrar(s.user); else publico() });
   /* sem login: modo estudante público (oficinas do semestre + cartas, progresso só neste aparelho) */
   function publico(){ window.FDB_MODE='visitante'; mostrarLogin(false); const c=$('conta'); c.hidden=false;
     c.innerHTML='<button type="button" id="entrarBtn">Entrar</button>'; $('entrarBtn').onclick=telaLogin; iniciarHub() }
@@ -62,11 +78,18 @@ carregar(CFG.lib||'js/vendor/supabase-2.117.3.js').then(()=>{
 
   /* ----- depois de entrar ----- */
   async function entrar(user){ msg('Carregando…');
-    let papel='visitante';
-    try{ const {data}=await sb.from('perfis').select('papel').eq('id',user.id).maybeSingle(); if(data&&data.papel) papel=data.papel }catch(e){}
-    if(papel==='admin'){ try{ const {data,error}=await sb.from('privado').select('chave,valor'); if(error) throw error; aplicarPrivado(data||[]) }catch(e){ console.warn('privado',e) } }
+    const lerC=k=>{ try{ return JSON.parse(localStorage.getItem(k)||'null') }catch(e){ return null } }, gravarC=(k,v)=>{ try{ localStorage.setItem(k,JSON.stringify(v)) }catch(e){} };
+    const cp=lerC(CACHE_PAPEL); let papel=(cp&&cp.uid===user.id&&cp.papel)||'visitante';
+    /* as três consultas correm juntas, cada uma com limite de tempo */
+    const [rp,rv]=await Promise.all([
+      limite(sb.from('perfis').select('papel').eq('id',user.id).maybeSingle(),TEMPO.consulta,null),
+      limite(sb.from('privado').select('chave,valor'),TEMPO.consulta,null),
+      limite(sync(user).catch(e=>console.warn('sync',e)),TEMPO.consulta,null)]);
+    if(rp&&rp.data&&rp.data.papel){ papel=rp.data.papel; gravarC(CACHE_PAPEL,{uid:user.id,papel}) }
+    if(papel==='admin'){
+      if(rv&&!rv.error&&rv.data&&rv.data.length){ aplicarPrivado(rv.data); gravarC(CACHE_P,{uid:user.id,rows:rv.data}) }
+      else { const c=lerC(CACHE_P); if(c&&c.uid===user.id) aplicarPrivado(c.rows||[]); console.warn('privado: usando a cópia guardada') } }
     window.FDB_MODE=papel==='admin'?'admin':'visitante';
-    await sync(user).catch(e=>console.warn('sync',e));
     mostrarLogin(false); barraConta(user,papel);
     await iniciarHub();
     setInterval(()=>sync(user).then(()=>barraConta(user,papel)).catch(()=>{}),60*1000);
@@ -87,7 +110,7 @@ carregar(CFG.lib||'js/vendor/supabase-2.117.3.js').then(()=>{
   const lsGet=k=>{ try{ return localStorage.getItem(k) }catch(e){ return null } }, lsSet=(k,v)=>{ try{ localStorage.setItem(k,v) }catch(e){} };
   const hash=s=>{ let h=5381; for(let i=0;i<s.length;i++) h=((h<<5)+h+s.charCodeAt(i))|0; return String(h) };
   const chaves=()=>{ const o=[]; try{ for(let i=0;i<localStorage.length;i++){ const k=localStorage.key(i); if(SYNC.test(k)) o.push(k) } }catch(e){} return o };
-  function limparLocal(){ chaves().forEach(k=>{ try{ localStorage.removeItem(k) }catch(e){} }); try{ localStorage.removeItem(META) }catch(e){} }
+  function limparLocal(){ chaves().forEach(k=>{ try{ localStorage.removeItem(k) }catch(e){} }); [META,CACHE_P,CACHE_PAPEL].forEach(k=>{ try{ localStorage.removeItem(k) }catch(e){} }) }
   function juntar(k,r,l){ if(k==='fdb-anki'&&window.FDB_ANKI) return FDB_ANKI.mesclar(r,l);
     if(Array.isArray(r)&&Array.isArray(l)){ const m=new Map(); [...r,...l].forEach(x=>m.set(x&&x.mid||JSON.stringify(x),x)); return [...m.values()] }
     if(r&&l&&typeof r==='object'&&typeof l==='object') return {...r,...l}; return l }
