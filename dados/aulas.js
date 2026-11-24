@@ -164,7 +164,10 @@ window.FDB_AULAS = {
   usin: { pag: "materias/usinagem/oficina-de-usinagem.html", simbolo: "⚙", continua: true,
     lab_nome: "Simulador CNC e máquinas 3D", lab_desc: "Furadeira, torno, mandrilhadora e centro de usinagem em 3D, com calculadoras." },
   ingl: { pag: "materias/ingles/oficina-de-ingles.html", simbolo: "Aa", continua: true,
-    lab_nome: "Arcade de inglês", lab_desc: "Jogos de memória, corrida, forca, fala e ditado com as palavras das fases.", lab_hash: "arcade" }
+    lab_nome: "Arcade de inglês", lab_desc: "Jogos de memória, corrida, forca, fala e ditado com as palavras das fases.", lab_hash: "arcade" },
+  arte: { pag: "materias/arte/oficina-de-desenho.html", simbolo: "✎", continua: true, quiz: "quiz", cola: "cola",
+    lab_nome: "Ferramentas de desenho", lab_desc: "Luz na esfera, perspectiva, régua de cabeças, rosto anime, círculo cromático e flipbook.", lab_hash: "ferramentas",
+    sobre: "Curso livre para sair do zero e virar artista: lápis e papel primeiro, depois digital, animação e a vida de artista (personagens, mangá, estilo e portfólio)." }
 };
 /* laboratórios-jogo (páginas próprias em labs/) · total = nº de missões, para mostrar o progresso */
 window.FDB_LABS = [

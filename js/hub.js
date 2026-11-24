@@ -16,6 +16,7 @@ const ICONS = {
   quimica:'<path d="M9 3h6"/><path d="M10 3v6l-5.4 9.3A2 2 0 0 0 6.3 21h11.4a2 2 0 0 0 1.7-2.7L14 9V3"/><path d="M7.5 15h9"/>',
   programacao:'<path d="m8 8-4 4 4 4"/><path d="m16 8 4 4-4 4"/><path d="m13.5 5-3 14"/>',
   desenho:'<path d="M4 20V4l16 16z"/><path d="M8 16v-3.5l3.5 3.5z"/>',
+  pincel:'<path d="M18.5 3.5l2 2-9 9-2-2z"/><path d="M9.5 12.5c-2.8 0-4.5 1.8-4.5 4.5 0 1.3-.8 2.2-2 2.6 3.2 1 7 0 8-3.6"/>',
   engrenagem:'<circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M2 12h3M19 12h3M4.9 4.9l2.1 2.1M17 17l2.1 2.1M4.9 19.1 7 17M17 7l2.1-2.1"/><circle cx="12" cy="12" r="6.5"/>',
   materiais:'<path d="M12 3 20 7.5v9L12 21l-8-4.5v-9z"/><path d="M12 12l8-4.5M12 12v9M12 12 4 7.5"/>',
   estatistica:'<path d="M3 20h18"/><path d="M6 20v-8M11 20V5M16 20v-6M20.5 20V9"/>',

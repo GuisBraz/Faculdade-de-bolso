@@ -322,6 +322,20 @@ window.FACULDADE = {
           data: "2026-11-01",
           tags: ["inglês", "english", "vocabulário", "gramática", "B1"]
         }
+      ] },
+    { id: "arte", soLogin: true, sigla: "Desenho", nome: "Desenho artístico do zero", icone: "pincel", cor: "#C2417A", area: "h", arquivos: [
+        {
+          titulo: "Oficina de Desenho artístico · do zero ao artista",
+          tipo: "site",
+          caminho: "materias/arte/oficina-de-desenho.html",
+          ciclo: "Contínua",
+          atualizacoes: [
+            { data: "2026-11-24", texto: "Criada: 42 aulas em 4 trilhas (Papel, Digital, Animação e Artista), sessão de 30 min com cronômetro e versão de 10 min, diário de dias desenhados e 7 ferramentas (luz na esfera, perspectiva, régua de cabeças, rosto anime, cores, valores e flipbook)." }
+          ],
+          descricao: "Curso completo do primeiro risco no papel até personagens em estilo anime, cenários, pintura digital, animação e portfólio, em sessões de 30 minutos por dia.",
+          data: "2026-11-24",
+          tags: ["desenho", "anime", "mangá", "perspectiva", "animação", "arte digital"]
+        }
       ] }
   ]
 };
