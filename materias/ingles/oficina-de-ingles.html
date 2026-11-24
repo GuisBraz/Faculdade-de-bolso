@@ -771,8 +771,8 @@ addEventListener('hashchange',route); route();
 addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return; const a=document.activeElement; if(a&&/^(INPUT|TEXTAREA|SELECT)$/.test(a.tagName)){ a.blur(); return }
   const h=location.hash.slice(1); const u=U.find(x=>x.id===h); if(u){ location.hash=u.nivel; return } if(h&&h!=='inicio'){ location.hash='inicio'; return } location.href='../../index.html#m-ingl' });
 </script>
-<script src="../../dados/cartas.js"></script>
-<script src="../../js/anki.js" data-materia="ingl"></script>
+<script src="../../dados/cartas.js" defer></script>
+<script src="../../js/anki.js" data-materia="ingl" defer></script>
 <script src="../../js/aviso.js" defer></script>
 </body>
 </html>
