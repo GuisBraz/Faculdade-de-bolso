@@ -1,22 +1,35 @@
-# Despertador do Supabase: faz uma consulta leve no banco a cada 3 dias
-# para o projeto gratuito não ser pausado por inatividade.
-# Precisa de dois secrets no repositório (Settings → Secrets and variables → Actions):
-#   SUPABASE_URL       ex.: https://xxxx.supabase.co
-#   SUPABASE_ANON_KEY  a chave pública (anon)
+# Despertador do Supabase: visita o banco de tempos em tempos para o projeto gratuito
+# não ser pausado por inatividade (o Supabase pausa depois de ~1 semana parado).
+# Não precisa configurar nada: o endereço e a chave pública (anon) já estão em dados/config.js,
+# que é público de propósito (quem protege os dados são as regras RLS do banco).
+# Se a visita falhar (projeto pausado, fora do ar), o job fica vermelho e o GitHub avisa por e-mail.
 name: Despertador Supabase
 on:
   schedule:
-    - cron: "17 11 */3 * *"
-  workflow_dispatch:
+    - cron: "17 */6 * * *"   # a cada 6 horas (o GitHub pode atrasar alguns minutos)
+  workflow_dispatch:          # botão "Run workflow" para testar na hora
 jobs:
   ping:
     runs-on: ubuntu-latest
+    timeout-minutes: 5
     steps:
-      - name: Consulta a tabela ping
+      - uses: actions/checkout@v4
+        with:
+          sparse-checkout: dados/config.js
+          sparse-checkout-cone-mode: false
+      - name: Visita o banco
         env:
-          URL: ${{ secrets.SUPABASE_URL }}
-          KEY: ${{ secrets.SUPABASE_ANON_KEY }}
+          S_URL: ${{ secrets.SUPABASE_URL }}
+          S_KEY: ${{ secrets.SUPABASE_ANON_KEY }}
         run: |
-          if [ -z "$URL" ] || [ -z "$KEY" ]; then echo "Secrets ainda não configurados; nada a fazer."; exit 0; fi
-          curl -fsS "$URL/rest/v1/ping?select=id,em" -H "apikey: $KEY" -H "Authorization: Bearer $KEY"
-          echo; echo "Supabase acordado."
+          URL="${S_URL:-$(grep -oP 'url:\s*"\K[^"]+' dados/config.js)}"
+          KEY="${S_KEY:-$(grep -oP 'anonKey:\s*"\K[^"]+' dados/config.js)}"
+          if [ -z "$URL" ] || [ -z "$KEY" ]; then echo "::error::Não achei url/anonKey em dados/config.js"; exit 1; fi
+          for tentativa in 1 2 3; do
+            code=$(curl -s -o resposta.txt -w '%{http_code}' --max-time 30 "$URL/rest/v1/ping?select=id,em" -H "apikey: $KEY" -H "Authorization: Bearer $KEY")
+            echo "tentativa $tentativa → HTTP $code"; cat resposta.txt; echo
+            if [ "$code" = "200" ]; then echo "Supabase acordado."; exit 0; fi
+            sleep 20
+          done
+          echo "::error::O Supabase não respondeu (HTTP $code). O projeto pode estar pausado: abra o painel do Supabase e clique em retomar."
+          exit 1
