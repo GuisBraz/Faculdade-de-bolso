@@ -2,9 +2,13 @@
 const D = window.FACULDADE || {periodos:[]};
 /* modo: local (sem conta configurada), admin (Gui logado) ou visitante */
 const MODE=window.FDB_MODE||'local', VIS=MODE==='visitante';
-if(VIS){ const cur=D.periodos.find(p=>p.atual)||D.periodos[0];
-  D.periodos=cur?[{...cur,materias:(cur.materias||[]).filter(m=>(m.arquivos||[]).length).map(({status,professor,codigo,...m})=>m)}]:[]; D.aluno='';
-  document.body.classList.add('vis'); const tp=document.querySelector('.top p'); if(tp) tp.textContent='Estude as matérias do semestre de forma prática, organizada e no seu ritmo.' }
+/* visitante: só as matérias do curso que já têm oficina (todos os períodos).
+   Sem login (FDB_SEMLOGIN): também some o que é marcado "soLogin" (Inglês, Desenho artístico). */
+const SEMLOGIN=!!window.FDB_SEMLOGIN;
+if(VIS){ const limpa=({status,professor,codigo,...m})=>m;
+  D.periodos=(D.periodos||[]).map(p=>({...p,materias:(p.materias||[]).filter(m=>(m.arquivos||[]).length).map(limpa)})).filter(p=>p.materias.length); D.aluno='';
+  document.body.classList.add('vis'); const tp=document.querySelector('.top p'); if(tp) tp.textContent='Estude as matérias do curso de forma prática, organizada e no seu ritmo.' }
+if(SEMLOGIN) D.extras=(D.extras||[]).filter(m=>!m.soLogin);
 const ICONS = {
   vetor:'<path d="M4 20 18 6"/><path d="M12 6h6v6"/>',
   calculo:'<path d="M15 3c-2 0-2.6 2-3 5l-1.8 9c-.5 3-1.2 4-3.2 4"/>',
@@ -52,6 +56,7 @@ const TIPOS = {site:'Site',pdf:'PDF',resumo:'Resumo',lista:'Lista',prova:'Prova'
 const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const fdate = d => { if(!d) return ''; const [y,m,dd]=d.split('-'); return dd+'/'+m+'/'+y };
 const AR = D.areas||{};
+const AUL=window.FDB_AULAS||{}, LABF=window.FDB_LABS_FUTUROS||[], LABJ=window.FDB_LABS||[];
 const MATS = [...D.periodos.flatMap(p=>(p.materias||[]).map(m=>({...m,periodo:p.numero,cor:m.cor||(AR[m.area]||{}).cor||'#D9531A',arquivos:m.arquivos||[]}))),
   ...(D.extras||[]).map(m=>({...m,periodo:0,extra:true,cor:m.cor||(AR[m.area]||{}).cor||'#D9531A',arquivos:m.arquivos||[]}))];
 const onde=m=>m.extra?'projeto complementar':m.periodo+'º período';
@@ -153,7 +158,7 @@ function route(){
 }
 
 /* ===== revisão (cartas tipo Anki) ===== */
-function revMats(){ const cn=(D.periodos.find(p=>p.atual)||{}).numero; return MATS.filter(m=>m.periodo===cn||m.status==='cursando'||m.extra).map(m=>m.id) }
+function revMats(){ const cn=(D.periodos.find(p=>p.atual)||{}).numero; return MATS.filter(m=>m.periodo===cn||m.status==='cursando'||m.extra||AUL[m.id]).map(m=>m.id) }
 function renderRev(){ if(window.FDB_ANKI) FDB_ANKI.montarJogo(document.getElementById('revBox'),revMats()) }
 function revBadge(){ if(!window.FDB_ANKI)return; const n=FDB_ANKI.contarDue(revMats()), b=document.getElementById('revBadge'); b.hidden=!n; b.textContent=n }
 if(window.FDB_ANKI){ FDB_ANKI.onChange(revBadge); setInterval(revBadge,60000) }
@@ -268,10 +273,9 @@ renderHome(); renderAlerts(); renderToday(); revBadge(); setInterval(renderToday
 
 
 /* ===== v2: aulas, oficinas, exercícios, laboratórios, sobre, menu do usuário ===== */
-const AUL=window.FDB_AULAS||{}, LABF=window.FDB_LABS_FUTUROS||[], LABJ=window.FDB_LABS||[];
 function labProg(l){ let n=0; try{ n=Object.keys((JSON.parse(localStorage.getItem('lab-'+l.chave)||'{}').mis)||{}).length }catch(e){} return n }
 const PROVA=['','1ª prova','2ª prova','3ª prova'];
-const curMats=()=>{ const cn=(D.periodos.find(p=>p.atual)||{}).numero; return MATS.filter(m=>(m.periodo===cn||m.extra)&&AUL[m.id]) };
+const curMats=()=>{ const cn=(D.periodos.find(p=>p.atual)||{}).numero, ord=m=>m.extra?2:m.periodo===cn?0:1; return MATS.filter(m=>AUL[m.id]).sort((a,b)=>ord(a)-ord(b)) };
 const ofUrl=(m,h,ir)=>{ const a=AUL[m.id]; return a?a.pag+(ir?'?ir='+ir:'')+(h?'#'+h:''):'#m-'+m.id };
 function cardM(m,href,sub,extra){ return '<a class="qcard" style="--mc:'+esc(m.cor)+'" href="'+href+'"><span class="qi">'+icon(m.icone)+'</span><span class="qt"><b>'+esc(m.sigla)+'</b><small>'+sub+'</small>'+(extra||'')+'</span><span class="qa" aria-hidden="true">→</span></a>' }
 function provaDe(m,n){ return (typeof PR!=='undefined'?PR:[]).filter(x=>x.materia===m.id&&x.tipo!=='reserva').find(x=>new RegExp('^'+n+'\\D').test(x.titulo||'')) }

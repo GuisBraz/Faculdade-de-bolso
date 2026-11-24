@@ -151,6 +151,7 @@ window.FDB_AULAS = {
       ["automacao", "Automação", "Atalhos próprios, scripts e AutoLISP"],
       ["produtividade", "Fluxo profissional", "QSELECT, XREF, OVERKILL e template"]
     ] },
+    lab_nome: "Simulador de AutoCAD", lab_desc: "Linha de comando de verdade: LINE, OFFSET, TRIM, FILLET e mais, com OSNAP, ORTHO e desafios dos slides.",
     temas: { 1: "Iniciante: primeiro contato e coordenadas", 2: "Intermediário: modificar, layers, hachura, cotas e vistas", 3: "Avançado: blocos, escalas, paramétrico, caldeiraria e automação" },
     sobre: "Desenho Técnico I passa do esquadro para o CAD: a representação gráfica 2D de peças no AutoCAD, com coordenadas, comandos de desenho e modificação, layers, hachuras e cotas. É a base de todo desenho de fabricação que o engenheiro mecânico lê e produz." },
   cm2: { pag: "materias/materiais/oficina-de-materiais.html", simbolo: "◈", lista: null, lab: null, quiz: "quiz", cola: "cola", unico: true,

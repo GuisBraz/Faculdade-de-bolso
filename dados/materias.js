@@ -70,6 +70,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-23", texto: "Oxirredução: os exemplos reais da aula de eletroquímica de 23/11 (corrosão, combustão nos motores, sensores eletroquímicos e células a combustível) e os custos da corrosão para a indústria (World Corrosion Organization), a definição de oxidação e redução dos slides 6 e 7 e o parafuso enferrujando (4 Fe + 3 O₂ → 2 Fe₂O₃) resolvido no quadro." },
                 { data: "2026-11-23", texto: "Soluções: o método da aula de 23/11 para estequiometria de soluções (equação → balanceamento → molaridade → proporção → massa) e o exercício do slide 23 (HCl 0,108 mol/L neutralizando KOH) resolvido no quadro." },
                 { data: "2026-11-23", texto: "Módulo 2 (2ª prova): Estudo Dirigido 2 com as 17 questões resolvidas no quadro, com as estruturas de Lewis e as formas desenhadas." },
                 { data: "2026-11-23", texto: "Módulo 2: forças intermoleculares (íon-dipolo, ligação de H, dipolo-dipolo, London), gráfico dos hidretos e duelo de pontos de ebulição." },
@@ -305,7 +306,7 @@ window.FACULDADE = {
           tags: ["usinagem", "torno", "fresamento", "CNC", "código G", "tempo de máquina"]
         }
       ] },
-    { id: "ingl", sigla: "Inglês", nome: "Inglês do zero ao B1", icone: "texto", area: "h", arquivos: [
+    { id: "ingl", soLogin: true, sigla: "Inglês", nome: "Inglês do zero ao B1", icone: "texto", area: "h", arquivos: [
         {
           titulo: "Oficina de Inglês · do zero ao B1",
           tipo: "site",
