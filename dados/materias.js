@@ -70,6 +70,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-23", texto: "Soluções: o método da aula de 23/11 para estequiometria de soluções (equação → balanceamento → molaridade → proporção → massa) e o exercício do slide 23 (HCl 0,108 mol/L neutralizando KOH) resolvido no quadro." },
                 { data: "2026-11-23", texto: "Módulo 2 (2ª prova): Estudo Dirigido 2 com as 17 questões resolvidas no quadro, com as estruturas de Lewis e as formas desenhadas." },
                 { data: "2026-11-23", texto: "Módulo 2: forças intermoleculares (íon-dipolo, ligação de H, dipolo-dipolo, London), gráfico dos hidretos e duelo de pontos de ebulição." },
                 { data: "2026-11-23", texto: "Módulo 2: geometria molecular (RPENV) com moléculas em 3D para girar, arranjo × geometria e polaridade." },

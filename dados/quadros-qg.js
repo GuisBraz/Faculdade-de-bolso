@@ -443,6 +443,11 @@
   'qg-40': { t: 'Titulação: NaOH 0,125 mol/L × HCl', r: 'Receita: mol do que você conhece → proporção → V = n / C',
     b: ['#Mol de HCl | n = C · V', 'n = 0,100 × 0,0250 = «b|2,50 × 10⁻³ mol»', '#Proporção | HCl + NaOH → NaCl + H₂O', '1 : 1 → n(NaOH) = 2,50 × 10⁻³ mol',
       '#Volume | V = n / C', 'V = 2,50 × 10⁻³ ÷ 0,125 = 0,0200 L = «o|20,0 mL»', '=20,0 mL de NaOH'] },
+  'qg-40b': { t: 'Quantos gramas de KOH o HCl neutraliza?', r: 'Receita: 1 equação → 2 balanceada? → 3 molaridade n = 𝓜·V → 4 proporção → 5 m = n · MM',
+    b: ['#Equação | ácido + base → sal + água', 'HCl + KOH → KCl + H₂O', '#Balanceada? | conta os átomos', { c: [['*reagentes', 'H: 1 + 1 = 2', 'Cl 1 · K 1 · O 1'], ['*produtos', 'H: 2 (no H₂O)', 'Cl 1 · K 1 · O 1']] }, '«g|✓ já está» → «b|1 mol HCl — 1 mol KOH»',
+      '#Molaridade | 𝓜 = n / V → n = 𝓜 · V', 'V = 45,3 mL ÷ 1000 = «b|0,0453 L»', 'n = 0,108 × 0,0453 = «b|4,89 × 10⁻³ mol HCl»',
+      '#Proporção | 1 : 1', 'n(KOH) = «b|4,89 × 10⁻³ mol»', '#Massa | n = m / MM → m = n · MM', 'MM(KOH) = 39 + 16 + 1 = «b|56 g/mol»', 'm = 4,89 × 10⁻³ × 56 = «o|0,2738 g»', '~ mol × g/mol: o mol corta e sobra grama',
+      '=m ≈ 0,274 g de KOH'] },
   /* ---------- redox e pilhas ---------- */
   'qg-41': { t: 'Alto-forno: quem oxida e quem reduz?', r: 'Receita: Nox de cada elemento antes e depois → subiu = oxidou · desceu = reduziu',
     b: [{ c: [['*Fe', 'Fe₂O₃: 2Fe + 3(−2) = 0 → +3', 'Fe metálico: 0', '+3 → 0: «b|reduziu»'], ['*C', 'CO: +2', 'CO₂: +4', '+2 → +4: «o|oxidou»']] },
