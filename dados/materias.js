@@ -99,6 +99,7 @@ window.FACULDADE = {
               caminho: "materias/calc2/oficina-de-calculo-2.html",
               ciclo: "3ª Prova", ate: "2026-12-09",
               atualizacoes: [
+                { data: "2026-11-25", texto: "Aula 25/11 (integral iterada) na aula Integral dupla: a explicação da aula, os Exemplos 1a, 1b e 2 resolvidos como no quadro e os dois sólidos em 3D para girar." },
                 { data: "2026-11-23", texto: "Oficina organizada pelo cronograma em 3 módulos, um por prova. Novo Módulo 1 (1ª prova) com 9 aulas: primitivas, integral definida e somas de Riemann (com simulador), TFC, substituição, por partes, frações parciais, área entre curvas, volumes por discos (com simulador da fatia) e por cascas." },
                 { data: "2026-11-23", texto: "Novo Módulo 3 (3ª prova): integral dupla e Fubini (com modelo 3D), regiões do tipo I e II e inverter a ordem. 36 exemplos novos com Ver no quadro, 37 exercícios novos para treinar (a calculadora agora aceita e, ln, sen e cos) e 15 perguntas novas no quiz." },
                 { data: "2026-11-11", texto: "Nova aba Exercícios para treinar: 26 exercícios parecidos com a lista (outros números), com conferência de certo/errado e resolução só quando você pedir. Cada aula termina com o botão que leva para o grupo dela." },
@@ -170,6 +171,7 @@ window.FACULDADE = {
               caminho: "materias/gaal/oficina-de-gaal.html",
               ciclo: "3ª Prova", ate: "2026-12-04",
               atualizacoes: [
+                { data: "2026-11-25", texto: "Base e dimensão: novo exercício resolvido, mostrar que {(1, 1, 1), (−1, 1, 0), (1, 0, −1)} é base de ℝ³ (pelo sistema e conferido pelo determinante), com quadro." },
                 { data: "2026-11-23", texto: "Oficina organizada pelo cronograma em 3 módulos, um por prova. Novo Módulo 1 (1ª prova) com 7 aulas pelos slides da professora: matrizes, escalonamento, inversa e determinante, sistemas lineares (com discussão de parâmetros), vetores em ℝⁿ, produto escalar e ângulo, produto vetorial e misto." },
                 { data: "2026-11-23", texto: "Módulo 3 completo: novas aulas de parábola e elipse, hipérbole e coordenadas e mudança de base (exemplos da aula 11). 33 exemplos novos com Ver no quadro e 14 perguntas novas no quiz." },
                 { data: "2026-11-13", texto: "Varredura de todos os módulos: 14 exemplos novos resolvidos passo a passo, cada um com Ver no quadro (norma, paralelismo, escalar e ângulo, produto misto, reta por dois pontos, ponto na reta, pontos alinhados, plano por 3 pontos, vetorial → geral, reta × plano paralela, reta de interseção de dois planos, distâncias ponto–ponto, entre paralelas e reta–plano) e caixas Por quê? explicando de onde vem cada fórmula." },

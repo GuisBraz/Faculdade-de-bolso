@@ -1,6 +1,6 @@
 /* FACULDADE DE BOLSO · quadros escritos à mão de Cálculo II ("Ver no quadro")
    Mesmo formato de dados/quadros-gaal.js.
-   Chaves: x0…x48 = exemplos das aulas do Módulo 2 · i1…i36 = Módulos 1 e 3 (integrais) · Q + número = questões da lista (ex.: Q14).
+   Chaves: x0…x48 = exemplos das aulas do Módulo 2 · i1…i39 = Módulos 1 e 3 (integrais) · Q + número = questões da lista (ex.: Q14).
    Figuras desenhadas aqui mesmo em SVG: P2 (plano xy), S3 (superfície 3D), ARV (árvore da cadeia) e esboços. */
 (function () {
   const Q = window.FDB_QUADROS = window.FDB_QUADROS || {};
@@ -705,6 +705,18 @@
       '#De fora', '∫₀² (80/3 − 2x²) dx = 160/3 − 16/3 = «o|48»', '=V = 48'] };
   q.i32 = { t: '∬ x²y dA em [0, 3] × [1, 2]', r: 'Receita: f = g(x) · h(y) → separa em duas integrais simples e multiplica',
     b: [{ c: [['*∫₀³ x² dx', '= 27/3 = «b|9»'], ['*∫₁² y dy', '= (4 − 1)/2 = «b|3/2»']] }, '9 · 3/2 = «o|27/2»', '=∬ x²y dA = 27/2'] };
+  q.i37 = { t: 'Aula 25/11 · Ex. 1a · ∫₀³ ∫₁² x²y dy dx', r: 'Receita: resolva a integral de dentro primeiro (a outra letra é constante) → depois a de fora',
+    b: ['f(x, y) = x²y · y: 1 → 2 e x: 0 → 3',
+      '#De dentro (dy) | ∫ y dy = y²/2', '∫₁² x²y dy → x² · «b|y²/2» |₁² → x²·2²/2 − x²·1²/2', '→ 2x² − x²/2 → (4x² − x²)/2 = «b|3x²/2»', '~ x fica parado como constante',
+      '#De fora (dx) | ∫ x² dx = x³/3', '∫₀³ 3x²/2 dx → 3/2 · x³/3 |₀³', '→ 3/2 · (27/3 − 0) → 3/2 · 9 = «o|27/2»', '=27/2 u.v. = 13,5'] };
+  q.i38 = { t: 'Aula 25/11 · Ex. 1b · ∫₁² ∫₀³ x²y dx dy', r: 'Receita: agora dx está dentro → y é a constante → depois a de fora em y',
+    b: [{ c: [['*dentro (dx)', '∫₀³ x²y dx', '→ y · x³/3 |₀³', '→ «b|9y»'], ['*fora (dy)', '∫₁² 9y dy', '→ 9 · y²/2 |₁²', '→ 9(2 − 1/2) = «o|27/2»']] },
+      '~ mesmo retângulo R, só mudou a ordem → «g|✓ mesmo resultado» (Fubini)', '=a) = b) = 27/2 u.v.'] };
+  q.i39 = { t: 'Aula 25/11 · Ex. 2 · volume sob o paraboloide x² + 2y² + z = 16', r: 'Receita: isole z (é o teto) → ache a base R no plano xy → V = ∬ f dA, de dentro para fora',
+    b: ['#Teto e base | V = ∬ f(x, y) dA', 'x² + 2y² + z = 16 → «b|z = 16 − x² − 2y²»', 'planos x = 0, y = 0, x = 2, y = 2 → R = [0, 2] × [0, 2]',
+      { c: [['*altura nos cantos', 'f(0, 0) = 16 · f(2, 0) = 12', 'f(0, 2) = 8 · f(2, 2) = 4'], ['*conclusão', 'sempre > 0', '→ o teto fica acima de R «g|✓»']] },
+      '#De dentro (dx) | y é constante', '∫₀² (16 − x² − 2y²) dx → 16x − «b|x³/3» − 2y²x |₀²', '→ 16·2 − 2³/3 − 2y²·2 − 0 → «b|32 − 8/3 − 4y²»',
+      '#De fora (dy) | ∫ y² dy = y³/3', '∫₀² (32 − 8/3 − 4y²) dy → 32y − 8y/3 − 4y³/3 |₀²', '→ 64 − 16/3 − 32/3 → 64 − 48/3 → 64 − 16 = «o|48»', '~ bate com a resposta do slide «g|✓»', '=V = 48 u.v.'] };
   q.i33 = { t: 'Volume sob z = x² + y² sobre a região entre y = 2x e y = x²', r: 'Receita: desenhe → tipo I (y de baixo até y de cima) → de dentro → de fora',
     b: [P2({ x: [-0.5, 2.6], y: [-0.5, 4.6], w: 240, h: 260, tk: 1, fill: (x, y) => x >= 0 && x <= 2 && y >= x * x && y <= 2 * x, cv: [{ f: x => 2 * x, c: K.o, l: [0.75, 3.3, 'y = 2x'] }, { f: x => x * x, c: K.b, l: [1.7, 1.1, 'y = x²'] }] }),
       '#Região | tipo I', '0 ≤ x ≤ 2 · «b|x² ≤ y ≤ 2x»',
