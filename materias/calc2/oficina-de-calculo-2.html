@@ -1016,6 +1016,15 @@ a.btreino:hover{filter:brightness(1.08)}
 <div class="ex" data-ex data-q="i39"><div class="q">Exemplo 2 (aula 25/11): determine o volume do sólido S que é delimitado pelo paraboloide elíptico x² + 2y² + z = 16, pelos planos x = 2 e y = 2 e pelos três planos coordenados. Resp: 48.</div>
 <ol><li>Isole z (o teto): z = f(x, y) = 16 − x² − 2y². Base: R = [0, 2] × [0, 2].</li><li>V = ∬<sub>R</sub> f dA = ∫₀² [ ∫₀² (16 − x² − 2y²) dx ] dy (como no quadro: dx primeiro).</li><li>De dentro (y parado): 16x − x³/3 − 2y²x |₀² = 32 − 8/3 − 4y².</li><li>De fora: 32y − 8y/3 − 4y³/3 |₀² = 64 − 16/3 − 32/3 = 64 − 16 = 48.</li></ol>
 <div class="ans">V = 48 u.v.</div></div>
+<div class="ex" data-ex data-q="i40"><div class="q">Praticando · Exercício 1a (aula 25/11): calcule ∫₁⁴ ∫₀² (x + √y) dx dy. (Resposta: 46/3)</div>
+<ol><li>De dentro (y parado, √y é número): x²/2 + x√y |₀² = 2 + 2√y = 2 + 2y<sup>1/2</sup>.</li><li>De fora: ∫₁⁴ (2 + 2y<sup>1/2</sup>) dy = 2y + 2·y<sup>3/2</sup>/(3/2) = 2y + (4/3)y<sup>3/2</sup> |₁⁴.</li><li>4<sup>3/2</sup> = √4³ = 8: 8 + 32/3 − (2 + 4/3) = 6 + 28/3 = 46/3.</li></ol>
+<div class="ans">46/3</div></div>
+<div class="ex" data-ex data-q="i41"><div class="q">Praticando · Exercício 1b (aula 25/11): calcule ∫₀¹ ∫₁² (x eˣ / y) dy dx. (Resposta: ln 2)</div>
+<ol><li>De dentro (x parado, x eˣ é número): x eˣ · ln y |₁² = x eˣ (ln 2 − ln 1) = ln 2 · x eˣ.</li><li>De fora, por partes (u = x, dv = eˣ dx): ∫₀¹ x eˣ dx = (x eˣ − eˣ) |₀¹ = 0 − (−1) = 1.</li><li>Resultado: ln 2 · 1 = ln 2.</li></ol>
+<div class="ans">ln 2 ≈ 0,693</div></div>
+<div class="ex" data-ex data-q="i42"><div class="q">Praticando · Exercício 1c (aula 25/11): calcule ∫₁² ∫₀¹ 1/(x + y)² dx dy. (Resposta: ln(4/3))</div>
+<ol><li>De dentro: ∫ (x + y)⁻² dx = −1/(x + y). De 0 a 1: −1/(1 + y) + 1/y.</li><li>De fora: ∫₁² [1/y − 1/(1 + y)] dy = ln y − ln(1 + y) |₁².</li><li>(ln 2 − ln 3) − (0 − ln 2) = 2 ln 2 − ln 3 = ln 4 − ln 3 = ln(4/3).</li></ol>
+<div class="ans">ln(4/3) ≈ 0,288</div></div>
 
 <h3 data-n="4">Como resolver, do começo ao fim</h3>
 <p class="ln">Stewart, exemplo 15.1: ∬<sub>R</sub> (x − 3y²) dA com R = [0, 2] × [1, 2].</p>
@@ -1774,7 +1783,7 @@ document.addEventListener('click',ev=>{ const a=ev.target.closest('a.btreino'); 
 window.treinoGo=function(){ let g=null; try{ g=sessionStorage.getItem('calc2-tgo'); sessionStorage.removeItem('calc2-tgo') }catch(e){} if(g){ const el=document.getElementById('t-'+g); if(el) requestAnimationFrame(()=>el.scrollIntoView({block:'start'})) } }
 renderTreino();
 </script>
-<script src="../../dados/quadros-calc2.js?v=16" defer></script>
+<script src="../../dados/quadros-calc2.js?v=17" defer></script>
 <script src="../../js/quadro.js?v=8" data-materia="calc2" defer></script>
 </body>
 </html>

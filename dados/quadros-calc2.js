@@ -1,6 +1,6 @@
 /* FACULDADE DE BOLSO · quadros escritos à mão de Cálculo II ("Ver no quadro")
    Mesmo formato de dados/quadros-gaal.js.
-   Chaves: x0…x48 = exemplos das aulas do Módulo 2 · i1…i39 = Módulos 1 e 3 (integrais) · Q + número = questões da lista (ex.: Q14).
+   Chaves: x0…x48 = exemplos das aulas do Módulo 2 · i1…i42 = Módulos 1 e 3 (integrais) · Q + número = questões da lista (ex.: Q14).
    Figuras desenhadas aqui mesmo em SVG: P2 (plano xy), S3 (superfície 3D), ARV (árvore da cadeia) e esboços. */
 (function () {
   const Q = window.FDB_QUADROS = window.FDB_QUADROS || {};
@@ -717,6 +717,17 @@
       { c: [['*altura nos cantos', 'f(0, 0) = 16 · f(2, 0) = 12', 'f(0, 2) = 8 · f(2, 2) = 4'], ['*conclusão', 'sempre > 0', '→ o teto fica acima de R «g|✓»']] },
       '#De dentro (dx) | y é constante', '∫₀² (16 − x² − 2y²) dx → 16x − «b|x³/3» − 2y²x |₀²', '→ 16·2 − 2³/3 − 2y²·2 − 0 → «b|32 − 8/3 − 4y²»',
       '#De fora (dy) | ∫ y² dy = y³/3', '∫₀² (32 − 8/3 − 4y²) dy → 32y − 8y/3 − 4y³/3 |₀²', '→ 64 − 16/3 − 32/3 → 64 − 48/3 → 64 − 16 = «o|48»', '~ bate com a resposta do slide «g|✓»', '=V = 48 u.v.'] };
+  q.i40 = { t: 'Praticando · Ex. 1a · ∫₁⁴ ∫₀² (x + √y) dx dy', r: 'Receita: de dentro (dx, √y é constante) → de fora (dy) → substitui os limites',
+    b: ['#Dentro (dx) | √y é constante', 'x²/2 + x√y |₀² → 2²/2 + 2√y → «b|2 + 2y^½»',
+      '#Fora (dy) | ∫ y^½ dy = y^{3/2} ÷ 3/2', '2y + 2·y^{3/2}/(3/2) → 2y + (4/3)y^{3/2} |₁⁴', '~ dividir por 3/2 = multiplicar por 2/3',
+      '#Limites | 4^{3/2} = √4³ = 8', '2·4 + (4/3)·8 − (2·1 + (4/3)·1)', '→ 8 + 32/3 − 2 − 4/3 → 6 + 28/3 → (18 + 28)/3 = «o|46/3» «g|✓»', '=46/3'] };
+  q.i41 = { t: 'Praticando · Ex. 1b · ∫₀¹ ∫₁² x eˣ / y dy dx', r: 'Receita: de dentro (dy, x eˣ é constante) → de fora por partes',
+    b: ['#Dentro (dy) | ∫ 1/y dy = ln y', 'x eˣ · ln y |₁² → x eˣ(ln 2 − ln 1) = «b|ln 2 · x eˣ»', '~ ln 1 = 0',
+      '#Fora (dx) | partes: u = x, dv = eˣ dx', 'ln 2 · ∫₀¹ x eˣ dx → ln 2 · (x eˣ − eˣ) |₀¹', '→ ln 2 · [(e − e) − (0 − 1)] → ln 2 · 1 = «o|ln 2» «g|✓»', '=ln 2'] };
+  q.i42 = { t: 'Praticando · Ex. 1c · ∫₁² ∫₀¹ 1/(x + y)² dx dy', r: 'Receita: de dentro (dx, y é constante) → de fora com ln → propriedades do ln',
+    b: ['#Dentro (dx) | ∫ (x+y)⁻² dx = −(x+y)⁻¹', '−1/(x + y) |₀¹ → −1/(1 + y) + 1/y = «b|1/y − 1/(1 + y)»',
+      '#Fora (dy) | ∫ 1/y dy = ln y', 'ln y − ln(1 + y) |₁² → (ln 2 − ln 3) − (ln 1 − ln 2)', '→ 2 ln 2 − ln 3 → ln 4 − ln 3 = «o|ln(4/3)» «g|✓»',
+      '~ 2 ln 2 = ln 2² · ln a − ln b = ln(a/b)', '=ln(4/3)'] };
   q.i33 = { t: 'Volume sob z = x² + y² sobre a região entre y = 2x e y = x²', r: 'Receita: desenhe → tipo I (y de baixo até y de cima) → de dentro → de fora',
     b: [P2({ x: [-0.5, 2.6], y: [-0.5, 4.6], w: 240, h: 260, tk: 1, fill: (x, y) => x >= 0 && x <= 2 && y >= x * x && y <= 2 * x, cv: [{ f: x => 2 * x, c: K.o, l: [0.75, 3.3, 'y = 2x'] }, { f: x => x * x, c: K.b, l: [1.7, 1.1, 'y = x²'] }] }),
       '#Região | tipo I', '0 ≤ x ≤ 2 · «b|x² ≤ y ≤ 2x»',

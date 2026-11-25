@@ -99,7 +99,7 @@ window.FACULDADE = {
               caminho: "materias/calc2/oficina-de-calculo-2.html",
               ciclo: "3ª Prova", ate: "2026-12-09",
               atualizacoes: [
-                { data: "2026-11-25", texto: "Aula 25/11 (integral iterada) na aula Integral dupla: a explicação da aula, os Exemplos 1a, 1b e 2 resolvidos como no quadro e os dois sólidos em 3D para girar." },
+                { data: "2026-11-25", texto: "Aula 25/11 (integral iterada) na aula Integral dupla: a explicação da aula, os Exemplos 1a, 1b e 2 resolvidos como no quadro, os dois sólidos em 3D para girar e o Exercício 1 (a, b, c) do Praticando." },
                 { data: "2026-11-23", texto: "Oficina organizada pelo cronograma em 3 módulos, um por prova. Novo Módulo 1 (1ª prova) com 9 aulas: primitivas, integral definida e somas de Riemann (com simulador), TFC, substituição, por partes, frações parciais, área entre curvas, volumes por discos (com simulador da fatia) e por cascas." },
                 { data: "2026-11-23", texto: "Novo Módulo 3 (3ª prova): integral dupla e Fubini (com modelo 3D), regiões do tipo I e II e inverter a ordem. 36 exemplos novos com Ver no quadro, 37 exercícios novos para treinar (a calculadora agora aceita e, ln, sen e cos) e 15 perguntas novas no quiz." },
                 { data: "2026-11-11", texto: "Nova aba Exercícios para treinar: 26 exercícios parecidos com a lista (outros números), com conferência de certo/errado e resolução só quando você pedir. Cada aula termina com o botão que leva para o grupo dela." },
