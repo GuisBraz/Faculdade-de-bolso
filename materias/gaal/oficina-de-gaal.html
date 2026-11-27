@@ -1370,6 +1370,12 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
   <div class="ex" data-ex data-q="base-r3"><div class="q">Exercício 1: mostre que {(1, 1, 1), (−1, 1, 0), (1, 0, −1)} é uma base para o espaço vetorial ℝ³.</div>
     <ol><li>Atalho: dim ℝ³ = 3 e são 3 vetores. Então basta mostrar que são <b>LI</b>; gerar vem de graça.</li><li>a(1, 1, 1) + b(−1, 1, 0) + c(1, 0, −1) = (0, 0, 0). Coordenada a coordenada: a − b + c = 0, a + b = 0, a − c = 0.</li><li>Da 2ª: b = −a. Da 3ª: c = a. Na 1ª: a + a + a = 0 → 3a = 0 → a = 0, e então b = 0 e c = 0.</li><li>Só a solução trivial: são LI. Conferência: o det com os vetores nas linhas dá 1(−1) − 1(1) + 1(−1) = −3 ≠ 0.</li><li>3 vetores LI no ℝ³ (dimensão 3) geram o ℝ³: é base.</li></ol>
     <div class="ans">LI (a = b = c = 0, det = −3 ≠ 0) e 3 vetores em ℝ³ → é base de ℝ³</div></div>
+  <div class="ex" data-ex data-q="base-p20"><div class="q">Ex6 (aula 27/11): em P₂₀ (polinômios de grau ≤ 20), V ou F? a) todo conjunto com 20 vetores é LI; b) todo conjunto com 20 vetores está contido numa base; c) nenhum conjunto com 20 vetores gera P₂₀.</div>
+    <ol><li>dim P₂₀ = 20 + 1 = 21 (base {1, x, x², …, x²⁰}).</li><li>a) FALSO. Contraexemplo: {1, 2, x, x², …, x¹⁸} tem 20 vetores e é LD, porque 2 = 2·1.</li><li>b) FALSO. O conjunto da letra a é LD, e uma base é LI: nenhuma base contém um conjunto LD.</li><li>c) VERDADEIRA. Para gerar um espaço de dimensão 21 são precisos no mínimo 21 vetores.</li></ol>
+    <div class="ans">a) F · b) F · c) V</div></div>
+  <div class="ex" data-ex data-q="base-p2coord"><div class="q">Ex7 (aula 27/11): ache as coordenadas de p(x) = 3 + 2x + x² na base {1, 1 + x, 1 + x + x²} de P₂.</div>
+    <ol><li>As coordenadas são os números a, b, c tais que p(x) = a·p₁ + b·p₂ + c·p₃, com p₁ = 1, p₂ = 1 + x, p₃ = 1 + x + x².</li><li>3 + 2x + x² = a + b(1 + x) + c(1 + x + x²) = (a + b + c) + (b + c)x + cx².</li><li>Iguale os coeficientes: c = 1; b + c = 2 → b = 1; a + b + c = 3 → a = 1.</li><li>Na base canônica {1, x, x²}, p seria (3, 2, 1): os próprios coeficientes.</li></ol>
+    <div class="ans">[p(x)] na base {p₁, p₂, p₃} = (1, 1, 1)</div></div>
   <div class="fx"><span class="tag">Teorema e corolário</span>
     <div class="eq" style="white-space:normal">base com n vetores ⇒ qualquer conjunto com <b>mais de n</b> vetores é LD</div>
     <dl class="legend"><dt>sem contas</dt><dd>{(1, 2), (3, −1), (0, 5)} em ℝ² é LD: 3 vetores num espaço que tem base com 2</dd><dt>corolário</dt><dd>duas bases quaisquer de V têm o <b>mesmo número</b> de vetores. A canônica do ℝ³ tem 3, então toda base do ℝ³ tem 3.</dd></dl></div>
@@ -2101,7 +2107,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="gaal" defer></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js" defer></script>
-<script src="../../dados/quadros-gaal.js?v=14" defer></script>
+<script src="../../dados/quadros-gaal.js?v=15" defer></script>
 <script src="../../js/quadro.js?v=8" data-materia="gaal" defer></script>
 </body>
 </html>
