@@ -171,6 +171,7 @@ window.FACULDADE = {
               caminho: "materias/gaal/oficina-de-gaal.html",
               ciclo: "3ª Prova", ate: "2026-12-04",
               atualizacoes: [
+                { data: "2026-11-27", texto: "Nova aba Revisão da P3 (perto da Lista resolvida): as 5 ideias da matéria explicadas do zero e as atividades da folha de revisão passo a passo, com quadro. Já entraram a Atividade 1 e a 2a." },
                 { data: "2026-11-27", texto: "Aula 27/11 em Base e dimensão: Ex6 (V ou F sobre conjuntos de 20 vetores em P₂₀) e Ex7 (coordenadas de um polinômio numa base de P₂), com quadros." },
                 { data: "2026-11-25", texto: "Base e dimensão: novo exercício resolvido, mostrar que {(1, 1, 1), (−1, 1, 0), (1, 0, −1)} é base de ℝ³ (pelo sistema e conferido pelo determinante), com quadro." },
                 { data: "2026-11-23", texto: "Oficina organizada pelo cronograma em 3 módulos, um por prova. Novo Módulo 1 (1ª prova) com 7 aulas pelos slides da professora: matrizes, escalonamento, inversa e determinante, sistemas lineares (com discussão de parâmetros), vetores em ℝⁿ, produto escalar e ângulo, produto vetorial e misto." },

@@ -269,6 +269,15 @@ body{font-size:1rem}
 .qitem .enun .k{display:block;font-family:var(--f-mono);font-size:.68rem;letter-spacing:.12em;text-transform:uppercase;color:var(--c2);font-weight:700;margin-bottom:4px}
 .qitem h5.item{font-weight:600;line-height:1.45;max-width:90ch}
 
+/* revisão da prova 3 */
+.rv3-dica,.rv3-prova{border-left:4px solid var(--c2);background:var(--sheet);padding:10px 14px;border-radius:0 8px 8px 0;margin:14px 0;line-height:1.6}
+.rv3-prova{border-left-color:var(--ok)}
+.rv3-ideia{display:grid;grid-template-columns:auto 1fr;gap:12px;margin:14px 0}
+.rv3-ideia>.n{width:30px;height:30px;border-radius:50%;border:2px solid var(--c1);color:var(--c1);display:grid;place-items:center;font-weight:700}
+.rv3-ideia p{margin:4px 0 0;line-height:1.65}
+.rv3-ativ{border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;margin:26px 0}
+.rv3-tag{display:inline-block;font-family:var(--f-mono);font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:600;color:var(--sheet);background:var(--c1);padding:3px 8px;border-radius:4px;margin-bottom:6px}
+.rv3-prox{border-style:dashed;color:var(--ink2)}
 /* subespaços */
 .mxl{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;vertical-align:middle;max-width:100%}
 .mx{display:inline-grid;gap:2px 12px;padding:3px 9px;border-left:2px solid var(--ink);border-right:2px solid var(--ink);border-radius:7px;font-family:var(--f-math);font-size:1.02rem;text-align:center;vertical-align:middle;margin:3px 0}
@@ -336,6 +345,7 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
       <a href="#mudanca" data-m="mudanca">3.5 · Mudança de base</a>
       <a href="#lab">Lab 3D</a>
       <a href="#lista">Lista resolvida</a>
+      <a href="#revp3">Revisão da P3</a>
       <a href="#quiz">Quiz</a>
       <a href="#cola">Cola</a>
     </nav>
@@ -1513,6 +1523,64 @@ h4.sub{font-size:1.05rem;margin:22px 0 6px}
 </section>
 
 <!-- ============ QUIZ ============ -->
+<!-- ============ REVISÃO DA PROVA 3 ============ -->
+<section class="view read" id="v-revp3" hidden>
+  <div class="eyebrow">Revisão da prova 3 · atividade por atividade</div>
+  <h2>Revisão da prova 3</h2>
+  <p class="lede">As atividades da folha de revisão, explicadas do zero, <b>sem pular nenhum passo</b>. Dá para entender mesmo sem saber nada da matéria. Em cada atividade, leia a explicação na ordem e depois abra o <b>"Ver no quadro"</b> para ver tudo montado.</p>
+  <div class="rv3-dica"><b>Como estudar por aqui:</b> leia o enunciado e tente pelo menos o primeiro passo sozinho. Só depois leia a explicação. Se travar, leia apenas o próximo passo e tente de novo.</div>
+
+  <h3>Antes de tudo: as 5 ideias que fazem a matéria fazer sentido</h3>
+  <div class="rv3-ideia"><span class="n">1</span><div><b>A "sala" (o espaço ℝⁿ)</b><p>ℝ³ é o conjunto de todos os pontos com 3 números (x, y, z): o espaço 3D, igual ao ambiente de modelagem do Inventor. Com 2 letras a sala é o ℝ² (o papel). Com 5 letras (x, y, z, w, t) a sala é o ℝ⁵. Não dá para desenhar, mas funciona igual. <b>O número de letras diz em qual sala você está.</b></p></div></div>
+  <div class="rv3-ideia"><span class="n">2</span><div><b>A "regra" (uma equação = 0)</b><p>Uma equação como x + y − z = 0 é uma regra: só valem os pontos que a obedecem. No ℝ³, esses pontos formam uma <b>folha</b> (um plano) que passa pela origem. É como escolher o plano XY no Inventor para fazer um sketch: o plano XY é a folha da regra z = 0. Duas regras ao mesmo tempo = duas folhas se cruzando = uma <b>reta</b> (como o eixo de trabalho que o Inventor cria na interseção de dois planos).</p></div></div>
+  <div class="rv3-ideia"><span class="n">3</span><div><b>Direções de andar (dimensão)</b><p>Na sala ℝ³ você anda em 3 direções. Cada regra <b>tira 1 direção</b>: com 1 regra você fica preso na folha (sobram 2 direções); com 2 regras, na reta (sobra 1). Atenção: a folha ter 2 direções quer dizer que <b>sobraram</b> 2, não que você perdeu 2. A conta geral é <b>direções que sobram = letras − regras</b>. Esse número é a <b>dimensão</b>.</p></div></div>
+  <div class="rv3-ideia"><span class="n">4</span><div><b>LI e LD</b><p>Um grupo de vetores é <b>LI</b> (linearmente independente) quando nenhum é "mistura" dos outros: cada um traz uma direção nova. É <b>LD</b> quando pelo menos um é mistura dos outros, um repetido disfarçado. Ex.: (1, 2, 3) e (2, 4, 6) são LD (o segundo é o dobro do primeiro). O teste: monte a·v₁ + b·v₂ + c·v₃ = 0 e resolva. Se as contas <b>obrigam</b> a = b = c = 0 (única saída), é LI. Se sobra outra saída, é LD. Cuidado: <b>chutar</b> a = b = c = 0 não prova nada, porque isso sempre funciona; o que prova é ser a <b>única</b> solução.</p></div></div>
+  <div class="rv3-ideia"><span class="n">5</span><div><b>Base</b><p>Base é o menor conjunto de setas que monta tudo: <b>gera</b> (alcança qualquer ponto misturando as setas) e é <b>LI</b> (nenhuma seta sobrando). A quantidade de setas da base é a dimensão. Atalho: num espaço de dimensão n, <b>n vetores LI já formam uma base</b> (gerar vem de graça). Só ser LI não basta: (1, 0, 0) e (0, 1, 0) são LI, mas não alcançam um ponto com altura, como (0, 0, 5). Faltou um vetor.</p></div></div>
+
+  <!-- ===== ATIVIDADE 1 ===== -->
+  <div class="rv3-ativ" id="p3-1">
+  <div class="rv3-tag">Atividade 1</div>
+  <div class="ex" data-ex data-q="p3-q1"><div class="q">1) Mostre que {(1, 1, 1), (−1, 1, 0), (1, 0, −1)} é uma base para o espaço vetorial ℝ³.</div>
+  <ol>
+  <li><b>O que a questão pede.</b> Provar que esses 3 vetores são uma base do ℝ³. Base = LI + gera. Como o ℝ³ tem dimensão 3 (3 direções: x, y, z) e são exatamente 3 vetores, basta provar que são <b>LI</b>. Gerar vem de graça pelo atalho da ideia 5.</li>
+  <li><b>Montar o teste de LI.</b> Escreva a mistura dos 3 vetores igualada ao vetor zero, com pesos desconhecidos a, b e c: a(1, 1, 1) + b(−1, 1, 0) + c(1, 0, −1) = (0, 0, 0). A pergunta é: existe algum jeito de misturar e dar zero sem ser tudo zero?</li>
+  <li><b>Multiplicar cada vetor pelo seu peso.</b> a(1, 1, 1) = (a, a, a). b(−1, 1, 0) = (−b, b, 0). c(1, 0, −1) = (c, 0, −c).</li>
+  <li><b>Somar posição por posição</b> (1ª com 1ª, 2ª com 2ª, 3ª com 3ª) e igualar a zero. Cada posição vira uma equação: 1ª posição: a − b + c = 0. 2ª posição: a + b + 0 = 0, ou seja, a + b = 0. 3ª posição: a + 0 − c = 0, ou seja, a − c = 0.</li>
+  <li><b>Resolver o sistema começando pelas equações mais fáceis.</b> Da 2ª: a + b = 0, então <b>b = −a</b>. Da 3ª: a − c = 0, então <b>c = a</b>.</li>
+  <li><b>Substituir na 1ª equação.</b> Troque b por −a e c por a: a − (−a) + a = 0. Menos com menos dá mais: a + a + a = 0, então 3a = 0, então <b>a = 0</b>.</li>
+  <li><b>Achar b e c.</b> Como b = −a, b = 0. Como c = a, c = 0. As contas <b>obrigaram</b> a = b = c = 0: é a <b>única</b> solução. Logo os vetores são <b>LI</b>.</li>
+  <li><b>Conferência opcional pelo determinante.</b> Coloque os 3 vetores como linhas de uma matriz 3 × 3 e calcule o determinante: 1·(1·(−1) − 0·0) − 1·((−1)·(−1) − 0·1) + 1·((−1)·0 − 1·1) = −1 − 1 − 1 = −3. Como deu diferente de zero, confirma: LI.</li>
+  <li><b>Concluir.</b> São 3 vetores LI e o ℝ³ tem dimensão 3, então eles geram o ℝ³. LI + gera = base.</li>
+  </ol>
+  <div class="ans">LI (única solução a = b = c = 0; det = −3 ≠ 0) e 3 vetores no ℝ³ → é base de ℝ³</div></div>
+  <div class="rv3-prova"><b>Como escrever na prova:</b> "a(1,1,1) + b(−1,1,0) + c(1,0,−1) = (0,0,0) ⇒ sistema ⇒ a = b = c = 0 é a única solução ⇒ LI. Como são 3 vetores LI e dim ℝ³ = 3, eles geram ℝ³. Logo formam uma base de ℝ³."</div>
+  </div>
+
+  <!-- ===== ATIVIDADE 2a ===== -->
+  <div class="rv3-ativ" id="p3-2a">
+  <div class="rv3-tag">Atividade 2 · item a</div>
+  <div class="ex" data-ex data-q="p3-q2a"><div class="q">2) Ache a dimensão e uma base para os espaços soluções dos sistemas lineares homogêneos. a) { x + y + z + w − t = 0 ; x − y − z + 2w − t = 0 }</div>
+  <ol>
+  <li><b>Entender o que é pedido.</b> "Sistema homogêneo" = todas as equações são "= 0". "Espaço solução" = o conjunto de <b>todos</b> os vetores (x, y, z, w, t) que obedecem às duas regras ao mesmo tempo. Você <b>não</b> tem a resposta: você tem as regras e vai descobrir quem obedece. A questão quer as poucas setas (base) que montam todas as soluções, e quantas são (dimensão).</li>
+  <li><b>Achar a sala.</b> As letras são x, y, z, w e t: 5 letras, então a sala é o <b>ℝ⁵</b>, com 5 direções de andar.</li>
+  <li><b>Contar livres e presas.</b> Cada equação é uma informação que "prende" uma letra (dá para isolar essa letra usando as outras). 2 equações → <b>2 letras presas</b>. As outras ficam <b>livres</b> (você escolhe o valor à vontade): 5 − 2 = <b>3 livres</b>. Já dá para prever: dimensão 3 e base com 3 setas.</li>
+  <li><b>Prender a 1ª letra, usando a 1ª equação.</b> x + y + z + w − t = 0. O t é fácil de isolar: passe o −t para o outro lado (ele vira +t): <b>t = x + y + z + w</b>.</li>
+  <li><b>Usar a 2ª equação, trocando o t pelo que você achou.</b> x − y − z + 2w − t = 0 vira x − y − z + 2w − (x + y + z + w) = 0. Cuidado com o sinal: o menos na frente do parêntese troca o sinal de <b>tudo</b> lá dentro: x − y − z + 2w − x − y − z − w = 0.</li>
+  <li><b>Juntar os termos parecidos</b> (x com x, y com y…): x − x = 0 (o x some!); −y − y = −2y; −z − z = −2z; 2w − w = w. Fica −2y − 2z + w = 0. Isole o w passando −2y e −2z para o outro lado: <b>w = 2y + 2z</b>. Essa é a 2ª letra presa.</li>
+  <li><b>Deixar as presas só com livres.</b> As livres são as que sobraram: <b>x, y e z</b>. O w já está só com livres. O t ainda tem w dentro (t = x + y + z + w), então troque o w por 2y + 2z: t = x + y + z + 2y + 2z = <b>x + 3y + 3z</b>.</li>
+  <li><b>Preencher o molde do vetor.</b> Um vetor do ℝ⁵ tem 5 posições: (x, y, z, w, t). Nas posições das livres, deixe a própria letra; nas das presas, escreva o que elas valem: <b>(x, y, z, 2y + 2z, x + 3y + 3z)</b>. Esse vetor representa <b>todas</b> as soluções: escolha qualquer x, y, z e sai uma solução.</li>
+  <li><b>Separar por livre.</b> Quebre o vetor em 3 pedaços. Em cada posição, pergunte "quanto de x tem aqui? quanto de y? quanto de z?". 1ª posição (x): 1 x, 0 y, 0 z. 2ª (y): 0, 1, 0. 3ª (z): 0, 0, 1. 4ª (2y + 2z): 0 x, 2 y, 2 z. 5ª (x + 3y + 3z): 1 x, 3 y, 3 z. Juntando os números de cada letra em ordem: x·(1, 0, 0, 0, 1) + y·(0, 1, 0, 2, 3) + z·(0, 0, 1, 2, 3). Truque: a seta do x sai fazendo x = 1 e y = z = 0 no vetor; a do y, y = 1 e o resto 0; a do z, z = 1 e o resto 0.</li>
+  <li><b>Conferir</b> (sempre vale a pena): cada seta tem que obedecer às duas regras. (1, 0, 0, 0, 1): 1 + 0 + 0 + 0 − 1 = 0 ✓ e 1 − 0 − 0 + 0 − 1 = 0 ✓. (0, 1, 0, 2, 3): 0 + 1 + 0 + 2 − 3 = 0 ✓ e 0 − 1 − 0 + 4 − 3 = 0 ✓. (0, 0, 1, 2, 3): 0 + 0 + 1 + 2 − 3 = 0 ✓ e 0 − 0 − 1 + 4 − 3 = 0 ✓.</li>
+  <li><b>Por que essas setas já são LI.</b> Olhe só as 3 primeiras posições: (1, 0, 0), (0, 1, 0) e (0, 0, 1). Cada seta tem o seu "1" numa posição onde as outras têm 0, então nenhuma consegue ser fabricada com as outras. Separar pelas livres <b>sempre</b> dá setas LI, por isso elas formam uma base.</li>
+  <li><b>Concluir.</b> Base com 3 setas → dimensão 3. Bate com a previsão do passo 3 (5 letras − 2 regras = 3).</li>
+  </ol>
+  <div class="ans">Base {(1, 0, 0, 0, 1), (0, 1, 0, 2, 3), (0, 0, 1, 2, 3)} · dimensão 3</div></div>
+  <div class="rv3-prova"><b>O caminho para qualquer sistema homogêneo:</b> ① contar (letras − equações = livres) → ② isolar uma presa na 1ª equação → ③ substituir na 2ª e isolar a outra presa → ④ deixar as presas só com livres → ⑤ preencher o molde → ⑥ separar por livre: cada pedaço é uma seta da base → ⑦ conferir nas equações.</div>
+  </div>
+
+  <div class="rv3-ativ rv3-prox"><div class="rv3-tag">Atividade 2 · item b</div><p>Entra aqui depois que você resolver sozinho, usando o mesmo caminho do item a.</p></div>
+</section>
+
 <section class="view read" id="v-quiz" hidden>
   <div class="eyebrow">Quiz relâmpago</div>
   <h2>Você está pronto?</h2>
@@ -1932,14 +2000,14 @@ function load(){ try{ done=JSON.parse(localStorage.getItem('gaal-done')||'{}'); 
 function save(){ try{ localStorage.setItem('gaal-done',JSON.stringify(done)); localStorage.setItem('gaal-quiz',JSON.stringify(qa)) }catch(e){} }
 function renderProg(){ const n=MODS.filter(m=>done[m[0]]).length; document.getElementById('progtxt').textContent=n+'/'+MODS.length+' módulos'; document.getElementById('progbar').style.width=(n/MODS.length*100)+'%';
   document.getElementById('trail').innerHTML=MODS.map((m,i)=>'<a class="stop'+(done[m[0]]?' done':'')+'" href="#'+m[0]+'"><span class="n">'+(done[m[0]]?'✓':i+1)+'</span><b>'+m[1]+'</b><span>'+m[2]+'</span></a>').join('')+
-   '<a class="stop" href="#lista"><span class="n">L</span><b>Lista resolvida</b><span>15 questões, um passo de cada vez</span></a><a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
+   '<a class="stop" href="#lista"><span class="n">L</span><b>Lista resolvida</b><span>15 questões, um passo de cada vez</span></a><a class="stop" href="#revp3"><span class="n">P3</span><b>Revisão da prova 3</b><span>a folha de revisão, atividade por atividade</span></a><a class="stop" href="#quiz"><span class="n">?</span><b>Quiz</b><span>'+QUIZ.length+' perguntas com explicação</span></a>';
   document.querySelectorAll('#nav a[data-m]').forEach(a=>{ a.querySelector('.dn')?.remove(); if(done[a.dataset.m])a.insertAdjacentHTML('beforeend','<i class="dn"></i>') });
   document.querySelectorAll('[data-done]').forEach(d=>{ const k=d.dataset.done, i=MODS.findIndex(m=>m[0]===k), nx=MODS[i+1];
     d.innerHTML='<button class="'+(done[k]?'isdone':'')+'">'+(done[k]?'✓ Estudado':'Marcar como estudado')+'</button>'+(nx?'<a href="#'+nx[0]+'">Próximo: '+nx[1]+' →</a>':'<a href="#lista">Agora encare a lista →</a>');
     d.querySelector('button').onclick=()=>{ done[k]=!done[k]; save(); renderProg() } }) }
 
 /* ========= rotas ========= */
-const VIEWS=['inicio','matrizes','escada','inversa','sistemas','vetores','pescalar','pvetorial','kit','retas','planos','posicoes','angulos','distancias','conicas','hiperbole','subespacos','base','mudanca','lab','lista','quiz','cola'];
+const VIEWS=['inicio','matrizes','escada','inversa','sistemas','vetores','pescalar','pvetorial','kit','retas','planos','posicoes','angulos','distancias','conicas','hiperbole','subespacos','base','mudanca','lab','lista','revp3','quiz','cola'];
 function route(){ let h=location.hash.slice(1); if(!VIEWS.includes(h))h='inicio';
   VIEWS.forEach(v=>document.getElementById('v-'+v).hidden=v!==h);
   document.querySelectorAll('#nav a').forEach(a=>{ const on=a.getAttribute('href')==='#'+h; a.classList.toggle('on',on); if(on)a.scrollIntoView({block:'nearest',inline:'center'}) });
@@ -2107,7 +2175,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 <script src="../../js/anki.js" data-materia="gaal" defer></script>
 <script src="../../js/aviso.js" defer></script>
 <script src="../../dados/cola-explica.js" defer></script>
-<script src="../../dados/quadros-gaal.js?v=15" defer></script>
+<script src="../../dados/quadros-gaal.js?v=16" defer></script>
 <script src="../../js/quadro.js?v=8" data-materia="gaal" defer></script>
 </body>
 </html>
