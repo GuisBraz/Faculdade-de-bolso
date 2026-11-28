@@ -124,31 +124,35 @@ const MET=[['Ag',1,.799,'#C9CED6'],['Cu',2,.337,'#C87533'],['Ni',2,-.28,'#9AA08F
 const ion=m=>m[0]+(m[1]>1?['','','²','³'][m[1]]:'')+'⁺';
 const volt=v=>(v>0?'+':v<0?'−':'')+Math.abs(v).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:3});
 const gcd2=(a,b)=>b?gcd2(b,a%b):a;
-function pilhaW(){ const cv=g('m3Pi'); if(!cv) return; const fit=tela(cv); let a=3, b=0, t=0;
+function pilhaW(){ const cv=g('m3Pi'); if(!cv) return; const fit=tela(cv); let a=3, b=0, t=0, sep=0;
   const chips=(id,get,set)=>{ const P=g(id); P.innerHTML=MET.map((m,i)=>'<button data-i="'+i+'">'+m[0]+'</button>').join(''); P.querySelectorAll('button').forEach(o=>o.onclick=()=>{ set(+o.dataset.i); sync(); info(); draw(); anda() }) };
   const sync=()=>{ g('m3PiA').querySelectorAll('button').forEach((o,i)=>o.classList.toggle('sel',i===a)); g('m3PiB').querySelectorAll('button').forEach((o,i)=>o.classList.toggle('sel',i===b)) };
   const info=()=>{ if(a===b){ g('m3PiO').innerHTML='Dois eletrodos iguais: não há diferença de potencial. Escolha metais diferentes.'; return } const A=MET[a], B=MET[b], cat=A[2]>B[2]?A:B, an=cat===A?B:A, fem=cat[2]-an[2], L=cat[1]*an[1]/gcd2(cat[1],an[1]), ka=L/an[1], kc=L/cat[1], k=v=>v>1?v+' ':'';
-    g('m3PiO').innerHTML='<b style="color:#C73A2C">Ânodo (−), oxidação:</b> '+an[0]+'(s) → '+ion(an)+'(aq) + '+k(an[1])+'e⁻ &nbsp; E°<sub>red</sub> = '+volt(an[2])+' V<br><b style="color:#1E62C9">Cátodo (+), redução:</b> '+ion(cat)+'(aq) + '+k(cat[1])+'e⁻ → '+cat[0]+'(s) &nbsp; E°<sub>red</sub> = '+volt(cat[2])+' V<br>E°<sub>cel</sub> = '+volt(cat[2])+' − ('+volt(an[2])+') = <b>'+volt(fem).replace('+','')+' V</b><br>Global ('+L+' e⁻ trocados): <b>'+k(ka)+an[0]+'(s) + '+k(kc)+ion(cat)+'(aq) → '+k(ka)+ion(an)+'(aq) + '+k(kc)+cat[0]+'(s)</b><br><small>Elétrons no fio: do '+an[0]+' para o '+cat[0]+' · na ponte salina: ânions → lado do '+an[0]+', cátions → lado do '+cat[0]+'.</small>' };
+    g('m3PiO').innerHTML='<b style="color:#C73A2C">Ânodo (−), oxidação:</b> '+an[0]+'(s) → '+ion(an)+'(aq) + '+k(an[1])+'e⁻ &nbsp; E°<sub>red</sub> = '+volt(an[2])+' V<br><b style="color:#1E62C9">Cátodo (+), redução:</b> '+ion(cat)+'(aq) + '+k(cat[1])+'e⁻ → '+cat[0]+'(s) &nbsp; E°<sub>red</sub> = '+volt(cat[2])+' V<br>E°<sub>cel</sub> = '+volt(cat[2])+' − ('+volt(an[2])+') = <b>'+volt(fem).replace('+','')+' V</b><br>Global ('+L+' e⁻ trocados): <b>'+k(ka)+an[0]+'(s) + '+k(kc)+ion(cat)+'(aq) → '+k(ka)+ion(an)+'(aq) + '+k(kc)+cat[0]+'(s)</b><br><small>Elétrons no fio: do '+an[0]+' para o '+cat[0]+' · '+(sep?'pela barreira porosa':'na ponte salina')+': ânions → lado do '+an[0]+', cátions → lado do '+cat[0]+'.</small>' };
   const draw=()=>{ const T=fit(); if(!T) return; const {x,W,H}=T; x.clearRect(0,0,W,H); const A=MET[a], B=MET[b], igual=a===b, catL=A[2]>B[2], bw=Math.min(230,W*.3), bh=H*.42, base=H-34, xl=W*.27, xr=W*.73, top=base-bh, wy=Math.max(26,H*.12);
-    const lado=(cx,m,isCat)=>{ x.fillStyle='rgba(30,98,201,.16)'; x.fillRect(cx-bw/2+2,top+bh*.25,bw-4,bh*.75-2); x.strokeStyle=css('--ink')||'#223'; x.lineWidth=2.5; x.beginPath(); x.moveTo(cx-bw/2,top); x.lineTo(cx-bw/2,base); x.lineTo(cx+bw/2,base); x.lineTo(cx+bw/2,top); x.stroke();
+    const lado=(cx,m,isCat)=>{ if(!sep){ x.fillStyle='rgba(30,98,201,.16)'; x.fillRect(cx-bw/2+2,top+bh*.25,bw-4,bh*.75-2); x.strokeStyle=css('--ink')||'#223'; x.lineWidth=2.5; x.beginPath(); x.moveTo(cx-bw/2,top); x.lineTo(cx-bw/2,base); x.lineTo(cx+bw/2,base); x.lineTo(cx+bw/2,top); x.stroke() }
       const ew=igual?26:isCat?32:20, ex=cx-(cx<W/2?bw*.2:-bw*.2); x.fillStyle=m[3]; x.fillRect(ex-ew/2,wy,ew,base-wy-16); x.strokeStyle='rgba(0,0,0,.35)'; x.lineWidth=1; x.strokeRect(ex-ew/2,wy,ew,base-wy-16);
       x.fillStyle='#0E1F38'; x.font='800 13px Inter,sans-serif'; x.textAlign='center'; x.fillText(m[0],ex,top+bh*.1);
       x.fillStyle=css('--ink2')||'#556'; x.font='600 11px Inter,sans-serif'; x.fillText('solução com '+ion(m),cx,base+14);
       if(!igual){ x.fillStyle=isCat?'#1E62C9':'#C73A2C'; x.font='800 12px Inter,sans-serif'; x.fillText(isCat?'CÁTODO (+)':'ÂNODO (−)',cx,base+29);
         for(let k=0;k<4;k++){ const ph=((t*.5+k/4)%1), dir=cx<W/2?1:-1, yy=top+bh*(.4+.13*k); const px=isCat?ex+dir*(ew/2+46*(1-ph)):ex+dir*(ew/2+46*ph); x.globalAlpha=isCat?ph:1-ph; x.fillStyle=m[3]; x.strokeStyle='#0E1F38'; x.beginPath(); x.arc(px,yy,5,0,7); x.fill(); x.stroke(); x.fillStyle='#0E1F38'; x.font='700 8px Inter'; x.fillText('+',px,yy+3); x.globalAlpha=1 } }
       return ex };
+    if(sep){ const L0=xl-bw/2, R0=xr+bw/2; x.fillStyle='rgba(30,98,201,.16)'; x.fillRect(L0+2,top+bh*.25,R0-L0-4,bh*.75-2); x.strokeStyle=css('--ink')||'#223'; x.lineWidth=2.5; x.beginPath(); x.moveTo(L0,top); x.lineTo(L0,base); x.lineTo(R0,base); x.lineTo(R0,top); x.stroke() }
     const el=lado(xl,A,catL), er=lado(xr,B,!catL);
-    /* ponte salina */
+    if(sep){ /* barreira porosa */ const bx=W/2, bwd=14, by=top+bh*.08; x.fillStyle='rgba(150,140,120,.55)'; x.fillRect(bx-bwd/2,by,bwd,base-by); x.fillStyle='rgba(255,255,255,.75)'; for(let yy=by+6;yy<base-4;yy+=9) for(let xx=-1;xx<=1;xx+=2){ x.beginPath(); x.arc(bx+xx*3,yy+(xx>0?4:0),1.6,0,7); x.fill() }
+      x.strokeStyle='rgba(90,80,60,.8)'; x.lineWidth=1.2; x.strokeRect(bx-bwd/2,by,bwd,base-by); x.fillStyle='#5A503C'; x.font='700 10px Inter,sans-serif'; x.textAlign='center'; x.fillText('barreira porosa',bx,by-8);
+      if(!igual){ for(let k=0;k<3;k++){ const ph=(t*.35+k/3)%1, d=56, ya=top+bh*(.45+.15*k), yc=ya+bh*.07, xa=catL?bx+d-2*d*ph:bx-d+2*d*ph, xc=catL?bx-d+2*d*ph:bx+d-2*d*ph; x.font='800 12px Inter'; x.fillStyle='#C73A2C'; x.fillText('−',xa,ya); x.fillStyle='#1E62C9'; x.fillText('+',xc,yc) } } }
+    else { /* ponte salina */
     const py=top+bh*.5, pa=xl+bw*.22, pb=xr-bw*.22; x.strokeStyle='rgba(227,162,26,.85)'; x.lineWidth=14; x.lineCap='round'; x.beginPath(); x.moveTo(pa,py); x.lineTo(pa,top-14); x.lineTo(pb,top-14); x.lineTo(pb,py); x.stroke(); x.lineCap='butt';
     x.fillStyle='#7A5A10'; x.font='700 10px Inter,sans-serif'; x.textAlign='center'; x.fillText('ponte salina',(pa+pb)/2,top-24);
-    if(!igual){ for(let k=0;k<3;k++){ const ph=(t*.35+k/3)%1, xa=catL?pa+(pb-pa)*ph:pb-(pb-pa)*ph, xc=catL?pb-(pb-pa)*ph:pa+(pb-pa)*ph; x.fillStyle='#C73A2C'; x.font='800 11px Inter'; x.fillText('−',xa,top-17); x.fillStyle='#1E62C9'; x.fillText('+',xc,top-7) } }
+    if(!igual){ for(let k=0;k<3;k++){ const ph=(t*.35+k/3)%1, xa=catL?pa+(pb-pa)*ph:pb-(pb-pa)*ph, xc=catL?pb-(pb-pa)*ph:pa+(pb-pa)*ph; x.fillStyle='#C73A2C'; x.font='800 11px Inter'; x.fillText('−',xa,top-17); x.fillStyle='#1E62C9'; x.fillText('+',xc,top-7) } } }
     /* fio e voltímetro */
     x.strokeStyle='#0E1F38'; x.lineWidth=2.5; x.beginPath(); x.moveTo(el,wy); x.lineTo(el,wy-12); x.lineTo(er,wy-12); x.lineTo(er,wy); x.stroke();
     const fem=Math.abs(A[2]-B[2]); x.fillStyle='#0E1F38'; x.fillRect(W/2-44,wy-27,88,30); x.fillStyle='#7CFFB0'; x.font='800 15px "JetBrains Mono",monospace'; x.textAlign='center'; x.fillText(fem.toFixed(2).replace('.',',')+' V',W/2,wy-7);
     if(!igual){ const from=catL?er:el, to=catL?el:er; for(let k=0;k<5;k++){ const ph=(t*.6+k/5)%1, px=from+(to-from)*ph; if(Math.abs(px-W/2)<48) continue; x.fillStyle='#F26B1D'; x.beginPath(); x.arc(px,wy-12,4,0,7); x.fill(); x.fillStyle='#fff'; x.font='700 7px Inter'; x.fillText('−',px,wy-9.5) }
       x.fillStyle='#F26B1D'; x.font='700 11px Inter,sans-serif'; x.fillText(catL?'← e⁻':'e⁻ →',W/2,wy+16) } };
   const anda=laco(cv,dt=>{ t+=dt; draw(); return !RM&&a!==b });
-  chips('m3PiA',()=>a,v=>a=v); chips('m3PiB',()=>b,v=>b=v); sync(); info(); return ()=>{ draw(); anda() } }
+  chips('m3PiA',()=>a,v=>a=v); chips('m3PiB',()=>b,v=>b=v); const S=g('m3PiS'); if(S) S.querySelectorAll('button').forEach(o=>o.onclick=()=>{ sep=+o.dataset.s; S.querySelectorAll('button').forEach(k=>k.classList.toggle('sel',k===o)); info(); draw(); anda() }); sync(); info(); return ()=>{ draw(); anda() } }
 
 /* ===================== ÍNDICE DO ED3 ===================== */
 function idxW(){ const b=g('m3Idx'); if(!b) return; const hs=[...document.querySelectorAll('#v-ed3 h3[data-q]')];

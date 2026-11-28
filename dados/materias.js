@@ -70,6 +70,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-27", texto: "Pilhas: a simulação agora mostra também a barreira porosa (um recipiente só, dividido por uma parede com poros), além da ponte salina, com os íons atravessando; texto explicando as duas formas de separar as semicélulas." },
                 { data: "2026-11-23", texto: "Oxirredução: os exemplos reais da aula de eletroquímica de 23/11 (corrosão, combustão nos motores, sensores eletroquímicos e células a combustível) e os custos da corrosão para a indústria (World Corrosion Organization), a definição de oxidação e redução dos slides 6 e 7 e o parafuso enferrujando (4 Fe + 3 O₂ → 2 Fe₂O₃) resolvido no quadro." },
                 { data: "2026-11-23", texto: "Soluções: o método da aula de 23/11 para estequiometria de soluções (equação → balanceamento → molaridade → proporção → massa) e o exercício do slide 23 (HCl 0,108 mol/L neutralizando KOH) resolvido no quadro." },
                 { data: "2026-11-23", texto: "Módulo 2 (2ª prova): Estudo Dirigido 2 com as 17 questões resolvidas no quadro, com as estruturas de Lewis e as formas desenhadas." },

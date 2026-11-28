@@ -2001,7 +2001,7 @@ body{font-size:1rem}
   <div class="m1-def">
     <div><span class="em">➖</span><b>Ânodo</b><span>Onde ocorre a <b>oxidação</b>. O metal vira íon e solta elétrons. Na pilha é o polo <b>negativo</b>. O eletrodo é corroído.</span></div>
     <div><span class="em">➕</span><b>Cátodo</b><span>Onde ocorre a <b>redução</b>. Os íons da solução recebem elétrons e viram metal. Na pilha é o polo <b>positivo</b>. O eletrodo ganha massa.</span></div>
-    <div><span class="em">🌉</span><b>Ponte salina</b><span>Fecha o circuito e mantém as soluções neutras: <b>ânions</b> vão para o <b>ânodo</b>, <b>cátions</b> vão para o <b>cátodo</b>.</span></div>
+    <div><span class="em">🌉</span><b>Ponte salina</b><span>Ou <b>barreira porosa</b>. Fecha o circuito e mantém as soluções neutras: <b>ânions</b> vão para o <b>ânodo</b>, <b>cátions</b> vão para o <b>cátodo</b>.</span></div>
     <div><span class="em">⚡</span><b>Elétrons</b><span>Passam pelo fio externo, sempre do <b>ânodo para o cátodo</b>.</span></div>
   </div>
   <div class="ofi"><span class="k">Para decorar</span>Vogal com vogal, consoante com consoante: <b>Â</b>nodo = <b>O</b>xidação · <b>C</b>átodo = <b>R</b>edução. E os íons seguem o nome: <b>ân</b>ions → <b>ân</b>odo, <b>cát</b>ions → <b>cát</b>odo.</div>
@@ -2010,9 +2010,13 @@ body{font-size:1rem}
   <div class="fx"><span class="tag">Fórmula 7 · Força eletromotriz</span><div class="eq">E°<sub>cel</sub> = E°<sub>red</sub>(cátodo) − E°<sub>red</sub>(ânodo)</div>
     <dl class="legend"><dt>E°<sub>cel</sub> &gt; 0</dt><dd>reação espontânea: a pilha funciona</dd><dt>cátodo</dt><dd>a semirreação de maior E°<sub>red</sub></dd><dt>atenção</dt><dd>use os dois potenciais <b>de redução</b> como estão na tabela e <b>não multiplique</b> E° pelos coeficientes ao balancear os elétrons</dd></dl></div>
   <h3>Monte a sua pilha</h3>
-  <p>Escolha os dois metais. A simulação decide quem é ânodo e cátodo, mostra os elétrons no fio, os íons na ponte salina e calcula a fem.</p>
+  <p>As duas soluções precisam ficar <b>separadas</b> (senão o Cu²⁺ encosta direto no zinco e a troca de elétrons acontece ali mesmo, sem passar pelo fio), mas os <b>íons precisam passar</b> de um lado para o outro para o circuito fechar. Isso tem dois jeitos:</p>
+  <ul><li><b>Ponte salina:</b> um tubo em "U" cheio de uma solução de sal (por exemplo, KNO₃ ou KCl) ligando dois recipientes separados.</li><li><b>Barreira porosa:</b> uma parede com poros minúsculos (porcelana, vidro sinterizado) dividindo <b>um mesmo recipiente</b> em dois compartimentos, as duas semicélulas. Os poros são pequenos demais para as soluções se misturarem, mas os íons atravessam devagar.</li></ul>
+  <p>Nos dois casos a função é a mesma: os <b>ânions</b> migram para o lado do <b>ânodo</b> (onde aparecem cátions novos, do metal que oxida) e os <b>cátions</b> migram para o lado do <b>cátodo</b> (onde cátions estão sendo gastos). Assim as duas soluções continuam neutras e a pilha não para.</p>
+  <p>Escolha os dois metais e o tipo de separação. A simulação decide quem é ânodo e cátodo, mostra os elétrons no fio, os íons passando pela ponte ou pela barreira e calcula a fem.</p>
   <div class="wid">
     <div class="m3-pick"><div><small>Eletrodo da esquerda</small><div class="dinch" id="m3PiA"></div></div><div><small>Eletrodo da direita</small><div class="dinch" id="m3PiB"></div></div></div>
+    <div class="m3-pick"><div><small>Separação das semicélulas</small><div class="dinch" id="m3PiS"><button data-s="0" class="sel">Ponte salina</button><button data-s="1">Barreira porosa</button></div></div></div>
     <canvas id="m3Pi" class="m1cv" style="aspect-ratio:16/9;max-height:420px" aria-label="Célula voltaica animada"></canvas>
     <div class="wout" id="m3PiO"></div>
   </div>
@@ -2664,7 +2668,7 @@ addEventListener('keydown',e=>{ if(e.key!=='Escape'||e.defaultPrevented)return;
 </script>
 <script src="../../js/quimica-m1.js?v=3" defer></script>
 <script src="../../js/quimica-m2.js?v=1" defer></script>
-<script src="../../js/quimica-m3.js?v=6" defer></script>
+<script src="../../js/quimica-m3.js?v=7" defer></script>
 <script src="../../dados/cartas.js" defer></script>
 <script src="../../js/anki.js" data-materia="qg" defer></script>
 <script src="../../js/aviso.js" defer></script>
