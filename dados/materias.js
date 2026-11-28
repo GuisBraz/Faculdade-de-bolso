@@ -70,6 +70,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-27", texto: "Aula 27/11 na aula 7 · Pilhas: força eletromotriz explicada pela cachoeira (por que os elétrons vão sozinhos do Zn para o Cu²⁺), o aviso de que é só uma analogia e o que significa 1 V = 1 J/C." },
                 { data: "2026-11-27", texto: "Pilhas: a simulação agora mostra também a barreira porosa (um recipiente só, dividido por uma parede com poros), além da ponte salina, com os íons atravessando; texto explicando as duas formas de separar as semicélulas." },
                 { data: "2026-11-23", texto: "Oxirredução: os exemplos reais da aula de eletroquímica de 23/11 (corrosão, combustão nos motores, sensores eletroquímicos e células a combustível) e os custos da corrosão para a indústria (World Corrosion Organization), a definição de oxidação e redução dos slides 6 e 7 e o parafuso enferrujando (4 Fe + 3 O₂ → 2 Fe₂O₃) resolvido no quadro." },
                 { data: "2026-11-23", texto: "Soluções: o método da aula de 23/11 para estequiometria de soluções (equação → balanceamento → molaridade → proporção → massa) e o exercício do slide 23 (HCl 0,108 mol/L neutralizando KOH) resolvido no quadro." },
