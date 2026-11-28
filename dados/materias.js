@@ -70,6 +70,7 @@ window.FACULDADE = {
               caminho: "materias/qg/oficina-de-quimica.html",
               ciclo: "Reações e estequiometria",
               atualizacoes: [
+                { data: "2026-11-27", texto: "Aula 27/11 (slide 29, quadro e tabela): como o potencial do zinco (−0,76 V) e do cobre (+0,34 V) são medidos contra o hidrogênio, conta passo a passo, como ler a tabela de potenciais e a tabela completa do slide." },
                 { data: "2026-11-27", texto: "Aula 27/11 (slide 28): eletrodo padrão de hidrogênio explicado (o \"nível do mar\" dos potenciais, como é montado, por que vale 0 V e como a tabela de E° foi medida)." },
                 { data: "2026-11-27", texto: "Aula 27/11 (slide 26 e quadro): potencial-padrão da célula item por item (por que cátodo − ânodo, condições-padrão, coeficiente não muda o E°) e como somar as semirreações na equação global." },
                 { data: "2026-11-27", texto: "Aula 27/11 na aula 7 · Pilhas: força eletromotriz explicada pela cachoeira (por que os elétrons vão sozinhos do Zn para o Cu²⁺), o aviso de que é só uma analogia e o que significa 1 V = 1 J/C." },
